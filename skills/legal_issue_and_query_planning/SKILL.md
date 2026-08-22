@@ -5,33 +5,38 @@ description: Structure Korean statutory multi-hop questions into legal issues, r
 
 # Legal Evidence Planning
 
-Produce one contract-valid JSON object for S1. Treat the surrounding harness as the sole owner of skill order, retry, budget, and stop decisions.
+Return one compact, contract-valid S1 JSON object. Read
+[references/contract.md](references/contract.md) and follow the supplied mode and
+output schema.
 
-## Select the mode
+## Plan
 
-- Use `INITIAL_PLAN` for a normalized question that has not yet been decomposed.
-- Use `GAP_QUERY_PLAN` only with S2 assessments, missing/conflicting evidence, query history, a remaining request budget, and a positive `next_retrieval_round`.
+1. Plan only the result the question asks for. Use one `answer_target` when
+   several clauses ask for one dispositive conclusion, even if several
+   provisions are needed; split only independently requested outputs.
+2. Make critical requirements the minimum legal propositions needed to derive
+   those outputs. Do not predict benchmark hop count or assume one provision per
+   requirement. Preserve a distinct outcome-determinative rule, exception,
+   cross-reference, or legal effect, but do not make question facts, generic
+   completeness, background, definitions, or procedure critical unless the
+   question requests them or they change the conclusion.
+3. In `INITIAL_PLAN`, give every critical evidence item at least one focused
+   request. Add another request only for a genuinely different statutory route,
+   exception, or cross-reference, within the supplied limit. Follow the
+   contract's retrieval query-field rules and do not restate the whole question
+   in each field.
+4. In `GAP_QUERY_PLAN`, target only supplied unresolved statute evidence. Do not
+   search for `missing_fact` or `scope_excess`. Use a genuinely new legal angle
+   and stay within the supplied budget.
+5. Compact descriptive prose, not the structural evidence coverage. Use one
+   short sentence per descriptive field, avoid repeated rationale, close the
+   JSON object, and return JSON only.
 
-Read [references/contract.md](references/contract.md) before executing. Conform to [references/input.schema.json](references/input.schema.json) and [references/output.schema.json](references/output.schema.json).
+## Boundary
 
-## Execute
-
-1. Copy `run_id` from input. Use `RQ<positive index>` request IDs in `INITIAL_PLAN`; in `GAP_QUERY_PLAN`, use the supplied `next_retrieval_round` in `GRQ-R<positive round>-<positive index>`, never a mode name. The harness canonicalizes these transport identifiers, but the target evidence and query text remain your responsibility.
-2. Preserve the question's meaning. Do not perform a legal rewrite in place of deterministic input normalization.
-3. Extract `answer_targets[]` from only the outputs the question asks for. Each `question_anchor` must be a literal substring of the question; do not add a target merely because it would be useful in a complete legal opinion. When `constraints.answer_target_contract` is `required`, return at least one target and the linked evidence fields below.
-4. Decompose by legal issue and required evidence, not by a hard statute-domain route and not by a fixed hop count. For each new evidence item, link `answer_target_ids`, state why it is needed in `necessity_reason`, set `scope_source`, and express the minimum atomic `completion_requirements[]`.
-5. Mark an evidence item `critical: true` only when the core conclusion cannot be justified without it. Do not split details that one governing provision can ordinarily establish into separate critical items. Create a separate critical item only for an independently necessary legal conclusion. A `supporting_context` item is never critical. Procedure, submission documents, venue, and deadline are critical only when the question asks for them or they change the requested conclusion.
-6. In `INITIAL_PLAN`, create at least one retrieval request for every critical evidence item. Use only the allowed channels and treat statute/article hints as hypotheses, never as found evidence. Put 2-8 concise, particle-free Korean legal nouns or phrases in `query_terms`. Keep `query_text` focused on the conduct, legal effect, exception, procedure, or penalty being sought. Put a statute name in `statute_hints` only when the question strongly supports that hypothesis.
-   When supplied, use `first_stage_query_text` for high-recall BM25 wording and `rerank_query_text` for the answer target plus atomic requirement; otherwise `query_text` remains the fallback for both.
-7. In `GAP_QUERY_PLAN`, target only unresolved evidence items and preserve their input `answer_target_ids` scope; do not turn a background or unrelated answer target into a gap query. Avoid any normalized query already present in `query_history`; respect `remaining_request_budget`. Change the lexical angle: prefer the missing legal effect, actor, condition, exception, penalty, or a reliable statute-name hypothesis rather than paraphrasing the prior query.
-8. Return JSON only. On an invalid or incomplete input, return the error envelope defined by the output schema.
-
-## Preserve the control boundary
-
-- Never retrieve or quote a statute as if it had been found.
-- Never return `covered`, `accepted_provision_ids`, `RETRIEVE_GAP`, `GENERATE`, or `ABSTAIN`.
-- Never call S2, S3, or a retrieval tool directly.
-- Let the retrieval tool own Top-k, index, fusion, and reranker settings.
+Do not retrieve statutes, assess coverage, generate an answer, or choose
+`RETRIEVE_GAP`, `GENERATE`, or `ABSTAIN`. The harness owns transport IDs, retries,
+budgets, and control flow; the retrieval tool owns Top-k, fusion, and reranking.
 
 Validate a result with:
 

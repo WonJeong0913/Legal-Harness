@@ -1,21 +1,13 @@
 ---
 name: grounded-legal-answer-generation
-description: Generate a Korean statutory answer and claim-level provision citations using only harness-accepted provision texts. Use for S3 GENERATE_ANSWER after the provision-coverage policy authorizes a full, conditional, or evidence-scoped limited answer; do not use it to retrieve evidence, assess coverage, choose abstention, or validate citations against the corpus.
+description: Generate a Korean statutory answer with claim-level citations from the provision set authorized by the harness. Use for publishable S3 GENERATE_ANSWER or non-publishable GENERATE_BENCHMARK_CANDIDATE; do not use it to retrieve evidence, assess coverage, choose abstention, or validate citations.
 ---
 
 # Grounded Legal Answer Generation
 
-Produce one contract-valid S3 JSON object using only the accepted provisions supplied by the harness.
-
-Read [references/contract.md](references/contract.md) before executing. Conform to [references/input.schema.json](references/input.schema.json) and [references/output.schema.json](references/output.schema.json).
-
-## Check the preconditions
-
-1. Require a harness authorization with action `GENERATE`.
-2. Read the harness-owned `answer_mode`, `answered_target_ids`, and `deferred_target_ids`. In `full` or `conditional` mode, answer every authorized target. In `limited` mode, make substantive claims only for `answered_target_ids`, include those target IDs in every claim, and explicitly defer the others without turning the deferral into a legal conclusion.
-3. Require every critical evidence item to be `covered`, or `partially_covered` with an accepted supporting provision when the policy authorizes an explicitly conditional answer. Never proceed with an `uncovered` or `conflicting` critical item unless it belongs solely to a deferred limited-answer target.
-4. Require at least one accepted provision with full text.
-5. Return a structured error instead of answering when a precondition fails. Do not choose `ABSTAIN`; that remains a harness action.
+Return one compact S3 JSON object. Read
+[references/contract.md](references/contract.md) and follow the harness-owned
+authorization and answer scope.
 
 ## Generate
 
@@ -28,21 +20,17 @@ Read [references/contract.md](references/contract.md) before executing. Conform 
 7. For every partially covered critical item, state the unresolved condition in `limitations[]` and phrase the corresponding claim with `applicability: "conditional"`. Do not turn the missing factual premise into a fact.
 8. Return JSON only.
 
-For `GENERATE_BENCHMARK_CANDIDATE`, use only `candidate_provisions[]` and answer
-all supplied targets as a non-publishable benchmark diagnostic. The public
-policy remains `ABSTAIN`; do not describe the candidate as authorized, supported,
-or publishable.
+For `GENERATE_ANSWER`, cite only `accepted_provisions`. For
+`GENERATE_BENCHMARK_CANDIDATE`, cite only `candidate_provisions`, answer all
+supplied targets, and keep the result non-publishable; the public policy remains
+`ABSTAIN`. With `question_only`, return a concise diagnostic answer with empty
+claims and citations.
 
-When `candidate_answer_basis` is `question_only`, no retrieved source exists.
-Return the diagnostic answer with empty `claims[]` and `claim_citations[]`; do
-not invent citations or change the policy status.
+## Boundary
 
-## Preserve the control boundary
-
-- Never retrieve, call S1/S2, or inspect a corpus directly.
-- Never cite a provision outside the accepted set.
-- Never return `RETRIEVE_GAP`, `GENERATE`, `ABSTAIN`, or `PASS` as a policy/validation result.
-- Let the deterministic citation-integrity tool verify provision existence, snapshot text, accepted-set membership, and claim-citation linkage after this skill returns.
+Do not retrieve, reassess coverage, choose a policy action, or claim that citation
+validation passed. Return a structured error when authorization or evidence
+preconditions fail.
 
 Validate a result with:
 

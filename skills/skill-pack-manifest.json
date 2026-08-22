@@ -1,13 +1,13 @@
 {
   "pack_name": "provision-coverage-skill-pack",
-  "pack_version": "1.0.0",
+  "pack_version": "1.3.0",
   "contract_version": "1.0",
   "control_owner": "harness",
   "target_runtime": {
     "environment": "external_h200_experiment_harness",
     "accelerator": "NVIDIA H200",
     "model_binding_owner": "experiment_harness",
-    "expected_model": "Qwen3.6-27B",
+    "expected_model": "Qwen3.8-27B",
     "codex_installation": false,
     "note": "Load each SKILL.md and its JSON contracts from the experiment harness. Do not install this pack into Codex skill discovery."
   },
@@ -31,7 +31,7 @@
     {
       "skill_id": "S3",
       "folder": "grounded_legal_answer_generation",
-      "modes": ["GENERATE_ANSWER"],
+      "modes": ["GENERATE_ANSWER", "GENERATE_BENCHMARK_CANDIDATE"],
       "input_schema": "grounded_legal_answer_generation/references/input.schema.json",
       "output_schema": "grounded_legal_answer_generation/references/output.schema.json",
       "semantic_validator": "grounded_legal_answer_generation/scripts/validate_output.py"
@@ -43,7 +43,7 @@
       "name": "retrieve_provisions",
       "input_fields": ["retrieval_requests[] or gap_retrieval_requests[]"],
       "output_fields": ["candidate_provisions[]"],
-      "note": "The harness fixes the retriever, Top-k, fusion, and reranker profile per experiment."
+      "note": "The experiment harness fixes KURE query routing, Top-k, fusion, and BGE reranking for each condition; skill-only conditions must not change them."
     },
     {
       "tool_id": "T-C",
@@ -63,8 +63,8 @@
     "Skills never call one another or tools directly.",
     "S1 never assesses coverage or chooses a policy action.",
     "S2 never retrieves, generates an answer, emits accepted_provision_ids, or chooses a policy action.",
-    "S3 runs only after GENERATE authorization and cites accepted provisions only.",
-    "ABSTAIN bypasses S3 and citation integrity checking and returns a structured withholding reason.",
+    "S3 runs only after harness authorization: GENERATE cites accepted provisions, while GENERATE_BENCHMARK_CANDIDATE cites candidate provisions and is never publishable.",
+    "Public ABSTAIN keeps answer=null and returns a structured withholding reason; the harness may separately call S3 for a non-publishable benchmark candidate that cannot change the policy outcome.",
     "Execution and contract failures use EXECUTION_FAILURE rather than a coverage-policy action."
   ]
 }

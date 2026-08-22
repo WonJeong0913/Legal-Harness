@@ -1,70 +1,58 @@
 # S1 contract
 
-## Modes
+## `INITIAL_PLAN`
 
-### `INITIAL_PLAN`
+Return:
 
-Input the normalized question and harness constraints. When `constraints.answer_target_contract` is `required`, `answer_targets[]` and the answer-target evidence fields below are mandatory for that new execution; omitted constraints preserve legacy parsing. Output:
+- `answer_targets[]`: only results explicitly requested by the question;
+- `legal_issues[]`: legal decision questions needed for those targets;
+- `required_evidence_items[]`: independently necessary evidence obligations;
+- `retrieval_requests[]`: issue- and evidence-linked searches.
 
-- `answer_targets[]`: question-scoped answerable sub-results, each anchored in the question text.
-- `legal_issues[]`: atomic legal decision questions.
-- `required_evidence_items[]`: answer-target-linked evidence obligations with a scope source, necessity reason, and atomic completion requirements.
-- `retrieval_requests[]`: structured, issue/evidence-linked search requests.
+Each critical evidence item must link to an answer target, state why it is
+necessary, and contain the minimum independently checkable completion
+requirements needed for the requested legal conclusion. A question fact is not
+statutory evidence and must not become a completion requirement.
 
-Use these query channels only:
+Compactness applies to prose, not coverage. Do not create one requirement per
+expected provision: one provision may satisfy several requirements, and one
+requirement may need several provisions. Keep distinct outcome-determinative
+rules, exceptions, cross-references, and legal effects searchable. Definitions,
+background, procedure, and generic completeness are `supporting_context` unless
+explicitly requested or outcome-changing. Every critical item needs at least one
+retrieval request.
 
-- `provision_style`: a non-quoted sentence shaped like the rule being sought.
-- `sparse_keywords`: concise noun-centered legal terms.
-- `statute_aware`: an issue phrase combined with tentative statute or article hints.
+## `GAP_QUERY_PLAN`
 
-Do not claim that a statute hint exists or applies. The retrieval tool must verify it.
+Return only new requests for supplied unresolved statute evidence. Preserve the
+evidence item's answer-target scope, avoid normalized queries in `query_history`,
+and respect `remaining_request_budget`. A missing question fact is not a search
+target.
 
-`query_text` remains the backward-compatible fallback. When separate retrieval text is useful, `first_stage_query_text` carries broad BM25 recall wording and `rerank_query_text` carries the answer target plus atomic completion requirement for BGE precision.
+## Retrieval query fields
 
-### `GAP_QUERY_PLAN`
+- `query_text`: the backward-compatible focused query.
+- `query_terms`: 2-6 unique exact legal nouns or phrases.
+- `statute_hints`: tentative statute or article names supported by the question.
+- `first_stage_query_text`: optional broad first-stage wording.
+- `rerank_query_text`: optional answer target plus one atomic requirement for BGE.
 
-Input prior issues/evidence, optional original `answer_targets[]`, S2 assessments, missing items, conflicts, query history, seen provision IDs, the remaining request budget, and `next_retrieval_round` (a positive integer). Preserve each unresolved item's linked answer-target scope when forming a gap query. Output:
+Keep each field focused on its linked legal proposition. Do not copy the whole
+question, necessity reason, or rationale into multiple query fields.
 
-- `target_evidence_item_ids[]`: the unresolved items actually targeted in this call.
-- `gap_retrieval_requests[]`: new queries with a `gap_reason` and the prior assessment status.
+The experiment harness, not this skill, fixes which field the configured
+retriever consumes. Do not change that field precedence inside a skill-only
+ablation.
 
-Do not simply repeat the original question. Convert each unresolved completion criterion or conflict into a focused search target. If the budget cannot cover all gaps, prioritize critical items, then conflicts blocking a critical item.
+Use only the allowed query channels. A hint is not retrieved evidence.
 
-## Evidence types
+## Integrity
 
-Use one of: `definition`, `element`, `rule`, `exception`, `procedure`, `remedy`, `limitation`, `relationship`, `other`.
+Use schema-valid `T`, `I`, `E`, requirement, and request IDs. Keep all references
+internal to the result, every request linked to an existing issue/evidence pair,
+and all normalized queries and terms unique. The harness may canonicalize
+transport IDs without changing the plan.
 
-## ID and reference rules
-
-- Use `I1`, `I2`, ... for issues.
-- Use `E1`, `E2`, ... for evidence items.
-- Use `T1`, `T2`, ... for answer targets and `E1-R1`, `E1-R2`, ... for atomic completion requirements.
-- Use `RQ1`, `RQ2`, ... for initial requests. For gap requests, use `GRQ-R<round>-<index>` with positive decimal values, such as `GRQ-R1-1` and `GRQ-R2-3`.
-- Keep IDs unique in the result.
-- Every evidence item must reference an existing issue.
-- Every critical evidence item must reference at least one answer target, and every answer target needs critical evidence.
-- `supporting_context` evidence must be non-critical. Use `explicit_question` or `outcome_changing_condition` for critical evidence only when its omission would prevent the requested answer.
-- Every request must reference a valid issue/evidence pair.
-- Keep `query_text` unique after Unicode NFKC normalization, whitespace collapse, and lowercasing.
-
-## Error envelope
-
-Return `status: "error"` with:
-
-```json
-- `run_id` and request IDs are transport fields: copy the input `run_id`; use the mode-appropriate ID prefix. The harness may canonicalize their values before semantic validation.
-{
-  "schema_version": "1.0",
-  "skill_id": "S1",
-  "mode": "INITIAL_PLAN",
-  "status": "error",
-  "run_id": "run-001",
-  "error": {
-    "code": "INVALID_INPUT",
-    "message": "Required input is missing.",
-    "details": []
-  }
-}
-```
-
-Use error codes `INVALID_INPUT`, `BUDGET_EXHAUSTED`, or `CONTRACT_UNSATISFIABLE`. Do not convert an S1 error into a policy action.
+On invalid input, use the schema error envelope with `INVALID_INPUT`,
+`BUDGET_EXHAUSTED`, or `CONTRACT_UNSATISFIABLE`. An S1 error is not a policy
+action.

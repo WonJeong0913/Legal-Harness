@@ -1,39 +1,48 @@
 # S2 contract
 
-## Coverage axes and legacy status
+## Output
 
-- `legal_status`: whether supplied provisions satisfy the requested legal rule (`covered`, `partially_covered`, `uncovered`, or `conflicting`).
-- `applicability_status`: `direct`, `conditional`, or `not_assessed`; it records fact-to-rule application separately from legal support.
-- `gap_type`: `none`, `missing_statute`, `missing_fact`, `scope_excess`, or `conflict`.
-- Emit the derived legacy `status` and `partial_kind` as well: covered/direct → `covered`; covered/conditional → `partially_covered` + `factual_condition`; partial legal support → `partially_covered` + `legal_support_gap`.
+- `evidence_links[]`: smallest operational item-to-candidate links;
+- `coverage_assessments[]`: exactly one assessment per evidence item;
+- `missing_evidence_items[]`: exactly the non-covered assessments;
+- `evidence_conflicts[]`: exactly the conflicting assessments.
 
-## Operational status definitions
+Use only supplied evidence, requirement, and short candidate IDs. Every link uses
+`quoted_text: "[FULL_TEXT]"`; the harness supplies the immutable source text.
 
-- `covered`: the supplied provisions satisfy the evidence item's completion criteria, and no unresolved conflict blocks use of that evidence.
-- `partially_covered`: at least one supplied provision supports part of the criteria, but an identified aspect remains unsupported. Classify it as `factual_condition` when the complete rule for each supported factual branch is present and only the fact selecting the applicable branch is unresolved (for example, maritime versus air carriage); link all supported branches. Otherwise classify it as `legal_support_gap`.
-- `uncovered`: no supplied provision supports the evidence item. This is a statement about the current candidate set, not the entire law.
-- `conflicting`: supplied provisions create incompatible legal rules for the same established facts, or an unresolved legal scope/rule/exception/cross-reference conflict. Alternative rules selected solely by a missing fact are not `conflicting`; they are `partially_covered` with `partial_kind: factual_condition`.
+## Coverage mapping
 
-## Output sets
+| Situation | `legal_status` | `applicability_status` | `gap_type` | Legacy result |
+| --- | --- | --- | --- | --- |
+| Complete rule and application | `covered` | `direct` | `none` | `covered` |
+| Complete rule, selector fact missing | `covered` | `conditional` | `missing_fact` | `partially_covered` / `factual_condition` |
+| Some legal requirements unsupported | `partially_covered` | `not_assessed` | `missing_statute` | `partially_covered` / `legal_support_gap` |
+| No legal requirement supported | `uncovered` | `not_assessed` | `missing_statute` | `uncovered` |
+| Incompatible rules for established facts | `conflicting` | `not_assessed` | `conflict` | `conflicting` |
 
-- `evidence_links[]`: item-to-provision links with one of `supports`, `partially_supports`, or `conflicts`.
-- `coverage_assessments[]`: exactly one assessment for every required evidence item.
-- `missing_evidence_items[]`: exactly the evidence items whose status is not `covered`.
-- `evidence_conflicts[]`: exactly the evidence items whose status is `conflicting`.
+Alternative rules selected only by a missing fact are conditional, not
+conflicting. Reserve `scope_excess` for supplied non-critical context outside the
+requested answer; never use it to excuse unsupported critical legal evidence or
+to downgrade an otherwise supported requested proposition.
 
-## Structural consistency
+For `covered` + `conditional` + `missing_fact`, cite the provisions that fully
+establish the legal rule, put only the affected supplied requirement IDs in
+`missing_aspects`, and mark those criterion results `partially_satisfied`, not
+`unsatisfied`. This records application uncertainty without inventing a statute
+gap.
 
-- Every `criterion_results[].requirement_id` must refer to an existing S1 completion requirement; do not add a new `missing_aspect` outside that set.
-- A `covered` item must have at least one linked provision, no `missing_aspects`, and no conflict object.
-- A `partially_covered` item must have at least one linked provision, at least one `missing_aspect`, and `partial_kind` equal to `factual_condition` or `legal_support_gap`.
-- Every non-partial item must use `partial_kind: "not_applicable"`.
-- An `uncovered` item must have no linked provisions and no satisfied aspects.
-- A `conflicting` item must have linked provisions and a conflict object.
-- All link and assessment provision IDs must be the short IDs in `candidate_provisions[]` (for example `C001`), never a reconstructed statute ID.
-- Set every `quoted_text` value to `[FULL_TEXT]`. The deterministic adapter expands it to the entire immutable candidate text, which is the exact source span retained in the harness state.
+## Consistency
 
-The harness state reducer may derive `accepted_provision_ids[]` after validation. S2 must not emit that field and must not choose the next action.
+Emit one `criterion_result` for every supplied completion requirement. Aspect
+arrays contain only requirement IDs; prose belongs in `rationale`. A covered or
+partial assessment must link supporting candidates, an uncovered assessment must
+not, and a conflicting assessment must have a conflict object.
 
-## Error envelope
+Judge each requirement at its own proposition scope. Do not mark it missing just
+because its supporting provision does not independently resolve another
+requirement or the final answer. Conversely, do not promote a merely related
+provision to support unless its text establishes the supplied proposition.
 
-Use `status: "error"` with code `INVALID_INPUT`, `MISSING_REQUIRED_EVIDENCE`, or `CONTRACT_UNSATISFIABLE`. An error is an execution result, not `ABSTAIN`.
+The harness derives `accepted_provision_ids` and the next action. On invalid input,
+use the schema error envelope with `INVALID_INPUT`,
+`MISSING_REQUIRED_EVIDENCE`, or `CONTRACT_UNSATISFIABLE`; never emit `ABSTAIN`.

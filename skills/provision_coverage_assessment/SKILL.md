@@ -5,28 +5,35 @@ description: Assess whether retrieved Korean statutory provisions satisfy each r
 
 # Provision Coverage Assessment
 
-Produce one contract-valid S2 JSON object from the supplied issues, evidence obligations, and candidate provision texts. Treat relevance and evidence sufficiency as different questions.
+Return one contract-valid S2 JSON object. Read
+[references/contract.md](references/contract.md) and use only the supplied
+requirements and candidate provisions.
 
-Read [references/contract.md](references/contract.md) before executing. Conform to [references/input.schema.json](references/input.schema.json) and [references/output.schema.json](references/output.schema.json).
+## Assess
 
-## Execute
+1. Assess every evidence item and every supplied completion requirement exactly
+   once. A requirement is satisfied when the supplied candidates establish that
+   legal proposition; it need not answer the whole question by itself. Relevance
+   alone is not support.
+2. Link the smallest candidate set that actually satisfies a requirement. One
+   provision may support several requirements and one requirement may need
+   several provisions. Use only supplied candidate IDs and set `quoted_text` to
+   `[FULL_TEXT]`.
+3. Treat the supplied requirements as closed. Do not invent a missing definition,
+   procedure, background point, or general legal-opinion completeness test.
+4. Apply the contract's coverage mapping. Question facts need no statutory
+   citation: when the legal rule is complete and only a supplied fact selects an
+   application branch, use `covered` + `conditional` + `missing_fact`.
+5. Put only supplied requirement IDs in aspect fields and explanations in
+   `rationale`. Preserve a prior supported finding when its provision remains,
+   unless new evidence creates a real conflict.
+6. Return JSON only.
 
-1. Assess every `required_evidence_item` exactly once against only the supplied `candidate_provisions`.
-2. Create evidence links only for operational support, partial support, or a real unresolved conflict. Use only the short candidate IDs supplied as `candidate_provisions[].provision_id` (for example `C001`); never recreate a source statute ID.
-3. Set every evidence link's `quoted_text` to the literal string `[FULL_TEXT]`. The harness deterministically replaces this token with the complete immutable candidate text, preventing paraphrased or mistyped quotations.
-4. Construct `evidence_links` first. For each assessment, copy `linked_provision_ids` from that evidence item's links exactly; use `[]` only for `uncovered`.
-5. Assess each atomic `completion_requirements[]` result using only its supplied `requirement_id`; never add a new missing requirement. Report `legal_status`, `applicability_status`, and `gap_type` separately, while also emitting the derived legacy `status`/`partial_kind` for compatibility. Treat the completion criteria as closed: do not invent an additional element that the question or criterion did not require. When legal rules are complete but a question fact selects the branch, use `legal_status: covered`, `applicability_status: conditional`, and `gap_type: missing_fact`; it is not a statute gap. When legal text is absent, use `gap_type: missing_statute`. Question-outside scope carried from S1 is `scope_excess`, never a critical blocker. Use `conflict` only for incompatible rules under the same established facts.
-6. Emit one `missing_evidence_item` for every non-covered assessment. Emit a conflict object only for `conflicting` assessments.
-7. Explain what is satisfied and what remains missing; do not conceal uncertainty behind a high-level relevance statement. Because later candidate sets only grow, preserve a prior `covered` or `partially_covered` finding when its linked provision is still supplied, unless a newly supplied provision creates a real unresolved conflict.
-8. Return JSON only. On invalid input, return the error envelope.
+## Boundary
 
-## Preserve the control boundary
-
-- Never call retrieval, S1, or S3.
-- Never return a policy action or `accepted_provision_ids`.
-- Never treat an absent candidate as proof that no governing provision exists.
-- Never perform answer generation or user-facing legal advice.
-- Treat `conflicting` as incompatible legal rules for the same established facts, not mere coexistence of fact-dependent branches. When a missing fact alone selects among otherwise complete rules, use `partially_covered` with `partial_kind: "factual_condition"`, not `conflicting`.
+Do not retrieve, generate an answer, derive `accepted_provision_ids`, or choose a
+policy action. An absent candidate means only that the current candidate set is
+insufficient, not that no governing law exists.
 
 Validate a result with:
 
