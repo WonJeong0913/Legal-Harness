@@ -1,0 +1,561 @@
+{
+  "abstention_reason": null,
+  "answer": "수임인이 위임사무를 처리하는 중에 수임인의 책임 없는 사유로 인하여 위임이 종료된 때에는 수임인은 이미 처리한 사무의 비율에 따른 보수를 청구할 수 있다.[CT1]\n갑의 과실이 아닌 사유로 위임이 종료된 상황에서, 갑은 이미 상당 부분 완료한 개조 작업의 비율에 해당하는 보수를 을에게 청구할 수 있다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "갑의 과실이 아닌 사유로 위임이 종료되었다는 사실은 문제의 전제로 가정한다."
+    },
+    {
+      "code": "ASSUMPTION_2",
+      "message": "갑이 이미 상당 부분의 개조 작업을 완료했다는 사실은 문제의 전제로 가정한다."
+    }
+  ],
+  "candidate_answer": "수임인이 위임사무를 처리하는 중에 수임인의 책임 없는 사유로 인하여 위임이 종료된 때에는 수임인은 이미 처리한 사무의 비율에 따른 보수를 청구할 수 있다.[CT1]\n갑의 과실이 아닌 사유로 위임이 종료된 상황에서, 갑은 이미 상당 부분 완료한 개조 작업의 비율에 해당하는 보수를 을에게 청구할 수 있다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "민법 686조  수임인의 보수청구권#KOBLEX-059789",
+      "quoted_text": "③수임인이 위임사무를 처리하는 중에 수임인의 책임없는 사유로 인하여 위임이 종료된 때에는 수임인은 이미 처리한 사무의 비율에 따른 보수를 청구할 수 있다.",
+      "support_description": "수임인의 책임 없는 사유로 위임이 종료된 경우의 보수 청구권 법적 근거를 명시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "민법 686조  수임인의 보수청구권#KOBLEX-059789",
+      "quoted_text": "③수임인이 위임사무를 처리하는 중에 수임인의 책임없는 사유로 인하여 위임이 종료된 때에는 수임인은 이미 처리한 사무의 비율에 따른 보수를 청구할 수 있다.",
+      "support_description": "갑의 책임 없는 사유로 위임이 종료된 사실에 민법 제686조 제3항을 적용하여 보수 청구 범위를 결정한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "수임인이 위임사무를 처리하는 중에 수임인의 책임 없는 사유로 인하여 위임이 종료된 때에는 수임인은 이미 처리한 사무의 비율에 따른 보수를 청구할 수 있다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "갑의 과실이 아닌 사유로 위임이 종료된 상황에서, 갑은 이미 상당 부분 완료한 개조 작업의 비율에 해당하는 보수를 을에게 청구할 수 있다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T14:50:05.588649+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 64855.563,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "본 답변은 민법 제686조 제3항에 근거한 법적 결론이며, 구체적인 보수 금액 산정이나 추가적인 계약상 약정 사항은 다루지 않는다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 82,
+      "dedup_collapse": 36,
+      "evidence_fusion": 82,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 82
+    }
+  },
+  "run_id": "ea9d7c8f-9a10-44db-becb-0edddbe40c61",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "민법 686조  수임인의 보수청구권#KOBLEX-059789"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "갑은 을에게 어떤 보수를 청구할 수 있는가?",
+        "requested_output": "The specific type and scope of remuneration the agent (갑) can claim from the principal (을) upon termination of the mandate due to a cause not attributable to the agent."
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "민법 686조  수임인의 보수청구권#KOBLEX-059789"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.7499269247055054,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "민법 686조  수임인의 보수청구권#KOBLEX-059789",
+        "provision_text": "③수임인이 위임사무를 처리하는 중에 수임인의 책임없는 사유로 인하여 위임이 종료된 때에는 수임인은 이미 처리한 사무의 비율에 따른 보수를 청구할 수 있다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9987753033638,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 686조  수임인의 보수청구권 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 686조  수임인의 보수청구권#KOBLEX-059786"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 41,
+        "first_stage_score": 0.5350108742713928,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "민법 686조  수임인의 보수청구권#KOBLEX-059786",
+        "provision_text": "제686조(수임인의 보수청구권)",
+        "rerank_rank": 2,
+        "rerank_score": 0.8405383229255676,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 686조  수임인의 보수청구권",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 686조  수임인의 보수청구권#KOBLEX-059788"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6576570868492126,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "민법 686조  수임인의 보수청구권#KOBLEX-059788",
+        "provision_text": "②수임인이 보수를 받을 경우에는 위임사무를 완료한 후가 아니면 이를 청구하지 못한다. 그러나 기간으로 보수를 정한 때에는 그 기간이 경과한 후에 이를 청구할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.6172666549682617,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 686조  수임인의 보수청구권 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 686조  수임인의 보수청구권#KOBLEX-059787"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.6110606789588928,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "민법 686조  수임인의 보수청구권#KOBLEX-059787",
+        "provision_text": "①수임인은 특별한 약정이 없으면 위임인에 대하여 보수를 청구하지 못한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.6096335053443909,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 686조  수임인의 보수청구권 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 688조  수임인의 비용상환청구권 등#KOBLEX-059791"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 42,
+        "first_stage_score": 0.534979522228241,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "민법 688조  수임인의 비용상환청구권 등#KOBLEX-059791",
+        "provision_text": "제688조(수임인의 비용상환청구권 등)",
+        "rerank_rank": 5,
+        "rerank_score": 0.5032863616943359,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 688조  수임인의 비용상환청구권 등",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 690조  사망ㆍ파산 등과 위임의 종료#KOBLEX-059798"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 38,
+        "first_stage_score": 0.5364302396774292,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "민법 690조  사망ㆍ파산 등과 위임의 종료#KOBLEX-059798",
+        "provision_text": "제690조(사망ㆍ파산 등과 위임의 종료) 위임은 당사자 한쪽의 사망이나 파산으로 종료된다. 수임인이 성년후견개시의 심판을 받은 경우에도 이와 같다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.29768693447113037,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 690조  사망ㆍ파산 등과 위임의 종료",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 688조  수임인의 비용상환청구권 등#KOBLEX-059794"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.6114327907562256,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "민법 688조  수임인의 비용상환청구권 등#KOBLEX-059794",
+        "provision_text": "③수임인이 위임사무의 처리를 위하여 과실없이 손해를 받은 때에는 위임인에 대하여 그 배상을 청구할 수 있다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.21753330528736115,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 688조  수임인의 비용상환청구권 등 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 684조  수임인의 취득물 등의 인도, 이전의무#KOBLEX-059783"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 66,
+        "first_stage_score": 0.522053062915802,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "민법 684조  수임인의 취득물 등의 인도, 이전의무#KOBLEX-059783",
+        "provision_text": "①수임인은 위임사무의 처리로 인하여 받은 금전 기타의 물건 및 그 수취한 과실을 위임인에게 인도하여야 한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.16355235874652863,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 684조  수임인의 취득물 등의 인도, 이전의무 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 676조  보수수령권자#KOBLEX-059762"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.5580019354820251,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "민법 676조  보수수령권자#KOBLEX-059762",
+        "provision_text": "①광고에 정한 행위를 완료한 자가 수인인 경우에는 먼저 그 행위를 완료한 자가 보수를 받을 권리가 있다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.106737419962883,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 676조  보수수령권자 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 683조  수임인의 보고의무#KOBLEX-059781"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 36,
+        "first_stage_score": 0.5403807163238525,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "민법 683조  수임인의 보고의무#KOBLEX-059781",
+        "provision_text": "제683조(수임인의 보고의무) 수임인은 위임인의 청구가 있는 때에는 위임사무의 처리상황을 보고하고 위임이 종료한 때에는 지체없이 그 전말을 보고하여야 한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.10570233315229416,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 683조  수임인의 보고의무",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "민법 676조  보수수령권자#KOBLEX-059762": "①광고에 정한 행위를 완료한 자가 수인인 경우에는 먼저 그 행위를 완료한 자가 보수를 받을 권리가 있다.",
+      "민법 683조  수임인의 보고의무#KOBLEX-059781": "제683조(수임인의 보고의무) 수임인은 위임인의 청구가 있는 때에는 위임사무의 처리상황을 보고하고 위임이 종료한 때에는 지체없이 그 전말을 보고하여야 한다.",
+      "민법 684조  수임인의 취득물 등의 인도, 이전의무#KOBLEX-059783": "①수임인은 위임사무의 처리로 인하여 받은 금전 기타의 물건 및 그 수취한 과실을 위임인에게 인도하여야 한다.",
+      "민법 686조  수임인의 보수청구권#KOBLEX-059786": "제686조(수임인의 보수청구권)",
+      "민법 686조  수임인의 보수청구권#KOBLEX-059787": "①수임인은 특별한 약정이 없으면 위임인에 대하여 보수를 청구하지 못한다.",
+      "민법 686조  수임인의 보수청구권#KOBLEX-059788": "②수임인이 보수를 받을 경우에는 위임사무를 완료한 후가 아니면 이를 청구하지 못한다. 그러나 기간으로 보수를 정한 때에는 그 기간이 경과한 후에 이를 청구할 수 있다.",
+      "민법 686조  수임인의 보수청구권#KOBLEX-059789": "③수임인이 위임사무를 처리하는 중에 수임인의 책임없는 사유로 인하여 위임이 종료된 때에는 수임인은 이미 처리한 사무의 비율에 따른 보수를 청구할 수 있다.",
+      "민법 688조  수임인의 비용상환청구권 등#KOBLEX-059791": "제688조(수임인의 비용상환청구권 등)",
+      "민법 688조  수임인의 비용상환청구권 등#KOBLEX-059794": "③수임인이 위임사무의 처리를 위하여 과실없이 손해를 받은 때에는 위임인에 대하여 그 배상을 청구할 수 있다.",
+      "민법 690조  사망ㆍ파산 등과 위임의 종료#KOBLEX-059798": "제690조(사망ㆍ파산 등과 위임의 종료) 위임은 당사자 한쪽의 사망이나 파산으로 종료된다. 수임인이 성년후견개시의 심판을 받은 경우에도 이와 같다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민법 686조  수임인의 보수청구권#KOBLEX-059789"
+            ],
+            "rationale": "C001 explicitly states that the agent may claim remuneration for work performed (proportionally) when the mandate is terminated due to a cause not attributable to the agent.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민법 686조  수임인의 보수청구권#KOBLEX-059789"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The supplied candidate C001 fully establishes the legal rule that an agent may claim remuneration proportional to work performed when the mandate ends due to a cause not attributable to the agent. This matches the specific termination scenario described in the question and satisfies the completion criteria for E1.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "민법 686조  수임인의 보수청구권#KOBLEX-059789",
+        "support_spans": [
+          {
+            "end_char": 86,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "Determination of the agent's right to remuneration when a mandate is terminated due to a cause not attributable to the agent.",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 을에게 회사 건물의 개조 작업을 위임받아 진행하고 있었습니다. 작업 중 갑의 과실이 아닌 사유로 을이 사업을 중단하기로 결정하면서, 위임이 종료되었습니다. 갑은 이미 상당한 부분의 개조 작업을 완료한 상태였습니다. [질문] 갑이 을에게 위임받은 개조 작업을 진행하던 중 갑의 책임 없는 사유로 위임이 종료된 경우, 갑은 을에게 어떤 보수를 청구할 수 있는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "위임종료",
+          "수임자",
+          "보수청구",
+          "책임없는 사유",
+          "필요한 비용"
+        ],
+        "query_text": "민법 위임종료 수임자 보수청구 책임없는 사유 [원문 맥락] 갑은 이미 상당한 부분의 개조 작업을 완료한 상태였습니다. 갑이 을에게 위임받은 개조 작업을 진행하던 중 갑의 책임 없는 사유로 위임이 종료된 경우, 갑은 을에게 어떤 보수를 청구할 수 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제756조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 을에게 회사 건물의 개조 작업을 위임받아 진행하고 있었습니다. 작업 중 갑의 과실이 아닌 사유로 을이 사업을 중단하기로 결정하면서, 위임이 종료되었습니다. 갑은 이미 상당한 부분의 개조 작업을 완료한 상태였습니다.\n\n[질문]\n갑이 을에게 위임받은 개조 작업을 진행하던 중 갑의 책임 없는 사유로 위임이 종료된 경우, 갑은 을에게 어떤 보수를 청구할 수 있는가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific article in the Korean Civil Code that stipulates the agent's right to claim remuneration for work performed and necessary expenses in this specific termination scenario.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The provision must explicitly state that the agent may claim remuneration for work performed and necessary expenses when the mandate is terminated due to a cause not attributable to the agent."
+          }
+        ],
+        "critical": true,
+        "description": "Statutory provision governing the agent's right to remuneration upon termination of a mandate due to a cause not attributable to the agent.",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "This is the dispositive legal rule that directly answers the question about what remuneration can be claimed.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "ea9d7c8f-9a10-44db-becb-0edddbe40c61",
+    "seen_provision_ids": [
+      "민법 683조  수임인의 보고의무#KOBLEX-059781",
+      "민법 686조  수임인의 보수청구권#KOBLEX-059786",
+      "민법 676조  보수수령권자#KOBLEX-059762",
+      "민법 688조  수임인의 비용상환청구권 등#KOBLEX-059794",
+      "민법 684조  수임인의 취득물 등의 인도, 이전의무#KOBLEX-059783",
+      "민법 690조  사망ㆍ파산 등과 위임의 종료#KOBLEX-059798",
+      "민법 686조  수임인의 보수청구권#KOBLEX-059789",
+      "민법 688조  수임인의 비용상환청구권 등#KOBLEX-059791",
+      "민법 686조  수임인의 보수청구권#KOBLEX-059787",
+      "민법 686조  수임인의 보수청구권#KOBLEX-059788"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

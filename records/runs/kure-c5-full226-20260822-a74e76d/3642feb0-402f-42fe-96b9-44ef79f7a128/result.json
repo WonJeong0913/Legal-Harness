@@ -1,0 +1,897 @@
+{
+  "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": null,
+  "candidate_answer_basis": "retrieved_candidates",
+  "candidate_answer_error": "grounded_legal_answer_generation did not produce a valid GENERATE_BENCHMARK_CANDIDATE result after 2 attempts: grounded_legal_answer_generation returned UNCOVERED_CRITICAL_EVIDENCE: Critical evidence items E1 and E2 are uncovered. The supplied candidate provisions do not contain the specific statutory provisions governing the grounds and procedure for a retrial petition (재심청구) against a final civil judgment, nor the specific provision for an immediate appeal against a decision granting an execution clause (집행문부여결정).",
+  "candidate_answer_status": "EXECUTION_FAILURE",
+  "candidate_answer_termination_reason": "INVALID_SKILL_OUTPUT",
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T11:22:20.989525+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 163412.623,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 388,
+      "dedup_collapse": 57,
+      "evidence_fusion": 388,
+      "first_stage": 600,
+      "request_rerank": 600,
+      "round_selected": 20,
+      "rrf": 400,
+      "selected": 388
+    }
+  },
+  "run_id": "3642feb0-402f-42fe-96b9-44ef79f7a128",
+  "skill_generation_diagnostics": {
+    "attempt_count": 7,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 5,
+          "request_count": 4,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "ABSTAIN",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "Two consecutive retrieval rounds did not improve critical evidence.",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "ABSTAIN",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 15
+        },
+        "event": "BENCHMARK_CANDIDATE_GENERATION_STARTED",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "error": "grounded_legal_answer_generation did not produce a valid GENERATE_BENCHMARK_CANDIDATE result after 2 attempts: grounded_legal_answer_generation returned UNCOVERED_CRITICAL_EVIDENCE: Critical evidence items E1 and E2 are uncovered. The supplied candidate provisions do not contain the specific statutory provisions governing the grounds and procedure for a retrial petition (재심청구) against a final civil judgment, nor the specific provision for an immediate appeal against a decision granting an execution clause (집행문부여결정).",
+          "termination_reason": "INVALID_SKILL_OUTPUT"
+        },
+        "event": "BENCHMARK_CANDIDATE_EXECUTION_FAILURE",
+        "phase": "ABSTAINED"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "procedure",
+        "question_anchor": "확정된 청구에 대해 이의를 제기하려면 어떻게 해야 하며",
+        "requested_output": "확정판결에 대한 재심청구 절차 및 요건"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "procedure",
+        "question_anchor": "집행문부여에 대한 이의는 어떤 절차를 통해 진행해야 하는가",
+        "requested_output": "집행문부여결정에 대한 즉시항고 절차 및 요건"
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "민사소송 등 인지법 9조  그 밖의 신청서#KOBLEX-106998"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 32,
+        "first_stage_score": 0.5662451386451721,
+        "fusion_rank": 18,
+        "issue_id": "I2",
+        "provision_id": "민사소송 등 인지법 9조  그 밖의 신청서#KOBLEX-106998",
+        "provision_text": "④ 다음 각 호의 신청을 위한 신청서에는 2천원의 인지를 붙여야 한다. <개정 2011.4.12, 2011.7.18> 1. 채권의 압류명령의 신청, 그 밖에 법원에 의한 강제집행의 신청(제2항에 따른 신청은 제외한다) 2. 「행정소송법」에 따른 집행정지의 신청 3. 「부동산등기법」 제90조제1항에 따른 가처분명령의 신청, 그 밖에 등기 또는 등록에 관한 법령에 따른 가등기 또는 가등록의 가처분명령의 신청 4. 즉시항고로 불복을 신청할 수 있는 결정 또는 명령이 확정된 경우에 하는 준재심의 신청 5. 그 밖에 제1호부터 제4호까지의 신청에 준하는 신청으로서 대법원규칙으로 정하는 신청",
+        "rerank_rank": 18,
+        "rerank_score": 0.0081032644957304,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "민사소송 등 인지법 9조  그 밖의 신청서 4항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 410조  즉시항고와 집행정지의 효력#KOBLEX-232835"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 57,
+        "first_stage_score": 0.5540220141410828,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "형사소송법 410조  즉시항고와 집행정지의 효력#KOBLEX-232835",
+        "provision_text": "제410조(즉시항고와 집행정지의 효력) 즉시항고의 제기기간 내와 그 제기가 있는 때에는 재판의 집행은 정지된다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.1329592913389206,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "형사소송법 410조  즉시항고와 집행정지의 효력",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "채무자 회생 및 파산에 관한 법률 514조  배당표에 대한 이의#KOBLEX-033090"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 29,
+        "first_stage_score": 0.5644006133079529,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "채무자 회생 및 파산에 관한 법률 514조  배당표에 대한 이의#KOBLEX-033090",
+        "provision_text": "③제1항의 신청에 대한 법원의 결정에 대하여는 즉시항고를 할 수 있다. 이 경우 법원이 배당표의 경정을 명한 때의 항고기간은 결정서를 비치한 날부터 기산한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.11770545691251755,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "채무자 회생 및 파산에 관한 법률 514조  배당표에 대한 이의 3항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 39조  즉시항고#KOBLEX-063610"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 53,
+        "first_stage_score": 0.5555894374847412,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "민사소송법 39조  즉시항고#KOBLEX-063610",
+        "provision_text": "제39조(즉시항고) 이송결정과 이송신청의 기각결정(棄却決定)에 대하여는 즉시항고(卽時抗告)를 할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.09665769338607788,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "GRQ-R2-3"
+        ],
+        "statute_name": "민사소송법 39조  즉시항고",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "비송사건절차법 85조  직무대행자의 상무 외 행위의 허가신청#KOBLEX-047784"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 54,
+        "first_stage_score": 0.5547400116920471,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "비송사건절차법 85조  직무대행자의 상무 외 행위의 허가신청#KOBLEX-047784",
+        "provision_text": "② 신청을 인용한 재판에 대하여는 즉시항고를 할 수 있다. 이 경우 항고기간은 직무대행자가 재판의 고지를 받은 날부터 기산한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.0788077563047409,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "비송사건절차법 85조  직무대행자의 상무 외 행위의 허가신청 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 15조  즉시항고#KOBLEX-128072"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 7,
+        "first_stage_score": 0.5876521468162537,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "민사집행법 15조  즉시항고#KOBLEX-128072",
+        "provision_text": "①집행절차에 관한 집행법원의 재판에 대하여는 특별한 규정이 있어야만 즉시항고(卽時抗告)를 할 수 있다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.0637267455458641,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "GRQ-R2-3",
+          "GRQ-R2-4"
+        ],
+        "statute_name": "민사집행법 15조  즉시항고 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 17조  취소결정의 효력#KOBLEX-128087"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6009334921836853,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "민사집행법 17조  취소결정의 효력#KOBLEX-128087",
+        "provision_text": "①집행절차를 취소하는 결정, 집행절차를 취소한 집행관의 처분에 대한 이의신청을 기각ㆍ각하하는 결정 또는 집행관에게 집행절차의 취소를 명하는 결정에 대하여는 즉시항고를 할 수 있다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.03879609704017639,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "GRQ-R2-3",
+          "GRQ-R2-4"
+        ],
+        "statute_name": "민사집행법 17조  취소결정의 효력 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 459조  즉시항고와 집행정지#KOBLEX-093606",
+          "군사법원법 459조  즉시항고와 집행정지#KOBLEX-159571"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 46,
+        "first_stage_score": 0.5594932436943054,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "군사법원법 459조  즉시항고와 집행정지#KOBLEX-093606",
+        "provision_text": "제459조(즉시항고와 집행정지) 즉시항고의 제기 기간 내와 그 제기가 있는 때에는 재판의 집행은 정지된다. <개정 2020.6.9>",
+        "rerank_rank": 7,
+        "rerank_score": 0.036782268434762955,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "군사법원법 459조  즉시항고와 집행정지",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 47조  불복신청#KOBLEX-063637"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 80,
+        "first_stage_score": 0.5468671321868896,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "민사소송법 47조  불복신청#KOBLEX-063637",
+        "provision_text": "②제45조제1항의 각하결정(却下決定) 또는 제척이나 기피신청이 이유 없다는 결정에 대하여는 즉시항고를 할 수 있다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.035816509276628494,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "GRQ-R2-4"
+        ],
+        "statute_name": "민사소송법 47조  불복신청 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사조정법 5조 2 독촉절차의 조정으로의 이행#KOBLEX-195866"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 21,
+        "first_stage_score": 0.5727269053459167,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "민사조정법 5조 2 독촉절차의 조정으로의 이행#KOBLEX-195866",
+        "provision_text": "② 제1항의 이행신청이 부적법하다고 인정하는 때에는 위 법원은 결정으로 이를 각하하여야 한다. 이 결정에 대하여는 즉시항고(卽時抗告)를 할 수 있다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.0326901376247406,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "GRQ-R2-3",
+          "GRQ-R2-4"
+        ],
+        "statute_name": "민사조정법 5조 2 독촉절차의 조정으로의 이행 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 16조  집행에 관한 이의신청#KOBLEX-128083"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6185165643692017,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "민사집행법 16조  집행에 관한 이의신청#KOBLEX-128083",
+        "provision_text": "①집행법원의 집행절차에 관한 재판으로서 즉시항고를 할 수 없는 것과, 집행관의 집행처분, 그 밖에 집행관이 지킬 집행절차에 대하여서는 법원에 이의를 신청할 수 있다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.01625383086502552,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "GRQ-R2-3",
+        "source_request_ids": [
+          "GRQ-R2-3",
+          "GRQ-R2-4",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민사집행법 16조  집행에 관한 이의신청 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "채무자 회생 및 파산에 관한 법률 13조  즉시항고#KOBLEX-031385"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 48,
+        "first_stage_score": 0.5507705807685852,
+        "fusion_rank": 42,
+        "issue_id": "I2",
+        "provision_id": "채무자 회생 및 파산에 관한 법률 13조  즉시항고#KOBLEX-031385",
+        "provision_text": "제13조(즉시항고)",
+        "rerank_rank": 42,
+        "rerank_score": 0.6338937282562256,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-3",
+        "source_request_ids": [
+          "GRQ-R2-3"
+        ],
+        "statute_name": "채무자 회생 및 파산에 관한 법률 13조  즉시항고",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 447조  즉시항고의 효력#KOBLEX-064659"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 74,
+        "first_stage_score": 0.5411684513092041,
+        "fusion_rank": 53,
+        "issue_id": "I2",
+        "provision_id": "민사소송법 447조  즉시항고의 효력#KOBLEX-064659",
+        "provision_text": "제447조(즉시항고의 효력) 즉시항고는 집행을 정지시키는 효력을 가진다.",
+        "rerank_rank": 53,
+        "rerank_score": 0.03123936429619789,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-3",
+        "source_request_ids": [
+          "GRQ-R2-3"
+        ],
+        "statute_name": "민사소송법 447조  즉시항고의 효력",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 348조  불복신청#KOBLEX-064462"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 35,
+        "first_stage_score": 0.5560704469680786,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "민사소송법 348조  불복신청#KOBLEX-064462",
+        "provision_text": "제348조(불복신청) 문서제출의 신청에 관한 결정에 대하여는 즉시항고를 할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.030803633853793144,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-3",
+        "source_request_ids": [
+          "GRQ-R2-3",
+          "GRQ-R2-4"
+        ],
+        "statute_name": "민사소송법 348조  불복신청",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 281조  재판의 형식#KOBLEX-128965"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 16,
+        "first_stage_score": 0.5440001487731934,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "민사집행법 281조  재판의 형식#KOBLEX-128965",
+        "provision_text": "②채권자는 가압류신청을 기각하거나 각하하는 결정에 대하여 즉시항고를 할 수 있다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.0191021841019392,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-3",
+        "source_request_ids": [
+          "GRQ-R2-3",
+          "GRQ-R2-4"
+        ],
+        "statute_name": "민사집행법 281조  재판의 형식 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "군사법원법 459조  즉시항고와 집행정지#KOBLEX-093606": "제459조(즉시항고와 집행정지) 즉시항고의 제기 기간 내와 그 제기가 있는 때에는 재판의 집행은 정지된다. <개정 2020.6.9>",
+      "민사소송 등 인지법 9조  그 밖의 신청서#KOBLEX-106998": "④ 다음 각 호의 신청을 위한 신청서에는 2천원의 인지를 붙여야 한다. <개정 2011.4.12, 2011.7.18> 1. 채권의 압류명령의 신청, 그 밖에 법원에 의한 강제집행의 신청(제2항에 따른 신청은 제외한다) 2. 「행정소송법」에 따른 집행정지의 신청 3. 「부동산등기법」 제90조제1항에 따른 가처분명령의 신청, 그 밖에 등기 또는 등록에 관한 법령에 따른 가등기 또는 가등록의 가처분명령의 신청 4. 즉시항고로 불복을 신청할 수 있는 결정 또는 명령이 확정된 경우에 하는 준재심의 신청 5. 그 밖에 제1호부터 제4호까지의 신청에 준하는 신청으로서 대법원규칙으로 정하는 신청",
+      "민사소송법 348조  불복신청#KOBLEX-064462": "제348조(불복신청) 문서제출의 신청에 관한 결정에 대하여는 즉시항고를 할 수 있다.",
+      "민사소송법 39조  즉시항고#KOBLEX-063610": "제39조(즉시항고) 이송결정과 이송신청의 기각결정(棄却決定)에 대하여는 즉시항고(卽時抗告)를 할 수 있다.",
+      "민사소송법 447조  즉시항고의 효력#KOBLEX-064659": "제447조(즉시항고의 효력) 즉시항고는 집행을 정지시키는 효력을 가진다.",
+      "민사소송법 47조  불복신청#KOBLEX-063637": "②제45조제1항의 각하결정(却下決定) 또는 제척이나 기피신청이 이유 없다는 결정에 대하여는 즉시항고를 할 수 있다.",
+      "민사조정법 5조 2 독촉절차의 조정으로의 이행#KOBLEX-195866": "② 제1항의 이행신청이 부적법하다고 인정하는 때에는 위 법원은 결정으로 이를 각하하여야 한다. 이 결정에 대하여는 즉시항고(卽時抗告)를 할 수 있다.",
+      "민사집행법 15조  즉시항고#KOBLEX-128072": "①집행절차에 관한 집행법원의 재판에 대하여는 특별한 규정이 있어야만 즉시항고(卽時抗告)를 할 수 있다.",
+      "민사집행법 16조  집행에 관한 이의신청#KOBLEX-128083": "①집행법원의 집행절차에 관한 재판으로서 즉시항고를 할 수 없는 것과, 집행관의 집행처분, 그 밖에 집행관이 지킬 집행절차에 대하여서는 법원에 이의를 신청할 수 있다.",
+      "민사집행법 17조  취소결정의 효력#KOBLEX-128087": "①집행절차를 취소하는 결정, 집행절차를 취소한 집행관의 처분에 대한 이의신청을 기각ㆍ각하하는 결정 또는 집행관에게 집행절차의 취소를 명하는 결정에 대하여는 즉시항고를 할 수 있다.",
+      "민사집행법 281조  재판의 형식#KOBLEX-128965": "②채권자는 가압류신청을 기각하거나 각하하는 결정에 대하여 즉시항고를 할 수 있다.",
+      "비송사건절차법 85조  직무대행자의 상무 외 행위의 허가신청#KOBLEX-047784": "② 신청을 인용한 재판에 대하여는 즉시항고를 할 수 있다. 이 경우 항고기간은 직무대행자가 재판의 고지를 받은 날부터 기산한다.",
+      "채무자 회생 및 파산에 관한 법률 13조  즉시항고#KOBLEX-031385": "제13조(즉시항고)",
+      "채무자 회생 및 파산에 관한 법률 514조  배당표에 대한 이의#KOBLEX-033090": "③제1항의 신청에 대한 법원의 결정에 대하여는 즉시항고를 할 수 있다. 이 경우 법원이 배당표의 경정을 명한 때의 항고기간은 결정서를 비치한 날부터 기산한다.",
+      "형사소송법 410조  즉시항고와 집행정지의 효력#KOBLEX-232835": "제410조(즉시항고와 집행정지의 효력) 즉시항고의 제기기간 내와 그 제기가 있는 때에는 재판의 집행은 정지된다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No candidate provision specifies the grounds for a retrial petition under the Civil Procedure Act.",
+            "requirement_id": "E1-R1",
+            "status": "unsatisfied"
+          },
+          {
+            "linked_provision_ids": [],
+            "rationale": "No candidate provision specifies the deadline or competent court for a retrial petition.",
+            "requirement_id": "E1-R2",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E1-R1",
+          "E1-R2"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "The supplied candidate provisions do not contain the Civil Procedure Act articles governing the grounds, deadline, or jurisdiction for a retrial (retrial petition) against a final civil judgment. C001-C015 address unrelated matters such as stamp duties, criminal appeals, bankruptcy distribution, or specific civil procedure decisions not related to retrial grounds.",
+        "status": "uncovered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No candidate provision specifically regulates the immediate appeal against a decision granting an execution clause.",
+            "requirement_id": "E2-R1",
+            "status": "unsatisfied"
+          },
+          {
+            "linked_provision_ids": [],
+            "rationale": "No candidate provision specifies the deadline and procedure for an immediate appeal against a decision granting an execution clause.",
+            "requirement_id": "E2-R2",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E2-R1",
+          "E2-R2"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "The supplied candidate provisions do not contain the specific Civil Execution Act article allowing an immediate appeal against a decision granting an execution clause (집행문부여결정). C006 and C007 discuss immediate appeals in execution proceedings but do not specifically address the decision to grant an execution clause, which is the specific legal proposition required.",
+        "status": "uncovered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [],
+    "last_retrieval_new_provision_count": 5,
+    "last_validated_event": "RESPONSE_ASSEMBLY.ABSTAIN",
+    "legal_issues": [
+      {
+        "description": "확정된 민사판결에 대해 재심을 청구할 수 있는 법적 근거와 절차는 무엇인가",
+        "issue_id": "I1"
+      },
+      {
+        "description": "집행문부여결정에 대한 이의제기 절차는 무엇인가",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "재심청구의 사유, 기한, 관할법원, 절차가 명시된 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "재심청구의 사유를 규정한 조항"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "재심청구의 기한과 관할법원을 규정한 조항"
+          }
+        ],
+        "critical": true,
+        "description": "민사소송법상 재심청구의 사유와 절차 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "확정판결에 대한 이의제기 절차의 법적 근거를 제공",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "집행문부여결정에 대한 즉시항고의 요건, 기한, 절차가 명시된 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "집행문부여결정에 대한 즉시항고의 요건을 규정한 조항"
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "즉시항고의 기한과 절차를 규정한 조항"
+          }
+        ],
+        "critical": true,
+        "description": "집행문부여결정에 대한 즉시항고 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "집행문부여결정에 대한 이의제기 절차의 법적 근거를 제공",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] 갑과 을은 금전 거래를 하였으나, 갑이 을에게 빌린 돈을 갚지 않아 을이 법원에 소송을 제기하였습니다. 결국 법원은 을의 손을 들어주며 전부 인용용 판결을 내렸고, 이 판결에 따라 집행문이 부여되었습니다. 하지만 갑은 판결에 대해 이의를 제기하고자 합니다. 또한, 을이 갑의 재산을 압류하기 위해 집행문을 받았는데, 갑은 이 집행문부여의 정당성에도 이의를 제기하고자 합니다. [질문] 갑은 을과의 소송에서 확정된 청구에 대해 이의를 제기하려면 어떻게 해야 하며, 을이 받은 집행문부여에 대한 이의는 어떤 절차를 통해 진행해야 하는가?",
+    "phase": "ABSTAINED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "재심청구",
+          "민사소송법",
+          "확정판결",
+          "재심사유"
+        ],
+        "query_text": "민사소송법 재심청구 사유 절차 기한 [원문 맥락] 또한, 을이 갑의 재산을 압류하기 위해 집행문을 받았는데, 갑은 이 집행문부여의 정당성에도 이의를 제기하고자 합니다. 갑은 을과의 소송에서 확정된 청구에 대해 이의를 제기하려면 어떻게 해야 하며, 을이 받은 집행문부여에 대한 이의는 어떤 절차를 통해 진행해야 하는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민사소송법 제447조",
+          "민사소송법 제448조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "집행문부여",
+          "즉시항고",
+          "민사집행법",
+          "집행문"
+        ],
+        "query_text": "집행문부여결정 즉시항고 절차 기한 [원문 맥락] 또한, 을이 갑의 재산을 압류하기 위해 집행문을 받았는데, 갑은 이 집행문부여의 정당성에도 이의를 제기하고자 합니다. 갑은 을과의 소송에서 확정된 청구에 대해 이의를 제기하려면 어떻게 해야 하며, 을이 받은 집행문부여에 대한 이의는 어떤 절차를 통해 진행해야 하는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민사집행법 제13조",
+          "민사소송법 제309조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "재심청구",
+          "사유",
+          "민사소송법",
+          "제447조"
+        ],
+        "query_text": "민사소송법 제447조 재심청구 사유 [원문 맥락] 또한, 을이 갑의 재산을 압류하기 위해 집행문을 받았는데, 갑은 이 집행문부여의 정당성에도 이의를 제기하고자 합니다. 갑은 을과의 소송에서 확정된 청구에 대해 이의를 제기하려면 어떻게 해야 하며, 을이 받은 집행문부여에 대한 이의는 어떤 절차를 통해 진행해야 하는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민사소송법 제447조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "재심청구",
+          "기한",
+          "90일",
+          "관할법원"
+        ],
+        "query_text": "재심청구 기한 90일 관할법원 [원문 맥락] 또한, 을이 갑의 재산을 압류하기 위해 집행문을 받았는데, 갑은 이 집행문부여의 정당성에도 이의를 제기하고자 합니다. 갑은 을과의 소송에서 확정된 청구에 대해 이의를 제기하려면 어떻게 해야 하며, 을이 받은 집행문부여에 대한 이의는 어떤 절차를 통해 진행해야 하는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민사소송법 제448조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "집행문부여결정",
+          "즉시항고",
+          "민사집행법",
+          "제13조"
+        ],
+        "query_text": "민사집행법 제13조 집행문부여결정 즉시항고 [원문 맥락] 또한, 을이 갑의 재산을 압류하기 위해 집행문을 받았는데, 갑은 이 집행문부여의 정당성에도 이의를 제기하고자 합니다. 갑은 을과의 소송에서 확정된 청구에 대해 이의를 제기하려면 어떻게 해야 하며, 을이 받은 집행문부여에 대한 이의는 어떤 절차를 통해 진행해야 하는가?",
+        "request_id": "GRQ-R2-3",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민사집행법 제13조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "집행문부여결정",
+          "불복",
+          "즉시항고",
+          "기한"
+        ],
+        "query_text": "집행문부여결정 불복 즉시항고 기한 2주 [원문 맥락] 또한, 을이 갑의 재산을 압류하기 위해 집행문을 받았는데, 갑은 이 집행문부여의 정당성에도 이의를 제기하고자 합니다. 갑은 을과의 소송에서 확정된 청구에 대해 이의를 제기하려면 어떻게 해야 하며, 을이 받은 집행문부여에 대한 이의는 어떤 절차를 통해 진행해야 하는가?",
+        "request_id": "GRQ-R2-4",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민사집행법 제13조",
+          "민사소송법 제309조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑과 을은 금전 거래를 하였으나, 갑이 을에게 빌린 돈을 갚지 않아 을이 법원에 소송을 제기하였습니다. 결국 법원은 을의 손을 들어주며 전부 인용용 판결을 내렸고, 이 판결에 따라 집행문이 부여되었습니다. 하지만 갑은 판결에 대해 이의를 제기하고자 합니다. 또한, 을이 갑의 재산을 압류하기 위해 집행문을 받았는데, 갑은 이 집행문부여의 정당성에도 이의를 제기하고자 합니다.\n\n[질문]\n갑은 을과의 소송에서 확정된 청구에 대해 이의를 제기하려면 어떻게 해야 하며, 을이 받은 집행문부여에 대한 이의는 어떤 절차를 통해 진행해야 하는가?",
+    "remaining_request_budget": 3,
+    "remaining_round_budget": 1,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "재심청구의 사유, 기한, 관할법원, 절차가 명시된 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "재심청구의 사유를 규정한 조항"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "재심청구의 기한과 관할법원을 규정한 조항"
+          }
+        ],
+        "critical": true,
+        "description": "민사소송법상 재심청구의 사유와 절차 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "확정판결에 대한 이의제기 절차의 법적 근거를 제공",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "집행문부여결정에 대한 즉시항고의 요건, 기한, 절차가 명시된 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "집행문부여결정에 대한 즉시항고의 요건을 규정한 조항"
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "즉시항고의 기한과 절차를 규정한 조항"
+          }
+        ],
+        "critical": true,
+        "description": "집행문부여결정에 대한 즉시항고 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "집행문부여결정에 대한 이의제기 절차의 법적 근거를 제공",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 2,
+    "run_id": "3642feb0-402f-42fe-96b9-44ef79f7a128",
+    "seen_provision_ids": [
+      "채무자 회생 및 파산에 관한 법률 514조  배당표에 대한 이의#KOBLEX-033090",
+      "민사소송법 47조  불복신청#KOBLEX-063637",
+      "군사법원법 459조  즉시항고와 집행정지#KOBLEX-093606",
+      "민사소송법 447조  즉시항고의 효력#KOBLEX-064659",
+      "민사소송법 39조  즉시항고#KOBLEX-063610",
+      "민사집행법 16조  집행에 관한 이의신청#KOBLEX-128083",
+      "민사집행법 15조  즉시항고#KOBLEX-128072",
+      "민사소송법 348조  불복신청#KOBLEX-064462",
+      "민사소송 등 인지법 9조  그 밖의 신청서#KOBLEX-106998",
+      "민사집행법 281조  재판의 형식#KOBLEX-128965",
+      "민사집행법 17조  취소결정의 효력#KOBLEX-128087",
+      "민사조정법 5조 2 독촉절차의 조정으로의 이행#KOBLEX-195866",
+      "비송사건절차법 85조  직무대행자의 상무 외 행위의 허가신청#KOBLEX-047784",
+      "채무자 회생 및 파산에 관한 법률 13조  즉시항고#KOBLEX-031385",
+      "형사소송법 410조  즉시항고와 집행정지의 효력#KOBLEX-232835"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ABSTAIN",
+  "termination_reason": "NO_RETRIEVAL_PROGRESS"
+}

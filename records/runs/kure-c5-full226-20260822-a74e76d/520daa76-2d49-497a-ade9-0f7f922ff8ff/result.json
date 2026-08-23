@@ -1,0 +1,883 @@
+{
+  "abstention_reason": null,
+  "answer": "행사할 목적으로 타인의 사문서를 위조한 자는 5년 이하의 징역 또는 1천만원 이하의 벌금에 처한다.[CT1]\n행사할 목적으로 공무원 또는 공무소의 공문서를 변조한 자는 10년 이하의 징역에 처한다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1",
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "을의 회사 계약서가 형법상 '타인의 문서'에 해당하며, 시청 발급 가족관계증명서가 '공무원 또는 공무소의 문서'에 해당한다고 가정합니다."
+    },
+    {
+      "code": "ASSUMPTION_2",
+      "message": "갑의 위조 및 변조 행위가 '행사할 목적'을 가지고 이루어졌다고 가정합니다."
+    }
+  ],
+  "candidate_answer": "행사할 목적으로 타인의 사문서를 위조한 자는 5년 이하의 징역 또는 1천만원 이하의 벌금에 처한다.[CT1]\n행사할 목적으로 공무원 또는 공무소의 공문서를 변조한 자는 10년 이하의 징역에 처한다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형법 231조  사문서등의 위조ㆍ변조#KOBLEX-193144",
+      "quoted_text": "제231조(사문서등의 위조ㆍ변조) 행사할 목적으로 권리ㆍ의무 또는 사실증명에 관한 타인의 문서 또는 도화를 위조 또는 변조한 자는 5년 이하의 징역 또는 1천만원 이하의 벌금에 처한다. <개정 1995.12.29>",
+      "support_description": "사문서 위조죄의 구성요건과 법정형을 명시하여 갑의 계약서 위조 행위에 대한 처벌 근거를 제공한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135",
+      "quoted_text": "제225조(공문서등의 위조ㆍ변조) 행사할 목적으로 공무원 또는 공무소의 문서 또는 도화를 위조 또는 변조한 자는 10년 이하의 징역에 처한다. <개정 1995.12.29>",
+      "support_description": "공문서 변조죄의 구성요건과 법정형을 명시하여 갑의 가족관계증명서 변조 행위에 대한 처벌 근거를 제공한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "행사할 목적으로 타인의 사문서를 위조한 자는 5년 이하의 징역 또는 1천만원 이하의 벌금에 처한다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "행사할 목적으로 공무원 또는 공무소의 공문서를 변조한 자는 10년 이하의 징역에 처한다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T07:03:52.842001+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 153823.339,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "본 답변은 형법상 사문서 위조죄와 공문서 변조죄의 법정형에 국한하며, 실제 형량 산정 시 가중·감경 사유나 다른 범죄와의 경합 관계는 고려하지 않았습니다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 259,
+      "dedup_collapse": 82,
+      "evidence_fusion": 259,
+      "first_stage": 300,
+      "request_rerank": 300,
+      "round_selected": 20,
+      "rrf": 300,
+      "selected": 259
+    }
+  },
+  "run_id": "520daa76-2d49-497a-ade9-0f7f922ff8ff",
+  "skill_generation_diagnostics": {
+    "attempt_count": 6,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형법 231조  사문서등의 위조ㆍ변조#KOBLEX-193144",
+      "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 6,
+          "request_count": 1,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": true,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "statutory_penalty",
+        "question_anchor": "갑이 을의 회사 계약서를 위조하고",
+        "requested_output": "위조 행위에 대한 처벌 규정 및 형량"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "statutory_penalty",
+        "question_anchor": "또한 시청 발급 문서를 변조한 경우, 각각 어떤 처벌을 받게 되는가?",
+        "requested_output": "변조 행위에 대한 처벌 규정 및 형량"
+      }
+    ],
+    "answered_target_ids": [
+      "T1",
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "형법 236조  사문서의 부정행사#KOBLEX-193150"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 25,
+        "first_stage_score": 0.5399296879768372,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형법 236조  사문서의 부정행사#KOBLEX-193150",
+        "provision_text": "제236조(사문서의 부정행사) 권리ㆍ의무 또는 사실증명에 관한 타인의 문서 또는 도화를 부정행사한 자는 1년 이하의 징역이나 금고 또는 300만원 이하의 벌금에 처한다. <개정 1995.12.29>",
+        "rerank_rank": 1,
+        "rerank_score": 0.6820042729377747,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형법 236조  사문서의 부정행사",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 231조  사문서등의 위조ㆍ변조#KOBLEX-193144"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 12,
+        "first_stage_score": 0.5515075922012329,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "형법 231조  사문서등의 위조ㆍ변조#KOBLEX-193144",
+        "provision_text": "제231조(사문서등의 위조ㆍ변조) 행사할 목적으로 권리ㆍ의무 또는 사실증명에 관한 타인의 문서 또는 도화를 위조 또는 변조한 자는 5년 이하의 징역 또는 1천만원 이하의 벌금에 처한다. <개정 1995.12.29>",
+        "rerank_rank": 2,
+        "rerank_score": 0.6253198385238647,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형법 231조  사문서등의 위조ㆍ변조",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 229조  위조등 공문서의 행사#KOBLEX-193142"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.5844846963882446,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "형법 229조  위조등 공문서의 행사#KOBLEX-193142",
+        "provision_text": "제229조(위조등 공문서의 행사) 제225조 내지 제228조의 죄에 의하여 만들어진 문서, 도화, 전자기록등 특수매체기록, 공정증서원본, 면허증, 허가증, 등록증 또는 여권을 행사한 자는 그 각 죄에 정한 형에 처한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.2624646723270416,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형법 229조  위조등 공문서의 행사",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 89조  소송대리권의 증명#KOBLEX-063745"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 100,
+        "first_stage_score": 0.5087990164756775,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "민사소송법 89조  소송대리권의 증명#KOBLEX-063745",
+        "provision_text": "②제1항의 서면이 사문서인 경우에는 법원은 공증인, 그 밖의 공증업무를 보는 사람(이하 \"공증사무소\"라 한다)의 인증을 받도록 소송대리인에게 명할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.03577270731329918,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사소송법 89조  소송대리권의 증명 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 234조  위조사문서등의 행사#KOBLEX-193148"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 34,
+        "first_stage_score": 0.5316605567932129,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형법 234조  위조사문서등의 행사#KOBLEX-193148",
+        "provision_text": "제234조(위조사문서등의 행사) 제231조 내지 제233조의 죄에 의하여 만들어진 문서, 도화 또는 전자기록등 특수매체기록을 행사한 자는 그 각 죄에 정한 형에 처한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.027360087260603905,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형법 234조  위조사문서등의 행사",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 237조 2 복사문서등#KOBLEX-193152"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 95,
+        "first_stage_score": 0.5137276649475098,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "형법 237조 2 복사문서등#KOBLEX-193152",
+        "provision_text": "제237조의2(복사문서등) 이 장의 죄에 있어서 전자복사기, 모사전송기 기타 이와 유사한 기기를 사용하여 복사한 문서 또는 도화의 사본도 문서 또는 도화로 본다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.023258648812770844,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형법 237조 2 복사문서등",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 141조  공용서류 등의 무효, 공용물의 파괴#KOBLEX-192978"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 76,
+        "first_stage_score": 0.5130740404129028,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "형법 141조  공용서류 등의 무효, 공용물의 파괴#KOBLEX-192978",
+        "provision_text": "①공무소에서 사용하는 서류 기타 물건 또는 전자기록등 특수매체기록을 손상 또는 은닉하거나 기타 방법으로 그 효용을 해한 자는 7년 이하의 징역 또는 1천만원 이하의 벌금에 처한다. <개정 1995.12.29>",
+        "rerank_rank": 2,
+        "rerank_score": 0.021560683846473694,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "형법 141조  공용서류 등의 무효, 공용물의 파괴 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 238조  공인 등의 위조, 부정사용#KOBLEX-193156"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 11,
+        "first_stage_score": 0.5509201288223267,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "형법 238조  공인 등의 위조, 부정사용#KOBLEX-193156",
+        "provision_text": "②위조 또는 부정사용한 공무원 또는 공무소의 인장, 서명, 기명 또는 기호를 행사한 자도 전항의 형과 같다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.01769074983894825,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "형법 238조  공인 등의 위조, 부정사용 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "전자문서 및 전자거래 기본법 31조 14 공인전자문서센터 영업의 양도ㆍ양수 등#KOBLEX-166023"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 60,
+        "first_stage_score": 0.519646167755127,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "전자문서 및 전자거래 기본법 31조 14 공인전자문서센터 영업의 양도ㆍ양수 등#KOBLEX-166023",
+        "provision_text": "제31조의14(공인전자문서센터 영업의 양도ㆍ양수 등)",
+        "rerank_rank": 4,
+        "rerank_score": 0.017370756715536118,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "전자문서 및 전자거래 기본법 31조 14 공인전자문서센터 영업의 양도ㆍ양수 등",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 239조  사인등의 위조, 부정사용#KOBLEX-193160"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 28,
+        "first_stage_score": 0.5368533730506897,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "형법 239조  사인등의 위조, 부정사용#KOBLEX-193160",
+        "provision_text": "②위조 또는 부정사용한 타인의 인장, 서명, 기명 또는 기호를 행사한 때에도 전항의 형과 같다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.016447195783257484,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형법 239조  사인등의 위조, 부정사용 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 227조  허위공문서작성등#KOBLEX-193137"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 12,
+        "first_stage_score": 0.5603026151657104,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "형법 227조  허위공문서작성등#KOBLEX-193137",
+        "provision_text": "제227조(허위공문서작성등) 공무원이 행사할 목적으로 그 직무에 관하여 문서 또는 도화를 허위로 작성하거나 변개한 때에는 7년 이하의 징역 또는 2천만원 이하의 벌금에 처한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.03804653882980347,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E2",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형법 227조  허위공문서작성등",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 227조 2 공전자기록위작ㆍ변작#KOBLEX-193138"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 55,
+        "first_stage_score": 0.5386353135108948,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "형법 227조 2 공전자기록위작ㆍ변작#KOBLEX-193138",
+        "provision_text": "제227조의2(공전자기록위작ㆍ변작) 사무처리를 그르치게 할 목적으로 공무원 또는 공무소의 전자기록등 특수매체기록을 위작 또는 변작한 자는 10년 이하의 징역에 처한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.0048375180922448635,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형법 227조 2 공전자기록위작ㆍ변작",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 86,
+        "first_stage_score": 0.5280488133430481,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135",
+        "provision_text": "제225조(공문서등의 위조ㆍ변조) 행사할 목적으로 공무원 또는 공무소의 문서 또는 도화를 위조 또는 변조한 자는 10년 이하의 징역에 처한다. <개정 1995.12.29>",
+        "rerank_rank": 3,
+        "rerank_score": 0.0026495063211768866,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형법 225조  공문서등의 위조ㆍ변조",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "특허법 227조  위증죄#KOBLEX-156475"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 60,
+        "first_stage_score": 0.5371254086494446,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "특허법 227조  위증죄#KOBLEX-156475",
+        "provision_text": "제227조(위증죄)",
+        "rerank_rank": 4,
+        "rerank_score": 0.00045219191815704107,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "특허법 227조  위증죄",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 238조  공인 등의 위조, 부정사용#KOBLEX-193154"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 29,
+        "first_stage_score": 0.5489587783813477,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "형법 238조  공인 등의 위조, 부정사용#KOBLEX-193154",
+        "provision_text": "제238조(공인 등의 위조, 부정사용)",
+        "rerank_rank": 7,
+        "rerank_score": 7.722250302322209e-05,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형법 238조  공인 등의 위조, 부정사용",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 625조  회사재산을 위태롭게 하는 죄#KOBLEX-115864"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 94,
+        "first_stage_score": 0.5269208550453186,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "상법 625조  회사재산을 위태롭게 하는 죄#KOBLEX-115864",
+        "provision_text": "제625조(회사재산을 위태롭게 하는 죄) 제622조제1항에 규정된 자, 검사인, 제298조제3항ㆍ제299조의2ㆍ제310조제3항 또는 제313조제2항의 공증인(인가공증인의 공증담당변호사를 포함한다. 이하 이 章에서 같다)이나 제299조의2, 제310조제3항 또는 제422조제1항의 감정인이 다음의 행위를 한 때에는 5년 이하의 징역 또는 1천500만 원 이하의 벌금에 처한다. <개정 2009.2.6, 2011.4.14>",
+        "rerank_rank": 9,
+        "rerank_score": 6.98304720572196e-05,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상법 625조  회사재산을 위태롭게 하는 죄",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "민사소송법 89조  소송대리권의 증명#KOBLEX-063745": "②제1항의 서면이 사문서인 경우에는 법원은 공증인, 그 밖의 공증업무를 보는 사람(이하 \"공증사무소\"라 한다)의 인증을 받도록 소송대리인에게 명할 수 있다.",
+      "상법 625조  회사재산을 위태롭게 하는 죄#KOBLEX-115864": "제625조(회사재산을 위태롭게 하는 죄) 제622조제1항에 규정된 자, 검사인, 제298조제3항ㆍ제299조의2ㆍ제310조제3항 또는 제313조제2항의 공증인(인가공증인의 공증담당변호사를 포함한다. 이하 이 章에서 같다)이나 제299조의2, 제310조제3항 또는 제422조제1항의 감정인이 다음의 행위를 한 때에는 5년 이하의 징역 또는 1천500만 원 이하의 벌금에 처한다. <개정 2009.2.6, 2011.4.14>",
+      "전자문서 및 전자거래 기본법 31조 14 공인전자문서센터 영업의 양도ㆍ양수 등#KOBLEX-166023": "제31조의14(공인전자문서센터 영업의 양도ㆍ양수 등)",
+      "특허법 227조  위증죄#KOBLEX-156475": "제227조(위증죄)",
+      "형법 141조  공용서류 등의 무효, 공용물의 파괴#KOBLEX-192978": "①공무소에서 사용하는 서류 기타 물건 또는 전자기록등 특수매체기록을 손상 또는 은닉하거나 기타 방법으로 그 효용을 해한 자는 7년 이하의 징역 또는 1천만원 이하의 벌금에 처한다. <개정 1995.12.29>",
+      "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135": "제225조(공문서등의 위조ㆍ변조) 행사할 목적으로 공무원 또는 공무소의 문서 또는 도화를 위조 또는 변조한 자는 10년 이하의 징역에 처한다. <개정 1995.12.29>",
+      "형법 227조  허위공문서작성등#KOBLEX-193137": "제227조(허위공문서작성등) 공무원이 행사할 목적으로 그 직무에 관하여 문서 또는 도화를 허위로 작성하거나 변개한 때에는 7년 이하의 징역 또는 2천만원 이하의 벌금에 처한다.",
+      "형법 227조 2 공전자기록위작ㆍ변작#KOBLEX-193138": "제227조의2(공전자기록위작ㆍ변작) 사무처리를 그르치게 할 목적으로 공무원 또는 공무소의 전자기록등 특수매체기록을 위작 또는 변작한 자는 10년 이하의 징역에 처한다.",
+      "형법 229조  위조등 공문서의 행사#KOBLEX-193142": "제229조(위조등 공문서의 행사) 제225조 내지 제228조의 죄에 의하여 만들어진 문서, 도화, 전자기록등 특수매체기록, 공정증서원본, 면허증, 허가증, 등록증 또는 여권을 행사한 자는 그 각 죄에 정한 형에 처한다.",
+      "형법 231조  사문서등의 위조ㆍ변조#KOBLEX-193144": "제231조(사문서등의 위조ㆍ변조) 행사할 목적으로 권리ㆍ의무 또는 사실증명에 관한 타인의 문서 또는 도화를 위조 또는 변조한 자는 5년 이하의 징역 또는 1천만원 이하의 벌금에 처한다. <개정 1995.12.29>",
+      "형법 234조  위조사문서등의 행사#KOBLEX-193148": "제234조(위조사문서등의 행사) 제231조 내지 제233조의 죄에 의하여 만들어진 문서, 도화 또는 전자기록등 특수매체기록을 행사한 자는 그 각 죄에 정한 형에 처한다.",
+      "형법 236조  사문서의 부정행사#KOBLEX-193150": "제236조(사문서의 부정행사) 권리ㆍ의무 또는 사실증명에 관한 타인의 문서 또는 도화를 부정행사한 자는 1년 이하의 징역이나 금고 또는 300만원 이하의 벌금에 처한다. <개정 1995.12.29>",
+      "형법 237조 2 복사문서등#KOBLEX-193152": "제237조의2(복사문서등) 이 장의 죄에 있어서 전자복사기, 모사전송기 기타 이와 유사한 기기를 사용하여 복사한 문서 또는 도화의 사본도 문서 또는 도화로 본다.",
+      "형법 238조  공인 등의 위조, 부정사용#KOBLEX-193154": "제238조(공인 등의 위조, 부정사용)",
+      "형법 238조  공인 등의 위조, 부정사용#KOBLEX-193156": "②위조 또는 부정사용한 공무원 또는 공무소의 인장, 서명, 기명 또는 기호를 행사한 자도 전항의 형과 같다.",
+      "형법 239조  사인등의 위조, 부정사용#KOBLEX-193160": "②위조 또는 부정사용한 타인의 인장, 서명, 기명 또는 기호를 행사한 때에도 전항의 형과 같다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형법 231조  사문서등의 위조ㆍ변조#KOBLEX-193144"
+            ],
+            "rationale": "형법 제231조가 사문서 위조죄의 법적 정의 및 처벌 규정을 명시하고 있어 요구사항이 충족됩니다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형법 231조  사문서등의 위조ㆍ변조#KOBLEX-193144"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "갑의 행위는 을의 회사 계약서(사문서)를 위조한 것으로, 형법 제231조(C002)가 해당 범죄의 정의와 처벌 수위를 명확히 규정하고 있습니다. 법적 근거가 완전히 충족되었습니다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135"
+            ],
+            "rationale": "형법 제225조가 공문서 변조죄의 법적 정의 및 처벌 규정을 명시하고 있어 요구사항이 충족됩니다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "갑의 행위는 시청 발급 가족관계증명서(공문서)를 변조한 것입니다. 형법 제225조(C013)가 공문서 변조죄의 구성요건과 처벌 수위를 명확히 규정하고 있어 법적 근거가 충족되었습니다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형법 231조  사문서등의 위조ㆍ변조#KOBLEX-193144",
+        "support_spans": [
+          {
+            "end_char": 119,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135",
+        "support_spans": [
+          {
+            "end_char": 95,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 6,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "을의 회사 계약서 위조 행위의 법적 성질 및 처벌",
+        "issue_id": "I1"
+      },
+      {
+        "description": "시청 발급 가족관계증명서 변조 행위의 법적 성질 및 처벌",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 중소기업의 인사 담당자로 근무하고 있으며, 을은 경쟁업체의 직원입니다. 을은 갑에게 접근하여, 을의 회사가 수주한 프로젝트의 계약서 사본을 몰래 얻어오면 큰 돈을 주겠다고 제안합니다. 갑은 을의 제안을 수락하고, 을의 회사 계약서를 위조하여 을에게 넘깁니다. 또한, 갑은 이를 위해 시청 발급 문서인 갑의 가족관계증명서를 변조하여 신뢰를 얻었습니다. [질문] 갑이 을의 회사 계약서를 위조하고 또한 시청 발급 문서를 변조한 경우, 각각 어떤 처벌을 받게 되는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "사문서위조",
+          "위조",
+          "형법",
+          "처벌"
+        ],
+        "query_text": "사문서 위조죄 처벌 규정 형법 [원문 맥락] 또한, 갑은 이를 위해 시청 발급 문서인 갑의 가족관계증명서를 변조하여 신뢰를 얻었습니다. 갑이 을의 회사 계약서를 위조하고 또한 시청 발급 문서를 변조한 경우, 각각 어떤 처벌을 받게 되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법 제231조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "공문서변조",
+          "변조",
+          "형법",
+          "처벌"
+        ],
+        "query_text": "공문서 변조죄 처벌 규정 형법 [원문 맥락] 또한, 갑은 이를 위해 시청 발급 문서인 갑의 가족관계증명서를 변조하여 신뢰를 얻었습니다. 갑이 을의 회사 계약서를 위조하고 또한 시청 발급 문서를 변조한 경우, 각각 어떤 처벌을 받게 되는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법 제234조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "공문서변조",
+          "형법 제227조",
+          "법정형",
+          "공문서"
+        ],
+        "query_text": "형법 제227조 공문서 변조죄 구성요건 및 법정형 [원문 맥락] 또한, 갑은 이를 위해 시청 발급 문서인 갑의 가족관계증명서를 변조하여 신뢰를 얻었습니다. 갑이 을의 회사 계약서를 위조하고 또한 시청 발급 문서를 변조한 경우, 각각 어떤 처벌을 받게 되는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법 제227조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 중소기업의 인사 담당자로 근무하고 있으며, 을은 경쟁업체의 직원입니다. 을은 갑에게 접근하여, 을의 회사가 수주한 프로젝트의 계약서 사본을 몰래 얻어오면 큰 돈을 주겠다고 제안합니다. 갑은 을의 제안을 수락하고, 을의 회사 계약서를 위조하여 을에게 넘깁니다. 또한, 갑은 이를 위해 시청 발급 문서인 갑의 가족관계증명서를 변조하여 신뢰를 얻었습니다.\n\n[질문]\n갑이 을의 회사 계약서를 위조하고 또한 시청 발급 문서를 변조한 경우, 각각 어떤 처벌을 받게 되는가?",
+    "remaining_request_budget": 6,
+    "remaining_round_budget": 1,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "사문서 위조죄의 구성요건과 처벌 수위가 명시된 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "사문서 위조죄의 법적 정의 및 처벌 규정 확인"
+          }
+        ],
+        "critical": true,
+        "description": "사문서 위조죄의 정의 및 법정형",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 계약서 위조 행위의 처벌을 결정하기 위해 필수적임",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "공문서 변조죄의 구성요건과 처벌 수위가 명시된 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "공문서 변조죄의 법적 정의 및 처벌 규정 확인"
+          }
+        ],
+        "critical": true,
+        "description": "공문서 변조죄의 정의 및 법정형",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 요구하는 시청 발급 문서 변조 행위의 처벌을 결정하기 위해 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 2,
+    "run_id": "520daa76-2d49-497a-ade9-0f7f922ff8ff",
+    "seen_provision_ids": [
+      "형법 237조 2 복사문서등#KOBLEX-193152",
+      "민사소송법 89조  소송대리권의 증명#KOBLEX-063745",
+      "형법 234조  위조사문서등의 행사#KOBLEX-193148",
+      "특허법 227조  위증죄#KOBLEX-156475",
+      "형법 238조  공인 등의 위조, 부정사용#KOBLEX-193156",
+      "형법 236조  사문서의 부정행사#KOBLEX-193150",
+      "형법 239조  사인등의 위조, 부정사용#KOBLEX-193160",
+      "형법 238조  공인 등의 위조, 부정사용#KOBLEX-193154",
+      "전자문서 및 전자거래 기본법 31조 14 공인전자문서센터 영업의 양도ㆍ양수 등#KOBLEX-166023",
+      "형법 231조  사문서등의 위조ㆍ변조#KOBLEX-193144",
+      "형법 227조 2 공전자기록위작ㆍ변작#KOBLEX-193138",
+      "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135",
+      "상법 625조  회사재산을 위태롭게 하는 죄#KOBLEX-115864",
+      "형법 229조  위조등 공문서의 행사#KOBLEX-193142",
+      "형법 141조  공용서류 등의 무효, 공용물의 파괴#KOBLEX-192978",
+      "형법 227조  허위공문서작성등#KOBLEX-193137"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

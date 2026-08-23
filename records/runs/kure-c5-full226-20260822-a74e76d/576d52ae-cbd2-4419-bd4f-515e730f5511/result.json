@@ -1,0 +1,1444 @@
+{
+  "abstention_reason": null,
+  "answer": "시효가 중단된 때에는 중단까지에 경과한 시효기간은 이를 산입하지 아니하고 중단사유가 종료한 때로부터 새로이 진행한다.[CT1]\n압류, 가압류 및 가처분은 권리자의 청구에 의하여 또는 법률의 규정에 따르지 아니함으로 인하여 취소된 때에는 시효중단의 효력이 없다.[CT2]",
+  "answer_mode": "limited",
+  "answered_target_ids": [
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "질문에서 가압류 결정이 내려졌다고 전제하나, 가압류의 적법성 및 현재 유효 여부에 대한 구체적 사실관계는 확인되지 않았다."
+    }
+  ],
+  "candidate_answer": "시효가 중단된 때에는 중단까지에 경과한 시효기간은 이를 산입하지 아니하고 중단사유가 종료한 때로부터 새로이 진행한다.[CT1]\n압류, 가압류 및 가처분은 권리자의 청구에 의하여 또는 법률의 규정에 따르지 아니함으로 인하여 취소된 때에는 시효중단의 효력이 없다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "민법 178조  중단후에 시효진행#KOBLEX-058746",
+      "quoted_text": "①시효가 중단된 때에는 중단까지에 경과한 시효기간은 이를 산입하지 아니하고 중단사유가 종료한 때로부터 새로이 진행한다.",
+      "support_description": "시효 중단 후의 기간 계산 방식을 명시적으로 규정하여 중단사유 종료 시점부터 새로이 진행함을 근거로 한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "민법 175조  압류, 가압류, 가처분과 시효중단#KOBLEX-058742",
+      "quoted_text": "제175조(압류, 가압류, 가처분과 시효중단) 압류, 가압류 및 가처분은 권리자의 청구에 의하여 또는 법률의 규정에 따르지 아니함으로 인하여 취소된 때에는 시효중단의 효력이 없다.",
+      "support_description": "가압류가 적법하게 유지되지 않고 취소되는 경우 시효중단 효력이 없음을 규정하여, 시효 중단 효력의 지속 조건을 명시한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "시효가 중단된 때에는 중단까지에 경과한 시효기간은 이를 산입하지 아니하고 중단사유가 종료한 때로부터 새로이 진행한다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "conditional",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "exception",
+      "text": "압류, 가압류 및 가처분은 권리자의 청구에 의하여 또는 법률의 규정에 따르지 아니함으로 인하여 취소된 때에는 시효중단의 효력이 없다."
+    }
+  ],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T12:13:33.458791+00:00",
+  "deferred_target_ids": [
+    "T1"
+  ],
+  "end_to_end_latency_ms": 246743.142,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "가압류에 의한 소멸시효 중단의 법적 요건(T1)은 증거가 불충분하여 본 답변에서 보류된다. 특히 가압류 결정의 확정 또는 채무자 통지가 시효 중단 효력 발생 시점에 미치는 영향에 대한 직접적 법적 근거가 제공되지 않았다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 672,
+      "dedup_collapse": 56,
+      "evidence_fusion": 672,
+      "first_stage": 700,
+      "request_rerank": 700,
+      "round_selected": 30,
+      "rrf": 700,
+      "selected": 672
+    }
+  },
+  "run_id": "576d52ae-cbd2-4419-bd4f-515e730f5511",
+  "skill_generation_diagnostics": {
+    "attempt_count": 8,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "민법 178조  중단후에 시효진행#KOBLEX-058746",
+      "민법 175조  압류, 가압류, 가처분과 시효중단#KOBLEX-058742"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 3,
+          "issue_count": 3
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 3,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 8,
+          "request_count": 2,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": true,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T2"
+          ],
+          "deferred_target_ids": [
+            "T1"
+          ],
+          "explanation": "Only the citable answer targets will be answered; remaining targets are deferred.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": [
+            "T1"
+          ]
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "limited",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_requirements",
+        "question_anchor": "채권자인 갑이 을의 재산에 대한 가압류를 통해 소멸시효를 중단시키기 위해 필요한 요건은 무엇이며",
+        "requested_output": "가압류에 의한 소멸시효 중단의 법적 요건"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_effect",
+        "question_anchor": "가압류로 인해 시효가 중단된 경우 이후 시효는 어떻게 계산되는가?",
+        "requested_output": "가압류로 인한 시효 중단 후의 시효 계산 방법"
+      }
+    ],
+    "answered_target_ids": [
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "민법 168조  소멸시효의 중단사유#KOBLEX-058730"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 25,
+        "first_stage_score": 0.5831678509712219,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "민법 168조  소멸시효의 중단사유#KOBLEX-058730",
+        "provision_text": "제168조(소멸시효의 중단사유) 소멸시효는 다음 각호의 사유로 인하여 중단된다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9732263684272766,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E3",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ3"
+        ],
+        "statute_name": "민법 168조  소멸시효의 중단사유",
+        "target_evidence_item_ids": [
+          "E1",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 460조#KOBLEX-059331"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 84,
+        "first_stage_score": 0.5698216557502747,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "민법 460조#KOBLEX-059331",
+        "provision_text": "제6절 채권의 소멸",
+        "rerank_rank": 2,
+        "rerank_score": 0.9657776951789856,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "critical_quota:E1,E2,E3",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ3",
+          "RQ2"
+        ],
+        "statute_name": "민법 460조",
+        "target_evidence_item_ids": [
+          "E1",
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 170조  재판상의 청구와 시효중단#KOBLEX-058737"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 7,
+        "first_stage_score": 0.6101654767990112,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "민법 170조  재판상의 청구와 시효중단#KOBLEX-058737",
+        "provision_text": "②전항의 경우에 6월내에 재판상의 청구, 파산절차참가, 압류 또는 가압류, 가처분을 한 때에는 시효는 최초의 재판상 청구로 인하여 중단된 것으로 본다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.9450498223304749,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ3",
+          "RQ2"
+        ],
+        "statute_name": "민법 170조  재판상의 청구와 시효중단 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 164조  1년의 단기소멸시효#KOBLEX-058717"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 40,
+        "first_stage_score": 0.5851132869720459,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "민법 164조  1년의 단기소멸시효#KOBLEX-058717",
+        "provision_text": "제164조(1년의 단기소멸시효) 다음 각호의 채권은 1년간 행사하지 아니하면 소멸시효가 완성한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.8954909443855286,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ3",
+          "RQ2"
+        ],
+        "statute_name": "민법 164조  1년의 단기소멸시효",
+        "target_evidence_item_ids": [
+          "E1",
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 166조  소멸시효의 기산점#KOBLEX-058728"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 35,
+        "first_stage_score": 0.5818667411804199,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "민법 166조  소멸시효의 기산점#KOBLEX-058728",
+        "provision_text": "②부작위를 목적으로 하는 채권의 소멸시효는 위반행위를 한 때로부터 진행한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.891994059085846,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ3",
+          "RQ2"
+        ],
+        "statute_name": "민법 166조  소멸시효의 기산점 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 162조  채권, 재산권의 소멸시효#KOBLEX-058706"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 88,
+        "first_stage_score": 0.5603670477867126,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "민법 162조  채권, 재산권의 소멸시효#KOBLEX-058706",
+        "provision_text": "제162조(채권, 재산권의 소멸시효)",
+        "rerank_rank": 6,
+        "rerank_score": 0.8885500431060791,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 162조  채권, 재산권의 소멸시효",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 175조  압류, 가압류, 가처분과 시효중단#KOBLEX-058742"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.6134466528892517,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "민법 175조  압류, 가압류, 가처분과 시효중단#KOBLEX-058742",
+        "provision_text": "제175조(압류, 가압류, 가처분과 시효중단) 압류, 가압류 및 가처분은 권리자의 청구에 의하여 또는 법률의 규정에 따르지 아니함으로 인하여 취소된 때에는 시효중단의 효력이 없다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.8872517943382263,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ3",
+          "RQ2"
+        ],
+        "statute_name": "민법 175조  압류, 가압류, 가처분과 시효중단",
+        "target_evidence_item_ids": [
+          "E1",
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 163조  3년의 단기소멸시효#KOBLEX-058709"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 27,
+        "first_stage_score": 0.5954856276512146,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "민법 163조  3년의 단기소멸시효#KOBLEX-058709",
+        "provision_text": "제163조(3년의 단기소멸시효) 다음 각호의 채권은 3년간 행사하지 아니하면 소멸시효가 완성한다. <개정 1997.12.13>",
+        "rerank_rank": 8,
+        "rerank_score": 0.8772487640380859,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ3",
+          "RQ2"
+        ],
+        "statute_name": "민법 163조  3년의 단기소멸시효",
+        "target_evidence_item_ids": [
+          "E1",
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 162조  채권, 재산권의 소멸시효#KOBLEX-058707"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 70,
+        "first_stage_score": 0.570264995098114,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "민법 162조  채권, 재산권의 소멸시효#KOBLEX-058707",
+        "provision_text": "①채권은 10년간 행사하지 아니하면 소멸시효가 완성한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.8595379590988159,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ3",
+          "RQ2"
+        ],
+        "statute_name": "민법 162조  채권, 재산권의 소멸시효 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 162조  채권, 재산권의 소멸시효#KOBLEX-058708"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 32,
+        "first_stage_score": 0.5781266689300537,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "민법 162조  채권, 재산권의 소멸시효#KOBLEX-058708",
+        "provision_text": "②채권 및 소유권 이외의 재산권은 20년간 행사하지 아니하면 소멸시효가 완성한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.8254387378692627,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ3",
+          "RQ2"
+        ],
+        "statute_name": "민법 162조  채권, 재산권의 소멸시효 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 286조  이의신청에 대한 심리와 재판#KOBLEX-128985"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.6292101740837097,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "민사집행법 286조  이의신청에 대한 심리와 재판#KOBLEX-128985",
+        "provision_text": "⑥법원은 제3항의 규정에 의하여 가압류를 취소하는 결정을 하는 경우에는 채권자가 그 고지를 받은 날부터 2주를 넘지 아니하는 범위 안에서 상당하다고 인정하는 기간이 경과하여야 그 결정의 효력이 생긴다는 뜻을 선언할 수 있다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9631227254867554,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E2,E3",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민사집행법 286조  이의신청에 대한 심리와 재판 6항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 83조  경매개시결정 등#KOBLEX-128336"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 44,
+        "first_stage_score": 0.5866735577583313,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "민사집행법 83조  경매개시결정 등#KOBLEX-128336",
+        "provision_text": "④압류는 채무자에게 그 결정이 송달된 때 또는 제94조의 규정에 따른 등기가 된 때에 효력이 생긴다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.8681528568267822,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "민사집행법 83조  경매개시결정 등 4항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 251조  그 밖의 재산권에 대한 집행#KOBLEX-128891"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 35,
+        "first_stage_score": 0.5904403328895569,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "민사집행법 251조  그 밖의 재산권에 대한 집행#KOBLEX-128891",
+        "provision_text": "②제3채무자가 없는 경우에 압류는 채무자에게 권리처분을 금지하는 명령을 송달한 때에 효력이 생긴다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.45228126645088196,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민사집행법 251조  그 밖의 재산권에 대한 집행 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국세징수법 52조  채권 압류의 효력 및 추심#KOBLEX-026223"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 12,
+        "first_stage_score": 0.6097716689109802,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "국세징수법 52조  채권 압류의 효력 및 추심#KOBLEX-026223",
+        "provision_text": "① 채권 압류의 효력은 제51조제1항에 따라 채권 압류 통지서가 제3채무자에게 송달된 때에 발생한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.2965629994869232,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "국세징수법 52조  채권 압류의 효력 및 추심 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방세징수법 52조  채권 압류의 효력#KOBLEX-131292"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 22,
+        "first_stage_score": 0.594774603843689,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "지방세징수법 52조  채권 압류의 효력#KOBLEX-131292",
+        "provision_text": "제52조(채권 압류의 효력) 채권 압류의 효력은 채권 압류 통지서가 제3채무자에게 송달된 때에 발생한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.18036122620105743,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "지방세징수법 52조  채권 압류의 효력",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 289조  가압류취소결정의 효력정지#KOBLEX-128998"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 89,
+        "first_stage_score": 0.5710483193397522,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "민사집행법 289조  가압류취소결정의 효력정지#KOBLEX-128998",
+        "provision_text": "①가압류를 취소하는 결정에 대하여 즉시항고가 있는 경우에, 불복의 이유로 주장한 사유가 법률상 정당한 사유가 있다고 인정되고 사실에 대한 소명이 있으며, 그 가압류를 취소함으로 인하여 회복할 수 없는 손해가 생길 위험이 있다는 사정에 대한 소명이 있는 때에는, 법원은 당사자의 신청에 따라 담보를 제공하게 하거나 담보를 제공하지 아니하게 하고 가압류취소결정의 효력을 정지시킬 수 있다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.14757893979549408,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민사집행법 289조  가압류취소결정의 효력정지 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 283조  가압류결정에 대한 채무자의 이의신청#KOBLEX-128968"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 93,
+        "first_stage_score": 0.5705592632293701,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "민사집행법 283조  가압류결정에 대한 채무자의 이의신청#KOBLEX-128968",
+        "provision_text": "제283조(가압류결정에 대한 채무자의 이의신청)",
+        "rerank_rank": 7,
+        "rerank_score": 0.12201356142759323,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민사집행법 283조  가압류결정에 대한 채무자의 이의신청",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 288조  사정변경 등에 따른 가압류취소#KOBLEX-128994"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6295429468154907,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "민사집행법 288조  사정변경 등에 따른 가압류취소#KOBLEX-128994",
+        "provision_text": "①채무자는 다음 각호의 어느 하나에 해당하는 사유가 있는 경우에는 가압류가 인가된 뒤에도 그 취소를 신청할 수 있다. 제3호에 해당하는 경우에는 이해관계인도 신청할 수 있다. 1. 가압류이유가 소멸되거나 그 밖에 사정이 바뀐 때 2. 법원이 정한 담보를 제공한 때 3. 가압류가 집행된 뒤에 3년간 본안의 소를 제기하지 아니한 때",
+        "rerank_rank": 8,
+        "rerank_score": 0.07373742759227753,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민사집행법 288조  사정변경 등에 따른 가압류취소 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 298조  가압류취소결정의 취소와 집행#KOBLEX-129029"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 91,
+        "first_stage_score": 0.5705956220626831,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "민사집행법 298조  가압류취소결정의 취소와 집행#KOBLEX-129029",
+        "provision_text": "②제1항의 경우에 그 취소의 재판을 한 상소법원이 대법원인 때에는 채권자의 신청에 따라 제1심 법원이 가압류를 집행한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.06586885452270508,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민사집행법 298조  가압류취소결정의 취소와 집행 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 457조  채무인수의 소급효#KOBLEX-059328"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 37,
+        "first_stage_score": 0.5886837840080261,
+        "fusion_rank": 10,
+        "issue_id": "I2",
+        "provision_id": "민법 457조  채무인수의 소급효#KOBLEX-059328",
+        "provision_text": "제457조(채무인수의 소급효) 채권자의 채무인수에 대한 승낙은 다른 의사표시가 없으면 채무를 인수한 때에 소급하여 그 효력이 생긴다. 그러나 제삼자의 권리를 침해하지 못한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.05739849433302879,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 457조  채무인수의 소급효",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국유재산법 73조 3 소멸시효#KOBLEX-124877"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6602586507797241,
+        "fusion_rank": 2,
+        "issue_id": "I3",
+        "provision_id": "국유재산법 73조 3 소멸시효#KOBLEX-124877",
+        "provision_text": "③ 제2항에 따라 중단된 소멸시효는 다음 각 호의 어느 하나의 기간이 지난 때부터 새로 진행한다. 1. 납부고지나 독촉에 따른 납입기간 2. 교부청구 중의 기간 3. 압류해제까지의 기간",
+        "rerank_rank": 2,
+        "rerank_score": 0.5561005473136902,
+        "retrieval_round": 3,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E2,E3",
+        "source_request_id": "GRQ-R3-2",
+        "source_request_ids": [
+          "GRQ-R3-2",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "국유재산법 73조 3 소멸시효 3항",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 178조  중단후에 시효진행#KOBLEX-058746"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 72,
+        "first_stage_score": 0.572801947593689,
+        "fusion_rank": 1,
+        "issue_id": "I3",
+        "provision_id": "민법 178조  중단후에 시효진행#KOBLEX-058746",
+        "provision_text": "①시효가 중단된 때에는 중단까지에 경과한 시효기간은 이를 산입하지 아니하고 중단사유가 종료한 때로부터 새로이 진행한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.6129335761070251,
+        "retrieval_round": 3,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-2",
+        "source_request_ids": [
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 178조  중단후에 시효진행 1항",
+        "target_evidence_item_ids": [
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국세기본법 28조  소멸시효의 중단과 정지#KOBLEX-147477"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6332800388336182,
+        "fusion_rank": 3,
+        "issue_id": "I3",
+        "provision_id": "국세기본법 28조  소멸시효의 중단과 정지#KOBLEX-147477",
+        "provision_text": "② 제1항에 따라 중단된 소멸시효는 다음 각 호의 기간이 지난 때부터 새로 진행한다. <개정 2020.12.29> 1. 고지한 납부기간 2. 독촉에 의한 납부기간 3. 교부청구 중의 기간 4. 압류해제까지의 기간",
+        "rerank_rank": 3,
+        "rerank_score": 0.38614776730537415,
+        "retrieval_round": 3,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-2",
+        "source_request_ids": [
+          "GRQ-R3-2",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "국세기본법 28조  소멸시효의 중단과 정지 2항",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군인연금법 52조  시효#KOBLEX-150138"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 46,
+        "first_stage_score": 0.5805625319480896,
+        "fusion_rank": 4,
+        "issue_id": "I3",
+        "provision_id": "군인연금법 52조  시효#KOBLEX-150138",
+        "provision_text": "⑦ 제6항에 따라 중단된 소멸시효는 납입의 고지 또는 독촉에 따른 납입기간이 지난 때부터 새로 진행한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.18159642815589905,
+        "retrieval_round": 3,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-2",
+        "source_request_ids": [
+          "GRQ-R3-2",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "군인연금법 52조  시효 7항",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공무원연금법 88조  시효#KOBLEX-149107"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 39,
+        "first_stage_score": 0.5840172171592712,
+        "fusion_rank": 5,
+        "issue_id": "I3",
+        "provision_id": "공무원연금법 88조  시효#KOBLEX-149107",
+        "provision_text": "⑤ 제4항에 따라 중단된 소멸시효는 납입의 고지 또는 독촉에 따른 납입기간이 지난 때부터 새로 진행한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.17262834310531616,
+        "retrieval_round": 3,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-2",
+        "source_request_ids": [
+          "GRQ-R3-2",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "공무원연금법 88조  시효 5항",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국민연금법 115조  시효#KOBLEX-044222"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 23,
+        "first_stage_score": 0.5920768976211548,
+        "fusion_rank": 6,
+        "issue_id": "I3",
+        "provision_id": "국민연금법 115조  시효#KOBLEX-044222",
+        "provision_text": "④ 제3항에 따라 중단된 소멸시효는 납입 고지나 독촉에 따른 납입 기간이 지난 때부터 새로 진행된다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.16969333589076996,
+        "retrieval_round": 3,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-2",
+        "source_request_ids": [
+          "GRQ-R3-2",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "국민연금법 115조  시효 4항",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "별정우체국법 32조  시효#KOBLEX-098753"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 35,
+        "first_stage_score": 0.5863039493560791,
+        "fusion_rank": 7,
+        "issue_id": "I3",
+        "provision_id": "별정우체국법 32조  시효#KOBLEX-098753",
+        "provision_text": "⑤ 제4항에 따라 중단된 소멸시효는 납입의 고지 또는 독촉에 따른 납입기간이 지났을 때부터 새로 진행된다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.1485641747713089,
+        "retrieval_round": 3,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-2",
+        "source_request_ids": [
+          "GRQ-R3-2",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "별정우체국법 32조  시효 5항",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방세기본법 40조  시효의 중단과 정지#KOBLEX-120728"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 7,
+        "first_stage_score": 0.6115917563438416,
+        "fusion_rank": 8,
+        "issue_id": "I3",
+        "provision_id": "지방세기본법 40조  시효의 중단과 정지#KOBLEX-120728",
+        "provision_text": "② 제1항에 따라 중단된 시효는 다음 각 호의 기간이 지난 때부터 새로 진행한다. 1. 고지한 납부기간 2. 독촉 또는 납부최고에 따른 납부기간 3. 교부청구 중의 기간 4. 압류해제까지의 기간",
+        "rerank_rank": 8,
+        "rerank_score": 0.12535540759563446,
+        "retrieval_round": 3,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-2",
+        "source_request_ids": [
+          "GRQ-R3-2",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "지방세기본법 40조  시효의 중단과 정지 2항",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "공무원연금법 88조  시효#KOBLEX-149107": "⑤ 제4항에 따라 중단된 소멸시효는 납입의 고지 또는 독촉에 따른 납입기간이 지난 때부터 새로 진행한다.",
+      "국민연금법 115조  시효#KOBLEX-044222": "④ 제3항에 따라 중단된 소멸시효는 납입 고지나 독촉에 따른 납입 기간이 지난 때부터 새로 진행된다.",
+      "국세기본법 28조  소멸시효의 중단과 정지#KOBLEX-147477": "② 제1항에 따라 중단된 소멸시효는 다음 각 호의 기간이 지난 때부터 새로 진행한다. <개정 2020.12.29> 1. 고지한 납부기간 2. 독촉에 의한 납부기간 3. 교부청구 중의 기간 4. 압류해제까지의 기간",
+      "국세징수법 52조  채권 압류의 효력 및 추심#KOBLEX-026223": "① 채권 압류의 효력은 제51조제1항에 따라 채권 압류 통지서가 제3채무자에게 송달된 때에 발생한다.",
+      "국유재산법 73조 3 소멸시효#KOBLEX-124877": "③ 제2항에 따라 중단된 소멸시효는 다음 각 호의 어느 하나의 기간이 지난 때부터 새로 진행한다. 1. 납부고지나 독촉에 따른 납입기간 2. 교부청구 중의 기간 3. 압류해제까지의 기간",
+      "군인연금법 52조  시효#KOBLEX-150138": "⑦ 제6항에 따라 중단된 소멸시효는 납입의 고지 또는 독촉에 따른 납입기간이 지난 때부터 새로 진행한다.",
+      "민법 162조  채권, 재산권의 소멸시효#KOBLEX-058706": "제162조(채권, 재산권의 소멸시효)",
+      "민법 162조  채권, 재산권의 소멸시효#KOBLEX-058707": "①채권은 10년간 행사하지 아니하면 소멸시효가 완성한다.",
+      "민법 162조  채권, 재산권의 소멸시효#KOBLEX-058708": "②채권 및 소유권 이외의 재산권은 20년간 행사하지 아니하면 소멸시효가 완성한다.",
+      "민법 163조  3년의 단기소멸시효#KOBLEX-058709": "제163조(3년의 단기소멸시효) 다음 각호의 채권은 3년간 행사하지 아니하면 소멸시효가 완성한다. <개정 1997.12.13>",
+      "민법 164조  1년의 단기소멸시효#KOBLEX-058717": "제164조(1년의 단기소멸시효) 다음 각호의 채권은 1년간 행사하지 아니하면 소멸시효가 완성한다.",
+      "민법 166조  소멸시효의 기산점#KOBLEX-058728": "②부작위를 목적으로 하는 채권의 소멸시효는 위반행위를 한 때로부터 진행한다.",
+      "민법 168조  소멸시효의 중단사유#KOBLEX-058730": "제168조(소멸시효의 중단사유) 소멸시효는 다음 각호의 사유로 인하여 중단된다.",
+      "민법 170조  재판상의 청구와 시효중단#KOBLEX-058737": "②전항의 경우에 6월내에 재판상의 청구, 파산절차참가, 압류 또는 가압류, 가처분을 한 때에는 시효는 최초의 재판상 청구로 인하여 중단된 것으로 본다.",
+      "민법 175조  압류, 가압류, 가처분과 시효중단#KOBLEX-058742": "제175조(압류, 가압류, 가처분과 시효중단) 압류, 가압류 및 가처분은 권리자의 청구에 의하여 또는 법률의 규정에 따르지 아니함으로 인하여 취소된 때에는 시효중단의 효력이 없다.",
+      "민법 178조  중단후에 시효진행#KOBLEX-058746": "①시효가 중단된 때에는 중단까지에 경과한 시효기간은 이를 산입하지 아니하고 중단사유가 종료한 때로부터 새로이 진행한다.",
+      "민법 457조  채무인수의 소급효#KOBLEX-059328": "제457조(채무인수의 소급효) 채권자의 채무인수에 대한 승낙은 다른 의사표시가 없으면 채무를 인수한 때에 소급하여 그 효력이 생긴다. 그러나 제삼자의 권리를 침해하지 못한다.",
+      "민법 460조#KOBLEX-059331": "제6절 채권의 소멸",
+      "민사집행법 251조  그 밖의 재산권에 대한 집행#KOBLEX-128891": "②제3채무자가 없는 경우에 압류는 채무자에게 권리처분을 금지하는 명령을 송달한 때에 효력이 생긴다.",
+      "민사집행법 283조  가압류결정에 대한 채무자의 이의신청#KOBLEX-128968": "제283조(가압류결정에 대한 채무자의 이의신청)",
+      "민사집행법 286조  이의신청에 대한 심리와 재판#KOBLEX-128985": "⑥법원은 제3항의 규정에 의하여 가압류를 취소하는 결정을 하는 경우에는 채권자가 그 고지를 받은 날부터 2주를 넘지 아니하는 범위 안에서 상당하다고 인정하는 기간이 경과하여야 그 결정의 효력이 생긴다는 뜻을 선언할 수 있다.",
+      "민사집행법 288조  사정변경 등에 따른 가압류취소#KOBLEX-128994": "①채무자는 다음 각호의 어느 하나에 해당하는 사유가 있는 경우에는 가압류가 인가된 뒤에도 그 취소를 신청할 수 있다. 제3호에 해당하는 경우에는 이해관계인도 신청할 수 있다. 1. 가압류이유가 소멸되거나 그 밖에 사정이 바뀐 때 2. 법원이 정한 담보를 제공한 때 3. 가압류가 집행된 뒤에 3년간 본안의 소를 제기하지 아니한 때",
+      "민사집행법 289조  가압류취소결정의 효력정지#KOBLEX-128998": "①가압류를 취소하는 결정에 대하여 즉시항고가 있는 경우에, 불복의 이유로 주장한 사유가 법률상 정당한 사유가 있다고 인정되고 사실에 대한 소명이 있으며, 그 가압류를 취소함으로 인하여 회복할 수 없는 손해가 생길 위험이 있다는 사정에 대한 소명이 있는 때에는, 법원은 당사자의 신청에 따라 담보를 제공하게 하거나 담보를 제공하지 아니하게 하고 가압류취소결정의 효력을 정지시킬 수 있다.",
+      "민사집행법 298조  가압류취소결정의 취소와 집행#KOBLEX-129029": "②제1항의 경우에 그 취소의 재판을 한 상소법원이 대법원인 때에는 채권자의 신청에 따라 제1심 법원이 가압류를 집행한다.",
+      "민사집행법 83조  경매개시결정 등#KOBLEX-128336": "④압류는 채무자에게 그 결정이 송달된 때 또는 제94조의 규정에 따른 등기가 된 때에 효력이 생긴다.",
+      "별정우체국법 32조  시효#KOBLEX-098753": "⑤ 제4항에 따라 중단된 소멸시효는 납입의 고지 또는 독촉에 따른 납입기간이 지났을 때부터 새로 진행된다.",
+      "지방세기본법 40조  시효의 중단과 정지#KOBLEX-120728": "② 제1항에 따라 중단된 시효는 다음 각 호의 기간이 지난 때부터 새로 진행한다. 1. 고지한 납부기간 2. 독촉 또는 납부최고에 따른 납부기간 3. 교부청구 중의 기간 4. 압류해제까지의 기간",
+      "지방세징수법 52조  채권 압류의 효력#KOBLEX-131292": "제52조(채권 압류의 효력) 채권 압류의 효력은 채권 압류 통지서가 제3채무자에게 송달된 때에 발생한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민법 175조  압류, 가압류, 가처분과 시효중단#KOBLEX-058742"
+            ],
+            "rationale": "민법 제175조는 가압류가 소멸시효 중단사유임을 전제로 취소 시 효력 부존재를 규정하여, 가압류가 시효중단 사유로 규정되어 있음을 확인한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민법 175조  압류, 가압류, 가처분과 시효중단#KOBLEX-058742"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "민법 제175조는 가압류가 소멸시효의 중단사유임을 명시적으로 규정하고 있어, 가압류가 시효중단 사유인지에 대한 법적 근거가 충족된다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민법 175조  압류, 가압류, 가처분과 시효중단#KOBLEX-058742"
+            ],
+            "rationale": "제175조는 취소 시 효력 부존재만 규정하고 있어, 확정 또는 통지 시점에 따른 시효중단 효력 발생 요건에 대한 직접적 규정은 아니다.",
+            "requirement_id": "E2-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "missing_statute",
+        "legal_status": "partially_covered",
+        "linked_provision_ids": [
+          "민법 175조  압류, 가압류, 가처분과 시효중단#KOBLEX-058742"
+        ],
+        "missing_aspects": [
+          "E2-R1"
+        ],
+        "partial_kind": "legal_support_gap",
+        "rationale": "민법 제175조는 가압류의 취소 시 시효중단 효력이 없음을 규정하여 유효한 가압류가 필요함을 시사하나, 가압류 결정의 확정 또는 채무자 통지가 시효중단 효력 발생 시점에 미치는 영향에 대한 직접적 법적 근거는 제공되지 않는다.",
+        "status": "partially_covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민법 178조  중단후에 시효진행#KOBLEX-058746"
+            ],
+            "rationale": "민법 제178조 제1항은 중단까지 경과한 시효기간을 산입하지 않고 중단사유 종료 시점부터 새로이 진행한다고 규정하여, 시효 중단 후의 기간 계산 방식을 명시한다.",
+            "requirement_id": "E3-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E3",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민법 178조  중단후에 시효진행#KOBLEX-058746"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "민법 제178조 제1항은 시효 중단 후의 기간 계산 방식을 명시적으로 규정하고 있어, 시효 중단 후 남은 기간이 어떻게 계산되는지에 대한 법적 근거가 충족된다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [
+      "T1"
+    ],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "민법 175조  압류, 가압류, 가처분과 시효중단#KOBLEX-058742",
+        "support_spans": [
+          {
+            "end_char": 100,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "민법 175조  압류, 가압류, 가처분과 시효중단#KOBLEX-058742",
+        "support_spans": [
+          {
+            "end_char": 100,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E3",
+        "issue_id": "I3",
+        "provision_id": "민법 178조  중단후에 시효진행#KOBLEX-058746",
+        "support_spans": [
+          {
+            "end_char": 66,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 8,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "가압류 결정이 소멸시효 중단 사유에 해당하는지 여부",
+        "issue_id": "I1"
+      },
+      {
+        "description": "가압류에 의한 시효 중단의 효력 발생 시점 및 요건",
+        "issue_id": "I2"
+      },
+      {
+        "description": "시효 중단 후의 시효 기간 계산 방식",
+        "issue_id": "I3"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "가압류 결정의 확정 또는 통지 시점에 따른 시효 중단 효력 발생 여부 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "가압류 결정의 확정 또는 채무자 통지가 시효 중단 효력에 미치는 영향 확인"
+          }
+        ],
+        "critical": true,
+        "description": "가압류에 의한 시효 중단의 효력 발생 요건",
+        "evidence_item_id": "E2",
+        "evidence_type": "element",
+        "issue_id": "I2",
+        "necessity_reason": "시효 중단 요건 중 절차적 요건(통지/확정)의 법적 근거",
+        "scope_source": "outcome_changing_condition"
+      }
+    ],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 을에게 금전을 대여하였으나, 을이 약정된 기한까지 변제하지 않자 채권보전을 위해 을 소유의 부동산에 대해 가압류를 신청하였다. 가압류 결정은 내려졌으나, 절차상 을에게 가압류 사실이 즉시 통지되지 않았다. 그 후 갑은 채권의 소멸시효가 중단되었다고 주장하며 추가적인 권리행사를 준비하고 있다. [질문] 채권자인 갑이 을의 재산에 대한 가압류를 통해 소멸시효를 중단시키기 위해 필요한 요건은 무엇이며, 가압류로 인해 시효가 중단된 경우 이후 시효는 어떻게 계산되는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "소멸시효",
+          "중단",
+          "가압류",
+          "민법"
+        ],
+        "query_text": "민법 소멸시효 중단 사유 가압류 [원문 맥락] 그 후 갑은 채권의 소멸시효가 중단되었다고 주장하며 추가적인 권리행사를 준비하고 있다. 채권자인 갑이 을의 재산에 대한 가압류를 통해 소멸시효를 중단시키기 위해 필요한 요건은 무엇이며, 가압류로 인해 시효가 중단된 경우 이후 시효는 어떻게 계산되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제162조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "가압류",
+          "결정",
+          "확정",
+          "통지",
+          "시효중단"
+        ],
+        "query_text": "가압류 결정 확정 통지 시효 중단 효력 발생 [원문 맥락] 그 후 갑은 채권의 소멸시효가 중단되었다고 주장하며 추가적인 권리행사를 준비하고 있다. 채권자인 갑이 을의 재산에 대한 가압류를 통해 소멸시효를 중단시키기 위해 필요한 요건은 무엇이며, 가압류로 인해 시효가 중단된 경우 이후 시효는 어떻게 계산되는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제162조",
+          "민사집행법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E3",
+        "first_stage_query_text": null,
+        "issue_id": "I3",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "시효중단",
+          "남은기간",
+          "계산",
+          "민법"
+        ],
+        "query_text": "시효 중단 후 남은 기간 계산 민법 [원문 맥락] 그 후 갑은 채권의 소멸시효가 중단되었다고 주장하며 추가적인 권리행사를 준비하고 있다. 채권자인 갑이 을의 재산에 대한 가압류를 통해 소멸시효를 중단시키기 위해 필요한 요건은 무엇이며, 가압류로 인해 시효가 중단된 경우 이후 시효는 어떻게 계산되는가?",
+        "request_id": "RQ3",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제164조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "가압류",
+          "소멸시효",
+          "중단",
+          "통지",
+          "효력발생"
+        ],
+        "query_text": "가압류 결정의 효력 발생 시점 및 채무자 통지 시 소멸시효 중단 요건 [원문 맥락] 그 후 갑은 채권의 소멸시효가 중단되었다고 주장하며 추가적인 권리행사를 준비하고 있다. 채권자인 갑이 을의 재산에 대한 가압류를 통해 소멸시효를 중단시키기 위해 필요한 요건은 무엇이며, 가압류로 인해 시효가 중단된 경우 이후 시효는 어떻게 계산되는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제175조",
+          "민사집행법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E3",
+        "first_stage_query_text": null,
+        "issue_id": "I3",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "소멸시효",
+          "중단",
+          "잔여기간",
+          "계산",
+          "진행"
+        ],
+        "query_text": "소멸시효 중단 사유 소멸 후 잔여 기간 계산 및 새로운 기간 진행 규정 [원문 맥락] 그 후 갑은 채권의 소멸시효가 중단되었다고 주장하며 추가적인 권리행사를 준비하고 있다. 채권자인 갑이 을의 재산에 대한 가압류를 통해 소멸시효를 중단시키기 위해 필요한 요건은 무엇이며, 가압류로 인해 시효가 중단된 경우 이후 시효는 어떻게 계산되는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제169조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "가압류",
+          "통지",
+          "시효중단",
+          "효력발생"
+        ],
+        "query_text": "가압류 결정 효력 발생 시점 채무자 통지 시효중단 요건 [원문 맥락] 그 후 갑은 채권의 소멸시효가 중단되었다고 주장하며 추가적인 권리행사를 준비하고 있다. 채권자인 갑이 을의 재산에 대한 가압류를 통해 소멸시효를 중단시키기 위해 필요한 요건은 무엇이며, 가압류로 인해 시효가 중단된 경우 이후 시효는 어떻게 계산되는가?",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민사집행법",
+          "민법 제175조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E3",
+        "first_stage_query_text": null,
+        "issue_id": "I3",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "시효중단",
+          "잔여기간",
+          "계산",
+          "진행"
+        ],
+        "query_text": "소멸시효 중단 후 잔여 기간 진행 및 계산 방식 [원문 맥락] 그 후 갑은 채권의 소멸시효가 중단되었다고 주장하며 추가적인 권리행사를 준비하고 있다. 채권자인 갑이 을의 재산에 대한 가압류를 통해 소멸시효를 중단시키기 위해 필요한 요건은 무엇이며, 가압류로 인해 시효가 중단된 경우 이후 시효는 어떻게 계산되는가?",
+        "request_id": "GRQ-R3-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제169조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 을에게 금전을 대여하였으나, 을이 약정된 기한까지 변제하지 않자 채권보전을 위해 을 소유의 부동산에 대해 가압류를 신청하였다. 가압류 결정은 내려졌으나, 절차상 을에게 가압류 사실이 즉시 통지되지 않았다. 그 후 갑은 채권의 소멸시효가 중단되었다고 주장하며 추가적인 권리행사를 준비하고 있다.\n\n[질문]\n채권자인 갑이 을의 재산에 대한 가압류를 통해 소멸시효를 중단시키기 위해 필요한 요건은 무엇이며, 가압류로 인해 시효가 중단된 경우 이후 시효는 어떻게 계산되는가?",
+    "remaining_request_budget": 2,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "가압류가 소멸시효 중단 사유임을 명시하는 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "가압류가 소멸시효 중단 사유로 규정되어 있는지 확인"
+          }
+        ],
+        "critical": true,
+        "description": "소멸시효 중단 사유로서의 가압류 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 시효 중단 요건의 법적 근거",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "가압류 결정의 확정 또는 통지 시점에 따른 시효 중단 효력 발생 여부 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "가압류 결정의 확정 또는 채무자 통지가 시효 중단 효력에 미치는 영향 확인"
+          }
+        ],
+        "critical": true,
+        "description": "가압류에 의한 시효 중단의 효력 발생 요건",
+        "evidence_item_id": "E2",
+        "evidence_type": "element",
+        "issue_id": "I2",
+        "necessity_reason": "시효 중단 요건 중 절차적 요건(통지/확정)의 법적 근거",
+        "scope_source": "outcome_changing_condition"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "시효 중단 사유 소멸 후 남은 기간 계산 방식 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E3-R1",
+            "text": "시효 중단 후 남은 기간이 어떻게 계산되는지 규정 확인"
+          }
+        ],
+        "critical": true,
+        "description": "시효 중단 후의 시효 기간 계산 규정",
+        "evidence_item_id": "E3",
+        "evidence_type": "rule",
+        "issue_id": "I3",
+        "necessity_reason": "질문에서 요구하는 시효 계산 방법의 법적 근거",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "576d52ae-cbd2-4419-bd4f-515e730f5511",
+    "seen_provision_ids": [
+      "민사집행법 286조  이의신청에 대한 심리와 재판#KOBLEX-128985",
+      "군인연금법 52조  시효#KOBLEX-150138",
+      "민법 162조  채권, 재산권의 소멸시효#KOBLEX-058707",
+      "민법 164조  1년의 단기소멸시효#KOBLEX-058717",
+      "민사집행법 288조  사정변경 등에 따른 가압류취소#KOBLEX-128994",
+      "공무원연금법 88조  시효#KOBLEX-149107",
+      "민법 170조  재판상의 청구와 시효중단#KOBLEX-058737",
+      "국세기본법 28조  소멸시효의 중단과 정지#KOBLEX-147477",
+      "별정우체국법 32조  시효#KOBLEX-098753",
+      "민법 168조  소멸시효의 중단사유#KOBLEX-058730",
+      "국유재산법 73조 3 소멸시효#KOBLEX-124877",
+      "국세징수법 52조  채권 압류의 효력 및 추심#KOBLEX-026223",
+      "민법 178조  중단후에 시효진행#KOBLEX-058746",
+      "국민연금법 115조  시효#KOBLEX-044222",
+      "지방세징수법 52조  채권 압류의 효력#KOBLEX-131292",
+      "민사집행법 298조  가압류취소결정의 취소와 집행#KOBLEX-129029",
+      "민사집행법 289조  가압류취소결정의 효력정지#KOBLEX-128998",
+      "민법 162조  채권, 재산권의 소멸시효#KOBLEX-058706",
+      "민법 460조#KOBLEX-059331",
+      "민법 163조  3년의 단기소멸시효#KOBLEX-058709",
+      "민사집행법 283조  가압류결정에 대한 채무자의 이의신청#KOBLEX-128968",
+      "민사집행법 83조  경매개시결정 등#KOBLEX-128336",
+      "민사집행법 251조  그 밖의 재산권에 대한 집행#KOBLEX-128891",
+      "지방세기본법 40조  시효의 중단과 정지#KOBLEX-120728",
+      "민법 457조  채무인수의 소급효#KOBLEX-059328",
+      "민법 166조  소멸시효의 기산점#KOBLEX-058728",
+      "민법 162조  채권, 재산권의 소멸시효#KOBLEX-058708",
+      "민법 175조  압류, 가압류, 가처분과 시효중단#KOBLEX-058742"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

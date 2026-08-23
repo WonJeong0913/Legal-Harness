@@ -1,0 +1,556 @@
+{
+  "abstention_reason": null,
+  "answer": "법원은 당사자가 신청하지 아니한 사항에 대하여는 판결하지 못한다.[CT1]\n갑이 청구항목에 추가하지 않은 정신적 손해배상은 신청하지 않은 사항에 해당하므로, 법원은 이에 대해 판결할 수 없다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "A1",
+      "message": "갑이 정신적 손해배상을 청구항목에 추가하지 않았다는 사실은 문제의 전제로 가정한다."
+    }
+  ],
+  "candidate_answer": "법원은 당사자가 신청하지 아니한 사항에 대하여는 판결하지 못한다.[CT1]\n갑이 청구항목에 추가하지 않은 정신적 손해배상은 신청하지 않은 사항에 해당하므로, 법원은 이에 대해 판결할 수 없다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "민사소송법 203조  처분권주의#KOBLEX-064064",
+      "quoted_text": "제203조(처분권주의) 법원은 당사자가 신청하지 아니한 사항에 대하여는 판결하지 못한다.",
+      "support_description": "민사소송법 제203조는 법원의 판결 범위가 당사자의 신청 범위로 제한된다는 처분권주의 원칙을 명시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "민사소송법 203조  처분권주의#KOBLEX-064064",
+      "quoted_text": "제203조(처분권주의) 법원은 당사자가 신청하지 아니한 사항에 대하여는 판결하지 못한다.",
+      "support_description": "갑이 정신적 손해배상을 청구하지 않은 사실은 '당사자가 신청하지 아니한 사항'에 해당하며, 해당 조항에 따라 법원의 판결이 금지된다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "법원은 당사자가 신청하지 아니한 사항에 대하여는 판결하지 못한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "갑이 청구항목에 추가하지 않은 정신적 손해배상은 신청하지 않은 사항에 해당하므로, 법원은 이에 대해 판결할 수 없다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T08:08:57.009368+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 56385.335,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "L1",
+      "message": "본 답변은 민사소송법 제203조에 따른 청구범위 제한 원칙에 한정하여, 다른 예외적 규정이나 사법적 판단 가능성을 다루지 않는다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 77,
+      "dedup_collapse": 40,
+      "evidence_fusion": 77,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 77
+    }
+  },
+  "run_id": "586d48b1-b60d-4c1c-8f09-fa93694697b0",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "민사소송법 203조  처분권주의#KOBLEX-064064"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "yes_no",
+        "question_anchor": "법원은 갑이 신청하지 않은 정신적 손해배상에 대해 판결할 수 있는가?",
+        "requested_output": "법원이 신청하지 않은 정신적 손해배상에 대해 판결할 수 있는지 여부"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "민사소송법 203조  처분권주의#KOBLEX-064064"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 20,
+        "first_stage_score": 0.5920880436897278,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "민사소송법 203조  처분권주의#KOBLEX-064064",
+        "provision_text": "제203조(처분권주의) 법원은 당사자가 신청하지 아니한 사항에 대하여는 판결하지 못한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.267880916595459,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사소송법 203조  처분권주의",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 212조  재판의 누락#KOBLEX-064088"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 42,
+        "first_stage_score": 0.5752612352371216,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "민사소송법 212조  재판의 누락#KOBLEX-064088",
+        "provision_text": "①법원이 청구의 일부에 대하여 재판을 누락한 경우에 그 청구부분에 대하여는 그 법원이 계속하여 재판한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.09886708855628967,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사소송법 212조  재판의 누락 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상고심절차에 관한 특례법 5조  판결의 특례#KOBLEX-027563"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 35,
+        "first_stage_score": 0.5783345103263855,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "상고심절차에 관한 특례법 5조  판결의 특례#KOBLEX-027563",
+        "provision_text": "① 제4조 및 「민사소송법」 제429조 본문에 따른 판결에는 이유를 적지 아니할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.004325018730014563,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "상고심절차에 관한 특례법 5조  판결의 특례 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 27조  청구를 병합한 경우의 소송목적의 값#KOBLEX-063585"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 39,
+        "first_stage_score": 0.5755797624588013,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "민사소송법 27조  청구를 병합한 경우의 소송목적의 값#KOBLEX-063585",
+        "provision_text": "②과실(果實)ㆍ손해배상ㆍ위약금(違約金) 또는 비용의 청구가 소송의 부대목적(附帶目的)이 되는 경우에는 그 값은 소송목적의 값에 넣지 아니한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.0008004489354789257,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사소송법 27조  청구를 병합한 경우의 소송목적의 값 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 806조  약혼해제와 손해배상청구권#KOBLEX-060016"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.630159318447113,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "민법 806조  약혼해제와 손해배상청구권#KOBLEX-060016",
+        "provision_text": "③정신상 고통에 대한 배상청구권은 양도 또는 승계하지 못한다. 그러나 당사자간에 이미 그 배상에 관한 계약이 성립되거나 소를 제기한 후에는 그러하지 아니하다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.0005353117012418807,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 806조  약혼해제와 손해배상청구권 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 215조  가집행선고의 실효, 가집행의 원상회복과 손해배상#KOBLEX-064098"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 80,
+        "first_stage_score": 0.5644891262054443,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "민사소송법 215조  가집행선고의 실효, 가집행의 원상회복과 손해배상#KOBLEX-064098",
+        "provision_text": "②본안판결을 바꾸는 경우에는 법원은 피고의 신청에 따라 그 판결에서 가집행의 선고에 따라 지급한 물건을 돌려 줄 것과, 가집행으로 말미암은 손해 또는 그 면제를 받기 위하여 입은 손해를 배상할 것을 원고에게 명하여야 한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.0004850413533858955,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사소송법 215조  가집행선고의 실효, 가집행의 원상회복과 손해배상 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 71조  등재신청에 대한 재판#KOBLEX-128282"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 46,
+        "first_stage_score": 0.5740915536880493,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "민사집행법 71조  등재신청에 대한 재판#KOBLEX-128282",
+        "provision_text": "③제1항 및 제2항의 재판에 대하여는 즉시항고를 할 수 있다. 이 경우 민사소송법 제447조의 규정은 준용하지 아니한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.0003813994990196079,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사집행법 71조  등재신청에 대한 재판 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 99조  원칙에 대한 예외#KOBLEX-063768"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 34,
+        "first_stage_score": 0.5791078805923462,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "민사소송법 99조  원칙에 대한 예외#KOBLEX-063768",
+        "provision_text": "제99조(원칙에 대한 예외) 법원은 사정에 따라 승소한 당사자로 하여금 그 권리를 늘리거나 지키는 데 필요하지 아니한 행위로 말미암은 소송비용 또는 상대방의 권리를 늘리거나 지키는 데 필요한 행위로 말미암은 소송비용의 전부나 일부를 부담하게 할 수 있다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.00037888993392698467,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사소송법 99조  원칙에 대한 예외",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 201조  중간판결#KOBLEX-064061"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 26,
+        "first_stage_score": 0.5857999920845032,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "민사소송법 201조  중간판결#KOBLEX-064061",
+        "provision_text": "②청구의 원인과 액수에 대하여 다툼이 있는 경우에 그 원인에 대하여도 중간판결을 할 수 있다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.000330400827806443,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사소송법 201조  중간판결 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 806조  약혼해제와 손해배상청구권#KOBLEX-060015"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 66,
+        "first_stage_score": 0.5684467554092407,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "민법 806조  약혼해제와 손해배상청구권#KOBLEX-060015",
+        "provision_text": "②전항의 경우에는 재산상 손해외에 정신상 고통에 대하여도 손해배상의 책임이 있다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.0003266599087510258,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 806조  약혼해제와 손해배상청구권 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "민법 806조  약혼해제와 손해배상청구권#KOBLEX-060015": "②전항의 경우에는 재산상 손해외에 정신상 고통에 대하여도 손해배상의 책임이 있다.",
+      "민법 806조  약혼해제와 손해배상청구권#KOBLEX-060016": "③정신상 고통에 대한 배상청구권은 양도 또는 승계하지 못한다. 그러나 당사자간에 이미 그 배상에 관한 계약이 성립되거나 소를 제기한 후에는 그러하지 아니하다.",
+      "민사소송법 201조  중간판결#KOBLEX-064061": "②청구의 원인과 액수에 대하여 다툼이 있는 경우에 그 원인에 대하여도 중간판결을 할 수 있다.",
+      "민사소송법 203조  처분권주의#KOBLEX-064064": "제203조(처분권주의) 법원은 당사자가 신청하지 아니한 사항에 대하여는 판결하지 못한다.",
+      "민사소송법 212조  재판의 누락#KOBLEX-064088": "①법원이 청구의 일부에 대하여 재판을 누락한 경우에 그 청구부분에 대하여는 그 법원이 계속하여 재판한다.",
+      "민사소송법 215조  가집행선고의 실효, 가집행의 원상회복과 손해배상#KOBLEX-064098": "②본안판결을 바꾸는 경우에는 법원은 피고의 신청에 따라 그 판결에서 가집행의 선고에 따라 지급한 물건을 돌려 줄 것과, 가집행으로 말미암은 손해 또는 그 면제를 받기 위하여 입은 손해를 배상할 것을 원고에게 명하여야 한다.",
+      "민사소송법 27조  청구를 병합한 경우의 소송목적의 값#KOBLEX-063585": "②과실(果實)ㆍ손해배상ㆍ위약금(違約金) 또는 비용의 청구가 소송의 부대목적(附帶目的)이 되는 경우에는 그 값은 소송목적의 값에 넣지 아니한다.",
+      "민사소송법 99조  원칙에 대한 예외#KOBLEX-063768": "제99조(원칙에 대한 예외) 법원은 사정에 따라 승소한 당사자로 하여금 그 권리를 늘리거나 지키는 데 필요하지 아니한 행위로 말미암은 소송비용 또는 상대방의 권리를 늘리거나 지키는 데 필요한 행위로 말미암은 소송비용의 전부나 일부를 부담하게 할 수 있다.",
+      "민사집행법 71조  등재신청에 대한 재판#KOBLEX-128282": "③제1항 및 제2항의 재판에 대하여는 즉시항고를 할 수 있다. 이 경우 민사소송법 제447조의 규정은 준용하지 아니한다.",
+      "상고심절차에 관한 특례법 5조  판결의 특례#KOBLEX-027563": "① 제4조 및 「민사소송법」 제429조 본문에 따른 판결에는 이유를 적지 아니할 수 있다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민사소송법 203조  처분권주의#KOBLEX-064064"
+            ],
+            "rationale": "C001(민사소송법 203조)은 '법원은 당사자가 신청하지 아니한 사항에 대하여는 판결하지 못한다'고 규정하여, 법원이 청구범위를 초과하여 판결할 수 없다는 원칙을 명시하고 있다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민사소송법 203조  처분권주의#KOBLEX-064064"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "민사소송법 제203조(처분권주의)는 법원이 당사자의 신청 범위를 초과하여 판결할 수 없다는 법적 근거를 명확히 제공하므로, E1의 완료 기준인 '청구범위 제한 원칙'이 충족된다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "민사소송법 203조  처분권주의#KOBLEX-064064",
+        "support_spans": [
+          {
+            "end_char": 49,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "소송상 청구의 범위와 법원 판결의 한계",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 을을 상대로 5천만 원의 대여금 반환을 요구하는 소송을 제기했습니다. 갑은 소송에서 대여금의 반환만을 청구하였고, 이외의 다른 손해배상이나 추가적인 청구는 하지 않았습니다. 을은 답변서에서 대여금 반환에 관한 항변만을 제기했습니다. 재판이 진행되는 동안, 갑은 을이 대여금을 반환하지 않음으로 인해 정신적 손해를 입었다고 주장했으나, 이를 청구항목에 추가하지 않았습니다. [질문] 법원은 갑이 신청하지 않은 정신적 손해배상에 대해 판결할 수 있는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "청구범위",
+          "초과판결",
+          "민사소송법",
+          "판결의 범위"
+        ],
+        "query_text": "민사소송법 청구범위 초과 판결 금지 [원문 맥락] 재판이 진행되는 동안, 갑은 을이 대여금을 반환하지 않음으로 인해 정신적 손해를 입었다고 주장했으나, 이를 청구항목에 추가하지 않았습니다. 법원은 갑이 신청하지 않은 정신적 손해배상에 대해 판결할 수 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민사소송법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 을을 상대로 5천만 원의 대여금 반환을 요구하는 소송을 제기했습니다. 갑은 소송에서 대여금의 반환만을 청구하였고, 이외의 다른 손해배상이나 추가적인 청구는 하지 않았습니다. 을은 답변서에서 대여금 반환에 관한 항변만을 제기했습니다. 재판이 진행되는 동안, 갑은 을이 대여금을 반환하지 않음으로 인해 정신적 손해를 입었다고 주장했으나, 이를 청구항목에 추가하지 않았습니다.\n\n[질문]\n법원은 갑이 신청하지 않은 정신적 손해배상에 대해 판결할 수 있는가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "당사자의 청구범위를 초과한 판결이 금지된다는 법적 근거를 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "법원은 당사자의 청구범위를 초과하여 판결할 수 없다는 원칙을 명시하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "청구범위 내 판결 원칙 및 초과 판결 금지 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문은 법원이 신청하지 않은 손해배상에 대해 판결할 수 있는지를 묻으므로, 청구범위 제한 원칙이 핵심",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "586d48b1-b60d-4c1c-8f09-fa93694697b0",
+    "seen_provision_ids": [
+      "민법 806조  약혼해제와 손해배상청구권#KOBLEX-060015",
+      "민사집행법 71조  등재신청에 대한 재판#KOBLEX-128282",
+      "민사소송법 215조  가집행선고의 실효, 가집행의 원상회복과 손해배상#KOBLEX-064098",
+      "상고심절차에 관한 특례법 5조  판결의 특례#KOBLEX-027563",
+      "민사소송법 203조  처분권주의#KOBLEX-064064",
+      "민사소송법 212조  재판의 누락#KOBLEX-064088",
+      "민사소송법 99조  원칙에 대한 예외#KOBLEX-063768",
+      "민사소송법 27조  청구를 병합한 경우의 소송목적의 값#KOBLEX-063585",
+      "민사소송법 201조  중간판결#KOBLEX-064061",
+      "민법 806조  약혼해제와 손해배상청구권#KOBLEX-060016"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

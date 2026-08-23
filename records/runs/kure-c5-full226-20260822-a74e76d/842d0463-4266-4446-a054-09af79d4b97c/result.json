@@ -1,0 +1,826 @@
+{
+  "abstention_reason": "UNRESOLVED_EVIDENCE_CONFLICT",
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": "대통령선거의 효력에 관하여 이의가 있는 후보자는 선거일부터 30일 이내에 대법원에 소를 제기할 수 있다.[CT1]\n선거에 관한 소송은 수소법원이 소가 제기된 날부터 180일 이내에 처리하여야 한다.[CT2]",
+  "candidate_answer_basis": "retrieved_candidates",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "GENERATED",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "질문에서 '당선인 결정일'을 기준으로 한 기한을 묻고 있으나, 제공된 후보 조항(C003)은 '선거일'을 기준으로 기한을 규정하고 있어, 사실관계상 선거일과 당선인 결정일의 관계가 명확하지 않다."
+    }
+  ],
+  "candidate_claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "공직선거법 222조  선거소송#KOBLEX-052545",
+      "quoted_text": "①대통령선거 및 국회의원선거에 있어서 선거의 효력에 관하여 이의가 있는 선거인ㆍ정당(후보자를 추천한 정당에 한한다) 또는 후보자는 선거일부터 30일 이내에 당해 선거구선거관리위원회위원장을 피고로 하여 대법원에 소를 제기할 수 있다.",
+      "support_description": "대통령선거 효력 이의소송의 제기 기한(선거일부터 30일 이내)과 관할 법원(대법원)을 규정한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "공직선거법 225조  소송 등의 처리#KOBLEX-052554",
+      "quoted_text": "제225조(소송 등의 처리) 선거에 관한 소청이나 소송은 다른 쟁송에 우선하여 신속히 결정 또는 재판하여야 하며, 소송에 있어서는 수소법원은 소가 제기된 날 부터 180일 이내에 처리하여야 한다.",
+      "support_description": "선거소송의 처리 기한(소 제기일로부터 180일 이내)을 규정한다."
+    }
+  ],
+  "candidate_claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "대통령선거의 효력에 관하여 이의가 있는 후보자는 선거일부터 30일 이내에 대법원에 소를 제기할 수 있다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "선거에 관한 소송은 수소법원이 소가 제기된 날부터 180일 이내에 처리하여야 한다."
+    }
+  ],
+  "candidate_limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "요구사항 E2-R1(당선인 결정일로부터 14일 이내)과 E3-R1(당선인 결정일로부터 30일 이내)은 제공된 후보 조항(C003, C001)의 내용과 충돌하여 법적 근거가 불충분하다. 본 답변은 제공된 후보 조항의 문언에 기반하여 기한을 제시한다."
+    }
+  ],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T09:41:51.250065+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 120093.64,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 211,
+      "dedup_collapse": 178,
+      "evidence_fusion": 211,
+      "first_stage": 300,
+      "request_rerank": 300,
+      "round_selected": 10,
+      "rrf": 300,
+      "selected": 211
+    }
+  },
+  "run_id": "842d0463-4266-4446-a054-09af79d4b97c",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "공직선거법 222조  선거소송#KOBLEX-052545"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 3,
+          "issue_count": 3
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 3,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 2
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "ABSTAIN",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A substantive critical-evidence conflict remains unresolved.",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "abstention_reason": "UNRESOLVED_EVIDENCE_CONFLICT",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "ABSTAIN",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 10
+        },
+        "event": "BENCHMARK_CANDIDATE_GENERATION_STARTED",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 10,
+          "claim_count": 2
+        },
+        "event": "BENCHMARK_CANDIDATE_VALIDATED",
+        "phase": "ABSTAINED"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "statutory_deadline",
+        "question_anchor": "소송을 제기할 수 있는 기한은 어떻게 되고",
+        "requested_output": "대통령 당선에 대한 이의제기 소송의 제기 기한"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "statutory_deadline",
+        "question_anchor": "그 소송의 처리 기한은 어떻게 되는가",
+        "requested_output": "대통령 당선에 대한 이의제기 소송의 처리 기한"
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "공직선거법 225조  소송 등의 처리#KOBLEX-052554",
+          "공직선거법 225조  소송 등의 처리#KOBLEX-175840"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 18,
+        "first_stage_score": 0.5473597049713135,
+        "fusion_rank": 1,
+        "issue_id": "I3",
+        "provision_id": "공직선거법 225조  소송 등의 처리#KOBLEX-052554",
+        "provision_text": "제225조(소송 등의 처리) 선거에 관한 소청이나 소송은 다른 쟁송에 우선하여 신속히 결정 또는 재판하여야 하며, 소송에 있어서는 수소법원은 소가 제기된 날 부터 180일 이내에 처리하여야 한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9993011951446533,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2,E3",
+        "source_request_id": "RQ3",
+        "source_request_ids": [
+          "RQ3",
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "공직선거법 225조  소송 등의 처리",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국민건강보험법 시행령 58조  이의신청 결정기간#KOBLEX-055692"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 93,
+        "first_stage_score": 0.5130323767662048,
+        "fusion_rank": 2,
+        "issue_id": "I3",
+        "provision_id": "국민건강보험법 시행령 58조  이의신청 결정기간#KOBLEX-055692",
+        "provision_text": "제58조(이의신청 결정기간)",
+        "rerank_rank": 2,
+        "rerank_score": 0.9991739392280579,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ3",
+        "source_request_ids": [
+          "RQ3",
+          "RQ2"
+        ],
+        "statute_name": "국민건강보험법 시행령 58조  이의신청 결정기간",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직선거법 222조  선거소송#KOBLEX-052545",
+          "공직선거법 222조  선거소송#KOBLEX-175831"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6219053864479065,
+        "fusion_rank": 3,
+        "issue_id": "I3",
+        "provision_id": "공직선거법 222조  선거소송#KOBLEX-052545",
+        "provision_text": "①대통령선거 및 국회의원선거에 있어서 선거의 효력에 관하여 이의가 있는 선거인ㆍ정당(후보자를 추천한 정당에 한한다) 또는 후보자는 선거일부터 30일 이내에 당해 선거구선거관리위원회위원장을 피고로 하여 대법원에 소를 제기할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.9989283680915833,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ3",
+        "source_request_ids": [
+          "RQ3",
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "공직선거법 222조  선거소송 1항",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 498조  판결의 확정시기#KOBLEX-064774"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 90,
+        "first_stage_score": 0.5138456225395203,
+        "fusion_rank": 4,
+        "issue_id": "I3",
+        "provision_id": "민사소송법 498조  판결의 확정시기#KOBLEX-064774",
+        "provision_text": "제498조(판결의 확정시기) 판결은 상소를 제기할 수 있는 기간 또는 그 기간 이내에 적법한 상소제기가 있을 때에는 확정되지 아니한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.9989039897918701,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ3",
+        "source_request_ids": [
+          "RQ3"
+        ],
+        "statute_name": "민사소송법 498조  판결의 확정시기",
+        "target_evidence_item_ids": [
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방자치법 157조  사용료 등의 부과ㆍ징수, 이의신청#KOBLEX-076712"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 98,
+        "first_stage_score": 0.5109592080116272,
+        "fusion_rank": 5,
+        "issue_id": "I3",
+        "provision_id": "지방자치법 157조  사용료 등의 부과ㆍ징수, 이의신청#KOBLEX-076712",
+        "provision_text": "⑤ 제3항에 따른 결정기간에 결정의 통지를 받지 못하면 제4항에도 불구하고 그 결정기간이 지난 날부터 90일 이내에 소를 제기할 수 있다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.9988836646080017,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ3",
+        "source_request_ids": [
+          "RQ3"
+        ],
+        "statute_name": "지방자치법 157조  사용료 등의 부과ㆍ징수, 이의신청 5항",
+        "target_evidence_item_ids": [
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직선거법 218조 12 대통령의 궐위선거 및 재선거에서 기한 등의 단축#KOBLEX-052405",
+          "공직선거법 218조 12 대통령의 궐위선거 및 재선거에서 기한 등의 단축#KOBLEX-175691"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 38,
+        "first_stage_score": 0.5325977802276611,
+        "fusion_rank": 6,
+        "issue_id": "I3",
+        "provision_id": "공직선거법 218조 12 대통령의 궐위선거 및 재선거에서 기한 등의 단축#KOBLEX-052405",
+        "provision_text": "제218조의12(대통령의 궐위선거 및 재선거에서 기한 등의 단축) 제218조의4부터 제218조의11까지의 규정에도 불구하고 대통령의 궐위로 인한 선거 또는 재선거를 실시하는 경우에 재외선거인 등록신청기한과 국외부재자 신고기간 등은 다음 각 호에 따른다. 이 경우 재외선거인명부등에 대한 열람과 이의신청을 위한 기간은 따로 두지 아니한다. <개정 2015.12.24>",
+        "rerank_rank": 6,
+        "rerank_score": 0.9988802075386047,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ3",
+        "source_request_ids": [
+          "RQ3",
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "공직선거법 218조 12 대통령의 궐위선거 및 재선거에서 기한 등의 단축",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 326조  면소의 판결#KOBLEX-232624"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 89,
+        "first_stage_score": 0.5139794945716858,
+        "fusion_rank": 7,
+        "issue_id": "I3",
+        "provision_id": "형사소송법 326조  면소의 판결#KOBLEX-232624",
+        "provision_text": "3. 공소의 시효가 완성되었을 때",
+        "rerank_rank": 7,
+        "rerank_score": 0.9988313317298889,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ3",
+        "source_request_ids": [
+          "RQ3"
+        ],
+        "statute_name": "형사소송법 326조  면소의 판결 3호",
+        "target_evidence_item_ids": [
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직선거법 193조  당선인결정의 착오시정#KOBLEX-052242",
+          "공직선거법 193조  당선인결정의 착오시정#KOBLEX-175528"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 24,
+        "first_stage_score": 0.5393447875976562,
+        "fusion_rank": 8,
+        "issue_id": "I3",
+        "provision_id": "공직선거법 193조  당선인결정의 착오시정#KOBLEX-052242",
+        "provision_text": "①선거구선거관리위원회[제187조(大統領當選人의 決定ㆍ公告ㆍ통지)제2항의 규정에 의하여 국회에서 대통령당선인을 결정하는 경우에는 국회]는 당선인결정에 명백한 착오가 있는 것을 발견한 때에는 선거일후 10일 이내에 당선인의 결정을 시정하여야 한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.9987755417823792,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ3",
+        "source_request_ids": [
+          "RQ3",
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "공직선거법 193조  당선인결정의 착오시정 1항",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직선거법 219조  선거소청#KOBLEX-052530",
+          "공직선거법 219조  선거소청#KOBLEX-175816"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.5680570602416992,
+        "fusion_rank": 9,
+        "issue_id": "I3",
+        "provision_id": "공직선거법 219조  선거소청#KOBLEX-052530",
+        "provision_text": "②지방의회의원 및 지방자치단체의 장의 선거에 있어서 당선의 효력에 관하여 이의가 있는 정당 또는 후보자는 당선인결정일부터 14일 이내에 제52조제1항부터 제3항까지 또는 제192조제1항부터 제3항까지의 사유에 해당함을 이유로 하는 때에는 당선인을, 제190조(지역구지방의회의원당선인의 결정ㆍ공고ㆍ통지) 내지 제191조(地方自治團體의 長의 當選人의 決定ㆍ公告ㆍ통지)의 규정에 의한 결정의 위법을 이유로 하는 때에는 당해 선거구선거관리위원회위원장을 각각 피소청인으로 하여 지역구시ㆍ도의원선거(지역구세종특별자치시의회의원선거는 제외한다), 자치구ㆍ시ㆍ군의원선거 및 자치구 ㆍ시ㆍ군의 장 선거에 있어서는 시ㆍ도선거관리위원회에, 비례대표시ㆍ도의원선거, 지역구세종특별자치시의회의원선거 및 시ㆍ도지사선거에 있어서는 중앙선거관리위원회에 소청할 수 있다. <개정 2002.3.7, 2005.8.4, 2010.1.25, 2010.3.12, 2015.8.13>",
+        "rerank_rank": 9,
+        "rerank_score": 0.9985936284065247,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ3",
+        "source_request_ids": [
+          "RQ3",
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "공직선거법 219조  선거소청 2항",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공공단체등 위탁선거에 관한 법률 55조  위탁선거의 효력 등에 대한 이의제기#KOBLEX-086653"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.573345959186554,
+        "fusion_rank": 10,
+        "issue_id": "I3",
+        "provision_id": "공공단체등 위탁선거에 관한 법률 55조  위탁선거의 효력 등에 대한 이의제기#KOBLEX-086653",
+        "provision_text": "제55조(위탁선거의 효력 등에 대한 이의제기) 위탁선거에서 선거 또는 당선의 효력에 대한 이의제기는 해당 위탁단체에 하여야 한다. 다만, 위탁선거 사무의 관리집행 상의 하자 또는 투표의 효력에 대한 이의제기는 관할위원회의 직근 상급선거관리위원회에 하여야 한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.9983931183815002,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ3",
+        "source_request_ids": [
+          "RQ3",
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "공공단체등 위탁선거에 관한 법률 55조  위탁선거의 효력 등에 대한 이의제기",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2",
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "공공단체등 위탁선거에 관한 법률 55조  위탁선거의 효력 등에 대한 이의제기#KOBLEX-086653": "제55조(위탁선거의 효력 등에 대한 이의제기) 위탁선거에서 선거 또는 당선의 효력에 대한 이의제기는 해당 위탁단체에 하여야 한다. 다만, 위탁선거 사무의 관리집행 상의 하자 또는 투표의 효력에 대한 이의제기는 관할위원회의 직근 상급선거관리위원회에 하여야 한다.",
+      "공직선거법 193조  당선인결정의 착오시정#KOBLEX-052242": "①선거구선거관리위원회[제187조(大統領當選人의 決定ㆍ公告ㆍ통지)제2항의 규정에 의하여 국회에서 대통령당선인을 결정하는 경우에는 국회]는 당선인결정에 명백한 착오가 있는 것을 발견한 때에는 선거일후 10일 이내에 당선인의 결정을 시정하여야 한다.",
+      "공직선거법 218조 12 대통령의 궐위선거 및 재선거에서 기한 등의 단축#KOBLEX-052405": "제218조의12(대통령의 궐위선거 및 재선거에서 기한 등의 단축) 제218조의4부터 제218조의11까지의 규정에도 불구하고 대통령의 궐위로 인한 선거 또는 재선거를 실시하는 경우에 재외선거인 등록신청기한과 국외부재자 신고기간 등은 다음 각 호에 따른다. 이 경우 재외선거인명부등에 대한 열람과 이의신청을 위한 기간은 따로 두지 아니한다. <개정 2015.12.24>",
+      "공직선거법 219조  선거소청#KOBLEX-052530": "②지방의회의원 및 지방자치단체의 장의 선거에 있어서 당선의 효력에 관하여 이의가 있는 정당 또는 후보자는 당선인결정일부터 14일 이내에 제52조제1항부터 제3항까지 또는 제192조제1항부터 제3항까지의 사유에 해당함을 이유로 하는 때에는 당선인을, 제190조(지역구지방의회의원당선인의 결정ㆍ공고ㆍ통지) 내지 제191조(地方自治團體의 長의 當選人의 決定ㆍ公告ㆍ통지)의 규정에 의한 결정의 위법을 이유로 하는 때에는 당해 선거구선거관리위원회위원장을 각각 피소청인으로 하여 지역구시ㆍ도의원선거(지역구세종특별자치시의회의원선거는 제외한다), 자치구ㆍ시ㆍ군의원선거 및 자치구 ㆍ시ㆍ군의 장 선거에 있어서는 시ㆍ도선거관리위원회에, 비례대표시ㆍ도의원선거, 지역구세종특별자치시의회의원선거 및 시ㆍ도지사선거에 있어서는 중앙선거관리위원회에 소청할 수 있다. <개정 2002.3.7, 2005.8.4, 2010.1.25, 2010.3.12, 2015.8.13>",
+      "공직선거법 222조  선거소송#KOBLEX-052545": "①대통령선거 및 국회의원선거에 있어서 선거의 효력에 관하여 이의가 있는 선거인ㆍ정당(후보자를 추천한 정당에 한한다) 또는 후보자는 선거일부터 30일 이내에 당해 선거구선거관리위원회위원장을 피고로 하여 대법원에 소를 제기할 수 있다.",
+      "공직선거법 225조  소송 등의 처리#KOBLEX-052554": "제225조(소송 등의 처리) 선거에 관한 소청이나 소송은 다른 쟁송에 우선하여 신속히 결정 또는 재판하여야 하며, 소송에 있어서는 수소법원은 소가 제기된 날 부터 180일 이내에 처리하여야 한다.",
+      "국민건강보험법 시행령 58조  이의신청 결정기간#KOBLEX-055692": "제58조(이의신청 결정기간)",
+      "민사소송법 498조  판결의 확정시기#KOBLEX-064774": "제498조(판결의 확정시기) 판결은 상소를 제기할 수 있는 기간 또는 그 기간 이내에 적법한 상소제기가 있을 때에는 확정되지 아니한다.",
+      "지방자치법 157조  사용료 등의 부과ㆍ징수, 이의신청#KOBLEX-076712": "⑤ 제3항에 따른 결정기간에 결정의 통지를 받지 못하면 제4항에도 불구하고 그 결정기간이 지난 날부터 90일 이내에 소를 제기할 수 있다.",
+      "형사소송법 326조  면소의 판결#KOBLEX-232624": "3. 공소의 시효가 완성되었을 때"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "공직선거법 222조  선거소송#KOBLEX-052545"
+            ],
+            "rationale": "C003은 대통령선거 효력 이의에 대한 소송을 규정하여 선거소송임을 확인한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "공직선거법 222조  선거소송#KOBLEX-052545"
+            ],
+            "rationale": "C003은 해당 소송의 관할 법원이 대법원임을 명시한다.",
+            "requirement_id": "E1-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "공직선거법 222조  선거소송#KOBLEX-052545"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C003은 대통령선거 효력 이의소송의 법적 성격(선거소송)과 관할 법원(대법원)을 명확히 규정하여 E1의 모든 완료 기준을 충족한다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "공직선거법 222조  선거소송#KOBLEX-052545"
+            ],
+            "rationale": "C003의 기한(선거일로부터 30일)이 요구사항의 기한(당선인 결정일로부터 14일)과 일치하지 않아 법적 근거가 충돌한다.",
+            "requirement_id": "E2-R1",
+            "status": "conflicting"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "conflict",
+        "legal_status": "conflicting",
+        "linked_provision_ids": [
+          "공직선거법 222조  선거소송#KOBLEX-052545"
+        ],
+        "missing_aspects": [
+          "E2-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "C003은 대통령선거 효력 이의소송의 제기 기한을 '선거일부터 30일 이내'로 규정하고 있으나, 요구사항 E2-R1은 '당선인 결정일로부터 14일 이내'를 요구한다. 이는 사실관계에 따라 적용되는 기한이 상이하거나 법적 근거가 모순되는 상황으로, 제공된 후보 조항만으로 요구된 법적 명제를 확립할 수 없다.",
+        "status": "conflicting"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "공직선거법 225조  소송 등의 처리#KOBLEX-052554"
+            ],
+            "rationale": "C001의 처리 기한(제기일로부터 180일)이 요구사항의 처리 기한(당선인 결정일로부터 30일)과 일치하지 않아 법적 근거가 충돌한다.",
+            "requirement_id": "E3-R1",
+            "status": "conflicting"
+          }
+        ],
+        "evidence_item_id": "E3",
+        "gap_type": "conflict",
+        "legal_status": "conflicting",
+        "linked_provision_ids": [
+          "공직선거법 225조  소송 등의 처리#KOBLEX-052554"
+        ],
+        "missing_aspects": [
+          "E3-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "C001은 선거소송의 처리 기한을 '소가 제기된 날부터 180일 이내'로 규정하고 있으나, 요구사항 E3-R1은 '당선인 결정일로부터 30일 이내'를 요구한다. 이는 소송의 종류나 대상에 따라 적용되는 처리 기한이 상이할 수 있으나, 제공된 후보 조항 내에서 요구된 특정 기한을 뒷받침하는 근거가 없거나 모순된다.",
+        "status": "conflicting"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [
+      {
+        "description": "요구사항 E2-R1은 '당선인 결정일로부터 14일 이내'를 요구하지만, C003은 '선거일부터 30일 이내'로 규정하고 있어 기한 기준점과 기간이 상이하다.",
+        "evidence_item_id": "E2",
+        "provision_ids": [
+          "공직선거법 222조  선거소송#KOBLEX-052545"
+        ],
+        "resolved": false
+      },
+      {
+        "description": "요구사항 E3-R1은 '당선인 결정일로부터 30일 이내'를 요구하지만, C001은 '소가 제기된 날부터 180일 이내'로 규정하고 있어 처리 기한의 기준점과 기간이 상이하다.",
+        "evidence_item_id": "E3",
+        "provision_ids": [
+          "공직선거법 225조  소송 등의 처리#KOBLEX-052554"
+        ],
+        "resolved": false
+      }
+    ],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "공직선거법 222조  선거소송#KOBLEX-052545",
+        "support_spans": [
+          {
+            "end_char": 129,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "conflicting",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "공직선거법 222조  선거소송#KOBLEX-052545",
+        "support_spans": [
+          {
+            "end_char": 129,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "conflicting",
+        "evidence_item_id": "E3",
+        "issue_id": "I3",
+        "provision_id": "공직선거법 225조  소송 등의 처리#KOBLEX-052554",
+        "support_spans": [
+          {
+            "end_char": 109,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "RESPONSE_ASSEMBLY.ABSTAIN",
+    "legal_issues": [
+      {
+        "description": "대통령 당선에 대한 이의제기 소송의 법적 성격과 관할 법원",
+        "issue_id": "I1"
+      },
+      {
+        "description": "대통령 당선에 대한 이의제기 소송의 제기 기한",
+        "issue_id": "I2"
+      },
+      {
+        "description": "대통령 당선에 대한 이의제기 소송의 처리 기한",
+        "issue_id": "I3"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "대통령 당선에 대한 이의제기 소송을 제기할 수 있는 기한이 당선인 결정일로부터 14일 이내임을 확인해야 한다.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "대통령 당선에 대한 이의제기 소송의 제기 기한이 당선인 결정일로부터 14일 이내임을 명시하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "대통령 당선에 대한 이의제기 소송의 제기 기한 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "limitation",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 명시적으로 요구하는 소송 제기 기한을 도출하기 위해 필요한 핵심 법적 근거이다.",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "대통령 당선에 대한 이의제기 소송을 처리해야 하는 기한이 당선인 결정일로부터 30일 이내임을 확인해야 한다.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E3-R1",
+            "text": "대통령 당선에 대한 이의제기 소송의 처리 기한이 당선인 결정일로부터 30일 이내임을 명시하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "대통령 당선에 대한 이의제기 소송의 처리 기한 규정",
+        "evidence_item_id": "E3",
+        "evidence_type": "limitation",
+        "issue_id": "I3",
+        "necessity_reason": "질문에서 명시적으로 요구하는 소송 처리 기한을 도출하기 위해 필요한 핵심 법적 근거이다.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 대통령 선거에 출마한 후보로, 을은 같은 선거에 출마한 다른 후보입니다. 선거 결과가 발표되고 갑이 당선인으로 결정되었지만, 을은 선거 과정에서 부정행위가 있었다고 주장하며 당선의 효력에 이의를 제기하고 싶어합니다. [질문] 을은 갑의 대통령 당선에 이의를 제기하고자 할 때, 소송을 제기할 수 있는 기한은 어떻게 되고, 그 소송의 처리 기한은 어떻게 되는가?",
+    "phase": "ABSTAINED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "대통령 당선",
+          "이의제기",
+          "선거소송",
+          "관할 법원",
+          "대법원"
+        ],
+        "query_text": "대통령 당선에 대한 이의제기 소송의 법적 성격과 관할 법원 [원문 맥락] 선거 결과가 발표되고 갑이 당선인으로 결정되었지만, 을은 선거 과정에서 부정행위가 있었다고 주장하며 당선의 효력에 이의를 제기하고 싶어합니다. 을은 갑의 대통령 당선에 이의를 제기하고자 할 때, 소송을 제기할 수 있는 기한은 어떻게 되고, 그 소송의 처리 기한은 어떻게 되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "공직선거법",
+          "대법원"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "대통령 당선",
+          "이의제기",
+          "소송 제기 기한",
+          "당선인 결정일",
+          "14일"
+        ],
+        "query_text": "대통령 당선에 대한 이의제기 소송의 제기 기한 [원문 맥락] 선거 결과가 발표되고 갑이 당선인으로 결정되었지만, 을은 선거 과정에서 부정행위가 있었다고 주장하며 당선의 효력에 이의를 제기하고 싶어합니다. 을은 갑의 대통령 당선에 이의를 제기하고자 할 때, 소송을 제기할 수 있는 기한은 어떻게 되고, 그 소송의 처리 기한은 어떻게 되는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "공직선거법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E3",
+        "first_stage_query_text": null,
+        "issue_id": "I3",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "대통령 당선",
+          "이의제기",
+          "소송 처리 기한",
+          "당선인 결정일",
+          "30일"
+        ],
+        "query_text": "대통령 당선에 대한 이의제기 소송의 처리 기한 [원문 맥락] 선거 결과가 발표되고 갑이 당선인으로 결정되었지만, 을은 선거 과정에서 부정행위가 있었다고 주장하며 당선의 효력에 이의를 제기하고 싶어합니다. 을은 갑의 대통령 당선에 이의를 제기하고자 할 때, 소송을 제기할 수 있는 기한은 어떻게 되고, 그 소송의 처리 기한은 어떻게 되는가?",
+        "request_id": "RQ3",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "공직선거법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 대통령 선거에 출마한 후보로, 을은 같은 선거에 출마한 다른 후보입니다. 선거 결과가 발표되고 갑이 당선인으로 결정되었지만, 을은 선거 과정에서 부정행위가 있었다고 주장하며 당선의 효력에 이의를 제기하고 싶어합니다.\n\n[질문]\n을은 갑의 대통령 당선에 이의를 제기하고자 할 때, 소송을 제기할 수 있는 기한은 어떻게 되고, 그 소송의 처리 기한은 어떻게 되는가?",
+    "remaining_request_budget": 6,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1",
+          "T2"
+        ],
+        "completion_criteria": "대통령 당선에 대한 이의가 선거소송으로 규정되고, 대법원이 관할한다는 법적 근거를 확인해야 한다.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "대통령 당선에 대한 이의가 선거소송으로 규정된다는 조항"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "대통령 당선에 대한 이의소송의 관할 법원이 대법원이라는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "대통령 당선에 대한 이의제기 소송의 법적 성격과 관할 법원 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "소송의 법적 성격과 관할 법원을 확인해야만 제기 기한과 처리 기한의 적용 대상이 되는 소송의 범위를 특정할 수 있다.",
+        "scope_source": "outcome_changing_condition"
+      },
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "대통령 당선에 대한 이의제기 소송을 제기할 수 있는 기한이 당선인 결정일로부터 14일 이내임을 확인해야 한다.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "대통령 당선에 대한 이의제기 소송의 제기 기한이 당선인 결정일로부터 14일 이내임을 명시하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "대통령 당선에 대한 이의제기 소송의 제기 기한 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "limitation",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 명시적으로 요구하는 소송 제기 기한을 도출하기 위해 필요한 핵심 법적 근거이다.",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "대통령 당선에 대한 이의제기 소송을 처리해야 하는 기한이 당선인 결정일로부터 30일 이내임을 확인해야 한다.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E3-R1",
+            "text": "대통령 당선에 대한 이의제기 소송의 처리 기한이 당선인 결정일로부터 30일 이내임을 명시하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "대통령 당선에 대한 이의제기 소송의 처리 기한 규정",
+        "evidence_item_id": "E3",
+        "evidence_type": "limitation",
+        "issue_id": "I3",
+        "necessity_reason": "질문에서 명시적으로 요구하는 소송 처리 기한을 도출하기 위해 필요한 핵심 법적 근거이다.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "842d0463-4266-4446-a054-09af79d4b97c",
+    "seen_provision_ids": [
+      "형사소송법 326조  면소의 판결#KOBLEX-232624",
+      "공직선거법 222조  선거소송#KOBLEX-052545",
+      "공직선거법 225조  소송 등의 처리#KOBLEX-052554",
+      "공직선거법 193조  당선인결정의 착오시정#KOBLEX-052242",
+      "공직선거법 219조  선거소청#KOBLEX-052530",
+      "공공단체등 위탁선거에 관한 법률 55조  위탁선거의 효력 등에 대한 이의제기#KOBLEX-086653",
+      "국민건강보험법 시행령 58조  이의신청 결정기간#KOBLEX-055692",
+      "민사소송법 498조  판결의 확정시기#KOBLEX-064774",
+      "공직선거법 218조 12 대통령의 궐위선거 및 재선거에서 기한 등의 단축#KOBLEX-052405",
+      "지방자치법 157조  사용료 등의 부과ㆍ징수, 이의신청#KOBLEX-076712"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ABSTAIN",
+  "termination_reason": "NO_RETRIEVAL_PROGRESS"
+}

@@ -1,0 +1,960 @@
+{
+  "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": "피고사건이 범죄로 되지 아니하거나 범죄사실의 증명이 없는 때에는 판결로써 무죄를 선고하여야 한다.[CT1]\n정식재판의 청구가 적법한 때에는 공판절차에 의하여 심판하여야 한다.[CT2]",
+  "candidate_answer_basis": "retrieved_candidates",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "GENERATED",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "질문에서 갑의 행위가 '법령에 의한 정당한 행위'로 인정되어 무죄가 된다는 전제는 사실관계의 가정으로 간주한다."
+    }
+  ],
+  "candidate_claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형사소송법 325조  무죄의 판결#KOBLEX-232620",
+      "quoted_text": "제325조(무죄의 판결) 피고사건이 범죄로 되지 아니하거나 범죄사실의 증명이 없는 때에는 판결로써 무죄를 선고하여야 한다.",
+      "support_description": "무죄 판결의 요건과 방식을 명시하여 E1-R2를 충족한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "형사소송법 455조  기각의 결정#KOBLEX-232938",
+      "quoted_text": "③정식재판의 청구가 적법한 때에는 공판절차에 의하여 심판하여야 한다.",
+      "support_description": "공판절차 심판 원칙을 제시하나, 변론종결과 판결 선고를 직접 연결하지는 않는다."
+    }
+  ],
+  "candidate_claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "피고사건이 범죄로 되지 아니하거나 범죄사실의 증명이 없는 때에는 판결로써 무죄를 선고하여야 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "conditional",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "procedure",
+      "text": "정식재판의 청구가 적법한 때에는 공판절차에 의하여 심판하여야 한다."
+    }
+  ],
+  "candidate_limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "E1-R1이 요구하는 '변론종결 후 판결을 선고하는 절차적 근거'를 명시하는 조항(예: 형사소송법 제324조)이 후보 목록에 포함되어 있지 않아, 공판절차의 진행 및 판결 선고의 구체적 순서에 대한 법적 근거가 부족하다."
+    }
+  ],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T10:24:08.440789+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 161411.672,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 254,
+      "dedup_collapse": 139,
+      "evidence_fusion": 254,
+      "first_stage": 400,
+      "request_rerank": 400,
+      "round_selected": 30,
+      "rrf": 300,
+      "selected": 254
+    }
+  },
+  "run_id": "0c6e510d-d569-4f77-b2e7-884e28ea0484",
+  "skill_generation_diagnostics": {
+    "attempt_count": 8,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형사소송법 325조  무죄의 판결#KOBLEX-232620"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 8,
+          "request_count": 1,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 0,
+          "request_count": 2,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "ABSTAIN",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "Two consecutive retrieval rounds did not improve critical evidence.",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "ABSTAIN",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 18
+        },
+        "event": "BENCHMARK_CANDIDATE_GENERATION_STARTED",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 18,
+          "claim_count": 2
+        },
+        "event": "BENCHMARK_CANDIDATE_VALIDATED",
+        "phase": "ABSTAINED"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "procedural_steps",
+        "question_anchor": "무죄 판결을 받게 되는가",
+        "requested_output": "무죄 판결 선고를 위한 형사소송법상 절차적 요건 및 단계"
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "형사소송법 455조  기각의 결정#KOBLEX-232938"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 96,
+        "first_stage_score": 0.49882271885871887,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 455조  기각의 결정#KOBLEX-232938",
+        "provision_text": "③정식재판의 청구가 적법한 때에는 공판절차에 의하여 심판하여야 한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.09193138778209686,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "형사소송법 455조  기각의 결정 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 440조  무죄판결의 공시#KOBLEX-232906"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 60,
+        "first_stage_score": 0.5037161707878113,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 440조  무죄판결의 공시#KOBLEX-232906",
+        "provision_text": "제440조(무죄판결의 공시) 재심에서 무죄의 선고를 한 때에는 그 판결을 관보와 그 법원소재지의 신문지에 기재하여 공고하여야 한다. 다만, 다음 각 호의 어느 하나에 해당하는 사람이 이를 원하지 아니하는 의사를 표시한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.015418291091918945,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "형사소송법 440조  무죄판결의 공시",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 325조  무죄의 판결#KOBLEX-232620"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.5350599884986877,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 325조  무죄의 판결#KOBLEX-232620",
+        "provision_text": "제325조(무죄의 판결) 피고사건이 범죄로 되지 아니하거나 범죄사실의 증명이 없는 때에는 판결로써 무죄를 선고하여야 한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.005828353110700846,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "형사소송법 325조  무죄의 판결",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 501조 9 기각의 결정#KOBLEX-093714",
+          "군사법원법 501조 9 기각의 결정#KOBLEX-159679"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 43,
+        "first_stage_score": 0.5073807835578918,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 501조 9 기각의 결정#KOBLEX-093714",
+        "provision_text": "③ 정식재판의 청구가 적법할 때에는 공판절차에 따라 심판하여야 한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.0011771887075155973,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "군사법원법 501조 9 기각의 결정 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 390조  서면심리에 의한 판결#KOBLEX-232800"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 92,
+        "first_stage_score": 0.499641478061676,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 390조  서면심리에 의한 판결#KOBLEX-232800",
+        "provision_text": "①상고법원은 상고장, 상고이유서 기타의 소송기록에 의하여 변론 없이 판결할 수 있다. <개정 2007.6.1>",
+        "rerank_rank": 5,
+        "rerank_score": 0.0006981268525123596,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 390조  서면심리에 의한 판결 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 420조  재심이유#KOBLEX-232859"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 46,
+        "first_stage_score": 0.5065658092498779,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 420조  재심이유#KOBLEX-232859",
+        "provision_text": "3. 무고(誣告)로 인하여 유죄를 선고받은 경우에 그 무고의 죄가 확정판결에 의하여 증명된 때",
+        "rerank_rank": 6,
+        "rerank_score": 0.0004563983529806137,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "형사소송법 420조  재심이유 3호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 327조  공소기각의 판결#KOBLEX-232628"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 56,
+        "first_stage_score": 0.5048288106918335,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 327조  공소기각의 판결#KOBLEX-232628",
+        "provision_text": "2. 공소제기의 절차가 법률의 규정을 위반하여 무효일 때",
+        "rerank_rank": 7,
+        "rerank_score": 0.000376908719772473,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "형사소송법 327조  공소기각의 판결 2호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 380조  무죄의 판결#KOBLEX-093410",
+          "군사법원법 380조  무죄의 판결#KOBLEX-159375"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 7,
+        "first_stage_score": 0.5257589221000671,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 380조  무죄의 판결#KOBLEX-093410",
+        "provision_text": "제380조(무죄의 판결) 피고사건이 범죄가 되지 아니하거나 범죄사실이 증명되지 아니할 때에는 판결로 무죄를 선고하여야 한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.0002914539654739201,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "군사법원법 380조  무죄의 판결",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사보상 및 명예회복에 관한 법률 2조  보상 요건#KOBLEX-003207"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 29,
+        "first_stage_score": 0.5136764049530029,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "형사보상 및 명예회복에 관한 법률 2조  보상 요건#KOBLEX-003207",
+        "provision_text": "① 「형사소송법」에 따른 일반 절차 또는 재심(再審)이나 비상상고(非常上告) 절차에서 무죄재판을 받아 확정된 사건의 피고인이 미결구금(未決拘禁)을 당하였을 때에는 이 법에 따라 국가에 대하여 그 구금에 대한 보상을 청구할 수 있다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.0002694981812965125,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "형사보상 및 명예회복에 관한 법률 2조  보상 요건 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 194조 2 무죄판결과 비용보상#KOBLEX-231991"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 88,
+        "first_stage_score": 0.5001336932182312,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 194조 2 무죄판결과 비용보상#KOBLEX-231991",
+        "provision_text": "①국가는 무죄판결이 확정된 경우에는 당해 사건의 피고인이었던 자에 대하여 그 재판에 소요된 비용을 보상하여야 한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.00019092710863333195,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 194조 2 무죄판결과 비용보상 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소액사건심판법 11조 2 판결에 관한 특례#KOBLEX-163769"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 50,
+        "first_stage_score": 0.5168609619140625,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "소액사건심판법 11조 2 판결에 관한 특례#KOBLEX-163769",
+        "provision_text": "① 판결의 선고는 변론종결 후 즉시 할 수 있다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.0019702923018485308,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "소액사건심판법 11조 2 판결에 관한 특례 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 440조  무죄판결의 공시#KOBLEX-232907"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 21,
+        "first_stage_score": 0.5300119519233704,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 440조  무죄판결의 공시#KOBLEX-232907",
+        "provision_text": "1. 제424조제1호부터 제3호까지의 어느 하나에 해당하는 사람이 재심을 청구한 때에는 재심에서 무죄의 선고를 받은 사람",
+        "rerank_rank": 2,
+        "rerank_score": 0.0005809407448396087,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "형사소송법 440조  무죄판결의 공시 1호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 326조  면소의 판결#KOBLEX-232621"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 18,
+        "first_stage_score": 0.5337435603141785,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 326조  면소의 판결#KOBLEX-232621",
+        "provision_text": "제326조(면소의 판결) 다음 경우에는 판결로써 면소의 선고를 하여야 한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.0001226715394295752,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 326조  면소의 판결",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 327조  공소기각의 판결#KOBLEX-232626"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.5379170179367065,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 327조  공소기각의 판결#KOBLEX-232626",
+        "provision_text": "제327조(공소기각의 판결) 다음 각 호의 경우에는 판결로써 공소기각의 선고를 하여야 한다.",
+        "rerank_rank": 5,
+        "rerank_score": 4.102758248336613e-05,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 327조  공소기각의 판결",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 322조  형면제 또는 형의 선고유예의 판결#KOBLEX-232615"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 27,
+        "first_stage_score": 0.5262747406959534,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 322조  형면제 또는 형의 선고유예의 판결#KOBLEX-232615",
+        "provision_text": "제322조(형면제 또는 형의 선고유예의 판결) 피고사건에 대하여 형의 면제 또는 선고유예를 하는 때에는 판결로써 선고하여야 한다.",
+        "rerank_rank": 6,
+        "rerank_score": 3.951132748625241e-05,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 322조  형면제 또는 형의 선고유예의 판결",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 430조  상고심의 심리절차#KOBLEX-064628"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 29,
+        "first_stage_score": 0.5258828997612,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "민사소송법 430조  상고심의 심리절차#KOBLEX-064628",
+        "provision_text": "①상고법원은 상고장ㆍ상고이유서ㆍ답변서, 그 밖의 소송기록에 의하여 변론없이 판결할 수 있다.",
+        "rerank_rank": 8,
+        "rerank_score": 3.209332498954609e-05,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민사소송법 430조  상고심의 심리절차 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 412조  반소의 제기#KOBLEX-064599"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 56,
+        "first_stage_score": 0.515035092830658,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "민사소송법 412조  반소의 제기#KOBLEX-064599",
+        "provision_text": "②상대방이 이의를 제기하지 아니하고 반소의 본안에 관하여 변론을 한 때에는 반소제기에 동의한 것으로 본다.",
+        "rerank_rank": 9,
+        "rerank_score": 2.695819057407789e-05,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민사소송법 412조  반소의 제기 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공무원범죄에 관한 몰수 특례법 22조  다른 절차와의 관계#KOBLEX-038593"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 39,
+        "first_stage_score": 0.5200321674346924,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "공무원범죄에 관한 몰수 특례법 22조  다른 절차와의 관계#KOBLEX-038593",
+        "provision_text": "제22조(다른 절차와의 관계) 제13조제1항에 규정된 재산을 몰수하는 재판은 자기의 책임으로 돌릴 수 없는 사유로 피고인에 대한 형사사건 절차에서 권리를 주장할 수 없었던 제3자의 권리에는 영향을 미치지 아니한다.",
+        "rerank_rank": 10,
+        "rerank_score": 2.1352221665438265e-05,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "공무원범죄에 관한 몰수 특례법 22조  다른 절차와의 관계",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "공무원범죄에 관한 몰수 특례법 22조  다른 절차와의 관계#KOBLEX-038593": "제22조(다른 절차와의 관계) 제13조제1항에 규정된 재산을 몰수하는 재판은 자기의 책임으로 돌릴 수 없는 사유로 피고인에 대한 형사사건 절차에서 권리를 주장할 수 없었던 제3자의 권리에는 영향을 미치지 아니한다.",
+      "군사법원법 380조  무죄의 판결#KOBLEX-093410": "제380조(무죄의 판결) 피고사건이 범죄가 되지 아니하거나 범죄사실이 증명되지 아니할 때에는 판결로 무죄를 선고하여야 한다.",
+      "군사법원법 501조 9 기각의 결정#KOBLEX-093714": "③ 정식재판의 청구가 적법할 때에는 공판절차에 따라 심판하여야 한다.",
+      "민사소송법 412조  반소의 제기#KOBLEX-064599": "②상대방이 이의를 제기하지 아니하고 반소의 본안에 관하여 변론을 한 때에는 반소제기에 동의한 것으로 본다.",
+      "민사소송법 430조  상고심의 심리절차#KOBLEX-064628": "①상고법원은 상고장ㆍ상고이유서ㆍ답변서, 그 밖의 소송기록에 의하여 변론없이 판결할 수 있다.",
+      "소액사건심판법 11조 2 판결에 관한 특례#KOBLEX-163769": "① 판결의 선고는 변론종결 후 즉시 할 수 있다.",
+      "형사보상 및 명예회복에 관한 법률 2조  보상 요건#KOBLEX-003207": "① 「형사소송법」에 따른 일반 절차 또는 재심(再審)이나 비상상고(非常上告) 절차에서 무죄재판을 받아 확정된 사건의 피고인이 미결구금(未決拘禁)을 당하였을 때에는 이 법에 따라 국가에 대하여 그 구금에 대한 보상을 청구할 수 있다.",
+      "형사소송법 194조 2 무죄판결과 비용보상#KOBLEX-231991": "①국가는 무죄판결이 확정된 경우에는 당해 사건의 피고인이었던 자에 대하여 그 재판에 소요된 비용을 보상하여야 한다.",
+      "형사소송법 322조  형면제 또는 형의 선고유예의 판결#KOBLEX-232615": "제322조(형면제 또는 형의 선고유예의 판결) 피고사건에 대하여 형의 면제 또는 선고유예를 하는 때에는 판결로써 선고하여야 한다.",
+      "형사소송법 325조  무죄의 판결#KOBLEX-232620": "제325조(무죄의 판결) 피고사건이 범죄로 되지 아니하거나 범죄사실의 증명이 없는 때에는 판결로써 무죄를 선고하여야 한다.",
+      "형사소송법 326조  면소의 판결#KOBLEX-232621": "제326조(면소의 판결) 다음 경우에는 판결로써 면소의 선고를 하여야 한다.",
+      "형사소송법 327조  공소기각의 판결#KOBLEX-232626": "제327조(공소기각의 판결) 다음 각 호의 경우에는 판결로써 공소기각의 선고를 하여야 한다.",
+      "형사소송법 327조  공소기각의 판결#KOBLEX-232628": "2. 공소제기의 절차가 법률의 규정을 위반하여 무효일 때",
+      "형사소송법 390조  서면심리에 의한 판결#KOBLEX-232800": "①상고법원은 상고장, 상고이유서 기타의 소송기록에 의하여 변론 없이 판결할 수 있다. <개정 2007.6.1>",
+      "형사소송법 420조  재심이유#KOBLEX-232859": "3. 무고(誣告)로 인하여 유죄를 선고받은 경우에 그 무고의 죄가 확정판결에 의하여 증명된 때",
+      "형사소송법 440조  무죄판결의 공시#KOBLEX-232906": "제440조(무죄판결의 공시) 재심에서 무죄의 선고를 한 때에는 그 판결을 관보와 그 법원소재지의 신문지에 기재하여 공고하여야 한다. 다만, 다음 각 호의 어느 하나에 해당하는 사람이 이를 원하지 아니하는 의사를 표시한 경우에는 그러하지 아니하다.",
+      "형사소송법 440조  무죄판결의 공시#KOBLEX-232907": "1. 제424조제1호부터 제3호까지의 어느 하나에 해당하는 사람이 재심을 청구한 때에는 재심에서 무죄의 선고를 받은 사람",
+      "형사소송법 455조  기각의 결정#KOBLEX-232938": "③정식재판의 청구가 적법한 때에는 공판절차에 의하여 심판하여야 한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "공급된 후보 조항 중 변론종결 후 판결을 선고하는 구체적인 절차적 근거를 명시하는 조항이 없다. C001은 공판절차 심판 원칙을 언급하지만 변론종결과 판결 선고를 연결하지 않는다.",
+            "requirement_id": "E1-R1",
+            "status": "unsatisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "형사소송법 325조  무죄의 판결#KOBLEX-232620"
+            ],
+            "rationale": "형사소송법 제325조(C003)는 무죄 판결의 요건(범죄가 되지 아니하거나 범죄사실의 증명이 없는 때)과 방식(판결로써 무죄를 선고)을 명확히 규정한다.",
+            "requirement_id": "E1-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "missing_statute",
+        "legal_status": "partially_covered",
+        "linked_provision_ids": [
+          "형사소송법 325조  무죄의 판결#KOBLEX-232620"
+        ],
+        "missing_aspects": [
+          "E1-R1"
+        ],
+        "partial_kind": "legal_support_gap",
+        "rationale": "공급된 후보 조항 중 형사소송법 제325조(C003)는 무죄 판결의 요건과 방식을 규정하여 E1-R2를 충족한다. 그러나 E1-R1이 요구하는 '변론종결 후 판결을 선고하는 절차적 근거'를 명시적으로 규정하는 조항(예: 형사소송법 제324조 등)이 후보 목록에 포함되어 있지 않아, 공판절차의 진행 및 판결 선고의 절차적 순서에 대한 법적 근거가 부족하다. C001은 정식재판 청구 시 공판절차에 의해 심판한다는 원칙을 제시하나, 변론종결과 판결 선고를 연결하는 구체적인 절차적 규정은 아니다.",
+        "status": "partially_covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형사소송법 325조  무죄의 판결#KOBLEX-232620",
+        "support_spans": [
+          {
+            "end_char": 68,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 0,
+    "last_validated_event": "RESPONSE_ASSEMBLY.ABSTAIN",
+    "legal_issues": [
+      {
+        "description": "형사소송법상 무죄 판결의 선고 절차와 요건",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "공판절차의 개시, 심리, 변론종결, 그리고 판결선고의 법적 근거와 순서를 확인해야 한다.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "공판절차에서 변론종결 후 판결을 선고하는 절차적 근거"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "무죄 판결의 선고 요건 및 방식에 관한 규정"
+          }
+        ],
+        "critical": true,
+        "description": "형사소송법상 공판절차의 진행 및 무죄 판결 선고에 관한 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "procedure",
+        "issue_id": "I1",
+        "necessity_reason": "질문은 '무죄 판결을 받게 되는 절차'를 묻고 있으므로, 형사소송법상 판결 선고를 위한 필수적 절차적 규정이 필요하다.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] 갑은 최근 경찰서에서 압수수색 영장을 받은 후 을의 집에서 불법적으로 보관된 문서를 발견하고 이를 손괴하여 조사했다. 을은 이에 대해 재물손괴로 고소했으나, 갑의 행위는 법령에 따른 정당한 행위로 인정되었다. [질문] 갑이 을의 집에서 문서를 손괴했지만, 그 행위가 법령에 의한 정당한 행위로 인정되어 무죄 판결을 받은 경우, 어떤 절차를 통해 무죄 판결을 받게 되는가?",
+    "phase": "ABSTAINED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "형사소송법",
+          "공판절차",
+          "변론종결",
+          "판결선고",
+          "무죄"
+        ],
+        "query_text": "형사소송법 공판절차 변론종결 판결선고 무죄 [원문 맥락] 을은 이에 대해 재물손괴로 고소했으나, 갑의 행위는 법령에 따른 정당한 행위로 인정되었다. 갑이 을의 집에서 문서를 손괴했지만, 그 행위가 법령에 의한 정당한 행위로 인정되어 무죄 판결을 받은 경우, 어떤 절차를 통해 무죄 판결을 받게 되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "형사소송법",
+          "변론종결",
+          "판결선고",
+          "제324조"
+        ],
+        "query_text": "형사소송법 제324조 변론종결 후 판결선고 절차 [원문 맥락] 을은 이에 대해 재물손괴로 고소했으나, 갑의 행위는 법령에 따른 정당한 행위로 인정되었다. 갑이 을의 집에서 문서를 손괴했지만, 그 행위가 법령에 의한 정당한 행위로 인정되어 무죄 판결을 받은 경우, 어떤 절차를 통해 무죄 판결을 받게 되는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "형사소송법",
+          "제324조",
+          "변론종결",
+          "판결선고"
+        ],
+        "query_text": "형사소송법 제324조 제1항 변론종결 후 판결선고 의무 [원문 맥락] 을은 이에 대해 재물손괴로 고소했으나, 갑의 행위는 법령에 따른 정당한 행위로 인정되었다. 갑이 을의 집에서 문서를 손괴했지만, 그 행위가 법령에 의한 정당한 행위로 인정되어 무죄 판결을 받은 경우, 어떤 절차를 통해 무죄 판결을 받게 되는가?",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "공판절차",
+          "심리",
+          "변론종결",
+          "판결선고",
+          "순서"
+        ],
+        "query_text": "형사소송법 공판절차 심리 변론종결 판결선고 순서 [원문 맥락] 을은 이에 대해 재물손괴로 고소했으나, 갑의 행위는 법령에 따른 정당한 행위로 인정되었다. 갑이 을의 집에서 문서를 손괴했지만, 그 행위가 법령에 의한 정당한 행위로 인정되어 무죄 판결을 받은 경우, 어떤 절차를 통해 무죄 판결을 받게 되는가?",
+        "request_id": "GRQ-R3-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 최근 경찰서에서 압수수색 영장을 받은 후 을의 집에서 불법적으로 보관된 문서를 발견하고 이를 손괴하여 조사했다. 을은 이에 대해 재물손괴로 고소했으나, 갑의 행위는 법령에 따른 정당한 행위로 인정되었다.\n\n[질문]\n갑이 을의 집에서 문서를 손괴했지만, 그 행위가 법령에 의한 정당한 행위로 인정되어 무죄 판결을 받은 경우, 어떤 절차를 통해 무죄 판결을 받게 되는가?",
+    "remaining_request_budget": 5,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "공판절차의 개시, 심리, 변론종결, 그리고 판결선고의 법적 근거와 순서를 확인해야 한다.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "공판절차에서 변론종결 후 판결을 선고하는 절차적 근거"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "무죄 판결의 선고 요건 및 방식에 관한 규정"
+          }
+        ],
+        "critical": true,
+        "description": "형사소송법상 공판절차의 진행 및 무죄 판결 선고에 관한 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "procedure",
+        "issue_id": "I1",
+        "necessity_reason": "질문은 '무죄 판결을 받게 되는 절차'를 묻고 있으므로, 형사소송법상 판결 선고를 위한 필수적 절차적 규정이 필요하다.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "0c6e510d-d569-4f77-b2e7-884e28ea0484",
+    "seen_provision_ids": [
+      "형사보상 및 명예회복에 관한 법률 2조  보상 요건#KOBLEX-003207",
+      "형사소송법 440조  무죄판결의 공시#KOBLEX-232906",
+      "군사법원법 501조 9 기각의 결정#KOBLEX-093714",
+      "군사법원법 380조  무죄의 판결#KOBLEX-093410",
+      "민사소송법 412조  반소의 제기#KOBLEX-064599",
+      "형사소송법 390조  서면심리에 의한 판결#KOBLEX-232800",
+      "소액사건심판법 11조 2 판결에 관한 특례#KOBLEX-163769",
+      "형사소송법 455조  기각의 결정#KOBLEX-232938",
+      "형사소송법 325조  무죄의 판결#KOBLEX-232620",
+      "형사소송법 327조  공소기각의 판결#KOBLEX-232626",
+      "형사소송법 327조  공소기각의 판결#KOBLEX-232628",
+      "공무원범죄에 관한 몰수 특례법 22조  다른 절차와의 관계#KOBLEX-038593",
+      "형사소송법 326조  면소의 판결#KOBLEX-232621",
+      "형사소송법 194조 2 무죄판결과 비용보상#KOBLEX-231991",
+      "형사소송법 322조  형면제 또는 형의 선고유예의 판결#KOBLEX-232615",
+      "형사소송법 440조  무죄판결의 공시#KOBLEX-232907",
+      "형사소송법 420조  재심이유#KOBLEX-232859",
+      "민사소송법 430조  상고심의 심리절차#KOBLEX-064628"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ABSTAIN",
+  "termination_reason": "NO_RETRIEVAL_PROGRESS"
+}

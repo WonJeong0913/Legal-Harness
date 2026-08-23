@@ -1,0 +1,1005 @@
+{
+  "abstention_reason": null,
+  "answer": "특별시장 또는 광역시장이 국가지원지방도의 조사·설계를 실시하는 경우 그 비용은 국고에서 부담한다.[CT1]\n국가지원지방도의 도로관리청은 국토교통부장관이 수립한 건설·관리계획과 조사·설계에 따라 도로공사를 시행해야 한다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1",
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "갑시가 특별시장 또는 광역시장에 해당하는 지방자치단체임을 전제로 한다."
+    }
+  ],
+  "candidate_answer": "특별시장 또는 광역시장이 국가지원지방도의 조사·설계를 실시하는 경우 그 비용은 국고에서 부담한다.[CT1]\n국가지원지방도의 도로관리청은 국토교통부장관이 수립한 건설·관리계획과 조사·설계에 따라 도로공사를 시행해야 한다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "도로법 시행령 85조  국가지원지방도 및 대도시권 교통혼잡도로에 대한 비용의 지원#KOBLEX-179455",
+      "quoted_text": "⑤ 법 제31조제3항 단서에 따라 특별시장 또는 광역시장이 국가지원지방도의 조사ㆍ설계를 실시하는 경우 그 조사ㆍ설계에 관한 비용은 국고에서 부담한다.",
+      "support_description": "국가지원지방도 조사·설계 비용의 국고 부담 규정을 명시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "도로법 31조  도로공사와 도로의 유지ㆍ관리 등#KOBLEX-211538",
+      "quoted_text": "④ 국가지원지방도의 도로관리청은 제6조제1항 단서에 따라 국토교통부장관이 수립한 건설ㆍ관리계획과 제3항에 따른 조사ㆍ설계에 따라 국가지원지방도의 도로공사를 시행하여야 한다.",
+      "support_description": "국가지원지방도 도로공사 시행 시 준수해야 할 절차적 요건을 명시한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "특별시장 또는 광역시장이 국가지원지방도의 조사·설계를 실시하는 경우 그 비용은 국고에서 부담한다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "국가지원지방도의 도로관리청은 국토교통부장관이 수립한 건설·관리계획과 조사·설계에 따라 도로공사를 시행해야 한다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T13:54:24.799446+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 114977.201,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "을시의 구체적 법적 지위(도로관리청 여부)에 따른 추가 절차는 본 답변 범위에서 다루지 않는다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 382,
+      "dedup_collapse": 36,
+      "evidence_fusion": 382,
+      "first_stage": 400,
+      "request_rerank": 400,
+      "round_selected": 20,
+      "rrf": 400,
+      "selected": 382
+    }
+  },
+  "run_id": "ceb94c46-e6c9-42bb-824c-3e3111bceb9d",
+  "skill_generation_diagnostics": {
+    "attempt_count": 5,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "도로법 시행령 85조  국가지원지방도 및 대도시권 교통혼잡도로에 대한 비용의 지원#KOBLEX-179455",
+      "도로법 31조  도로공사와 도로의 유지ㆍ관리 등#KOBLEX-211538"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 9,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": true,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_rule",
+        "question_anchor": "갑시가 국가지원지방도 A의 조사 및 설계를 실시할 경우 그 비용은 어떻게 처리되며",
+        "requested_output": "국가지원지방도 조사 및 설계 비용의 처리 방식"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_procedure",
+        "question_anchor": "을시가 국가지원지방도의 건설에 관한 사업을 하려는 경우 어떤 절차를 따라야 하는가",
+        "requested_output": "국가지원지방도 건설 사업의 절차"
+      }
+    ],
+    "answered_target_ids": [
+      "T1",
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "환경정책기본법 15조  국가환경종합계획의 내용#KOBLEX-106279"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 47,
+        "first_stage_score": 0.5166333317756653,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "환경정책기본법 15조  국가환경종합계획의 내용#KOBLEX-106279",
+        "provision_text": "6. 사업의 시행에 드는 비용의 산정 및 재원 조달 방법",
+        "rerank_rank": 1,
+        "rerank_score": 0.9986473917961121,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "환경정책기본법 15조  국가환경종합계획의 내용 6호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국민보호와 공공안전을 위한 테러방지법 11조  테러취약요인 사전제거#KOBLEX-231337"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 78,
+        "first_stage_score": 0.5094729661941528,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "국민보호와 공공안전을 위한 테러방지법 11조  테러취약요인 사전제거#KOBLEX-231337",
+        "provision_text": "③ 제2항에 따른 비용의 지원 대상ㆍ기준ㆍ방법 및 절차 등에 필요한 사항은 대통령령으로 정한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9984898567199707,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "국민보호와 공공안전을 위한 테러방지법 11조  테러취약요인 사전제거 3항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "주한미군기지 이전에 따른 평택시 등의 지원 등에 관한 특별법 29조 2 지방산업단지 조성보조금 지원의 특례#KOBLEX-185629"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 74,
+        "first_stage_score": 0.5092359185218811,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "주한미군기지 이전에 따른 평택시 등의 지원 등에 관한 특별법 29조 2 지방산업단지 조성보조금 지원의 특례#KOBLEX-185629",
+        "provision_text": "1. 산업단지 지원도로 건설비",
+        "rerank_rank": 3,
+        "rerank_score": 0.9984808564186096,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "주한미군기지 이전에 따른 평택시 등의 지원 등에 관한 특별법 29조 2 지방산업단지 조성보조금 지원의 특례 1호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "중소기업 기술혁신 촉진법 19조 2 기술혁신 성과물의 보호#KOBLEX-111059"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 28,
+        "first_stage_score": 0.5247032642364502,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "중소기업 기술혁신 촉진법 19조 2 기술혁신 성과물의 보호#KOBLEX-111059",
+        "provision_text": "③ 제1항에 따른 사업의 지원방법 및 지원절차 등에 필요한 사항은 대통령령으로 정한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.9984564781188965,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "중소기업 기술혁신 촉진법 19조 2 기술혁신 성과물의 보호 3항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로법 시행령 87조  국가지원지방도 등의 건설에 관한 보고#KOBLEX-179460"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 17,
+        "first_stage_score": 0.5551586151123047,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "도로법 시행령 87조  국가지원지방도 등의 건설에 관한 보고#KOBLEX-179460",
+        "provision_text": "제87조(국가지원지방도 등의 건설에 관한 보고)",
+        "rerank_rank": 5,
+        "rerank_score": 0.998439371585846,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "도로법 시행령 87조  국가지원지방도 등의 건설에 관한 보고",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로법 시행령 84조  우회국도 및 일반국도의 지선 건설에 필요한 비용 부담 등#KOBLEX-179445"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 59,
+        "first_stage_score": 0.5133287310600281,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "도로법 시행령 84조  우회국도 및 일반국도의 지선 건설에 필요한 비용 부담 등#KOBLEX-179445",
+        "provision_text": "제84조(우회국도 및 일반국도의 지선 건설에 필요한 비용 부담 등)",
+        "rerank_rank": 6,
+        "rerank_score": 0.9983593821525574,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "도로법 시행령 84조  우회국도 및 일반국도의 지선 건설에 필요한 비용 부담 등",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도시 및 주거환경정비법 시행령 17조  추진위원회 및 조합 비용의 보조#KOBLEX-229792"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 57,
+        "first_stage_score": 0.5204100012779236,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "도시 및 주거환경정비법 시행령 17조  추진위원회 및 조합 비용의 보조#KOBLEX-229792",
+        "provision_text": "② 제1항에 따른 비용의 보조 비율 및 보조 방법 등에 필요한 사항은 시ㆍ도조례로 정한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.9983055591583252,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "도시 및 주거환경정비법 시행령 17조  추진위원회 및 조합 비용의 보조 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도시 및 주거환경정비법 118조  정비사업의 공공지원#KOBLEX-148666",
+          "도시 및 주거환경정비법 118조  정비사업의 공공지원#KOBLEX-229238"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 25,
+        "first_stage_score": 0.5287675261497498,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "도시 및 주거환경정비법 118조  정비사업의 공공지원#KOBLEX-148666",
+        "provision_text": "⑥ 공공지원의 시행을 위한 방법과 절차, 기준 및 제126조에 따른 도시ㆍ주거환경정비기금의 지원, 시공자 선정 시기 등에 필요한 사항은 시ㆍ도조례로 정한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.9981671571731567,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "도시 및 주거환경정비법 118조  정비사업의 공공지원 6항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로법 시행령 85조  국가지원지방도 및 대도시권 교통혼잡도로에 대한 비용의 지원#KOBLEX-179450"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 24,
+        "first_stage_score": 0.5303552150726318,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "도로법 시행령 85조  국가지원지방도 및 대도시권 교통혼잡도로에 대한 비용의 지원#KOBLEX-179450",
+        "provision_text": "제85조(국가지원지방도 및 대도시권 교통혼잡도로에 대한 비용의 지원)",
+        "rerank_rank": 9,
+        "rerank_score": 0.9981071949005127,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "도로법 시행령 85조  국가지원지방도 및 대도시권 교통혼잡도로에 대한 비용의 지원",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "고용보험법 25조  고용안정 및 취업 촉진#KOBLEX-206569"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 71,
+        "first_stage_score": 0.5096689462661743,
+        "fusion_rank": 10,
+        "issue_id": "I2",
+        "provision_id": "고용보험법 25조  고용안정 및 취업 촉진#KOBLEX-206569",
+        "provision_text": "②제1항에 따른 사업의 실시와 비용의 지원ㆍ대부에 필요한 사항은 대통령령으로 정한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.9981027245521545,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "고용보험법 25조  고용안정 및 취업 촉진 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로법 시행령 85조  국가지원지방도 및 대도시권 교통혼잡도로에 대한 비용의 지원#KOBLEX-179455"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6749371886253357,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "도로법 시행령 85조  국가지원지방도 및 대도시권 교통혼잡도로에 대한 비용의 지원#KOBLEX-179455",
+        "provision_text": "⑤ 법 제31조제3항 단서에 따라 특별시장 또는 광역시장이 국가지원지방도의 조사ㆍ설계를 실시하는 경우 그 조사ㆍ설계에 관한 비용은 국고에서 부담한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9938998222351074,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "도로법 시행령 85조  국가지원지방도 및 대도시권 교통혼잡도로에 대한 비용의 지원 5항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로법 86조  비용의 지원 등#KOBLEX-211806"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 16,
+        "first_stage_score": 0.5794482231140137,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "도로법 86조  비용의 지원 등#KOBLEX-211806",
+        "provision_text": "① 우회국도 및 일반국도의 지선 건설에 필요한 비용은 제85조제1항에도 불구하고 대통령령으로 정하는 바에 따라 그 일부를 그 도로가 위치한 구역을 관할하는 지방자치단체에 부담시킬 수 있다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9862499237060547,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "도로법 86조  비용의 지원 등 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로법 88조  도로공사의 대행 비용 등#KOBLEX-211816"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 54,
+        "first_stage_score": 0.5301394462585449,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "도로법 88조  도로공사의 대행 비용 등#KOBLEX-211816",
+        "provision_text": "② 국토교통부장관, 특별시장ㆍ광역시장 또는 도지사는 제1항에 따른 비용의 일부를 대통령령으로 정하는 바에 따라 해당 도로의 도로관리청이 속해 있는 지방자치단체에 부담시킬 수 있다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9860430955886841,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "도로법 88조  도로공사의 대행 비용 등 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로법 87조  행정청의 비용 부담#KOBLEX-211813"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 20,
+        "first_stage_score": 0.5592536926269531,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "도로법 87조  행정청의 비용 부담#KOBLEX-211813",
+        "provision_text": "② 제85조, 제86조제1항, 제88조 및 이 조 제1항에 따라 특별시ㆍ광역시 또는 도가 부담하여야 할 비용은 대통령령으로 정하는 바에 따라 이익을 얻는 시ㆍ군 또는 구(자치구를 말한다. 이하 같다)에 그 일부를 부담시킬 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.9797009229660034,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "도로법 87조  행정청의 비용 부담 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로법 85조  비용부담의 원칙#KOBLEX-211802"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 91,
+        "first_stage_score": 0.5255302786827087,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "도로법 85조  비용부담의 원칙#KOBLEX-211802",
+        "provision_text": "① 도로에 관한 비용은 이 법 또는 다른 법률에 특별한 규정이 있는 경우 외에는 도로관리청이 국토교통부장관인 도로에 관한 것은 국가가 부담하고, 그 밖의 도로에 관한 것은 해당 도로의 도로관리청이 속해 있는 지방자치단체가 부담한다. 이 경우 제31조제2항에 따라 국토교통부장관이 도지사 또는 특별자치도지사에게 일반국도의 일부 구간에 대한 도로공사와 도로의 유지ㆍ관리에 관한 업무를 수행하게 한 경우에 그 비용은 국가가 부담한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.9787933230400085,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "도로법 85조  비용부담의 원칙 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로법 31조  도로공사와 도로의 유지ㆍ관리 등#KOBLEX-211538"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.605170488357544,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "도로법 31조  도로공사와 도로의 유지ㆍ관리 등#KOBLEX-211538",
+        "provision_text": "④ 국가지원지방도의 도로관리청은 제6조제1항 단서에 따라 국토교통부장관이 수립한 건설ㆍ관리계획과 제3항에 따른 조사ㆍ설계에 따라 국가지원지방도의 도로공사를 시행하여야 한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9760134220123291,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "도로법 31조  도로공사와 도로의 유지ㆍ관리 등 4항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로법 86조  비용의 지원 등#KOBLEX-211808"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.6045053005218506,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "도로법 86조  비용의 지원 등#KOBLEX-211808",
+        "provision_text": "③ 제2항에 따라 건설되는 국가지원지방도와 대도시권 교통혼잡도로의 도로관리청은 사업이 원활하게 추진될 수 있도록 예산을 확보하여야 한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.9757517576217651,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "도로법 86조  비용의 지원 등 3항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로법 95조  점용료 등의 귀속#KOBLEX-211839"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 34,
+        "first_stage_score": 0.5454835891723633,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "도로법 95조  점용료 등의 귀속#KOBLEX-211839",
+        "provision_text": "② 이 법에 따라 도로관리청이 아닌 자가 부담하는 비용은 다음 각 호의 구분에 따라 수입으로 귀속한다. 1. 국토교통부장관이 부담시킨 비용: 국가 2. 행정청이 부담시킨 비용: 해당 행정청이 속해 있는 지방자치단체 3. 제89조제3항 단서에 따라 지방자치단체가 부담하는 비용: 해당 타공작물의 관리자 4. 제91조제4항에 따라 비용을 부담하여야 할 자가 부담하는 비용: 해당 공공단체나 사인 5. 제112조에 따라 국토교통부장관의 권한을 대행하는 한국도로공사가 부담시킨 비용: 한국도로공사",
+        "rerank_rank": 6,
+        "rerank_score": 0.9664286971092224,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "도로법 95조  점용료 등의 귀속 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로법 91조  원인자의 비용 부담 등#KOBLEX-211827"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 33,
+        "first_stage_score": 0.5437061786651611,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "도로법 91조  원인자의 비용 부담 등#KOBLEX-211827",
+        "provision_text": "② 제1항에 따른 비용의 징수 등에 필요한 사항은 국토교통부령 또는 도로관리청이 속한 지방자치단체의 조례로 정한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.9641298055648804,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "도로법 91조  원인자의 비용 부담 등 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "고용보험법 25조  고용안정 및 취업 촉진#KOBLEX-206569": "②제1항에 따른 사업의 실시와 비용의 지원ㆍ대부에 필요한 사항은 대통령령으로 정한다.",
+      "국민보호와 공공안전을 위한 테러방지법 11조  테러취약요인 사전제거#KOBLEX-231337": "③ 제2항에 따른 비용의 지원 대상ㆍ기준ㆍ방법 및 절차 등에 필요한 사항은 대통령령으로 정한다.",
+      "도로법 31조  도로공사와 도로의 유지ㆍ관리 등#KOBLEX-211538": "④ 국가지원지방도의 도로관리청은 제6조제1항 단서에 따라 국토교통부장관이 수립한 건설ㆍ관리계획과 제3항에 따른 조사ㆍ설계에 따라 국가지원지방도의 도로공사를 시행하여야 한다.",
+      "도로법 85조  비용부담의 원칙#KOBLEX-211802": "① 도로에 관한 비용은 이 법 또는 다른 법률에 특별한 규정이 있는 경우 외에는 도로관리청이 국토교통부장관인 도로에 관한 것은 국가가 부담하고, 그 밖의 도로에 관한 것은 해당 도로의 도로관리청이 속해 있는 지방자치단체가 부담한다. 이 경우 제31조제2항에 따라 국토교통부장관이 도지사 또는 특별자치도지사에게 일반국도의 일부 구간에 대한 도로공사와 도로의 유지ㆍ관리에 관한 업무를 수행하게 한 경우에 그 비용은 국가가 부담한다.",
+      "도로법 86조  비용의 지원 등#KOBLEX-211806": "① 우회국도 및 일반국도의 지선 건설에 필요한 비용은 제85조제1항에도 불구하고 대통령령으로 정하는 바에 따라 그 일부를 그 도로가 위치한 구역을 관할하는 지방자치단체에 부담시킬 수 있다.",
+      "도로법 86조  비용의 지원 등#KOBLEX-211808": "③ 제2항에 따라 건설되는 국가지원지방도와 대도시권 교통혼잡도로의 도로관리청은 사업이 원활하게 추진될 수 있도록 예산을 확보하여야 한다.",
+      "도로법 87조  행정청의 비용 부담#KOBLEX-211813": "② 제85조, 제86조제1항, 제88조 및 이 조 제1항에 따라 특별시ㆍ광역시 또는 도가 부담하여야 할 비용은 대통령령으로 정하는 바에 따라 이익을 얻는 시ㆍ군 또는 구(자치구를 말한다. 이하 같다)에 그 일부를 부담시킬 수 있다.",
+      "도로법 88조  도로공사의 대행 비용 등#KOBLEX-211816": "② 국토교통부장관, 특별시장ㆍ광역시장 또는 도지사는 제1항에 따른 비용의 일부를 대통령령으로 정하는 바에 따라 해당 도로의 도로관리청이 속해 있는 지방자치단체에 부담시킬 수 있다.",
+      "도로법 91조  원인자의 비용 부담 등#KOBLEX-211827": "② 제1항에 따른 비용의 징수 등에 필요한 사항은 국토교통부령 또는 도로관리청이 속한 지방자치단체의 조례로 정한다.",
+      "도로법 95조  점용료 등의 귀속#KOBLEX-211839": "② 이 법에 따라 도로관리청이 아닌 자가 부담하는 비용은 다음 각 호의 구분에 따라 수입으로 귀속한다. 1. 국토교통부장관이 부담시킨 비용: 국가 2. 행정청이 부담시킨 비용: 해당 행정청이 속해 있는 지방자치단체 3. 제89조제3항 단서에 따라 지방자치단체가 부담하는 비용: 해당 타공작물의 관리자 4. 제91조제4항에 따라 비용을 부담하여야 할 자가 부담하는 비용: 해당 공공단체나 사인 5. 제112조에 따라 국토교통부장관의 권한을 대행하는 한국도로공사가 부담시킨 비용: 한국도로공사",
+      "도로법 시행령 84조  우회국도 및 일반국도의 지선 건설에 필요한 비용 부담 등#KOBLEX-179445": "제84조(우회국도 및 일반국도의 지선 건설에 필요한 비용 부담 등)",
+      "도로법 시행령 85조  국가지원지방도 및 대도시권 교통혼잡도로에 대한 비용의 지원#KOBLEX-179450": "제85조(국가지원지방도 및 대도시권 교통혼잡도로에 대한 비용의 지원)",
+      "도로법 시행령 85조  국가지원지방도 및 대도시권 교통혼잡도로에 대한 비용의 지원#KOBLEX-179455": "⑤ 법 제31조제3항 단서에 따라 특별시장 또는 광역시장이 국가지원지방도의 조사ㆍ설계를 실시하는 경우 그 조사ㆍ설계에 관한 비용은 국고에서 부담한다.",
+      "도로법 시행령 87조  국가지원지방도 등의 건설에 관한 보고#KOBLEX-179460": "제87조(국가지원지방도 등의 건설에 관한 보고)",
+      "도시 및 주거환경정비법 118조  정비사업의 공공지원#KOBLEX-148666": "⑥ 공공지원의 시행을 위한 방법과 절차, 기준 및 제126조에 따른 도시ㆍ주거환경정비기금의 지원, 시공자 선정 시기 등에 필요한 사항은 시ㆍ도조례로 정한다.",
+      "도시 및 주거환경정비법 시행령 17조  추진위원회 및 조합 비용의 보조#KOBLEX-229792": "② 제1항에 따른 비용의 보조 비율 및 보조 방법 등에 필요한 사항은 시ㆍ도조례로 정한다.",
+      "주한미군기지 이전에 따른 평택시 등의 지원 등에 관한 특별법 29조 2 지방산업단지 조성보조금 지원의 특례#KOBLEX-185629": "1. 산업단지 지원도로 건설비",
+      "중소기업 기술혁신 촉진법 19조 2 기술혁신 성과물의 보호#KOBLEX-111059": "③ 제1항에 따른 사업의 지원방법 및 지원절차 등에 필요한 사항은 대통령령으로 정한다.",
+      "환경정책기본법 15조  국가환경종합계획의 내용#KOBLEX-106279": "6. 사업의 시행에 드는 비용의 산정 및 재원 조달 방법"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "도로법 시행령 85조  국가지원지방도 및 대도시권 교통혼잡도로에 대한 비용의 지원#KOBLEX-179455"
+            ],
+            "rationale": "C011 explicitly defines that the cost for investigation and design of national support local roads is borne by the national treasury.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "도로법 시행령 85조  국가지원지방도 및 대도시권 교통혼잡도로에 대한 비용의 지원#KOBLEX-179455"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C011 provides the specific statutory rule for the cost burden of investigation and design for national support local roads, satisfying the requirement to identify the cost treatment method.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "도로법 31조  도로공사와 도로의 유지ㆍ관리 등#KOBLEX-211538"
+            ],
+            "rationale": "C016 specifies that construction must be carried out in accordance with the construction/management plan and investigation/design, fulfilling the procedural requirement.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "도로법 31조  도로공사와 도로의 유지ㆍ관리 등#KOBLEX-211538"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C016 establishes the procedural obligation for the road management authority to execute construction based on the established plan and design, satisfying the requirement for procedural conditions of construction projects.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "도로법 시행령 85조  국가지원지방도 및 대도시권 교통혼잡도로에 대한 비용의 지원#KOBLEX-179455",
+        "support_spans": [
+          {
+            "end_char": 83,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "도로법 31조  도로공사와 도로의 유지ㆍ관리 등#KOBLEX-211538",
+        "support_spans": [
+          {
+            "end_char": 96,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 9,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "국가지원지방도의 조사 및 설계 비용은 누가 부담하는가",
+        "issue_id": "I1"
+      },
+      {
+        "description": "국가지원지방도 건설 사업의 절차는 무엇인가",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑시는 도로 기반 시설을 개선하기 위해 을시와 협력하여 국가지원지방도 A의 조사 및 설계를 진행하고자 합니다. 갑시가 이 프로젝트의 조사와 설계를 맡기로 하고, 을시는 해당 도로의 건설을 계획 중입니다. 을시는 이 프로젝트의 비용을 지원받기 위해 절차를 알아보고자 합니다. [질문] 갑시가 국가지원지방도 A의 조사 및 설계를 실시할 경우 그 비용은 어떻게 처리되며, 을시가 국가지원지방도의 건설에 관한 사업을 하려는 경우 어떤 절차를 따라야 하는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "국가지원지방도",
+          "조사",
+          "설계",
+          "비용",
+          "처리"
+        ],
+        "query_text": "국가지원지방도 조사 설계 비용 처리 [원문 맥락] 을시는 이 프로젝트의 비용을 지원받기 위해 절차를 알아보고자 합니다. 갑시가 국가지원지방도 A의 조사 및 설계를 실시할 경우 그 비용은 어떻게 처리되며, 을시가 국가지원지방도의 건설에 관한 사업을 하려는 경우 어떤 절차를 따라야 하는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "국토의 계획 및 이용에 관한 법률",
+          "도로법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "국가지원지방도",
+          "건설",
+          "사업",
+          "절차"
+        ],
+        "query_text": "국가지원지방도 건설 사업 절차 [원문 맥락] 을시는 이 프로젝트의 비용을 지원받기 위해 절차를 알아보고자 합니다. 갑시가 국가지원지방도 A의 조사 및 설계를 실시할 경우 그 비용은 어떻게 처리되며, 을시가 국가지원지방도의 건설에 관한 사업을 하려는 경우 어떤 절차를 따라야 하는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "국토의 계획 및 이용에 관한 법률",
+          "도로법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "도로법",
+          "국가지원지방도",
+          "조사",
+          "설계",
+          "비용"
+        ],
+        "query_text": "도로법 국가지원지방도 조사 설계 비용 부담 지방자치단체 [원문 맥락] 을시는 이 프로젝트의 비용을 지원받기 위해 절차를 알아보고자 합니다. 갑시가 국가지원지방도 A의 조사 및 설계를 실시할 경우 그 비용은 어떻게 처리되며, 을시가 국가지원지방도의 건설에 관한 사업을 하려는 경우 어떤 절차를 따라야 하는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "도로법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "도로법",
+          "국가지원지방도",
+          "건설",
+          "사업",
+          "절차"
+        ],
+        "query_text": "도로법 국가지원지방도 건설 사업 절차 지방자치단체 [원문 맥락] 을시는 이 프로젝트의 비용을 지원받기 위해 절차를 알아보고자 합니다. 갑시가 국가지원지방도 A의 조사 및 설계를 실시할 경우 그 비용은 어떻게 처리되며, 을시가 국가지원지방도의 건설에 관한 사업을 하려는 경우 어떤 절차를 따라야 하는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "도로법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑시는 도로 기반 시설을 개선하기 위해 을시와 협력하여 국가지원지방도 A의 조사 및 설계를 진행하고자 합니다. 갑시가 이 프로젝트의 조사와 설계를 맡기로 하고, 을시는 해당 도로의 건설을 계획 중입니다. 을시는 이 프로젝트의 비용을 지원받기 위해 절차를 알아보고자 합니다.\n\n[질문]\n갑시가 국가지원지방도 A의 조사 및 설계를 실시할 경우 그 비용은 어떻게 처리되며, 을시가 국가지원지방도의 건설에 관한 사업을 하려는 경우 어떤 절차를 따라야 하는가?",
+    "remaining_request_budget": 5,
+    "remaining_round_budget": 1,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "지방자치단체가 조사 및 설계를 실시할 경우 비용 처리에 관한 명시적 규정을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "국가지원지방도 조사 및 설계 비용의 부담 주체 및 처리 방식에 관한 규정을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "국가지원지방도 조사 및 설계 비용의 부담 주체 및 처리 방식",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 갑시의 조사 및 설계 비용 처리를 직접 묻고 있으므로 해당 비용 처리 규정이 필수",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "지방자치단체가 건설 사업을 수행하기 위한 절차적 요건을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "국가지원지방도 건설 사업의 절차적 요건에 관한 규정을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "국가지원지방도 건설 사업의 법적 절차",
+        "evidence_item_id": "E2",
+        "evidence_type": "procedure",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 을시의 건설 사업 절차를 직접 묻고 있으므로 해당 절차 규정이 필수",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 2,
+    "run_id": "ceb94c46-e6c9-42bb-824c-3e3111bceb9d",
+    "seen_provision_ids": [
+      "도로법 31조  도로공사와 도로의 유지ㆍ관리 등#KOBLEX-211538",
+      "도로법 88조  도로공사의 대행 비용 등#KOBLEX-211816",
+      "도로법 86조  비용의 지원 등#KOBLEX-211806",
+      "도시 및 주거환경정비법 118조  정비사업의 공공지원#KOBLEX-148666",
+      "도시 및 주거환경정비법 시행령 17조  추진위원회 및 조합 비용의 보조#KOBLEX-229792",
+      "고용보험법 25조  고용안정 및 취업 촉진#KOBLEX-206569",
+      "도로법 시행령 87조  국가지원지방도 등의 건설에 관한 보고#KOBLEX-179460",
+      "국민보호와 공공안전을 위한 테러방지법 11조  테러취약요인 사전제거#KOBLEX-231337",
+      "도로법 91조  원인자의 비용 부담 등#KOBLEX-211827",
+      "중소기업 기술혁신 촉진법 19조 2 기술혁신 성과물의 보호#KOBLEX-111059",
+      "도로법 95조  점용료 등의 귀속#KOBLEX-211839",
+      "도로법 시행령 85조  국가지원지방도 및 대도시권 교통혼잡도로에 대한 비용의 지원#KOBLEX-179450",
+      "도로법 85조  비용부담의 원칙#KOBLEX-211802",
+      "환경정책기본법 15조  국가환경종합계획의 내용#KOBLEX-106279",
+      "도로법 시행령 84조  우회국도 및 일반국도의 지선 건설에 필요한 비용 부담 등#KOBLEX-179445",
+      "도로법 87조  행정청의 비용 부담#KOBLEX-211813",
+      "주한미군기지 이전에 따른 평택시 등의 지원 등에 관한 특별법 29조 2 지방산업단지 조성보조금 지원의 특례#KOBLEX-185629",
+      "도로법 86조  비용의 지원 등#KOBLEX-211808",
+      "도로법 시행령 85조  국가지원지방도 및 대도시권 교통혼잡도로에 대한 비용의 지원#KOBLEX-179455"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

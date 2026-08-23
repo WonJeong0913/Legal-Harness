@@ -1,0 +1,556 @@
+{
+  "abstention_reason": null,
+  "answer": "지명채권의 양도는 양도인이 채무자에게 통지하거나 채무자가 승낙하지 아니하면 채무자 기타 제삼자에게 대항하지 못한다.[CT1]\n병이 을에게 채권양도로 대항하기 위해서는 갑이 을에게 채권양도 사실을 통지하거나 을이 채권양도를 승낙해야 한다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "A1",
+      "message": "갑과 을 사이의 채권이 지명채권(채무자가 특정된 채권)임을 전제한다."
+    }
+  ],
+  "candidate_answer": "지명채권의 양도는 양도인이 채무자에게 통지하거나 채무자가 승낙하지 아니하면 채무자 기타 제삼자에게 대항하지 못한다.[CT1]\n병이 을에게 채권양도로 대항하기 위해서는 갑이 을에게 채권양도 사실을 통지하거나 을이 채권양도를 승낙해야 한다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "민법 450조  지명채권양도의 대항요건#KOBLEX-059309",
+      "quoted_text": "①지명채권의 양도는 양도인이 채무자에게 통지하거나 채무자가 승낙하지 아니하면 채무자 기타 제삼자에게 대항하지 못한다.",
+      "support_description": "지명채권 양도의 대항요건이 채무자 통지 또는 승낙임을 명시적으로 규정한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "민법 450조  지명채권양도의 대항요건#KOBLEX-059309",
+      "quoted_text": "①지명채권의 양도는 양도인이 채무자에게 통지하거나 채무자가 승낙하지 아니하면 채무자 기타 제삼자에게 대항하지 못한다.",
+      "support_description": "질문 시나리오에서 병(양수인)이 을(채무자)에게 대항하기 위한 구체적 요건으로 통지 또는 승낙을 적용한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "지명채권의 양도는 양도인이 채무자에게 통지하거나 채무자가 승낙하지 아니하면 채무자 기타 제삼자에게 대항하지 못한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "병이 을에게 채권양도로 대항하기 위해서는 갑이 을에게 채권양도 사실을 통지하거나 을이 채권양도를 승낙해야 한다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T12:15:49.265893+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 65841.993,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "L1",
+      "message": "본 답변은 민법 제450조 제1항의 일반적 대항요건에 한정하며, 채권양도의 유효성이나 다른 법적 쟁점은 다루지 않는다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 98,
+      "dedup_collapse": 4,
+      "evidence_fusion": 98,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 98
+    }
+  },
+  "run_id": "224aaac2-0d04-4f5e-8af5-299629c585a7",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "민법 450조  지명채권양도의 대항요건#KOBLEX-059309"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_requirements",
+        "question_anchor": "병이 을에게 채권양도로써 대항할 수 있도록 하기 위해 필요한 요건은 무엇인가?",
+        "requested_output": "채권양도 대항요건"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "민법 451조  승낙, 통지의 효과#KOBLEX-059313"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6602326035499573,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "민법 451조  승낙, 통지의 효과#KOBLEX-059313",
+        "provision_text": "②양도인이 양도통지만을 한 때에는 채무자는 그 통지를 받은 때까지 양도인에 대하여 생긴 사유로써 양수인에게 대항할 수 있다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.0848703682422638,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 451조  승낙, 통지의 효과 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "보증인 보호를 위한 특별법 5조  채권자의 통지의무 등#KOBLEX-220075"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 46,
+        "first_stage_score": 0.5654513835906982,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "보증인 보호를 위한 특별법 5조  채권자의 통지의무 등#KOBLEX-220075",
+        "provision_text": "제5조(채권자의 통지의무 등)",
+        "rerank_rank": 2,
+        "rerank_score": 0.07691718637943268,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "보증인 보호를 위한 특별법 5조  채권자의 통지의무 등",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 450조  지명채권양도의 대항요건#KOBLEX-059309"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.6435785293579102,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "민법 450조  지명채권양도의 대항요건#KOBLEX-059309",
+        "provision_text": "①지명채권의 양도는 양도인이 채무자에게 통지하거나 채무자가 승낙하지 아니하면 채무자 기타 제삼자에게 대항하지 못한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.06880810856819153,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 450조  지명채권양도의 대항요건 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 449조#KOBLEX-059304"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 31,
+        "first_stage_score": 0.5741280913352966,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "민법 449조#KOBLEX-059304",
+        "provision_text": "제4절 채권의 양도",
+        "rerank_rank": 4,
+        "rerank_score": 0.06288546323776245,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 449조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 232조  추심명령의 효과#KOBLEX-128830"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 57,
+        "first_stage_score": 0.5589711666107178,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "민사집행법 232조  추심명령의 효과#KOBLEX-128830",
+        "provision_text": "③제1항의 허가는 제3채무자와 채권자에게 통지하여야 한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.05047505348920822,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사집행법 232조  추심명령의 효과 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 452조  양도통지와 금반언#KOBLEX-059315"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6717012524604797,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "민법 452조  양도통지와 금반언#KOBLEX-059315",
+        "provision_text": "①양도인이 채무자에게 채권양도를 통지한 때에는 아직 양도하지 아니하였거나 그 양도가 무효인 경우에도 선의인 채무자는 양수인에게 대항할 수 있는 사유로 양도인에게 대항할 수 있다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.049758728593587875,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 452조  양도통지와 금반언 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 337조  전질의 대항요건#KOBLEX-059083"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 23,
+        "first_stage_score": 0.5845215320587158,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "민법 337조  전질의 대항요건#KOBLEX-059083",
+        "provision_text": "①전조의 경우에 질권자가 채무자에게 전질의 사실을 통지하거나 채무자가 이를 승낙함이 아니면 전질로써 채무자, 보증인, 질권설정자 및 그 승계인에게 대항하지 못한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.03196459636092186,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 337조  전질의 대항요건 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 405조  채권자대위권행사의 통지#KOBLEX-059211"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 55,
+        "first_stage_score": 0.5595859289169312,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "민법 405조  채권자대위권행사의 통지#KOBLEX-059211",
+        "provision_text": "②채무자가 전항의 통지를 받은 후에는 그 권리를 처분하여도 이로써 채권자에게 대항하지 못한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.026566343382000923,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 405조  채권자대위권행사의 통지 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 259조  목적물을 제3자가 점유하는 경우#KOBLEX-128912"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 56,
+        "first_stage_score": 0.5590750575065613,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "민사집행법 259조  목적물을 제3자가 점유하는 경우#KOBLEX-128912",
+        "provision_text": "제259조(목적물을 제3자가 점유하는 경우) 인도할 물건을 제3자가 점유하고 있는 때에는 채권자의 신청에 따라 금전채권의 압류에 관한 규정에 따라 채무자의 제3자에 대한 인도청구권을 채권자에게 넘겨야 한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.023497970774769783,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사집행법 259조  목적물을 제3자가 점유하는 경우",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "채무자 회생 및 파산에 관한 법률 121조  쌍방미이행 쌍무계약의 해제 또는 해지#KOBLEX-031845"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 91,
+        "first_stage_score": 0.5464680194854736,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "채무자 회생 및 파산에 관한 법률 121조  쌍방미이행 쌍무계약의 해제 또는 해지#KOBLEX-031845",
+        "provision_text": "②제1항의 규정에 의한 해제 또는 해지의 경우 채무자가 받은 반대급부가 채무자의 재산 중에 현존하는 때에는 상대방은 그 반환을 청구할 수 있으며, 현존하지 아니하는 때에는 상대방은 그 가액의 상환에 관하여 공익채권자로서 그 권리를 행사할 수 있다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.02323329821228981,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "채무자 회생 및 파산에 관한 법률 121조  쌍방미이행 쌍무계약의 해제 또는 해지 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "민법 337조  전질의 대항요건#KOBLEX-059083": "①전조의 경우에 질권자가 채무자에게 전질의 사실을 통지하거나 채무자가 이를 승낙함이 아니면 전질로써 채무자, 보증인, 질권설정자 및 그 승계인에게 대항하지 못한다.",
+      "민법 405조  채권자대위권행사의 통지#KOBLEX-059211": "②채무자가 전항의 통지를 받은 후에는 그 권리를 처분하여도 이로써 채권자에게 대항하지 못한다.",
+      "민법 449조#KOBLEX-059304": "제4절 채권의 양도",
+      "민법 450조  지명채권양도의 대항요건#KOBLEX-059309": "①지명채권의 양도는 양도인이 채무자에게 통지하거나 채무자가 승낙하지 아니하면 채무자 기타 제삼자에게 대항하지 못한다.",
+      "민법 451조  승낙, 통지의 효과#KOBLEX-059313": "②양도인이 양도통지만을 한 때에는 채무자는 그 통지를 받은 때까지 양도인에 대하여 생긴 사유로써 양수인에게 대항할 수 있다.",
+      "민법 452조  양도통지와 금반언#KOBLEX-059315": "①양도인이 채무자에게 채권양도를 통지한 때에는 아직 양도하지 아니하였거나 그 양도가 무효인 경우에도 선의인 채무자는 양수인에게 대항할 수 있는 사유로 양도인에게 대항할 수 있다.",
+      "민사집행법 232조  추심명령의 효과#KOBLEX-128830": "③제1항의 허가는 제3채무자와 채권자에게 통지하여야 한다.",
+      "민사집행법 259조  목적물을 제3자가 점유하는 경우#KOBLEX-128912": "제259조(목적물을 제3자가 점유하는 경우) 인도할 물건을 제3자가 점유하고 있는 때에는 채권자의 신청에 따라 금전채권의 압류에 관한 규정에 따라 채무자의 제3자에 대한 인도청구권을 채권자에게 넘겨야 한다.",
+      "보증인 보호를 위한 특별법 5조  채권자의 통지의무 등#KOBLEX-220075": "제5조(채권자의 통지의무 등)",
+      "채무자 회생 및 파산에 관한 법률 121조  쌍방미이행 쌍무계약의 해제 또는 해지#KOBLEX-031845": "②제1항의 규정에 의한 해제 또는 해지의 경우 채무자가 받은 반대급부가 채무자의 재산 중에 현존하는 때에는 상대방은 그 반환을 청구할 수 있으며, 현존하지 아니하는 때에는 상대방은 그 가액의 상환에 관하여 공익채권자로서 그 권리를 행사할 수 있다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민법 450조  지명채권양도의 대항요건#KOBLEX-059309"
+            ],
+            "rationale": "C003의 조문 텍스트가 채권양도의 대항요건이 채무자 통지 또는 승낙임을 명시적으로 확인한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민법 450조  지명채권양도의 대항요건#KOBLEX-059309"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "민법 제450조 제1항(C003)은 지명채권 양도의 대항요건이 채무자 통지 또는 승낙임을 명확히 규정하고 있어, 질문에서 요구하는 법적 요건에 대한 증거가 충족된다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "민법 450조  지명채권양도의 대항요건#KOBLEX-059309",
+        "support_spans": [
+          {
+            "end_char": 65,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "채권양도 후 양수인이 채무자에게 대항하기 위한 법적 요건이 무엇인지",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 을에게 500만 원을 받을 권리가 있는 채권자입니다. 갑은 이 채권을 병에게 양도하기로 했습니다. 그러나 을은 갑이 병에게 채권을 양도했다는 사실을 알지 못하고 있었습니다. 며칠 후, 갑이 을에게 채권이 병에게 양도되었다고 통지하려고 합니다. [질문] 병이 을에게 채권양도로써 대항할 수 있도록 하기 위해 필요한 요건은 무엇인가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "채권양도",
+          "대항요건",
+          "채무자 통지",
+          "공동명의"
+        ],
+        "query_text": "채권양도 대항요건 채무자 통지 공동명의 [원문 맥락] 며칠 후, 갑이 을에게 채권이 병에게 양도되었다고 통지하려고 합니다. 병이 을에게 채권양도로써 대항할 수 있도록 하기 위해 필요한 요건은 무엇인가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제447조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 을에게 500만 원을 받을 권리가 있는 채권자입니다. 갑은 이 채권을 병에게 양도하기로 했습니다. 그러나 을은 갑이 병에게 채권을 양도했다는 사실을 알지 못하고 있었습니다. 며칠 후, 갑이 을에게 채권이 병에게 양도되었다고 통지하려고 합니다.\n\n[질문]\n병이 을에게 채권양도로써 대항할 수 있도록 하기 위해 필요한 요건은 무엇인가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "채권양도 대항요건(채무자 통지 또는 공동명의)을 명시하는 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "채권양도의 대항요건이 채무자 통지 또는 공동명의임을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "채권양도의 대항요건에 관한 민법 조항",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 대항요건을 직접 규정하는 핵심 조항",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "224aaac2-0d04-4f5e-8af5-299629c585a7",
+    "seen_provision_ids": [
+      "민법 452조  양도통지와 금반언#KOBLEX-059315",
+      "민법 337조  전질의 대항요건#KOBLEX-059083",
+      "보증인 보호를 위한 특별법 5조  채권자의 통지의무 등#KOBLEX-220075",
+      "민법 451조  승낙, 통지의 효과#KOBLEX-059313",
+      "채무자 회생 및 파산에 관한 법률 121조  쌍방미이행 쌍무계약의 해제 또는 해지#KOBLEX-031845",
+      "민법 450조  지명채권양도의 대항요건#KOBLEX-059309",
+      "민법 405조  채권자대위권행사의 통지#KOBLEX-059211",
+      "민사집행법 232조  추심명령의 효과#KOBLEX-128830",
+      "민사집행법 259조  목적물을 제3자가 점유하는 경우#KOBLEX-128912",
+      "민법 449조#KOBLEX-059304"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

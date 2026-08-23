@@ -1,0 +1,656 @@
+{
+  "abstention_reason": null,
+  "answer": "전시할 목적으로 의료기기를 진열하려는 자는 미리 지방식품의약품안전청장에게 승인을 받아야 한다.[CT1]\n승인받은 의료기기를 진열하려는 자는 사용방법 등을 설명하기 위하여 단순하게 작동시키는 행위, 신고한 내용에 관한 홍보물을 부착하거나 비치하는 행위 등 식품의약품안전처장이 정하여 고시하는 행위 외의 행위를 해서는 아니 된다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1",
+    "T2"
+  ],
+  "assumptions": [],
+  "candidate_answer": "전시할 목적으로 의료기기를 진열하려는 자는 미리 지방식품의약품안전청장에게 승인을 받아야 한다.[CT1]\n승인받은 의료기기를 진열하려는 자는 사용방법 등을 설명하기 위하여 단순하게 작동시키는 행위, 신고한 내용에 관한 홍보물을 부착하거나 비치하는 행위 등 식품의약품안전처장이 정하여 고시하는 행위 외의 행위를 해서는 아니 된다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218555",
+      "quoted_text": "① 법 제26조제1항 단서에 따라 전시할 목적으로 의료기기를 진열하려는 자는 미리 지방식품의약품안전청장에게 승인을 받아야 한다.",
+      "support_description": "전시 목적 의료기기 진열 시 승인 권한 주체가 지방식품의약품안전청장임을 명시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218556",
+      "quoted_text": "② 제1항에 따라 승인받은 의료기기를 진열하려는 자는 사용방법 등을 설명하기 위하여 단순하게 작동시키는 행위, 신고한 내용에 관한 홍보물을 부착하거나 비치하는 행위 등 식품의약품안전처장이 정하여 고시하는 행위 외의 행위를 해서는 아니 된다.",
+      "support_description": "승인받은 의료기기 전시 시 허용되는 행위 범위와 금지 사항을 명시한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "전시할 목적으로 의료기기를 진열하려는 자는 미리 지방식품의약품안전청장에게 승인을 받아야 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "승인받은 의료기기를 진열하려는 자는 사용방법 등을 설명하기 위하여 단순하게 작동시키는 행위, 신고한 내용에 관한 홍보물을 부착하거나 비치하는 행위 등 식품의약품안전처장이 정하여 고시하는 행위 외의 행위를 해서는 아니 된다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T13:13:02.455046+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 106284.606,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 199,
+      "dedup_collapse": 2,
+      "evidence_fusion": 199,
+      "first_stage": 200,
+      "request_rerank": 200,
+      "round_selected": 10,
+      "rrf": 200,
+      "selected": 199
+    }
+  },
+  "run_id": "52d79a8e-500f-48a8-bcd5-1fdd74f7a228",
+  "skill_generation_diagnostics": {
+    "attempt_count": 4,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218556",
+      "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218555"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "누구에게 승인을 받아야 하며",
+        "requested_output": "의료기기 전시를 위한 승인 권한 보유 기관 또는 주체"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "주의해야 할 점은 무엇인가",
+        "requested_output": "승인받은 의료기기 전시 시 준수해야 할 법적 의무 또는 금지 사항"
+      }
+    ],
+    "answered_target_ids": [
+      "T1",
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218555"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.7067162990570068,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218555",
+        "provision_text": "① 법 제26조제1항 단서에 따라 전시할 목적으로 의료기기를 진열하려는 자는 미리 지방식품의약품안전청장에게 승인을 받아야 한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9965691566467285,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218554"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6599803566932678,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218554",
+        "provision_text": "제46조(전시 목적 의료기기의 진열 승인 등)",
+        "rerank_rank": 2,
+        "rerank_score": 0.9848572015762329,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "의료기기법 40조 2 소비자의료기기감시원#KOBLEX-087682"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 14,
+        "first_stage_score": 0.5266475081443787,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "의료기기법 40조 2 소비자의료기기감시원#KOBLEX-087682",
+        "provision_text": "⑥ 소비자의료기기감시원이 제2항제1호의 직무를 수행하기 위하여 의료기기 판매업자 또는 임대업자의 영업소에 단독으로 출입하고자 하는 경우에는 미리 식품의약품안전처장 또는 특별시장ㆍ광역시장ㆍ도지사ㆍ특별자치도지사, 특별자치시장, 시장ㆍ군수ㆍ구청장의 승인을 받아야 한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.976277768611908,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "의료기기법 40조 2 소비자의료기기감시원 6항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218556"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.6294412612915039,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218556",
+        "provision_text": "② 제1항에 따라 승인받은 의료기기를 진열하려는 자는 사용방법 등을 설명하기 위하여 단순하게 작동시키는 행위, 신고한 내용에 관한 홍보물을 부착하거나 비치하는 행위 등 식품의약품안전처장이 정하여 고시하는 행위 외의 행위를 해서는 아니 된다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.9750248789787292,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218558"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 26,
+        "first_stage_score": 0.5344141721725464,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218558",
+        "provision_text": "④ 제1항에 따라 승인받은 의료기기를 승인받은 내용대로 사용한 후에는 식품의약품안전처장이 정하여 고시하는 바에 따라 해당 의료기기를 제10조제4호 및 제32조제1항제5호의2ㆍ제5호의3에 따른 의료기기로 사용할 수 있다. <신설 2021.6.24>",
+        "rerank_rank": 5,
+        "rerank_score": 0.9735983610153198,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등 4항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "의료기기법 시행규칙 40조  판매업자ㆍ임대업자의 판매질서 유지에 관한 사항 등#KOBLEX-218527"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 22,
+        "first_stage_score": 0.5416291952133179,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "의료기기법 시행규칙 40조  판매업자ㆍ임대업자의 판매질서 유지에 관한 사항 등#KOBLEX-218527",
+        "provision_text": "3. 다음 각 목의 어느 하나에 해당하는 의료기기를 판매 또는 임대하거나 판매 또는 임대의 목적으로 저장ㆍ진열하지 아니할 것",
+        "rerank_rank": 6,
+        "rerank_score": 0.9727602601051331,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "의료기기법 시행규칙 40조  판매업자ㆍ임대업자의 판매질서 유지에 관한 사항 등 3호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "의료기기법 13조 2 경제적 이익등 제공 내역에 관한 지출보고서 제출 등#KOBLEX-087457"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 90,
+        "first_stage_score": 0.5058785676956177,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "의료기기법 13조 2 경제적 이익등 제공 내역에 관한 지출보고서 제출 등#KOBLEX-087457",
+        "provision_text": "② 제조업자등이 의료기기 판촉영업자에게 의료기기의 판매 또는 임대 촉진 업무를 위탁(위탁받은 판매 또는 임대 촉진 업무를 다른 의료기기 판촉영업자에게 다시 위탁하는 경우를 포함한다)하는 경우 보건복지부령으로 정하는 바에 따라 위탁계약서를 작성하고 해당 위탁계약서 및 관련 근거 자료를 5년간 각각 보관하여야 한다. <신설 2023.8.8>",
+        "rerank_rank": 7,
+        "rerank_score": 0.9689087867736816,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "의료기기법 13조 2 경제적 이익등 제공 내역에 관한 지출보고서 제출 등 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "장애인복지법 시행규칙 3조 2 진료기록 열람 등의 동의#KOBLEX-020169"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 58,
+        "first_stage_score": 0.5033594965934753,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "장애인복지법 시행규칙 3조 2 진료기록 열람 등의 동의#KOBLEX-020169",
+        "provision_text": "제3조의2(진료기록 열람 등의 동의)",
+        "rerank_rank": 8,
+        "rerank_score": 0.9675137400627136,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "장애인복지법 시행규칙 3조 2 진료기록 열람 등의 동의",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "의료기기법 20조  용기 등의 기재사항#KOBLEX-087524"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 100,
+        "first_stage_score": 0.504834771156311,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "의료기기법 20조  용기 등의 기재사항#KOBLEX-087524",
+        "provision_text": "6. \"의료기기\"라는 표시",
+        "rerank_rank": 9,
+        "rerank_score": 0.9672192931175232,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "의료기기법 20조  용기 등의 기재사항 6호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218557"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.573756217956543,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218557",
+        "provision_text": "③ 지방식품의약품안전청장은 제1항에 따라 승인받은 의료기기가 다음 각 호의 어느 하나에 해당하는 경우에는 그 승인을 취소하여야 하고, 해당 의료기기를 봉함ㆍ봉인하거나 진열을 중지시키는 등의 조치를 할 수 있다. 1. 승인받은 내용과 다르게 진열하거나 사용한 경우 2. 제2항에 따라 허용된 행위 외의 행위를 한 경우 3. 그 밖에 국민 건강에 위해를 끼칠 우려가 있는 행위를 한 경우",
+        "rerank_rank": 10,
+        "rerank_score": 0.9669150710105896,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등 3항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "의료기기법 13조 2 경제적 이익등 제공 내역에 관한 지출보고서 제출 등#KOBLEX-087457": "② 제조업자등이 의료기기 판촉영업자에게 의료기기의 판매 또는 임대 촉진 업무를 위탁(위탁받은 판매 또는 임대 촉진 업무를 다른 의료기기 판촉영업자에게 다시 위탁하는 경우를 포함한다)하는 경우 보건복지부령으로 정하는 바에 따라 위탁계약서를 작성하고 해당 위탁계약서 및 관련 근거 자료를 5년간 각각 보관하여야 한다. <신설 2023.8.8>",
+      "의료기기법 20조  용기 등의 기재사항#KOBLEX-087524": "6. \"의료기기\"라는 표시",
+      "의료기기법 40조 2 소비자의료기기감시원#KOBLEX-087682": "⑥ 소비자의료기기감시원이 제2항제1호의 직무를 수행하기 위하여 의료기기 판매업자 또는 임대업자의 영업소에 단독으로 출입하고자 하는 경우에는 미리 식품의약품안전처장 또는 특별시장ㆍ광역시장ㆍ도지사ㆍ특별자치도지사, 특별자치시장, 시장ㆍ군수ㆍ구청장의 승인을 받아야 한다.",
+      "의료기기법 시행규칙 40조  판매업자ㆍ임대업자의 판매질서 유지에 관한 사항 등#KOBLEX-218527": "3. 다음 각 목의 어느 하나에 해당하는 의료기기를 판매 또는 임대하거나 판매 또는 임대의 목적으로 저장ㆍ진열하지 아니할 것",
+      "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218554": "제46조(전시 목적 의료기기의 진열 승인 등)",
+      "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218555": "① 법 제26조제1항 단서에 따라 전시할 목적으로 의료기기를 진열하려는 자는 미리 지방식품의약품안전청장에게 승인을 받아야 한다.",
+      "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218556": "② 제1항에 따라 승인받은 의료기기를 진열하려는 자는 사용방법 등을 설명하기 위하여 단순하게 작동시키는 행위, 신고한 내용에 관한 홍보물을 부착하거나 비치하는 행위 등 식품의약품안전처장이 정하여 고시하는 행위 외의 행위를 해서는 아니 된다.",
+      "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218557": "③ 지방식품의약품안전청장은 제1항에 따라 승인받은 의료기기가 다음 각 호의 어느 하나에 해당하는 경우에는 그 승인을 취소하여야 하고, 해당 의료기기를 봉함ㆍ봉인하거나 진열을 중지시키는 등의 조치를 할 수 있다. 1. 승인받은 내용과 다르게 진열하거나 사용한 경우 2. 제2항에 따라 허용된 행위 외의 행위를 한 경우 3. 그 밖에 국민 건강에 위해를 끼칠 우려가 있는 행위를 한 경우",
+      "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218558": "④ 제1항에 따라 승인받은 의료기기를 승인받은 내용대로 사용한 후에는 식품의약품안전처장이 정하여 고시하는 바에 따라 해당 의료기기를 제10조제4호 및 제32조제1항제5호의2ㆍ제5호의3에 따른 의료기기로 사용할 수 있다. <신설 2021.6.24>",
+      "장애인복지법 시행규칙 3조 2 진료기록 열람 등의 동의#KOBLEX-020169": "제3조의2(진료기록 열람 등의 동의)"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218555"
+            ],
+            "rationale": "C001 explicitly names the Regional Food and Drug Administration Director as the authority from whom approval must be obtained.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218555"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The candidate provision C001 fully establishes the legal rule regarding the approval authority for displaying medical devices for exhibition purposes, identifying the Regional Food and Drug Administration Director as the competent authority.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218556"
+            ],
+            "rationale": "C004 explicitly lists the permitted actions and prohibits any other actions, thereby defining the compliance obligations for exhibition.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218556"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The candidate provision C004 fully establishes the legal obligations and prohibitions for displaying approved medical devices, specifying that only actions prescribed by the Minister of Food and Drug Safety are permitted.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218555",
+        "support_spans": [
+          {
+            "end_char": 71,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218556",
+        "support_spans": [
+          {
+            "end_char": 134,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "의료기기 전시를 위한 법적 승인 절차 및 권한 주체",
+        "issue_id": "I1"
+      },
+      {
+        "description": "승인받은 의료기기 전시 시 준수 의무",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 의료기기를 제조하는 회사에서 일하고 있으며, 곧 개최될 의료기기 전시회에서 새로운 제품을 선보이려 합니다. 을은 갑의 회사가 전시회에 참가하기 위해 준비하는 과정을 돕고 있습니다. 갑은 전시회에 의료기기를 전시하려면 어떤 절차를 밟아야 하는지 궁금해졌고, 을에게 조언을 구했습니다. [질문] 갑이 전시 목적으로 의료기기를 진열하려면 누구에게 승인을 받아야 하며, 승인받은 의료기기를 전시할 때 주의해야 할 점은 무엇인가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "의료기기",
+          "전시",
+          "승인",
+          "권한",
+          "주체"
+        ],
+        "query_text": "의료기기 전시 승인 권한 주체 [원문 맥락] 갑은 전시회에 의료기기를 전시하려면 어떤 절차를 밟아야 하는지 궁금해졌고, 을에게 조언을 구했습니다. 갑이 전시 목적으로 의료기기를 진열하려면 누구에게 승인을 받아야 하며, 승인받은 의료기기를 전시할 때 주의해야 할 점은 무엇인가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "의료기기법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "의료기기",
+          "전시",
+          "준수",
+          "의무",
+          "금지"
+        ],
+        "query_text": "의료기기 전시 시 준수 의무 및 금지 사항 [원문 맥락] 갑은 전시회에 의료기기를 전시하려면 어떤 절차를 밟아야 하는지 궁금해졌고, 을에게 조언을 구했습니다. 갑이 전시 목적으로 의료기기를 진열하려면 누구에게 승인을 받아야 하며, 승인받은 의료기기를 전시할 때 주의해야 할 점은 무엇인가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "의료기기법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 의료기기를 제조하는 회사에서 일하고 있으며, 곧 개최될 의료기기 전시회에서 새로운 제품을 선보이려 합니다. 을은 갑의 회사가 전시회에 참가하기 위해 준비하는 과정을 돕고 있습니다. 갑은 전시회에 의료기기를 전시하려면 어떤 절차를 밟아야 하는지 궁금해졌고, 을에게 조언을 구했습니다.\n\n[질문]\n갑이 전시 목적으로 의료기기를 진열하려면 누구에게 승인을 받아야 하며, 승인받은 의료기기를 전시할 때 주의해야 할 점은 무엇인가?",
+    "remaining_request_budget": 7,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "전시 목적 의료기기 진열 시 승인 권한이 있는 기관 또는 주체를 명시하는 조항을 확인해야 함",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "의료기기 전시를 위한 승인 권한 보유 주체(예: 식약처장, 지방식약청장 등)를 명시하는 규정"
+          }
+        ],
+        "critical": true,
+        "description": "의료기기 전시를 위한 승인 권한 및 절차에 관한 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 승인 주체를 특정하기 위해 필수적임",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "전시된 의료기기에 대한 표시, 사용 제한, 또는 기타 준수 사항을 명시하는 조항을 확인해야 함",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "승인받은 의료기기를 전시할 때 준수해야 할 법적 의무(예: 표시사항, 사용 금지, 변경 금지 등)를 명시하는 규정"
+          }
+        ],
+        "critical": true,
+        "description": "승인받은 의료기기 전시 시 준수해야 할 의무 또는 금지 사항",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 요구하는 전시 시 주의 사항을 도출하기 위해 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "52d79a8e-500f-48a8-bcd5-1fdd74f7a228",
+    "seen_provision_ids": [
+      "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218555",
+      "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218558",
+      "장애인복지법 시행규칙 3조 2 진료기록 열람 등의 동의#KOBLEX-020169",
+      "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218556",
+      "의료기기법 시행규칙 40조  판매업자ㆍ임대업자의 판매질서 유지에 관한 사항 등#KOBLEX-218527",
+      "의료기기법 40조 2 소비자의료기기감시원#KOBLEX-087682",
+      "의료기기법 13조 2 경제적 이익등 제공 내역에 관한 지출보고서 제출 등#KOBLEX-087457",
+      "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218557",
+      "의료기기법 시행규칙 46조  전시 목적 의료기기의 진열 승인 등#KOBLEX-218554",
+      "의료기기법 20조  용기 등의 기재사항#KOBLEX-087524"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

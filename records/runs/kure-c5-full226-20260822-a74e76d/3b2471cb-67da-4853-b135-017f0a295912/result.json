@@ -1,0 +1,658 @@
+{
+  "abstention_reason": null,
+  "answer": "신주발행의 무효는 주주, 이사 또는 감사에 한하여 신주를 발행한 날로부터 6월 이내에 소를 제기함으로써만 주장할 수 있다.[CT1]\n주주는 그가 가진 주식 수에 비례하여 신주의 배정을 받을 권리가 있다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1",
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "을이 갑 회사의 주주임을 전제로 한다."
+    }
+  ],
+  "candidate_answer": "신주발행의 무효는 주주, 이사 또는 감사에 한하여 신주를 발행한 날로부터 6월 이내에 소를 제기함으로써만 주장할 수 있다.[CT1]\n주주는 그가 가진 주식 수에 비례하여 신주의 배정을 받을 권리가 있다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "상법 429조  신주발행무효의 소#KOBLEX-115090",
+      "quoted_text": "제429조(신주발행무효의 소) 신주발행의 무효는 주주ㆍ이사 또는 감사에 한하여 신주를 발행한 날로부터 6월내에 소만으로 이를 주장할 수 있다. <개정 1984.4.10>",
+      "support_description": "신주발행 무효 주장의 기한(6개월)과 방법(소)을 규정하여 T1에 대한 법적 근거를 제공한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "상법 418조  신주인수권의 내용 및 배정일의 지정ㆍ공고#KOBLEX-115039",
+      "quoted_text": "①주주는 그가 가진 주식 수에 따라서 신주의 배정을 받을 권리가 있다. <개정 2001.7.24>",
+      "support_description": "기존 주주의 신주 배정 청구권(신주인수권)의 존재와 배정 비율을 규정하여 T2에 대한 법적 근거를 제공한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "신주발행의 무효는 주주, 이사 또는 감사에 한하여 신주를 발행한 날로부터 6월 이내에 소를 제기함으로써만 주장할 수 있다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "주주는 그가 가진 주식 수에 비례하여 신주의 배정을 받을 권리가 있다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T08:14:51.518685+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 77250.183,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "신주발행 무효의 구체적 사유(예: 정관 위반, 절차적 하자 등)에 대한 사실관계는 본 답변의 범위에서 제외된다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 191,
+      "dedup_collapse": 18,
+      "evidence_fusion": 191,
+      "first_stage": 200,
+      "request_rerank": 200,
+      "round_selected": 10,
+      "rrf": 200,
+      "selected": 191
+    }
+  },
+  "run_id": "3b2471cb-67da-4853-b135-017f0a295912",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "상법 418조  신주인수권의 내용 및 배정일의 지정ㆍ공고#KOBLEX-115039",
+      "상법 429조  신주발행무효의 소#KOBLEX-115090"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "period",
+        "question_anchor": "을이 갑 회사의 신주발행의 무효를 주장할 수 있는 기간은 어떻게 되며",
+        "requested_output": "신주발행 무효 주장의 기한"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "conditions",
+        "question_anchor": "을은 어떤 조건으로 신주의 배정을 받을 권리가 있는가",
+        "requested_output": "신주 배정 청구권의 성립 조건"
+      }
+    ],
+    "answered_target_ids": [
+      "T1",
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "어음법 70조  시효기간#KOBLEX-030595"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 7,
+        "first_stage_score": 0.5711422562599182,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "어음법 70조  시효기간#KOBLEX-030595",
+        "provision_text": "③ 배서인의 다른 배서인과 발행인에 대한 청구권은 그 배서인이 어음을 환수한 날 또는 그 자가 제소된 날부터 6개월간 행사하지 아니하면 소멸시효가 완성된다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.315817654132843,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "어음법 70조  시효기간 3항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 418조  신주인수권의 내용 및 배정일의 지정ㆍ공고#KOBLEX-115039"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.6012098789215088,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "상법 418조  신주인수권의 내용 및 배정일의 지정ㆍ공고#KOBLEX-115039",
+        "provision_text": "①주주는 그가 가진 주식 수에 따라서 신주의 배정을 받을 권리가 있다. <개정 2001.7.24>",
+        "rerank_rank": 1,
+        "rerank_score": 0.2969910204410553,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "상법 418조  신주인수권의 내용 및 배정일의 지정ㆍ공고 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "수표법 51조  시효기간#KOBLEX-130393"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 28,
+        "first_stage_score": 0.5372596979141235,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "수표법 51조  시효기간#KOBLEX-130393",
+        "provision_text": "① 소지인의 배서인, 발행인, 그 밖의 채무자에 대한 상환청구권은 제시기간이 지난 후 6개월간 행사하지 아니하면 소멸시효가 완성된다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.28758400678634644,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "수표법 51조  시효기간 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "응급의료에 관한 법률 22조 3 구상권의 시효#KOBLEX-132754"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 55,
+        "first_stage_score": 0.5253635048866272,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "응급의료에 관한 법률 22조 3 구상권의 시효#KOBLEX-132754",
+        "provision_text": "① 제22조제4항에 따른 대지급금에 대한 구상의 권리는 그 대지급금을 청구할 수 있는 날부터 3년 동안 행사하지 아니하면 소멸시효가 완성된다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.23206205666065216,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "응급의료에 관한 법률 22조 3 구상권의 시효 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "어음법 70조  시효기간#KOBLEX-030594"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.5683007836341858,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "어음법 70조  시효기간#KOBLEX-030594",
+        "provision_text": "② 소지인의 배서인과 발행인에 대한 청구권은 다음 각 호의 날부터 1년간 행사하지 아니하면 소멸시효가 완성된다. 1. 적법한 기간 내에 작성시킨 거절증서의 날짜 2. 무비용상환의 문구가 적혀 있는 경우에는 만기일",
+        "rerank_rank": 4,
+        "rerank_score": 0.12351103872060776,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "어음법 70조  시효기간 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "의료급여법 24조  결손처분#KOBLEX-029060"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 67,
+        "first_stage_score": 0.5203779935836792,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "의료급여법 24조  결손처분#KOBLEX-029060",
+        "provision_text": "2. 해당 권리에 대한 소멸시효가 완성된 경우",
+        "rerank_rank": 5,
+        "rerank_score": 0.11852747946977615,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "의료급여법 24조  결손처분 2호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "비송사건절차법 88조  신주의 발행 무효로 인하여 신주의 주주가 받을 금액의 증감 신청#KOBLEX-047798"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.5910583734512329,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "비송사건절차법 88조  신주의 발행 무효로 인하여 신주의 주주가 받을 금액의 증감 신청#KOBLEX-047798",
+        "provision_text": "① 「상법」 제432조제2항에 따른 신청은 신주발행 무효 판결이 확정된 날부터 6개월 내에 하여야 한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.08540903031826019,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "비송사건절차법 88조  신주의 발행 무효로 인하여 신주의 주주가 받을 금액의 증감 신청 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 403조  주주의 대표소송#KOBLEX-114928"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 57,
+        "first_stage_score": 0.525274395942688,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "상법 403조  주주의 대표소송#KOBLEX-114928",
+        "provision_text": "④제3항의 기간의 경과로 인하여 회사에 회복할 수 없는 손해가 생길 염려가 있는 경우에는 전항의 규정에 불구하고 제1항의 주주는 즉시 소를 제기할 수 있다. <개정 1998.12.28>",
+        "rerank_rank": 7,
+        "rerank_score": 0.07042640447616577,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "상법 403조  주주의 대표소송 4항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 429조  신주발행무효의 소#KOBLEX-115090"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6696564555168152,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "상법 429조  신주발행무효의 소#KOBLEX-115090",
+        "provision_text": "제429조(신주발행무효의 소) 신주발행의 무효는 주주ㆍ이사 또는 감사에 한하여 신주를 발행한 날로부터 6월내에 소만으로 이를 주장할 수 있다. <개정 1984.4.10>",
+        "rerank_rank": 8,
+        "rerank_score": 0.04473302513360977,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "상법 429조  신주발행무효의 소",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "자본시장과 금융투자업에 관한 법률 127조  배상청구권의 소멸#KOBLEX-135553"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 73,
+        "first_stage_score": 0.5179904103279114,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "자본시장과 금융투자업에 관한 법률 127조  배상청구권의 소멸#KOBLEX-135553",
+        "provision_text": "제127조(배상청구권의 소멸) 제125조에 따른 배상의 책임은 그 청구권자가 해당 사실을 안 날부터 1년 이내 또는 해당 증권에 관하여 증권신고서의 효력이 발생한 날부터 3년 이내에 청구권을 행사하지 아니한 경우에는 소멸한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.03874300792813301,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "자본시장과 금융투자업에 관한 법률 127조  배상청구권의 소멸",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "비송사건절차법 88조  신주의 발행 무효로 인하여 신주의 주주가 받을 금액의 증감 신청#KOBLEX-047798": "① 「상법」 제432조제2항에 따른 신청은 신주발행 무효 판결이 확정된 날부터 6개월 내에 하여야 한다.",
+      "상법 403조  주주의 대표소송#KOBLEX-114928": "④제3항의 기간의 경과로 인하여 회사에 회복할 수 없는 손해가 생길 염려가 있는 경우에는 전항의 규정에 불구하고 제1항의 주주는 즉시 소를 제기할 수 있다. <개정 1998.12.28>",
+      "상법 418조  신주인수권의 내용 및 배정일의 지정ㆍ공고#KOBLEX-115039": "①주주는 그가 가진 주식 수에 따라서 신주의 배정을 받을 권리가 있다. <개정 2001.7.24>",
+      "상법 429조  신주발행무효의 소#KOBLEX-115090": "제429조(신주발행무효의 소) 신주발행의 무효는 주주ㆍ이사 또는 감사에 한하여 신주를 발행한 날로부터 6월내에 소만으로 이를 주장할 수 있다. <개정 1984.4.10>",
+      "수표법 51조  시효기간#KOBLEX-130393": "① 소지인의 배서인, 발행인, 그 밖의 채무자에 대한 상환청구권은 제시기간이 지난 후 6개월간 행사하지 아니하면 소멸시효가 완성된다.",
+      "어음법 70조  시효기간#KOBLEX-030594": "② 소지인의 배서인과 발행인에 대한 청구권은 다음 각 호의 날부터 1년간 행사하지 아니하면 소멸시효가 완성된다. 1. 적법한 기간 내에 작성시킨 거절증서의 날짜 2. 무비용상환의 문구가 적혀 있는 경우에는 만기일",
+      "어음법 70조  시효기간#KOBLEX-030595": "③ 배서인의 다른 배서인과 발행인에 대한 청구권은 그 배서인이 어음을 환수한 날 또는 그 자가 제소된 날부터 6개월간 행사하지 아니하면 소멸시효가 완성된다.",
+      "응급의료에 관한 법률 22조 3 구상권의 시효#KOBLEX-132754": "① 제22조제4항에 따른 대지급금에 대한 구상의 권리는 그 대지급금을 청구할 수 있는 날부터 3년 동안 행사하지 아니하면 소멸시효가 완성된다.",
+      "의료급여법 24조  결손처분#KOBLEX-029060": "2. 해당 권리에 대한 소멸시효가 완성된 경우",
+      "자본시장과 금융투자업에 관한 법률 127조  배상청구권의 소멸#KOBLEX-135553": "제127조(배상청구권의 소멸) 제125조에 따른 배상의 책임은 그 청구권자가 해당 사실을 안 날부터 1년 이내 또는 해당 증권에 관하여 증권신고서의 효력이 발생한 날부터 3년 이내에 청구권을 행사하지 아니한 경우에는 소멸한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "상법 429조  신주발행무효의 소#KOBLEX-115090"
+            ],
+            "rationale": "C009(상법 429조)가 주주의 신주발행 무효 주장에 적용되는 기간을 명시하고 있다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "상법 429조  신주발행무효의 소#KOBLEX-115090"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "상법 제429조가 신주발행 무효 주장의 기산점(신주 발행일)과 기간(6개월)을 명확히 규정하고 있으므로, 해당 법적 근거가 완전히 확보되었다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "상법 418조  신주인수권의 내용 및 배정일의 지정ㆍ공고#KOBLEX-115039"
+            ],
+            "rationale": "C002(상법 418조 1항)가 신주 배정 청구권의 성립 요건(주주 자격) 및 배정 비율(주식 수에 비례)을 정하고 있다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "상법 418조  신주인수권의 내용 및 배정일의 지정ㆍ공고#KOBLEX-115039"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "상법 제418조 제1항이 기존 주주의 신주 배정 청구권(신주인수권)의 존재와 주식 수에 따른 배정 원칙을 명시하고 있으므로, 해당 법적 근거가 확보되었다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "상법 429조  신주발행무효의 소#KOBLEX-115090",
+        "support_spans": [
+          {
+            "end_char": 94,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "상법 418조  신주인수권의 내용 및 배정일의 지정ㆍ공고#KOBLEX-115039",
+        "support_spans": [
+          {
+            "end_char": 54,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "주주로서 신주발행의 무효를 주장할 수 있는 법적 기한이 존재하는지",
+        "issue_id": "I1"
+      },
+      {
+        "description": "기존 주주가 신주 배정을 청구할 수 있는 법적 요건",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑 주식회사는 최근 회사 운영 자금을 마련하기 위해 신주를 발행했습니다. 을은 갑 회사의 주주로서 이번 신주 발행이 적법하지 않다고 주장하고 있으며, 자신이 보유한 주식 수에 따라 신주를 배정받기를 원하고 있습니다. 이 상황에서 을은 신주 발행의 무효를 주장하고 싶어하고, 신주의 배정을 받을 권리에 대해 궁금해하고 있습니다. [질문] 을이 갑 회사의 신주발행의 무효를 주장할 수 있는 기간은 어떻게 되며, 을은 어떤 조건으로 신주의 배정을 받을 권리가 있는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "주주",
+          "신주발행",
+          "무효",
+          "소멸시효",
+          "제척기간"
+        ],
+        "query_text": "주주 신주발행 무효 주장 기간 소멸시효 제척기간 [원문 맥락] 이 상황에서 을은 신주 발행의 무효를 주장하고 싶어하고, 신주의 배정을 받을 권리에 대해 궁금해하고 있습니다. 을이 갑 회사의 신주발행의 무효를 주장할 수 있는 기간은 어떻게 되며, 을은 어떤 조건으로 신주의 배정을 받을 권리가 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "상법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "기존 주주",
+          "신주 배정",
+          "신주인수권",
+          "청구권",
+          "요건"
+        ],
+        "query_text": "기존 주주 신주 배정 청구권 신주인수권 요건 [원문 맥락] 이 상황에서 을은 신주 발행의 무효를 주장하고 싶어하고, 신주의 배정을 받을 권리에 대해 궁금해하고 있습니다. 을이 갑 회사의 신주발행의 무효를 주장할 수 있는 기간은 어떻게 되며, 을은 어떤 조건으로 신주의 배정을 받을 권리가 있는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "상법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑 주식회사는 최근 회사 운영 자금을 마련하기 위해 신주를 발행했습니다. 을은 갑 회사의 주주로서 이번 신주 발행이 적법하지 않다고 주장하고 있으며, 자신이 보유한 주식 수에 따라 신주를 배정받기를 원하고 있습니다. 이 상황에서 을은 신주 발행의 무효를 주장하고 싶어하고, 신주의 배정을 받을 권리에 대해 궁금해하고 있습니다.\n\n[질문]\n을이 갑 회사의 신주발행의 무효를 주장할 수 있는 기간은 어떻게 되며, 을은 어떤 조건으로 신주의 배정을 받을 권리가 있는가?",
+    "remaining_request_budget": 7,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "주주가 신주발행의 무효를 주장할 수 있는 기간의 기산점과 기간을 명시하는 조항을 확인해야 함",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "주주의 신주발행 무효 주장에 적용되는 기간(시효 또는 제척기간)을 명시하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "주주의 신주발행 무효 주장에 관한 소멸시효 또는 제척기간 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "limitation",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 무효 주장의 기간을 직접적으로 묻고 있으므로, 해당 기간을 정하는 법적 근거가 필수적임",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "신주 배정 청구권이 인정되는 주주 자격, 배정 비율, 및 행사 요건을 명시하는 조항을 확인해야 함",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "신주 배정 청구권(신주인수권)의 성립 요건 및 배정 비율을 정하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "기존 주주의 신주 배정 청구권(신주인수권)의 성립 요건",
+        "evidence_item_id": "E2",
+        "evidence_type": "element",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 신주 배정 청구의 조건을 묻고 있으므로, 해당 권리의 성립 요건을 정하는 법적 근거가 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "3b2471cb-67da-4853-b135-017f0a295912",
+    "seen_provision_ids": [
+      "어음법 70조  시효기간#KOBLEX-030595",
+      "어음법 70조  시효기간#KOBLEX-030594",
+      "수표법 51조  시효기간#KOBLEX-130393",
+      "의료급여법 24조  결손처분#KOBLEX-029060",
+      "비송사건절차법 88조  신주의 발행 무효로 인하여 신주의 주주가 받을 금액의 증감 신청#KOBLEX-047798",
+      "응급의료에 관한 법률 22조 3 구상권의 시효#KOBLEX-132754",
+      "상법 418조  신주인수권의 내용 및 배정일의 지정ㆍ공고#KOBLEX-115039",
+      "상법 429조  신주발행무효의 소#KOBLEX-115090",
+      "상법 403조  주주의 대표소송#KOBLEX-114928",
+      "자본시장과 금융투자업에 관한 법률 127조  배상청구권의 소멸#KOBLEX-135553"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

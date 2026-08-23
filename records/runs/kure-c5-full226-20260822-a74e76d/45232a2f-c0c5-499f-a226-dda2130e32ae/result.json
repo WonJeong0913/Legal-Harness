@@ -1,0 +1,814 @@
+{
+  "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": null,
+  "candidate_answer_basis": "retrieved_candidates",
+  "candidate_answer_error": "grounded_legal_answer_generation did not produce a valid GENERATE_BENCHMARK_CANDIDATE result after 2 attempts: grounded_legal_answer_generation returned UNCOVERED_CRITICAL_EVIDENCE: Critical evidence item E1 is uncovered. The supplied candidate provisions do not contain the statutory rule allowing a creditor of an indivisible debt (불가분채무) to demand full or partial performance from one of the debtors. C011 addresses indivisible claims (불가분채권), and C013 addresses joint and several debts (연대채무), neither of which establishes the specific legal rule for indivisible debts required by the question.",
+  "candidate_answer_status": "EXECUTION_FAILURE",
+  "candidate_answer_termination_reason": "INVALID_SKILL_OUTPUT",
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T13:08:30.729185+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 100516.384,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 196,
+      "dedup_collapse": 8,
+      "evidence_fusion": 196,
+      "first_stage": 200,
+      "request_rerank": 200,
+      "round_selected": 20,
+      "rrf": 200,
+      "selected": 196
+    }
+  },
+  "run_id": "45232a2f-c0c5-499f-a226-dda2130e32ae",
+  "skill_generation_diagnostics": {
+    "attempt_count": 6,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 9,
+          "request_count": 1,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "ABSTAIN",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "Two consecutive retrieval rounds did not improve critical evidence.",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "ABSTAIN",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 19
+        },
+        "event": "BENCHMARK_CANDIDATE_GENERATION_STARTED",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "error": "grounded_legal_answer_generation did not produce a valid GENERATE_BENCHMARK_CANDIDATE result after 2 attempts: grounded_legal_answer_generation returned UNCOVERED_CRITICAL_EVIDENCE: Critical evidence item E1 is uncovered. The supplied candidate provisions do not contain the statutory rule allowing a creditor of an indivisible debt (불가분채무) to demand full or partial performance from one of the debtors. C011 addresses indivisible claims (불가분채권), and C013 addresses joint and several debts (연대채무), neither of which establishes the specific legal rule for indivisible debts required by the question.",
+          "termination_reason": "INVALID_SKILL_OUTPUT"
+        },
+        "event": "BENCHMARK_CANDIDATE_EXECUTION_FAILURE",
+        "phase": "ABSTAINED"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "A 회사는 불가분채무를 부담한 갑, 을, 병 중 한 명에게 채무의 전부나 일부의 이행을 청구할 수 있는가?",
+        "requested_output": "불가분채무의 채권자가 채무자 중 한 명에게 채무의 전부 또는 일부 이행을 청구할 수 있는지 여부"
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "신용보증기금법 31조  채권자의 통지의무#KOBLEX-210968"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 33,
+        "first_stage_score": 0.5898525714874268,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "신용보증기금법 31조  채권자의 통지의무#KOBLEX-210968",
+        "provision_text": "2. 채무의 일부 또는 전부가 소멸하였을 때",
+        "rerank_rank": 1,
+        "rerank_score": 0.9999419450759888,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "신용보증기금법 31조  채권자의 통지의무 2호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "채무자 회생 및 파산에 관한 법률 221조  회생채권자 등의 회생계획안 제출#KOBLEX-032189"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 55,
+        "first_stage_score": 0.5806423425674438,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "채무자 회생 및 파산에 관한 법률 221조  회생채권자 등의 회생계획안 제출#KOBLEX-032189",
+        "provision_text": "1. 채무자",
+        "rerank_rank": 2,
+        "rerank_score": 0.9999368190765381,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "채무자 회생 및 파산에 관한 법률 221조  회생채권자 등의 회생계획안 제출 1호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지역신용보증재단법 26조  채권자의 의무#KOBLEX-056830"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 45,
+        "first_stage_score": 0.5830798745155334,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "지역신용보증재단법 26조  채권자의 의무#KOBLEX-056830",
+        "provision_text": "2. 채무의 전부 또는 일부가 소멸하였을 때",
+        "rerank_rank": 3,
+        "rerank_score": 0.9999312162399292,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "지역신용보증재단법 26조  채권자의 의무 2호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "신용보증기금법 31조  채권자의 통지의무#KOBLEX-210970"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 75,
+        "first_stage_score": 0.5725917816162109,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "신용보증기금법 31조  채권자의 통지의무#KOBLEX-210970",
+        "provision_text": "4. 채무자가 채무를 이행하지 아니하였을 때",
+        "rerank_rank": 4,
+        "rerank_score": 0.9999308586120605,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "신용보증기금법 31조  채권자의 통지의무 4호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "기술보증기금법 38조  채권자의 의무#KOBLEX-118091"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 46,
+        "first_stage_score": 0.5830798745155334,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "기술보증기금법 38조  채권자의 의무#KOBLEX-118091",
+        "provision_text": "2. 채무의 전부 또는 일부가 소멸하였을 때",
+        "rerank_rank": 5,
+        "rerank_score": 0.9999244213104248,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "기술보증기금법 38조  채권자의 의무 2호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지역신용보증재단법 26조  채권자의 의무#KOBLEX-056832"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 73,
+        "first_stage_score": 0.5725917816162109,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "지역신용보증재단법 26조  채권자의 의무#KOBLEX-056832",
+        "provision_text": "4. 채무자가 채무를 이행하지 아니하였을 때",
+        "rerank_rank": 6,
+        "rerank_score": 0.9999161958694458,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "지역신용보증재단법 26조  채권자의 의무 4호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "기술보증기금법 38조  채권자의 의무#KOBLEX-118093"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 74,
+        "first_stage_score": 0.5725917816162109,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "기술보증기금법 38조  채권자의 의무#KOBLEX-118093",
+        "provision_text": "4. 채무자가 채무를 이행하지 아니하였을 때",
+        "rerank_rank": 7,
+        "rerank_score": 0.999911904335022,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "기술보증기금법 38조  채권자의 의무 4호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 410조  1인의 채권자에 생긴 사항의 효력#KOBLEX-059223"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 11,
+        "first_stage_score": 0.6130960583686829,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "민법 410조  1인의 채권자에 생긴 사항의 효력#KOBLEX-059223",
+        "provision_text": "②불가분채권자 중의 1인과 채무자간에 경개나 면제있는 경우에 채무전부의 이행을 받은 다른 채권자는 그 1인이 권리를 잃지 아니하였으면 그에게 분급할 이익을 채무자에게 상환하여야 한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.999908447265625,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 410조  1인의 채권자에 생긴 사항의 효력 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "한국주택금융공사법 40조  채권자의 의무#KOBLEX-183317"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 49,
+        "first_stage_score": 0.5826963782310486,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "한국주택금융공사법 40조  채권자의 의무#KOBLEX-183317",
+        "provision_text": "3. 채무자가 채무를 이행하지 아니한 경우",
+        "rerank_rank": 9,
+        "rerank_score": 0.999907374382019,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "한국주택금융공사법 40조  채권자의 의무 3호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "채무자 회생 및 파산에 관한 법률 599조  개인회생절차개시결정의 취소#KOBLEX-033368"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 56,
+        "first_stage_score": 0.5806423425674438,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "채무자 회생 및 파산에 관한 법률 599조  개인회생절차개시결정의 취소#KOBLEX-033368",
+        "provision_text": "1. 채무자",
+        "rerank_rank": 10,
+        "rerank_score": 0.9999030828475952,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "채무자 회생 및 파산에 관한 법률 599조  개인회생절차개시결정의 취소 1호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 409조  불가분채권#KOBLEX-059220"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6839064359664917,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "민법 409조  불가분채권#KOBLEX-059220",
+        "provision_text": "제409조(불가분채권) 채권의 목적이 그 성질 또는 당사자의 의사표시에 의하여 불가분인 경우에 채권자가 수인인 때에는 각 채권자는 모든 채권자를 위하여 이행을 청구할 수 있고 채무자는 모든 채권자를 위하여 각 채권자에게 이행할 수 있다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9973551034927368,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 409조  불가분채권",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 145조  법정추인#KOBLEX-058666"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 81,
+        "first_stage_score": 0.5625617504119873,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "민법 145조  법정추인#KOBLEX-058666",
+        "provision_text": "1. 전부나 일부의 이행",
+        "rerank_rank": 3,
+        "rerank_score": 0.9933614730834961,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 145조  법정추인 1호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 414조  각 연대채무자에 대한 이행청구#KOBLEX-059228"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6562627553939819,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "민법 414조  각 연대채무자에 대한 이행청구#KOBLEX-059228",
+        "provision_text": "제414조(각 연대채무자에 대한 이행청구) 채권자는 어느 연대채무자에 대하여 또는 동시나 순차로 모든 연대채무자에 대하여 채무의 전부나 일부의 이행을 청구할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.9927074313163757,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 414조  각 연대채무자에 대한 이행청구",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 538조  채권자귀책사유로 인한 이행불능#KOBLEX-059474"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.6545672416687012,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "민법 538조  채권자귀책사유로 인한 이행불능#KOBLEX-059474",
+        "provision_text": "①쌍무계약의 당사자 일방의 채무가 채권자의 책임있는 사유로 이행할 수 없게 된 때에는 채무자는 상대방의 이행을 청구할 수 있다. 채권자의 수령지체 중에 당사자쌍방의 책임없는 사유로 이행할 수 없게 된 때에도 같다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.9866625666618347,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 538조  채권자귀책사유로 인한 이행불능 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 412조  가분채권, 가분채무에의 변경#KOBLEX-059225"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6936842799186707,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "민법 412조  가분채권, 가분채무에의 변경#KOBLEX-059225",
+        "provision_text": "제412조(가분채권, 가분채무에의 변경) 불가분채권이나 불가분채무가 가분채권 또는 가분채무로 변경된 때에는 각 채권자는 자기부분만의 이행을 청구할 권리가 있고 각 채무자는 자기부담부분만을 이행할 의무가 있다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.9858566522598267,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 412조  가분채권, 가분채무에의 변경",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 539조  제삼자를 위한 계약#KOBLEX-059477"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 11,
+        "first_stage_score": 0.6154653429985046,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "민법 539조  제삼자를 위한 계약#KOBLEX-059477",
+        "provision_text": "①계약에 의하여 당사자 일방이 제삼자에게 이행할 것을 약정한 때에는 그 제삼자는 채무자에게 직접 그 이행을 청구할 수 있다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.9852884411811829,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 539조  제삼자를 위한 계약 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 483조  일부의 대위#KOBLEX-059377"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 60,
+        "first_stage_score": 0.5695291757583618,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "민법 483조  일부의 대위#KOBLEX-059377",
+        "provision_text": "②전항의 경우에 채무불이행을 원인으로 하는 계약의 해지 또는 해제는 채권자만이 할 수 있고 채권자는 대위자에게 그 변제한 가액과 이자를 상환하여야 한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.9839484095573425,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 483조  일부의 대위 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 409조#KOBLEX-059219"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 98,
+        "first_stage_score": 0.5572460889816284,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "민법 409조#KOBLEX-059219",
+        "provision_text": "제2관 불가분채권과 불가분채무",
+        "rerank_rank": 9,
+        "rerank_score": 0.982279360294342,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 409조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 479조  비용, 이자, 원본에 대한 변제충당의 순서#KOBLEX-059366"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 86,
+        "first_stage_score": 0.5602557063102722,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "민법 479조  비용, 이자, 원본에 대한 변제충당의 순서#KOBLEX-059366",
+        "provision_text": "①채무자가 1개 또는 수개의 채무의 비용 및 이자를 지급할 경우에 변제자가 그 전부를 소멸하게 하지 못한 급여를 한 때에는 비용, 이자, 원본의 순서로 변제에 충당하여야 한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.9775543808937073,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 479조  비용, 이자, 원본에 대한 변제충당의 순서 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "기술보증기금법 38조  채권자의 의무#KOBLEX-118091": "2. 채무의 전부 또는 일부가 소멸하였을 때",
+      "기술보증기금법 38조  채권자의 의무#KOBLEX-118093": "4. 채무자가 채무를 이행하지 아니하였을 때",
+      "민법 145조  법정추인#KOBLEX-058666": "1. 전부나 일부의 이행",
+      "민법 409조  불가분채권#KOBLEX-059220": "제409조(불가분채권) 채권의 목적이 그 성질 또는 당사자의 의사표시에 의하여 불가분인 경우에 채권자가 수인인 때에는 각 채권자는 모든 채권자를 위하여 이행을 청구할 수 있고 채무자는 모든 채권자를 위하여 각 채권자에게 이행할 수 있다.",
+      "민법 409조#KOBLEX-059219": "제2관 불가분채권과 불가분채무",
+      "민법 410조  1인의 채권자에 생긴 사항의 효력#KOBLEX-059223": "②불가분채권자 중의 1인과 채무자간에 경개나 면제있는 경우에 채무전부의 이행을 받은 다른 채권자는 그 1인이 권리를 잃지 아니하였으면 그에게 분급할 이익을 채무자에게 상환하여야 한다.",
+      "민법 412조  가분채권, 가분채무에의 변경#KOBLEX-059225": "제412조(가분채권, 가분채무에의 변경) 불가분채권이나 불가분채무가 가분채권 또는 가분채무로 변경된 때에는 각 채권자는 자기부분만의 이행을 청구할 권리가 있고 각 채무자는 자기부담부분만을 이행할 의무가 있다.",
+      "민법 414조  각 연대채무자에 대한 이행청구#KOBLEX-059228": "제414조(각 연대채무자에 대한 이행청구) 채권자는 어느 연대채무자에 대하여 또는 동시나 순차로 모든 연대채무자에 대하여 채무의 전부나 일부의 이행을 청구할 수 있다.",
+      "민법 479조  비용, 이자, 원본에 대한 변제충당의 순서#KOBLEX-059366": "①채무자가 1개 또는 수개의 채무의 비용 및 이자를 지급할 경우에 변제자가 그 전부를 소멸하게 하지 못한 급여를 한 때에는 비용, 이자, 원본의 순서로 변제에 충당하여야 한다.",
+      "민법 483조  일부의 대위#KOBLEX-059377": "②전항의 경우에 채무불이행을 원인으로 하는 계약의 해지 또는 해제는 채권자만이 할 수 있고 채권자는 대위자에게 그 변제한 가액과 이자를 상환하여야 한다.",
+      "민법 538조  채권자귀책사유로 인한 이행불능#KOBLEX-059474": "①쌍무계약의 당사자 일방의 채무가 채권자의 책임있는 사유로 이행할 수 없게 된 때에는 채무자는 상대방의 이행을 청구할 수 있다. 채권자의 수령지체 중에 당사자쌍방의 책임없는 사유로 이행할 수 없게 된 때에도 같다.",
+      "민법 539조  제삼자를 위한 계약#KOBLEX-059477": "①계약에 의하여 당사자 일방이 제삼자에게 이행할 것을 약정한 때에는 그 제삼자는 채무자에게 직접 그 이행을 청구할 수 있다.",
+      "신용보증기금법 31조  채권자의 통지의무#KOBLEX-210968": "2. 채무의 일부 또는 전부가 소멸하였을 때",
+      "신용보증기금법 31조  채권자의 통지의무#KOBLEX-210970": "4. 채무자가 채무를 이행하지 아니하였을 때",
+      "지역신용보증재단법 26조  채권자의 의무#KOBLEX-056830": "2. 채무의 전부 또는 일부가 소멸하였을 때",
+      "지역신용보증재단법 26조  채권자의 의무#KOBLEX-056832": "4. 채무자가 채무를 이행하지 아니하였을 때",
+      "채무자 회생 및 파산에 관한 법률 221조  회생채권자 등의 회생계획안 제출#KOBLEX-032189": "1. 채무자",
+      "채무자 회생 및 파산에 관한 법률 599조  개인회생절차개시결정의 취소#KOBLEX-033368": "1. 채무자",
+      "한국주택금융공사법 40조  채권자의 의무#KOBLEX-183317": "3. 채무자가 채무를 이행하지 아니한 경우"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No supplied provision establishes that a creditor of an indivisible debt can demand full or partial performance from one of the debtors.",
+            "requirement_id": "E1-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E1-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "The supplied candidate provisions do not contain the statutory rule allowing a creditor of an indivisible debt (불가분채무) to demand full or partial performance from one of the debtors. C011 (Civil Code Art. 409) addresses indivisible claims (불가분채권), not debts. C013 (Civil Code Art. 414) addresses joint and several debts (연대채무), which is a distinct legal concept from indivisible debts. No other candidate provisions establish the specific legal rule for indivisible debts.",
+        "status": "uncovered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [],
+    "last_retrieval_new_provision_count": 9,
+    "last_validated_event": "RESPONSE_ASSEMBLY.ABSTAIN",
+    "legal_issues": [
+      {
+        "description": "불가분채무의 경우 채권자가 채무자 중 한 명에게 채무의 전부 또는 일부 이행을 청구할 수 있는지에 대한 법적 근거",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "불가분채무의 채권자가 채무자 중 한 명에게 채무의 전부 또는 일부 이행을 청구할 수 있다는 법적 근거를 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "불가분채무의 채권자가 채무자 중 한 명에게 채무의 전부 또는 일부 이행을 청구할 수 있다는 규정"
+          }
+        ],
+        "critical": true,
+        "description": "불가분채무의 채권자가 채무자 중 한 명에게 채무의 전부 또는 일부 이행을 청구할 수 있다는 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 불가분채무의 이행 청구 가능 여부에 대한 직접적인 법적 근거",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] 갑, 을, 병은 공동으로 A 회사에 1억 원을 투자하여 사업을 시작하기로 하였다. 이들은 A 회사에 대해 불가분채무를 부담하고 있으며, 이 중 어느 한 명이 A 회사에 대한 전체 채무를 변제하지 않으면 사업이 시작될 수 없는 상황이다. A 회사는 사업의 진행을 위해 빠르게 자금을 확보해야 하는 상황에 놓여 있다. [질문] A 회사는 불가분채무를 부담한 갑, 을, 병 중 한 명에게 채무의 전부나 일부의 이행을 청구할 수 있는가?",
+    "phase": "ABSTAINED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "불가분채무",
+          "채권자",
+          "채무자",
+          "이행청구",
+          "전부",
+          "일부"
+        ],
+        "query_text": "불가분채무 채권자 채무자 중 한 명에게 채무의 전부 또는 일부 이행 청구 [원문 맥락] A 회사는 사업의 진행을 위해 빠르게 자금을 확보해야 하는 상황에 놓여 있다. A 회사는 불가분채무를 부담한 갑, 을, 병 중 한 명에게 채무의 전부나 일부의 이행을 청구할 수 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "불가분채무",
+          "채권자",
+          "채무자",
+          "이행청구",
+          "민법"
+        ],
+        "query_text": "민법 불가분채무 채권자 채무자 중 1인에게 이행 청구 [원문 맥락] A 회사는 사업의 진행을 위해 빠르게 자금을 확보해야 하는 상황에 놓여 있다. A 회사는 불가분채무를 부담한 갑, 을, 병 중 한 명에게 채무의 전부나 일부의 이행을 청구할 수 있는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑, 을, 병은 공동으로 A 회사에 1억 원을 투자하여 사업을 시작하기로 하였다. 이들은 A 회사에 대해 불가분채무를 부담하고 있으며, 이 중 어느 한 명이 A 회사에 대한 전체 채무를 변제하지 않으면 사업이 시작될 수 없는 상황이다. A 회사는 사업의 진행을 위해 빠르게 자금을 확보해야 하는 상황에 놓여 있다.\n\n[질문]\nA 회사는 불가분채무를 부담한 갑, 을, 병 중 한 명에게 채무의 전부나 일부의 이행을 청구할 수 있는가?",
+    "remaining_request_budget": 7,
+    "remaining_round_budget": 1,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "불가분채무의 채권자가 채무자 중 한 명에게 채무의 전부 또는 일부 이행을 청구할 수 있다는 법적 근거를 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "불가분채무의 채권자가 채무자 중 한 명에게 채무의 전부 또는 일부 이행을 청구할 수 있다는 규정"
+          }
+        ],
+        "critical": true,
+        "description": "불가분채무의 채권자가 채무자 중 한 명에게 채무의 전부 또는 일부 이행을 청구할 수 있다는 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 불가분채무의 이행 청구 가능 여부에 대한 직접적인 법적 근거",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 2,
+    "run_id": "45232a2f-c0c5-499f-a226-dda2130e32ae",
+    "seen_provision_ids": [
+      "기술보증기금법 38조  채권자의 의무#KOBLEX-118093",
+      "민법 483조  일부의 대위#KOBLEX-059377",
+      "민법 409조  불가분채권#KOBLEX-059220",
+      "채무자 회생 및 파산에 관한 법률 221조  회생채권자 등의 회생계획안 제출#KOBLEX-032189",
+      "민법 479조  비용, 이자, 원본에 대한 변제충당의 순서#KOBLEX-059366",
+      "신용보증기금법 31조  채권자의 통지의무#KOBLEX-210968",
+      "민법 539조  제삼자를 위한 계약#KOBLEX-059477",
+      "신용보증기금법 31조  채권자의 통지의무#KOBLEX-210970",
+      "지역신용보증재단법 26조  채권자의 의무#KOBLEX-056832",
+      "민법 145조  법정추인#KOBLEX-058666",
+      "민법 409조#KOBLEX-059219",
+      "기술보증기금법 38조  채권자의 의무#KOBLEX-118091",
+      "지역신용보증재단법 26조  채권자의 의무#KOBLEX-056830",
+      "한국주택금융공사법 40조  채권자의 의무#KOBLEX-183317",
+      "민법 414조  각 연대채무자에 대한 이행청구#KOBLEX-059228",
+      "민법 538조  채권자귀책사유로 인한 이행불능#KOBLEX-059474",
+      "채무자 회생 및 파산에 관한 법률 599조  개인회생절차개시결정의 취소#KOBLEX-033368",
+      "민법 412조  가분채권, 가분채무에의 변경#KOBLEX-059225",
+      "민법 410조  1인의 채권자에 생긴 사항의 효력#KOBLEX-059223"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ABSTAIN",
+  "termination_reason": "NO_RETRIEVAL_PROGRESS"
+}

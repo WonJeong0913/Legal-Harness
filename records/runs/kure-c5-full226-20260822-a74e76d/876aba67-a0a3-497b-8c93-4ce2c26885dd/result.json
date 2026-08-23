@@ -1,0 +1,1222 @@
+{
+  "abstention_reason": null,
+  "answer": "공탁물을 보관하는 은행은 그 공탁물을 수령하는 자에게 일반적으로 같은 종류의 물건에 청구하는 보관료를 청구할 수 있다.[CT1]\n채권자가 변제를 받지 아니하거나 받을 수 없는 때에는 변제자는 채권자를 위하여 변제의 목적물을 공탁하여 그 채무를 면할 수 있다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1",
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "A1",
+      "message": "을이 갑의 변제를 받지 아니하거나 받을 수 없는 상태에 있다고 가정한다."
+    }
+  ],
+  "candidate_answer": "공탁물을 보관하는 은행은 그 공탁물을 수령하는 자에게 일반적으로 같은 종류의 물건에 청구하는 보관료를 청구할 수 있다.[CT1]\n채권자가 변제를 받지 아니하거나 받을 수 없는 때에는 변제자는 채권자를 위하여 변제의 목적물을 공탁하여 그 채무를 면할 수 있다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "공탁법 8조  보관료#KOBLEX-210608",
+      "quoted_text": "제8조(보관료) 공탁물을 보관하는 은행이나 창고업자는 그 공탁물을 수령하는 자에게 일반적으로 같은 종류의 물건에 청구하는 보관료를 청구할 수 있다.",
+      "support_description": "공탁금 보관료의 청구 주체와 산정 기준을 명시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "민법 487조  변제공탁의 요건, 효과#KOBLEX-059384",
+      "quoted_text": "제487조(변제공탁의 요건, 효과) 채권자가 변제를 받지 아니하거나 받을 수 없는 때에는 변제자는 채권자를 위하여 변제의 목적물을 공탁하여 그 채무를 면할 수 있다. 변제자가 과실없이 채권자를 알 수 없는 경우에도 같다.",
+      "support_description": "채권자의 수령거부 또는 연락불능 시 공탁에 따른 채무 면제 요건과 효과를 명시한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "공탁물을 보관하는 은행은 그 공탁물을 수령하는 자에게 일반적으로 같은 종류의 물건에 청구하는 보관료를 청구할 수 있다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "채권자가 변제를 받지 아니하거나 받을 수 없는 때에는 변제자는 채권자를 위하여 변제의 목적물을 공탁하여 그 채무를 면할 수 있다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T13:01:32.130304+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 175935.745,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "L1",
+      "message": "민법 제487조 제2항의 '과실없이 채권자를 알 수 없는 경우'에 대한 구체적 판단은 생략한다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 482,
+      "dedup_collapse": 53,
+      "evidence_fusion": 482,
+      "first_stage": 600,
+      "request_rerank": 600,
+      "round_selected": 30,
+      "rrf": 500,
+      "selected": 482
+    }
+  },
+  "run_id": "876aba67-a0a3-497b-8c93-4ce2c26885dd",
+  "skill_generation_diagnostics": {
+    "attempt_count": 7,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "민법 487조  변제공탁의 요건, 효과#KOBLEX-059384",
+      "공탁법 8조  보관료#KOBLEX-210608"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 8,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": true,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 6,
+          "request_count": 2,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": true,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_rule",
+        "question_anchor": "은행이 공탁금을 수령하는 을에게 청구할 수 있는 보관료는 어떤 기준에 따라 정해지며",
+        "requested_output": "공탁금 보관료의 법적 기준 및 청구 근거"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_rule",
+        "question_anchor": "갑이 변제의무를 완전히 면제받을 수 있는 방법은 무엇인가",
+        "requested_output": "채무자의 변제면제 요건 및 절차"
+      }
+    ],
+    "answered_target_ids": [
+      "T1",
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "민법 461조  변제제공의 효과#KOBLEX-059334"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 92,
+        "first_stage_score": 0.5767722129821777,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "민법 461조  변제제공의 효과#KOBLEX-059334",
+        "provision_text": "제461조(변제제공의 효과) 변제의 제공은 그때로부터 채무불이행의 책임을 면하게 한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.8203956484794617,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 461조  변제제공의 효과",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 742조  비채변제#KOBLEX-059888"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 23,
+        "first_stage_score": 0.5991562604904175,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "민법 742조  비채변제#KOBLEX-059888",
+        "provision_text": "제742조(비채변제) 채무없음을 알고 이를 변제한 때에는 그 반환을 청구하지 못한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.8149726390838623,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 742조  비채변제",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 463조  변제로서의 타인의 물건의 인도#KOBLEX-059336"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 44,
+        "first_stage_score": 0.5914297699928284,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "민법 463조  변제로서의 타인의 물건의 인도#KOBLEX-059336",
+        "provision_text": "제463조(변제로서의 타인의 물건의 인도) 채무의 변제로 타인의 물건을 인도한 채무자는 다시 유효한 변제를 하지 아니하면 그 물건의 반환을 청구하지 못한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.7807127833366394,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 463조  변제로서의 타인의 물건의 인도",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 479조  비용, 이자, 원본에 대한 변제충당의 순서#KOBLEX-059366"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 61,
+        "first_stage_score": 0.5904770493507385,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "민법 479조  비용, 이자, 원본에 대한 변제충당의 순서#KOBLEX-059366",
+        "provision_text": "①채무자가 1개 또는 수개의 채무의 비용 및 이자를 지급할 경우에 변제자가 그 전부를 소멸하게 하지 못한 급여를 한 때에는 비용, 이자, 원본의 순서로 변제에 충당하여야 한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.7477515935897827,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 479조  비용, 이자, 원본에 대한 변제충당의 순서 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 745조  타인의 채무의 변제#KOBLEX-059892"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 25,
+        "first_stage_score": 0.6034905910491943,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "민법 745조  타인의 채무의 변제#KOBLEX-059892",
+        "provision_text": "①채무자아닌 자가 착오로 인하여 타인의 채무를 변제한 경우에 채권자가 선의로 증서를 훼멸하거나 담보를 포기하거나 시효로 인하여 그 채권을 잃은 때에는 변제자는 그 반환을 청구하지 못한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.7261922955513,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 745조  타인의 채무의 변제 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 488조  공탁의 방법#KOBLEX-059387"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 42,
+        "first_stage_score": 0.5638080835342407,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "민법 488조  공탁의 방법#KOBLEX-059387",
+        "provision_text": "②공탁소에 관하여 법률에 특별한 규정이 없으면 법원은 변제자의 청구에 의하여 공탁소를 지정하고 공탁물보관자를 선임하여야 한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.7202202081680298,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 488조  공탁의 방법 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 744조  도의관념에 적합한 비채변제#KOBLEX-059890"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 24,
+        "first_stage_score": 0.596508264541626,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "민법 744조  도의관념에 적합한 비채변제#KOBLEX-059890",
+        "provision_text": "제744조(도의관념에 적합한 비채변제) 채무없는 자가 착오로 인하여 변제한 경우에 그 변제가 도의관념에 적합한 때에는 그 반환을 청구하지 못한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.7076865434646606,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 744조  도의관념에 적합한 비채변제",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 486조  변제 이외의 방법에 의한 채무소멸과 대위#KOBLEX-059382"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 58,
+        "first_stage_score": 0.5731739401817322,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "민법 486조  변제 이외의 방법에 의한 채무소멸과 대위#KOBLEX-059382",
+        "provision_text": "제486조(변제 이외의 방법에 의한 채무소멸과 대위) 제삼자가 공탁 기타 자기의 출재로 채무자의 채무를 면하게 한 경우에도 전6조의 규정을 준용한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.7051802277565002,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 486조  변제 이외의 방법에 의한 채무소멸과 대위",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공탁법 9조  공탁물의 수령ㆍ회수#KOBLEX-210611"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 81,
+        "first_stage_score": 0.5471769571304321,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "공탁법 9조  공탁물의 수령ㆍ회수#KOBLEX-210611",
+        "provision_text": "② 공탁자는 다음 각 호의 어느 하나에 해당하면 그 사실을 증명하여 공탁물을 회수할 수 있다. 1. 「민법」 제489조에 따르는 경우 2. 착오로 공탁을 한 경우 3. 공탁의 원인이 소멸한 경우",
+        "rerank_rank": 9,
+        "rerank_score": 0.7032975554466248,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "공탁법 9조  공탁물의 수령ㆍ회수 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 491조  공탁물수령과 상대의무이행#KOBLEX-059393"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 7,
+        "first_stage_score": 0.6411573886871338,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "민법 491조  공탁물수령과 상대의무이행#KOBLEX-059393",
+        "provision_text": "제491조(공탁물수령과 상대의무이행) 채무자가 채권자의 상대의무이행과 동시에 변제할 경우에는 채권자는 그 의무이행을 하지 아니하면 공탁물을 수령하지 못한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.6848724484443665,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-2",
+          "GRQ-R2-1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 491조  공탁물수령과 상대의무이행",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공탁법 8조  보관료#KOBLEX-210608"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.6036009788513184,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "공탁법 8조  보관료#KOBLEX-210608",
+        "provision_text": "제8조(보관료) 공탁물을 보관하는 은행이나 창고업자는 그 공탁물을 수령하는 자에게 일반적으로 같은 종류의 물건에 청구하는 보관료를 청구할 수 있다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.2065519392490387,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "공탁법 8조  보관료",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공탁법 7조  이자 등의 보관#KOBLEX-210607"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 13,
+        "first_stage_score": 0.6064249873161316,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "공탁법 7조  이자 등의 보관#KOBLEX-210607",
+        "provision_text": "제7조(이자 등의 보관) 지정된 은행이나 창고업자는 공탁물을 수령할 자가 청구하는 경우에는 공탁의 목적인 유가증권의 상환금, 이자 또는 배당금을 수령하여 이를 보관한다. 다만, 보증공탁(保證供託)을 할 때에 보증금을 대신하여 유가증권을 공탁한 경우에는 공탁자가 그 이자나 배당금을 청구할 수 있다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.018276073038578033,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "공탁법 7조  이자 등의 보관",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "신탁법 48조  비용상환청구권의 우선변제권 등#KOBLEX-107253"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 27,
+        "first_stage_score": 0.5763946771621704,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "신탁법 48조  비용상환청구권의 우선변제권 등#KOBLEX-107253",
+        "provision_text": "① 수탁자는 신탁재산에 대한 민사집행절차 또는 「국세징수법」에 따른 공매절차에서 수익자나 그 밖의 채권자보다 우선하여 신탁의 목적에 따라 신탁재산의 보존, 개량을 위하여 지출한 필요비 또는 유익비(有益費)의 우선변제를 받을 권리가 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.016591420397162437,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "신탁법 48조  비용상환청구권의 우선변제권 등 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공탁법 4조  공탁 절차#KOBLEX-210596"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 69,
+        "first_stage_score": 0.5506583452224731,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "공탁법 4조  공탁 절차#KOBLEX-210596",
+        "provision_text": "제4조(공탁 절차) 공탁을 하려는 자는 대법원규칙으로 정하는 바에 따라 공탁서를 작성하여 제2조에 따라 공탁사무를 처리하는 자[이하 \"공탁관(供託官)\"이라 한다)]에게 제출한 후 공탁물을 지정된 은행이나 창고업자에게 납입하여야 한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.01592222973704338,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "공탁법 4조  공탁 절차",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "종합부동산세법 16조 2 물적납세의무에 대한 납부특례#KOBLEX-210796"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 29,
+        "first_stage_score": 0.5742990374565125,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "종합부동산세법 16조 2 물적납세의무에 대한 납부특례#KOBLEX-210796",
+        "provision_text": "⑤ 신탁재산에 대하여 「국세징수법」에 따라 강제징수를 하는 경우 「국세기본법」 제35조제1항에도 불구하고 수탁자는 「신탁법」 제48조제1항에 따른 신탁재산의 보존 및 개량을 위하여 지출한 필요비 또는 유익비의 우선변제를 받을 권리가 있다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.014084667898714542,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "종합부동산세법 16조 2 물적납세의무에 대한 납부특례 5항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부가가치세법 52조 2 신탁 관련 제2차 납세의무 등에 대한 납부 특례#KOBLEX-127008"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 34,
+        "first_stage_score": 0.5719276666641235,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "부가가치세법 52조 2 신탁 관련 제2차 납세의무 등에 대한 납부 특례#KOBLEX-127008",
+        "provision_text": "⑥ 신탁재산에 대하여 「국세징수법」에 따라 강제징수를 하는 경우 「국세기본법」 제35조제1항에도 불구하고 수탁자는 「신탁법」 제48조제1항에 따른 신탁재산의 보존 및 개량을 위하여 지출한 필요비 또는 유익비의 우선변제를 받을 권리가 있다. <개정 2020.12.22, 2020.12.29>",
+        "rerank_rank": 6,
+        "rerank_score": 0.011001859791576862,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "부가가치세법 52조 2 신탁 관련 제2차 납세의무 등에 대한 납부 특례 6항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방세법 119조 2 신탁재산 수탁자의 물적납세의무#KOBLEX-102573"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 63,
+        "first_stage_score": 0.5534279942512512,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "지방세법 119조 2 신탁재산 수탁자의 물적납세의무#KOBLEX-102573",
+        "provision_text": "⑥ 신탁재산에 대하여 「지방세징수법」에 따라 체납처분을 하는 경우 「지방세기본법」 제71조제1항에도 불구하고 수탁자는 「신탁법」 제48조제1항에 따른 신탁재산의 보존 및 개량을 위하여 지출한 필요비 또는 유익비의 우선변제를 받을 권리가 있다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.010102166794240475,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "지방세법 119조 2 신탁재산 수탁자의 물적납세의무 6항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공탁법 15조  공탁금관리위원회의 설립#KOBLEX-210631"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 81,
+        "first_stage_score": 0.5475548505783081,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "공탁법 15조  공탁금관리위원회의 설립#KOBLEX-210631",
+        "provision_text": "① 공탁금의 보관ㆍ관리 등과 관련된 다음 각 호의 사항을 효율적으로 처리하기 위하여 공탁금관리위원회(이하 \"위원회\"라 한다)를 설립한다. <개정 2015.12.15> 1. 공탁금을 보관하는 은행의 지정 심사 및 적격 심사 2. 제19조에 따른 출연금 및 위원회 운영비의 심의ㆍ확정 3. 그 밖에 대법원규칙으로 정하는 사항",
+        "rerank_rank": 8,
+        "rerank_score": 0.008853892795741558,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "공탁법 15조  공탁금관리위원회의 설립 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 490조  자조매각금의 공탁#KOBLEX-059392"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 22,
+        "first_stage_score": 0.5996187329292297,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "민법 490조  자조매각금의 공탁#KOBLEX-059392",
+        "provision_text": "제490조(자조매각금의 공탁) 변제의 목적물이 공탁에 적당하지 아니하거나 멸실 또는 훼손될 염려가 있거나 공탁에 과다한 비용을 요하는 경우에는 변제자는 법원의 허가를 얻어 그 물건을 경매하거나 시가로 방매하여 대금을 공탁할 수 있다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.0014125213492661715,
+        "retrieval_round": 3,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 490조  자조매각금의 공탁",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 488조  공탁의 방법#KOBLEX-059386"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 88,
+        "first_stage_score": 0.5776408910751343,
+        "fusion_rank": 56,
+        "issue_id": "I2",
+        "provision_id": "민법 488조  공탁의 방법#KOBLEX-059386",
+        "provision_text": "①공탁은 채무이행지의 공탁소에 하여야 한다.",
+        "rerank_rank": 56,
+        "rerank_score": 0.0007737531559541821,
+        "retrieval_round": 3,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "민법 488조  공탁의 방법 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 489조  공탁물의 회수#KOBLEX-059390"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6669223308563232,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "민법 489조  공탁물의 회수#KOBLEX-059390",
+        "provision_text": "①채권자가 공탁을 승인하거나 공탁소에 대하여 공탁물을 받기를 통고하거나 공탁유효의 판결이 확정되기까지는 변제자는 공탁물을 회수할 수 있다. 이 경우에는 공탁하지 아니한 것으로 본다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.0007625561556778848,
+        "retrieval_round": 3,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 489조  공탁물의 회수 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 506조  면제의 요건, 효과#KOBLEX-059415"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 13,
+        "first_stage_score": 0.6048950552940369,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "민법 506조  면제의 요건, 효과#KOBLEX-059415",
+        "provision_text": "제506조(면제의 요건, 효과) 채권자가 채무자에게 채무를 면제하는 의사를 표시한 때에는 채권은 소멸한다. 그러나 면제로써 정당한 이익을 가진 제삼자에게 대항하지 못한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.0005345886456780136,
+        "retrieval_round": 3,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 506조  면제의 요건, 효과",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 487조  변제공탁의 요건, 효과#KOBLEX-059384"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.7362532615661621,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "민법 487조  변제공탁의 요건, 효과#KOBLEX-059384",
+        "provision_text": "제487조(변제공탁의 요건, 효과) 채권자가 변제를 받지 아니하거나 받을 수 없는 때에는 변제자는 채권자를 위하여 변제의 목적물을 공탁하여 그 채무를 면할 수 있다. 변제자가 과실없이 채권자를 알 수 없는 경우에도 같다.",
+        "rerank_rank": 5,
+        "rerank_score": 5.833997784066014e-05,
+        "retrieval_round": 3,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 487조  변제공탁의 요건, 효과",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 419조  면제의 절대적 효력#KOBLEX-059235"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 75,
+        "first_stage_score": 0.5687280893325806,
+        "fusion_rank": 67,
+        "issue_id": "I2",
+        "provision_id": "민법 419조  면제의 절대적 효력#KOBLEX-059235",
+        "provision_text": "제419조(면제의 절대적 효력) 어느 연대채무자에 대한 채무면제는 그 채무자의 부담부분에 한하여 다른 연대채무자의 이익을 위하여 효력이 있다.",
+        "rerank_rank": 67,
+        "rerank_score": 2.846843381121289e-05,
+        "retrieval_round": 3,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-2",
+        "source_request_ids": [
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 419조  면제의 절대적 효력",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "공탁법 15조  공탁금관리위원회의 설립#KOBLEX-210631": "① 공탁금의 보관ㆍ관리 등과 관련된 다음 각 호의 사항을 효율적으로 처리하기 위하여 공탁금관리위원회(이하 \"위원회\"라 한다)를 설립한다. <개정 2015.12.15> 1. 공탁금을 보관하는 은행의 지정 심사 및 적격 심사 2. 제19조에 따른 출연금 및 위원회 운영비의 심의ㆍ확정 3. 그 밖에 대법원규칙으로 정하는 사항",
+      "공탁법 4조  공탁 절차#KOBLEX-210596": "제4조(공탁 절차) 공탁을 하려는 자는 대법원규칙으로 정하는 바에 따라 공탁서를 작성하여 제2조에 따라 공탁사무를 처리하는 자[이하 \"공탁관(供託官)\"이라 한다)]에게 제출한 후 공탁물을 지정된 은행이나 창고업자에게 납입하여야 한다.",
+      "공탁법 7조  이자 등의 보관#KOBLEX-210607": "제7조(이자 등의 보관) 지정된 은행이나 창고업자는 공탁물을 수령할 자가 청구하는 경우에는 공탁의 목적인 유가증권의 상환금, 이자 또는 배당금을 수령하여 이를 보관한다. 다만, 보증공탁(保證供託)을 할 때에 보증금을 대신하여 유가증권을 공탁한 경우에는 공탁자가 그 이자나 배당금을 청구할 수 있다.",
+      "공탁법 8조  보관료#KOBLEX-210608": "제8조(보관료) 공탁물을 보관하는 은행이나 창고업자는 그 공탁물을 수령하는 자에게 일반적으로 같은 종류의 물건에 청구하는 보관료를 청구할 수 있다.",
+      "공탁법 9조  공탁물의 수령ㆍ회수#KOBLEX-210611": "② 공탁자는 다음 각 호의 어느 하나에 해당하면 그 사실을 증명하여 공탁물을 회수할 수 있다. 1. 「민법」 제489조에 따르는 경우 2. 착오로 공탁을 한 경우 3. 공탁의 원인이 소멸한 경우",
+      "민법 419조  면제의 절대적 효력#KOBLEX-059235": "제419조(면제의 절대적 효력) 어느 연대채무자에 대한 채무면제는 그 채무자의 부담부분에 한하여 다른 연대채무자의 이익을 위하여 효력이 있다.",
+      "민법 461조  변제제공의 효과#KOBLEX-059334": "제461조(변제제공의 효과) 변제의 제공은 그때로부터 채무불이행의 책임을 면하게 한다.",
+      "민법 463조  변제로서의 타인의 물건의 인도#KOBLEX-059336": "제463조(변제로서의 타인의 물건의 인도) 채무의 변제로 타인의 물건을 인도한 채무자는 다시 유효한 변제를 하지 아니하면 그 물건의 반환을 청구하지 못한다.",
+      "민법 479조  비용, 이자, 원본에 대한 변제충당의 순서#KOBLEX-059366": "①채무자가 1개 또는 수개의 채무의 비용 및 이자를 지급할 경우에 변제자가 그 전부를 소멸하게 하지 못한 급여를 한 때에는 비용, 이자, 원본의 순서로 변제에 충당하여야 한다.",
+      "민법 486조  변제 이외의 방법에 의한 채무소멸과 대위#KOBLEX-059382": "제486조(변제 이외의 방법에 의한 채무소멸과 대위) 제삼자가 공탁 기타 자기의 출재로 채무자의 채무를 면하게 한 경우에도 전6조의 규정을 준용한다.",
+      "민법 487조  변제공탁의 요건, 효과#KOBLEX-059384": "제487조(변제공탁의 요건, 효과) 채권자가 변제를 받지 아니하거나 받을 수 없는 때에는 변제자는 채권자를 위하여 변제의 목적물을 공탁하여 그 채무를 면할 수 있다. 변제자가 과실없이 채권자를 알 수 없는 경우에도 같다.",
+      "민법 488조  공탁의 방법#KOBLEX-059386": "①공탁은 채무이행지의 공탁소에 하여야 한다.",
+      "민법 488조  공탁의 방법#KOBLEX-059387": "②공탁소에 관하여 법률에 특별한 규정이 없으면 법원은 변제자의 청구에 의하여 공탁소를 지정하고 공탁물보관자를 선임하여야 한다.",
+      "민법 489조  공탁물의 회수#KOBLEX-059390": "①채권자가 공탁을 승인하거나 공탁소에 대하여 공탁물을 받기를 통고하거나 공탁유효의 판결이 확정되기까지는 변제자는 공탁물을 회수할 수 있다. 이 경우에는 공탁하지 아니한 것으로 본다.",
+      "민법 490조  자조매각금의 공탁#KOBLEX-059392": "제490조(자조매각금의 공탁) 변제의 목적물이 공탁에 적당하지 아니하거나 멸실 또는 훼손될 염려가 있거나 공탁에 과다한 비용을 요하는 경우에는 변제자는 법원의 허가를 얻어 그 물건을 경매하거나 시가로 방매하여 대금을 공탁할 수 있다.",
+      "민법 491조  공탁물수령과 상대의무이행#KOBLEX-059393": "제491조(공탁물수령과 상대의무이행) 채무자가 채권자의 상대의무이행과 동시에 변제할 경우에는 채권자는 그 의무이행을 하지 아니하면 공탁물을 수령하지 못한다.",
+      "민법 506조  면제의 요건, 효과#KOBLEX-059415": "제506조(면제의 요건, 효과) 채권자가 채무자에게 채무를 면제하는 의사를 표시한 때에는 채권은 소멸한다. 그러나 면제로써 정당한 이익을 가진 제삼자에게 대항하지 못한다.",
+      "민법 742조  비채변제#KOBLEX-059888": "제742조(비채변제) 채무없음을 알고 이를 변제한 때에는 그 반환을 청구하지 못한다.",
+      "민법 744조  도의관념에 적합한 비채변제#KOBLEX-059890": "제744조(도의관념에 적합한 비채변제) 채무없는 자가 착오로 인하여 변제한 경우에 그 변제가 도의관념에 적합한 때에는 그 반환을 청구하지 못한다.",
+      "민법 745조  타인의 채무의 변제#KOBLEX-059892": "①채무자아닌 자가 착오로 인하여 타인의 채무를 변제한 경우에 채권자가 선의로 증서를 훼멸하거나 담보를 포기하거나 시효로 인하여 그 채권을 잃은 때에는 변제자는 그 반환을 청구하지 못한다.",
+      "부가가치세법 52조 2 신탁 관련 제2차 납세의무 등에 대한 납부 특례#KOBLEX-127008": "⑥ 신탁재산에 대하여 「국세징수법」에 따라 강제징수를 하는 경우 「국세기본법」 제35조제1항에도 불구하고 수탁자는 「신탁법」 제48조제1항에 따른 신탁재산의 보존 및 개량을 위하여 지출한 필요비 또는 유익비의 우선변제를 받을 권리가 있다. <개정 2020.12.22, 2020.12.29>",
+      "신탁법 48조  비용상환청구권의 우선변제권 등#KOBLEX-107253": "① 수탁자는 신탁재산에 대한 민사집행절차 또는 「국세징수법」에 따른 공매절차에서 수익자나 그 밖의 채권자보다 우선하여 신탁의 목적에 따라 신탁재산의 보존, 개량을 위하여 지출한 필요비 또는 유익비(有益費)의 우선변제를 받을 권리가 있다.",
+      "종합부동산세법 16조 2 물적납세의무에 대한 납부특례#KOBLEX-210796": "⑤ 신탁재산에 대하여 「국세징수법」에 따라 강제징수를 하는 경우 「국세기본법」 제35조제1항에도 불구하고 수탁자는 「신탁법」 제48조제1항에 따른 신탁재산의 보존 및 개량을 위하여 지출한 필요비 또는 유익비의 우선변제를 받을 권리가 있다.",
+      "지방세법 119조 2 신탁재산 수탁자의 물적납세의무#KOBLEX-102573": "⑥ 신탁재산에 대하여 「지방세징수법」에 따라 체납처분을 하는 경우 「지방세기본법」 제71조제1항에도 불구하고 수탁자는 「신탁법」 제48조제1항에 따른 신탁재산의 보존 및 개량을 위하여 지출한 필요비 또는 유익비의 우선변제를 받을 권리가 있다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "공탁법 8조  보관료#KOBLEX-210608"
+            ],
+            "rationale": "공탁법 제8조가 공탁금 보관료의 법적 근거 및 산정 기준을 명시하고 있습니다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "공탁법 8조  보관료#KOBLEX-210608"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "공급된 후보 조항 C011(공탁법 제8조)은 공탁금 보관료의 청구 주체, 대상, 및 산정 기준을 명확히 규정하고 있어 E1의 완료 기준을 충족합니다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민법 487조  변제공탁의 요건, 효과#KOBLEX-059384"
+            ],
+            "rationale": "민법 제487조가 채권자의 수령거부 또는 연락불능 상황에서 공탁이 유효한 변제로 인정되는 요건을 명시하고 있습니다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "민법 487조  변제공탁의 요건, 효과#KOBLEX-059384"
+            ],
+            "rationale": "민법 제487조가 공탁에 따른 채무 소멸(변제면제) 효과를 명시하고 있습니다.",
+            "requirement_id": "E2-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민법 487조  변제공탁의 요건, 효과#KOBLEX-059384"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "공급된 후보 조항 C023(민법 제487조)은 채권자의 수령거부 또는 연락불능 시 공탁의 유효성 요건과 공탁에 따른 채무 소멸(변제면제) 효과를 명시하여 E2의 완료 기준을 충족합니다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "공탁법 8조  보관료#KOBLEX-210608",
+        "support_spans": [
+          {
+            "end_char": 82,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "민법 487조  변제공탁의 요건, 효과#KOBLEX-059384",
+        "support_spans": [
+          {
+            "end_char": 123,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 6,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "공탁금 보관료의 법적 성격과 청구 기준",
+        "issue_id": "I1"
+      },
+      {
+        "description": "채무자의 공탁에 따른 변제면제 요건",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 을에게 1,000만원을 변제해야 하는 채무자입니다. 하지만 을은 갑의 변제를 받으려 하지 않거나 연락이 닿지 않습니다. 이에 갑은 변제의 목적으로 이 금액을 은행에 공탁하기로 했습니다. 은행은 이 공탁금의 보관료를 을에게 청구하려고 합니다. 한편, 갑은 변제의무를 완전히 면제받을 수 있는지 궁금해합니다. [질문] 은행이 공탁금을 수령하는 을에게 청구할 수 있는 보관료는 어떤 기준에 따라 정해지며, 갑이 변제의무를 완전히 면제받을 수 있는 방법은 무엇인가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "공탁금",
+          "보관료",
+          "산정기준",
+          "민법"
+        ],
+        "query_text": "민법 공탁금 보관료 산정 기준 [원문 맥락] 한편, 갑은 변제의무를 완전히 면제받을 수 있는지 궁금해합니다. 은행이 공탁금을 수령하는 을에게 청구할 수 있는 보관료는 어떤 기준에 따라 정해지며, 갑이 변제의무를 완전히 면제받을 수 있는 방법은 무엇인가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "채권자",
+          "수령거부",
+          "공탁",
+          "변제면제",
+          "요건"
+        ],
+        "query_text": "민법 채권자 수령거부 공탁 변제면제 요건 [원문 맥락] 한편, 갑은 변제의무를 완전히 면제받을 수 있는지 궁금해합니다. 은행이 공탁금을 수령하는 을에게 청구할 수 있는 보관료는 어떤 기준에 따라 정해지며, 갑이 변제의무를 완전히 면제받을 수 있는 방법은 무엇인가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "공탁금",
+          "보관료",
+          "비용부담",
+          "공탁법"
+        ],
+        "query_text": "공탁법 공탁금 보관료 징수 기준 및 비용 부담 [원문 맥락] 한편, 갑은 변제의무를 완전히 면제받을 수 있는지 궁금해합니다. 은행이 공탁금을 수령하는 을에게 청구할 수 있는 보관료는 어떤 기준에 따라 정해지며, 갑이 변제의무를 완전히 면제받을 수 있는 방법은 무엇인가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "공탁법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "민법",
+          "공탁",
+          "채권자",
+          "수령거부",
+          "채무소멸"
+        ],
+        "query_text": "민법 제489조 채권자 수령거부 시 공탁의 효력 및 채무 소멸 [원문 맥락] 한편, 갑은 변제의무를 완전히 면제받을 수 있는지 궁금해합니다. 은행이 공탁금을 수령하는 을에게 청구할 수 있는 보관료는 어떤 기준에 따라 정해지며, 갑이 변제의무를 완전히 면제받을 수 있는 방법은 무엇인가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "민법",
+          "공탁",
+          "수령거부",
+          "연락불능",
+          "유효성요건"
+        ],
+        "query_text": "민법 제489조 채권자 수령거부 또는 연락불능 시 공탁의 유효성 요건 [원문 맥락] 한편, 갑은 변제의무를 완전히 면제받을 수 있는지 궁금해합니다. 은행이 공탁금을 수령하는 을에게 청구할 수 있는 보관료는 어떤 기준에 따라 정해지며, 갑이 변제의무를 완전히 면제받을 수 있는 방법은 무엇인가?",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "민법",
+          "공탁의효력",
+          "채무소멸",
+          "변제면제"
+        ],
+        "query_text": "민법 제490조 공탁의 효력 및 채무 소멸 효과 [원문 맥락] 한편, 갑은 변제의무를 완전히 면제받을 수 있는지 궁금해합니다. 은행이 공탁금을 수령하는 을에게 청구할 수 있는 보관료는 어떤 기준에 따라 정해지며, 갑이 변제의무를 완전히 면제받을 수 있는 방법은 무엇인가?",
+        "request_id": "GRQ-R3-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 을에게 1,000만원을 변제해야 하는 채무자입니다. 하지만 을은 갑의 변제를 받으려 하지 않거나 연락이 닿지 않습니다. 이에 갑은 변제의 목적으로 이 금액을 은행에 공탁하기로 했습니다. 은행은 이 공탁금의 보관료를 을에게 청구하려고 합니다. 한편, 갑은 변제의무를 완전히 면제받을 수 있는지 궁금해합니다.\n\n[질문]\n은행이 공탁금을 수령하는 을에게 청구할 수 있는 보관료는 어떤 기준에 따라 정해지며, 갑이 변제의무를 완전히 면제받을 수 있는 방법은 무엇인가?",
+    "remaining_request_budget": 3,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "공탁금 보관료의 법적 근거와 산정 기준을 명시하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "공탁금 보관료의 법적 근거 및 산정 기준을 명시하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "공탁금 보관료의 산정 기준 및 청구 주체에 관한 민법상 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 은행의 보관료 청구 기준을 직접적으로 묻고 있으므로, 이를 결정하는 법적 규정이 필수적임",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "채권자의 수령거부 또는 연락불능 상황에서 공탁이 유효한 변제로 인정되는 요건을 명시하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "채권자의 수령거부 또는 연락불능 시 공탁의 유효성 요건"
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "공탁에 따른 채무 소멸(변제면제) 효과"
+          }
+        ],
+        "critical": true,
+        "description": "채권자의 수령거부 또는 연락불능 시 채무자의 공탁에 따른 변제면제 요건",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 갑의 변제면제 방법을 묻고 있으므로, 공탁이 변제 효력을 발생시키는 법적 요건이 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "876aba67-a0a3-497b-8c93-4ce2c26885dd",
+    "seen_provision_ids": [
+      "민법 489조  공탁물의 회수#KOBLEX-059390",
+      "민법 488조  공탁의 방법#KOBLEX-059386",
+      "부가가치세법 52조 2 신탁 관련 제2차 납세의무 등에 대한 납부 특례#KOBLEX-127008",
+      "민법 486조  변제 이외의 방법에 의한 채무소멸과 대위#KOBLEX-059382",
+      "민법 745조  타인의 채무의 변제#KOBLEX-059892",
+      "민법 742조  비채변제#KOBLEX-059888",
+      "민법 506조  면제의 요건, 효과#KOBLEX-059415",
+      "신탁법 48조  비용상환청구권의 우선변제권 등#KOBLEX-107253",
+      "공탁법 15조  공탁금관리위원회의 설립#KOBLEX-210631",
+      "공탁법 4조  공탁 절차#KOBLEX-210596",
+      "민법 461조  변제제공의 효과#KOBLEX-059334",
+      "민법 744조  도의관념에 적합한 비채변제#KOBLEX-059890",
+      "공탁법 9조  공탁물의 수령ㆍ회수#KOBLEX-210611",
+      "종합부동산세법 16조 2 물적납세의무에 대한 납부특례#KOBLEX-210796",
+      "민법 490조  자조매각금의 공탁#KOBLEX-059392",
+      "민법 488조  공탁의 방법#KOBLEX-059387",
+      "지방세법 119조 2 신탁재산 수탁자의 물적납세의무#KOBLEX-102573",
+      "민법 419조  면제의 절대적 효력#KOBLEX-059235",
+      "공탁법 8조  보관료#KOBLEX-210608",
+      "민법 491조  공탁물수령과 상대의무이행#KOBLEX-059393",
+      "민법 479조  비용, 이자, 원본에 대한 변제충당의 순서#KOBLEX-059366",
+      "공탁법 7조  이자 등의 보관#KOBLEX-210607",
+      "민법 463조  변제로서의 타인의 물건의 인도#KOBLEX-059336",
+      "민법 487조  변제공탁의 요건, 효과#KOBLEX-059384"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

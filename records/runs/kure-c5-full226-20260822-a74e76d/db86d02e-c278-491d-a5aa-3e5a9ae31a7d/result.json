@@ -1,0 +1,969 @@
+{
+  "abstention_reason": null,
+  "answer": "악의의 점유자는 수취한 과실을 반환하여야 하며, 소비하였거나 과실로 인하여 훼손 또는 수취하지 못한 경우에는 그 과실의 대가를 보상하여야 한다.[CT1]\n악의의 수익자는 그 받은 이익에 이자를 붙여 반환하고 손해가 있으면 이를 배상하여야 한다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "질문 시나리오에서 갑이 을의 토지를 무단 점유하고 수익을 올린 사실은 법적 판단의 전제로 가정한다."
+    }
+  ],
+  "candidate_answer": "악의의 점유자는 수취한 과실을 반환하여야 하며, 소비하였거나 과실로 인하여 훼손 또는 수취하지 못한 경우에는 그 과실의 대가를 보상하여야 한다.[CT1]\n악의의 수익자는 그 받은 이익에 이자를 붙여 반환하고 손해가 있으면 이를 배상하여야 한다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "민법 201조  점유자와 과실#KOBLEX-058792",
+      "quoted_text": "②악의의 점유자는 수취한 과실을 반환하여야 하며 소비하였거나 과실로 인하여 훼손 또는 수취하지 못한 경우에는 그 과실의 대가를 보상하여야 한다.",
+      "support_description": "악의 점유자의 수익(과실) 반환 범위와 대가 보상 의무를 규정하여 반환 범위 질문에 대한 법적 근거를 제공한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "민법 748조  수익자의 반환범위#KOBLEX-059900",
+      "quoted_text": "②악의의 수익자는 그 받은 이익에 이자를 붙여 반환하고 손해가 있으면 이를 배상하여야 한다.",
+      "support_description": "악의 수익자의 이익 반환 시 이자 부과 의무를 규정하여 이자율 산정 기준에 대한 법적 근거를 제공한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "악의의 점유자는 수취한 과실을 반환하여야 하며, 소비하였거나 과실로 인하여 훼손 또는 수취하지 못한 경우에는 그 과실의 대가를 보상하여야 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "악의의 수익자는 그 받은 이익에 이자를 붙여 반환하고 손해가 있으면 이를 배상하여야 한다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T14:10:23.608434+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 128988.117,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "민법 제748조 제2항은 '이자를 붙여' 반환하도록 규정하나, 구체적인 이자율(법정 이자율 등)의 수치는 본 조항 내에서 명시되지 않으므로 별도 규정이나 판례에 의해야 한다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 354,
+      "dedup_collapse": 92,
+      "evidence_fusion": 354,
+      "first_stage": 400,
+      "request_rerank": 400,
+      "round_selected": 20,
+      "rrf": 400,
+      "selected": 354
+    }
+  },
+  "run_id": "db86d02e-c278-491d-a5aa-3e5a9ae31a7d",
+  "skill_generation_diagnostics": {
+    "attempt_count": 5,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "민법 748조  수익자의 반환범위#KOBLEX-059900",
+      "민법 201조  점유자와 과실#KOBLEX-058792"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 8,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": true,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_rule",
+        "question_anchor": "그 반환 범위와 이자율은 어떻게 정해지는가?",
+        "requested_output": "악의적 무권리 점유자의 수익반환 범위와 이자율 산정 기준"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "소득세법 시행령 26조  이자소득의 범위#KOBLEX-141121"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 79,
+        "first_stage_score": 0.5438860058784485,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "소득세법 시행령 26조  이자소득의 범위#KOBLEX-141121",
+        "provision_text": "제26조(이자소득의 범위)",
+        "rerank_rank": 1,
+        "rerank_score": 0.07152824848890305,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "소득세법 시행령 26조  이자소득의 범위",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상속세 및 증여세법 시행규칙 10조  부동산 무상사용 이익률 등#KOBLEX-080493"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 19,
+        "first_stage_score": 0.5787070393562317,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "상속세 및 증여세법 시행규칙 10조  부동산 무상사용 이익률 등#KOBLEX-080493",
+        "provision_text": "제10조(부동산 무상사용 이익률 등)",
+        "rerank_rank": 2,
+        "rerank_score": 0.04178436100482941,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "상속세 및 증여세법 시행규칙 10조  부동산 무상사용 이익률 등",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 204조  점유의 회수#KOBLEX-058800"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 90,
+        "first_stage_score": 0.5405572056770325,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "민법 204조  점유의 회수#KOBLEX-058800",
+        "provision_text": "①점유자가 점유의 침탈을 당한 때에는 그 물건의 반환 및 손해의 배상을 청구할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.04138948768377304,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 204조  점유의 회수 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국세징수법 47조  압류 부동산 등의 사용ㆍ수익#KOBLEX-026200"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 38,
+        "first_stage_score": 0.5648148059844971,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "국세징수법 47조  압류 부동산 등의 사용ㆍ수익#KOBLEX-026200",
+        "provision_text": "제47조(압류 부동산 등의 사용ㆍ수익)",
+        "rerank_rank": 4,
+        "rerank_score": 0.039143580943346024,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "국세징수법 47조  압류 부동산 등의 사용ㆍ수익",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방세징수법 59조  압류 부동산 등의 사용ㆍ수익#KOBLEX-131312"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 82,
+        "first_stage_score": 0.5433188080787659,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "지방세징수법 59조  압류 부동산 등의 사용ㆍ수익#KOBLEX-131312",
+        "provision_text": "제59조(압류 부동산 등의 사용ㆍ수익)",
+        "rerank_rank": 5,
+        "rerank_score": 0.03288065269589424,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "지방세징수법 59조  압류 부동산 등의 사용ㆍ수익",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상속세 및 증여세법 37조  부동산 무상사용에 따른 이익의 증여#KOBLEX-207287",
+          "상속세 및 증여세법 37조  부동산 무상사용에 따른 이익의 증여#KOBLEX-218886"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 57,
+        "first_stage_score": 0.5499718189239502,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "상속세 및 증여세법 37조  부동산 무상사용에 따른 이익의 증여#KOBLEX-207287",
+        "provision_text": "제37조(부동산 무상사용에 따른 이익의 증여)",
+        "rerank_rank": 6,
+        "rerank_score": 0.02581086941063404,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "상속세 및 증여세법 37조  부동산 무상사용에 따른 이익의 증여",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 106조  매각기일의 공고내용#KOBLEX-128426"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 93,
+        "first_stage_score": 0.5392188429832458,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "민사집행법 106조  매각기일의 공고내용#KOBLEX-128426",
+        "provision_text": "3. 부동산의 점유자, 점유의 권원, 점유하여 사용할 수 있는 기간, 차임 또는 보증금약정 및 그 액수",
+        "rerank_rank": 7,
+        "rerank_score": 0.024403631687164307,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사집행법 106조  매각기일의 공고내용 3호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상속세 및 증여세법 시행령 27조  부동산 무상사용에 따른 이익의 계산방법 등#KOBLEX-212172"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.5873352289199829,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "상속세 및 증여세법 시행령 27조  부동산 무상사용에 따른 이익의 계산방법 등#KOBLEX-212172",
+        "provision_text": "제27조(부동산 무상사용에 따른 이익의 계산방법 등)",
+        "rerank_rank": 8,
+        "rerank_score": 0.02111116610467434,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "상속세 및 증여세법 시행령 27조  부동산 무상사용에 따른 이익의 계산방법 등",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도시개발법 36조  환지 예정지 지정의 효과#KOBLEX-002963"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 60,
+        "first_stage_score": 0.5496054291725159,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "도시개발법 36조  환지 예정지 지정의 효과#KOBLEX-002963",
+        "provision_text": "③ 환지 예정지 지정의 효력이 발생하거나 제2항에 따라 그 토지의 사용 또는 수익을 시작하는 경우에 해당 환지 예정지의 종전의 소유자 또는 임차권자등은 제1항 또는 제2항에서 규정하는 기간에 이를 사용하거나 수익할 수 없으며 제1항에 따른 권리의 행사를 방해할 수 없다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.01952456496655941,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "도시개발법 36조  환지 예정지 지정의 효과 3항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 202조  점유자의 회복자에 대한 책임#KOBLEX-058794"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 24,
+        "first_stage_score": 0.5722606778144836,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "민법 202조  점유자의 회복자에 대한 책임#KOBLEX-058794",
+        "provision_text": "제202조(점유자의 회복자에 대한 책임) 점유물이 점유자의 책임있는 사유로 인하여 멸실 또는 훼손한 때에는 악의의 점유자는 그 손해의 전부를 배상하여야 하며 선의의 점유자는 이익이 현존하는 한도에서 배상하여야 한다. 소유의 의사가 없는 점유자는 선의인 경우에도 손해의 전부를 배상하여야 한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.01847112365067005,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 202조  점유자의 회복자에 대한 책임",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 203조  점유자의 상환청구권#KOBLEX-058795"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.6005005836486816,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "민법 203조  점유자의 상환청구권#KOBLEX-058795",
+        "provision_text": "제203조(점유자의 상환청구권)",
+        "rerank_rank": 1,
+        "rerank_score": 0.06334052234888077,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민법 203조  점유자의 상환청구권",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 203조  점유자의 상환청구권#KOBLEX-058797"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 37,
+        "first_stage_score": 0.5804930329322815,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "민법 203조  점유자의 상환청구권#KOBLEX-058797",
+        "provision_text": "②점유자가 점유물을 개량하기 위하여 지출한 금액 기타 유익비에 관하여는 그 가액의 증가가 현존한 경우에 한하여 회복자의 선택에 좇아 그 지출금액이나 증가액의 상환을 청구할 수 있다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.0020288696978241205,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 203조  점유자의 상환청구권 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 594조  환매의 실행#KOBLEX-059586"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 61,
+        "first_stage_score": 0.5674828886985779,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "민법 594조  환매의 실행#KOBLEX-059586",
+        "provision_text": "②매수인이나 전득자가 목적물에 대하여 비용을 지출한 때에는 매도인은 제203조의 규정에 의하여 이를 상환하여야 한다. 그러나 유익비에 대하여는 법원은 매도인의 청구에 의하여 상당한 상환기간을 허여할 수 있다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.0015427645994350314,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 594조  환매의 실행 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 747조  원물반환불능한 경우와 가액반환, 전득자의 책임#KOBLEX-059897"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 25,
+        "first_stage_score": 0.5983917713165283,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "민법 747조  원물반환불능한 경우와 가액반환, 전득자의 책임#KOBLEX-059897",
+        "provision_text": "②수익자가 그 이익을 반환할 수 없는 경우에는 수익자로부터 무상으로 그 이익의 목적물을 양수한 악의의 제삼자는 전항의 규정에 의하여 반환할 책임이 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.0013827570946887136,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 747조  원물반환불능한 경우와 가액반환, 전득자의 책임 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 203조  점유자의 상환청구권#KOBLEX-058796"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 18,
+        "first_stage_score": 0.5944265127182007,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "민법 203조  점유자의 상환청구권#KOBLEX-058796",
+        "provision_text": "①점유자가 점유물을 반환할 때에는 회복자에 대하여 점유물을 보존하기 위하여 지출한 금액 기타 필요비의 상환을 청구할 수 있다. 그러나 점유자가 과실을 취득한 경우에는 통상의 필요비는 청구하지 못한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.0013807050418108702,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 203조  점유자의 상환청구권 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 201조  점유자와 과실#KOBLEX-058792"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 20,
+        "first_stage_score": 0.6105448007583618,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "민법 201조  점유자와 과실#KOBLEX-058792",
+        "provision_text": "②악의의 점유자는 수취한 과실을 반환하여야 하며 소비하였거나 과실로 인하여 훼손 또는 수취하지 못한 경우에는 그 과실의 대가를 보상하여야 한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.0005166636547073722,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 201조  점유자와 과실 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 749조  수익자의 악의인정#KOBLEX-059902"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 59,
+        "first_stage_score": 0.5868610143661499,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "민법 749조  수익자의 악의인정#KOBLEX-059902",
+        "provision_text": "①수익자가 이익을 받은 후 법률상 원인없음을 안 때에는 그때부터 악의의 수익자로서 이익반환의 책임이 있다.",
+        "rerank_rank": 6,
+        "rerank_score": 8.584734314354137e-05,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 749조  수익자의 악의인정 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 748조  수익자의 반환범위#KOBLEX-059900"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.6134827136993408,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "민법 748조  수익자의 반환범위#KOBLEX-059900",
+        "provision_text": "②악의의 수익자는 그 받은 이익에 이자를 붙여 반환하고 손해가 있으면 이를 배상하여야 한다.",
+        "rerank_rank": 7,
+        "rerank_score": 6.651242438238114e-05,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 748조  수익자의 반환범위 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "국세징수법 47조  압류 부동산 등의 사용ㆍ수익#KOBLEX-026200": "제47조(압류 부동산 등의 사용ㆍ수익)",
+      "도시개발법 36조  환지 예정지 지정의 효과#KOBLEX-002963": "③ 환지 예정지 지정의 효력이 발생하거나 제2항에 따라 그 토지의 사용 또는 수익을 시작하는 경우에 해당 환지 예정지의 종전의 소유자 또는 임차권자등은 제1항 또는 제2항에서 규정하는 기간에 이를 사용하거나 수익할 수 없으며 제1항에 따른 권리의 행사를 방해할 수 없다.",
+      "민법 201조  점유자와 과실#KOBLEX-058792": "②악의의 점유자는 수취한 과실을 반환하여야 하며 소비하였거나 과실로 인하여 훼손 또는 수취하지 못한 경우에는 그 과실의 대가를 보상하여야 한다.",
+      "민법 202조  점유자의 회복자에 대한 책임#KOBLEX-058794": "제202조(점유자의 회복자에 대한 책임) 점유물이 점유자의 책임있는 사유로 인하여 멸실 또는 훼손한 때에는 악의의 점유자는 그 손해의 전부를 배상하여야 하며 선의의 점유자는 이익이 현존하는 한도에서 배상하여야 한다. 소유의 의사가 없는 점유자는 선의인 경우에도 손해의 전부를 배상하여야 한다.",
+      "민법 203조  점유자의 상환청구권#KOBLEX-058795": "제203조(점유자의 상환청구권)",
+      "민법 203조  점유자의 상환청구권#KOBLEX-058796": "①점유자가 점유물을 반환할 때에는 회복자에 대하여 점유물을 보존하기 위하여 지출한 금액 기타 필요비의 상환을 청구할 수 있다. 그러나 점유자가 과실을 취득한 경우에는 통상의 필요비는 청구하지 못한다.",
+      "민법 203조  점유자의 상환청구권#KOBLEX-058797": "②점유자가 점유물을 개량하기 위하여 지출한 금액 기타 유익비에 관하여는 그 가액의 증가가 현존한 경우에 한하여 회복자의 선택에 좇아 그 지출금액이나 증가액의 상환을 청구할 수 있다.",
+      "민법 204조  점유의 회수#KOBLEX-058800": "①점유자가 점유의 침탈을 당한 때에는 그 물건의 반환 및 손해의 배상을 청구할 수 있다.",
+      "민법 594조  환매의 실행#KOBLEX-059586": "②매수인이나 전득자가 목적물에 대하여 비용을 지출한 때에는 매도인은 제203조의 규정에 의하여 이를 상환하여야 한다. 그러나 유익비에 대하여는 법원은 매도인의 청구에 의하여 상당한 상환기간을 허여할 수 있다.",
+      "민법 747조  원물반환불능한 경우와 가액반환, 전득자의 책임#KOBLEX-059897": "②수익자가 그 이익을 반환할 수 없는 경우에는 수익자로부터 무상으로 그 이익의 목적물을 양수한 악의의 제삼자는 전항의 규정에 의하여 반환할 책임이 있다.",
+      "민법 748조  수익자의 반환범위#KOBLEX-059900": "②악의의 수익자는 그 받은 이익에 이자를 붙여 반환하고 손해가 있으면 이를 배상하여야 한다.",
+      "민법 749조  수익자의 악의인정#KOBLEX-059902": "①수익자가 이익을 받은 후 법률상 원인없음을 안 때에는 그때부터 악의의 수익자로서 이익반환의 책임이 있다.",
+      "민사집행법 106조  매각기일의 공고내용#KOBLEX-128426": "3. 부동산의 점유자, 점유의 권원, 점유하여 사용할 수 있는 기간, 차임 또는 보증금약정 및 그 액수",
+      "상속세 및 증여세법 37조  부동산 무상사용에 따른 이익의 증여#KOBLEX-207287": "제37조(부동산 무상사용에 따른 이익의 증여)",
+      "상속세 및 증여세법 시행규칙 10조  부동산 무상사용 이익률 등#KOBLEX-080493": "제10조(부동산 무상사용 이익률 등)",
+      "상속세 및 증여세법 시행령 27조  부동산 무상사용에 따른 이익의 계산방법 등#KOBLEX-212172": "제27조(부동산 무상사용에 따른 이익의 계산방법 등)",
+      "소득세법 시행령 26조  이자소득의 범위#KOBLEX-141121": "제26조(이자소득의 범위)",
+      "지방세징수법 59조  압류 부동산 등의 사용ㆍ수익#KOBLEX-131312": "제59조(압류 부동산 등의 사용ㆍ수익)"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민법 201조  점유자와 과실#KOBLEX-058792"
+            ],
+            "rationale": "C016은 악의의 점유자가 수취한 과실을 반환할 의무를 규정하여, 무권리 점유자의 수익반환 의무 발생 요건 및 범위를 명시한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "민법 201조  점유자와 과실#KOBLEX-058792"
+            ],
+            "rationale": "C016은 '악의의 점유자'에 대해 수취한 과실 반환 및 미수취 시 가액 보상을 규정함으로써, 선의 점유자와 구별되는 악의 점유자의 반환 범위를 명시한다.",
+            "requirement_id": "E1-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민법 201조  점유자와 과실#KOBLEX-058792"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C016(민법 제201조 제2항)은 악의의 점유자가 수취한 과실을 반환하고, 소비·훼손·미수취 시에는 그 대가를 보상하도록 규정하여, 무권리 점유자의 수익반환 의무 발생 요건 및 악의 점유자의 반환 범위(실제 취득분 또는 가액)를 명확히 규정한다. 이는 E1-R1과 E1-R2의 요구사항을 충족한다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민법 748조  수익자의 반환범위#KOBLEX-059900"
+            ],
+            "rationale": "C018은 악의의 수익자가 이익에 이자를 붙여 반환하도록 규정하여, 수익반환에 적용되는 이자율(이자 부과) 규정을 명시한다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민법 748조  수익자의 반환범위#KOBLEX-059900"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C018(민법 제748조 제2항)은 악의의 수익자가 받은 이익에 이자를 붙여 반환하도록 규정하여, 무권리 점유자의 수익반환에 적용되는 이자 부과 의무를 명시한다. 이는 질문에서 요구하는 이자율 산정 기준의 법적 근거가 된다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "민법 201조  점유자와 과실#KOBLEX-058792",
+        "support_spans": [
+          {
+            "end_char": 80,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "민법 748조  수익자의 반환범위#KOBLEX-059900",
+        "support_spans": [
+          {
+            "end_char": 51,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 8,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "무권리 점유자가 악의로 부동산을 점유하여 얻은 수익의 반환 범위는 어떻게 규정되는가?",
+        "issue_id": "I1"
+      },
+      {
+        "description": "반환 대상 수익에 대한 이자율은 어떻게 결정되는가?",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 을의 토지가 비어 있고 사용계약이 체결되지 않은 상태임에도, 마치 자신이 정당한 권한이 있는 것처럼 믿고 해당 토지를 무단으로 점유하여 창고 용도로 사용하고 수익을 올렸다. 그러나 갑은 실제로는 사용 권한이 없다는 사실을 알고 있었고, 그럼에도 불구하고 장기간 이를 계속 이용하였다. 을은 이로 인해 자신의 토지를 다른 용도로 활용하지 못해 실질적인 손해를 입게 되었다. [질문] 갑이 을의 부동산을 권한 없이 악의적으로 사용하여 수익을 얻은 경우, 그 반환 범위와 이자율은 어떻게 정해지는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "무권리 점유",
+          "수익반환",
+          "악의 점유",
+          "반환 범위"
+        ],
+        "query_text": "무권리 점유자 수익반환 범위 악의 점유 [원문 맥락] 을은 이로 인해 자신의 토지를 다른 용도로 활용하지 못해 실질적인 손해를 입게 되었다. 갑이 을의 부동산을 권한 없이 악의적으로 사용하여 수익을 얻은 경우, 그 반환 범위와 이자율은 어떻게 정해지는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제238조",
+          "민법 제239조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "수익반환",
+          "이자율",
+          "법정 이자",
+          "무권리 점유"
+        ],
+        "query_text": "무권리 점유 수익반환 이자율 법정 이자 [원문 맥락] 을은 이로 인해 자신의 토지를 다른 용도로 활용하지 못해 실질적인 손해를 입게 되었다. 갑이 을의 부동산을 권한 없이 악의적으로 사용하여 수익을 얻은 경우, 그 반환 범위와 이자율은 어떻게 정해지는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제238조",
+          "민법 제209조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "민법 제203조",
+          "점유자",
+          "수익반환",
+          "악의",
+          "취득분"
+        ],
+        "query_text": "민법 제203조 점유자의 수익반환 의무 악의 점유자 취득분 가액 [원문 맥락] 을은 이로 인해 자신의 토지를 다른 용도로 활용하지 못해 실질적인 손해를 입게 되었다. 갑이 을의 부동산을 권한 없이 악의적으로 사용하여 수익을 얻은 경우, 그 반환 범위와 이자율은 어떻게 정해지는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제203조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "민법 제203조",
+          "악의 점유자",
+          "이자",
+          "법정 이자율",
+          "수익반환"
+        ],
+        "query_text": "민법 제203조 제2항 악의 점유자 수익반환 이자 법정 이자율 [원문 맥락] 을은 이로 인해 자신의 토지를 다른 용도로 활용하지 못해 실질적인 손해를 입게 되었다. 갑이 을의 부동산을 권한 없이 악의적으로 사용하여 수익을 얻은 경우, 그 반환 범위와 이자율은 어떻게 정해지는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제203조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 을의 토지가 비어 있고 사용계약이 체결되지 않은 상태임에도, 마치 자신이 정당한 권한이 있는 것처럼 믿고 해당 토지를 무단으로 점유하여 창고 용도로 사용하고 수익을 올렸다. 그러나 갑은 실제로는 사용 권한이 없다는 사실을 알고 있었고, 그럼에도 불구하고 장기간 이를 계속 이용하였다. 을은 이로 인해 자신의 토지를 다른 용도로 활용하지 못해 실질적인 손해를 입게 되었다.\n\n[질문]\n갑이 을의 부동산을 권한 없이 악의적으로 사용하여 수익을 얻은 경우, 그 반환 범위와 이자율은 어떻게 정해지는가?",
+    "remaining_request_budget": 5,
+    "remaining_round_budget": 1,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "악의적 무권리 점유자가 반환해야 할 수익의 범위(실제 취득분 또는 가액)를 명시하는 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "무권리 점유자의 수익반환 의무 발생 요건 및 범위 규정"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "악의 점유자의 경우 선의 점유자와 다른 반환 범위 규정"
+          }
+        ],
+        "critical": true,
+        "description": "무권리 점유자의 수익반환 의무와 악의 점유자의 반환 범위 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 '반환 범위'를 결정하는 핵심 법적 근거",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "반환 대상 수익에 대한 이자율 산정 기준(법정 이자율 등)을 명시하는 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "무권리 점유자의 수익반환에 적용되는 이자율 규정"
+          }
+        ],
+        "critical": true,
+        "description": "무권리 점유자의 수익반환에 적용되는 이자율 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 요구하는 '이자율'을 결정하는 핵심 법적 근거",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 2,
+    "run_id": "db86d02e-c278-491d-a5aa-3e5a9ae31a7d",
+    "seen_provision_ids": [
+      "민법 747조  원물반환불능한 경우와 가액반환, 전득자의 책임#KOBLEX-059897",
+      "민법 203조  점유자의 상환청구권#KOBLEX-058795",
+      "민법 202조  점유자의 회복자에 대한 책임#KOBLEX-058794",
+      "민법 204조  점유의 회수#KOBLEX-058800",
+      "상속세 및 증여세법 37조  부동산 무상사용에 따른 이익의 증여#KOBLEX-207287",
+      "민법 203조  점유자의 상환청구권#KOBLEX-058796",
+      "민법 201조  점유자와 과실#KOBLEX-058792",
+      "민법 203조  점유자의 상환청구권#KOBLEX-058797",
+      "상속세 및 증여세법 시행령 27조  부동산 무상사용에 따른 이익의 계산방법 등#KOBLEX-212172",
+      "국세징수법 47조  압류 부동산 등의 사용ㆍ수익#KOBLEX-026200",
+      "민사집행법 106조  매각기일의 공고내용#KOBLEX-128426",
+      "상속세 및 증여세법 시행규칙 10조  부동산 무상사용 이익률 등#KOBLEX-080493",
+      "민법 748조  수익자의 반환범위#KOBLEX-059900",
+      "도시개발법 36조  환지 예정지 지정의 효과#KOBLEX-002963",
+      "소득세법 시행령 26조  이자소득의 범위#KOBLEX-141121",
+      "민법 594조  환매의 실행#KOBLEX-059586",
+      "민법 749조  수익자의 악의인정#KOBLEX-059902",
+      "지방세징수법 59조  압류 부동산 등의 사용ㆍ수익#KOBLEX-131312"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

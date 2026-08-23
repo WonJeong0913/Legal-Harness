@@ -1,0 +1,1425 @@
+{
+  "abstention_reason": null,
+  "answer": "불법재산을 몰수할 수 없는 경우, 법원은 그 가액을 범인에게서 추징할 수 있다.[CT1][CT2]\n몰수 또는 추징에 관한 재판을 받은 자가 재판 확정 후 사망한 경우, 그 상속재산에 대해 집행할 수 있다.[CT3]",
+  "answer_mode": "limited",
+  "answered_target_ids": [
+    "T1",
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "갑이 국가기관 소속 공무원이며, 직무와 관련하여 부정한 방법으로 재산을 취득한 공무원범죄에 해당한다고 가정합니다."
+    },
+    {
+      "code": "ASSUMPTION_2",
+      "message": "갑에 대한 몰수 또는 추징 판결이 확정된 후 사망한 것으로 가정합니다."
+    }
+  ],
+  "candidate_answer": "불법재산을 몰수할 수 없는 경우, 법원은 그 가액을 범인에게서 추징할 수 있다.[CT1][CT2]\n몰수 또는 추징에 관한 재판을 받은 자가 재판 확정 후 사망한 경우, 그 상속재산에 대해 집행할 수 있다.[CT3]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "공무원범죄에 관한 몰수 특례법 6조  추징#KOBLEX-038534",
+      "quoted_text": "제6조(추징) 불법재산을 몰수할 수 없거나 제3조제2항에 따라 몰수하지 아니하는 경우에는 그 가액(價額)을 범인에게서 추징(追徵)한다.",
+      "support_description": "몰수 불가능 시 가액 추징을 명하는 공무원범죄 특례 규정"
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C1",
+      "provision_id": "형법 48조  몰수의 대상과 추징#KOBLEX-192754",
+      "quoted_text": "② 제1항 각 호의 물건을 몰수할 수 없을 때에는 그 가액(價額)을 추징한다.",
+      "support_description": "몰수 불가능 시 가액 추징을 명하는 형법 일반 규정"
+    },
+    {
+      "answer_marker": "[CT3]",
+      "citation_id": "CT3",
+      "claim_id": "C2",
+      "provision_id": "형사소송법 478조  상속재산에 대한 집행#KOBLEX-232995",
+      "quoted_text": "제478조(상속재산에 대한 집행) 몰수 또는 조세, 전매 기타 공과에 관한 법령에 의하여 재판한 벌금 또는 추징은 그 재판을 받은 자가 재판확정 후 사망한 경우에는 그 상속재산에 대하여 집행할 수 있다.",
+      "support_description": "사망 후 상속재산에 대한 몰수·추징 집행 가능성을 명시한 규정"
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "불법재산을 몰수할 수 없는 경우, 법원은 그 가액을 범인에게서 추징할 수 있다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "몰수 또는 추징에 관한 재판을 받은 자가 재판 확정 후 사망한 경우, 그 상속재산에 대해 집행할 수 있다."
+    }
+  ],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T10:29:09.522514+00:00",
+  "deferred_target_ids": [
+    "T3"
+  ],
+  "end_to_end_latency_ms": 219014.585,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "몰수 및 추징의 시효 기간에 관한 규정은 제공된 법령에서 확인되지 않아 T3에 대한 답변을 보류합니다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 569,
+      "dedup_collapse": 224,
+      "evidence_fusion": 569,
+      "first_stage": 700,
+      "request_rerank": 700,
+      "round_selected": 30,
+      "rrf": 700,
+      "selected": 569
+    }
+  },
+  "run_id": "513997b5-5abd-416a-8d70-bd1eb220e3ee",
+  "skill_generation_diagnostics": {
+    "attempt_count": 7,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "공무원범죄에 관한 몰수 특례법 6조  추징#KOBLEX-038534",
+      "형사소송법 478조  상속재산에 대한 집행#KOBLEX-232995",
+      "형법 48조  몰수의 대상과 추징#KOBLEX-192754"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 3,
+          "issue_count": 3
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 3,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 9,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 7,
+          "request_count": 2,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": true,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "deferred_target_ids": [
+            "T3"
+          ],
+          "explanation": "Only the citable answer targets will be answered; remaining targets are deferred.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": [
+            "T3"
+          ]
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "limited",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "법원은 어떤 방식으로 그에 대한 처분을 할 수 있는가?",
+        "requested_output": "몰수 불가능 시 법원의 대체 처분 방식"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "을의 상속재산에 대해 집행이 가능한지",
+        "requested_output": "사망 후 상속재산에 대한 몰수·추징 집행 가능성"
+      },
+      {
+        "answer_target_id": "T3",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "몰수·추징의 시효는 몇 년인지",
+        "requested_output": "몰수·추징의 시효 기간"
+      }
+    ],
+    "answered_target_ids": [
+      "T1",
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "범죄수익은닉의 규제 및 처벌 등에 관한 법률 9조  몰수의 요건 등#KOBLEX-048148"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 54,
+        "first_stage_score": 0.5877565741539001,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "범죄수익은닉의 규제 및 처벌 등에 관한 법률 9조  몰수의 요건 등#KOBLEX-048148",
+        "provision_text": "① 제8조제1항에 따른 몰수는 몰수대상재산 또는 혼화재산이 범인 외의 자에게 귀속(歸屬)되지 아니하는 경우에만 할 수 있다. 다만, 범인 외의 자가 범죄 후 그 정황을 알면서 그 몰수대상재산 또는 혼화재산을 취득한 경우(그 몰수대상재산 또는 혼화재산의 취득이 제4조 단서에 해당하는 경우는 제외한다)에는 그 몰수대상재산 또는 혼화재산이 범인 외의 자에게 귀속된 경우에도 몰수할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.9826016426086426,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2,E3",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ3",
+          "RQ1"
+        ],
+        "statute_name": "범죄수익은닉의 규제 및 처벌 등에 관한 법률 9조  몰수의 요건 등 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "특정경제범죄 가중처벌 등에 관한 법률 10조  (몰수·추징)#KOBLEX-029501"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 100,
+        "first_stage_score": 0.5637474656105042,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "특정경제범죄 가중처벌 등에 관한 법률 10조  (몰수·추징)#KOBLEX-029501",
+        "provision_text": "① 제4조제1항부터 제3항까지의 경우 범인이 도피시키거나 도피시키려고 한 재산은 몰수한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.990027129650116,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "특정경제범죄 가중처벌 등에 관한 법률 10조  (몰수·추징) 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "범죄수익은닉의 규제 및 처벌 등에 관한 법률 9조  몰수의 요건 등#KOBLEX-048149"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 75,
+        "first_stage_score": 0.5782673358917236,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "범죄수익은닉의 규제 및 처벌 등에 관한 법률 9조  몰수의 요건 등#KOBLEX-048149",
+        "provision_text": "② 지상권ㆍ저당권 또는 그 밖의 권리가 설정된 재산을 제8조제1항에 따라 몰수하는 경우 범인 외의 자가 범죄 전에 그 권리를 취득하였을 때 또는 범죄 후 그 정황을 알지 못하고 그 권리를 취득하였을 때에는 그 권리를 존속시킨다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9870162606239319,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ3"
+        ],
+        "statute_name": "범죄수익은닉의 규제 및 처벌 등에 관한 법률 9조  몰수의 요건 등 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "수산업법 110조  몰수#KOBLEX-035021"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 38,
+        "first_stage_score": 0.602948784828186,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "수산업법 110조  몰수#KOBLEX-035021",
+        "provision_text": "② 제1항에 따라 범인이 소유하거나 소지한 물건의 전부 또는 일부를 몰수할 수 없을 때에는 그 가액을 추징할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.981279730796814,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ3",
+          "RQ1"
+        ],
+        "statute_name": "수산업법 110조  몰수 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "특정범죄 가중처벌 등에 관한 법률 13조  몰수#KOBLEX-050730",
+          "특정범죄 가중처벌 등에 관한 법률 13조  몰수#KOBLEX-080762",
+          "특정범죄 가중처벌 등에 관한 법률 13조  몰수#KOBLEX-107098",
+          "특정범죄 가중처벌 등에 관한 법률 13조  몰수#KOBLEX-107700"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 11,
+        "first_stage_score": 0.6406338810920715,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "특정범죄 가중처벌 등에 관한 법률 13조  몰수#KOBLEX-050730",
+        "provision_text": "제13조(몰수) 제3조 또는 제12조의 죄를 범하여 범인이 취득한 해당 재산은 몰수하며, 몰수할 수 없을 때에는 그 가액을 추징(追徵)한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.9803588390350342,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ3",
+          "RQ1"
+        ],
+        "statute_name": "특정범죄 가중처벌 등에 관한 법률 13조  몰수",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공무원범죄에 관한 몰수 특례법 5조  몰수의 요건 등#KOBLEX-038533"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 61,
+        "first_stage_score": 0.5817288160324097,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "공무원범죄에 관한 몰수 특례법 5조  몰수의 요건 등#KOBLEX-038533",
+        "provision_text": "② 지상권ㆍ저당권 또는 그 밖의 권리가 그 위에 존재하는 재산을 제3조에 따라 몰수하는 경우, 범인 외의 자가 범죄 전에 그 권리를 취득한 경우 또는 범인 외의 자가 범죄 후 그 정황을 알지 못하고 그 권리를 취득한 경우에는 해당 권리를 존속시킨다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.9797646999359131,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ3",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "공무원범죄에 관한 몰수 특례법 5조  몰수의 요건 등 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부패재산의 몰수 및 회복에 관한 특례법 4조  몰수의 요건 등#KOBLEX-073058"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 46,
+        "first_stage_score": 0.587843656539917,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "부패재산의 몰수 및 회복에 관한 특례법 4조  몰수의 요건 등#KOBLEX-073058",
+        "provision_text": "③ 지상권, 저당권, 그 밖의 권리가 그 위에 존재하는 재산을 제3조에 따라 몰수하는 경우에 범인 외의 자가 범죄 전에 그 권리를 취득한 때 또는 범인 외의 자가 범죄 후 그 정을 알지 못하고 그 권리를 취득한 때에는 이를 존속시킨다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.9779355525970459,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ3",
+          "RQ1",
+          "GRQ-R2-2",
+          "GRQ-R2-1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "부패재산의 몰수 및 회복에 관한 특례법 4조  몰수의 요건 등 3항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부패재산의 몰수 및 회복에 관한 특례법 4조  몰수의 요건 등#KOBLEX-073057"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 73,
+        "first_stage_score": 0.57862389087677,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "부패재산의 몰수 및 회복에 관한 특례법 4조  몰수의 요건 등#KOBLEX-073057",
+        "provision_text": "② 부패재산 또는 혼합재산이 범인 외의 자에게 상속이나 증여 등으로 무상(無償) 또는 현저한 저가(低價)로 귀속된 경우에는 범인 외의 자가 그 정을 알지 못하고 그 부패재산 또는 혼합재산을 취득한 때에도 전부 또는 일부를 몰수할 수 있다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.9748148322105408,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ3"
+        ],
+        "statute_name": "부패재산의 몰수 및 회복에 관한 특례법 4조  몰수의 요건 등 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부패재산의 몰수 및 회복에 관한 특례법 4조  몰수의 요건 등#KOBLEX-073056"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 40,
+        "first_stage_score": 0.5917676091194153,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "부패재산의 몰수 및 회복에 관한 특례법 4조  몰수의 요건 등#KOBLEX-073056",
+        "provision_text": "① 제3조에 따른 몰수는 부패재산 또는 혼합재산이 범인 외의 자에게 귀속되지 아니한 경우에 한한다. 다만, 범인외의 자가 범죄 후 그 정(情)을 알면서 그 부패재산 또는 혼합재산을 취득한 경우(그 부패재산 또는 혼합재산의 취득이 「범죄수익은닉의 규제 및 처벌 등에 관한 법률」 제4조 단서에 해당하는 경우에는 제외한다)에는 그 부패재산 또는 혼합재산이 범인 외의 자에게 귀속된 경우에도 몰수할 수 있다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.9732280969619751,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ3",
+          "RQ1"
+        ],
+        "statute_name": "부패재산의 몰수 및 회복에 관한 특례법 4조  몰수의 요건 등 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "마약류 불법거래 방지에 관한 특례법 15조  몰수의 요건 등#KOBLEX-006530",
+          "마약류 불법거래 방지에 관한 특례법 15조  몰수의 요건 등#KOBLEX-045280"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 29,
+        "first_stage_score": 0.6027734875679016,
+        "fusion_rank": 10,
+        "issue_id": "I2",
+        "provision_id": "마약류 불법거래 방지에 관한 특례법 15조  몰수의 요건 등#KOBLEX-006530",
+        "provision_text": "① 제13조에 따른 몰수는 불법재산 또는 혼합재산이 범인 외의 자에게 귀속되지 아니한 경우로 한정한다. 다만, 범인 외의 자가 범죄 후 그 정황을 알면서 그 불법재산 또는 혼합재산을 취득한 경우(그 불법재산 또는 혼합재산의 취득이 제8조 단서에 따른 불법수익등의 수수에 해당하는 경우는 제외한다)에는 그 불법재산 또는 혼합재산이 범인 외의 자에게 귀속된 경우에도 그 재산을 몰수할 수 있다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.9725164771080017,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ3",
+          "RQ1"
+        ],
+        "statute_name": "마약류 불법거래 방지에 관한 특례법 15조  몰수의 요건 등 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공무원범죄에 관한 몰수 특례법 3조  불법재산의 몰수#KOBLEX-038526"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 69,
+        "first_stage_score": 0.5821371078491211,
+        "fusion_rank": 1,
+        "issue_id": "I3",
+        "provision_id": "공무원범죄에 관한 몰수 특례법 3조  불법재산의 몰수#KOBLEX-038526",
+        "provision_text": "제3조(불법재산의 몰수)",
+        "rerank_rank": 1,
+        "rerank_score": 0.9974161386489868,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E2,E3",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "공무원범죄에 관한 몰수 특례법 3조  불법재산의 몰수",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공무원범죄에 관한 몰수 특례법 6조  추징#KOBLEX-038534"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.6409078240394592,
+        "fusion_rank": 2,
+        "issue_id": "I3",
+        "provision_id": "공무원범죄에 관한 몰수 특례법 6조  추징#KOBLEX-038534",
+        "provision_text": "제6조(추징) 불법재산을 몰수할 수 없거나 제3조제2항에 따라 몰수하지 아니하는 경우에는 그 가액(價額)을 범인에게서 추징(追徵)한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9898406863212585,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "공무원범죄에 관한 몰수 특례법 6조  추징",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 448조  약식명령을 할 수 있는 사건#KOBLEX-232925"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 73,
+        "first_stage_score": 0.5799053311347961,
+        "fusion_rank": 3,
+        "issue_id": "I3",
+        "provision_id": "형사소송법 448조  약식명령을 할 수 있는 사건#KOBLEX-232925",
+        "provision_text": "②전항의 경우에는 추징 기타 부수의 처분을 할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.9897261261940002,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 448조  약식명령을 할 수 있는 사건 2항",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 48조  몰수의 대상과 추징#KOBLEX-192754"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 40,
+        "first_stage_score": 0.5997036695480347,
+        "fusion_rank": 4,
+        "issue_id": "I3",
+        "provision_id": "형법 48조  몰수의 대상과 추징#KOBLEX-192754",
+        "provision_text": "② 제1항 각 호의 물건을 몰수할 수 없을 때에는 그 가액(價額)을 추징한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.9862026572227478,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형법 48조  몰수의 대상과 추징 2항",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "마약류 불법거래 방지에 관한 특례법 19조  권리 존속의 선고#KOBLEX-006540",
+          "마약류 불법거래 방지에 관한 특례법 19조  권리 존속의 선고#KOBLEX-045290"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 97,
+        "first_stage_score": 0.5668216347694397,
+        "fusion_rank": 5,
+        "issue_id": "I3",
+        "provision_id": "마약류 불법거래 방지에 관한 특례법 19조  권리 존속의 선고#KOBLEX-006540",
+        "provision_text": "제19조(권리 존속의 선고) 법원은 지상권ㆍ저당권 또는 그 밖의 권리가 그 위에 존재하는 재산을 몰수하는 경우, 제15조제2항에 따라 그 권리를 존속시킬 때에는 몰수의 선고와 동시에 그 취지를 선고하여야 한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.9797051548957825,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2"
+        ],
+        "statute_name": "마약류 불법거래 방지에 관한 특례법 19조  권리 존속의 선고",
+        "target_evidence_item_ids": [
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공무원범죄에 관한 몰수 특례법 8조  제3자의 권리 존속 등#KOBLEX-038537"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 54,
+        "first_stage_score": 0.5888354182243347,
+        "fusion_rank": 7,
+        "issue_id": "I3",
+        "provision_id": "공무원범죄에 관한 몰수 특례법 8조  제3자의 권리 존속 등#KOBLEX-038537",
+        "provision_text": "제8조(제3자의 권리 존속 등) 지상권ㆍ저당권 또는 그 밖의 권리가 그 위에 존재하는 재산을 몰수하는 경우에 제5조제2항에 따라 해당 권리를 존속시키려면 법원은 몰수를 선고하는 동시에 그 취지를 선고하여야 한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.979219913482666,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "공무원범죄에 관한 몰수 특례법 8조  제3자의 권리 존속 등",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공무원범죄에 관한 몰수 특례법 4조  불법재산이 합하여진 재산의 몰수방법#KOBLEX-038530"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 95,
+        "first_stage_score": 0.5679888725280762,
+        "fusion_rank": 8,
+        "issue_id": "I3",
+        "provision_id": "공무원범죄에 관한 몰수 특례법 4조  불법재산이 합하여진 재산의 몰수방법#KOBLEX-038530",
+        "provision_text": "제4조(불법재산이 합하여진 재산의 몰수방법) 불법재산이 불법재산 외의 재산과 합하여진 경우에 제3조제1항에 따라 그 불법재산을 몰수하여야 할 때에는 불법재산과 불법재산 외의 재산이 합하여진 재산(이하 \"혼합재산\"이라 한다) 중 불법재산의 비율에 해당하는 부분을 몰수한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.9786463379859924,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "공무원범죄에 관한 몰수 특례법 4조  불법재산이 합하여진 재산의 몰수방법",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "담배사업법 30조  몰수와 추징#KOBLEX-143501"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 47,
+        "first_stage_score": 0.5950753688812256,
+        "fusion_rank": 9,
+        "issue_id": "I3",
+        "provision_id": "담배사업법 30조  몰수와 추징#KOBLEX-143501",
+        "provision_text": "② 제1항의 물건을 몰수할 수 없을 때에는 그 가액(價額)을 추징한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.9774444103240967,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "담배사업법 30조  몰수와 추징 2항",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부패재산의 몰수 및 회복에 관한 특례법 5조  추징#KOBLEX-073060"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 12,
+        "first_stage_score": 0.6299603581428528,
+        "fusion_rank": 10,
+        "issue_id": "I3",
+        "provision_id": "부패재산의 몰수 및 회복에 관한 특례법 5조  추징#KOBLEX-073060",
+        "provision_text": "① 부패재산을 몰수할 수 없거나 그 재산의 성질, 사용상황, 그 재산에 관한 범인 외의 자의 권리 유무, 그 밖의 사정으로 인하여 이를 몰수함이 상당하지 아니하다고 인정될 때에는 그 가액(價額)을 범인으로부터 추징한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.9773209691047668,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "부패재산의 몰수 및 회복에 관한 특례법 5조  추징 1항",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 478조  상속재산에 대한 집행#KOBLEX-232995"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6794381141662598,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "형사소송법 478조  상속재산에 대한 집행#KOBLEX-232995",
+        "provision_text": "제478조(상속재산에 대한 집행) 몰수 또는 조세, 전매 기타 공과에 관한 법령에 의하여 재판한 벌금 또는 추징은 그 재판을 받은 자가 재판확정 후 사망한 경우에는 그 상속재산에 대하여 집행할 수 있다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9998387098312378,
+        "retrieval_round": 3,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E2,E3",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "형사소송법 478조  상속재산에 대한 집행",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 1026조  법정단순승인#KOBLEX-060628"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 97,
+        "first_stage_score": 0.5537055134773254,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "민법 1026조  법정단순승인#KOBLEX-060628",
+        "provision_text": "1. 상속인이 상속재산에 대한 처분행위를 한 때",
+        "rerank_rank": 2,
+        "rerank_score": 0.999819815158844,
+        "retrieval_round": 3,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "민법 1026조  법정단순승인 1호",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 521조  상속재산에 대한 집행#KOBLEX-093812",
+          "군사법원법 521조  상속재산에 대한 집행#KOBLEX-159777"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6853321194648743,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "군사법원법 521조  상속재산에 대한 집행#KOBLEX-093812",
+        "provision_text": "제521조(상속재산에 대한 집행) 몰수 또는 조세, 전매, 그 밖의 공과(公課)에 관한 법령에 따라 재판한 벌금 또는 추징은 그 재판을 받은 사람이 재판 확정 후 사망한 경우에는 그 상속재산에 대하여 집행할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.99979168176651,
+        "retrieval_round": 3,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "군사법원법 521조  상속재산에 대한 집행",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "질서위반행위규제법 24조 2 상속재산 등에 대한 집행#KOBLEX-022830"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 30,
+        "first_stage_score": 0.5877693295478821,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "질서위반행위규제법 24조 2 상속재산 등에 대한 집행#KOBLEX-022830",
+        "provision_text": "① 과태료는 당사자가 과태료 부과처분에 대하여 이의를 제기하지 아니한 채 제20조제1항에 따른 기한이 종료한 후 사망한 경우에는 그 상속재산에 대하여 집행할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.9997745156288147,
+        "retrieval_round": 3,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "질서위반행위규제법 24조 2 상속재산 등에 대한 집행 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방세징수법 47조  상속ㆍ합병의 경우에 대한 체납처분의 효력#KOBLEX-131276"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 65,
+        "first_stage_score": 0.5685321688652039,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "지방세징수법 47조  상속ㆍ합병의 경우에 대한 체납처분의 효력#KOBLEX-131276",
+        "provision_text": "② 체납자가 사망한 후 체납자 명의의 재산에 대하여 한 압류는 그 재산을 상속한 상속인에 대하여 한 것으로 본다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.9997151494026184,
+        "retrieval_round": 3,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "지방세징수법 47조  상속ㆍ합병의 경우에 대한 체납처분의 효력 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 1026조  법정단순승인#KOBLEX-060630"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 79,
+        "first_stage_score": 0.561058759689331,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "민법 1026조  법정단순승인#KOBLEX-060630",
+        "provision_text": "3. 상속인이 한정승인 또는 포기를 한 후에 상속재산을 은닉하거나 부정소비하거나 고의로 재산목록에 기입하지 아니한 때",
+        "rerank_rank": 8,
+        "rerank_score": 0.9997046589851379,
+        "retrieval_round": 3,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "민법 1026조  법정단순승인 3호",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "정치자금법 45조  정치자금부정수수죄#KOBLEX-149374"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 41,
+        "first_stage_score": 0.5959147810935974,
+        "fusion_rank": 10,
+        "issue_id": "I2",
+        "provision_id": "정치자금법 45조  정치자금부정수수죄#KOBLEX-149374",
+        "provision_text": "③제1항 및 제2항의 경우 그 제공된 금품 그 밖에 재산상의 이익은 몰수하며, 이를 몰수할 수 없을 때에는 그 가액을 추징한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.9996888637542725,
+        "retrieval_round": 3,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "정치자금법 45조  정치자금부정수수죄 3항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "공무원범죄에 관한 몰수 특례법 3조  불법재산의 몰수#KOBLEX-038526": "제3조(불법재산의 몰수)",
+      "공무원범죄에 관한 몰수 특례법 4조  불법재산이 합하여진 재산의 몰수방법#KOBLEX-038530": "제4조(불법재산이 합하여진 재산의 몰수방법) 불법재산이 불법재산 외의 재산과 합하여진 경우에 제3조제1항에 따라 그 불법재산을 몰수하여야 할 때에는 불법재산과 불법재산 외의 재산이 합하여진 재산(이하 \"혼합재산\"이라 한다) 중 불법재산의 비율에 해당하는 부분을 몰수한다.",
+      "공무원범죄에 관한 몰수 특례법 5조  몰수의 요건 등#KOBLEX-038533": "② 지상권ㆍ저당권 또는 그 밖의 권리가 그 위에 존재하는 재산을 제3조에 따라 몰수하는 경우, 범인 외의 자가 범죄 전에 그 권리를 취득한 경우 또는 범인 외의 자가 범죄 후 그 정황을 알지 못하고 그 권리를 취득한 경우에는 해당 권리를 존속시킨다.",
+      "공무원범죄에 관한 몰수 특례법 6조  추징#KOBLEX-038534": "제6조(추징) 불법재산을 몰수할 수 없거나 제3조제2항에 따라 몰수하지 아니하는 경우에는 그 가액(價額)을 범인에게서 추징(追徵)한다.",
+      "공무원범죄에 관한 몰수 특례법 8조  제3자의 권리 존속 등#KOBLEX-038537": "제8조(제3자의 권리 존속 등) 지상권ㆍ저당권 또는 그 밖의 권리가 그 위에 존재하는 재산을 몰수하는 경우에 제5조제2항에 따라 해당 권리를 존속시키려면 법원은 몰수를 선고하는 동시에 그 취지를 선고하여야 한다.",
+      "군사법원법 521조  상속재산에 대한 집행#KOBLEX-093812": "제521조(상속재산에 대한 집행) 몰수 또는 조세, 전매, 그 밖의 공과(公課)에 관한 법령에 따라 재판한 벌금 또는 추징은 그 재판을 받은 사람이 재판 확정 후 사망한 경우에는 그 상속재산에 대하여 집행할 수 있다.",
+      "담배사업법 30조  몰수와 추징#KOBLEX-143501": "② 제1항의 물건을 몰수할 수 없을 때에는 그 가액(價額)을 추징한다.",
+      "마약류 불법거래 방지에 관한 특례법 15조  몰수의 요건 등#KOBLEX-006530": "① 제13조에 따른 몰수는 불법재산 또는 혼합재산이 범인 외의 자에게 귀속되지 아니한 경우로 한정한다. 다만, 범인 외의 자가 범죄 후 그 정황을 알면서 그 불법재산 또는 혼합재산을 취득한 경우(그 불법재산 또는 혼합재산의 취득이 제8조 단서에 따른 불법수익등의 수수에 해당하는 경우는 제외한다)에는 그 불법재산 또는 혼합재산이 범인 외의 자에게 귀속된 경우에도 그 재산을 몰수할 수 있다.",
+      "마약류 불법거래 방지에 관한 특례법 19조  권리 존속의 선고#KOBLEX-006540": "제19조(권리 존속의 선고) 법원은 지상권ㆍ저당권 또는 그 밖의 권리가 그 위에 존재하는 재산을 몰수하는 경우, 제15조제2항에 따라 그 권리를 존속시킬 때에는 몰수의 선고와 동시에 그 취지를 선고하여야 한다.",
+      "민법 1026조  법정단순승인#KOBLEX-060628": "1. 상속인이 상속재산에 대한 처분행위를 한 때",
+      "민법 1026조  법정단순승인#KOBLEX-060630": "3. 상속인이 한정승인 또는 포기를 한 후에 상속재산을 은닉하거나 부정소비하거나 고의로 재산목록에 기입하지 아니한 때",
+      "범죄수익은닉의 규제 및 처벌 등에 관한 법률 9조  몰수의 요건 등#KOBLEX-048148": "① 제8조제1항에 따른 몰수는 몰수대상재산 또는 혼화재산이 범인 외의 자에게 귀속(歸屬)되지 아니하는 경우에만 할 수 있다. 다만, 범인 외의 자가 범죄 후 그 정황을 알면서 그 몰수대상재산 또는 혼화재산을 취득한 경우(그 몰수대상재산 또는 혼화재산의 취득이 제4조 단서에 해당하는 경우는 제외한다)에는 그 몰수대상재산 또는 혼화재산이 범인 외의 자에게 귀속된 경우에도 몰수할 수 있다.",
+      "범죄수익은닉의 규제 및 처벌 등에 관한 법률 9조  몰수의 요건 등#KOBLEX-048149": "② 지상권ㆍ저당권 또는 그 밖의 권리가 설정된 재산을 제8조제1항에 따라 몰수하는 경우 범인 외의 자가 범죄 전에 그 권리를 취득하였을 때 또는 범죄 후 그 정황을 알지 못하고 그 권리를 취득하였을 때에는 그 권리를 존속시킨다.",
+      "부패재산의 몰수 및 회복에 관한 특례법 4조  몰수의 요건 등#KOBLEX-073056": "① 제3조에 따른 몰수는 부패재산 또는 혼합재산이 범인 외의 자에게 귀속되지 아니한 경우에 한한다. 다만, 범인외의 자가 범죄 후 그 정(情)을 알면서 그 부패재산 또는 혼합재산을 취득한 경우(그 부패재산 또는 혼합재산의 취득이 「범죄수익은닉의 규제 및 처벌 등에 관한 법률」 제4조 단서에 해당하는 경우에는 제외한다)에는 그 부패재산 또는 혼합재산이 범인 외의 자에게 귀속된 경우에도 몰수할 수 있다.",
+      "부패재산의 몰수 및 회복에 관한 특례법 4조  몰수의 요건 등#KOBLEX-073057": "② 부패재산 또는 혼합재산이 범인 외의 자에게 상속이나 증여 등으로 무상(無償) 또는 현저한 저가(低價)로 귀속된 경우에는 범인 외의 자가 그 정을 알지 못하고 그 부패재산 또는 혼합재산을 취득한 때에도 전부 또는 일부를 몰수할 수 있다.",
+      "부패재산의 몰수 및 회복에 관한 특례법 4조  몰수의 요건 등#KOBLEX-073058": "③ 지상권, 저당권, 그 밖의 권리가 그 위에 존재하는 재산을 제3조에 따라 몰수하는 경우에 범인 외의 자가 범죄 전에 그 권리를 취득한 때 또는 범인 외의 자가 범죄 후 그 정을 알지 못하고 그 권리를 취득한 때에는 이를 존속시킨다.",
+      "부패재산의 몰수 및 회복에 관한 특례법 5조  추징#KOBLEX-073060": "① 부패재산을 몰수할 수 없거나 그 재산의 성질, 사용상황, 그 재산에 관한 범인 외의 자의 권리 유무, 그 밖의 사정으로 인하여 이를 몰수함이 상당하지 아니하다고 인정될 때에는 그 가액(價額)을 범인으로부터 추징한다.",
+      "수산업법 110조  몰수#KOBLEX-035021": "② 제1항에 따라 범인이 소유하거나 소지한 물건의 전부 또는 일부를 몰수할 수 없을 때에는 그 가액을 추징할 수 있다.",
+      "정치자금법 45조  정치자금부정수수죄#KOBLEX-149374": "③제1항 및 제2항의 경우 그 제공된 금품 그 밖에 재산상의 이익은 몰수하며, 이를 몰수할 수 없을 때에는 그 가액을 추징한다.",
+      "지방세징수법 47조  상속ㆍ합병의 경우에 대한 체납처분의 효력#KOBLEX-131276": "② 체납자가 사망한 후 체납자 명의의 재산에 대하여 한 압류는 그 재산을 상속한 상속인에 대하여 한 것으로 본다.",
+      "질서위반행위규제법 24조 2 상속재산 등에 대한 집행#KOBLEX-022830": "① 과태료는 당사자가 과태료 부과처분에 대하여 이의를 제기하지 아니한 채 제20조제1항에 따른 기한이 종료한 후 사망한 경우에는 그 상속재산에 대하여 집행할 수 있다.",
+      "특정경제범죄 가중처벌 등에 관한 법률 10조  (몰수·추징)#KOBLEX-029501": "① 제4조제1항부터 제3항까지의 경우 범인이 도피시키거나 도피시키려고 한 재산은 몰수한다.",
+      "특정범죄 가중처벌 등에 관한 법률 13조  몰수#KOBLEX-050730": "제13조(몰수) 제3조 또는 제12조의 죄를 범하여 범인이 취득한 해당 재산은 몰수하며, 몰수할 수 없을 때에는 그 가액을 추징(追徵)한다.",
+      "형법 48조  몰수의 대상과 추징#KOBLEX-192754": "② 제1항 각 호의 물건을 몰수할 수 없을 때에는 그 가액(價額)을 추징한다.",
+      "형사소송법 448조  약식명령을 할 수 있는 사건#KOBLEX-232925": "②전항의 경우에는 추징 기타 부수의 처분을 할 수 있다.",
+      "형사소송법 478조  상속재산에 대한 집행#KOBLEX-232995": "제478조(상속재산에 대한 집행) 몰수 또는 조세, 전매 기타 공과에 관한 법령에 의하여 재판한 벌금 또는 추징은 그 재판을 받은 자가 재판확정 후 사망한 경우에는 그 상속재산에 대하여 집행할 수 있다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "공무원범죄에 관한 몰수 특례법 6조  추징#KOBLEX-038534",
+              "형법 48조  몰수의 대상과 추징#KOBLEX-192754"
+            ],
+            "rationale": "C012 and C014 explicitly state that when confiscation is not possible, the value of the property shall be recovered. This directly satisfies the requirement to confirm the provision allowing the court to issue a recovery order.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "공무원범죄에 관한 몰수 특례법 6조  추징#KOBLEX-038534",
+          "형법 48조  몰수의 대상과 추징#KOBLEX-192754"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The requirement to confirm the provision allowing the court to issue a recovery order when confiscation is impossible is fully satisfied. C012 provides the specific rule for public official crimes, and C014 provides the general criminal law rule. Both explicitly state that value recovery (추징) is the remedy when confiscation (몰수) is not possible.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형사소송법 478조  상속재산에 대한 집행#KOBLEX-232995"
+            ],
+            "rationale": "C020 explicitly states that confiscation or recovery judgments can be executed against the inherited property if the person who received the judgment dies after the judgment becomes final. This directly satisfies the requirement to confirm the possibility of execution against the heir's estate.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형사소송법 478조  상속재산에 대한 집행#KOBLEX-232995"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The requirement to confirm that confiscation/recovery can be executed against the heir's estate after the criminal's death is fully satisfied. C020 (형사소송법 478조) explicitly provides that such judgments can be executed against the inherited property if the judgment recipient dies after the judgment becomes final. This directly addresses the legal proposition regarding execution against the heir's estate.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No supplied provision mentions the statute of limitations period for confiscation or recovery.",
+            "requirement_id": "E3-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E3",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E3-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "None of the supplied candidate provisions contain text regarding the statute of limitations (시효) for confiscation or recovery. The candidates focus on the conditions, methods, and execution of confiscation/recovery, but do not specify the time limits for their execution. Therefore, the requirement to confirm the statute of limitations period is not supported by the current candidate set.",
+        "status": "uncovered"
+      }
+    ],
+    "deferred_target_ids": [
+      "T3"
+    ],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "공무원범죄에 관한 몰수 특례법 6조  추징#KOBLEX-038534",
+        "support_spans": [
+          {
+            "end_char": 75,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형법 48조  몰수의 대상과 추징#KOBLEX-192754",
+        "support_spans": [
+          {
+            "end_char": 43,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "형사소송법 478조  상속재산에 대한 집행#KOBLEX-232995",
+        "support_spans": [
+          {
+            "end_char": 113,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 7,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "몰수 대상 재산이 은닉되어 실질적 몰수가 불가능할 때 법원이 취할 수 있는 법적 수단",
+        "issue_id": "I1"
+      },
+      {
+        "description": "범죄자의 사망이 몰수·추징의 집행 대상인 상속재산에 미치는 영향",
+        "issue_id": "I2"
+      },
+      {
+        "description": "몰수 및 추징에 적용되는 시효 기간",
+        "issue_id": "I3"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T3"
+        ],
+        "completion_criteria": "몰수·추징의 시효 기간이 명시된 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E3-R1",
+            "text": "몰수·추징의 시효 기간이 몇 년으로 규정되어 있는지 확인"
+          }
+        ],
+        "critical": true,
+        "description": "몰수 및 추징에 적용되는 시효 기간에 관한 규정",
+        "evidence_item_id": "E3",
+        "evidence_type": "limitation",
+        "issue_id": "I3",
+        "necessity_reason": "질문에서 몰수·추징의 시효 기간을 명시적으로 묻고 있으므로, 시효 규정이 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 국가기관 소속의 공무원으로, 직무와 관련해 부정한 방법으로 상당한 액수의 재산을 취득한 혐의로 조사를 받았다. 수사기관은 해당 재산이 불법재산에 해당한다고 판단하여 법원에 몰수를 청구했으나, 갑이 이를 은닉하여 실질적인 몰수가 불가능한 상태가 되었다. 그러던 중 갑이 사망하였고, 그의 유일한 상속인은 을이다. [질문] 갑이 불법재산을 은닉하여 몰수가 불가능한 경우, 법원은 어떤 방식으로 그에 대한 처분을 할 수 있는가? 또한 갑이 사망한 후에도 을의 상속재산에 대해 집행이 가능한지, 이러한 몰수·추징의 시효는 몇 년인지 설명하시오.",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "몰수",
+          "추징명령",
+          "몰수불가능",
+          "법원"
+        ],
+        "query_text": "몰수 대상 재산 몰수 불가능 시 추징명령 발령 [원문 맥락] 갑이 불법재산을 은닉하여 몰수가 불가능한 경우, 법원은 어떤 방식으로 그에 대한 처분을 할 수 있는가? 또한 갑이 사망한 후에도 을의 상속재산에 대해 집행이 가능한지, 이러한 몰수·추징의 시효는 몇 년인지 설명하시오.",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법",
+          "범죄수익은닉의 규제 및 처벌 등에 관한 법률"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "사망",
+          "상속",
+          "몰수",
+          "추징",
+          "집행"
+        ],
+        "query_text": "범죄자 사망 후 상속재산에 대한 몰수 추징 집행 [원문 맥락] 갑이 불법재산을 은닉하여 몰수가 불가능한 경우, 법원은 어떤 방식으로 그에 대한 처분을 할 수 있는가? 또한 갑이 사망한 후에도 을의 상속재산에 대해 집행이 가능한지, 이러한 몰수·추징의 시효는 몇 년인지 설명하시오.",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법",
+          "범죄수익은닉의 규제 및 처벌 등에 관한 법률"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E3",
+        "first_stage_query_text": null,
+        "issue_id": "I3",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "몰수",
+          "추징",
+          "시효"
+        ],
+        "query_text": "몰수 추징 시효 기간 [원문 맥락] 갑이 불법재산을 은닉하여 몰수가 불가능한 경우, 법원은 어떤 방식으로 그에 대한 처분을 할 수 있는가? 또한 갑이 사망한 후에도 을의 상속재산에 대해 집행이 가능한지, 이러한 몰수·추징의 시효는 몇 년인지 설명하시오.",
+        "request_id": "RQ3",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법",
+          "범죄수익은닉의 규제 및 처벌 등에 관한 법률"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "몰수",
+          "추징",
+          "상속인",
+          "상속재산",
+          "집행"
+        ],
+        "query_text": "몰수 추징의 상속인 책임 범위 및 상속재산에 대한 집행 한계 [원문 맥락] 갑이 불법재산을 은닉하여 몰수가 불가능한 경우, 법원은 어떤 방식으로 그에 대한 처분을 할 수 있는가? 또한 갑이 사망한 후에도 을의 상속재산에 대해 집행이 가능한지, 이러한 몰수·추징의 시효는 몇 년인지 설명하시오.",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법",
+          "부패재산의 몰수 및 회복에 관한 특례법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E3",
+        "first_stage_query_text": null,
+        "issue_id": "I3",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "몰수",
+          "추징",
+          "시효",
+          "기간"
+        ],
+        "query_text": "몰수 및 추징의 시효 기간 규정 [원문 맥락] 갑이 불법재산을 은닉하여 몰수가 불가능한 경우, 법원은 어떤 방식으로 그에 대한 처분을 할 수 있는가? 또한 갑이 사망한 후에도 을의 상속재산에 대해 집행이 가능한지, 이러한 몰수·추징의 시효는 몇 년인지 설명하시오.",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법",
+          "부패재산의 몰수 및 회복에 관한 특례법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "몰수",
+          "추징",
+          "상속인",
+          "상속재산",
+          "집행"
+        ],
+        "query_text": "사망 후 상속재산에 대한 몰수·추징 집행 가능 여부에 관한 규정 확인 법률 조문 [원문 맥락] 갑이 불법재산을 은닉하여 몰수가 불가능한 경우, 법원은 어떤 방식으로 그에 대한 처분을 할 수 있는가? 또한 갑이 사망한 후에도 을의 상속재산에 대해 집행이 가능한지, 이러한 몰수·추징의 시효는 몇 년인지 설명하시오.",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법",
+          "부패재산의 몰수 및 회복에 관한 특례법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E3",
+        "first_stage_query_text": null,
+        "issue_id": "I3",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "몰수",
+          "추징",
+          "시효",
+          "기간"
+        ],
+        "query_text": "몰수·추징의 시효 기간이 명시된 조항 확인 법률 조문 [원문 맥락] 갑이 불법재산을 은닉하여 몰수가 불가능한 경우, 법원은 어떤 방식으로 그에 대한 처분을 할 수 있는가? 또한 갑이 사망한 후에도 을의 상속재산에 대해 집행이 가능한지, 이러한 몰수·추징의 시효는 몇 년인지 설명하시오.",
+        "request_id": "GRQ-R3-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법",
+          "부패재산의 몰수 및 회복에 관한 특례법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 국가기관 소속의 공무원으로, 직무와 관련해 부정한 방법으로 상당한 액수의 재산을 취득한 혐의로 조사를 받았다. 수사기관은 해당 재산이 불법재산에 해당한다고 판단하여 법원에 몰수를 청구했으나, 갑이 이를 은닉하여 실질적인 몰수가 불가능한 상태가 되었다. 그러던 중 갑이 사망하였고, 그의 유일한 상속인은 을이다.\n\n[질문]\n갑이 불법재산을 은닉하여 몰수가 불가능한 경우, 법원은 어떤 방식으로 그에 대한 처분을 할 수 있는가? 또한 갑이 사망한 후에도 을의 상속재산에 대해 집행이 가능한지, 이러한 몰수·추징의 시효는 몇 년인지 설명하시오.",
+    "remaining_request_budget": 2,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "몰수 불가능 시 추징명령 발령 요건 및 절차가 명시된 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "몰수 대상 재산의 몰수가 불가능할 때 법원이 추징명령을 발할 수 있다는 규정 확인"
+          }
+        ],
+        "critical": true,
+        "description": "몰수 대상 재산의 몰수가 불가능할 경우 법원이 추징명령을 발할 수 있는 근거 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 몰수 불가능 시 법원의 처분 방식을 묻고 있으므로, 추징명령이라는 대체 수단의 법적 근거가 필수적임",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "사망 후 상속재산에 대한 몰수·추징 집행 가능 여부에 관한 규정 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "범죄자 사망 후에도 상속인의 상속재산에 대해 몰수·추징을 집행할 수 있다는 규정 확인"
+          }
+        ],
+        "critical": true,
+        "description": "범죄자 사망 시 몰수·추징의 효력이 상속인에게 미치는 범위 및 상속재산에 대한 집행 가능성",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 갑의 사망 후 을의 상속재산에 대한 집행 가능성을 묻고 있으므로, 상속인 책임 범위에 관한 법적 근거가 필수적임",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T3"
+        ],
+        "completion_criteria": "몰수·추징의 시효 기간이 명시된 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E3-R1",
+            "text": "몰수·추징의 시효 기간이 몇 년으로 규정되어 있는지 확인"
+          }
+        ],
+        "critical": true,
+        "description": "몰수 및 추징에 적용되는 시효 기간에 관한 규정",
+        "evidence_item_id": "E3",
+        "evidence_type": "limitation",
+        "issue_id": "I3",
+        "necessity_reason": "질문에서 몰수·추징의 시효 기간을 명시적으로 묻고 있으므로, 시효 규정이 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "513997b5-5abd-416a-8d70-bd1eb220e3ee",
+    "seen_provision_ids": [
+      "정치자금법 45조  정치자금부정수수죄#KOBLEX-149374",
+      "지방세징수법 47조  상속ㆍ합병의 경우에 대한 체납처분의 효력#KOBLEX-131276",
+      "공무원범죄에 관한 몰수 특례법 4조  불법재산이 합하여진 재산의 몰수방법#KOBLEX-038530",
+      "질서위반행위규제법 24조 2 상속재산 등에 대한 집행#KOBLEX-022830",
+      "공무원범죄에 관한 몰수 특례법 8조  제3자의 권리 존속 등#KOBLEX-038537",
+      "민법 1026조  법정단순승인#KOBLEX-060628",
+      "마약류 불법거래 방지에 관한 특례법 15조  몰수의 요건 등#KOBLEX-006530",
+      "공무원범죄에 관한 몰수 특례법 5조  몰수의 요건 등#KOBLEX-038533",
+      "군사법원법 521조  상속재산에 대한 집행#KOBLEX-093812",
+      "형사소송법 448조  약식명령을 할 수 있는 사건#KOBLEX-232925",
+      "담배사업법 30조  몰수와 추징#KOBLEX-143501",
+      "형사소송법 478조  상속재산에 대한 집행#KOBLEX-232995",
+      "민법 1026조  법정단순승인#KOBLEX-060630",
+      "마약류 불법거래 방지에 관한 특례법 19조  권리 존속의 선고#KOBLEX-006540",
+      "부패재산의 몰수 및 회복에 관한 특례법 5조  추징#KOBLEX-073060",
+      "부패재산의 몰수 및 회복에 관한 특례법 4조  몰수의 요건 등#KOBLEX-073056",
+      "수산업법 110조  몰수#KOBLEX-035021",
+      "부패재산의 몰수 및 회복에 관한 특례법 4조  몰수의 요건 등#KOBLEX-073058",
+      "형법 48조  몰수의 대상과 추징#KOBLEX-192754",
+      "범죄수익은닉의 규제 및 처벌 등에 관한 법률 9조  몰수의 요건 등#KOBLEX-048149",
+      "공무원범죄에 관한 몰수 특례법 3조  불법재산의 몰수#KOBLEX-038526",
+      "공무원범죄에 관한 몰수 특례법 6조  추징#KOBLEX-038534",
+      "범죄수익은닉의 규제 및 처벌 등에 관한 법률 9조  몰수의 요건 등#KOBLEX-048148",
+      "부패재산의 몰수 및 회복에 관한 특례법 4조  몰수의 요건 등#KOBLEX-073057",
+      "특정경제범죄 가중처벌 등에 관한 법률 10조  (몰수·추징)#KOBLEX-029501",
+      "특정범죄 가중처벌 등에 관한 법률 13조  몰수#KOBLEX-050730"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

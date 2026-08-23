@@ -1,0 +1,1375 @@
+{
+  "abstention_reason": null,
+  "answer": "자(子)의 법정대리인은 부(父) 또는 모(母)를 상대로 인지청구의 소를 제기할 수 있다.[CT1]\n갑은 을의 법정대리인으로서 을의 친생부인 병을 상대로 인지청구의 소를 제기할 수 있다.[CT2]",
+  "answer_mode": "limited",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "병이 을의 친생부(친생부)임을 전제로 한다."
+    }
+  ],
+  "candidate_answer": "자(子)의 법정대리인은 부(父) 또는 모(母)를 상대로 인지청구의 소를 제기할 수 있다.[CT1]\n갑은 을의 법정대리인으로서 을의 친생부인 병을 상대로 인지청구의 소를 제기할 수 있다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "민법 863조  인지청구의 소#KOBLEX-060164",
+      "quoted_text": "제863조(인지청구의 소) 자와 그 직계비속 또는 그 법정대리인은 부 또는 모를 상대로 하여 인지청구의 소를 제기할 수 있다.",
+      "support_description": "인지청구 소의 적법한 상대방이 부 또는 모임을 규정하고 있다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "민법 863조  인지청구의 소#KOBLEX-060164",
+      "quoted_text": "제863조(인지청구의 소) 자와 그 직계비속 또는 그 법정대리인은 부 또는 모를 상대로 하여 인지청구의 소를 제기할 수 있다.",
+      "support_description": "법정대리인이 부를 상대로 인지청구 소를 제기할 수 있는 근거를 제공한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "자(子)의 법정대리인은 부(父) 또는 모(母)를 상대로 인지청구의 소를 제기할 수 있다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "갑은 을의 법정대리인으로서 을의 친생부인 병을 상대로 인지청구의 소를 제기할 수 있다."
+    }
+  ],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T12:27:55.674877+00:00",
+  "deferred_target_ids": [
+    "T2"
+  ],
+  "end_to_end_latency_ms": 188382.036,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "인지 후 양육책임과 면접교섭권에 관한 질문(T2)은 관련 법령 조항이 제공되지 않아 답변을 보류합니다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 395,
+      "dedup_collapse": 50,
+      "evidence_fusion": 669,
+      "first_stage": 700,
+      "request_rerank": 700,
+      "round_selected": 30,
+      "rrf": 400,
+      "selected": 395
+    }
+  },
+  "run_id": "d9b2fa6a-90cb-4863-a6a7-811d7a0af5c6",
+  "skill_generation_diagnostics": {
+    "attempt_count": 7,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "민법 863조  인지청구의 소#KOBLEX-060164"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 3,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 3,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 7,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 9,
+          "request_count": 2,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [
+            "T2"
+          ],
+          "explanation": "Only the citable answer targets will be answered; remaining targets are deferred.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": [
+            "T2"
+          ]
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "limited",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "누구를 상대로 인지청구의 소를 제기할 수 있으며",
+        "requested_output": "인지청구 소의 적법한 상대방"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "인지가 된 경우 을에 대한 양육책임과 면접교섭권은 어떻게 적용되는가",
+        "requested_output": "인지 후 양육책임과 면접교섭권의 법적 적용"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "민법 847조  친생부인의 소#KOBLEX-060133"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 64,
+        "first_stage_score": 0.496927946805954,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "민법 847조  친생부인의 소#KOBLEX-060133",
+        "provision_text": "①친생부인(親生否認)의 소(訴)는 부(夫) 또는 처(妻)가 다른 일방 또는 자(子)를 상대로 하여 그 사유가 있음을 안 날부터 2년내에 이를 제기하여야 한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.979900062084198,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2,E3",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "RQ3",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민법 847조  친생부인의 소 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 847조  친생부인의 소#KOBLEX-060134"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 81,
+        "first_stage_score": 0.48984795808792114,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "민법 847조  친생부인의 소#KOBLEX-060134",
+        "provision_text": "②제1항의 경우에 상대방이 될 자가 모두 사망한 때에는 그 사망을 안 날부터 2년내에 검사를 상대로 하여 친생부인의 소를 제기할 수 있다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9696226716041565,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 847조  친생부인의 소 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 863조  인지청구의 소#KOBLEX-060164"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6344459056854248,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "민법 863조  인지청구의 소#KOBLEX-060164",
+        "provision_text": "제863조(인지청구의 소) 자와 그 직계비속 또는 그 법정대리인은 부 또는 모를 상대로 하여 인지청구의 소를 제기할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.9688958525657654,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "RQ3"
+        ],
+        "statute_name": "민법 863조  인지청구의 소",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 846조  자의 친생부인#KOBLEX-060131"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 72,
+        "first_stage_score": 0.493196964263916,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "민법 846조  자의 친생부인#KOBLEX-060131",
+        "provision_text": "제846조(자의 친생부인) 부부의 일방은 제844조의 경우에 그 자가 친생자임을 부인하는 소를 제기할 수 있다. <개정 2005.3.31>",
+        "rerank_rank": 4,
+        "rerank_score": 0.9344173073768616,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ3"
+        ],
+        "statute_name": "민법 846조  자의 친생부인",
+        "target_evidence_item_ids": [
+          "E1",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 851조  부의 자 출생 전 사망 등과 친생부인#KOBLEX-060140"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 68,
+        "first_stage_score": 0.4953908622264862,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "민법 851조  부의 자 출생 전 사망 등과 친생부인#KOBLEX-060140",
+        "provision_text": "제851조(부의 자 출생 전 사망 등과 친생부인) 부(夫)가 자(子)의 출생 전에 사망하거나 부(夫) 또는 처(妻)가 제847조제1항의 기간내에 사망한 때에는 부(夫) 또는 처(妻)의 직계존속이나 직계비속에 한하여 그 사망을 안 날부터 2년내에 친생부인의 소를 제기할 수 있다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.9165211915969849,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 851조  부의 자 출생 전 사망 등과 친생부인",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 859조  인지의 효력발생#KOBLEX-060159"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 63,
+        "first_stage_score": 0.4895215332508087,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "민법 859조  인지의 효력발생#KOBLEX-060159",
+        "provision_text": "①인지는 「가족관계의 등록 등에 관한 법률」의 정하는 바에 의하여 신고함으로써 그 효력이 생긴다. <개정 2007.5.17>",
+        "rerank_rank": 5,
+        "rerank_score": 0.8733715415000916,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ3"
+        ],
+        "statute_name": "민법 859조  인지의 효력발생 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "가사소송법 45조 8 친생부인의 허가 및 인지의 허가 관련 심판에서의 진술 청취#KOBLEX-064947"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 39,
+        "first_stage_score": 0.5081666111946106,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "가사소송법 45조 8 친생부인의 허가 및 인지의 허가 관련 심판에서의 진술 청취#KOBLEX-064947",
+        "provision_text": "제45조의8(친생부인의 허가 및 인지의 허가 관련 심판에서의 진술 청취)",
+        "rerank_rank": 6,
+        "rerank_score": 0.8128581047058105,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "RQ3",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "가사소송법 45조 8 친생부인의 허가 및 인지의 허가 관련 심판에서의 진술 청취",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 848조  성년후견과 친생부인의 소#KOBLEX-060136"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 24,
+        "first_stage_score": 0.52303147315979,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "민법 848조  성년후견과 친생부인의 소#KOBLEX-060136",
+        "provision_text": "① 남편이나 아내가 피성년후견인인 경우에는 그의 성년후견인이 성년후견감독인의 동의를 받아 친생부인의 소를 제기할 수 있다. 성년후견감독인이 없거나 동의할 수 없을 때에는 가정법원에 그 동의를 갈음하는 허가를 청구할 수 있다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.7566585540771484,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "RQ3"
+        ],
+        "statute_name": "민법 848조  성년후견과 친생부인의 소 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 909조 2 친권자의 지정 등#KOBLEX-060283"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 96,
+        "first_stage_score": 0.48636627197265625,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "민법 909조 2 친권자의 지정 등#KOBLEX-060283",
+        "provision_text": "② 입양이 취소되거나 파양된 경우 또는 양부모가 모두 사망한 경우 친생부모 일방 또는 쌍방, 미성년자, 미성년자의 친족은 그 사실을 안 날부터 1개월, 입양이 취소되거나 파양된 날 또는 양부모가 모두 사망한 날부터 6개월 내에 가정법원에 친생부모 일방 또는 쌍방을 친권자로 지정할 것을 청구할 수 있다. 다만, 친양자의 양부모가 사망한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.7420806884765625,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 909조 2 친권자의 지정 등 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 909조  친권자#KOBLEX-060277"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 75,
+        "first_stage_score": 0.4953813850879669,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "민법 909조  친권자#KOBLEX-060277",
+        "provision_text": "③부모의 일방이 친권을 행사할 수 없을 때에는 다른 일방이 이를 행사한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.7397341132164001,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "RQ3",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민법 909조  친권자 3항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 911조  미성년자인 자의 법정대리인#KOBLEX-060289"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 89,
+        "first_stage_score": 0.4894353151321411,
+        "fusion_rank": 61,
+        "issue_id": "I2",
+        "provision_id": "민법 911조  미성년자인 자의 법정대리인#KOBLEX-060289",
+        "provision_text": "제911조(미성년자인 자의 법정대리인) 친권을 행사하는 부 또는 모는 미성년자인 자의 법정대리인이 된다.",
+        "rerank_rank": 61,
+        "rerank_score": 0.00021047546761110425,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민법 911조  미성년자인 자의 법정대리인",
+        "target_evidence_item_ids": [
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 909조 2 친권자의 지정 등#KOBLEX-060284"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 19,
+        "first_stage_score": 0.5327501893043518,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "민법 909조 2 친권자의 지정 등#KOBLEX-060284",
+        "provision_text": "③ 제1항 또는 제2항의 기간 내에 친권자 지정의 청구가 없을 때에는 가정법원은 직권으로 또는 미성년자, 미성년자의 친족, 이해관계인, 검사, 지방자치단체의 장의 청구에 의하여 미성년후견인을 선임할 수 있다. 이 경우 생존하는 부 또는 모, 친생부모 일방 또는 쌍방의 소재를 모르거나 그가 정당한 사유 없이 소환에 응하지 아니하는 경우를 제외하고 그에게 의견을 진술할 기회를 주어야 한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.00012230922584421933,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민법 909조 2 친권자의 지정 등 3항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 948조  미성년자의 친권의 대행#KOBLEX-060410"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 71,
+        "first_stage_score": 0.49389949440956116,
+        "fusion_rank": 68,
+        "issue_id": "I2",
+        "provision_id": "민법 948조  미성년자의 친권의 대행#KOBLEX-060410",
+        "provision_text": "① 미성년후견인은 미성년자를 갈음하여 미성년자의 자녀에 대한 친권을 행사한다.",
+        "rerank_rank": 68,
+        "rerank_score": 0.00011456495121819898,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민법 948조  미성년자의 친권의 대행 1항",
+        "target_evidence_item_ids": [
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 909조 2 친권자의 지정 등#KOBLEX-060287"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 40,
+        "first_stage_score": 0.5087864995002747,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "민법 909조 2 친권자의 지정 등#KOBLEX-060287",
+        "provision_text": "⑥ 가정법원은 제3항 또는 제4항에 따라 미성년후견인이 선임된 경우라도 미성년후견인 선임 후 양육상황이나 양육능력의 변동, 미성년자의 의사, 그 밖의 사정을 고려하여 미성년자의 복리를 위하여 필요하면 생존하는 부 또는 모, 친생부모 일방 또는 쌍방, 미성년자의 청구에 의하여 후견을 종료하고 생존하는 부 또는 모, 친생부모 일방 또는 쌍방을 친권자로 지정할 수 있다.",
+        "rerank_rank": 6,
+        "rerank_score": 9.375975787406787e-05,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민법 909조 2 친권자의 지정 등 6항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "양육비 이행확보 및 지원에 관한 법률 10조 2 면접교섭 지원#KOBLEX-150201"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 31,
+        "first_stage_score": 0.516058623790741,
+        "fusion_rank": 11,
+        "issue_id": "I2",
+        "provision_id": "양육비 이행확보 및 지원에 관한 법률 10조 2 면접교섭 지원#KOBLEX-150201",
+        "provision_text": "① 이행관리원의 장은 비양육부ㆍ모와 미성년 자녀의 관계를 개선하기 위하여 비양육부ㆍ모 및 양육부ㆍ모의 신청이 있는 경우 비양육부ㆍ모와 미성년 자녀의 면접교섭을 위한 지원을 할 수 있다. 다만, 「민법」 제837조의2제3항에 따라 면접교섭이 제한ㆍ배제되었거나, 면접교섭으로 인하여 양육부ㆍ모 및 자녀의 안전을 해할 우려가 있는 경우 지원을 배제ㆍ제한 또는 중단할 수 있다.",
+        "rerank_rank": 11,
+        "rerank_score": 8.550746861146763e-05,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "양육비 이행확보 및 지원에 관한 법률 10조 2 면접교섭 지원 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 908조 2 친양자 입양의 요건 등#KOBLEX-060256"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 17,
+        "first_stage_score": 0.5390517115592957,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "민법 908조 2 친양자 입양의 요건 등#KOBLEX-060256",
+        "provision_text": "② 가정법원은 다음 각 호의 어느 하나에 해당하는 경우에는 제1항제3호ㆍ제4호에 따른 동의 또는 같은 항 제5호에 따른 승낙이 없어도 제1항의 청구를 인용할 수 있다. 이 경우 가정법원은 동의권자 또는 승낙권자를 심문하여야 한다. 1. 법정대리인이 정당한 이유 없이 동의 또는 승낙을 거부하는 경우. 다만, 법정대리인이 친권자인 경우에는 제2호 또는 제3호의 사유가 있어야 한다. 2. 친생부모가 자신에게 책임이 있는 사유로 3년 이상 자녀에 대한 부양의무를 이행하지 아니하고 면접교섭을 하지 아니한 경우 3. 친생부모가 자녀를 학대 또는 유기하거나 그 밖에 자녀의 복리를 현저히 해친 경우",
+        "rerank_rank": 9,
+        "rerank_score": 8.254469139501452e-05,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민법 908조 2 친양자 입양의 요건 등 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 912조  친권 행사와 친권자 지정의 기준#KOBLEX-060292"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 60,
+        "first_stage_score": 0.49927398562431335,
+        "fusion_rank": 27,
+        "issue_id": "I2",
+        "provision_id": "민법 912조  친권 행사와 친권자 지정의 기준#KOBLEX-060292",
+        "provision_text": "② 가정법원이 친권자를 지정함에 있어서는 자(子)의 복리를 우선적으로 고려하여야 한다. 이를 위하여 가정법원은 관련 분야의 전문가나 사회복지기관으로부터 자문을 받을 수 있다. <신설 2011.5.19>",
+        "rerank_rank": 27,
+        "rerank_score": 7.968684076331556e-05,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 912조  친권 행사와 친권자 지정의 기준 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 912조  친권 행사와 친권자 지정의 기준#KOBLEX-060290"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 19,
+        "first_stage_score": 0.5398898720741272,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "민법 912조  친권 행사와 친권자 지정의 기준#KOBLEX-060290",
+        "provision_text": "제912조(친권 행사와 친권자 지정의 기준)",
+        "rerank_rank": 2,
+        "rerank_score": 0.973959743976593,
+        "retrieval_round": 3,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E2,E3",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 912조  친권 행사와 친권자 지정의 기준",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 927조 2 친권의 상실, 일시 정지 또는 일부 제한과 친권자의 지정 등#KOBLEX-060331"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 51,
+        "first_stage_score": 0.5043562054634094,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "민법 927조 2 친권의 상실, 일시 정지 또는 일부 제한과 친권자의 지정 등#KOBLEX-060331",
+        "provision_text": "① 제909조제4항부터 제6항까지의 규정에 따라 단독 친권자가 된 부 또는 모, 양부모(친양자의 양부모를 제외한다) 쌍방에게 다음 각 호의 어느 하나에 해당하는 사유가 있는 경우에는 제909조의2제1항 및 제3항부터 제5항까지의 규정을 준용한다. 다만, 제1호의3ㆍ제2호 및 제3호의 경우 새로 정하여진 친권자 또는 미성년후견인의 임무는 제한된 친권의 범위에 속하는 행위에 한정된다. <개정 2014.10.15> 1. 제924조에 따른 친권상실의 선고가 있는 경우 1의2. 제924조에 따른 친권 일시 정지의 선고가 있는 경우 1의3. 제924조의2에 따른 친권 일부 제한의 선고가 있는 경우 2. 제925조에 따른 대리권과 재산관리권 상실의 선고가 있는 경우 3. 제927조제1항에 따라 대리권과 재산관리권을 사퇴한 경우 4. 소재불명 등 친권을 행사할 수 없는 중대한 사유가 있는 경우",
+        "rerank_rank": 1,
+        "rerank_score": 0.20533591508865356,
+        "retrieval_round": 3,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 927조 2 친권의 상실, 일시 정지 또는 일부 제한과 친권자의 지정 등 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 928조  미성년자에 대한 후견의 개시#KOBLEX-060336"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 48,
+        "first_stage_score": 0.507453978061676,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "민법 928조  미성년자에 대한 후견의 개시#KOBLEX-060336",
+        "provision_text": "제928조(미성년자에 대한 후견의 개시) 미성년자에게 친권자가 없거나 친권자가 제924조, 제924조의2, 제925조 또는 제927조제1항에 따라 친권의 전부 또는 일부를 행사할 수 없는 경우에는 미성년후견인을 두어야 한다. <개정 2014.10.15>",
+        "rerank_rank": 3,
+        "rerank_score": 0.16613471508026123,
+        "retrieval_round": 3,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 928조  미성년자에 대한 후견의 개시",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "가족관계의 등록 등에 관한 법률 79조  친권자 지정 및 변경 신고 등#KOBLEX-127575"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 25,
+        "first_stage_score": 0.5176432132720947,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "가족관계의 등록 등에 관한 법률 79조  친권자 지정 및 변경 신고 등#KOBLEX-127575",
+        "provision_text": "② 다음 각 호의 재판이 확정된 경우에는 그 재판을 청구한 사람이나 그 재판으로 친권자 또는 그 임무를 대행할 사람으로 정하여진 사람이 그 내용을 신고하여야 한다. 이 경우 신고기간, 신고서의 첨부서류 등에 관하여는 제58조를 준용한다. <개정 2013.7.30, 2014.10.15> 1. 「민법」 제909조제4항부터 제6항까지의 규정에 따라 친권자를 정하거나 변경하는 재판 2. 「민법」 제909조의2(「민법」 제927조의2제1항에 따라 준용되는 경우를 포함한다), 제927조의2제2항 및 제931조제2항에 따라 친권자 또는 그 임무를 대행할 사람을 지정하거나 선임하는 재판 3. 「민법」 제924조, 제924조의2 및 제926조에 따른 친권의 상실, 일시 정지, 일부 제한 및 그 회복에 관한 재판 4. 「민법」 제925조, 제926조 및 제927조에 따른 법률행위의 대리권이나 재산관리권의 상실ㆍ사퇴 및 그 회복에 관한 재판",
+        "rerank_rank": 4,
+        "rerank_score": 0.09903749078512192,
+        "retrieval_round": 3,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "가족관계의 등록 등에 관한 법률 79조  친권자 지정 및 변경 신고 등 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 925조 2 친권 상실 선고 등의 판단 기준#KOBLEX-060324"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 39,
+        "first_stage_score": 0.5150782465934753,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "민법 925조 2 친권 상실 선고 등의 판단 기준#KOBLEX-060324",
+        "provision_text": "② 제924조에 따른 친권의 일시 정지, 제924조의2에 따른 친권의 일부 제한 또는 제925조에 따른 대리권ㆍ재산관리권의 상실 선고는 제922조의2에 따른 동의를 갈음하는 재판 또는 그 밖의 다른 조치에 의해서는 자녀의 복리를 충분히 보호할 수 없는 경우에만 할 수 있다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.07947057485580444,
+        "retrieval_round": 3,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 925조 2 친권 상실 선고 등의 판단 기준 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 925조 2 친권 상실 선고 등의 판단 기준#KOBLEX-060323"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 14,
+        "first_stage_score": 0.5382398366928101,
+        "fusion_rank": 16,
+        "issue_id": "I2",
+        "provision_id": "민법 925조 2 친권 상실 선고 등의 판단 기준#KOBLEX-060323",
+        "provision_text": "① 제924조에 따른 친권 상실의 선고는 같은 조에 따른 친권의 일시 정지, 제924조의2에 따른 친권의 일부 제한, 제925조에 따른 대리권ㆍ재산관리권의 상실 선고 또는 그 밖의 다른 조치에 의해서는 자녀의 복리를 충분히 보호할 수 없는 경우에만 할 수 있다.",
+        "rerank_rank": 16,
+        "rerank_score": 0.0713714137673378,
+        "retrieval_round": 3,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 925조 2 친권 상실 선고 등의 판단 기준 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 946조  친권 중 일부에 한정된 후견#KOBLEX-060401"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 71,
+        "first_stage_score": 0.4987262189388275,
+        "fusion_rank": 67,
+        "issue_id": "I2",
+        "provision_id": "민법 946조  친권 중 일부에 한정된 후견#KOBLEX-060401",
+        "provision_text": "제946조(친권 중 일부에 한정된 후견) 미성년자의 친권자가 제924조의2, 제925조 또는 제927조제1항에 따라 친권 중 일부에 한정하여 행사할 수 없는 경우에 미성년후견인의 임무는 제한된 친권의 범위에 속하는 행위에 한정된다.",
+        "rerank_rank": 67,
+        "rerank_score": 0.058642636984586716,
+        "retrieval_round": 3,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-2",
+        "source_request_ids": [
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 946조  친권 중 일부에 한정된 후견",
+        "target_evidence_item_ids": [
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 925조 3 부모의 권리와 의무#KOBLEX-060325"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 32,
+        "first_stage_score": 0.519849419593811,
+        "fusion_rank": 21,
+        "issue_id": "I2",
+        "provision_id": "민법 925조 3 부모의 권리와 의무#KOBLEX-060325",
+        "provision_text": "제925조의3(부모의 권리와 의무) 제924조와 제924조의2, 제925조에 따라 친권의 상실, 일시 정지, 일부 제한 또는 대리권과 재산관리권의 상실이 선고된 경우에도 부모의 자녀에 대한 그 밖의 권리와 의무는 변경되지 아니한다.",
+        "rerank_rank": 21,
+        "rerank_score": 0.048786941915750504,
+        "retrieval_round": 3,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 925조 3 부모의 권리와 의무",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 932조  미성년후견인의 선임#KOBLEX-060347"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 52,
+        "first_stage_score": 0.5035895109176636,
+        "fusion_rank": 18,
+        "issue_id": "I2",
+        "provision_id": "민법 932조  미성년후견인의 선임#KOBLEX-060347",
+        "provision_text": "② 가정법원은 제924조, 제924조의2 및 제925조에 따른 친권의 상실, 일시 정지, 일부 제한의 선고 또는 법률행위의 대리권이나 재산관리권 상실의 선고에 따라 미성년후견인을 선임할 필요가 있는 경우에는 직권으로 미성년후견인을 선임한다. <개정 2014.10.15>",
+        "rerank_rank": 18,
+        "rerank_score": 0.010257457382977009,
+        "retrieval_round": 3,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 932조  미성년후견인의 선임 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "가사소송법 45조 8 친생부인의 허가 및 인지의 허가 관련 심판에서의 진술 청취#KOBLEX-064947": "제45조의8(친생부인의 허가 및 인지의 허가 관련 심판에서의 진술 청취)",
+      "가족관계의 등록 등에 관한 법률 79조  친권자 지정 및 변경 신고 등#KOBLEX-127575": "② 다음 각 호의 재판이 확정된 경우에는 그 재판을 청구한 사람이나 그 재판으로 친권자 또는 그 임무를 대행할 사람으로 정하여진 사람이 그 내용을 신고하여야 한다. 이 경우 신고기간, 신고서의 첨부서류 등에 관하여는 제58조를 준용한다. <개정 2013.7.30, 2014.10.15> 1. 「민법」 제909조제4항부터 제6항까지의 규정에 따라 친권자를 정하거나 변경하는 재판 2. 「민법」 제909조의2(「민법」 제927조의2제1항에 따라 준용되는 경우를 포함한다), 제927조의2제2항 및 제931조제2항에 따라 친권자 또는 그 임무를 대행할 사람을 지정하거나 선임하는 재판 3. 「민법」 제924조, 제924조의2 및 제926조에 따른 친권의 상실, 일시 정지, 일부 제한 및 그 회복에 관한 재판 4. 「민법」 제925조, 제926조 및 제927조에 따른 법률행위의 대리권이나 재산관리권의 상실ㆍ사퇴 및 그 회복에 관한 재판",
+      "민법 846조  자의 친생부인#KOBLEX-060131": "제846조(자의 친생부인) 부부의 일방은 제844조의 경우에 그 자가 친생자임을 부인하는 소를 제기할 수 있다. <개정 2005.3.31>",
+      "민법 847조  친생부인의 소#KOBLEX-060133": "①친생부인(親生否認)의 소(訴)는 부(夫) 또는 처(妻)가 다른 일방 또는 자(子)를 상대로 하여 그 사유가 있음을 안 날부터 2년내에 이를 제기하여야 한다.",
+      "민법 847조  친생부인의 소#KOBLEX-060134": "②제1항의 경우에 상대방이 될 자가 모두 사망한 때에는 그 사망을 안 날부터 2년내에 검사를 상대로 하여 친생부인의 소를 제기할 수 있다.",
+      "민법 848조  성년후견과 친생부인의 소#KOBLEX-060136": "① 남편이나 아내가 피성년후견인인 경우에는 그의 성년후견인이 성년후견감독인의 동의를 받아 친생부인의 소를 제기할 수 있다. 성년후견감독인이 없거나 동의할 수 없을 때에는 가정법원에 그 동의를 갈음하는 허가를 청구할 수 있다.",
+      "민법 851조  부의 자 출생 전 사망 등과 친생부인#KOBLEX-060140": "제851조(부의 자 출생 전 사망 등과 친생부인) 부(夫)가 자(子)의 출생 전에 사망하거나 부(夫) 또는 처(妻)가 제847조제1항의 기간내에 사망한 때에는 부(夫) 또는 처(妻)의 직계존속이나 직계비속에 한하여 그 사망을 안 날부터 2년내에 친생부인의 소를 제기할 수 있다.",
+      "민법 859조  인지의 효력발생#KOBLEX-060159": "①인지는 「가족관계의 등록 등에 관한 법률」의 정하는 바에 의하여 신고함으로써 그 효력이 생긴다. <개정 2007.5.17>",
+      "민법 863조  인지청구의 소#KOBLEX-060164": "제863조(인지청구의 소) 자와 그 직계비속 또는 그 법정대리인은 부 또는 모를 상대로 하여 인지청구의 소를 제기할 수 있다.",
+      "민법 908조 2 친양자 입양의 요건 등#KOBLEX-060256": "② 가정법원은 다음 각 호의 어느 하나에 해당하는 경우에는 제1항제3호ㆍ제4호에 따른 동의 또는 같은 항 제5호에 따른 승낙이 없어도 제1항의 청구를 인용할 수 있다. 이 경우 가정법원은 동의권자 또는 승낙권자를 심문하여야 한다. 1. 법정대리인이 정당한 이유 없이 동의 또는 승낙을 거부하는 경우. 다만, 법정대리인이 친권자인 경우에는 제2호 또는 제3호의 사유가 있어야 한다. 2. 친생부모가 자신에게 책임이 있는 사유로 3년 이상 자녀에 대한 부양의무를 이행하지 아니하고 면접교섭을 하지 아니한 경우 3. 친생부모가 자녀를 학대 또는 유기하거나 그 밖에 자녀의 복리를 현저히 해친 경우",
+      "민법 909조  친권자#KOBLEX-060277": "③부모의 일방이 친권을 행사할 수 없을 때에는 다른 일방이 이를 행사한다.",
+      "민법 909조 2 친권자의 지정 등#KOBLEX-060283": "② 입양이 취소되거나 파양된 경우 또는 양부모가 모두 사망한 경우 친생부모 일방 또는 쌍방, 미성년자, 미성년자의 친족은 그 사실을 안 날부터 1개월, 입양이 취소되거나 파양된 날 또는 양부모가 모두 사망한 날부터 6개월 내에 가정법원에 친생부모 일방 또는 쌍방을 친권자로 지정할 것을 청구할 수 있다. 다만, 친양자의 양부모가 사망한 경우에는 그러하지 아니하다.",
+      "민법 909조 2 친권자의 지정 등#KOBLEX-060284": "③ 제1항 또는 제2항의 기간 내에 친권자 지정의 청구가 없을 때에는 가정법원은 직권으로 또는 미성년자, 미성년자의 친족, 이해관계인, 검사, 지방자치단체의 장의 청구에 의하여 미성년후견인을 선임할 수 있다. 이 경우 생존하는 부 또는 모, 친생부모 일방 또는 쌍방의 소재를 모르거나 그가 정당한 사유 없이 소환에 응하지 아니하는 경우를 제외하고 그에게 의견을 진술할 기회를 주어야 한다.",
+      "민법 909조 2 친권자의 지정 등#KOBLEX-060287": "⑥ 가정법원은 제3항 또는 제4항에 따라 미성년후견인이 선임된 경우라도 미성년후견인 선임 후 양육상황이나 양육능력의 변동, 미성년자의 의사, 그 밖의 사정을 고려하여 미성년자의 복리를 위하여 필요하면 생존하는 부 또는 모, 친생부모 일방 또는 쌍방, 미성년자의 청구에 의하여 후견을 종료하고 생존하는 부 또는 모, 친생부모 일방 또는 쌍방을 친권자로 지정할 수 있다.",
+      "민법 911조  미성년자인 자의 법정대리인#KOBLEX-060289": "제911조(미성년자인 자의 법정대리인) 친권을 행사하는 부 또는 모는 미성년자인 자의 법정대리인이 된다.",
+      "민법 912조  친권 행사와 친권자 지정의 기준#KOBLEX-060290": "제912조(친권 행사와 친권자 지정의 기준)",
+      "민법 912조  친권 행사와 친권자 지정의 기준#KOBLEX-060292": "② 가정법원이 친권자를 지정함에 있어서는 자(子)의 복리를 우선적으로 고려하여야 한다. 이를 위하여 가정법원은 관련 분야의 전문가나 사회복지기관으로부터 자문을 받을 수 있다. <신설 2011.5.19>",
+      "민법 925조 2 친권 상실 선고 등의 판단 기준#KOBLEX-060323": "① 제924조에 따른 친권 상실의 선고는 같은 조에 따른 친권의 일시 정지, 제924조의2에 따른 친권의 일부 제한, 제925조에 따른 대리권ㆍ재산관리권의 상실 선고 또는 그 밖의 다른 조치에 의해서는 자녀의 복리를 충분히 보호할 수 없는 경우에만 할 수 있다.",
+      "민법 925조 2 친권 상실 선고 등의 판단 기준#KOBLEX-060324": "② 제924조에 따른 친권의 일시 정지, 제924조의2에 따른 친권의 일부 제한 또는 제925조에 따른 대리권ㆍ재산관리권의 상실 선고는 제922조의2에 따른 동의를 갈음하는 재판 또는 그 밖의 다른 조치에 의해서는 자녀의 복리를 충분히 보호할 수 없는 경우에만 할 수 있다.",
+      "민법 925조 3 부모의 권리와 의무#KOBLEX-060325": "제925조의3(부모의 권리와 의무) 제924조와 제924조의2, 제925조에 따라 친권의 상실, 일시 정지, 일부 제한 또는 대리권과 재산관리권의 상실이 선고된 경우에도 부모의 자녀에 대한 그 밖의 권리와 의무는 변경되지 아니한다.",
+      "민법 927조 2 친권의 상실, 일시 정지 또는 일부 제한과 친권자의 지정 등#KOBLEX-060331": "① 제909조제4항부터 제6항까지의 규정에 따라 단독 친권자가 된 부 또는 모, 양부모(친양자의 양부모를 제외한다) 쌍방에게 다음 각 호의 어느 하나에 해당하는 사유가 있는 경우에는 제909조의2제1항 및 제3항부터 제5항까지의 규정을 준용한다. 다만, 제1호의3ㆍ제2호 및 제3호의 경우 새로 정하여진 친권자 또는 미성년후견인의 임무는 제한된 친권의 범위에 속하는 행위에 한정된다. <개정 2014.10.15> 1. 제924조에 따른 친권상실의 선고가 있는 경우 1의2. 제924조에 따른 친권 일시 정지의 선고가 있는 경우 1의3. 제924조의2에 따른 친권 일부 제한의 선고가 있는 경우 2. 제925조에 따른 대리권과 재산관리권 상실의 선고가 있는 경우 3. 제927조제1항에 따라 대리권과 재산관리권을 사퇴한 경우 4. 소재불명 등 친권을 행사할 수 없는 중대한 사유가 있는 경우",
+      "민법 928조  미성년자에 대한 후견의 개시#KOBLEX-060336": "제928조(미성년자에 대한 후견의 개시) 미성년자에게 친권자가 없거나 친권자가 제924조, 제924조의2, 제925조 또는 제927조제1항에 따라 친권의 전부 또는 일부를 행사할 수 없는 경우에는 미성년후견인을 두어야 한다. <개정 2014.10.15>",
+      "민법 932조  미성년후견인의 선임#KOBLEX-060347": "② 가정법원은 제924조, 제924조의2 및 제925조에 따른 친권의 상실, 일시 정지, 일부 제한의 선고 또는 법률행위의 대리권이나 재산관리권 상실의 선고에 따라 미성년후견인을 선임할 필요가 있는 경우에는 직권으로 미성년후견인을 선임한다. <개정 2014.10.15>",
+      "민법 946조  친권 중 일부에 한정된 후견#KOBLEX-060401": "제946조(친권 중 일부에 한정된 후견) 미성년자의 친권자가 제924조의2, 제925조 또는 제927조제1항에 따라 친권 중 일부에 한정하여 행사할 수 없는 경우에 미성년후견인의 임무는 제한된 친권의 범위에 속하는 행위에 한정된다.",
+      "민법 948조  미성년자의 친권의 대행#KOBLEX-060410": "① 미성년후견인은 미성년자를 갈음하여 미성년자의 자녀에 대한 친권을 행사한다.",
+      "양육비 이행확보 및 지원에 관한 법률 10조 2 면접교섭 지원#KOBLEX-150201": "① 이행관리원의 장은 비양육부ㆍ모와 미성년 자녀의 관계를 개선하기 위하여 비양육부ㆍ모 및 양육부ㆍ모의 신청이 있는 경우 비양육부ㆍ모와 미성년 자녀의 면접교섭을 위한 지원을 할 수 있다. 다만, 「민법」 제837조의2제3항에 따라 면접교섭이 제한ㆍ배제되었거나, 면접교섭으로 인하여 양육부ㆍ모 및 자녀의 안전을 해할 우려가 있는 경우 지원을 배제ㆍ제한 또는 중단할 수 있다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민법 863조  인지청구의 소#KOBLEX-060164"
+            ],
+            "rationale": "민법 제863조가 인지청구 소의 상대방을 부 또는 모로 규정하고 있다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민법 863조  인지청구의 소#KOBLEX-060164"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "민법 제863조가 인지청구 소의 상대방을 부 또는 모로 규정하고 있어, 요구된 법적 근거가 충족된다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "인지 후 친생부의 양육책임 발생을 명시하는 조항이 후보군에 없다.",
+            "requirement_id": "E2-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E2-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "인지의 효력 발생(민법 제859조)은 규정되어 있으나, 인지 후 친생부에게 양육책임이 발생한다는 구체적인 법적 근거 조항이 후보군에 포함되어 있지 않다.",
+        "status": "uncovered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "미혼자의 친생부 면접교섭권 인정 여부를 규정하는 조항이 후보군에 없다.",
+            "requirement_id": "E3-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E3",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E3-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "미혼자의 친생부에게 면접교섭권이 인정되는지 여부에 대한 법적 근거 조항이 후보군에 포함되어 있지 않다.",
+        "status": "uncovered"
+      }
+    ],
+    "deferred_target_ids": [
+      "T2"
+    ],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "민법 863조  인지청구의 소#KOBLEX-060164",
+        "support_spans": [
+          {
+            "end_char": 70,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 9,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "인지청구 소의 적법한 상대방은 누구인가",
+        "issue_id": "I1"
+      },
+      {
+        "description": "인지 후 양육책임과 면접교섭권의 법적 효과",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "인지 후 친생부에게 양육책임이 발생함을 명시하는 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "인지 후 친생부의 양육책임 발생 규정"
+          }
+        ],
+        "critical": true,
+        "description": "인지의 효력 및 양육책임",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "인지 후 양육책임의 적용을 묻고 있으므로 법적 근거가 필요함",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "미혼자의 친생부에게 면접교섭권이 인정되는지 여부 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E3-R1",
+            "text": "미혼자의 친생부 면접교섭권 인정 여부 규정"
+          }
+        ],
+        "critical": true,
+        "description": "면접교섭권 규정",
+        "evidence_item_id": "E3",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "인지 후 면접교섭권의 적용을 묻고 있으므로 법적 근거가 필요함",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] 갑은 자신의 아들 을의 법적 인지를 원하고 있으며, 을의 친생부로 알려진 병은 이를 인정하지 않고 있습니다. 갑은 을의 법정대리인으로서 병을 상대로 인지청구의 소를 제기하고자 합니다. 갑은 또한 인지 후 을에 대한 양육책임과 면접교섭권이 어떻게 되는지 알고 싶어 합니다. [질문] 갑은 아들 을의 법적 인지를 위해 누구를 상대로 인지청구의 소를 제기할 수 있으며, 인지가 된 경우 을에 대한 양육책임과 면접교섭권은 어떻게 적용되는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "인지청구",
+          "상대방",
+          "친생부",
+          "민법"
+        ],
+        "query_text": "인지청구 소 상대방 친생부 민법 [원문 맥락] 갑은 또한 인지 후 을에 대한 양육책임과 면접교섭권이 어떻게 되는지 알고 싶어 합니다. 갑은 아들 을의 법적 인지를 위해 누구를 상대로 인지청구의 소를 제기할 수 있으며, 인지가 된 경우 을에 대한 양육책임과 면접교섭권은 어떻게 적용되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "인지",
+          "효력",
+          "양육책임",
+          "친생부",
+          "민법"
+        ],
+        "query_text": "인지 효력 양육책임 친생부 민법 [원문 맥락] 갑은 또한 인지 후 을에 대한 양육책임과 면접교섭권이 어떻게 되는지 알고 싶어 합니다. 갑은 아들 을의 법적 인지를 위해 누구를 상대로 인지청구의 소를 제기할 수 있으며, 인지가 된 경우 을에 대한 양육책임과 면접교섭권은 어떻게 적용되는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E3",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "미혼자",
+          "친생부",
+          "면접교섭권",
+          "민법"
+        ],
+        "query_text": "미혼자 친생부 면접교섭권 민법 [원문 맥락] 갑은 또한 인지 후 을에 대한 양육책임과 면접교섭권이 어떻게 되는지 알고 싶어 합니다. 갑은 아들 을의 법적 인지를 위해 누구를 상대로 인지청구의 소를 제기할 수 있으며, 인지가 된 경우 을에 대한 양육책임과 면접교섭권은 어떻게 적용되는가?",
+        "request_id": "RQ3",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "미혼자",
+          "친생부",
+          "양육비",
+          "부담"
+        ],
+        "query_text": "미혼자 친생부 양육비 부담 의무 [원문 맥락] 갑은 또한 인지 후 을에 대한 양육책임과 면접교섭권이 어떻게 되는지 알고 싶어 합니다. 갑은 아들 을의 법적 인지를 위해 누구를 상대로 인지청구의 소를 제기할 수 있으며, 인지가 된 경우 을에 대한 양육책임과 면접교섭권은 어떻게 적용되는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E3",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "미혼자",
+          "친생부",
+          "면접교섭권",
+          "행사"
+        ],
+        "query_text": "미혼자 친생부 면접교섭권 행사 [원문 맥락] 갑은 또한 인지 후 을에 대한 양육책임과 면접교섭권이 어떻게 되는지 알고 싶어 합니다. 갑은 아들 을의 법적 인지를 위해 누구를 상대로 인지청구의 소를 제기할 수 있으며, 인지가 된 경우 을에 대한 양육책임과 면접교섭권은 어떻게 적용되는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "친권자",
+          "지정",
+          "미혼자",
+          "친생부",
+          "양육"
+        ],
+        "query_text": "민법 제912조 친권자 지정 기준 미혼자 친생부 양육 [원문 맥락] 갑은 또한 인지 후 을에 대한 양육책임과 면접교섭권이 어떻게 되는지 알고 싶어 합니다. 갑은 아들 을의 법적 인지를 위해 누구를 상대로 인지청구의 소를 제기할 수 있으며, 인지가 된 경우 을에 대한 양육책임과 면접교섭권은 어떻게 적용되는가?",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제912조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E3",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "면접교섭권",
+          "친권자",
+          "친생부",
+          "미혼자"
+        ],
+        "query_text": "민법 제924조 면접교섭권 친권자 아닌 친생부 [원문 맥락] 갑은 또한 인지 후 을에 대한 양육책임과 면접교섭권이 어떻게 되는지 알고 싶어 합니다. 갑은 아들 을의 법적 인지를 위해 누구를 상대로 인지청구의 소를 제기할 수 있으며, 인지가 된 경우 을에 대한 양육책임과 면접교섭권은 어떻게 적용되는가?",
+        "request_id": "GRQ-R3-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제924조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 자신의 아들 을의 법적 인지를 원하고 있으며, 을의 친생부로 알려진 병은 이를 인정하지 않고 있습니다. 갑은 을의 법정대리인으로서 병을 상대로 인지청구의 소를 제기하고자 합니다. 갑은 또한 인지 후 을에 대한 양육책임과 면접교섭권이 어떻게 되는지 알고 싶어 합니다.\n\n[질문]\n갑은 아들 을의 법적 인지를 위해 누구를 상대로 인지청구의 소를 제기할 수 있으며, 인지가 된 경우 을에 대한 양육책임과 면접교섭권은 어떻게 적용되는가?",
+    "remaining_request_budget": 2,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "인지청구 소의 적법한 상대방이 친생부임을 명시하는 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "인지청구 소의 상대방이 친생부임을 규정하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "인지청구 소의 상대방 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 인지청구 소의 상대방을 묻고 있으므로 법적 근거가 필요함",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "인지 후 친생부에게 양육책임이 발생함을 명시하는 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "인지 후 친생부의 양육책임 발생 규정"
+          }
+        ],
+        "critical": true,
+        "description": "인지의 효력 및 양육책임",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "인지 후 양육책임의 적용을 묻고 있으므로 법적 근거가 필요함",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "미혼자의 친생부에게 면접교섭권이 인정되는지 여부 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E3-R1",
+            "text": "미혼자의 친생부 면접교섭권 인정 여부 규정"
+          }
+        ],
+        "critical": true,
+        "description": "면접교섭권 규정",
+        "evidence_item_id": "E3",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "인지 후 면접교섭권의 적용을 묻고 있으므로 법적 근거가 필요함",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "d9b2fa6a-90cb-4863-a6a7-811d7a0af5c6",
+    "seen_provision_ids": [
+      "민법 863조  인지청구의 소#KOBLEX-060164",
+      "민법 909조 2 친권자의 지정 등#KOBLEX-060284",
+      "민법 847조  친생부인의 소#KOBLEX-060134",
+      "민법 846조  자의 친생부인#KOBLEX-060131",
+      "민법 848조  성년후견과 친생부인의 소#KOBLEX-060136",
+      "민법 912조  친권 행사와 친권자 지정의 기준#KOBLEX-060290",
+      "민법 925조 2 친권 상실 선고 등의 판단 기준#KOBLEX-060324",
+      "양육비 이행확보 및 지원에 관한 법률 10조 2 면접교섭 지원#KOBLEX-150201",
+      "민법 859조  인지의 효력발생#KOBLEX-060159",
+      "가족관계의 등록 등에 관한 법률 79조  친권자 지정 및 변경 신고 등#KOBLEX-127575",
+      "민법 909조  친권자#KOBLEX-060277",
+      "민법 851조  부의 자 출생 전 사망 등과 친생부인#KOBLEX-060140",
+      "민법 847조  친생부인의 소#KOBLEX-060133",
+      "민법 925조 3 부모의 권리와 의무#KOBLEX-060325",
+      "민법 909조 2 친권자의 지정 등#KOBLEX-060283",
+      "민법 932조  미성년후견인의 선임#KOBLEX-060347",
+      "민법 925조 2 친권 상실 선고 등의 판단 기준#KOBLEX-060323",
+      "민법 946조  친권 중 일부에 한정된 후견#KOBLEX-060401",
+      "민법 948조  미성년자의 친권의 대행#KOBLEX-060410",
+      "민법 927조 2 친권의 상실, 일시 정지 또는 일부 제한과 친권자의 지정 등#KOBLEX-060331",
+      "민법 909조 2 친권자의 지정 등#KOBLEX-060287",
+      "민법 908조 2 친양자 입양의 요건 등#KOBLEX-060256",
+      "가사소송법 45조 8 친생부인의 허가 및 인지의 허가 관련 심판에서의 진술 청취#KOBLEX-064947",
+      "민법 911조  미성년자인 자의 법정대리인#KOBLEX-060289",
+      "민법 928조  미성년자에 대한 후견의 개시#KOBLEX-060336",
+      "민법 912조  친권 행사와 친권자 지정의 기준#KOBLEX-060292"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

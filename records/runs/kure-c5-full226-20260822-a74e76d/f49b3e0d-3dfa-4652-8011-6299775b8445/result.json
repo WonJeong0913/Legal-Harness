@@ -1,0 +1,488 @@
+{
+  "abstention_reason": null,
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": null,
+  "candidate_answer_basis": null,
+  "candidate_answer_error": null,
+  "candidate_answer_status": null,
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T15:08:23.976065+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 92092.137,
+  "errors": [
+    "provision_coverage_assessment did not produce a valid ASSESS_COVERAGE result after 2 attempts: legacy status conflicts with coverage axes; partially_covered requires a valid partial_kind: E1; legacy status conflicts with coverage axes; missing_evidence_items must equal all non-covered assessments; legacy status conflicts with coverage axes"
+  ],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 183,
+      "dedup_collapse": 22,
+      "evidence_fusion": 183,
+      "first_stage": 200,
+      "request_rerank": 200,
+      "round_selected": 10,
+      "rrf": 200,
+      "selected": 183
+    }
+  },
+  "run_id": "f49b3e0d-3dfa-4652-8011-6299775b8445",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "error": "provision_coverage_assessment did not produce a valid ASSESS_COVERAGE result after 2 attempts: legacy status conflicts with coverage axes; partially_covered requires a valid partial_kind: E1; legacy status conflicts with coverage axes; missing_evidence_items must equal all non-covered assessments; legacy status conflicts with coverage axes",
+          "termination_reason": "INVALID_SKILL_OUTPUT"
+        },
+        "event": "EXECUTION_FAILURE",
+        "phase": "EXECUTION_FAILURE"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "갑이 을에게 변제 기일이 없는 대출금의 장래 변제에 대해 청구할 수 있는지",
+        "requested_output": "변제 기일이 없는 채무에 대한 장래 변제 청구의 허용 여부"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "갑이 법원에 을의 계약 위반에 대해 신청하지 않은 손해배상 청구에 대해 법원이 판결할 수 있는가",
+        "requested_output": "신청하지 않은 손해배상 청구에 대한 법원 판결의 허용 여부"
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "민법 477조  법정변제충당#KOBLEX-059360"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 8,
+        "first_stage_score": 0.5968008637428284,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "민법 477조  법정변제충당#KOBLEX-059360",
+        "provision_text": "1. 채무중에 이행기가 도래한 것과 도래하지 아니한 것이 있으면 이행기가 도래한 채무의 변제에 충당한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9857317805290222,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 477조  법정변제충당 1호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 261조  간접강제#KOBLEX-128918"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 12,
+        "first_stage_score": 0.5874555706977844,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "민사집행법 261조  간접강제#KOBLEX-128918",
+        "provision_text": "①채무의 성질이 간접강제를 할 수 있는 경우에 제1심 법원은 채권자의 신청에 따라 간접강제를 명하는 결정을 한다. 그 결정에는 채무의 이행의무 및 상당한 이행기간을 밝히고, 채무자가 그 기간 이내에 이행을 하지 아니하는 때에는 늦어진 기간에 따라 일정한 배상을 하도록 명하거나 즉시 손해배상을 하도록 명할 수 있다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9787065386772156,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민사집행법 261조  간접강제 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 251조  장래의 이행을 청구하는 소#KOBLEX-064190"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 63,
+        "first_stage_score": 0.5603671669960022,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "민사소송법 251조  장래의 이행을 청구하는 소#KOBLEX-064190",
+        "provision_text": "제251조(장래의 이행을 청구하는 소) 장래에 이행할 것을 청구하는 소는 미리 청구할 필요가 있어야 제기할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.9741654396057129,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사소송법 251조  장래의 이행을 청구하는 소",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 477조  법정변제충당#KOBLEX-059361"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 24,
+        "first_stage_score": 0.5753753185272217,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "민법 477조  법정변제충당#KOBLEX-059361",
+        "provision_text": "2. 채무전부의 이행기가 도래하였거나 도래하지 아니한 때에는 채무자에게 변제이익이 많은 채무의 변제에 충당한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.9731248617172241,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 477조  법정변제충당 2호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 395조  이행지체와 전보배상#KOBLEX-059190"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.5951911211013794,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "민법 395조  이행지체와 전보배상#KOBLEX-059190",
+        "provision_text": "제395조(이행지체와 전보배상) 채무자가 채무의 이행을 지체한 경우에 채권자가 상당한 기간을 정하여 이행을 최고하여도 그 기간내에 이행하지 아니하거나 지체후의 이행이 채권자에게 이익이 없는 때에는 채권자는 수령을 거절하고 이행에 갈음한 손해배상을 청구할 수 있다. <개정 2014.12.30>",
+        "rerank_rank": 5,
+        "rerank_score": 0.9541110396385193,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 395조  이행지체와 전보배상",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 442조  수탁보증인의 사전구상권#KOBLEX-059289"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 95,
+        "first_stage_score": 0.5546953678131104,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "민법 442조  수탁보증인의 사전구상권#KOBLEX-059289",
+        "provision_text": "①주채무자의 부탁으로 보증인이 된 자는 다음 각호의 경우에 주채무자에 대하여 미리 구상권을 행사할 수 있다. 1. 보증인이 과실없이 채권자에게 변제할 재판을 받은 때 2. 주채무자가 파산선고를 받은 경우에 채권자가 파산재단에 가입하지 아니한 때 3. 채무의 이행기가 확정되지 아니하고 그 최장기도 확정할 수 없는 경우에 보증계약후 5년을 경과한 때 4. 채무의 이행기가 도래한 때",
+        "rerank_rank": 6,
+        "rerank_score": 0.9484437108039856,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 442조  수탁보증인의 사전구상권 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 390조  채무불이행과 손해배상#KOBLEX-059183"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.5965547561645508,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "민법 390조  채무불이행과 손해배상#KOBLEX-059183",
+        "provision_text": "제390조(채무불이행과 손해배상) 채무자가 채무의 내용에 좇은 이행을 하지 아니한 때에는 채권자는 손해배상을 청구할 수 있다. 그러나 채무자의 고의나 과실없이 이행할 수 없게 된 때에는 그러하지 아니하다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.9377759099006653,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 390조  채무불이행과 손해배상",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 392조  이행지체 중의 손해배상#KOBLEX-059185"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 23,
+        "first_stage_score": 0.5756065845489502,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "민법 392조  이행지체 중의 손해배상#KOBLEX-059185",
+        "provision_text": "제392조(이행지체 중의 손해배상) 채무자는 자기에게 과실이 없는 경우에도 그 이행지체 중에 생긴 손해를 배상하여야 한다. 그러나 채무자가 이행기에 이행하여도 손해를 면할 수 없는 경우에는 그러하지 아니하다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.9115176200866699,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 392조  이행지체 중의 손해배상",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "채무자 회생 및 파산에 관한 법률 595조  개인회생절차개시신청의 기각사유#KOBLEX-033347"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 64,
+        "first_stage_score": 0.5602433681488037,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "채무자 회생 및 파산에 관한 법률 595조  개인회생절차개시신청의 기각사유#KOBLEX-033347",
+        "provision_text": "4. 채무자가 변제계획안의 제출기한을 준수하지 아니한 때",
+        "rerank_rank": 9,
+        "rerank_score": 0.8753374218940735,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "채무자 회생 및 파산에 관한 법률 595조  개인회생절차개시신청의 기각사유 4호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 398조  배상액의 예정#KOBLEX-059198"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 76,
+        "first_stage_score": 0.5626282691955566,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "민법 398조  배상액의 예정#KOBLEX-059198",
+        "provision_text": "③손해배상액의 예정은 이행의 청구나 계약의 해제에 영향을 미치지 아니한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.8748778700828552,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 398조  배상액의 예정 3항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "민법 390조  채무불이행과 손해배상#KOBLEX-059183": "제390조(채무불이행과 손해배상) 채무자가 채무의 내용에 좇은 이행을 하지 아니한 때에는 채권자는 손해배상을 청구할 수 있다. 그러나 채무자의 고의나 과실없이 이행할 수 없게 된 때에는 그러하지 아니하다.",
+      "민법 392조  이행지체 중의 손해배상#KOBLEX-059185": "제392조(이행지체 중의 손해배상) 채무자는 자기에게 과실이 없는 경우에도 그 이행지체 중에 생긴 손해를 배상하여야 한다. 그러나 채무자가 이행기에 이행하여도 손해를 면할 수 없는 경우에는 그러하지 아니하다.",
+      "민법 395조  이행지체와 전보배상#KOBLEX-059190": "제395조(이행지체와 전보배상) 채무자가 채무의 이행을 지체한 경우에 채권자가 상당한 기간을 정하여 이행을 최고하여도 그 기간내에 이행하지 아니하거나 지체후의 이행이 채권자에게 이익이 없는 때에는 채권자는 수령을 거절하고 이행에 갈음한 손해배상을 청구할 수 있다. <개정 2014.12.30>",
+      "민법 398조  배상액의 예정#KOBLEX-059198": "③손해배상액의 예정은 이행의 청구나 계약의 해제에 영향을 미치지 아니한다.",
+      "민법 442조  수탁보증인의 사전구상권#KOBLEX-059289": "①주채무자의 부탁으로 보증인이 된 자는 다음 각호의 경우에 주채무자에 대하여 미리 구상권을 행사할 수 있다. 1. 보증인이 과실없이 채권자에게 변제할 재판을 받은 때 2. 주채무자가 파산선고를 받은 경우에 채권자가 파산재단에 가입하지 아니한 때 3. 채무의 이행기가 확정되지 아니하고 그 최장기도 확정할 수 없는 경우에 보증계약후 5년을 경과한 때 4. 채무의 이행기가 도래한 때",
+      "민법 477조  법정변제충당#KOBLEX-059360": "1. 채무중에 이행기가 도래한 것과 도래하지 아니한 것이 있으면 이행기가 도래한 채무의 변제에 충당한다.",
+      "민법 477조  법정변제충당#KOBLEX-059361": "2. 채무전부의 이행기가 도래하였거나 도래하지 아니한 때에는 채무자에게 변제이익이 많은 채무의 변제에 충당한다.",
+      "민사소송법 251조  장래의 이행을 청구하는 소#KOBLEX-064190": "제251조(장래의 이행을 청구하는 소) 장래에 이행할 것을 청구하는 소는 미리 청구할 필요가 있어야 제기할 수 있다.",
+      "민사집행법 261조  간접강제#KOBLEX-128918": "①채무의 성질이 간접강제를 할 수 있는 경우에 제1심 법원은 채권자의 신청에 따라 간접강제를 명하는 결정을 한다. 그 결정에는 채무의 이행의무 및 상당한 이행기간을 밝히고, 채무자가 그 기간 이내에 이행을 하지 아니하는 때에는 늦어진 기간에 따라 일정한 배상을 하도록 명하거나 즉시 손해배상을 하도록 명할 수 있다.",
+      "채무자 회생 및 파산에 관한 법률 595조  개인회생절차개시신청의 기각사유#KOBLEX-033347": "4. 채무자가 변제계획안의 제출기한을 준수하지 아니한 때"
+    },
+    "coverage_assessments": [],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D2.INITIAL_RETRIEVAL",
+    "legal_issues": [
+      {
+        "description": "변제 기일이 없는 채무에 대해 채권자가 장래 변제를 청구할 수 있는 법적 요건과 한계",
+        "issue_id": "I1"
+      },
+      {
+        "description": "소송상 청구의 범위와 법원 판결의 한계",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 을에게 일정 금액을 빌려주었고, 이에 대한 변제 기일을 특정하지 않았습니다. 이후 을은 갑에게 일부 금액만 변제하고, 나머지 금액은 몇 년 후에 변제하겠다고 약속하였습니다. 하지만 갑은 을이 약속을 지키지 않을까 염려되어, 법원에 을이 장래에 변제할 금액에 대한 청구를 제기하려고 합니다. 동시에 갑은 법원에 을의 계약 위반으로 인한 손해배상 청구도 하고 싶지만, 이를 공식적으로 신청하지는 않았습니다. [질문] 갑이 을에게 변제 기일이 없는 대출금의 장래 변제에 대해 청구할 수 있는지, 그리고 갑이 법원에 을의 계약 위반에 대해 신청하지 않은 손해배상 청구에 대해 법원이 판결할 수 있는가?",
+    "phase": "EXECUTION_FAILURE",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "변제 기일",
+          "채무 이행",
+          "장래 변제",
+          "청구 시점"
+        ],
+        "query_text": "변제 기일이 없는 채무의 이행 청구 시점과 장래 변제 청구의 허용 여부 [원문 맥락] 동시에 갑은 법원에 을의 계약 위반으로 인한 손해배상 청구도 하고 싶지만, 이를 공식적으로 신청하지는 않았습니다. 갑이 을에게 변제 기일이 없는 대출금의 장래 변제에 대해 청구할 수 있는지, 그리고 갑이 법원에 을의 계약 위반에 대해 신청하지 않은 손해배상 청구에 대해 법원이 판결할 수 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제465조",
+          "민법 제466조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "청구 범위",
+          "판결 한계",
+          "소송상 청구",
+          "청구 기각"
+        ],
+        "query_text": "소송상 청구의 범위와 법원 판결의 한계 [원문 맥락] 동시에 갑은 법원에 을의 계약 위반으로 인한 손해배상 청구도 하고 싶지만, 이를 공식적으로 신청하지는 않았습니다. 갑이 을에게 변제 기일이 없는 대출금의 장래 변제에 대해 청구할 수 있는지, 그리고 갑이 법원에 을의 계약 위반에 대해 신청하지 않은 손해배상 청구에 대해 법원이 판결할 수 있는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민사소송법 제248조",
+          "민사소송법 제249조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 을에게 일정 금액을 빌려주었고, 이에 대한 변제 기일을 특정하지 않았습니다. 이후 을은 갑에게 일부 금액만 변제하고, 나머지 금액은 몇 년 후에 변제하겠다고 약속하였습니다. 하지만 갑은 을이 약속을 지키지 않을까 염려되어, 법원에 을이 장래에 변제할 금액에 대한 청구를 제기하려고 합니다. 동시에 갑은 법원에 을의 계약 위반으로 인한 손해배상 청구도 하고 싶지만, 이를 공식적으로 신청하지는 않았습니다.\n\n[질문]\n갑이 을에게 변제 기일이 없는 대출금의 장래 변제에 대해 청구할 수 있는지, 그리고 갑이 법원에 을의 계약 위반에 대해 신청하지 않은 손해배상 청구에 대해 법원이 판결할 수 있는가?",
+    "remaining_request_budget": 7,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "변제 기일이 없는 채무의 이행 청구 가능 시점과 장래 변제 청구의 허용 여부를 명시하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "변제 기일이 없는 채무의 이행 청구 가능 시점과 장래 변제 청구의 허용 여부를 명시하는 조항을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "변제 기일이 없는 채무의 이행 청구 시점과 장래 변제 청구의 법적 근거",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 장래 변제 청구의 허용 여부를 판단하기 위한 핵심 법적 근거",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "법원이 당사자의 청구 범위를 초과하여 판결할 수 없는 원칙과 예외를 명시하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "법원이 당사자의 청구 범위를 초과하여 판결할 수 없는 원칙과 예외를 명시하는 조항을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "소송상 청구의 범위와 법원 판결의 한계",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 요구하는 신청하지 않은 손해배상 청구에 대한 법원 판결의 허용 여부를 판단하기 위한 핵심 법적 근거",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "f49b3e0d-3dfa-4652-8011-6299775b8445",
+    "seen_provision_ids": [
+      "민법 395조  이행지체와 전보배상#KOBLEX-059190",
+      "민법 442조  수탁보증인의 사전구상권#KOBLEX-059289",
+      "민법 477조  법정변제충당#KOBLEX-059361",
+      "민법 477조  법정변제충당#KOBLEX-059360",
+      "민법 398조  배상액의 예정#KOBLEX-059198",
+      "민사집행법 261조  간접강제#KOBLEX-128918",
+      "채무자 회생 및 파산에 관한 법률 595조  개인회생절차개시신청의 기각사유#KOBLEX-033347",
+      "민법 390조  채무불이행과 손해배상#KOBLEX-059183",
+      "민법 392조  이행지체 중의 손해배상#KOBLEX-059185",
+      "민사소송법 251조  장래의 이행을 청구하는 소#KOBLEX-064190"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "EXECUTION_FAILURE",
+  "termination_reason": "INVALID_SKILL_OUTPUT"
+}

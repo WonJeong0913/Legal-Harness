@@ -1,0 +1,561 @@
+{
+  "abstention_reason": null,
+  "answer": "폭행 또는 협박으로 사람에 대하여 추행한 자는 10년 이하의 징역 또는 1천500만원 이하의 벌금에 처한다.[CT1]\n갑의 행위는 폭행과 협박을 수단으로 한 강제추행에 해당하므로 형법 제298조의 처벌 규정이 적용된다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "A1",
+      "message": "갑의 행위가 형법상 '추행'에 해당한다고 가정한다."
+    },
+    {
+      "code": "A2",
+      "message": "갑의 폭행 및 협박이 추행의 수단으로 사용되었음을 가정한다."
+    }
+  ],
+  "candidate_answer": "폭행 또는 협박으로 사람에 대하여 추행한 자는 10년 이하의 징역 또는 1천500만원 이하의 벌금에 처한다.[CT1]\n갑의 행위는 폭행과 협박을 수단으로 한 강제추행에 해당하므로 형법 제298조의 처벌 규정이 적용된다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형법 298조  강제추행#KOBLEX-193296",
+      "quoted_text": "제298조(강제추행) 폭행 또는 협박으로 사람에 대하여 추행을 한 자는 10년 이하의 징역 또는 1천500만원 이하의 벌금에 처한다. <개정 1995.12.29>",
+      "support_description": "형법 제298조 본문에서 강제추행의 구성요건과 법정형을 명시하고 있다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "형법 298조  강제추행#KOBLEX-193296",
+      "quoted_text": "제298조(강제추행) 폭행 또는 협박으로 사람에 대하여 추행을 한 자는 10년 이하의 징역 또는 1천500만원 이하의 벌금에 처한다. <개정 1995.12.29>",
+      "support_description": "사실관계에서 갑이 폭행과 협박으로 추행한 점이 조항의 구성요건에 부합함을 근거로 한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "폭행 또는 협박으로 사람에 대하여 추행한 자는 10년 이하의 징역 또는 1천500만원 이하의 벌금에 처한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "갑의 행위는 폭행과 협박을 수단으로 한 강제추행에 해당하므로 형법 제298조의 처벌 규정이 적용된다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T09:24:38.462918+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 59439.186,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "L1",
+      "message": "본 답변은 형법 제298조의 일반적 법정형만을 다루며, 가중처벌 사유나 양형 기준은 포함하지 않는다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 94,
+      "dedup_collapse": 12,
+      "evidence_fusion": 94,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 94
+    }
+  },
+  "run_id": "b126466d-a077-4552-890b-422720d509a7",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형법 298조  강제추행#KOBLEX-193296"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "statutory_penalty",
+        "question_anchor": "갑이 폭행과 협박으로 을을 추행한 경우, 갑은 어떤 처벌을 받게 되는가?",
+        "requested_output": "The specific criminal penalty applicable to the act of indecent assault committed by violence or threat."
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "형법 298조  강제추행#KOBLEX-193296"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6358578205108643,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형법 298조  강제추행#KOBLEX-193296",
+        "provision_text": "제298조(강제추행) 폭행 또는 협박으로 사람에 대하여 추행을 한 자는 10년 이하의 징역 또는 1천500만원 이하의 벌금에 처한다. <개정 1995.12.29>",
+        "rerank_rank": 1,
+        "rerank_score": 0.9798991680145264,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 298조  강제추행",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 260조  폭행, 존속폭행#KOBLEX-193206"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 34,
+        "first_stage_score": 0.5101331472396851,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "형법 260조  폭행, 존속폭행#KOBLEX-193206",
+        "provision_text": "제260조(폭행, 존속폭행)",
+        "rerank_rank": 2,
+        "rerank_score": 0.955706775188446,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 260조  폭행, 존속폭행",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 260조  폭행, 존속폭행#KOBLEX-193207"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 86,
+        "first_stage_score": 0.4848043620586395,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형법 260조  폭행, 존속폭행#KOBLEX-193207",
+        "provision_text": "①사람의 신체에 대하여 폭행을 가한 자는 2년 이하의 징역, 500만원 이하의 벌금, 구류 또는 과료에 처한다. <개정 1995.12.29>",
+        "rerank_rank": 3,
+        "rerank_score": 0.9260684847831726,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 260조  폭행, 존속폭행 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 288조  추행 등 목적 약취, 유인 등#KOBLEX-193269"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 21,
+        "first_stage_score": 0.5211498141288757,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "형법 288조  추행 등 목적 약취, 유인 등#KOBLEX-193269",
+        "provision_text": "제288조(추행 등 목적 약취, 유인 등)",
+        "rerank_rank": 4,
+        "rerank_score": 0.9217642545700073,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 288조  추행 등 목적 약취, 유인 등",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 257조#KOBLEX-193190"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 75,
+        "first_stage_score": 0.4886673390865326,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형법 257조#KOBLEX-193190",
+        "provision_text": "제25장 상해와 폭행의 죄",
+        "rerank_rank": 5,
+        "rerank_score": 0.9159896969795227,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 257조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 324조  강요#KOBLEX-193349"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 16,
+        "first_stage_score": 0.5336401462554932,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "형법 324조  강요#KOBLEX-193349",
+        "provision_text": "①폭행 또는 협박으로 사람의 권리행사를 방해하거나 의무없는 일을 하게 한 자는 5년 이하의 징역 또는 3천만원 이하의 벌금에 처한다. <개정 1995.12.29, 2016.1.6>",
+        "rerank_rank": 6,
+        "rerank_score": 0.9138904809951782,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 324조  강요 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군형법 92조 3 강제추행#KOBLEX-140850"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6002929210662842,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "군형법 92조 3 강제추행#KOBLEX-140850",
+        "provision_text": "제92조의3(강제추행) 폭행이나 협박으로 제1조제1항부터 제3항까지에 규정된 사람에 대하여 추행을 한 사람은 1년 이상의 유기징역에 처한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.9127225279808044,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "군형법 92조 3 강제추행",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 333조  강도#KOBLEX-193374"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 27,
+        "first_stage_score": 0.5162501931190491,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "형법 333조  강도#KOBLEX-193374",
+        "provision_text": "제333조(강도) 폭행 또는 협박으로 타인의 재물을 강취하거나 기타 재산상의 이익을 취득하거나 제삼자로 하여금 이를 취득하게 한 자는 3년 이상의 유기징역에 처한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.9090185761451721,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 333조  강도",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 297조  강간#KOBLEX-193294"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.5612685680389404,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "형법 297조  강간#KOBLEX-193294",
+        "provision_text": "제297조(강간) 폭행 또는 협박으로 사람을 강간한 자는 3년 이상의 유기징역에 처한다. <개정 2012.12.18>",
+        "rerank_rank": 9,
+        "rerank_score": 0.9039638042449951,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 297조  강간",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 297조#KOBLEX-193293"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 37,
+        "first_stage_score": 0.5071973204612732,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "형법 297조#KOBLEX-193293",
+        "provision_text": "제32장 강간과 추행의 죄 <개정 1995.12.29>",
+        "rerank_rank": 10,
+        "rerank_score": 0.9028065204620361,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 297조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "군형법 92조 3 강제추행#KOBLEX-140850": "제92조의3(강제추행) 폭행이나 협박으로 제1조제1항부터 제3항까지에 규정된 사람에 대하여 추행을 한 사람은 1년 이상의 유기징역에 처한다.",
+      "형법 257조#KOBLEX-193190": "제25장 상해와 폭행의 죄",
+      "형법 260조  폭행, 존속폭행#KOBLEX-193206": "제260조(폭행, 존속폭행)",
+      "형법 260조  폭행, 존속폭행#KOBLEX-193207": "①사람의 신체에 대하여 폭행을 가한 자는 2년 이하의 징역, 500만원 이하의 벌금, 구류 또는 과료에 처한다. <개정 1995.12.29>",
+      "형법 288조  추행 등 목적 약취, 유인 등#KOBLEX-193269": "제288조(추행 등 목적 약취, 유인 등)",
+      "형법 297조  강간#KOBLEX-193294": "제297조(강간) 폭행 또는 협박으로 사람을 강간한 자는 3년 이상의 유기징역에 처한다. <개정 2012.12.18>",
+      "형법 297조#KOBLEX-193293": "제32장 강간과 추행의 죄 <개정 1995.12.29>",
+      "형법 298조  강제추행#KOBLEX-193296": "제298조(강제추행) 폭행 또는 협박으로 사람에 대하여 추행을 한 자는 10년 이하의 징역 또는 1천500만원 이하의 벌금에 처한다. <개정 1995.12.29>",
+      "형법 324조  강요#KOBLEX-193349": "①폭행 또는 협박으로 사람의 권리행사를 방해하거나 의무없는 일을 하게 한 자는 5년 이하의 징역 또는 3천만원 이하의 벌금에 처한다. <개정 1995.12.29, 2016.1.6>",
+      "형법 333조  강도#KOBLEX-193374": "제333조(강도) 폭행 또는 협박으로 타인의 재물을 강취하거나 기타 재산상의 이익을 취득하거나 제삼자로 하여금 이를 취득하게 한 자는 3년 이상의 유기징역에 처한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형법 298조  강제추행#KOBLEX-193296"
+            ],
+            "rationale": "C001은 폭행 또는 협박으로 추행한 자에 대해 10년 이하의 징역 또는 1천500만원 이하의 벌금에 처한다고 명시하여, 해당 범죄의 형벌을 구체적으로 규정하고 있다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형법 298조  강제추행#KOBLEX-193296"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "제시된 후보 조항 C001(형법 제298조)은 폭행 또는 협박을 수단으로 한 강제추행 범죄의 정의와 그에 따른 형벌(징역 또는 벌금)을 명확히 규정하고 있어, 질문에서 요구하는 법적 근거를 완전히 충족한다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형법 298조  강제추행#KOBLEX-193296",
+        "support_spans": [
+          {
+            "end_char": 90,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "Determination of the statutory penalty for indecent assault committed by violence or threat.",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 술집에서 을을 만나 대화를 나누던 중, 갑이 을에게 불쾌한 신체 접촉을 시도하였다. 을이 이를 거부하자 갑은 폭언을 하며 을을 겁에 질리게 만들고 신체 접촉을 강행하였다. 이에 을은 경찰에 신고하였고, 갑은 폭행과 협박을 사용한 강제추행 혐의로 기소되었다. [질문] 갑이 폭행과 협박으로 을을 추행한 경우, 갑은 어떤 처벌을 받게 되는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "강제추행",
+          "폭행",
+          "협박",
+          "형법",
+          "처벌"
+        ],
+        "query_text": "형법 강제추행죄 폭행 협박 처벌 [원문 맥락] 이에 을은 경찰에 신고하였고, 갑은 폭행과 협박을 사용한 강제추행 혐의로 기소되었다. 갑이 폭행과 협박으로 을을 추행한 경우, 갑은 어떤 처벌을 받게 되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법 제298조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 술집에서 을을 만나 대화를 나누던 중, 갑이 을에게 불쾌한 신체 접촉을 시도하였다. 을이 이를 거부하자 갑은 폭언을 하며 을을 겁에 질리게 만들고 신체 접촉을 강행하였다. 이에 을은 경찰에 신고하였고, 갑은 폭행과 협박을 사용한 강제추행 혐의로 기소되었다.\n\n[질문]\n갑이 폭행과 협박으로 을을 추행한 경우, 갑은 어떤 처벌을 받게 되는가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific article in the Criminal Act that prescribes the penalty for indecent assault committed by violence or threat.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The provision must specify the penalty (imprisonment or fine) for indecent assault by violence or threat."
+          }
+        ],
+        "critical": true,
+        "description": "The statutory provision defining the crime of indecent assault by violence or threat and its corresponding penalty.",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "The question explicitly asks for the punishment for this specific modality of indecent assault, which is defined and penalized in a distinct article from simple indecent assault.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "b126466d-a077-4552-890b-422720d509a7",
+    "seen_provision_ids": [
+      "형법 260조  폭행, 존속폭행#KOBLEX-193206",
+      "군형법 92조 3 강제추행#KOBLEX-140850",
+      "형법 324조  강요#KOBLEX-193349",
+      "형법 260조  폭행, 존속폭행#KOBLEX-193207",
+      "형법 288조  추행 등 목적 약취, 유인 등#KOBLEX-193269",
+      "형법 333조  강도#KOBLEX-193374",
+      "형법 298조  강제추행#KOBLEX-193296",
+      "형법 297조  강간#KOBLEX-193294",
+      "형법 297조#KOBLEX-193293",
+      "형법 257조#KOBLEX-193190"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

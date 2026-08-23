@@ -1,0 +1,666 @@
+{
+  "abstention_reason": null,
+  "answer": "임대차 계약은 당사자 일방이 상대방에게 목적물을 사용·수익하게 할 것을 약정하고 상대방이 차임을 지급할 것을 약정함으로써 성립한다.[CT1]\n임대인은 목적물을 임차인에게 인도하고 계약 존속 중 그 사용·수익에 필요한 상태를 유지할 의무를 부담한다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1",
+    "T2"
+  ],
+  "assumptions": [],
+  "candidate_answer": "임대차 계약은 당사자 일방이 상대방에게 목적물을 사용·수익하게 할 것을 약정하고 상대방이 차임을 지급할 것을 약정함으로써 성립한다.[CT1]\n임대인은 목적물을 임차인에게 인도하고 계약 존속 중 그 사용·수익에 필요한 상태를 유지할 의무를 부담한다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "민법 618조  임대차의 의의#KOBLEX-059625",
+      "quoted_text": "제618조(임대차의 의의) 임대차는 당사자 일방이 상대방에게 목적물을 사용, 수익하게 할 것을 약정하고 상대방이 이에 대하여 차임을 지급할 것을 약정함으로써 그 효력이 생긴다.",
+      "support_description": "임대차 계약의 성립 요건인 사용·수익 약정과 차임 지급 약정을 규정한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "민법 623조  임대인의 의무#KOBLEX-059638",
+      "quoted_text": "제623조(임대인의 의무) 임대인은 목적물을 임차인에게 인도하고 계약존속중 그 사용, 수익에 필요한 상태를 유지하게 할 의무를 부담한다.",
+      "support_description": "임대인의 인도 의무와 보존 의무를 규정한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "임대차 계약은 당사자 일방이 상대방에게 목적물을 사용·수익하게 할 것을 약정하고 상대방이 차임을 지급할 것을 약정함으로써 성립한다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "임대인은 목적물을 임차인에게 인도하고 계약 존속 중 그 사용·수익에 필요한 상태를 유지할 의무를 부담한다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T09:01:33.705002+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 77372.8,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 190,
+      "dedup_collapse": 16,
+      "evidence_fusion": 190,
+      "first_stage": 200,
+      "request_rerank": 200,
+      "round_selected": 10,
+      "rrf": 200,
+      "selected": 190
+    }
+  },
+  "run_id": "2d6dc39a-657d-402f-8545-7eef86b74445",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "민법 623조  임대인의 의무#KOBLEX-059638",
+      "민법 618조  임대차의 의의#KOBLEX-059625"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_rule",
+        "question_anchor": "임대차 계약이 성립하기 위한 조건",
+        "requested_output": "임대차 계약의 성립 요건"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_rule",
+        "question_anchor": "갑이 을에게 부담하는 의무",
+        "requested_output": "임대인의 계약상 의무"
+      }
+    ],
+    "answered_target_ids": [
+      "T1",
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "민법 618조  임대차의 의의#KOBLEX-059625"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.5391662120819092,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "민법 618조  임대차의 의의#KOBLEX-059625",
+        "provision_text": "제618조(임대차의 의의) 임대차는 당사자 일방이 상대방에게 목적물을 사용, 수익하게 할 것을 약정하고 상대방이 이에 대하여 차임을 지급할 것을 약정함으로써 그 효력이 생긴다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9976602792739868,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 618조  임대차의 의의",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 643조  임차인의 갱신청구권, 매수청구권#KOBLEX-059674"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 56,
+        "first_stage_score": 0.5115982294082642,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "민법 643조  임차인의 갱신청구권, 매수청구권#KOBLEX-059674",
+        "provision_text": "제643조(임차인의 갱신청구권, 매수청구권) 건물 기타 공작물의 소유 또는 식목, 채염, 목축을 목적으로 한 토지임대차의 기간이 만료한 경우에 건물, 수목 기타 지상시설이 현존한 때에는 제283조의 규정을 준용한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9973182082176208,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 643조  임차인의 갱신청구권, 매수청구권",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 436조 2 채권자의 정보제공의무와 통지의무 등#KOBLEX-059279"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 33,
+        "first_stage_score": 0.5279489755630493,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "민법 436조 2 채권자의 정보제공의무와 통지의무 등#KOBLEX-059279",
+        "provision_text": "③ 채권자는 보증인의 청구가 있으면 주채무의 내용 및 그 이행 여부를 알려야 한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.9972888231277466,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 436조 2 채권자의 정보제공의무와 통지의무 등 3항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 627조  일부멸실 등과 감액청구, 해지권#KOBLEX-059646"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 64,
+        "first_stage_score": 0.5075346231460571,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "민법 627조  일부멸실 등과 감액청구, 해지권#KOBLEX-059646",
+        "provision_text": "②전항의 경우에 그 잔존부분으로 임차의 목적을 달성할 수 없는 때에는 임차인은 계약을 해지할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.9972286820411682,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 627조  일부멸실 등과 감액청구, 해지권 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 648조  임차지의 부속물, 과실 등에 대한 법정질권#KOBLEX-059685"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 31,
+        "first_stage_score": 0.5287839770317078,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "민법 648조  임차지의 부속물, 과실 등에 대한 법정질권#KOBLEX-059685",
+        "provision_text": "제648조(임차지의 부속물, 과실 등에 대한 법정질권) 토지임대인이 임대차에 관한 채권에 의하여 임차지에 부속 또는 그 사용의 편익에 공용한 임차인의 소유동산 및 그 토지의 과실을 압류한 때에는 질권과 동일한 효력이 있다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.9967208504676819,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 648조  임차지의 부속물, 과실 등에 대한 법정질권",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 634조  임차인의 통지의무#KOBLEX-059657"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 34,
+        "first_stage_score": 0.5309459567070007,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "민법 634조  임차인의 통지의무#KOBLEX-059657",
+        "provision_text": "제634조(임차인의 통지의무) 임차물의 수리를 요하거나 임차물에 대하여 권리를 주장하는 자가 있는 때에는 임차인은 지체없이 임대인에게 이를 통지하여야 한다. 그러나 임대인이 이미 이를 안 때에는 그러하지 아니하다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.9966517090797424,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 634조  임차인의 통지의무",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 638조  해지통고의 전차인에 대한 통지#KOBLEX-059666"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 40,
+        "first_stage_score": 0.5157753825187683,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "민법 638조  해지통고의 전차인에 대한 통지#KOBLEX-059666",
+        "provision_text": "①임대차계약이 해지의 통고로 인하여 종료된 경우에 그 임대물이 적법하게 전대되었을 때에는 임대인은 전차인에 대하여 그 사유를 통지하지 아니하면 해지로써 전차인에게 대항하지 못한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.9965177774429321,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 638조  해지통고의 전차인에 대한 통지 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 623조  임대인의 의무#KOBLEX-059638"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.572822630405426,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "민법 623조  임대인의 의무#KOBLEX-059638",
+        "provision_text": "제623조(임대인의 의무) 임대인은 목적물을 임차인에게 인도하고 계약존속중 그 사용, 수익에 필요한 상태를 유지하게 할 의무를 부담한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.9963232278823853,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 623조  임대인의 의무",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 630조  전대의 효과#KOBLEX-059652"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.5510031580924988,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "민법 630조  전대의 효과#KOBLEX-059652",
+        "provision_text": "①임차인이 임대인의 동의를 얻어 임차물을 전대한 때에는 전차인은 직접 임대인에 대하여 의무를 부담한다. 이 경우에 전차인은 전대인에 대한 차임의 지급으로써 임대인에게 대항하지 못한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.9962779879570007,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 630조  전대의 효과 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 626조  임차인의 상환청구권#KOBLEX-059642"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 38,
+        "first_stage_score": 0.5378401875495911,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "민법 626조  임차인의 상환청구권#KOBLEX-059642",
+        "provision_text": "①임차인이 임차물의 보존에 관한 필요비를 지출한 때에는 임대인에 대하여 그 상환을 청구할 수 있다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.9961841702461243,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 626조  임차인의 상환청구권 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "민법 436조 2 채권자의 정보제공의무와 통지의무 등#KOBLEX-059279": "③ 채권자는 보증인의 청구가 있으면 주채무의 내용 및 그 이행 여부를 알려야 한다.",
+      "민법 618조  임대차의 의의#KOBLEX-059625": "제618조(임대차의 의의) 임대차는 당사자 일방이 상대방에게 목적물을 사용, 수익하게 할 것을 약정하고 상대방이 이에 대하여 차임을 지급할 것을 약정함으로써 그 효력이 생긴다.",
+      "민법 623조  임대인의 의무#KOBLEX-059638": "제623조(임대인의 의무) 임대인은 목적물을 임차인에게 인도하고 계약존속중 그 사용, 수익에 필요한 상태를 유지하게 할 의무를 부담한다.",
+      "민법 626조  임차인의 상환청구권#KOBLEX-059642": "①임차인이 임차물의 보존에 관한 필요비를 지출한 때에는 임대인에 대하여 그 상환을 청구할 수 있다.",
+      "민법 627조  일부멸실 등과 감액청구, 해지권#KOBLEX-059646": "②전항의 경우에 그 잔존부분으로 임차의 목적을 달성할 수 없는 때에는 임차인은 계약을 해지할 수 있다.",
+      "민법 630조  전대의 효과#KOBLEX-059652": "①임차인이 임대인의 동의를 얻어 임차물을 전대한 때에는 전차인은 직접 임대인에 대하여 의무를 부담한다. 이 경우에 전차인은 전대인에 대한 차임의 지급으로써 임대인에게 대항하지 못한다.",
+      "민법 634조  임차인의 통지의무#KOBLEX-059657": "제634조(임차인의 통지의무) 임차물의 수리를 요하거나 임차물에 대하여 권리를 주장하는 자가 있는 때에는 임차인은 지체없이 임대인에게 이를 통지하여야 한다. 그러나 임대인이 이미 이를 안 때에는 그러하지 아니하다.",
+      "민법 638조  해지통고의 전차인에 대한 통지#KOBLEX-059666": "①임대차계약이 해지의 통고로 인하여 종료된 경우에 그 임대물이 적법하게 전대되었을 때에는 임대인은 전차인에 대하여 그 사유를 통지하지 아니하면 해지로써 전차인에게 대항하지 못한다.",
+      "민법 643조  임차인의 갱신청구권, 매수청구권#KOBLEX-059674": "제643조(임차인의 갱신청구권, 매수청구권) 건물 기타 공작물의 소유 또는 식목, 채염, 목축을 목적으로 한 토지임대차의 기간이 만료한 경우에 건물, 수목 기타 지상시설이 현존한 때에는 제283조의 규정을 준용한다.",
+      "민법 648조  임차지의 부속물, 과실 등에 대한 법정질권#KOBLEX-059685": "제648조(임차지의 부속물, 과실 등에 대한 법정질권) 토지임대인이 임대차에 관한 채권에 의하여 임차지에 부속 또는 그 사용의 편익에 공용한 임차인의 소유동산 및 그 토지의 과실을 압류한 때에는 질권과 동일한 효력이 있다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민법 618조  임대차의 의의#KOBLEX-059625"
+            ],
+            "rationale": "C001(민법 618조)은 임대차의 의의를 규정하여 성립 요건을 명시하고 있다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민법 618조  임대차의 의의#KOBLEX-059625"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "민법 제618조(C001)는 임대차 계약의 정의와 성립 요건을 명확히 규정하고 있어, E1의 완료 기준인 '임대차 계약의 정의 및 성립 요건을 명시하는 조항'을 충족한다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민법 623조  임대인의 의무#KOBLEX-059638"
+            ],
+            "rationale": "C008(민법 623조)은 '임대인은 목적물을 임차인에게 인도하고'라고 명시하여 인도 의무를 규정한다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "민법 623조  임대인의 의무#KOBLEX-059638"
+            ],
+            "rationale": "C008(민법 623조)은 '계약존속중 그 사용, 수익에 필요한 상태를 유지하게 할 의무'라고 명시하여 보존 의무를 규정한다.",
+            "requirement_id": "E2-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민법 623조  임대인의 의무#KOBLEX-059638"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "민법 제623조(C008)는 임대인의 인도 의무와 보존 의무(사용·수익에 필요한 상태 유지)를 명시하고 있어, E2의 완료 기준인 '임대인의 인도 의무, 보존 의무 등을 규정한 조항'을 충족한다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "민법 618조  임대차의 의의#KOBLEX-059625",
+        "support_spans": [
+          {
+            "end_char": 98,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "민법 623조  임대인의 의무#KOBLEX-059638",
+        "support_spans": [
+          {
+            "end_char": 76,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "임대차 계약의 성립 요건",
+        "issue_id": "I1"
+      },
+      {
+        "description": "임대인의 계약상 의무",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 을에게 자신의 건물을 임대하기로 결정하고 임대차 계약서를 작성하였다. 을은 건물 사용을 위해 매월 일정 금액을 차임으로 지급하기로 하였다. 계약 체결 후, 을은 건물에서 새어나오는 누수 문제를 발견하였다. 을은 갑에게 누수 문제를 해결해 줄 것을 요청하였고, 이에 갑은 자신과 을 간 임대차계약이 성립하였는지 여부 및 자신의 계약상 의무가 무엇인지에 대해 궁금해 하였다. [질문] 갑이 을에게 부담하는 의무와 임대차 계약이 성립하기 위한 조건은 무엇인가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "임대차",
+          "계약",
+          "성립",
+          "요건"
+        ],
+        "query_text": "민법 임대차 계약 성립 요건 [원문 맥락] 을은 갑에게 누수 문제를 해결해 줄 것을 요청하였고, 이에 갑은 자신과 을 간 임대차계약이 성립하였는지 여부 및 자신의 계약상 의무가 무엇인지에 대해 궁금해 하였다. 갑이 을에게 부담하는 의무와 임대차 계약이 성립하기 위한 조건은 무엇인가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "임대인",
+          "의무",
+          "인도",
+          "보존"
+        ],
+        "query_text": "민법 임대인 의무 인도 보존 [원문 맥락] 을은 갑에게 누수 문제를 해결해 줄 것을 요청하였고, 이에 갑은 자신과 을 간 임대차계약이 성립하였는지 여부 및 자신의 계약상 의무가 무엇인지에 대해 궁금해 하였다. 갑이 을에게 부담하는 의무와 임대차 계약이 성립하기 위한 조건은 무엇인가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 을에게 자신의 건물을 임대하기로 결정하고 임대차 계약서를 작성하였다. 을은 건물 사용을 위해 매월 일정 금액을 차임으로 지급하기로 하였다. 계약 체결 후, 을은 건물에서 새어나오는 누수 문제를 발견하였다. 을은 갑에게 누수 문제를 해결해 줄 것을 요청하였고, 이에 갑은 자신과 을 간 임대차계약이 성립하였는지 여부 및 자신의 계약상 의무가 무엇인지에 대해 궁금해 하였다.\n\n[질문]\n갑이 을에게 부담하는 의무와 임대차 계약이 성립하기 위한 조건은 무엇인가?",
+    "remaining_request_budget": 7,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "임대차 계약의 정의 및 성립 요건(당사자 간 합의, 목적물, 차임 등)을 명시하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "임대차 계약의 정의 및 성립 요건을 규정한 조항"
+          }
+        ],
+        "critical": true,
+        "description": "임대차 계약의 성립 요건에 관한 민법 조항",
+        "evidence_item_id": "E1",
+        "evidence_type": "element",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 임대차 계약의 성립 조건을 직접적으로 묻고 있으므로 성립 요건을 규정한 조항이 필수적임",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "임대인의 인도 의무, 보존 의무, 차임수입에 대한 보증 의무 등을 규정한 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "임대인의 인도 의무를 규정한 조항"
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "임대인의 보존 의무를 규정한 조항"
+          }
+        ],
+        "critical": true,
+        "description": "임대인의 의무에 관한 민법 조항",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 임대인의 의무를 묻고 있으므로 임대인의 법적 의무를 규정한 조항이 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "2d6dc39a-657d-402f-8545-7eef86b74445",
+    "seen_provision_ids": [
+      "민법 648조  임차지의 부속물, 과실 등에 대한 법정질권#KOBLEX-059685",
+      "민법 638조  해지통고의 전차인에 대한 통지#KOBLEX-059666",
+      "민법 436조 2 채권자의 정보제공의무와 통지의무 등#KOBLEX-059279",
+      "민법 630조  전대의 효과#KOBLEX-059652",
+      "민법 627조  일부멸실 등과 감액청구, 해지권#KOBLEX-059646",
+      "민법 623조  임대인의 의무#KOBLEX-059638",
+      "민법 634조  임차인의 통지의무#KOBLEX-059657",
+      "민법 626조  임차인의 상환청구권#KOBLEX-059642",
+      "민법 643조  임차인의 갱신청구권, 매수청구권#KOBLEX-059674",
+      "민법 618조  임대차의 의의#KOBLEX-059625"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

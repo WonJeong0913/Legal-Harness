@@ -1,0 +1,569 @@
+{
+  "abstention_reason": null,
+  "answer": "폭행 또는 협박으로 타인의 재물을 강취한 자는 3년 이상의 유기징역에 처한다.[CT1]\n갑이 을을 폭행하여 지갑에서 현금을 빼앗은 행위는 형법 제333조가 규정하는 강도죄의 구성요건에 해당한다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "A1",
+      "message": "갑의 폭행 행위가 형법상 '폭행'에 해당하며, 현금 강취가 '재물 강취'에 해당한다고 가정한다."
+    }
+  ],
+  "candidate_answer": "폭행 또는 협박으로 타인의 재물을 강취한 자는 3년 이상의 유기징역에 처한다.[CT1]\n갑이 을을 폭행하여 지갑에서 현금을 빼앗은 행위는 형법 제333조가 규정하는 강도죄의 구성요건에 해당한다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형법 333조  강도#KOBLEX-193374",
+      "quoted_text": "제333조(강도) 폭행 또는 협박으로 타인의 재물을 강취하거나 기타 재산상의 이익을 취득하거나 제삼자로 하여금 이를 취득하게 한 자는 3년 이상의 유기징역에 처한다.",
+      "support_description": "강도죄의 법정형이 3년 이상의 유기징역임을 명시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "형법 333조  강도#KOBLEX-193374",
+      "quoted_text": "제333조(강도) 폭행 또는 협박으로 타인의 재물을 강취하거나 기타 재산상의 이익을 취득하거나 제삼자로 하여금 이를 취득하게 한 자는 3년 이상의 유기징역에 처한다.",
+      "support_description": "폭행으로 재물을 강취하는 행위가 강도죄의 행위 유형에 해당함을 근거로 제시한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "폭행 또는 협박으로 타인의 재물을 강취한 자는 3년 이상의 유기징역에 처한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "갑이 을을 폭행하여 지갑에서 현금을 빼앗은 행위는 형법 제333조가 규정하는 강도죄의 구성요건에 해당한다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T12:57:25.158778+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 69349.476,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "L1",
+      "message": "본 답변은 형법 제333조 기본 죄의 법정형에 한정하며, 가중처벌 사유나 양형 기준은 다루지 않는다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 80,
+      "dedup_collapse": 32,
+      "evidence_fusion": 80,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 80
+    }
+  },
+  "run_id": "8e73518d-7c2e-4338-befb-59c2934048be",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형법 333조  강도#KOBLEX-193374"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "갑이 폭행을 통해 을의 재물을 강취한 경우, 갑은 어떤 처벌을 받게 되는가?",
+        "requested_output": "The specific criminal penalty applicable to Gwa for the act of robbing Eul's property using violence."
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "형법 333조  강도#KOBLEX-193374"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.6263383030891418,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형법 333조  강도#KOBLEX-193374",
+        "provision_text": "제333조(강도) 폭행 또는 협박으로 타인의 재물을 강취하거나 기타 재산상의 이익을 취득하거나 제삼자로 하여금 이를 취득하게 한 자는 3년 이상의 유기징역에 처한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.3952348232269287,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 333조  강도",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 325조  점유강취, 준점유강취#KOBLEX-193357"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.628291130065918,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "형법 325조  점유강취, 준점유강취#KOBLEX-193357",
+        "provision_text": "① 폭행 또는 협박으로 타인의 점유에 속하는 자기의 물건을 강취(强取)한 자는 7년 이하의 징역 또는 10년 이하의 자격정지에 처한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.022286154329776764,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 325조  점유강취, 준점유강취 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 339조  강도강간#KOBLEX-193382"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.5783442854881287,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형법 339조  강도강간#KOBLEX-193382",
+        "provision_text": "제339조(강도강간) 강도가 사람을 강간한 때에는 무기 또는 10년 이상의 징역에 처한다. <개정 2012.12.18>",
+        "rerank_rank": 3,
+        "rerank_score": 0.007514065131545067,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 339조  강도강간",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 331조  특수절도#KOBLEX-193371"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.5872227549552917,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "형법 331조  특수절도#KOBLEX-193371",
+        "provision_text": "② 흉기를 휴대하거나 2명 이상이 합동하여 타인의 재물을 절취한 자도 제1항의 형에 처한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.00545474560931325,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 331조  특수절도 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 335조  준강도#KOBLEX-193378"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6352513432502747,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형법 335조  준강도#KOBLEX-193378",
+        "provision_text": "제335조(준강도) 절도가 재물의 탈환에 항거하거나 체포를 면탈하거나 범죄의 흔적을 인멸할 목적으로 폭행 또는 협박한 때에는 제333조 및 제334조의 예에 따른다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.004696468356996775,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 335조  준강도",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 348조  준사기#KOBLEX-193400"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 16,
+        "first_stage_score": 0.5539532899856567,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "형법 348조  준사기#KOBLEX-193400",
+        "provision_text": "② 제1항의 방법으로 제3자로 하여금 재물을 교부받게 하거나 재산상 이익을 취득하게 한 경우에도 제1항의 형에 처한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.002419746480882168,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 348조  준사기 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 337조  강도상해, 치상#KOBLEX-193380"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 57,
+        "first_stage_score": 0.5379558205604553,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "형법 337조  강도상해, 치상#KOBLEX-193380",
+        "provision_text": "제337조(강도상해, 치상) 강도가 사람을 상해하거나 상해에 이르게 한때에는 무기 또는 7년 이상의 징역에 처한다. <개정 1995.12.29>",
+        "rerank_rank": 7,
+        "rerank_score": 0.00199868343770504,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 337조  강도상해, 치상",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 329조#KOBLEX-193366"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 79,
+        "first_stage_score": 0.5303200483322144,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "형법 329조#KOBLEX-193366",
+        "provision_text": "제38장 절도와 강도의 죄",
+        "rerank_rank": 8,
+        "rerank_score": 0.0018810637993738055,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 329조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 298조  강제추행#KOBLEX-193296"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 25,
+        "first_stage_score": 0.5467683672904968,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "형법 298조  강제추행#KOBLEX-193296",
+        "provision_text": "제298조(강제추행) 폭행 또는 협박으로 사람에 대하여 추행을 한 자는 10년 이하의 징역 또는 1천500만원 이하의 벌금에 처한다. <개정 1995.12.29>",
+        "rerank_rank": 9,
+        "rerank_score": 0.001445242902263999,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 298조  강제추행",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 338조  강도살인ㆍ치사#KOBLEX-193381"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.561842679977417,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "형법 338조  강도살인ㆍ치사#KOBLEX-193381",
+        "provision_text": "제338조(강도살인ㆍ치사) 강도가 사람을 살해한 때에는 사형 또는 무기징역에 처한다. 사망에 이르게 한 때에는 무기 또는 10년 이상의 징역에 처한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.0014338454930111766,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 338조  강도살인ㆍ치사",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "형법 298조  강제추행#KOBLEX-193296": "제298조(강제추행) 폭행 또는 협박으로 사람에 대하여 추행을 한 자는 10년 이하의 징역 또는 1천500만원 이하의 벌금에 처한다. <개정 1995.12.29>",
+      "형법 325조  점유강취, 준점유강취#KOBLEX-193357": "① 폭행 또는 협박으로 타인의 점유에 속하는 자기의 물건을 강취(强取)한 자는 7년 이하의 징역 또는 10년 이하의 자격정지에 처한다.",
+      "형법 329조#KOBLEX-193366": "제38장 절도와 강도의 죄",
+      "형법 331조  특수절도#KOBLEX-193371": "② 흉기를 휴대하거나 2명 이상이 합동하여 타인의 재물을 절취한 자도 제1항의 형에 처한다.",
+      "형법 333조  강도#KOBLEX-193374": "제333조(강도) 폭행 또는 협박으로 타인의 재물을 강취하거나 기타 재산상의 이익을 취득하거나 제삼자로 하여금 이를 취득하게 한 자는 3년 이상의 유기징역에 처한다.",
+      "형법 335조  준강도#KOBLEX-193378": "제335조(준강도) 절도가 재물의 탈환에 항거하거나 체포를 면탈하거나 범죄의 흔적을 인멸할 목적으로 폭행 또는 협박한 때에는 제333조 및 제334조의 예에 따른다.",
+      "형법 337조  강도상해, 치상#KOBLEX-193380": "제337조(강도상해, 치상) 강도가 사람을 상해하거나 상해에 이르게 한때에는 무기 또는 7년 이상의 징역에 처한다. <개정 1995.12.29>",
+      "형법 338조  강도살인ㆍ치사#KOBLEX-193381": "제338조(강도살인ㆍ치사) 강도가 사람을 살해한 때에는 사형 또는 무기징역에 처한다. 사망에 이르게 한 때에는 무기 또는 10년 이상의 징역에 처한다.",
+      "형법 339조  강도강간#KOBLEX-193382": "제339조(강도강간) 강도가 사람을 강간한 때에는 무기 또는 10년 이상의 징역에 처한다. <개정 2012.12.18>",
+      "형법 348조  준사기#KOBLEX-193400": "② 제1항의 방법으로 제3자로 하여금 재물을 교부받게 하거나 재산상 이익을 취득하게 한 경우에도 제1항의 형에 처한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형법 333조  강도#KOBLEX-193374"
+            ],
+            "rationale": "C001은 '폭행 또는 협박으로 타인의 재물을 강취하거나...'라는 문구로 강도의 행위 유형을 정의한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "형법 333조  강도#KOBLEX-193374"
+            ],
+            "rationale": "C001은 강도 범인에 대해 '3년 이상의 유기징역에 처한다'고 명시하여 기본 죄의 법정형을 규정한다.",
+            "requirement_id": "E1-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형법 333조  강도#KOBLEX-193374"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "제시된 후보 조항 C001(형법 제333조)은 강도의 구성요건(폭행·협박으로 재물 강취)과 법정형(3년 이상 유기징역)을 명확히 규정하고 있어, 질문에서 요구하는 법적 근거와 처벌 수위를 완전히 뒷받침한다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형법 333조  강도#KOBLEX-193374",
+        "support_spans": [
+          {
+            "end_char": 92,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "Whether the act of taking property by violence constitutes the crime of robbery (강도) and what the statutory penalty is.",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 을에게 돈을 빌려 주었다가 갑자기 을이 갚을 의사가 없다는 말을 듣고 매우 화가 났다. 이에 갑은 을을 찾아가 폭력을 행사하고, 이를 통해 을의 지갑에서 현금을 빼앗았다. 이러한 상황에서 갑에게 어떤 법적 처벌이 가능한지 판단해야 한다. [질문] 갑이 폭행을 통해 을의 재물을 강취한 경우, 갑은 어떤 처벌을 받게 되는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "강도",
+          "폭행",
+          "재물강취",
+          "형법",
+          "법정형"
+        ],
+        "query_text": "형법 강도죄 구성요건 및 법정형 [원문 맥락] 이러한 상황에서 갑에게 어떤 법적 처벌이 가능한지 판단해야 한다. 갑이 폭행을 통해 을의 재물을 강취한 경우, 갑은 어떤 처벌을 받게 되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법 제325조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 을에게 돈을 빌려 주었다가 갑자기 을이 갚을 의사가 없다는 말을 듣고 매우 화가 났다. 이에 갑은 을을 찾아가 폭력을 행사하고, 이를 통해 을의 지갑에서 현금을 빼앗았다. 이러한 상황에서 갑에게 어떤 법적 처벌이 가능한지 판단해야 한다.\n\n[질문]\n갑이 폭행을 통해 을의 재물을 강취한 경우, 갑은 어떤 처벌을 받게 되는가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific article in the Criminal Act that defines robbery and specifies the range of imprisonment or fines for the basic offense.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The provision must define the act of taking another's property by violence or threat as robbery."
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "The provision must specify the statutory penalty (imprisonment term or fine) for the basic offense of robbery."
+          }
+        ],
+        "critical": true,
+        "description": "The statutory definition and penalty for the crime of robbery (강도) involving the use of violence or threats to take property.",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "The question asks for the punishment for robbing property via violence, which is directly defined and penalized in the robbery provisions.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "8e73518d-7c2e-4338-befb-59c2934048be",
+    "seen_provision_ids": [
+      "형법 331조  특수절도#KOBLEX-193371",
+      "형법 335조  준강도#KOBLEX-193378",
+      "형법 325조  점유강취, 준점유강취#KOBLEX-193357",
+      "형법 337조  강도상해, 치상#KOBLEX-193380",
+      "형법 338조  강도살인ㆍ치사#KOBLEX-193381",
+      "형법 339조  강도강간#KOBLEX-193382",
+      "형법 329조#KOBLEX-193366",
+      "형법 333조  강도#KOBLEX-193374",
+      "형법 348조  준사기#KOBLEX-193400",
+      "형법 298조  강제추행#KOBLEX-193296"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

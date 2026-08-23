@@ -1,0 +1,540 @@
+{
+  "abstention_reason": null,
+  "answer": "검사가 사법경찰관이 신청한 영장을 정당한 이유 없이 판사에게 청구하지 아니한 경우, 사법경찰관은 그 검사 소속의 지방검찰청 소재지를 관할하는 고등검찰청에 영장 청구 여부에 대한 심의를 신청할 수 있다.[CT1]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "질문에서 '정당한 이유 없이'라고 명시한 바와 같이, 검사의 영장 청구 거부가 정당한 이유 없이 이루어졌다고 가정한다."
+    }
+  ],
+  "candidate_answer": "검사가 사법경찰관이 신청한 영장을 정당한 이유 없이 판사에게 청구하지 아니한 경우, 사법경찰관은 그 검사 소속의 지방검찰청 소재지를 관할하는 고등검찰청에 영장 청구 여부에 대한 심의를 신청할 수 있다.[CT1]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형사소송법 221조 5 사법경찰관이 신청한 영장의 청구 여부에 대한 심의#KOBLEX-232166",
+      "quoted_text": "① 검사가 사법경찰관이 신청한 영장을 정당한 이유 없이 판사에게 청구하지 아니한 경우 사법경찰관은 그 검사 소속의 지방검찰청 소재지를 관할하는 고등검찰청에 영장 청구 여부에 대한 심의를 신청할 수 있다.",
+      "support_description": "형사소송법 제221조 제5항 제1호는 검사의 정당한 이유 없는 영장 청구 거부 시 사법경찰관이 취할 수 있는 구체적 구제 수단인 고등검찰청 심의 신청을 규정하고 있다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "remedy",
+      "text": "검사가 사법경찰관이 신청한 영장을 정당한 이유 없이 판사에게 청구하지 아니한 경우, 사법경찰관은 그 검사 소속의 지방검찰청 소재지를 관할하는 고등검찰청에 영장 청구 여부에 대한 심의를 신청할 수 있다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T13:35:26.810261+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 64684.451,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "본 답변은 형사소송법 제221조 제5항 제1호에 명시된 고등검찰청 심의 신청 절차에 한정되며, 다른 행정적 또는 사법적 구제 수단에 대해서는 다루지 않는다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 83,
+      "dedup_collapse": 34,
+      "evidence_fusion": 83,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 83
+    }
+  },
+  "run_id": "3c34525e-96ca-4ecd-92b6-5aa5595d9c16",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형사소송법 221조 5 사법경찰관이 신청한 영장의 청구 여부에 대한 심의#KOBLEX-232166"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 1,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_remedy",
+        "question_anchor": "담당 검사 병이 갑이 신청한 영장을 정당한 이유 없이 판사에게 청구하지 않을 경우, 갑은 어떤 조치를 취할 수 있는가?",
+        "requested_output": "경찰관이 검사의 정당한 이유 없는 영장 청구 거부 시 취할 수 있는 법적 조치"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "형사소송법 221조 5 사법경찰관이 신청한 영장의 청구 여부에 대한 심의#KOBLEX-232166"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.7166468501091003,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 221조 5 사법경찰관이 신청한 영장의 청구 여부에 대한 심의#KOBLEX-232166",
+        "provision_text": "① 검사가 사법경찰관이 신청한 영장을 정당한 이유 없이 판사에게 청구하지 아니한 경우 사법경찰관은 그 검사 소속의 지방검찰청 소재지를 관할하는 고등검찰청에 영장 청구 여부에 대한 심의를 신청할 수 있다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9669176340103149,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 221조 5 사법경찰관이 신청한 영장의 청구 여부에 대한 심의 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 221조 5 사법경찰관이 신청한 영장의 청구 여부에 대한 심의#KOBLEX-232165"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 50,
+        "first_stage_score": 0.5515162348747253,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 221조 5 사법경찰관이 신청한 영장의 청구 여부에 대한 심의#KOBLEX-232165",
+        "provision_text": "제221조의5(사법경찰관이 신청한 영장의 청구 여부에 대한 심의)",
+        "rerank_rank": 2,
+        "rerank_score": 0.9390102028846741,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 221조 5 사법경찰관이 신청한 영장의 청구 여부에 대한 심의",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 218조  영장에 의하지 아니한 압수#KOBLEX-232138"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 82,
+        "first_stage_score": 0.542229950428009,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 218조  영장에 의하지 아니한 압수#KOBLEX-232138",
+        "provision_text": "제218조(영장에 의하지 아니한 압수) 검사, 사법경찰관은 피의자 기타인의 유류한 물건이나 소유자, 소지자 또는 보관자가 임의로 제출한 물건을 영장없이 압수할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.8923970460891724,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 218조  영장에 의하지 아니한 압수",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 215조  압수, 수색, 검증#KOBLEX-232129"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 55,
+        "first_stage_score": 0.5480620861053467,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 215조  압수, 수색, 검증#KOBLEX-232129",
+        "provision_text": "② 사법경찰관이 범죄수사에 필요한 때에는 피의자가 죄를 범하였다고 의심할 만한 정황이 있고 해당 사건과 관계가 있다고 인정할 수 있는 것에 한정하여 검사에게 신청하여 검사의 청구로 지방법원판사가 발부한 영장에 의하여 압수, 수색 또는 검증을 할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.8775851130485535,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 215조  압수, 수색, 검증 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 197조 4 수사의 경합#KOBLEX-232031"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 13,
+        "first_stage_score": 0.5748693943023682,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 197조 4 수사의 경합#KOBLEX-232031",
+        "provision_text": "② 제1항의 요구를 받은 사법경찰관은 지체 없이 검사에게 사건을 송치하여야 한다. 다만, 검사가 영장을 청구하기 전에 동일한 범죄사실에 관하여 사법경찰관이 영장을 신청한 경우에는 해당 영장에 기재된 범죄사실을 계속 수사할 수 있다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.8537755012512207,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 197조 4 수사의 경합 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 197조 3 시정조치요구 등#KOBLEX-232025"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 12,
+        "first_stage_score": 0.575652003288269,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 197조 3 시정조치요구 등#KOBLEX-232025",
+        "provision_text": "⑤ 제4항의 통보를 받은 검사는 제3항에 따른 시정조치 요구가 정당한 이유 없이 이행되지 않았다고 인정되는 경우에는 사법경찰관에게 사건을 송치할 것을 요구할 수 있다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.8204260468482971,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 197조 3 시정조치요구 등 5항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 197조 2 보완수사요구#KOBLEX-232017"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 98,
+        "first_stage_score": 0.5372918248176575,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 197조 2 보완수사요구#KOBLEX-232017",
+        "provision_text": "① 검사는 다음 각 호의 어느 하나에 해당하는 경우에 사법경찰관에게 보완수사를 요구할 수 있다. 1. 송치사건의 공소제기 여부 결정 또는 공소의 유지에 관하여 필요한 경우 2. 사법경찰관이 신청한 영장의 청구 여부 결정에 관하여 필요한 경우",
+        "rerank_rank": 7,
+        "rerank_score": 0.8077633380889893,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 197조 2 보완수사요구 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국가보안법 19조  구속기간의 연장#KOBLEX-077002"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 64,
+        "first_stage_score": 0.5459217429161072,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "국가보안법 19조  구속기간의 연장#KOBLEX-077002",
+        "provision_text": "①지방법원판사는 제3조 내지 제10조의 죄로서 사법경찰관이 검사에게 신청하여 검사의 청구가 있는 경우에 수사를 계속함에 상당한 이유가 있다고 인정한 때에는 형사소송법 제202조의 구속기간의 연장을 1차에 한하여 허가할 수 있다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.7146852612495422,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "국가보안법 19조  구속기간의 연장 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 218조 2 압수물의 환부, 가환부#KOBLEX-232141"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 25,
+        "first_stage_score": 0.5658750534057617,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 218조 2 압수물의 환부, 가환부#KOBLEX-232141",
+        "provision_text": "② 제1항의 청구에 대하여 검사가 이를 거부하는 경우에는 신청인은 해당 검사의 소속 검찰청에 대응한 법원에 압수물의 환부 또는 가환부 결정을 청구할 수 있다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.7072615623474121,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 218조 2 압수물의 환부, 가환부 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "재난 및 안전관리 기본법 43조  통행제한 등#KOBLEX-165519"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 46,
+        "first_stage_score": 0.5523878931999207,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "재난 및 안전관리 기본법 43조  통행제한 등#KOBLEX-165519",
+        "provision_text": "② 제1항에 따른 요청을 받은 경찰관서의 장은 특별한 사유가 없으면 요청에 따라야 한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.6539406180381775,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "재난 및 안전관리 기본법 43조  통행제한 등 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "국가보안법 19조  구속기간의 연장#KOBLEX-077002": "①지방법원판사는 제3조 내지 제10조의 죄로서 사법경찰관이 검사에게 신청하여 검사의 청구가 있는 경우에 수사를 계속함에 상당한 이유가 있다고 인정한 때에는 형사소송법 제202조의 구속기간의 연장을 1차에 한하여 허가할 수 있다.",
+      "재난 및 안전관리 기본법 43조  통행제한 등#KOBLEX-165519": "② 제1항에 따른 요청을 받은 경찰관서의 장은 특별한 사유가 없으면 요청에 따라야 한다.",
+      "형사소송법 197조 2 보완수사요구#KOBLEX-232017": "① 검사는 다음 각 호의 어느 하나에 해당하는 경우에 사법경찰관에게 보완수사를 요구할 수 있다. 1. 송치사건의 공소제기 여부 결정 또는 공소의 유지에 관하여 필요한 경우 2. 사법경찰관이 신청한 영장의 청구 여부 결정에 관하여 필요한 경우",
+      "형사소송법 197조 3 시정조치요구 등#KOBLEX-232025": "⑤ 제4항의 통보를 받은 검사는 제3항에 따른 시정조치 요구가 정당한 이유 없이 이행되지 않았다고 인정되는 경우에는 사법경찰관에게 사건을 송치할 것을 요구할 수 있다.",
+      "형사소송법 197조 4 수사의 경합#KOBLEX-232031": "② 제1항의 요구를 받은 사법경찰관은 지체 없이 검사에게 사건을 송치하여야 한다. 다만, 검사가 영장을 청구하기 전에 동일한 범죄사실에 관하여 사법경찰관이 영장을 신청한 경우에는 해당 영장에 기재된 범죄사실을 계속 수사할 수 있다.",
+      "형사소송법 215조  압수, 수색, 검증#KOBLEX-232129": "② 사법경찰관이 범죄수사에 필요한 때에는 피의자가 죄를 범하였다고 의심할 만한 정황이 있고 해당 사건과 관계가 있다고 인정할 수 있는 것에 한정하여 검사에게 신청하여 검사의 청구로 지방법원판사가 발부한 영장에 의하여 압수, 수색 또는 검증을 할 수 있다.",
+      "형사소송법 218조  영장에 의하지 아니한 압수#KOBLEX-232138": "제218조(영장에 의하지 아니한 압수) 검사, 사법경찰관은 피의자 기타인의 유류한 물건이나 소유자, 소지자 또는 보관자가 임의로 제출한 물건을 영장없이 압수할 수 있다.",
+      "형사소송법 218조 2 압수물의 환부, 가환부#KOBLEX-232141": "② 제1항의 청구에 대하여 검사가 이를 거부하는 경우에는 신청인은 해당 검사의 소속 검찰청에 대응한 법원에 압수물의 환부 또는 가환부 결정을 청구할 수 있다.",
+      "형사소송법 221조 5 사법경찰관이 신청한 영장의 청구 여부에 대한 심의#KOBLEX-232165": "제221조의5(사법경찰관이 신청한 영장의 청구 여부에 대한 심의)",
+      "형사소송법 221조 5 사법경찰관이 신청한 영장의 청구 여부에 대한 심의#KOBLEX-232166": "① 검사가 사법경찰관이 신청한 영장을 정당한 이유 없이 판사에게 청구하지 아니한 경우 사법경찰관은 그 검사 소속의 지방검찰청 소재지를 관할하는 고등검찰청에 영장 청구 여부에 대한 심의를 신청할 수 있다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형사소송법 221조 5 사법경찰관이 신청한 영장의 청구 여부에 대한 심의#KOBLEX-232166"
+            ],
+            "rationale": "C001은 검사가 영장을 청구하지 않는 경우 경찰관의 대응 조치에 관한 법적 근거를 포함하고 있다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형사소송법 221조 5 사법경찰관이 신청한 영장의 청구 여부에 대한 심의#KOBLEX-232166"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C001은 검사의 정당한 이유 없는 영장 청구 거부 시 경찰관이 취할 수 있는 구체적 법적 조치(고등검찰청 심의 신청)를 명확히 규정하여 E1의 완료 기준을 충족한다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형사소송법 221조 5 사법경찰관이 신청한 영장의 청구 여부에 대한 심의#KOBLEX-232166",
+        "support_spans": [
+          {
+            "end_char": 113,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "검사가 경찰의 영장 신청을 정당한 이유 없이 거부할 경우 경찰관의 구제 수단이 무엇인지",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 경찰 수사관으로서 을을 대상으로 한 특정 수사를 진행하고 있었다. 갑은 을의 사무실에서 중요한 증거를 발견할 가능성이 높다고 판단하여 검찰에 영장을 신청하였다. 그러나 사건의 담당 검사 병은 갑의 영장 신청에 대해 정당한 이유 없이 판사에게 영장을 청구하지 않기로 결정했다. [질문] 담당 검사 병이 갑이 신청한 영장을 정당한 이유 없이 판사에게 청구하지 않을 경우, 갑은 어떤 조치를 취할 수 있는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "형사소송법",
+          "경찰관",
+          "영장",
+          "청구",
+          "거부",
+          "조치"
+        ],
+        "query_text": "형사소송법 경찰관 검사 영장 청구 거부 조치 [원문 맥락] 그러나 사건의 담당 검사 병은 갑의 영장 신청에 대해 정당한 이유 없이 판사에게 영장을 청구하지 않기로 결정했다. 담당 검사 병이 갑이 신청한 영장을 정당한 이유 없이 판사에게 청구하지 않을 경우, 갑은 어떤 조치를 취할 수 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 경찰 수사관으로서 을을 대상으로 한 특정 수사를 진행하고 있었다. 갑은 을의 사무실에서 중요한 증거를 발견할 가능성이 높다고 판단하여 검찰에 영장을 신청하였다. 그러나 사건의 담당 검사 병은 갑의 영장 신청에 대해 정당한 이유 없이 판사에게 영장을 청구하지 않기로 결정했다.\n\n[질문]\n담당 검사 병이 갑이 신청한 영장을 정당한 이유 없이 판사에게 청구하지 않을 경우, 갑은 어떤 조치를 취할 수 있는가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "경찰관이 검사의 영장 청구 거부 시 취할 수 있는 구체적 법적 조치(예: 상급 기관에 대한 보고, 직접 청구 등)가 명시되어 있어야 함",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "검사가 영장을 청구하지 않는 경우 경찰관의 대응 조치에 관한 법적 근거를 포함해야 함"
+          }
+        ],
+        "critical": true,
+        "description": "검사가 영장을 청구하지 않을 때 경찰관이 취할 수 있는 법적 조치에 관한 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "remedy",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 '갑이 취할 수 있는 조치'를 직접적으로 규정하는 핵심 법적 근거",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "3c34525e-96ca-4ecd-92b6-5aa5595d9c16",
+    "seen_provision_ids": [
+      "형사소송법 197조 4 수사의 경합#KOBLEX-232031",
+      "형사소송법 197조 3 시정조치요구 등#KOBLEX-232025",
+      "형사소송법 215조  압수, 수색, 검증#KOBLEX-232129",
+      "형사소송법 221조 5 사법경찰관이 신청한 영장의 청구 여부에 대한 심의#KOBLEX-232166",
+      "형사소송법 218조  영장에 의하지 아니한 압수#KOBLEX-232138",
+      "형사소송법 197조 2 보완수사요구#KOBLEX-232017",
+      "형사소송법 221조 5 사법경찰관이 신청한 영장의 청구 여부에 대한 심의#KOBLEX-232165",
+      "국가보안법 19조  구속기간의 연장#KOBLEX-077002",
+      "형사소송법 218조 2 압수물의 환부, 가환부#KOBLEX-232141",
+      "재난 및 안전관리 기본법 43조  통행제한 등#KOBLEX-165519"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

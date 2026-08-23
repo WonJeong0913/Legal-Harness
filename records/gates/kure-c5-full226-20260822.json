@@ -1,0 +1,81 @@
+{
+  "stage": "full226",
+  "status": "FAIL",
+  "source_commit": "a74e76d1c8fade04486b681974475d8c88f7f136",
+  "retriever": "kure",
+  "dev21_skipped": true,
+  "bm25_executed": false,
+  "completed_questions": 226,
+  "reasons": [
+    "abnormal_outcomes=4",
+    "recorded_errors=4",
+    "complete_evidence=0.5486725663716814<gate=0.6062",
+    "hop2_macro_recall=0.7217847769028871<gate=0.8071",
+    "hop2_complete_evidence=0.5433070866141733<gate=0.6929"
+  ],
+  "metrics": {
+    "macro_recall": 0.721976401179941,
+    "macro_f1": 0.6705781927020865,
+    "complete_evidence_rate": 0.5486725663716814,
+    "hop2_macro_recall": 0.7217847769028871,
+    "hop2_macro_f1": 0.6725534308211474,
+    "hop2_complete_evidence_rate": 0.5433070866141733
+  },
+  "final_checkpoint": {
+    "event": "FULL226_COMPLETED",
+    "completed_questions": 226,
+    "total_questions": 226,
+    "checkpoint_status": "ERRORS_FOUND",
+    "validation_errors": [
+      "abnormal_outcomes=4",
+      "recorded_errors=4"
+    ],
+    "execution_failure_count": 4,
+    "abnormal_question_ids": [
+      "qa_309_3hop_881_rand2",
+      "qa_116_1hop_207",
+      "qa_85_1hop_135",
+      "qa_549_2hop_834"
+    ],
+    "unexpected_exit_question_ids": [],
+    "recorded_errors": {
+      "qa_309_3hop_881_rand2": [
+        "legal_issue_and_query_planning did not produce a valid INITIAL_PLAN result after 2 attempts: question_anchor is not a question substring: T1"
+      ],
+      "qa_116_1hop_207": [
+        "legal_issue_and_query_planning did not produce a valid INITIAL_PLAN result after 2 attempts: question_anchor is not a question substring: T1"
+      ],
+      "qa_85_1hop_135": [
+        "provision_coverage_assessment did not produce a valid ASSESS_COVERAGE result after 2 attempts: legacy status conflicts with coverage axes; partially_covered requires a valid partial_kind: E1; legacy status conflicts with coverage axes; missing_evidence_items must equal all non-covered assessments; legacy status conflicts with coverage axes"
+      ],
+      "qa_549_2hop_834": [
+        "provision_coverage_assessment did not produce a valid ASSESS_COVERAGE result after 2 attempts: legacy status conflicts with coverage axes; partially_covered requires a valid partial_kind: E1; legacy status conflicts with coverage axes; missing_evidence_items must equal all non-covered assessments; legacy status conflicts with coverage axes"
+      ]
+    },
+    "public_abstain_leak_question_ids": [],
+    "citation_integrity": {
+      "attempted": 187,
+      "pass_rate": 1.0,
+      "passed": 187
+    },
+    "stage_provenance_complete": true,
+    "stage_provenance_missing": [],
+    "metrics": {
+      "macro_recall": 0.721976401179941,
+      "macro_f1": 0.6705781927020865,
+      "complete_evidence_rate": 0.5486725663716814,
+      "hop2_macro_recall": 0.7217847769028871,
+      "hop2_macro_f1": 0.6725534308211474,
+      "hop2_complete_evidence_rate": 0.5433070866141733
+    },
+    "mean_question_seconds": 136.32822748672567,
+    "median_question_seconds": 123.93473549999999,
+    "elapsed_full_seconds": 31353.103355419822,
+    "evaluation_seconds": 4.587150448933244,
+    "estimated_remaining_seconds": 0.0,
+    "estimated_completion_utc": "2026-08-22T15:30:55.469844+00:00",
+    "batch_directory": "/root/Legal Harness/records/batches/kure-c5-full226-20260822-a74e76d/combined-checkpoint-226",
+    "evaluation_directory": "/root/Legal Harness/records/evaluations/kure-c5-full226-20260822-a74e76d-checkpoint-226"
+  },
+  "lf_eval": "NOT_RUN_NO_FROZEN_SCORES_INPUT"
+}

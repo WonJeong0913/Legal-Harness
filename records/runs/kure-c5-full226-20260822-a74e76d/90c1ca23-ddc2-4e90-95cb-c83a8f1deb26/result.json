@@ -1,0 +1,947 @@
+{
+  "abstention_reason": null,
+  "answer": "상속인 또는 수유자는 상속개시일이 속하는 달의 말일부터 6개월 이내에 납세지 관할세무서장에게 상속세 과세표준을 신고해야 한다.[CT1]\n상속세 과세표준 신고 시에는 상속재산의 종류, 수량, 평가가액, 재산분할 및 각종 공제 등을 증명할 수 있는 서류를 첨부해야 한다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "을이 상속세 납부의무가 있는 상속인 또는 수유자임을 전제한다."
+    }
+  ],
+  "candidate_answer": "상속인 또는 수유자는 상속개시일이 속하는 달의 말일부터 6개월 이내에 납세지 관할세무서장에게 상속세 과세표준을 신고해야 한다.[CT1]\n상속세 과세표준 신고 시에는 상속재산의 종류, 수량, 평가가액, 재산분할 및 각종 공제 등을 증명할 수 있는 서류를 첨부해야 한다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207518",
+      "quoted_text": "① 제3조의2에 따라 상속세 납부의무가 있는 상속인 또는 수유자는 상속개시일이 속하는 달의 말일부터 6개월 이내에 제13조와 제25조제1항에 따른 상속세의 과세가액 및 과세표준을 대통령령으로 정하는 바에 따라 납세지 관할세무서장에게 신고하여야 한다. <개정 2015.12.15>",
+      "support_description": "상속세 신고 기한이 상속개시일이 속하는 달의 말일부터 6개월 이내임을 규정한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207519",
+      "quoted_text": "② 제1항에 따른 신고를 할 때에는 그 신고서에 상속세 과세표준의 계산에 필요한 상속재산의 종류, 수량, 평가가액, 재산분할 및 각종 공제 등을 증명할 수 있는 서류 등 대통령령으로 정하는 것을 첨부하여야 한다.",
+      "support_description": "상속세 신고 시 첨부해야 하는 서류의 범위를 규정한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "상속인 또는 수유자는 상속개시일이 속하는 달의 말일부터 6개월 이내에 납세지 관할세무서장에게 상속세 과세표준을 신고해야 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "상속세 과세표준 신고 시에는 상속재산의 종류, 수량, 평가가액, 재산분할 및 각종 공제 등을 증명할 수 있는 서류를 첨부해야 한다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T11:35:39.733300+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 123326.639,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "구체적인 제출 서류 목록은 대통령령으로 정해지므로, 본 답변은 법률에서 규정한 서류의 범위에 한정된다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 199,
+      "dedup_collapse": 130,
+      "evidence_fusion": 257,
+      "first_stage": 400,
+      "request_rerank": 400,
+      "round_selected": 20,
+      "rrf": 200,
+      "selected": 199
+    }
+  },
+  "run_id": "90c1ca23-ddc2-4e90-95cb-c83a8f1deb26",
+  "skill_generation_diagnostics": {
+    "attempt_count": 5,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207519",
+      "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207518"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 8,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": true,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "statutory_deadline_and_documents",
+        "question_anchor": "을은 상속받은 재산에 대한 상속세를 언제까지 신고해야 하며, 이때 제출해야 하는 서류는 무엇인가?",
+        "requested_output": "상속세 신고 기한과 제출 서류 목록"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207518",
+          "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-219126"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.7167588472366333,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207518",
+        "provision_text": "① 제3조의2에 따라 상속세 납부의무가 있는 상속인 또는 수유자는 상속개시일이 속하는 달의 말일부터 6개월 이내에 제13조와 제25조제1항에 따른 상속세의 과세가액 및 과세표준을 대통령령으로 정하는 바에 따라 납세지 관할세무서장에게 신고하여야 한다. <개정 2015.12.15>",
+        "rerank_rank": 5,
+        "rerank_score": 0.9980796575546265,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "상속세 및 증여세법 67조  상속세 과세표준신고 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "조세특례제한법 시행령 116조 32 주주등의 자산양도에 관한 법인세 등 과세특례#KOBLEX-071704"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 86,
+        "first_stage_score": 0.5700917840003967,
+        "fusion_rank": 53,
+        "issue_id": "I1",
+        "provision_id": "조세특례제한법 시행령 116조 32 주주등의 자산양도에 관한 법인세 등 과세특례#KOBLEX-071704",
+        "provision_text": "㉖ 법 제121조의28제3항을 적용받으려는 주주등은 같은 항에 따라 자산양도일이 속하는 과세연도의 과세표준신고를 할 때 자산매매계약서, 증여계약서, 기획재정부령으로 정하는 채무상환(예정)명세서 및 세액감면신청서를 납세지 관할 세무서장에게 제출하여야 한다.",
+        "rerank_rank": 53,
+        "rerank_score": 0.9970778226852417,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "조세특례제한법 시행령 116조 32 주주등의 자산양도에 관한 법인세 등 과세특례 26항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "전기사업법 시행규칙 10조 2 전기신사업자의 지위승계 신고#KOBLEX-214887"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 81,
+        "first_stage_score": 0.5734803676605225,
+        "fusion_rank": 56,
+        "issue_id": "I1",
+        "provision_id": "전기사업법 시행규칙 10조 2 전기신사업자의 지위승계 신고#KOBLEX-214887",
+        "provision_text": "2. 상속의 경우: 「가족관계의 등록 등에 관한 법률」 제15조제1항제1호의 가족관계증명서 및 상속인임을 증명하는 서류",
+        "rerank_rank": 56,
+        "rerank_score": 0.9949365854263306,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "전기사업법 시행규칙 10조 2 전기신사업자의 지위승계 신고 2호",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로법 시행규칙 50조  권리ㆍ의무의 승계신고#KOBLEX-019508"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 77,
+        "first_stage_score": 0.5749792456626892,
+        "fusion_rank": 11,
+        "issue_id": "I1",
+        "provision_id": "도로법 시행규칙 50조  권리ㆍ의무의 승계신고#KOBLEX-019508",
+        "provision_text": "① 법 제106조제2항에 따라 권리ㆍ의무의 승계신고를 하려는 자는 상속일ㆍ양수일 또는 분할ㆍ합병일부터 2개월 내에 별지 제46호서식의 권리ㆍ의무의 승계신고서(전자문서로 된 신고서를 포함한다)에 다음 각 호의 서류(전자문서를 포함한다)를 첨부하여 도로관리청에 제출해야 한다. <개정 2022.11.17> 1. 권리ㆍ의무의 취득에 관한 허가 관련 내역서 2. 권리ㆍ의무의 양도에 관한 계약서(양도의 경우에만 해당한다) 3. 삭제 <2015.7.9>",
+        "rerank_rank": 11,
+        "rerank_score": 0.9929386973381042,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "도로법 시행규칙 50조  권리ㆍ의무의 승계신고 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상속세 및 증여세법 시행령 69조 2 가업상속에 대한 상속세의 납부유예 신청 등#KOBLEX-212614"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 43,
+        "first_stage_score": 0.5932396650314331,
+        "fusion_rank": 15,
+        "issue_id": "I1",
+        "provision_id": "상속세 및 증여세법 시행령 69조 2 가업상속에 대한 상속세의 납부유예 신청 등#KOBLEX-212614",
+        "provision_text": "① 법 제72조의2제1항 또는 제6항에 따라 납부유예를 신청하려는 자는 법 제67조 또는 제68조에 따른 상속세 과세표준신고 또는 증여세 과세표준신고(「국세기본법」 제45조에 따른 수정신고 또는 같은 법 제45조의3에 따른 기한 후 신고를 포함한다)를 할 때 다음 각 호의 서류를 납세지 관할 세무서장에게 제출해야 한다. 다만, 법 제77조에 따라 과세표준과 세액의 결정 통지를 받은 자는 해당 납부고지서에 따른 납부기한까지 그 서류를 제출할 수 있다. 1. 기획재정부령으로 정하는 납부유예신청서 2. 제15조제22항에 따른 가업상속재산명세서 및 가업상속 사실을 입증할 수 있는 서류(법 제72조의2제1항에 따라 신청하는 경우만 해당한다) 3. 「조세특례제한법」 제30조의6에 따른 과세특례를 적용받거나 같은 법 제30조의7에 따른 납부유예 허가를 받았음을 증명할 수 있는 서류(법 제72조의2제6항제1호에 따라 신청하는 경우만 해당한다) 4. 가업상속공제를 받거나 법 제72조의2제1항에 따른 납부유예 허가를 받았음을 증명할 수 있는 서류(법 제72조의2제6항제2호에 따라 신청하는 경우만 해당한다)",
+        "rerank_rank": 15,
+        "rerank_score": 0.9925526976585388,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "상속세 및 증여세법 시행령 69조 2 가업상속에 대한 상속세의 납부유예 신청 등 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상속세 및 증여세법 시행령 69조 3 납부유예 금액의 계산 등#KOBLEX-212625"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 20,
+        "first_stage_score": 0.6155346632003784,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "상속세 및 증여세법 시행령 69조 3 납부유예 금액의 계산 등#KOBLEX-212625",
+        "provision_text": "⑧ 법 제72조의2제4항 본문에 따라 상속세와 이자상당액을 납부하려는 자는 같은 항 본문에 따른 신고를 할 때 기획재정부령으로 정하는 납부유예 사후관리추징사유 신고 및 자진납부 계산서를 납세지 관할 세무서장에게 제출해야 한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9900326728820801,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "상속세 및 증여세법 시행령 69조 3 납부유예 금액의 계산 등 8항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "환경영향평가법 시행규칙 26조 3 권리ㆍ의무의 승계 신고#KOBLEX-223694"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 88,
+        "first_stage_score": 0.5678573250770569,
+        "fusion_rank": 62,
+        "issue_id": "I1",
+        "provision_id": "환경영향평가법 시행규칙 26조 3 권리ㆍ의무의 승계 신고#KOBLEX-223694",
+        "provision_text": "2. 상속인임을 증명할 수 있는 서류(상속의 경우만 해당한다)",
+        "rerank_rank": 62,
+        "rerank_score": 0.9880558252334595,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "환경영향평가법 시행규칙 26조 3 권리ㆍ의무의 승계 신고 2호",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "전기통신사업법 시행령 32조  부가통신사업의 양도 등의 신고#KOBLEX-005762"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 31,
+        "first_stage_score": 0.6016691327095032,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "전기통신사업법 시행령 32조  부가통신사업의 양도 등의 신고#KOBLEX-005762",
+        "provision_text": "③ 법 제24조에 따라 부가통신사업의 상속을 신고하려는 자는 상속의 원인이 발생한 날부터 30일 이내에 상속신고서(전자문서로 된 신고서를 포함한다)에 상속인임을 증명하는 서류(전자문서를 포함한다)를 첨부하여 과학기술정보통신부장관에게 제출하여야 한다. <개정 2013.3.23, 2017.7.26>",
+        "rerank_rank": 1,
+        "rerank_score": 0.9869148135185242,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "전기통신사업법 시행령 32조  부가통신사업의 양도 등의 신고 3항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상속세 및 증여세법 시행령 15조  가업상속#KOBLEX-212101"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 37,
+        "first_stage_score": 0.5956999659538269,
+        "fusion_rank": 20,
+        "issue_id": "I1",
+        "provision_id": "상속세 및 증여세법 시행령 15조  가업상속#KOBLEX-212101",
+        "provision_text": "㉓ 법 제18조의2제9항 본문에 따라 상속세와 이자상당액을 납부하려는 상속세 납세의무자는 같은 항 본문에 따른 신고를 할 때 기획재정부령으로 정하는 가업상속공제 사후관리추징사유 신고 및 자진납부 계산서를 납세지 관할 세무서장에게 제출하여야 한다. <신설 2018.2.13, 2019.2.12, 2020.2.11, 2023.2.28>",
+        "rerank_rank": 20,
+        "rerank_score": 0.9864361882209778,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "상속세 및 증여세법 시행령 15조  가업상속 23항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상속세 및 증여세법 시행령 16조  영농상속#KOBLEX-212116"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 24,
+        "first_stage_score": 0.6111049652099609,
+        "fusion_rank": 14,
+        "issue_id": "I1",
+        "provision_id": "상속세 및 증여세법 시행령 16조  영농상속#KOBLEX-212116",
+        "provision_text": "⑫ 법 제18조의3제7항 본문에 따라 상속세와 이자상당액을 납부하려는 상속세 납세의무자는 같은 항 본문에 따른 신고를 할 때 기획재정부령으로 정하는 영농상속공제 사후관리추징사유 신고 및 자진납부 계산서를 납세지 관할 세무서장에게 제출해야 한다. <신설 2023.2.28>",
+        "rerank_rank": 14,
+        "rerank_score": 0.9863554835319519,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "상속세 및 증여세법 시행령 16조  영농상속 12항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207519",
+          "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-219127"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 18,
+        "first_stage_score": 0.6420703530311584,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207519",
+        "provision_text": "② 제1항에 따른 신고를 할 때에는 그 신고서에 상속세 과세표준의 계산에 필요한 상속재산의 종류, 수량, 평가가액, 재산분할 및 각종 공제 등을 증명할 수 있는 서류 등 대통령령으로 정하는 것을 첨부하여야 한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9996570348739624,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E2",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "상속세 및 증여세법 67조  상속세 과세표준신고 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상속세 및 증여세법 68조  증여세 과세표준신고#KOBLEX-207525",
+          "상속세 및 증여세법 68조  증여세 과세표준신고#KOBLEX-219133"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 87,
+        "first_stage_score": 0.5815095901489258,
+        "fusion_rank": 53,
+        "issue_id": "I1",
+        "provision_id": "상속세 및 증여세법 68조  증여세 과세표준신고#KOBLEX-207525",
+        "provision_text": "② 제1항에 따른 신고를 할 때에는 그 신고서에 증여세 과세표준의 계산에 필요한 증여재산의 종류, 수량, 평가가액 및 각종 공제 등을 증명할 수 있는 서류 등 대통령령으로 정하는 것을 첨부하여야 한다.",
+        "rerank_rank": 53,
+        "rerank_score": 0.99379563331604,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상속세 및 증여세법 68조  증여세 과세표준신고 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상속세 및 증여세법 시행령 20조 3 감정평가 수수료 공제#KOBLEX-212144"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 85,
+        "first_stage_score": 0.5828912854194641,
+        "fusion_rank": 54,
+        "issue_id": "I1",
+        "provision_id": "상속세 및 증여세법 시행령 20조 3 감정평가 수수료 공제#KOBLEX-212144",
+        "provision_text": "④제1항 내지 제3항의 규정에 의한 수수료를 공제받고자 하는 자는 당해 수수료의 지급사실을 입증할 수 있는 서류를 상속세과세표준 신고와 함께 납세지 관할세무서장에게 제출하여야 한다.",
+        "rerank_rank": 54,
+        "rerank_score": 0.9689939618110657,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상속세 및 증여세법 시행령 20조 3 감정평가 수수료 공제 4항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상속세 및 증여세법 시행령 49조 2 평가심의위원회의 구성 등#KOBLEX-212488"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 90,
+        "first_stage_score": 0.5802606344223022,
+        "fusion_rank": 56,
+        "issue_id": "I1",
+        "provision_id": "상속세 및 증여세법 시행령 49조 2 평가심의위원회의 구성 등#KOBLEX-212488",
+        "provision_text": "⑤ 납세자는 제1항의 심의가 필요한 경우에는 다음 각 호의 구분에 따른 자료를 첨부하여 평가심의위원회에 신청해야 하고, 제1항제1호 및 제2호의 심의가 필요한 경우 법 제67조에 따른 상속세 과세표준 신고기한 만료 4개월 전(증여의 경우에는 법 제68조에 따른 증여세 과세표준 신고기한 만료 70일 전)까지 신청해야 한다. 다만, 제1항제1호의 경우 중에서 평가기간이 경과한 후부터 제78조제1항에 따른 기한까지의 기간 중에 매매등이 있는 경우에는 해당 매매등이 있는 날부터 6개월 이내에 다음 각 호의 구분에 따른 자료를 첨부하여 평가심의위원회에 신청해야 한다. <개정 2017.2.7, 2019.2.12, 2020.2.11> 1. 제1항제1호의 경우: 매매등의 가액의 입증자료 2. 제1항제2호의 경우: 다음 각 목의 자료 3. 제1항제3호의 경우: 업종 변경의 승인 필요성을 인정할 수 있는 근거자료",
+        "rerank_rank": 56,
+        "rerank_score": 0.963280975818634,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상속세 및 증여세법 시행령 49조 2 평가심의위원회의 구성 등 5항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상속세 및 증여세법 69조  신고세액 공제#KOBLEX-207527",
+          "상속세 및 증여세법 69조  신고세액 공제#KOBLEX-219135"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 95,
+        "first_stage_score": 0.5790380239486694,
+        "fusion_rank": 61,
+        "issue_id": "I1",
+        "provision_id": "상속세 및 증여세법 69조  신고세액 공제#KOBLEX-207527",
+        "provision_text": "① 제67조에 따라 상속세 과세표준을 신고한 경우에는 상속세산출세액(제27조에 따라 산출세액에 가산하는 금액을 포함한다)에서 다음 각 호의 금액을 공제한 금액의 100분의 3에 상당하는 금액을 공제한다. <개정 2016.12.20, 2017.12.19> 1. 제74조에 따라 징수를 유예받은 금액 2. 이 법 또는 다른 법률에 따라 산출세액에서 공제되거나 감면되는 금액",
+        "rerank_rank": 61,
+        "rerank_score": 0.9301595687866211,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상속세 및 증여세법 69조  신고세액 공제 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소득세법 시행령 169조  양도소득과세표준 예정신고#KOBLEX-142353"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 62,
+        "first_stage_score": 0.5913984179496765,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "소득세법 시행령 169조  양도소득과세표준 예정신고#KOBLEX-142353",
+        "provision_text": "①법 제105조제1항에 따라 예정신고를 하려는 자는 기획재정부령으로 정하는 양도소득과세표준예정신고및납부계산서에 다음 각 호의 구분에 따른 서류를 첨부하여 납세지 관할세무서장에게 제출해야 한다. <개정 2002.12.30, 2005.2.19, 2005.12.31, 2006.6.12, 2007.2.28, 2008.2.29, 2009.2.4, 2009.12.31, 2010.2.18, 2014.2.21, 2016.2.17, 2020.2.11, 2021.2.17, 2022.12.31, 2024.12.31> 1. 법 제94조제1항제1호, 제2호 및 제6호에 따른 자산을 양도하는 경우에는 다음 각 목의 서류 2. 법 제94조제1항제3호가목ㆍ나목 및 같은 항 제4호에 따른 자산을 양도하는 경우에는 다음 각 목의 서류",
+        "rerank_rank": 5,
+        "rerank_score": 0.9266761541366577,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "소득세법 시행령 169조  양도소득과세표준 예정신고 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "조세특례제한법 시행령 27조 7 가업승계에 대한 증여세의 납부유예#KOBLEX-069605"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 27,
+        "first_stage_score": 0.6159199476242065,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "조세특례제한법 시행령 27조 7 가업승계에 대한 증여세의 납부유예#KOBLEX-069605",
+        "provision_text": "① 법 제30조의7제1항 또는 제6항에 따라 납부유예를 신청하려는 거주자는 「상속세 및 증여세법」 제67조 또는 제68조에 따른 상속세 과세표준신고 또는 증여세 과세표준신고(「국세기본법」 제45조에 따른 수정신고 또는 같은 법 제45조의3에 따른 기한 후 신고를 포함한다)를 할 때 다음 각 호의 서류를 납세지 관할 세무서장에게 제출해야 한다. 다만, 「상속세 및 증여세법」 제77조에 따라 과세표준과 세액의 결정 통지를 받은 자는 해당 납부고지서에 따른 납부기한까지 그 서류를 제출할 수 있다. 1. 기획재정부령으로 정하는 납부유예신청서 2. 법 제30조의6에 따른 과세특례를 적용받았거나 법 제30조의7에 따른 납부유예 허가를 받았음을 증명할 수 있는 서류(법 제30조의7제6항제1호에 따라 신청하는 경우에만 해당한다) 3. 「상속세 및 증여세법」 제18조의2제1항에 따른 가업상속공제를 받았거나 같은 법 제72조의2제1항에 따른 납부유예 허가를 받았음을 증명할 수 있는 서류(법 제30조의7제6항제2호에 따라 신청하는 경우에만 해당한다)",
+        "rerank_rank": 4,
+        "rerank_score": 0.9002054929733276,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "조세특례제한법 시행령 27조 7 가업승계에 대한 증여세의 납부유예 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207522",
+          "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-219130"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.6433878540992737,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207522",
+        "provision_text": "⑤ 제1항의 신고기한까지 상속인이 확정되지 아니한 경우에는 제1항의 신고와는 별도로 상속인이 확정된 날부터 30일 이내에 확정된 상속인의 상속관계를 적어 납세지 관할세무서장에게 제출하여야 한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.8774210214614868,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "상속세 및 증여세법 67조  상속세 과세표준신고 5항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "도로법 시행규칙 50조  권리ㆍ의무의 승계신고#KOBLEX-019508": "① 법 제106조제2항에 따라 권리ㆍ의무의 승계신고를 하려는 자는 상속일ㆍ양수일 또는 분할ㆍ합병일부터 2개월 내에 별지 제46호서식의 권리ㆍ의무의 승계신고서(전자문서로 된 신고서를 포함한다)에 다음 각 호의 서류(전자문서를 포함한다)를 첨부하여 도로관리청에 제출해야 한다. <개정 2022.11.17> 1. 권리ㆍ의무의 취득에 관한 허가 관련 내역서 2. 권리ㆍ의무의 양도에 관한 계약서(양도의 경우에만 해당한다) 3. 삭제 <2015.7.9>",
+      "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207518": "① 제3조의2에 따라 상속세 납부의무가 있는 상속인 또는 수유자는 상속개시일이 속하는 달의 말일부터 6개월 이내에 제13조와 제25조제1항에 따른 상속세의 과세가액 및 과세표준을 대통령령으로 정하는 바에 따라 납세지 관할세무서장에게 신고하여야 한다. <개정 2015.12.15>",
+      "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207519": "② 제1항에 따른 신고를 할 때에는 그 신고서에 상속세 과세표준의 계산에 필요한 상속재산의 종류, 수량, 평가가액, 재산분할 및 각종 공제 등을 증명할 수 있는 서류 등 대통령령으로 정하는 것을 첨부하여야 한다.",
+      "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207522": "⑤ 제1항의 신고기한까지 상속인이 확정되지 아니한 경우에는 제1항의 신고와는 별도로 상속인이 확정된 날부터 30일 이내에 확정된 상속인의 상속관계를 적어 납세지 관할세무서장에게 제출하여야 한다.",
+      "상속세 및 증여세법 68조  증여세 과세표준신고#KOBLEX-207525": "② 제1항에 따른 신고를 할 때에는 그 신고서에 증여세 과세표준의 계산에 필요한 증여재산의 종류, 수량, 평가가액 및 각종 공제 등을 증명할 수 있는 서류 등 대통령령으로 정하는 것을 첨부하여야 한다.",
+      "상속세 및 증여세법 69조  신고세액 공제#KOBLEX-207527": "① 제67조에 따라 상속세 과세표준을 신고한 경우에는 상속세산출세액(제27조에 따라 산출세액에 가산하는 금액을 포함한다)에서 다음 각 호의 금액을 공제한 금액의 100분의 3에 상당하는 금액을 공제한다. <개정 2016.12.20, 2017.12.19> 1. 제74조에 따라 징수를 유예받은 금액 2. 이 법 또는 다른 법률에 따라 산출세액에서 공제되거나 감면되는 금액",
+      "상속세 및 증여세법 시행령 15조  가업상속#KOBLEX-212101": "㉓ 법 제18조의2제9항 본문에 따라 상속세와 이자상당액을 납부하려는 상속세 납세의무자는 같은 항 본문에 따른 신고를 할 때 기획재정부령으로 정하는 가업상속공제 사후관리추징사유 신고 및 자진납부 계산서를 납세지 관할 세무서장에게 제출하여야 한다. <신설 2018.2.13, 2019.2.12, 2020.2.11, 2023.2.28>",
+      "상속세 및 증여세법 시행령 16조  영농상속#KOBLEX-212116": "⑫ 법 제18조의3제7항 본문에 따라 상속세와 이자상당액을 납부하려는 상속세 납세의무자는 같은 항 본문에 따른 신고를 할 때 기획재정부령으로 정하는 영농상속공제 사후관리추징사유 신고 및 자진납부 계산서를 납세지 관할 세무서장에게 제출해야 한다. <신설 2023.2.28>",
+      "상속세 및 증여세법 시행령 20조 3 감정평가 수수료 공제#KOBLEX-212144": "④제1항 내지 제3항의 규정에 의한 수수료를 공제받고자 하는 자는 당해 수수료의 지급사실을 입증할 수 있는 서류를 상속세과세표준 신고와 함께 납세지 관할세무서장에게 제출하여야 한다.",
+      "상속세 및 증여세법 시행령 49조 2 평가심의위원회의 구성 등#KOBLEX-212488": "⑤ 납세자는 제1항의 심의가 필요한 경우에는 다음 각 호의 구분에 따른 자료를 첨부하여 평가심의위원회에 신청해야 하고, 제1항제1호 및 제2호의 심의가 필요한 경우 법 제67조에 따른 상속세 과세표준 신고기한 만료 4개월 전(증여의 경우에는 법 제68조에 따른 증여세 과세표준 신고기한 만료 70일 전)까지 신청해야 한다. 다만, 제1항제1호의 경우 중에서 평가기간이 경과한 후부터 제78조제1항에 따른 기한까지의 기간 중에 매매등이 있는 경우에는 해당 매매등이 있는 날부터 6개월 이내에 다음 각 호의 구분에 따른 자료를 첨부하여 평가심의위원회에 신청해야 한다. <개정 2017.2.7, 2019.2.12, 2020.2.11> 1. 제1항제1호의 경우: 매매등의 가액의 입증자료 2. 제1항제2호의 경우: 다음 각 목의 자료 3. 제1항제3호의 경우: 업종 변경의 승인 필요성을 인정할 수 있는 근거자료",
+      "상속세 및 증여세법 시행령 69조 2 가업상속에 대한 상속세의 납부유예 신청 등#KOBLEX-212614": "① 법 제72조의2제1항 또는 제6항에 따라 납부유예를 신청하려는 자는 법 제67조 또는 제68조에 따른 상속세 과세표준신고 또는 증여세 과세표준신고(「국세기본법」 제45조에 따른 수정신고 또는 같은 법 제45조의3에 따른 기한 후 신고를 포함한다)를 할 때 다음 각 호의 서류를 납세지 관할 세무서장에게 제출해야 한다. 다만, 법 제77조에 따라 과세표준과 세액의 결정 통지를 받은 자는 해당 납부고지서에 따른 납부기한까지 그 서류를 제출할 수 있다. 1. 기획재정부령으로 정하는 납부유예신청서 2. 제15조제22항에 따른 가업상속재산명세서 및 가업상속 사실을 입증할 수 있는 서류(법 제72조의2제1항에 따라 신청하는 경우만 해당한다) 3. 「조세특례제한법」 제30조의6에 따른 과세특례를 적용받거나 같은 법 제30조의7에 따른 납부유예 허가를 받았음을 증명할 수 있는 서류(법 제72조의2제6항제1호에 따라 신청하는 경우만 해당한다) 4. 가업상속공제를 받거나 법 제72조의2제1항에 따른 납부유예 허가를 받았음을 증명할 수 있는 서류(법 제72조의2제6항제2호에 따라 신청하는 경우만 해당한다)",
+      "상속세 및 증여세법 시행령 69조 3 납부유예 금액의 계산 등#KOBLEX-212625": "⑧ 법 제72조의2제4항 본문에 따라 상속세와 이자상당액을 납부하려는 자는 같은 항 본문에 따른 신고를 할 때 기획재정부령으로 정하는 납부유예 사후관리추징사유 신고 및 자진납부 계산서를 납세지 관할 세무서장에게 제출해야 한다.",
+      "소득세법 시행령 169조  양도소득과세표준 예정신고#KOBLEX-142353": "①법 제105조제1항에 따라 예정신고를 하려는 자는 기획재정부령으로 정하는 양도소득과세표준예정신고및납부계산서에 다음 각 호의 구분에 따른 서류를 첨부하여 납세지 관할세무서장에게 제출해야 한다. <개정 2002.12.30, 2005.2.19, 2005.12.31, 2006.6.12, 2007.2.28, 2008.2.29, 2009.2.4, 2009.12.31, 2010.2.18, 2014.2.21, 2016.2.17, 2020.2.11, 2021.2.17, 2022.12.31, 2024.12.31> 1. 법 제94조제1항제1호, 제2호 및 제6호에 따른 자산을 양도하는 경우에는 다음 각 목의 서류 2. 법 제94조제1항제3호가목ㆍ나목 및 같은 항 제4호에 따른 자산을 양도하는 경우에는 다음 각 목의 서류",
+      "전기사업법 시행규칙 10조 2 전기신사업자의 지위승계 신고#KOBLEX-214887": "2. 상속의 경우: 「가족관계의 등록 등에 관한 법률」 제15조제1항제1호의 가족관계증명서 및 상속인임을 증명하는 서류",
+      "전기통신사업법 시행령 32조  부가통신사업의 양도 등의 신고#KOBLEX-005762": "③ 법 제24조에 따라 부가통신사업의 상속을 신고하려는 자는 상속의 원인이 발생한 날부터 30일 이내에 상속신고서(전자문서로 된 신고서를 포함한다)에 상속인임을 증명하는 서류(전자문서를 포함한다)를 첨부하여 과학기술정보통신부장관에게 제출하여야 한다. <개정 2013.3.23, 2017.7.26>",
+      "조세특례제한법 시행령 116조 32 주주등의 자산양도에 관한 법인세 등 과세특례#KOBLEX-071704": "㉖ 법 제121조의28제3항을 적용받으려는 주주등은 같은 항에 따라 자산양도일이 속하는 과세연도의 과세표준신고를 할 때 자산매매계약서, 증여계약서, 기획재정부령으로 정하는 채무상환(예정)명세서 및 세액감면신청서를 납세지 관할 세무서장에게 제출하여야 한다.",
+      "조세특례제한법 시행령 27조 7 가업승계에 대한 증여세의 납부유예#KOBLEX-069605": "① 법 제30조의7제1항 또는 제6항에 따라 납부유예를 신청하려는 거주자는 「상속세 및 증여세법」 제67조 또는 제68조에 따른 상속세 과세표준신고 또는 증여세 과세표준신고(「국세기본법」 제45조에 따른 수정신고 또는 같은 법 제45조의3에 따른 기한 후 신고를 포함한다)를 할 때 다음 각 호의 서류를 납세지 관할 세무서장에게 제출해야 한다. 다만, 「상속세 및 증여세법」 제77조에 따라 과세표준과 세액의 결정 통지를 받은 자는 해당 납부고지서에 따른 납부기한까지 그 서류를 제출할 수 있다. 1. 기획재정부령으로 정하는 납부유예신청서 2. 법 제30조의6에 따른 과세특례를 적용받았거나 법 제30조의7에 따른 납부유예 허가를 받았음을 증명할 수 있는 서류(법 제30조의7제6항제1호에 따라 신청하는 경우에만 해당한다) 3. 「상속세 및 증여세법」 제18조의2제1항에 따른 가업상속공제를 받았거나 같은 법 제72조의2제1항에 따른 납부유예 허가를 받았음을 증명할 수 있는 서류(법 제30조의7제6항제2호에 따라 신청하는 경우에만 해당한다)",
+      "환경영향평가법 시행규칙 26조 3 권리ㆍ의무의 승계 신고#KOBLEX-223694": "2. 상속인임을 증명할 수 있는 서류(상속의 경우만 해당한다)"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207518"
+            ],
+            "rationale": "C001은 상속개시일로부터 6개월 이내 신고 의무를 규정하고 있습니다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207518"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C001은 상속세 신고 기한에 대한 법적 근거를 명확히 제공하여 E1의 완료 기준을 충족합니다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207519"
+            ],
+            "rationale": "C011은 상속세 과세표준 신고 시 첨부해야 하는 서류를 규정하고 있습니다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207519"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C011은 상속세 신고 시 제출해야 하는 서류에 관한 규정을 명시하여 E2의 완료 기준을 충족합니다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207518",
+        "support_spans": [
+          {
+            "end_char": 155,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I1",
+        "provision_id": "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207519",
+        "support_spans": [
+          {
+            "end_char": 118,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 8,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "상속세 신고 기한과 제출 서류의 법적 근거",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑이 사망한 후, 그의 유산은 두 자녀 을과 병에게 상속되었습니다. 을은 상속재산 중 일부를 받고, 병은 나머지를 받기로 하였습니다. 갑이 사망한 날로부터 상속세 신고와 관련된 법적 의무를 지켜야 하는 상황입니다. 상속세 신고 기간이 정해져 있다는 사실을 알고 있는 을은 법적 요건을 제대로 이행하고자 합니다. [질문] 을은 상속받은 재산에 대한 상속세를 언제까지 신고해야 하며, 이때 제출해야 하는 서류는 무엇인가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "상속세",
+          "신고 기한",
+          "상속개시일",
+          "6개월"
+        ],
+        "query_text": "상속세 신고 기한 상속개시일로부터 6개월 [원문 맥락] 상속세 신고 기간이 정해져 있다는 사실을 알고 있는 을은 법적 요건을 제대로 이행하고자 합니다. 을은 상속받은 재산에 대한 상속세를 언제까지 신고해야 하며, 이때 제출해야 하는 서류는 무엇인가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "상속세 및 증여세법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "상속세",
+          "신고",
+          "제출 서류",
+          "목록"
+        ],
+        "query_text": "상속세 신고 제출 서류 목록 [원문 맥락] 상속세 신고 기간이 정해져 있다는 사실을 알고 있는 을은 법적 요건을 제대로 이행하고자 합니다. 을은 상속받은 재산에 대한 상속세를 언제까지 신고해야 하며, 이때 제출해야 하는 서류는 무엇인가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "상속세 및 증여세법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "상속세",
+          "과세표준 신고",
+          "첨부 서류",
+          "제출 서류"
+        ],
+        "query_text": "상속세 과세표준 신고 시 첨부 서류 목록 규정 [원문 맥락] 상속세 신고 기간이 정해져 있다는 사실을 알고 있는 을은 법적 요건을 제대로 이행하고자 합니다. 을은 상속받은 재산에 대한 상속세를 언제까지 신고해야 하며, 이때 제출해야 하는 서류는 무엇인가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "상속세 및 증여세법",
+          "상속세 및 증여세법 시행령"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "상속세 신고서",
+          "첨부",
+          "서류",
+          "목록"
+        ],
+        "query_text": "상속세 신고서 첨부 서류 목록 [원문 맥락] 상속세 신고 기간이 정해져 있다는 사실을 알고 있는 을은 법적 요건을 제대로 이행하고자 합니다. 을은 상속받은 재산에 대한 상속세를 언제까지 신고해야 하며, 이때 제출해야 하는 서류는 무엇인가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "상속세 및 증여세법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑이 사망한 후, 그의 유산은 두 자녀 을과 병에게 상속되었습니다. 을은 상속재산 중 일부를 받고, 병은 나머지를 받기로 하였습니다. 갑이 사망한 날로부터 상속세 신고와 관련된 법적 의무를 지켜야 하는 상황입니다. 상속세 신고 기간이 정해져 있다는 사실을 알고 있는 을은 법적 요건을 제대로 이행하고자 합니다.\n\n[질문]\n을은 상속받은 재산에 대한 상속세를 언제까지 신고해야 하며, 이때 제출해야 하는 서류는 무엇인가?",
+    "remaining_request_budget": 5,
+    "remaining_round_budget": 1,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "상속개시일로부터 신고 기한이 명시된 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "상속개시일로부터 6개월 이내 신고 의무를 규정한 조항"
+          }
+        ],
+        "critical": true,
+        "description": "상속세 신고 기한에 관한 조세특례제한법 또는 상속세 및 증여세법 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 신고 기한을 결정하기 위해 필수적임",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "신고 시 제출 서류가 명시된 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "상속세 신고 시 제출해야 하는 서류 목록을 규정한 조항"
+          }
+        ],
+        "critical": true,
+        "description": "상속세 신고 시 제출해야 하는 서류 목록에 관한 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 제출 서류를 결정하기 위해 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 2,
+    "run_id": "90c1ca23-ddc2-4e90-95cb-c83a8f1deb26",
+    "seen_provision_ids": [
+      "상속세 및 증여세법 68조  증여세 과세표준신고#KOBLEX-207525",
+      "상속세 및 증여세법 시행령 16조  영농상속#KOBLEX-212116",
+      "상속세 및 증여세법 시행령 69조 3 납부유예 금액의 계산 등#KOBLEX-212625",
+      "조세특례제한법 시행령 116조 32 주주등의 자산양도에 관한 법인세 등 과세특례#KOBLEX-071704",
+      "상속세 및 증여세법 69조  신고세액 공제#KOBLEX-207527",
+      "전기통신사업법 시행령 32조  부가통신사업의 양도 등의 신고#KOBLEX-005762",
+      "전기사업법 시행규칙 10조 2 전기신사업자의 지위승계 신고#KOBLEX-214887",
+      "상속세 및 증여세법 시행령 15조  가업상속#KOBLEX-212101",
+      "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207519",
+      "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207518",
+      "상속세 및 증여세법 시행령 49조 2 평가심의위원회의 구성 등#KOBLEX-212488",
+      "상속세 및 증여세법 67조  상속세 과세표준신고#KOBLEX-207522",
+      "소득세법 시행령 169조  양도소득과세표준 예정신고#KOBLEX-142353",
+      "조세특례제한법 시행령 27조 7 가업승계에 대한 증여세의 납부유예#KOBLEX-069605",
+      "상속세 및 증여세법 시행령 69조 2 가업상속에 대한 상속세의 납부유예 신청 등#KOBLEX-212614",
+      "상속세 및 증여세법 시행령 20조 3 감정평가 수수료 공제#KOBLEX-212144",
+      "도로법 시행규칙 50조  권리ㆍ의무의 승계신고#KOBLEX-019508",
+      "환경영향평가법 시행규칙 26조 3 권리ㆍ의무의 승계 신고#KOBLEX-223694"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

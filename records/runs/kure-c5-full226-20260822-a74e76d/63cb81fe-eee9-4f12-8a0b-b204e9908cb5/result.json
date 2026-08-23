@@ -1,0 +1,662 @@
+{
+  "abstention_reason": null,
+  "answer": "잡종재산 매수인이 대금을 일시에 전액 납부하는 경우, 제6조제1항 또는 제2항에 의하여 결정된 가격에서 3할을 공제한 차액을 매각대금으로 징수한다.[CT1]\n매각할 잡종재산의 가격은 시가를 기준으로 결정하며, 시가의 기준은 재무부장관이 고시하는 가격기준표에 의하여 산출한 평가액 이상이 되어야 한다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1",
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "질문에서 '갑'이 잡종재산을 매수하고 대금을 일시에 납부하는 것으로 가정한다."
+    }
+  ],
+  "candidate_answer": "잡종재산 매수인이 대금을 일시에 전액 납부하는 경우, 제6조제1항 또는 제2항에 의하여 결정된 가격에서 3할을 공제한 차액을 매각대금으로 징수한다.[CT1]\n매각할 잡종재산의 가격은 시가를 기준으로 결정하며, 시가의 기준은 재무부장관이 고시하는 가격기준표에 의하여 산출한 평가액 이상이 되어야 한다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "국공유재산처리임시특례법 8조  대금납부#KOBLEX-220700",
+      "quoted_text": "②전항의 규정에 의하여 일시에 전액을 납부하는 경우에 있어서는 제6조제1항 또는 제2항의 규정에 의하여 결정된 가격에서 3할을 공제한 차액을 그 매각대금으로 하여 징수한다.",
+      "support_description": "일시납부 시 적용되는 3할 공제 규정 및 매각대금 산정 기준을 명시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "국공유재산처리임시특례법 6조  가격결정#KOBLEX-220685",
+      "quoted_text": "①매각 또는 대부할 잡종재산(株式은 除外한다)의 가격은 시가를 기준하여 지방관재국장이 결정한다. 단, 시가의 기준은 재무부장관이 고시하는 가격기준표에 의하여 산출한 평가액이상이어야 한다.",
+      "support_description": "잡종재산 가격의 시가 기준 및 시가 산정 기준(재무부장관 고시 가격기준표 평가액 이상)을 명시한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "잡종재산 매수인이 대금을 일시에 전액 납부하는 경우, 제6조제1항 또는 제2항에 의하여 결정된 가격에서 3할을 공제한 차액을 매각대금으로 징수한다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "매각할 잡종재산의 가격은 시가를 기준으로 결정하며, 시가의 기준은 재무부장관이 고시하는 가격기준표에 의하여 산출한 평가액 이상이 되어야 한다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T14:00:42.843712+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 81923.4,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "본 답변은 국공유재산처리임시특례법 제6조 및 제8조에 근거한 일반적 법적 기준을 제시하며, 개별 재산의 구체적인 시가 평가액이나 실제 적용 여부는 해당 재산의 특성에 따라 달라질 수 있다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 188,
+      "dedup_collapse": 24,
+      "evidence_fusion": 188,
+      "first_stage": 200,
+      "request_rerank": 200,
+      "round_selected": 10,
+      "rrf": 200,
+      "selected": 188
+    }
+  },
+  "run_id": "63cb81fe-eee9-4f12-8a0b-b204e9908cb5",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "국공유재산처리임시특례법 8조  대금납부#KOBLEX-220700",
+      "국공유재산처리임시특례법 6조  가격결정#KOBLEX-220685"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "statutory_rule",
+        "question_anchor": "갑이 잡종재산의 대금을 일시에 납부할 경우, 결정된 가격에서 어느 정도의 금액을 공제받을 수 있으며",
+        "requested_output": "일시납부 시 적용되는 공제율 또는 공제 금액 산정 기준"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "statutory_rule",
+        "question_anchor": "시가 기준으로 결정된 가격은 어떻게 산정되는가?",
+        "requested_output": "잡종재산 매각 시 시가 산정 방법 및 기준"
+      }
+    ],
+    "answered_target_ids": [
+      "T1",
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "국공유재산처리임시특례법 6조  가격결정#KOBLEX-220685"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 12,
+        "first_stage_score": 0.5862314701080322,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "국공유재산처리임시특례법 6조  가격결정#KOBLEX-220685",
+        "provision_text": "①매각 또는 대부할 잡종재산(株式은 除外한다)의 가격은 시가를 기준하여 지방관재국장이 결정한다. 단, 시가의 기준은 재무부장관이 고시하는 가격기준표에 의하여 산출한 평가액이상이어야 한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9997788071632385,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "국공유재산처리임시특례법 6조  가격결정 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국유재산법 78조  은닉재산의 자진반환자 등에 관한 특례#KOBLEX-124888"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 72,
+        "first_stage_score": 0.544527530670166,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "국유재산법 78조  은닉재산의 자진반환자 등에 관한 특례#KOBLEX-124888",
+        "provision_text": "제78조(은닉재산의 자진반환자 등에 관한 특례) 은닉된 국유재산을 선의(善意)로 취득한 후 그 재산을 다음 각 호의 어느 하나에 해당하는 원인으로 국가에 반환한 자에게 같은 재산을 매각하는 경우에는 제50조에도 불구하고 대통령령으로 정하는 바에 따라 반환의 원인별로 차등을 두어 그 매각대금을 이자 없이 12년 이하에 걸쳐 나누어 내게 하거나 매각 가격에서 8할 이하의 금액을 뺀 잔액을 그 매각대금으로 하여 전액을 한꺼번에 내게 할 수 있다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9995216131210327,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "국유재산법 78조  은닉재산의 자진반환자 등에 관한 특례",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국공유재산처리임시특례법 8조  대금납부#KOBLEX-220700"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6470532417297363,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "국공유재산처리임시특례법 8조  대금납부#KOBLEX-220700",
+        "provision_text": "②전항의 규정에 의하여 일시에 전액을 납부하는 경우에 있어서는 제6조제1항 또는 제2항의 규정에 의하여 결정된 가격에서 3할을 공제한 차액을 그 매각대금으로 하여 징수한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.9994897842407227,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "국공유재산처리임시특례법 8조  대금납부 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국공유재산처리임시특례법 8조  대금납부#KOBLEX-220699"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6771702766418457,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "국공유재산처리임시특례법 8조  대금납부#KOBLEX-220699",
+        "provision_text": "①잡종재산의 매수인은 그 대금을 일시에 전액 납부하여야 한다. 단, 지방관재국장 또는 지방자치단체의 장은 부득이한 사유가 있다고 인정한 때에는 매매계약을 체결한 날로부터 5연간 분할납부하게 할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.9994345307350159,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "국공유재산처리임시특례법 8조  대금납부 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소득세법 106조  예정신고납부#KOBLEX-153670"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 24,
+        "first_stage_score": 0.5719167590141296,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "소득세법 106조  예정신고납부#KOBLEX-153670",
+        "provision_text": "③ 예정신고납부를 하는 경우 제82조 및 제118조에 따른 수시부과세액이 있을 때에는 이를 공제하여 납부한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.9994194507598877,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "소득세법 106조  예정신고납부 3항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소득세법 시행령 190조  이자소득 원천징수시기에 대한 특례#KOBLEX-142571"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 96,
+        "first_stage_score": 0.541548490524292,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "소득세법 시행령 190조  이자소득 원천징수시기에 대한 특례#KOBLEX-142571",
+        "provision_text": "1의4. 직장공제회 반환금을 분할하여 지급하는 경우 납입금 초과이익: 납입금 초과이익을 원본에 전입하는 뜻의 특약에 따라 원본에 전입된 날",
+        "rerank_rank": 6,
+        "rerank_score": 0.9993661046028137,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "소득세법 시행령 190조  이자소득 원천징수시기에 대한 특례 4호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국공유재산처리임시특례법 7조  점유자에 대한 매수요구등#KOBLEX-220694"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 79,
+        "first_stage_score": 0.5438435077667236,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "국공유재산처리임시특례법 7조  점유자에 대한 매수요구등#KOBLEX-220694",
+        "provision_text": "①정부 또는 지방자치단체의 장은 잡종재산(株式은 除外한다)을 점유한 자에 대하여 전조제1항 또는 제2항의 규정에 의하여 결정한 가격으로써 당해 재산을 매수할 것을 요구할 수 있다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.9993581175804138,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "국공유재산처리임시특례법 7조  점유자에 대한 매수요구등 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국세징수법 91조  매수대금 납부의 효과#KOBLEX-026409"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 40,
+        "first_stage_score": 0.5663575530052185,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "국세징수법 91조  매수대금 납부의 효과#KOBLEX-026409",
+        "provision_text": "① 매수인은 매수대금을 완납한 때에 공매재산을 취득한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.99933260679245,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "국세징수법 91조  매수대금 납부의 효과 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국공유재산처리임시특례법 8조  대금납부#KOBLEX-220702"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6660482883453369,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "국공유재산처리임시특례법 8조  대금납부#KOBLEX-220702",
+        "provision_text": "④본법 시행전에 잡종재산을 매수하여 그 대금을 분납하기로 약정하고 대금납부의 잔존기간이 본법 시행일부터 2년이상인 경우에 있어서 매수자가 잔존대금전액을 1962년 12월 말일까지 완납하는 때에는 그 금액에서 1960년 12월 31일 이전에 매매계약이 체결된 재산에 대하여는 1할, 1961년 1월 1일 이후에 매매계약이 체결된 재산에 대하여는 3할을 각각 공제하여 징수한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.99932861328125,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "국공유재산처리임시특례법 8조  대금납부 4항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부가가치세법 38조  공제하는 매입세액#KOBLEX-126946"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 31,
+        "first_stage_score": 0.5653559565544128,
+        "fusion_rank": 10,
+        "issue_id": "I2",
+        "provision_id": "부가가치세법 38조  공제하는 매입세액#KOBLEX-126946",
+        "provision_text": "② 제1항제1호에 따른 매입세액은 재화 또는 용역을 공급받는 시기가 속하는 과세기간의 매출세액에서 공제한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.9993212223052979,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "부가가치세법 38조  공제하는 매입세액 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "국공유재산처리임시특례법 6조  가격결정#KOBLEX-220685": "①매각 또는 대부할 잡종재산(株式은 除外한다)의 가격은 시가를 기준하여 지방관재국장이 결정한다. 단, 시가의 기준은 재무부장관이 고시하는 가격기준표에 의하여 산출한 평가액이상이어야 한다.",
+      "국공유재산처리임시특례법 7조  점유자에 대한 매수요구등#KOBLEX-220694": "①정부 또는 지방자치단체의 장은 잡종재산(株式은 除外한다)을 점유한 자에 대하여 전조제1항 또는 제2항의 규정에 의하여 결정한 가격으로써 당해 재산을 매수할 것을 요구할 수 있다.",
+      "국공유재산처리임시특례법 8조  대금납부#KOBLEX-220699": "①잡종재산의 매수인은 그 대금을 일시에 전액 납부하여야 한다. 단, 지방관재국장 또는 지방자치단체의 장은 부득이한 사유가 있다고 인정한 때에는 매매계약을 체결한 날로부터 5연간 분할납부하게 할 수 있다.",
+      "국공유재산처리임시특례법 8조  대금납부#KOBLEX-220700": "②전항의 규정에 의하여 일시에 전액을 납부하는 경우에 있어서는 제6조제1항 또는 제2항의 규정에 의하여 결정된 가격에서 3할을 공제한 차액을 그 매각대금으로 하여 징수한다.",
+      "국공유재산처리임시특례법 8조  대금납부#KOBLEX-220702": "④본법 시행전에 잡종재산을 매수하여 그 대금을 분납하기로 약정하고 대금납부의 잔존기간이 본법 시행일부터 2년이상인 경우에 있어서 매수자가 잔존대금전액을 1962년 12월 말일까지 완납하는 때에는 그 금액에서 1960년 12월 31일 이전에 매매계약이 체결된 재산에 대하여는 1할, 1961년 1월 1일 이후에 매매계약이 체결된 재산에 대하여는 3할을 각각 공제하여 징수한다.",
+      "국세징수법 91조  매수대금 납부의 효과#KOBLEX-026409": "① 매수인은 매수대금을 완납한 때에 공매재산을 취득한다.",
+      "국유재산법 78조  은닉재산의 자진반환자 등에 관한 특례#KOBLEX-124888": "제78조(은닉재산의 자진반환자 등에 관한 특례) 은닉된 국유재산을 선의(善意)로 취득한 후 그 재산을 다음 각 호의 어느 하나에 해당하는 원인으로 국가에 반환한 자에게 같은 재산을 매각하는 경우에는 제50조에도 불구하고 대통령령으로 정하는 바에 따라 반환의 원인별로 차등을 두어 그 매각대금을 이자 없이 12년 이하에 걸쳐 나누어 내게 하거나 매각 가격에서 8할 이하의 금액을 뺀 잔액을 그 매각대금으로 하여 전액을 한꺼번에 내게 할 수 있다.",
+      "부가가치세법 38조  공제하는 매입세액#KOBLEX-126946": "② 제1항제1호에 따른 매입세액은 재화 또는 용역을 공급받는 시기가 속하는 과세기간의 매출세액에서 공제한다.",
+      "소득세법 106조  예정신고납부#KOBLEX-153670": "③ 예정신고납부를 하는 경우 제82조 및 제118조에 따른 수시부과세액이 있을 때에는 이를 공제하여 납부한다.",
+      "소득세법 시행령 190조  이자소득 원천징수시기에 대한 특례#KOBLEX-142571": "1의4. 직장공제회 반환금을 분할하여 지급하는 경우 납입금 초과이익: 납입금 초과이익을 원본에 전입하는 뜻의 특약에 따라 원본에 전입된 날"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "국공유재산처리임시특례법 8조  대금납부#KOBLEX-220700"
+            ],
+            "rationale": "C003 explicitly states that 30% is deducted from the determined price in the case of lump-sum payment.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "국공유재산처리임시특례법 8조  대금납부#KOBLEX-220700"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The candidate provision C003 directly provides the statutory rule for the deduction amount (30%) applicable when the buyer pays the full price at once for miscellaneous property.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "국공유재산처리임시특례법 6조  가격결정#KOBLEX-220685"
+            ],
+            "rationale": "C001 states that the price is determined based on market value and that the market value standard is the assessed amount calculated according to the price standard table announced by the Minister of Finance.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "국공유재산처리임시특례법 6조  가격결정#KOBLEX-220685"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The candidate provision C001 directly provides the statutory rule for determining the price of miscellaneous property based on market value and defines the standard for that market value.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "국공유재산처리임시특례법 8조  대금납부#KOBLEX-220700",
+        "support_spans": [
+          {
+            "end_char": 96,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "국공유재산처리임시특례법 6조  가격결정#KOBLEX-220685",
+        "support_spans": [
+          {
+            "end_char": 104,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "잡종재산 매수인이 대금을 일시불로 납부할 때 적용되는 공제 규정",
+        "issue_id": "I1"
+      },
+      {
+        "description": "잡종재산 매각 가격의 시가 산정 기준",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 을에게 잡종재산을 구매하기로 계약을 체결하고, 을은 시가를 기준으로 가격을 결정한 후, 그 가격에 따라 대금을 청구하였습니다. 갑은 대금을 한 번에 납부하기로 하였고, 을은 대금에서 얼마를 공제할 수 있는지 문의하였습니다. [질문] 갑이 잡종재산의 대금을 일시에 납부할 경우, 결정된 가격에서 어느 정도의 금액을 공제받을 수 있으며, 시가 기준으로 결정된 가격은 어떻게 산정되는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "잡종재산",
+          "일시납부",
+          "공제",
+          "매수인"
+        ],
+        "query_text": "잡종재산 매수인 일시납부 공제율 [원문 맥락] 갑은 대금을 한 번에 납부하기로 하였고, 을은 대금에서 얼마를 공제할 수 있는지 문의하였습니다. 갑이 잡종재산의 대금을 일시에 납부할 경우, 결정된 가격에서 어느 정도의 금액을 공제받을 수 있으며, 시가 기준으로 결정된 가격은 어떻게 산정되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "국유재산법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "잡종재산",
+          "시가",
+          "산정",
+          "매각"
+        ],
+        "query_text": "잡종재산 매각 시가 산정 기준 [원문 맥락] 갑은 대금을 한 번에 납부하기로 하였고, 을은 대금에서 얼마를 공제할 수 있는지 문의하였습니다. 갑이 잡종재산의 대금을 일시에 납부할 경우, 결정된 가격에서 어느 정도의 금액을 공제받을 수 있으며, 시가 기준으로 결정된 가격은 어떻게 산정되는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "국유재산법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 을에게 잡종재산을 구매하기로 계약을 체결하고, 을은 시가를 기준으로 가격을 결정한 후, 그 가격에 따라 대금을 청구하였습니다. 갑은 대금을 한 번에 납부하기로 하였고, 을은 대금에서 얼마를 공제할 수 있는지 문의하였습니다.\n\n[질문]\n갑이 잡종재산의 대금을 일시에 납부할 경우, 결정된 가격에서 어느 정도의 금액을 공제받을 수 있으며, 시가 기준으로 결정된 가격은 어떻게 산정되는가?",
+    "remaining_request_budget": 7,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "일시납부 시 적용되는 공제율 또는 공제 금액 산정 기준을 명시하는 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "일시납부 시 적용되는 공제율 또는 공제 금액 산정 기준을 명시하는 조항 확인"
+          }
+        ],
+        "critical": true,
+        "description": "잡종재산 매수인의 일시납부 시 공제 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 공제 금액 산정 근거",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "잡종재산의 시가 산정 방법 및 기준을 명시하는 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "잡종재산의 시가 산정 방법 및 기준을 명시하는 조항 확인"
+          }
+        ],
+        "critical": true,
+        "description": "잡종재산 매각 시 시가 산정 기준",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 요구하는 시가 산정 방법 근거",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "63cb81fe-eee9-4f12-8a0b-b204e9908cb5",
+    "seen_provision_ids": [
+      "국공유재산처리임시특례법 7조  점유자에 대한 매수요구등#KOBLEX-220694",
+      "소득세법 시행령 190조  이자소득 원천징수시기에 대한 특례#KOBLEX-142571",
+      "국공유재산처리임시특례법 8조  대금납부#KOBLEX-220702",
+      "국공유재산처리임시특례법 8조  대금납부#KOBLEX-220699",
+      "국공유재산처리임시특례법 8조  대금납부#KOBLEX-220700",
+      "국세징수법 91조  매수대금 납부의 효과#KOBLEX-026409",
+      "소득세법 106조  예정신고납부#KOBLEX-153670",
+      "국유재산법 78조  은닉재산의 자진반환자 등에 관한 특례#KOBLEX-124888",
+      "부가가치세법 38조  공제하는 매입세액#KOBLEX-126946",
+      "국공유재산처리임시특례법 6조  가격결정#KOBLEX-220685"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

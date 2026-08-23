@@ -1,0 +1,551 @@
+{
+  "abstention_reason": null,
+  "answer": "국가의 존립·안전이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서 반국가단체의 활동을 찬양한 자는 7년 이하의 징역에 처한다.[CT1]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_FACT",
+      "message": "질문 시나리오에서 갑이 국가의 존립이나 자유민주적 기본질서를 위태롭게 한다는 정을 알았다는 사실은 전제된 것으로 간주한다."
+    }
+  ],
+  "candidate_answer": "국가의 존립·안전이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서 반국가단체의 활동을 찬양한 자는 7년 이하의 징역에 처한다.[CT1]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "국가보안법 7조  찬양ㆍ고무등#KOBLEX-076964",
+      "quoted_text": "①국가의 존립ㆍ안전이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서 반국가단체나 그 구성원 또는 그 지령을 받은 자의 활동을 찬양ㆍ고무ㆍ선전 또는 이에 동조하거나 국가변란을 선전ㆍ선동한 자는 7년 이하의 징역에 처한다. <개정 1991ㆍ5ㆍ31>",
+      "support_description": "해당 조항은 국가의 존립·안전이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서 반국가단체의 활동을 찬양한 행위에 대해 7년 이하의 징역형을 규정하고 있어, 질문에서 요구하는 처벌 수위를 직접적으로 뒷받침한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "국가의 존립·안전이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서 반국가단체의 활동을 찬양한 자는 7년 이하의 징역에 처한다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T12:14:41.372248+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 65082.325,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_SCOPE",
+      "message": "본 답변은 국가보안법 제7조 제1항에 명시된 기본 형량만 다루며, 가중·감경 사유나 다른 법률과의 관계는 포함하지 않는다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 90,
+      "dedup_collapse": 20,
+      "evidence_fusion": 90,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 90
+    }
+  },
+  "run_id": "5566d202-cc99-427e-b2ac-58283f33da64",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "국가보안법 7조  찬양ㆍ고무등#KOBLEX-076964"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 1,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "penalty",
+        "question_anchor": "갑이 국가의 존립이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서 반국가단체의 활동을 찬양한 경우 어떤 처벌을 받게 되는가?",
+        "requested_output": "The specific criminal penalty applicable to the act of praising anti-state organization activities with knowledge of endangering the state's existence or free democratic basic order."
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "국가보안법 7조  찬양ㆍ고무등#KOBLEX-076964"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6645581722259521,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "국가보안법 7조  찬양ㆍ고무등#KOBLEX-076964",
+        "provision_text": "①국가의 존립ㆍ안전이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서 반국가단체나 그 구성원 또는 그 지령을 받은 자의 활동을 찬양ㆍ고무ㆍ선전 또는 이에 동조하거나 국가변란을 선전ㆍ선동한 자는 7년 이하의 징역에 처한다. <개정 1991ㆍ5ㆍ31>",
+        "rerank_rank": 1,
+        "rerank_score": 0.999987006187439,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "국가보안법 7조  찬양ㆍ고무등 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국가보안법 5조  자진지원ㆍ금품수수#KOBLEX-076952"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.5831308364868164,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "국가보안법 5조  자진지원ㆍ금품수수#KOBLEX-076952",
+        "provision_text": "②국가의 존립ㆍ안전이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서 반국가단체의 구성원 또는 그 지령을 받은 자로부터 금품을 수수한 자는 7년 이하의 징역에 처한다. <개정 1991ㆍ5ㆍ31>",
+        "rerank_rank": 2,
+        "rerank_score": 0.9999673366546631,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "국가보안법 5조  자진지원ㆍ금품수수 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국가보안법 8조  회합ㆍ통신등#KOBLEX-076972"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.575866162776947,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "국가보안법 8조  회합ㆍ통신등#KOBLEX-076972",
+        "provision_text": "①국가의 존립ㆍ안전이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서 반국가단체의 구성원 또는 그 지령을 받은 자와 회합ㆍ통신 기타의 방법으로 연락을 한 자는 10년 이하의 징역에 처한다. <개정 1991ㆍ5ㆍ31>",
+        "rerank_rank": 3,
+        "rerank_score": 0.9999600648880005,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "국가보안법 8조  회합ㆍ통신등 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국가보안법 6조  잠입ㆍ탈출#KOBLEX-076957"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.5826573967933655,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "국가보안법 6조  잠입ㆍ탈출#KOBLEX-076957",
+        "provision_text": "①국가의 존립ㆍ안전이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서 반국가단체의 지배하에 있는 지역으로부터 잠입하거나 그 지역으로 탈출한 자는 10년 이하의 징역에 처한다. <개정 1991ㆍ5ㆍ31>",
+        "rerank_rank": 4,
+        "rerank_score": 0.9999436140060425,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "국가보안법 6조  잠입ㆍ탈출 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국가보안법 3조  반국가단체의 구성등#KOBLEX-076939"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 8,
+        "first_stage_score": 0.5707114934921265,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "국가보안법 3조  반국가단체의 구성등#KOBLEX-076939",
+        "provision_text": "제3조(반국가단체의 구성등)",
+        "rerank_rank": 5,
+        "rerank_score": 0.9991325736045837,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "국가보안법 3조  반국가단체의 구성등",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국가보안법 6조  잠입ㆍ탈출#KOBLEX-076958"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 21,
+        "first_stage_score": 0.525700569152832,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "국가보안법 6조  잠입ㆍ탈출#KOBLEX-076958",
+        "provision_text": "②반국가단체나 그 구성원의 지령을 받거나 받기 위하여 또는 그 목적수행을 협의하거나 협의하기 위하여 잠입하거나 탈출한 자는 사형ㆍ무기  또는 5년 이상의 징역에 처한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.9971709847450256,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "국가보안법 6조  잠입ㆍ탈출 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국가보안법 3조  반국가단체의 구성등#KOBLEX-076941"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.5512771606445312,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "국가보안법 3조  반국가단체의 구성등#KOBLEX-076941",
+        "provision_text": "②타인에게 반국가단체에 가입할 것을 권유한 자는 2년 이상의 유기징역에 처한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.9964878559112549,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "국가보안법 3조  반국가단체의 구성등 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국가보안법 5조  자진지원ㆍ금품수수#KOBLEX-076951"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6111617088317871,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "국가보안법 5조  자진지원ㆍ금품수수#KOBLEX-076951",
+        "provision_text": "①반국가단체나 그 구성원 또는 그 지령을 받은 자를 지원할 목적으로 자진하여 제4조제1항 각호에 규정된 행위를 한 자는 제4조제1항의 예에 의하여 처벌한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.9955924153327942,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "국가보안법 5조  자진지원ㆍ금품수수 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국가보안법 3조  반국가단체의 구성등#KOBLEX-076940"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 7,
+        "first_stage_score": 0.5714031457901001,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "국가보안법 3조  반국가단체의 구성등#KOBLEX-076940",
+        "provision_text": "①반국가단체를 구성하거나 이에 가입한 자는 다음의 구별에 따라 처벌한다. 1. 수괴의 임무에 종사한 자는 사형 또는 무기징역에 처한다. 2. 간부 기타 지도적 임무에 종사한 자는 사형ㆍ무기 또는 5년 이상의 징역에 처한다. 3. 그 이외의 자는 2년 이상의 유기징역에 처한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.9944703578948975,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "국가보안법 3조  반국가단체의 구성등 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국가보안법 1조  목적등#KOBLEX-076933"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 16,
+        "first_stage_score": 0.5318472981452942,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "국가보안법 1조  목적등#KOBLEX-076933",
+        "provision_text": "①이 법은 국가의 안전을 위태롭게 하는 반국가활동을 규제함으로써 국가의 안전과 국민의 생존 및 자유를 확보함을 목적으로 한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.9938275218009949,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "국가보안법 1조  목적등 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "국가보안법 1조  목적등#KOBLEX-076933": "①이 법은 국가의 안전을 위태롭게 하는 반국가활동을 규제함으로써 국가의 안전과 국민의 생존 및 자유를 확보함을 목적으로 한다.",
+      "국가보안법 3조  반국가단체의 구성등#KOBLEX-076939": "제3조(반국가단체의 구성등)",
+      "국가보안법 3조  반국가단체의 구성등#KOBLEX-076940": "①반국가단체를 구성하거나 이에 가입한 자는 다음의 구별에 따라 처벌한다. 1. 수괴의 임무에 종사한 자는 사형 또는 무기징역에 처한다. 2. 간부 기타 지도적 임무에 종사한 자는 사형ㆍ무기 또는 5년 이상의 징역에 처한다. 3. 그 이외의 자는 2년 이상의 유기징역에 처한다.",
+      "국가보안법 3조  반국가단체의 구성등#KOBLEX-076941": "②타인에게 반국가단체에 가입할 것을 권유한 자는 2년 이상의 유기징역에 처한다.",
+      "국가보안법 5조  자진지원ㆍ금품수수#KOBLEX-076951": "①반국가단체나 그 구성원 또는 그 지령을 받은 자를 지원할 목적으로 자진하여 제4조제1항 각호에 규정된 행위를 한 자는 제4조제1항의 예에 의하여 처벌한다.",
+      "국가보안법 5조  자진지원ㆍ금품수수#KOBLEX-076952": "②국가의 존립ㆍ안전이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서 반국가단체의 구성원 또는 그 지령을 받은 자로부터 금품을 수수한 자는 7년 이하의 징역에 처한다. <개정 1991ㆍ5ㆍ31>",
+      "국가보안법 6조  잠입ㆍ탈출#KOBLEX-076957": "①국가의 존립ㆍ안전이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서 반국가단체의 지배하에 있는 지역으로부터 잠입하거나 그 지역으로 탈출한 자는 10년 이하의 징역에 처한다. <개정 1991ㆍ5ㆍ31>",
+      "국가보안법 6조  잠입ㆍ탈출#KOBLEX-076958": "②반국가단체나 그 구성원의 지령을 받거나 받기 위하여 또는 그 목적수행을 협의하거나 협의하기 위하여 잠입하거나 탈출한 자는 사형ㆍ무기  또는 5년 이상의 징역에 처한다.",
+      "국가보안법 7조  찬양ㆍ고무등#KOBLEX-076964": "①국가의 존립ㆍ안전이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서 반국가단체나 그 구성원 또는 그 지령을 받은 자의 활동을 찬양ㆍ고무ㆍ선전 또는 이에 동조하거나 국가변란을 선전ㆍ선동한 자는 7년 이하의 징역에 처한다. <개정 1991ㆍ5ㆍ31>",
+      "국가보안법 8조  회합ㆍ통신등#KOBLEX-076972": "①국가의 존립ㆍ안전이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서 반국가단체의 구성원 또는 그 지령을 받은 자와 회합ㆍ통신 기타의 방법으로 연락을 한 자는 10년 이하의 징역에 처한다. <개정 1991ㆍ5ㆍ31>"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "국가보안법 7조  찬양ㆍ고무등#KOBLEX-076964"
+            ],
+            "rationale": "C001 explicitly states the penalty: '7년 이하의 징역에 처한다' (shall be punished by imprisonment for not more than 7 years).",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "국가보안법 7조  찬양ㆍ고무등#KOBLEX-076964"
+            ],
+            "rationale": "C001 explicitly links the penalty to the mental state: '국가의 존립ㆍ안전이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서' (knowing that it endangers the existence, safety of the state or the free democratic basic order).",
+            "requirement_id": "E1-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "국가보안법 7조  찬양ㆍ고무등#KOBLEX-076964"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The supplied candidate C001 fully satisfies the evidence item by providing the specific statutory provision that defines the offense of praising anti-state organization activities with the requisite mental state and specifies the corresponding penalty.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "국가보안법 7조  찬양ㆍ고무등#KOBLEX-076964",
+        "support_spans": [
+          {
+            "end_char": 140,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "Determination of the statutory penalty for the specific offense of praising anti-state organization activities with knowledge of endangering the state's existence or free democratic basic order.",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 반국가단체인 '해방운동연합'의 활동을 찬양하는 글을 소셜 미디어에 올렸습니다. 이러한 글이 국가의 존립과 자유민주적 기본질서를위태롭게 할 수 있다는 사실을 알았음에도 갑은 글을 작성한 것이었습니다. 이에 따라, 검찰은 갑을 조사하기 시작했습니다. [질문] 갑이 국가의 존립이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서 반국가단체의 활동을 찬양한 경우 어떤 처벌을 받게 되는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "국가보안법",
+          "반국가단체",
+          "찬양",
+          "처벌",
+          "형사처벌"
+        ],
+        "query_text": "국가보안법 반국가단체 활동 찬양 처벌 규정 [원문 맥락] 이에 따라, 검찰은 갑을 조사하기 시작했습니다. 갑이 국가의 존립이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서 반국가단체의 활동을 찬양한 경우 어떤 처벌을 받게 되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "국가보안법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 반국가단체인 '해방운동연합'의 활동을 찬양하는 글을 소셜 미디어에 올렸습니다. 이러한 글이 국가의 존립과 자유민주적 기본질서를위태롭게 할 수 있다는 사실을 알았음에도 갑은 글을 작성한 것이었습니다. 이에 따라, 검찰은 갑을 조사하기 시작했습니다.\n\n[질문]\n갑이 국가의 존립이나 자유민주적 기본질서를 위태롭게 한다는 정을 알면서 반국가단체의 활동을 찬양한 경우 어떤 처벌을 받게 되는가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific article and clause that prescribes the penalty for praising anti-state organization activities with the requisite knowledge.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The provision must explicitly state the penalty (imprisonment term or fine) for the act of praising anti-state organization activities."
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "The provision must link the penalty to the mental state of knowing that the act endangers the state's existence or free democratic basic order."
+          }
+        ],
+        "critical": true,
+        "description": "The statutory provision defining the offense of praising anti-state organization activities and specifying the corresponding penalty.",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "The question explicitly asks for the punishment, which is directly defined in the statutory provision for this specific offense.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "5566d202-cc99-427e-b2ac-58283f33da64",
+    "seen_provision_ids": [
+      "국가보안법 3조  반국가단체의 구성등#KOBLEX-076941",
+      "국가보안법 3조  반국가단체의 구성등#KOBLEX-076940",
+      "국가보안법 3조  반국가단체의 구성등#KOBLEX-076939",
+      "국가보안법 7조  찬양ㆍ고무등#KOBLEX-076964",
+      "국가보안법 6조  잠입ㆍ탈출#KOBLEX-076957",
+      "국가보안법 5조  자진지원ㆍ금품수수#KOBLEX-076951",
+      "국가보안법 5조  자진지원ㆍ금품수수#KOBLEX-076952",
+      "국가보안법 1조  목적등#KOBLEX-076933",
+      "국가보안법 8조  회합ㆍ통신등#KOBLEX-076972",
+      "국가보안법 6조  잠입ㆍ탈출#KOBLEX-076958"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

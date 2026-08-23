@@ -1,0 +1,571 @@
+{
+  "abstention_reason": null,
+  "answer": "사람을 살해한 자는 사형, 무기 또는 5년 이상의 징역에 처한다.[CT1]\n을을 살해한 갑의 행위는 형법 제250조 제1항의 살인죄 구성요건에 해당하여 사형, 무기 또는 5년 이상의 징역에 처해질 수 있다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "A1",
+      "message": "갑이 을을 살해했다는 사실은 질문의 배경 시나리오에 근거한 전제이며, 실제 유죄 판결 여부는 사법 절차에 따라 결정된다."
+    }
+  ],
+  "candidate_answer": "사람을 살해한 자는 사형, 무기 또는 5년 이상의 징역에 처한다.[CT1]\n을을 살해한 갑의 행위는 형법 제250조 제1항의 살인죄 구성요건에 해당하여 사형, 무기 또는 5년 이상의 징역에 처해질 수 있다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형법 250조  살인, 존속살해#KOBLEX-193180",
+      "quoted_text": "①사람을 살해한 자는 사형, 무기 또는 5년 이상의 징역에 처한다.",
+      "support_description": "살인죄의 법정형(사형, 무기 또는 5년 이상의 징역)을 명시하는 조항"
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "형법 250조  살인, 존속살해#KOBLEX-193180",
+      "quoted_text": "①사람을 살해한 자는 사형, 무기 또는 5년 이상의 징역에 처한다.",
+      "support_description": "살인죄의 구성요건(사람을 살해한 자)과 법정형을 근거로 갑의 처벌 가능성을 설명"
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "사람을 살해한 자는 사형, 무기 또는 5년 이상의 징역에 처한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "을을 살해한 갑의 행위는 형법 제250조 제1항의 살인죄 구성요건에 해당하여 사형, 무기 또는 5년 이상의 징역에 처해질 수 있다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T11:12:30.294985+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 67884.238,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "L1",
+      "message": "본 답변은 형법 제250조 제1항의 일반적 살인죄 법정형에 한정되며, 감경 또는 가중 사유, 형사소송 절차, 또는 다른 법률적 쟁점은 다루지 않는다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 81,
+      "dedup_collapse": 30,
+      "evidence_fusion": 81,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 81
+    }
+  },
+  "run_id": "00a68742-590c-428e-befb-5c72b1dbd5c0",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형법 250조  살인, 존속살해#KOBLEX-193180"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "statutory_penalty",
+        "question_anchor": "갑이 을을 살해한 경우, 갑은 어떤 처벌을 받을 수 있는가?",
+        "requested_output": "살인죄에 대한 법정형 및 처벌 범위"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "형법 252조  촉탁, 승낙에 의한 살인 등#KOBLEX-193184"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 7,
+        "first_stage_score": 0.5211479067802429,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형법 252조  촉탁, 승낙에 의한 살인 등#KOBLEX-193184",
+        "provision_text": "① 사람의 촉탁이나 승낙을 받아 그를 살해한 자는 1년 이상 10년 이하의 징역에 처한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.7552711367607117,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 252조  촉탁, 승낙에 의한 살인 등 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 281조  체포ㆍ감금등의 치사상#KOBLEX-193255"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 74,
+        "first_stage_score": 0.48839271068573,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "형법 281조  체포ㆍ감금등의 치사상#KOBLEX-193255",
+        "provision_text": "제281조(체포ㆍ감금등의 치사상)",
+        "rerank_rank": 2,
+        "rerank_score": 0.7518234252929688,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 281조  체포ㆍ감금등의 치사상",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 250조  살인, 존속살해#KOBLEX-193180"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.5280297994613647,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형법 250조  살인, 존속살해#KOBLEX-193180",
+        "provision_text": "①사람을 살해한 자는 사형, 무기 또는 5년 이상의 징역에 처한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.5994649529457092,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 250조  살인, 존속살해 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "특정범죄 가중처벌 등에 관한 법률 4조 2 체포ㆍ감금 등의 가중처벌#KOBLEX-050659",
+          "특정범죄 가중처벌 등에 관한 법률 4조 2 체포ㆍ감금 등의 가중처벌#KOBLEX-080691",
+          "특정범죄 가중처벌 등에 관한 법률 4조 2 체포ㆍ감금 등의 가중처벌#KOBLEX-107027",
+          "특정범죄 가중처벌 등에 관한 법률 4조 2 체포ㆍ감금 등의 가중처벌#KOBLEX-107629"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 75,
+        "first_stage_score": 0.48818767070770264,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "특정범죄 가중처벌 등에 관한 법률 4조 2 체포ㆍ감금 등의 가중처벌#KOBLEX-050659",
+        "provision_text": "② 「형법」 제124조ㆍ제125조에 규정된 죄를 범하여 사람을 사망에 이르게 한 경우에는 무기 또는 3년 이상의 징역에 처한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.541346549987793,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "특정범죄 가중처벌 등에 관한 법률 4조 2 체포ㆍ감금 등의 가중처벌 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 301조 2 강간등 살인ㆍ치사#KOBLEX-193300"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.5221888422966003,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형법 301조 2 강간등 살인ㆍ치사#KOBLEX-193300",
+        "provision_text": "제301조의2(강간등 살인ㆍ치사) 제297조, 제297조의2 및 제298조부터 제300조까지의 죄를 범한 자가 사람을 살해한 때에는 사형 또는 무기징역에 처한다. 사망에 이르게 한 때에는 무기 또는 10년 이상의 징역에 처한다. <개정 2012.12.18>",
+        "rerank_rank": 5,
+        "rerank_score": 0.513248085975647,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 301조 2 강간등 살인ㆍ치사",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "성폭력범죄의 처벌 등에 관한 특례법 9조  강간 등 살인ㆍ치사#KOBLEX-157555"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 14,
+        "first_stage_score": 0.514529287815094,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "성폭력범죄의 처벌 등에 관한 특례법 9조  강간 등 살인ㆍ치사#KOBLEX-157555",
+        "provision_text": "① 제3조부터 제7조까지, 제15조(제3조부터 제7조까지의 미수범으로 한정한다)의 죄 또는 「형법」 제297조(강간), 제297조의2(유사강간) 및 제298조(강제추행)부터 제300조(미수범)까지의 죄를 범한 사람이 다른 사람을 살해한 때에는 사형 또는 무기징역에 처한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.5101128816604614,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "성폭력범죄의 처벌 등에 관한 특례법 9조  강간 등 살인ㆍ치사 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 324조 4 인질살해ㆍ치사#KOBLEX-193353"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.5127549171447754,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "형법 324조 4 인질살해ㆍ치사#KOBLEX-193353",
+        "provision_text": "제324조의4(인질살해ㆍ치사) 제324조의2의 죄를 범한 자가 인질을 살해한 때에는 사형 또는 무기징역에 처한다. 사망에 이르게 한 때에는 무기 또는 10년 이상의 징역에 처한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.438189297914505,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 324조 4 인질살해ㆍ치사",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군형법 44조  항명#KOBLEX-140675"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 33,
+        "first_stage_score": 0.5004212260246277,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "군형법 44조  항명#KOBLEX-140675",
+        "provision_text": "1. 적전인 경우: 사형, 무기 또는 10년 이상의 징역",
+        "rerank_rank": 8,
+        "rerank_score": 0.43493446707725525,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "군형법 44조  항명 1호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군형법 24조  직무유기#KOBLEX-140618"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.5371298789978027,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "군형법 24조  직무유기#KOBLEX-140618",
+        "provision_text": "1. 적전의 경우: 사형",
+        "rerank_rank": 9,
+        "rerank_score": 0.42342111468315125,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "군형법 24조  직무유기 1호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 291조  약취, 유인, 매매, 이송 등 살인ㆍ치사#KOBLEX-193282"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 21,
+        "first_stage_score": 0.5066137313842773,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "형법 291조  약취, 유인, 매매, 이송 등 살인ㆍ치사#KOBLEX-193282",
+        "provision_text": "① 제287조부터 제289조까지의 죄를 범하여 약취, 유인, 매매 또는 이송된 사람을 살해한 때에는 사형, 무기 또는 7년 이상의 징역에 처한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.41599908471107483,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 291조  약취, 유인, 매매, 이송 등 살인ㆍ치사 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "군형법 24조  직무유기#KOBLEX-140618": "1. 적전의 경우: 사형",
+      "군형법 44조  항명#KOBLEX-140675": "1. 적전인 경우: 사형, 무기 또는 10년 이상의 징역",
+      "성폭력범죄의 처벌 등에 관한 특례법 9조  강간 등 살인ㆍ치사#KOBLEX-157555": "① 제3조부터 제7조까지, 제15조(제3조부터 제7조까지의 미수범으로 한정한다)의 죄 또는 「형법」 제297조(강간), 제297조의2(유사강간) 및 제298조(강제추행)부터 제300조(미수범)까지의 죄를 범한 사람이 다른 사람을 살해한 때에는 사형 또는 무기징역에 처한다.",
+      "특정범죄 가중처벌 등에 관한 법률 4조 2 체포ㆍ감금 등의 가중처벌#KOBLEX-050659": "② 「형법」 제124조ㆍ제125조에 규정된 죄를 범하여 사람을 사망에 이르게 한 경우에는 무기 또는 3년 이상의 징역에 처한다.",
+      "형법 250조  살인, 존속살해#KOBLEX-193180": "①사람을 살해한 자는 사형, 무기 또는 5년 이상의 징역에 처한다.",
+      "형법 252조  촉탁, 승낙에 의한 살인 등#KOBLEX-193184": "① 사람의 촉탁이나 승낙을 받아 그를 살해한 자는 1년 이상 10년 이하의 징역에 처한다.",
+      "형법 281조  체포ㆍ감금등의 치사상#KOBLEX-193255": "제281조(체포ㆍ감금등의 치사상)",
+      "형법 291조  약취, 유인, 매매, 이송 등 살인ㆍ치사#KOBLEX-193282": "① 제287조부터 제289조까지의 죄를 범하여 약취, 유인, 매매 또는 이송된 사람을 살해한 때에는 사형, 무기 또는 7년 이상의 징역에 처한다.",
+      "형법 301조 2 강간등 살인ㆍ치사#KOBLEX-193300": "제301조의2(강간등 살인ㆍ치사) 제297조, 제297조의2 및 제298조부터 제300조까지의 죄를 범한 자가 사람을 살해한 때에는 사형 또는 무기징역에 처한다. 사망에 이르게 한 때에는 무기 또는 10년 이상의 징역에 처한다. <개정 2012.12.18>",
+      "형법 324조 4 인질살해ㆍ치사#KOBLEX-193353": "제324조의4(인질살해ㆍ치사) 제324조의2의 죄를 범한 자가 인질을 살해한 때에는 사형 또는 무기징역에 처한다. 사망에 이르게 한 때에는 무기 또는 10년 이상의 징역에 처한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형법 250조  살인, 존속살해#KOBLEX-193180"
+            ],
+            "rationale": "C003의 '사람을 살해한 자'라는 문구가 살인죄의 행위 유형을 명확히 정의한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "형법 250조  살인, 존속살해#KOBLEX-193180"
+            ],
+            "rationale": "C003의 '사형, 무기 또는 5년 이상의 징역에 처한다'는 문구가 살인죄에 적용되는 법정형을 명시한다.",
+            "requirement_id": "E1-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형법 250조  살인, 존속살해#KOBLEX-193180"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "제시된 후보 조항 C003(형법 제250조 제1항)은 살인죄의 행위 유형(사람을 살해한 자)과 법정형(사형, 무기 또는 5년 이상의 징역)을 모두 명시하고 있어, 질문에서 요구하는 살인죄의 정의 및 법정형 규정을 완전히 충족한다. 다른 후보 조항들은 특수한 상황(촉탁, 강간, 인질 등)에 적용되는 가중처벌 또는 별개의 범죄에 해당하므로, 일반적인 살인죄의 기본 구성요건과 법정형에 대한 증거로는 C003이 적절하다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형법 250조  살인, 존속살해#KOBLEX-193180",
+        "support_spans": [
+          {
+            "end_char": 37,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "살인죄의 구성요건 및 법정형",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑과 을은 오랜 기간 동안 사업 파트너로 일해왔다. 갑은 을이 자신을 배신하고 경쟁 업체에 기밀 정보를 유출했다고 믿고 을과 심하게 다툰 끝에 을을 살해하였다. 사건이 경찰에 의해 조사되면서 갑은 체포되었고, 검찰은 갑을 살인죄로 기소하였다. [질문] 갑이 을을 살해한 경우, 갑은 어떤 처벌을 받을 수 있는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "살인죄",
+          "형법",
+          "법정형",
+          "사람을 살해한 자"
+        ],
+        "query_text": "형법 살인죄 법정형 [원문 맥락] 사건이 경찰에 의해 조사되면서 갑은 체포되었고, 검찰은 갑을 살인죄로 기소하였다. 갑이 을을 살해한 경우, 갑은 어떤 처벌을 받을 수 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법 제250조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑과 을은 오랜 기간 동안 사업 파트너로 일해왔다. 갑은 을이 자신을 배신하고 경쟁 업체에 기밀 정보를 유출했다고 믿고 을과 심하게 다툰 끝에 을을 살해하였다. 사건이 경찰에 의해 조사되면서 갑은 체포되었고, 검찰은 갑을 살인죄로 기소하였다.\n\n[질문]\n갑이 을을 살해한 경우, 갑은 어떤 처벌을 받을 수 있는가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "살인죄의 구성요건과 법정형(사형, 무기 또는 5년 이상의 징역)을 명시하는 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "살인죄의 행위 유형(사람을 살해한 자)을 정의하는 조항"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "살인죄에 적용되는 법정형(사형, 무기 또는 5년 이상의 징역)을 명시하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "살인죄의 정의 및 법정형 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문은 살해 행위에 대한 처벌을 묻고 있으므로, 해당 행위를 살인죄로 규정하고 형량을 정하는 핵심 조항이 필요하다.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "00a68742-590c-428e-befb-5c72b1dbd5c0",
+    "seen_provision_ids": [
+      "형법 250조  살인, 존속살해#KOBLEX-193180",
+      "군형법 24조  직무유기#KOBLEX-140618",
+      "군형법 44조  항명#KOBLEX-140675",
+      "형법 252조  촉탁, 승낙에 의한 살인 등#KOBLEX-193184",
+      "성폭력범죄의 처벌 등에 관한 특례법 9조  강간 등 살인ㆍ치사#KOBLEX-157555",
+      "형법 301조 2 강간등 살인ㆍ치사#KOBLEX-193300",
+      "형법 281조  체포ㆍ감금등의 치사상#KOBLEX-193255",
+      "특정범죄 가중처벌 등에 관한 법률 4조 2 체포ㆍ감금 등의 가중처벌#KOBLEX-050659",
+      "형법 291조  약취, 유인, 매매, 이송 등 살인ㆍ치사#KOBLEX-193282",
+      "형법 324조 4 인질살해ㆍ치사#KOBLEX-193353"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

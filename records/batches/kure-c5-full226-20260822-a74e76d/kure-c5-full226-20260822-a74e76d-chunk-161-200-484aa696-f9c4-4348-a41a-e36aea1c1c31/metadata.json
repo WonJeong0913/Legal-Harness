@@ -1,0 +1,123 @@
+{
+  "batch_id": "kure-c5-full226-20260822-a74e76d-chunk-161-200-484aa696-f9c4-4348-a41a-e36aea1c1c31",
+  "started_at_utc": "2026-08-22T12:49:18.578639+00:00",
+  "manifest": "records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/generated_full226_chunks/kure_161_200.json",
+  "source_snapshot": {
+    "git_commit": "a74e76d1c8fade04486b681974475d8c88f7f136",
+    "git_tree": "f8a8ae185276bbb64247ff164b39c1ba5773a02a",
+    "source_manifest_sha256": "9a775367bc138124d5d5c678c1436161262f2110ecd5f7a1bc26ac1cc77d6297"
+  },
+  "manifest_sha256": "bd537aecdce890288a7a3a615220518a246e9ec60a2463823e11fff7fe6013b5",
+  "batch_manifest_sha256": "7e95c367bbc040cc97b22079ec4dc6182c1bde7c6576503d8171047aa1162932",
+  "start_ordinal": 1,
+  "end_ordinal": null,
+  "entry_count": 40,
+  "configuration": {
+    "condition": "C5-conclusion-first-KURE-v1-full226-Qwen3.8-Q8_0",
+    "retriever": "kure",
+    "reranker": "dragonkue--bge-reranker-v2-m3-ko",
+    "reranker_provenance": {
+      "model_id": "dragonkue/bge-reranker-v2-m3-ko",
+      "model_path": "models/huggingface/dragonkue--bge-reranker-v2-m3-ko",
+      "model_weights_sha256": "aba51b69d97bfff4cd2c1d8eb6c57764e350231850f712b75ae426270f265a43",
+      "device": "cuda"
+    },
+    "model": "legal-harness-qwen38-q8",
+    "seed": 0,
+    "num_ctx": 32768,
+    "total_retrieval_rounds": 3,
+    "total_retrieval_requests": 9,
+    "rerank_pool_k": 100,
+    "final_top_k": 10,
+    "bm25_korean_ending_prefixes": "deterministic_small_suffix_set",
+    "statute_hint_candidate_quota": 0.2,
+    "source_context_anchor": "last_fact_sentence_plus_question_max_1200_chars",
+    "focus_bare_term_prefixes": "2_to_4_chars_excluding_stoplist",
+    "planned_actor_term_prefixes": "2_to_6_chars_actor_suffixes_only",
+    "conditional_generation": "answer_target_full_conditional_limited",
+    "planning_contract": "answer_targets_required",
+    "coverage_contract": "legal_applicability_criterion_results",
+    "factual_branch_classification": "missing_selector_is_partial_not_legal_conflict",
+    "s3_claim_contract": "all_claims_cited_uncited_limitations_outside_claims",
+    "contextual_query_dedup": "after_source_context_attachment",
+    "monotonic_coverage": true,
+    "input_format": "koblex_background_plus_question",
+    "rerank_query_mode": "per_request",
+    "candidate_selection": "evidence_balanced",
+    "per_evidence_min_k": 1,
+    "rerank_document_mode": "statute_and_body",
+    "candidate_budget_scope": "per_round",
+    "model_provenance": {
+      "original_repo": "Qwen/Qwen3.8-27B",
+      "original_revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+      "gguf_repo": "ggml-org/Qwen3.8-27B-GGUF",
+      "gguf_revision": "0669b98607d47046c7c2b3f801011d54a08cfccf",
+      "file": "Qwen3.8-27B-Q8_0.gguf",
+      "sha256": "f5c702d8820d36fb55985bb238fc83ee3a313e920f4b752a437c3a6a9e14e4c8",
+      "bytes": 28595763552,
+      "quantization": "Q8_0",
+      "ollama_version": "0.20.5",
+      "ollama_model_blob": "/root/.ollama/models/blobs/sha256-f5c702d8820d36fb55985bb238fc83ee3a313e920f4b752a437c3a6a9e14e4c8",
+      "runtime_mode": "text_only",
+      "vision_projector_loaded": false,
+      "prompt_template_mode": "qwen38_official_chat_tokens_non_thinking",
+      "stop_sequences": [
+        "<|im_end|>",
+        "<|endoftext|>",
+        "<|im_start|>"
+      ],
+      "note": "Applied after raw-completion framing produced malformed JSON on two qa_92 S1 attempts."
+    },
+    "dedup_mode": "legal_text_alias",
+    "retriever_provenance": {
+      "model_id": "nlpai-lab/KURE-v1",
+      "model_path": "models/huggingface/nlpai-lab--KURE-v1",
+      "model_weights_sha256": "c18156e80caf8ff45eb84a24a853130c3bca03087ccb41b051f86e7556bae02c",
+      "vectors_path": "data/koblex/indexes/kure-v1/vectors.f32.npy",
+      "vectors_sha256": "f2482686836fee4b2488866df5229c72ebee491d4feece2013b7b4755e5dd9c8",
+      "provision_ids_path": "data/koblex/indexes/kure-v1/provision_ids.txt",
+      "provision_ids_sha256": "37333588e1692927d5e6925e4f6bde1ea2d8291f3fda2dddbdad18507445cff8",
+      "normalized_corpus_path": "data/koblex/normalized/statute.jsonl",
+      "normalized_corpus_sha256": "0e2283c7bcfa8f92d3ea7d4dd249449a31c0528b47dde04ab408bee45e0857b0",
+      "documents": 233544,
+      "dimensions": 1024,
+      "distance": "exact cosine via normalized dot product",
+      "device": "cuda"
+    },
+    "ollama_endpoint": "http://127.0.0.1:11434/api/generate",
+    "s1_max_tokens": 4096,
+    "s1_truncation_retry_max_tokens": 8192,
+    "skill_max_tokens": {
+      "legal_issue_and_query_planning": 4096,
+      "provision_coverage_assessment": 3072,
+      "grounded_legal_answer_generation": 3072
+    },
+    "s3_public_answer_max_characters": 800,
+    "s3_public_answer_max_claims": 3,
+    "s3_public_answer_format": "conclusion_first_1_to_3_short_sentences",
+    "s3_audit_fields": [
+      "assumptions",
+      "limitations",
+      "claims",
+      "claim_citations"
+    ],
+    "retrieval_stage_provenance_required_for_evaluation": true
+  },
+  "retriever_comparison": {
+    "status": "VALIDATED_IDENTICAL_EXCEPT_RETRIEVER",
+    "allowed_differences": [
+      "condition",
+      "retriever",
+      "retriever_provenance"
+    ],
+    "entry_count": 40,
+    "primary_manifest": "/root/Legal Harness/records/worktrees/kure-c5-conclusion-first-qwen38-q8-20260822-a74e76d/records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/generated_full226_chunks/kure_161_200.json",
+    "primary_retriever": "kure",
+    "reference_manifest": "/root/Legal Harness/records/worktrees/kure-c5-conclusion-first-qwen38-q8-20260822-a74e76d/records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/generated_full226_chunks/bm25_reference_161_200.json",
+    "reference_retriever": "bm25",
+    "comparable_configuration_sha256": "7fb33661a1bc96192f200761eddc15c63300d07c4f0b29e04e781f7f1fcef54a"
+  },
+  "record_root": "/root/Legal Harness/records/runs/kure-c5-full226-20260822-a74e76d",
+  "completed_at_utc": "2026-08-22T14:23:05.492224+00:00",
+  "has_execution_failure": true
+}

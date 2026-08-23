@@ -1,0 +1,1158 @@
+{
+  "abstention_reason": null,
+  "answer": "주식을 질권의 목적으로 하는 때에는 주권을 질권자에게 교부하여야 한다.[CT1]\n질권은 재산권을 그 목적으로 할 수 있으나, 부동산의 사용, 수익을 목적으로 하는 권리는 그러하지 아니하다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1",
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "A1",
+      "message": "질문에서 을이 주권을 가지고 있다고 명시한 사실은 전제로 한다."
+    }
+  ],
+  "candidate_answer": "주식을 질권의 목적으로 하는 때에는 주권을 질권자에게 교부하여야 한다.[CT1]\n질권은 재산권을 그 목적으로 할 수 있으나, 부동산의 사용, 수익을 목적으로 하는 권리는 그러하지 아니하다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "상법 338조  주식의 입질#KOBLEX-114517",
+      "quoted_text": "①주식을 질권의 목적으로 하는 때에는 주권을 질권자에게 교부하여야 한다. <개정 2014.5.20>",
+      "support_description": "주식 질권 설정 시 효력 발생을 위한 주권 교부 요건을 규정한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "민법 345조  권리질권의 목적#KOBLEX-059097",
+      "quoted_text": "제345조(권리질권의 목적) 질권은 재산권을 그 목적으로 할 수 있다. 그러나 부동산의 사용, 수익을 목적으로 하는 권리는 그러하지 아니하다.",
+      "support_description": "질권 목적 재산의 범위를 재산권으로 정의하고 예외 사항을 명시한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "주식을 질권의 목적으로 하는 때에는 주권을 질권자에게 교부하여야 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "질권은 재산권을 그 목적으로 할 수 있으나, 부동산의 사용, 수익을 목적으로 하는 권리는 그러하지 아니하다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T14:20:15.963114+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 154497.785,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "L1",
+      "message": "본 답변은 주권 교부 요건과 질권 목적 재산의 일반적 범위에 한정하며, 전자등록 주식 등 특수한 경우의 절차는 다루지 않는다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 366,
+      "dedup_collapse": 68,
+      "evidence_fusion": 366,
+      "first_stage": 400,
+      "request_rerank": 400,
+      "round_selected": 30,
+      "rrf": 400,
+      "selected": 366
+    }
+  },
+  "run_id": "7f91fc23-7c45-449d-86c8-d7c2ea17c143",
+  "skill_generation_diagnostics": {
+    "attempt_count": 7,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "민법 345조  권리질권의 목적#KOBLEX-059097",
+      "상법 338조  주식의 입질#KOBLEX-114517"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 4,
+          "request_count": 1,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": true,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "procedural_requirement",
+        "question_anchor": "질권의 효력이 발생하기 위해 필요한 절차는 무엇이며",
+        "requested_output": "주식 질권 설정 시 효력 발생을 위한 법적 절차"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_scope",
+        "question_anchor": "질권의 목적으로 할 수 있는 재산권의 범위는 무엇인가요?",
+        "requested_output": "질권 설정이 가능한 재산권의 법적 범위"
+      }
+    ],
+    "answered_target_ids": [
+      "T1",
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "상법 336조  주식의 양도방법#KOBLEX-114511"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 90,
+        "first_stage_score": 0.5661691427230835,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "상법 336조  주식의 양도방법#KOBLEX-114511",
+        "provision_text": "①주식의 양도에 있어서는 주권을 교부하여야 한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9869590401649475,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "상법 336조  주식의 양도방법 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 338조  주식의 입질#KOBLEX-114517"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6725033521652222,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "상법 338조  주식의 입질#KOBLEX-114517",
+        "provision_text": "①주식을 질권의 목적으로 하는 때에는 주권을 질권자에게 교부하여야 한다. <개정 2014.5.20>",
+        "rerank_rank": 2,
+        "rerank_score": 0.9841391444206238,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "상법 338조  주식의 입질 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "채무자 회생 및 파산에 관한 법률 252조  권리의 변경#KOBLEX-032318"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 37,
+        "first_stage_score": 0.5628381371498108,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "채무자 회생 및 파산에 관한 법률 252조  권리의 변경#KOBLEX-032318",
+        "provision_text": "②「상법」 제339조(질권의 물상대위) 및 제340조(주식의 등록질)제3항은 주주ㆍ지분권자가 제1항의 규정에 의한 권리의 변경으로 받을 금전 그 밖의 물건, 주식 또는 출자지분, 채권 그 밖의 권리와 주권에 관하여 준용한다. <개정 2014.5.20>",
+        "rerank_rank": 3,
+        "rerank_score": 0.9796709418296814,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "채무자 회생 및 파산에 관한 법률 252조  권리의 변경 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 340조  주식의 등록질#KOBLEX-114523"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 14,
+        "first_stage_score": 0.6126951575279236,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "상법 340조  주식의 등록질#KOBLEX-114523",
+        "provision_text": "③제1항의 질권자는 회사에 대하여 전조의 주식에 대한 주권의 교부를 청구할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.970403790473938,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "상법 340조  주식의 등록질 3항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 559조  지분의 입질#KOBLEX-115689"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.6318058371543884,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "상법 559조  지분의 입질#KOBLEX-115689",
+        "provision_text": "①지분은 질권의 목적으로 할 수 있다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.9661656618118286,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "상법 559조  지분의 입질 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 360조 8 주권의 실효절차#KOBLEX-114668"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 89,
+        "first_stage_score": 0.5609936118125916,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "상법 360조 8 주권의 실효절차#KOBLEX-114668",
+        "provision_text": "①주식교환에 의하여 완전자회사가 되는 회사는 주주총회에서 제360조의3제1항의 규정에 의한 승인을 한 때에는 다음 각호의 사항을 주식교환의 날 1월전에 공고하고, 주주명부에 기재된 주주와 질권자에 대하여 따로 따로 그 통지를 하여야 한다. 1. 제360조의3제1항의 규정에 의한 승인을 한 뜻 2. 주식교환의 날의 전날까지 주권을 회사에 제출하여야 한다는 뜻 3. 주식교환의 날에 주권이 무효가 된다는 뜻",
+        "rerank_rank": 6,
+        "rerank_score": 0.9586097598075867,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "상법 360조 8 주권의 실효절차 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 648조  임차지의 부속물, 과실 등에 대한 법정질권#KOBLEX-059685"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 28,
+        "first_stage_score": 0.5686813592910767,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "민법 648조  임차지의 부속물, 과실 등에 대한 법정질권#KOBLEX-059685",
+        "provision_text": "제648조(임차지의 부속물, 과실 등에 대한 법정질권) 토지임대인이 임대차에 관한 채권에 의하여 임차지에 부속 또는 그 사용의 편익에 공용한 임차인의 소유동산 및 그 토지의 과실을 압류한 때에는 질권과 동일한 효력이 있다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.957085907459259,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "민법 648조  임차지의 부속물, 과실 등에 대한 법정질권",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "자본시장과 금융투자업에 관한 법률 311조  계좌부 기재의 효력#KOBLEX-136695"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 74,
+        "first_stage_score": 0.5629293322563171,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "자본시장과 금융투자업에 관한 법률 311조  계좌부 기재의 효력#KOBLEX-136695",
+        "provision_text": "② 투자자계좌부 또는 예탁자계좌부에 증권등의 양도를 목적으로 계좌 간 대체의 기재를 하거나 질권설정을 목적으로 질물(質物)인 뜻과 질권자를 기재한 경우에는 증권등의 교부가 있었던 것으로 본다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.9560235142707825,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "자본시장과 금융투자업에 관한 법률 311조  계좌부 기재의 효력 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방세징수법 44조  질권이 설정된 재산의 압류#KOBLEX-131269"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 57,
+        "first_stage_score": 0.5480954647064209,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "지방세징수법 44조  질권이 설정된 재산의 압류#KOBLEX-131269",
+        "provision_text": "제44조(질권이 설정된 재산의 압류)",
+        "rerank_rank": 9,
+        "rerank_score": 0.954780101776123,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "지방세징수법 44조  질권이 설정된 재산의 압류",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "조세특례제한법 시행령 115조  증권거래세의 면제#KOBLEX-071423"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 82,
+        "first_stage_score": 0.5514127612113953,
+        "fusion_rank": 10,
+        "issue_id": "I2",
+        "provision_id": "조세특례제한법 시행령 115조  증권거래세의 면제#KOBLEX-071423",
+        "provision_text": "⑭ 제13항제2호를 적용할 때 주권을 매수했으나 차익거래 대상 선물의 매도계약이 체결되지 않은 경우에는 우정사업총괄기관 또는 기금관리주체는 해당 주권을 그 매수일까지 다른 계좌로 이체해야 한다. 다만, 차익거래 대상 선물의 기초자산인 주가지수 구성종목이 변경되어 이를 반영하기 위하여 주권을 매수하는 경우는 제외한다. <신설 2017.2.7, 2019.2.12, 2021.2.17>",
+        "rerank_rank": 10,
+        "rerank_score": 0.9514861106872559,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "조세특례제한법 시행령 115조  증권거래세의 면제 14항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 347조  설정계약의 요물성#KOBLEX-059099"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6556698679924011,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "민법 347조  설정계약의 요물성#KOBLEX-059099",
+        "provision_text": "제347조(설정계약의 요물성) 채권을 질권의 목적으로 하는 경우에 채권증서가 있는 때에는 질권의 설정은 그 증서를 질권자에게 교부함으로써 그 효력이 생긴다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.2496580332517624,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E2",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 347조  설정계약의 요물성",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 353조  질권의 목적이 된 채권의 실행방법#KOBLEX-059107"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 24,
+        "first_stage_score": 0.585611879825592,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "민법 353조  질권의 목적이 된 채권의 실행방법#KOBLEX-059107",
+        "provision_text": "제353조(질권의 목적이 된 채권의 실행방법)",
+        "rerank_rank": 2,
+        "rerank_score": 0.18512676656246185,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "민법 353조  질권의 목적이 된 채권의 실행방법",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 693조  임치의 의의#KOBLEX-059802"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 63,
+        "first_stage_score": 0.5517980456352234,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "민법 693조  임치의 의의#KOBLEX-059802",
+        "provision_text": "제693조(임치의 의의) 임치는 당사자 일방이 상대방에 대하여 금전이나 유가증권 기타 물건의 보관을 위탁하고 상대방이 이를 승낙함으로써 효력이 생긴다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.15227709710597992,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 693조  임치의 의의",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 353조  질권의 목적이 된 채권의 실행방법#KOBLEX-059111"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 14,
+        "first_stage_score": 0.6011050343513489,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "민법 353조  질권의 목적이 된 채권의 실행방법#KOBLEX-059111",
+        "provision_text": "④채권의 목적물이 금전 이외의 물건인 때에는 질권자는 그 변제를 받은 물건에 대하여 질권을 행사할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.1385193169116974,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "민법 353조  질권의 목적이 된 채권의 실행방법 4항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 330조  설정계약의 요물성#KOBLEX-059075"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 12,
+        "first_stage_score": 0.6054322719573975,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "민법 330조  설정계약의 요물성#KOBLEX-059075",
+        "provision_text": "제330조(설정계약의 요물성) 질권의 설정은 질권자에게 목적물을 인도함으로써 그 효력이 생긴다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.1346757709980011,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 330조  설정계약의 요물성",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 387조#KOBLEX-059171"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 72,
+        "first_stage_score": 0.5458590388298035,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "민법 387조#KOBLEX-059171",
+        "provision_text": "제2절 채권의 효력",
+        "rerank_rank": 6,
+        "rerank_score": 0.11268891394138336,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 387조",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 349조  지명채권에 대한 질권의 대항요건#KOBLEX-059101"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 100,
+        "first_stage_score": 0.5374259948730469,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "민법 349조  지명채권에 대한 질권의 대항요건#KOBLEX-059101",
+        "provision_text": "제349조(지명채권에 대한 질권의 대항요건)",
+        "rerank_rank": 7,
+        "rerank_score": 0.10252120345830917,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "민법 349조  지명채권에 대한 질권의 대항요건",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 348조  저당채권에 대한 질권과 부기등기#KOBLEX-059100"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 13,
+        "first_stage_score": 0.6051380038261414,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "민법 348조  저당채권에 대한 질권과 부기등기#KOBLEX-059100",
+        "provision_text": "제348조(저당채권에 대한 질권과 부기등기) 저당권으로 담보한 채권을 질권의 목적으로 한 때에는 그 저당권등기에 질권의 부기등기를 하여야 그 효력이 저당권에 미친다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.09444239735603333,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "민법 348조  저당채권에 대한 질권과 부기등기",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 353조  질권의 목적이 된 채권의 실행방법#KOBLEX-059108"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 48,
+        "first_stage_score": 0.5610325336456299,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "민법 353조  질권의 목적이 된 채권의 실행방법#KOBLEX-059108",
+        "provision_text": "①질권자는 질권의 목적이 된 채권을 직접 청구할 수 있다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.09184889495372772,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "민법 353조  질권의 목적이 된 채권의 실행방법 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 350조  지시채권에 대한 질권의 설정방법#KOBLEX-059104"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 8,
+        "first_stage_score": 0.6250174641609192,
+        "fusion_rank": 10,
+        "issue_id": "I2",
+        "provision_id": "민법 350조  지시채권에 대한 질권의 설정방법#KOBLEX-059104",
+        "provision_text": "제350조(지시채권에 대한 질권의 설정방법) 지시채권을 질권의 목적으로 한 질권의 설정은 증서에 배서하여 질권자에게 교부함으로써 그 효력이 생긴다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.06986788660287857,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "민법 350조  지시채권에 대한 질권의 설정방법",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 345조  권리질권의 목적#KOBLEX-059097"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.681572437286377,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "민법 345조  권리질권의 목적#KOBLEX-059097",
+        "provision_text": "제345조(권리질권의 목적) 질권은 재산권을 그 목적으로 할 수 있다. 그러나 부동산의 사용, 수익을 목적으로 하는 권리는 그러하지 아니하다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9939984083175659,
+        "retrieval_round": 3,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E2",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "민법 345조  권리질권의 목적",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 353조  질권의 목적이 된 채권의 실행방법#KOBLEX-059110"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 48,
+        "first_stage_score": 0.5704928636550903,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "민법 353조  질권의 목적이 된 채권의 실행방법#KOBLEX-059110",
+        "provision_text": "③전항의 채권의 변제기가 질권자의 채권의 변제기보다 먼저 도래한 때에는 질권자는 제삼채무자에 대하여 그 변제금액의 공탁을 청구할 수 있다. 이 경우에 질권은 그 공탁금에 존재한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.11043498665094376,
+        "retrieval_round": 3,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "민법 353조  질권의 목적이 된 채권의 실행방법 3항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 373조#KOBLEX-059142"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 87,
+        "first_stage_score": 0.5473197102546692,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "민법 373조#KOBLEX-059142",
+        "provision_text": "제1절 채권의 목적",
+        "rerank_rank": 6,
+        "rerank_score": 0.02576722577214241,
+        "retrieval_round": 3,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "민법 373조",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 335조  유치적효력#KOBLEX-059080"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.6186423301696777,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "민법 335조  유치적효력#KOBLEX-059080",
+        "provision_text": "제335조(유치적효력) 질권자는 전조의 채권의 변제를 받을 때까지 질물을 유치할 수 있다. 그러나 자기보다 우선권이 있는 채권자에게 대항하지 못한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.023900246247649193,
+        "retrieval_round": 3,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "민법 335조  유치적효력",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "민법 330조  설정계약의 요물성#KOBLEX-059075": "제330조(설정계약의 요물성) 질권의 설정은 질권자에게 목적물을 인도함으로써 그 효력이 생긴다.",
+      "민법 335조  유치적효력#KOBLEX-059080": "제335조(유치적효력) 질권자는 전조의 채권의 변제를 받을 때까지 질물을 유치할 수 있다. 그러나 자기보다 우선권이 있는 채권자에게 대항하지 못한다.",
+      "민법 345조  권리질권의 목적#KOBLEX-059097": "제345조(권리질권의 목적) 질권은 재산권을 그 목적으로 할 수 있다. 그러나 부동산의 사용, 수익을 목적으로 하는 권리는 그러하지 아니하다.",
+      "민법 347조  설정계약의 요물성#KOBLEX-059099": "제347조(설정계약의 요물성) 채권을 질권의 목적으로 하는 경우에 채권증서가 있는 때에는 질권의 설정은 그 증서를 질권자에게 교부함으로써 그 효력이 생긴다.",
+      "민법 348조  저당채권에 대한 질권과 부기등기#KOBLEX-059100": "제348조(저당채권에 대한 질권과 부기등기) 저당권으로 담보한 채권을 질권의 목적으로 한 때에는 그 저당권등기에 질권의 부기등기를 하여야 그 효력이 저당권에 미친다.",
+      "민법 349조  지명채권에 대한 질권의 대항요건#KOBLEX-059101": "제349조(지명채권에 대한 질권의 대항요건)",
+      "민법 350조  지시채권에 대한 질권의 설정방법#KOBLEX-059104": "제350조(지시채권에 대한 질권의 설정방법) 지시채권을 질권의 목적으로 한 질권의 설정은 증서에 배서하여 질권자에게 교부함으로써 그 효력이 생긴다.",
+      "민법 353조  질권의 목적이 된 채권의 실행방법#KOBLEX-059107": "제353조(질권의 목적이 된 채권의 실행방법)",
+      "민법 353조  질권의 목적이 된 채권의 실행방법#KOBLEX-059108": "①질권자는 질권의 목적이 된 채권을 직접 청구할 수 있다.",
+      "민법 353조  질권의 목적이 된 채권의 실행방법#KOBLEX-059110": "③전항의 채권의 변제기가 질권자의 채권의 변제기보다 먼저 도래한 때에는 질권자는 제삼채무자에 대하여 그 변제금액의 공탁을 청구할 수 있다. 이 경우에 질권은 그 공탁금에 존재한다.",
+      "민법 353조  질권의 목적이 된 채권의 실행방법#KOBLEX-059111": "④채권의 목적물이 금전 이외의 물건인 때에는 질권자는 그 변제를 받은 물건에 대하여 질권을 행사할 수 있다.",
+      "민법 373조#KOBLEX-059142": "제1절 채권의 목적",
+      "민법 387조#KOBLEX-059171": "제2절 채권의 효력",
+      "민법 648조  임차지의 부속물, 과실 등에 대한 법정질권#KOBLEX-059685": "제648조(임차지의 부속물, 과실 등에 대한 법정질권) 토지임대인이 임대차에 관한 채권에 의하여 임차지에 부속 또는 그 사용의 편익에 공용한 임차인의 소유동산 및 그 토지의 과실을 압류한 때에는 질권과 동일한 효력이 있다.",
+      "민법 693조  임치의 의의#KOBLEX-059802": "제693조(임치의 의의) 임치는 당사자 일방이 상대방에 대하여 금전이나 유가증권 기타 물건의 보관을 위탁하고 상대방이 이를 승낙함으로써 효력이 생긴다.",
+      "상법 336조  주식의 양도방법#KOBLEX-114511": "①주식의 양도에 있어서는 주권을 교부하여야 한다.",
+      "상법 338조  주식의 입질#KOBLEX-114517": "①주식을 질권의 목적으로 하는 때에는 주권을 질권자에게 교부하여야 한다. <개정 2014.5.20>",
+      "상법 340조  주식의 등록질#KOBLEX-114523": "③제1항의 질권자는 회사에 대하여 전조의 주식에 대한 주권의 교부를 청구할 수 있다.",
+      "상법 360조 8 주권의 실효절차#KOBLEX-114668": "①주식교환에 의하여 완전자회사가 되는 회사는 주주총회에서 제360조의3제1항의 규정에 의한 승인을 한 때에는 다음 각호의 사항을 주식교환의 날 1월전에 공고하고, 주주명부에 기재된 주주와 질권자에 대하여 따로 따로 그 통지를 하여야 한다. 1. 제360조의3제1항의 규정에 의한 승인을 한 뜻 2. 주식교환의 날의 전날까지 주권을 회사에 제출하여야 한다는 뜻 3. 주식교환의 날에 주권이 무효가 된다는 뜻",
+      "상법 559조  지분의 입질#KOBLEX-115689": "①지분은 질권의 목적으로 할 수 있다.",
+      "자본시장과 금융투자업에 관한 법률 311조  계좌부 기재의 효력#KOBLEX-136695": "② 투자자계좌부 또는 예탁자계좌부에 증권등의 양도를 목적으로 계좌 간 대체의 기재를 하거나 질권설정을 목적으로 질물(質物)인 뜻과 질권자를 기재한 경우에는 증권등의 교부가 있었던 것으로 본다.",
+      "조세특례제한법 시행령 115조  증권거래세의 면제#KOBLEX-071423": "⑭ 제13항제2호를 적용할 때 주권을 매수했으나 차익거래 대상 선물의 매도계약이 체결되지 않은 경우에는 우정사업총괄기관 또는 기금관리주체는 해당 주권을 그 매수일까지 다른 계좌로 이체해야 한다. 다만, 차익거래 대상 선물의 기초자산인 주가지수 구성종목이 변경되어 이를 반영하기 위하여 주권을 매수하는 경우는 제외한다. <신설 2017.2.7, 2019.2.12, 2021.2.17>",
+      "지방세징수법 44조  질권이 설정된 재산의 압류#KOBLEX-131269": "제44조(질권이 설정된 재산의 압류)",
+      "채무자 회생 및 파산에 관한 법률 252조  권리의 변경#KOBLEX-032318": "②「상법」 제339조(질권의 물상대위) 및 제340조(주식의 등록질)제3항은 주주ㆍ지분권자가 제1항의 규정에 의한 권리의 변경으로 받을 금전 그 밖의 물건, 주식 또는 출자지분, 채권 그 밖의 권리와 주권에 관하여 준용한다. <개정 2014.5.20>"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "상법 338조  주식의 입질#KOBLEX-114517"
+            ],
+            "rationale": "C002는 주식 질권 설정 시 주권 교부 요건을 명시하여 요구사항을 충족한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "상법 338조  주식의 입질#KOBLEX-114517"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "상법 제338조 제1항(C002)은 주식 질권 설정 시 주권 교부 요건을 명확히 규정하여, 질권 효력 발생을 위한 절차적 요건을 충족한다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민법 345조  권리질권의 목적#KOBLEX-059097"
+            ],
+            "rationale": "C021은 질권 목적 재산의 범위를 정의하는 조항으로, 질권은 재산권을 목적으로 할 수 있음을 규정하여 요구사항을 충족한다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민법 345조  권리질권의 목적#KOBLEX-059097"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "민법 제345조(C021)는 질권 목적 재산의 범위를 '재산권'으로 정의하고 예외 사항을 명시하여, 질권 목적 재산의 법적 범위를 정의하는 조항으로서 요구사항을 충족한다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "상법 338조  주식의 입질#KOBLEX-114517",
+        "support_spans": [
+          {
+            "end_char": 55,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "민법 345조  권리질권의 목적#KOBLEX-059097",
+        "support_spans": [
+          {
+            "end_char": 79,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 4,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "주식 질권의 효력 발생 요건",
+        "issue_id": "I1"
+      },
+      {
+        "description": "질권 목적 재산의 범위",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 을에게 1,000만 원을 빌려주면서 을의 회사 주식에 질권을 설정하기로 했습니다. 을은 주식의 소유권을 증명할 수 있는 주권을 가지고 있습니다. 을은 갑에게 주권을 넘겨줄 준비가 되어 있으며, 이 때 질권이 효력을 발생할 수 있는지 궁금합니다. [질문] 을이 갑에게 빌린 돈의 담보로 회사 주식에 질권을 설정하려고 할 때, 질권의 효력이 발생하기 위해 필요한 절차는 무엇이며, 질권의 목적으로 할 수 있는 재산권의 범위는 무엇인가요?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "주식 질권",
+          "효력 발생",
+          "주권 교부"
+        ],
+        "query_text": "주식 질권 설정 효력 발생 주권 교부 [원문 맥락] 을은 갑에게 주권을 넘겨줄 준비가 되어 있으며, 이 때 질권이 효력을 발생할 수 있는지 궁금합니다. 을이 갑에게 빌린 돈의 담보로 회사 주식에 질권을 설정하려고 할 때, 질권의 효력이 발생하기 위해 필요한 절차는 무엇이며, 질권의 목적으로 할 수 있는 재산권의 범위는 무엇인가요?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "질권",
+          "목적 재산",
+          "범위"
+        ],
+        "query_text": "질권 목적 재산 범위 [원문 맥락] 을은 갑에게 주권을 넘겨줄 준비가 되어 있으며, 이 때 질권이 효력을 발생할 수 있는지 궁금합니다. 을이 갑에게 빌린 돈의 담보로 회사 주식에 질권을 설정하려고 할 때, 질권의 효력이 발생하기 위해 필요한 절차는 무엇이며, 질권의 목적으로 할 수 있는 재산권의 범위는 무엇인가요?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "질권",
+          "목적 재산",
+          "채권",
+          "유가증권",
+          "범위"
+        ],
+        "query_text": "민법 질권 목적 재산 범위 채권 유가증권 [원문 맥락] 을은 갑에게 주권을 넘겨줄 준비가 되어 있으며, 이 때 질권이 효력을 발생할 수 있는지 궁금합니다. 을이 갑에게 빌린 돈의 담보로 회사 주식에 질권을 설정하려고 할 때, 질권의 효력이 발생하기 위해 필요한 절차는 무엇이며, 질권의 목적으로 할 수 있는 재산권의 범위는 무엇인가요?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "질권",
+          "목적",
+          "채권",
+          "재산권",
+          "범위"
+        ],
+        "query_text": "민법 제345조 질권의 목적 재산 범위 채권 기타 재산권 [원문 맥락] 을은 갑에게 주권을 넘겨줄 준비가 되어 있으며, 이 때 질권이 효력을 발생할 수 있는지 궁금합니다. 을이 갑에게 빌린 돈의 담보로 회사 주식에 질권을 설정하려고 할 때, 질권의 효력이 발생하기 위해 필요한 절차는 무엇이며, 질권의 목적으로 할 수 있는 재산권의 범위는 무엇인가요?",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 을에게 1,000만 원을 빌려주면서 을의 회사 주식에 질권을 설정하기로 했습니다. 을은 주식의 소유권을 증명할 수 있는 주권을 가지고 있습니다. 을은 갑에게 주권을 넘겨줄 준비가 되어 있으며, 이 때 질권이 효력을 발생할 수 있는지 궁금합니다.\n\n[질문]\n을이 갑에게 빌린 돈의 담보로 회사 주식에 질권을 설정하려고 할 때, 질권의 효력이 발생하기 위해 필요한 절차는 무엇이며, 질권의 목적으로 할 수 있는 재산권의 범위는 무엇인가요?",
+    "remaining_request_budget": 5,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "주식 질권 설정 시 효력 발생을 위한 주권 교부 요건을 명시하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "주식 질권 설정 시 효력 발생을 위한 주권 교부 요건을 명시하는 조항을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "주식 질권 설정 시 효력 발생을 위한 주권 교부 요건",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질권 효력 발생의 핵심 절차적 요건을 규명하기 위해 필요",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "질권 목적 재산의 범위를 정의하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "질권 목적 재산의 범위를 정의하는 조항을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "질권 목적 재산의 법적 범위",
+        "evidence_item_id": "E2",
+        "evidence_type": "definition",
+        "issue_id": "I2",
+        "necessity_reason": "질권 설정이 가능한 재산의 범위를 규명하기 위해 필요",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "7f91fc23-7c45-449d-86c8-d7c2ea17c143",
+    "seen_provision_ids": [
+      "민법 387조#KOBLEX-059171",
+      "민법 345조  권리질권의 목적#KOBLEX-059097",
+      "상법 559조  지분의 입질#KOBLEX-115689",
+      "민법 693조  임치의 의의#KOBLEX-059802",
+      "상법 360조 8 주권의 실효절차#KOBLEX-114668",
+      "민법 330조  설정계약의 요물성#KOBLEX-059075",
+      "민법 353조  질권의 목적이 된 채권의 실행방법#KOBLEX-059111",
+      "상법 338조  주식의 입질#KOBLEX-114517",
+      "상법 336조  주식의 양도방법#KOBLEX-114511",
+      "자본시장과 금융투자업에 관한 법률 311조  계좌부 기재의 효력#KOBLEX-136695",
+      "지방세징수법 44조  질권이 설정된 재산의 압류#KOBLEX-131269",
+      "민법 648조  임차지의 부속물, 과실 등에 대한 법정질권#KOBLEX-059685",
+      "민법 347조  설정계약의 요물성#KOBLEX-059099",
+      "민법 373조#KOBLEX-059142",
+      "채무자 회생 및 파산에 관한 법률 252조  권리의 변경#KOBLEX-032318",
+      "민법 348조  저당채권에 대한 질권과 부기등기#KOBLEX-059100",
+      "민법 349조  지명채권에 대한 질권의 대항요건#KOBLEX-059101",
+      "상법 340조  주식의 등록질#KOBLEX-114523",
+      "조세특례제한법 시행령 115조  증권거래세의 면제#KOBLEX-071423",
+      "민법 350조  지시채권에 대한 질권의 설정방법#KOBLEX-059104",
+      "민법 353조  질권의 목적이 된 채권의 실행방법#KOBLEX-059110",
+      "민법 353조  질권의 목적이 된 채권의 실행방법#KOBLEX-059107",
+      "민법 335조  유치적효력#KOBLEX-059080",
+      "민법 353조  질권의 목적이 된 채권의 실행방법#KOBLEX-059108"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

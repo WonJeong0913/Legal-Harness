@@ -1,0 +1,1184 @@
+{
+  "abstention_reason": null,
+  "answer": "조세범 처벌법 제3조부터 제14조까지에 규정된 범칙행위의 공소시효는 7년이 지나면 완성됩니다.[CT1]\n제18조에 따른 행위자가 「특정범죄가중처벌 등에 관한 법률」 제8조의 적용을 받는 경우에는 법인에 대한 공소시효는 10년이 지나면 완성됩니다.[CT2]",
+  "answer_mode": "limited",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_FACT",
+      "message": "질문에서 제시된 '범칙행위'가 조세범 처벌법 제3조부터 제14조까지의 규정에 해당하는 것으로 가정합니다."
+    }
+  ],
+  "candidate_answer": "조세범 처벌법 제3조부터 제14조까지에 규정된 범칙행위의 공소시효는 7년이 지나면 완성됩니다.[CT1]\n제18조에 따른 행위자가 「특정범죄가중처벌 등에 관한 법률」 제8조의 적용을 받는 경우에는 법인에 대한 공소시효는 10년이 지나면 완성됩니다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "조세범 처벌법 22조  공소시효 기간#KOBLEX-205266",
+      "quoted_text": "제22조(공소시효 기간) 제3조부터 제14조까지에 규정된 범칙행위의 공소시효는 7년이 지나면 완성된다. 다만, 제18조에 따른 행위자가 「특정범죄가중처벌 등에 관한 법률」 제8조의 적용을 받는 경우에는 제18조에 따른 법인에 대한 공소시효는 10년이 지나면 완성된다. <개정 2015.12.29>",
+      "support_description": "조세범 처벌법 제22조 제1문에서 일반 범칙행위의 공소시효 기간을 7년으로 규정하고 있습니다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "조세범 처벌법 22조  공소시효 기간#KOBLEX-205266",
+      "quoted_text": "제22조(공소시효 기간) 제3조부터 제14조까지에 규정된 범칙행위의 공소시효는 7년이 지나면 완성된다. 다만, 제18조에 따른 행위자가 「특정범죄가중처벌 등에 관한 법률」 제8조의 적용을 받는 경우에는 제18조에 따른 법인에 대한 공소시효는 10년이 지나면 완성된다. <개정 2015.12.29>",
+      "support_description": "조세범 처벌법 제22조 단서에서 가중처벌 대상 법인에 대한 공소시효를 10년으로 규정하고 있습니다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "조세범 처벌법 제3조부터 제14조까지에 규정된 범칙행위의 공소시효는 7년이 지나면 완성됩니다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "conditional",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "exception",
+      "text": "제18조에 따른 행위자가 「특정범죄가중처벌 등에 관한 법률」 제8조의 적용을 받는 경우에는 법인에 대한 공소시효는 10년이 지나면 완성됩니다."
+    }
+  ],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T09:04:46.722598+00:00",
+  "deferred_target_ids": [
+    "T2"
+  ],
+  "end_to_end_latency_ms": 190829.999,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "DEFERRED_TARGET",
+      "message": "갑 주식회사의 벌금형 면제 조건(T2)에 대한 질문은 조세범 처벌법 관련 조항이 제공되지 않아 답변을 보류합니다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 348,
+      "dedup_collapse": 142,
+      "evidence_fusion": 348,
+      "first_stage": 500,
+      "request_rerank": 500,
+      "round_selected": 30,
+      "rrf": 400,
+      "selected": 348
+    }
+  },
+  "run_id": "caf936b1-d2ae-4ed4-bb45-cf83f189fff2",
+  "skill_generation_diagnostics": {
+    "attempt_count": 8,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "조세범 처벌법 22조  공소시효 기간#KOBLEX-205266"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 4,
+          "request_count": 2,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [
+            "T2"
+          ],
+          "explanation": "Only the citable answer targets will be answered; remaining targets are deferred.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": [
+            "T2"
+          ]
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "limited",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "갑 주식회사의 대표 갑씨가 저지른 범칙행위에 대한 공소시효는 어떻게 되는가?",
+        "requested_output": "The applicable statute of limitations period for the specific tax offense committed by the representative."
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "갑 주식회사가 벌금형을 피할 수 있는 조건은 무엇인가?",
+        "requested_output": "The statutory conditions under which the corporation can be exempted from a fine penalty."
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "조세범 처벌법 22조  공소시효 기간#KOBLEX-205266",
+          "조세범 처벌법 22조  공소시효 기간#KOBLEX-219289"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.5857381224632263,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "조세범 처벌법 22조  공소시효 기간#KOBLEX-205266",
+        "provision_text": "제22조(공소시효 기간) 제3조부터 제14조까지에 규정된 범칙행위의 공소시효는 7년이 지나면 완성된다. 다만, 제18조에 따른 행위자가 「특정범죄가중처벌 등에 관한 법률」 제8조의 적용을 받는 경우에는 제18조에 따른 법인에 대한 공소시효는 10년이 지나면 완성된다. <개정 2015.12.29>",
+        "rerank_rank": 1,
+        "rerank_score": 0.1429857760667801,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "조세범 처벌법 22조  공소시효 기간",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "관세법 279조  양벌 규정#KOBLEX-105981"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.5873307585716248,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "관세법 279조  양벌 규정#KOBLEX-105981",
+        "provision_text": "① 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제11장에서 규정한 벌칙(제277조의 과태료는 제외한다)에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.140725240111351,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "관세법 279조  양벌 규정 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "세무사법 4조  세무사의 결격사유#KOBLEX-177274"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 41,
+        "first_stage_score": 0.5237493515014648,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "세무사법 4조  세무사의 결격사유#KOBLEX-177274",
+        "provision_text": "10. 이 법과 「조세범처벌법」에 따른 벌금의 형을 받은 사람으로서 그 형의 집행이 끝나거나 집행을 받지 아니하기로 확정된 후 3년이 지나지 아니한 사람 또는 「조세범처벌절차법」에 따른 통고처분을 받은 사람으로서 그 통고대로 이행된 후 3년이 지나지 아니한 사람",
+        "rerank_rank": 2,
+        "rerank_score": 0.04440457373857498,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "세무사법 4조  세무사의 결격사유 10호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방세기본법 109조  양벌 규정#KOBLEX-121034"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 20,
+        "first_stage_score": 0.5769195556640625,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "지방세기본법 109조  양벌 규정#KOBLEX-121034",
+        "provision_text": "제109조(양벌 규정) 법인(제153조에 따라 준용되는 「국세기본법」 제13조에 따른 법인으로 보는 단체를 포함한다. 이하 같다)의 대표자, 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 이 절에서 규정하는 범칙행위를 하면 그 행위자를 벌할 뿐만 아니라 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.02053389698266983,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "지방세기본법 109조  양벌 규정",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "독점규제 및 공정거래에 관한 법률 128조  양벌규정#KOBLEX-021048",
+          "독점규제 및 공정거래에 관한 법률 128조  양벌규정#KOBLEX-039476"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 8,
+        "first_stage_score": 0.5832625031471252,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "독점규제 및 공정거래에 관한 법률 128조  양벌규정#KOBLEX-021048",
+        "provision_text": "제128조(양벌규정) 법인(법인격이 없는 단체를 포함한다. 이하 이 조에서 같다)의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제124조부터 제126조까지의 어느 하나에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.016750961542129517,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "독점규제 및 공정거래에 관한 법률 128조  양벌규정",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공공단체등 위탁선거에 관한 법률 67조  양벌규정#KOBLEX-086686"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 44,
+        "first_stage_score": 0.5713374018669128,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "공공단체등 위탁선거에 관한 법률 67조  양벌규정#KOBLEX-086686",
+        "provision_text": "제67조(양벌규정) 법인 또는 단체의 대표자나 법인 또는 단체의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 단체의 업무에 관하여 이 법의 위반행위를 하였을 때에는 행위자를 벌하는 외에 그 법인 또는 단체에 대하여도 해당 조문의 벌금형을 과(科)한다. 다만, 그 법인 또는 단체가 그 위반 행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.014299928210675716,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "공공단체등 위탁선거에 관한 법률 67조  양벌규정",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방세기본법 112조  공소시효의 기간#KOBLEX-121037"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.5903799533843994,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "지방세기본법 112조  공소시효의 기간#KOBLEX-121037",
+        "provision_text": "제112조(공소시효의 기간) 제102조부터 제107조까지 및 제109조에 따른 범칙행위의 공소시효는 7년으로 한다. 다만, 제109조에 따른 행위자가 「특정범죄 가중처벌 등에 관한 법률」 제8조의 적용을 받는 경우에는 제109조에 따른 법인에 대한 공소시효는 10년이 지나면 완성된다. <개정 2018.12.24>",
+        "rerank_rank": 3,
+        "rerank_score": 0.011738581582903862,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "지방세기본법 112조  공소시효의 기간",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "전자문서 및 전자거래 기본법 45조  양벌규정#KOBLEX-166118"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 17,
+        "first_stage_score": 0.5782365202903748,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "전자문서 및 전자거래 기본법 45조  양벌규정#KOBLEX-166118",
+        "provision_text": "제45조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제43조 또는 제44조의 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.011177130043506622,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "전자문서 및 전자거래 기본법 45조  양벌규정",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "수도법 86조  양벌규정#KOBLEX-015907"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 32,
+        "first_stage_score": 0.5742403864860535,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "수도법 86조  양벌규정#KOBLEX-015907",
+        "provision_text": "제86조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제81조부터 제85조까지의 어느 하나에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.011145610362291336,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "수도법 86조  양벌규정",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "산지관리법 56조  양벌규정#KOBLEX-106964"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 99,
+        "first_stage_score": 0.5625046491622925,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "산지관리법 56조  양벌규정#KOBLEX-106964",
+        "provision_text": "제56조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제53조부터 제55조까지의 어느 하나에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.010694488883018494,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "산지관리법 56조  양벌규정",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공중위생관리법 21조  양벌규정#KOBLEX-164388"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6147090792655945,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "공중위생관리법 21조  양벌규정#KOBLEX-164388",
+        "provision_text": "제21조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제20조의 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.005693638697266579,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E2",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "공중위생관리법 21조  양벌규정",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "가상자산 이용자 보호 등에 관한 법률 21조  양벌규정#KOBLEX-007958"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6065351366996765,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "가상자산 이용자 보호 등에 관한 법률 21조  양벌규정#KOBLEX-007958",
+        "provision_text": "제21조(양벌규정) 법인(단체를 포함한다. 이하 이 조에서 같다)의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제19조의 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.003933269530534744,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "가상자산 이용자 보호 등에 관한 법률 21조  양벌규정",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "장사 등에 관한 법률 41조  양벌규정#KOBLEX-009880",
+          "장사 등에 관한 법률 41조  양벌규정#KOBLEX-090403"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 98,
+        "first_stage_score": 0.5768716931343079,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "장사 등에 관한 법률 41조  양벌규정#KOBLEX-009880",
+        "provision_text": "제41조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제39조 또는 제40조의 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.0004503719974309206,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "장사 등에 관한 법률 41조  양벌규정",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "가맹사업거래의 공정화에 관한 법률 42조  양벌규정#KOBLEX-139807"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 100,
+        "first_stage_score": 0.57658451795578,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "가맹사업거래의 공정화에 관한 법률 42조  양벌규정#KOBLEX-139807",
+        "provision_text": "제42조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제41조의 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.00022902077762410045,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "가맹사업거래의 공정화에 관한 법률 42조  양벌규정",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "대부업 등의 등록 및 금융이용자 보호에 관한 법률 20조  양벌규정#KOBLEX-072521"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 16,
+        "first_stage_score": 0.5948264002799988,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "대부업 등의 등록 및 금융이용자 보호에 관한 법률 20조  양벌규정#KOBLEX-072521",
+        "provision_text": "제20조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제19조의 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.00019777778652496636,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "대부업 등의 등록 및 금융이용자 보호에 관한 법률 20조  양벌규정",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "하도급거래 공정화에 관한 법률 31조  양벌규정#KOBLEX-228482"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 59,
+        "first_stage_score": 0.5814045667648315,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "하도급거래 공정화에 관한 법률 31조  양벌규정#KOBLEX-228482",
+        "provision_text": "제31조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제30조의 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.00018241757061332464,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "하도급거래 공정화에 관한 법률 31조  양벌규정",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "항만법 111조  양벌규정#KOBLEX-089917"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 53,
+        "first_stage_score": 0.5823081731796265,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "항만법 111조  양벌규정#KOBLEX-089917",
+        "provision_text": "제111조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제107조부터 제110조까지의 어느 하나에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.00016185354616027325,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "항만법 111조  양벌규정",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 634조 3 양벌규정#KOBLEX-115894"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 19,
+        "first_stage_score": 0.5941936373710632,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "상법 634조 3 양벌규정#KOBLEX-115894",
+        "provision_text": "제634조의3(양벌규정) 회사의 대표자나 대리인, 사용인, 그 밖의 종업원이 그 회사의 업무에 관하여 제624조의2의 위반행위를 하면 그 행위자를 벌하는 외에 그 회사에도 해당 조문의 벌금형을 과(科)한다. 다만, 회사가 제542조의13에 따른 의무를 성실히 이행한 경우 등 회사가 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다. <개정 2011.4.14>",
+        "rerank_rank": 8,
+        "rerank_score": 0.0001534068287583068,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "상법 634조 3 양벌규정",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "비료관리법 29조  양벌규정#KOBLEX-149914"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 12,
+        "first_stage_score": 0.595425546169281,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "비료관리법 29조  양벌규정#KOBLEX-149914",
+        "provision_text": "제29조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제27조 또는 제28조의 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.00015111583343241364,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "비료관리법 29조  양벌규정",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "악취방지법 29조  양벌규정#KOBLEX-179900"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 18,
+        "first_stage_score": 0.5943604111671448,
+        "fusion_rank": 10,
+        "issue_id": "I2",
+        "provision_id": "악취방지법 29조  양벌규정#KOBLEX-179900",
+        "provision_text": "제29조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제26조부터 제28조까지의 어느 하나에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.00014958472456783056,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "악취방지법 29조  양벌규정",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "조세특례제한법 21조  국제금융거래에 따른 이자소득 등에 대한 법인세 등의 면제#KOBLEX-098993",
+          "조세특례제한법 21조  국제금융거래에 따른 이자소득 등에 대한 법인세 등의 면제#KOBLEX-150974"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.5481387376785278,
+        "fusion_rank": 31,
+        "issue_id": "I2",
+        "provision_id": "조세특례제한법 21조  국제금융거래에 따른 이자소득 등에 대한 법인세 등의 면제#KOBLEX-098993",
+        "provision_text": "제21조(국제금융거래에 따른 이자소득 등에 대한 법인세 등의 면제)",
+        "rerank_rank": 31,
+        "rerank_score": 0.004390247631818056,
+        "retrieval_round": 3,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-2",
+        "source_request_ids": [
+          "GRQ-R3-2"
+        ],
+        "statute_name": "조세특례제한법 21조  국제금융거래에 따른 이자소득 등에 대한 법인세 등의 면제",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "보조금 관리에 관한 법률 43조  양벌규정#KOBLEX-137910"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 48,
+        "first_stage_score": 0.5716201066970825,
+        "fusion_rank": 39,
+        "issue_id": "I2",
+        "provision_id": "보조금 관리에 관한 법률 43조  양벌규정#KOBLEX-137910",
+        "provision_text": "제43조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제40조부터 제42조까지의 어느 하나에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 39,
+        "rerank_score": 0.0025207132566720247,
+        "retrieval_round": 3,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "보조금 관리에 관한 법률 43조  양벌규정",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "폐기물관리법 67조  양벌규정#KOBLEX-174282"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 41,
+        "first_stage_score": 0.5727285742759705,
+        "fusion_rank": 49,
+        "issue_id": "I2",
+        "provision_id": "폐기물관리법 67조  양벌규정#KOBLEX-174282",
+        "provision_text": "제67조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제63조부터 제66조까지의 어느 하나에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 49,
+        "rerank_score": 0.0021069359499961138,
+        "retrieval_round": 3,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "폐기물관리법 67조  양벌규정",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "기업도시개발 특별법 55조  양벌규정#KOBLEX-027861"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 80,
+        "first_stage_score": 0.5667634010314941,
+        "fusion_rank": 51,
+        "issue_id": "I2",
+        "provision_id": "기업도시개발 특별법 55조  양벌규정#KOBLEX-027861",
+        "provision_text": "제55조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제52조부터 제54조까지의 어느 하나에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+        "rerank_rank": 51,
+        "rerank_score": 0.001963501563295722,
+        "retrieval_round": 3,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "기업도시개발 특별법 55조  양벌규정",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "가맹사업거래의 공정화에 관한 법률 42조  양벌규정#KOBLEX-139807": "제42조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제41조의 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "가상자산 이용자 보호 등에 관한 법률 21조  양벌규정#KOBLEX-007958": "제21조(양벌규정) 법인(단체를 포함한다. 이하 이 조에서 같다)의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제19조의 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "공공단체등 위탁선거에 관한 법률 67조  양벌규정#KOBLEX-086686": "제67조(양벌규정) 법인 또는 단체의 대표자나 법인 또는 단체의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 단체의 업무에 관하여 이 법의 위반행위를 하였을 때에는 행위자를 벌하는 외에 그 법인 또는 단체에 대하여도 해당 조문의 벌금형을 과(科)한다. 다만, 그 법인 또는 단체가 그 위반 행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "공중위생관리법 21조  양벌규정#KOBLEX-164388": "제21조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제20조의 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "관세법 279조  양벌 규정#KOBLEX-105981": "① 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제11장에서 규정한 벌칙(제277조의 과태료는 제외한다)에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "기업도시개발 특별법 55조  양벌규정#KOBLEX-027861": "제55조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제52조부터 제54조까지의 어느 하나에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "대부업 등의 등록 및 금융이용자 보호에 관한 법률 20조  양벌규정#KOBLEX-072521": "제20조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제19조의 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "독점규제 및 공정거래에 관한 법률 128조  양벌규정#KOBLEX-021048": "제128조(양벌규정) 법인(법인격이 없는 단체를 포함한다. 이하 이 조에서 같다)의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제124조부터 제126조까지의 어느 하나에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "보조금 관리에 관한 법률 43조  양벌규정#KOBLEX-137910": "제43조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제40조부터 제42조까지의 어느 하나에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "비료관리법 29조  양벌규정#KOBLEX-149914": "제29조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제27조 또는 제28조의 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "산지관리법 56조  양벌규정#KOBLEX-106964": "제56조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제53조부터 제55조까지의 어느 하나에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "상법 634조 3 양벌규정#KOBLEX-115894": "제634조의3(양벌규정) 회사의 대표자나 대리인, 사용인, 그 밖의 종업원이 그 회사의 업무에 관하여 제624조의2의 위반행위를 하면 그 행위자를 벌하는 외에 그 회사에도 해당 조문의 벌금형을 과(科)한다. 다만, 회사가 제542조의13에 따른 의무를 성실히 이행한 경우 등 회사가 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다. <개정 2011.4.14>",
+      "세무사법 4조  세무사의 결격사유#KOBLEX-177274": "10. 이 법과 「조세범처벌법」에 따른 벌금의 형을 받은 사람으로서 그 형의 집행이 끝나거나 집행을 받지 아니하기로 확정된 후 3년이 지나지 아니한 사람 또는 「조세범처벌절차법」에 따른 통고처분을 받은 사람으로서 그 통고대로 이행된 후 3년이 지나지 아니한 사람",
+      "수도법 86조  양벌규정#KOBLEX-015907": "제86조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제81조부터 제85조까지의 어느 하나에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "악취방지법 29조  양벌규정#KOBLEX-179900": "제29조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제26조부터 제28조까지의 어느 하나에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "장사 등에 관한 법률 41조  양벌규정#KOBLEX-009880": "제41조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제39조 또는 제40조의 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "전자문서 및 전자거래 기본법 45조  양벌규정#KOBLEX-166118": "제45조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제43조 또는 제44조의 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "조세범 처벌법 22조  공소시효 기간#KOBLEX-205266": "제22조(공소시효 기간) 제3조부터 제14조까지에 규정된 범칙행위의 공소시효는 7년이 지나면 완성된다. 다만, 제18조에 따른 행위자가 「특정범죄가중처벌 등에 관한 법률」 제8조의 적용을 받는 경우에는 제18조에 따른 법인에 대한 공소시효는 10년이 지나면 완성된다. <개정 2015.12.29>",
+      "조세특례제한법 21조  국제금융거래에 따른 이자소득 등에 대한 법인세 등의 면제#KOBLEX-098993": "제21조(국제금융거래에 따른 이자소득 등에 대한 법인세 등의 면제)",
+      "지방세기본법 109조  양벌 규정#KOBLEX-121034": "제109조(양벌 규정) 법인(제153조에 따라 준용되는 「국세기본법」 제13조에 따른 법인으로 보는 단체를 포함한다. 이하 같다)의 대표자, 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 이 절에서 규정하는 범칙행위를 하면 그 행위자를 벌할 뿐만 아니라 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "지방세기본법 112조  공소시효의 기간#KOBLEX-121037": "제112조(공소시효의 기간) 제102조부터 제107조까지 및 제109조에 따른 범칙행위의 공소시효는 7년으로 한다. 다만, 제109조에 따른 행위자가 「특정범죄 가중처벌 등에 관한 법률」 제8조의 적용을 받는 경우에는 제109조에 따른 법인에 대한 공소시효는 10년이 지나면 완성된다. <개정 2018.12.24>",
+      "폐기물관리법 67조  양벌규정#KOBLEX-174282": "제67조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제63조부터 제66조까지의 어느 하나에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "하도급거래 공정화에 관한 법률 31조  양벌규정#KOBLEX-228482": "제31조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제30조의 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다.",
+      "항만법 111조  양벌규정#KOBLEX-089917": "제111조(양벌규정) 법인의 대표자나 법인 또는 개인의 대리인, 사용인, 그 밖의 종업원이 그 법인 또는 개인의 업무에 관하여 제107조부터 제110조까지의 어느 하나에 해당하는 위반행위를 하면 그 행위자를 벌하는 외에 그 법인 또는 개인에게도 해당 조문의 벌금형을 과(科)한다. 다만, 법인 또는 개인이 그 위반행위를 방지하기 위하여 해당 업무에 관하여 상당한 주의와 감독을 게을리하지 아니한 경우에는 그러하지 아니하다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "조세범 처벌법 22조  공소시효 기간#KOBLEX-205266"
+            ],
+            "rationale": "C001 identifies the specific limitation period (7 years) for the tax offense.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "조세범 처벌법 22조  공소시효 기간#KOBLEX-205266"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The supplied candidate C001 provides the complete statutory rule for the statute of limitations for tax offenses under the Act on Punishment of Tax Crimes. The legal rule is complete and directly applicable to the facts provided.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No supplied candidate provision from the Act on Punishment of Tax Crimes establishes the specific conditions for exemption from corporate fine liability for tax offenses.",
+            "requirement_id": "E2-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E2-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "The question asks for the conditions to avoid a fine for a tax offense under the Act on Punishment of Tax Crimes. The supplied candidates (C002, C004, C005, C006, C008, C009, C010, C011, C012, C013, C014, C015, C016, C017, C018, C019, C020) contain dual liability exemption clauses, but none are from the Act on Punishment of Tax Crimes. C002 is from the Customs Act, C004 is from the Local Tax Basic Act, etc. Therefore, the specific statutory provision for the Act on Punishment of Tax Crimes is missing from the candidate set.",
+        "status": "uncovered"
+      }
+    ],
+    "deferred_target_ids": [
+      "T2"
+    ],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "조세범 처벌법 22조  공소시효 기간#KOBLEX-205266",
+        "support_spans": [
+          {
+            "end_char": 165,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 4,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "Determination of the statute of limitations for the tax offense.",
+        "issue_id": "I1"
+      },
+      {
+        "description": "Determination of the exemption conditions for corporate liability.",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "Identify the specific conditions (e.g., 'considerable care and supervision') required for the corporation to be exempted from a fine.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "The specific statutory conditions for exemption from corporate fine liability must be identified."
+          }
+        ],
+        "critical": true,
+        "description": "The statutory provision allowing exemption from corporate fine liability based on due diligence.",
+        "evidence_item_id": "E2",
+        "evidence_type": "exception",
+        "issue_id": "I2",
+        "necessity_reason": "The question asks for the conditions to avoid a fine, which is a specific exception to corporate liability in the Act.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] 갑 주식회사의 대표인 갑씨는 회사 업무와 관련하여 조세범 처벌법에서 규정하는 범칙행위를 저질렀다. 이로 인해 회사와 갑씨 모두 처벌 대상이 되었다. 사건이 발생한 후, 갑 주식회사는 위반행위를 방지하기 위해 상당한 주의와 감독을 게을리하지 않았다고 주장하고 있다. [질문] 갑 주식회사의 대표 갑씨가 저지른 범칙행위에 대한 공소시효는 어떻게 되는가? 또한, 갑 주식회사가 벌금형을 피할 수 있는 조건은 무엇인가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "조세범처벌법",
+          "공소시효",
+          "기간"
+        ],
+        "query_text": "조세범처벌법 공소시효 기간 [원문 맥락] 갑 주식회사의 대표 갑씨가 저지른 범칙행위에 대한 공소시효는 어떻게 되는가? 또한, 갑 주식회사가 벌금형을 피할 수 있는 조건은 무엇인가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "조세범처벌법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "조세범처벌법",
+          "법인",
+          "벌금형",
+          "면제",
+          "상당한 주의와 감독"
+        ],
+        "query_text": "조세범처벌법 법인 벌금형 면제 조건 상당한 주의 감독 [원문 맥락] 갑 주식회사의 대표 갑씨가 저지른 범칙행위에 대한 공소시효는 어떻게 되는가? 또한, 갑 주식회사가 벌금형을 피할 수 있는 조건은 무엇인가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "조세범처벌법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "조세범처벌법",
+          "양벌규정",
+          "벌금 면제",
+          "상당한 주의와 감독"
+        ],
+        "query_text": "조세범처벌법 제21조 양벌규정 벌금 면제 상당한 주의 감독 [원문 맥락] 갑 주식회사의 대표 갑씨가 저지른 범칙행위에 대한 공소시효는 어떻게 되는가? 또한, 갑 주식회사가 벌금형을 피할 수 있는 조건은 무엇인가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "조세범처벌법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "조세범처벌법",
+          "법인",
+          "벌금",
+          "면제",
+          "상당한 주의와 감독"
+        ],
+        "query_text": "조세범처벌법 법인 벌금 면제 상당한 주의 감독 [원문 맥락] 갑 주식회사의 대표 갑씨가 저지른 범칙행위에 대한 공소시효는 어떻게 되는가? 또한, 갑 주식회사가 벌금형을 피할 수 있는 조건은 무엇인가?",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "조세범처벌법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "조세범처벌법",
+          "제21조",
+          "벌금 면제",
+          "요건"
+        ],
+        "query_text": "조세범처벌법 제21조 벌금 면제 요건 [원문 맥락] 갑 주식회사의 대표 갑씨가 저지른 범칙행위에 대한 공소시효는 어떻게 되는가? 또한, 갑 주식회사가 벌금형을 피할 수 있는 조건은 무엇인가?",
+        "request_id": "GRQ-R3-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "조세범처벌법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑 주식회사의 대표인 갑씨는 회사 업무와 관련하여 조세범 처벌법에서 규정하는 범칙행위를 저질렀다. 이로 인해 회사와 갑씨 모두 처벌 대상이 되었다. 사건이 발생한 후, 갑 주식회사는 위반행위를 방지하기 위해 상당한 주의와 감독을 게을리하지 않았다고 주장하고 있다.\n\n[질문]\n갑 주식회사의 대표 갑씨가 저지른 범칙행위에 대한 공소시효는 어떻게 되는가? 또한, 갑 주식회사가 벌금형을 피할 수 있는 조건은 무엇인가?",
+    "remaining_request_budget": 4,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific limitation period (e.g., 5 years, 7 years) applicable to the offense.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The specific limitation period for the tax offense must be identified."
+          }
+        ],
+        "critical": true,
+        "description": "The statutory provision defining the limitation period for the specific tax offense.",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "The question explicitly asks for the statute of limitations, which is determined by the specific offense classification in the Act.",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "Identify the specific conditions (e.g., 'considerable care and supervision') required for the corporation to be exempted from a fine.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "The specific statutory conditions for exemption from corporate fine liability must be identified."
+          }
+        ],
+        "critical": true,
+        "description": "The statutory provision allowing exemption from corporate fine liability based on due diligence.",
+        "evidence_item_id": "E2",
+        "evidence_type": "exception",
+        "issue_id": "I2",
+        "necessity_reason": "The question asks for the conditions to avoid a fine, which is a specific exception to corporate liability in the Act.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "caf936b1-d2ae-4ed4-bb45-cf83f189fff2",
+    "seen_provision_ids": [
+      "독점규제 및 공정거래에 관한 법률 128조  양벌규정#KOBLEX-021048",
+      "조세특례제한법 21조  국제금융거래에 따른 이자소득 등에 대한 법인세 등의 면제#KOBLEX-098993",
+      "가상자산 이용자 보호 등에 관한 법률 21조  양벌규정#KOBLEX-007958",
+      "산지관리법 56조  양벌규정#KOBLEX-106964",
+      "기업도시개발 특별법 55조  양벌규정#KOBLEX-027861",
+      "공공단체등 위탁선거에 관한 법률 67조  양벌규정#KOBLEX-086686",
+      "지방세기본법 109조  양벌 규정#KOBLEX-121034",
+      "전자문서 및 전자거래 기본법 45조  양벌규정#KOBLEX-166118",
+      "보조금 관리에 관한 법률 43조  양벌규정#KOBLEX-137910",
+      "폐기물관리법 67조  양벌규정#KOBLEX-174282",
+      "대부업 등의 등록 및 금융이용자 보호에 관한 법률 20조  양벌규정#KOBLEX-072521",
+      "장사 등에 관한 법률 41조  양벌규정#KOBLEX-009880",
+      "관세법 279조  양벌 규정#KOBLEX-105981",
+      "수도법 86조  양벌규정#KOBLEX-015907",
+      "지방세기본법 112조  공소시효의 기간#KOBLEX-121037",
+      "조세범 처벌법 22조  공소시효 기간#KOBLEX-205266",
+      "공중위생관리법 21조  양벌규정#KOBLEX-164388",
+      "가맹사업거래의 공정화에 관한 법률 42조  양벌규정#KOBLEX-139807",
+      "세무사법 4조  세무사의 결격사유#KOBLEX-177274",
+      "상법 634조 3 양벌규정#KOBLEX-115894",
+      "비료관리법 29조  양벌규정#KOBLEX-149914",
+      "악취방지법 29조  양벌규정#KOBLEX-179900",
+      "하도급거래 공정화에 관한 법률 31조  양벌규정#KOBLEX-228482",
+      "항만법 111조  양벌규정#KOBLEX-089917"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

@@ -1,0 +1,75 @@
+{
+  "answer_quality": {
+    "candidate_lf_eval": {
+      "available": false,
+      "note": "Export candidate_answer to a separate frozen LF-Eval input; --lf-eval-scores continues to score published ANSWER records only.",
+      "unavailable_reason": "SEPARATE_FROZEN_CANDIDATE_INPUT_REQUIRED"
+    },
+    "candidate_token_f1_at_800": {
+      "execution_failure_score": 0.0,
+      "scope": "ANSWER uses candidate_answer or legacy answer fallback; ABSTAIN uses candidate_answer"
+    },
+    "display_score_scale": "0_100",
+    "internal_score_scale": "0_1",
+    "official_token_f1_at_800": {
+      "max_characters": 800,
+      "mode": "answer.split(\"<\\think>\")[0][:800]"
+    },
+    "published_token_f1": {
+      "max_characters": null,
+      "mode": "legacy_full_text"
+    },
+    "token_f1_normalization": "lowercase + [가-힣a-z0-9] tokenization"
+  },
+  "comparison_validity": {
+    "allowed_differences": [
+      "condition",
+      "retriever",
+      "retriever_provenance"
+    ],
+    "comparable_configuration_sha256": "7fb33661a1bc96192f200761eddc15c63300d07c4f0b29e04e781f7f1fcef54a",
+    "entry_count": 226,
+    "primary_manifest": "/root/Legal Harness/records/worktrees/kure-c5-conclusion-first-qwen38-q8-20260822-a74e76d/records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/kure_c5_full226_20260822.json",
+    "primary_retriever": "kure",
+    "reference_manifest": "/root/Legal Harness/records/worktrees/kure-c5-conclusion-first-qwen38-q8-20260822-a74e76d/records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/bm25_reference_c5_full226_20260822.json",
+    "reference_retriever": "bm25",
+    "status": "VALIDATED_IDENTICAL_EXCEPT_RETRIEVER"
+  },
+  "evaluation_schema_version": "1.3",
+  "evaluator_git_commit": "a74e76d1c8fade04486b681974475d8c88f7f136",
+  "evaluator_git_source_worktree_dirty": false,
+  "generated_at_utc": "2026-08-22T12:49:18.143672+00:00",
+  "inputs": {
+    "answer_labels": null,
+    "answer_labels_sha256": null,
+    "batch_directory": "/root/Legal Harness/records/batches/kure-c5-full226-20260822-a74e76d/combined-checkpoint-160",
+    "corpus": "/root/Legal Harness/data/koblex/normalized/statute.jsonl",
+    "corpus_sha256": "0e2283c7bcfa8f92d3ea7d4dd249449a31c0528b47dde04ab408bee45e0857b0",
+    "dataset": "/root/Legal Harness/data/koblex/qa/test-00000-of-00001.parquet",
+    "dataset_sha256": "afdaff3a8000cdf5e0a64adbcfc8e6aff0042b318bf03718155f2b70f551c47b",
+    "gold_map": null,
+    "gold_map_sha256": null,
+    "lf_eval_scores": null,
+    "lf_eval_scores_sha256": null,
+    "manifest": "/root/Legal Harness/records/batches/kure-c5-full226-20260822-a74e76d/combined-checkpoint-160/manifest.json",
+    "manifest_sha256": "8687fdc6ca561283144b133c74dee6388a5a5a1f85593e4b4ff918849cd60c0e",
+    "split_manifest": null,
+    "split_manifest_sha256": null
+  },
+  "lf_eval": {
+    "display_score_scale": "0_100",
+    "input_scale": null,
+    "internal_score_scale": "0_1",
+    "judge_model": null,
+    "judge_revision": null,
+    "prompt_sha256": null,
+    "provided": false,
+    "scale": null
+  },
+  "validation": {
+    "joined_results": 160,
+    "manifest_entries": 160,
+    "require_stage_provenance": true,
+    "warnings": []
+  }
+}

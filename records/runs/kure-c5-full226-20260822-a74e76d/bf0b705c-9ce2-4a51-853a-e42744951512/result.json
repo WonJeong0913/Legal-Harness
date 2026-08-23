@@ -1,0 +1,570 @@
+{
+  "abstention_reason": null,
+  "answer": "상법 제391조 제1항에 따라 주식회사 이사회 결의는 이사 과반수의 출석과 출석 이사의 과반수로 하여야 한다.[CT1]\n상법 제391조 제1항 단서에 따라 정관으로 이사회 결의의 출석 또는 찬성 비율을 법정상한보다 높게 정할 수 있다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "갑 주식회사의 정관에 상법 제391조 제1항 단서에 따른 의결 요건 비율 상향 조항이 존재하지 않는다고 가정한다."
+    }
+  ],
+  "candidate_answer": "상법 제391조 제1항에 따라 주식회사 이사회 결의는 이사 과반수의 출석과 출석 이사의 과반수로 하여야 한다.[CT1]\n상법 제391조 제1항 단서에 따라 정관으로 이사회 결의의 출석 또는 찬성 비율을 법정상한보다 높게 정할 수 있다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "상법 391조  이사회의 결의방법#KOBLEX-114867",
+      "quoted_text": "①이사회의 결의는 이사과반수의 출석과 출석이사의 과반수로 하여야 한다. 그러나 정관으로 그 비율을 높게 정할 수 있다.",
+      "support_description": "이사회 결의를 위한 기본 출석 정족수(이사 과반수)와 의결 요건(출석 이사 과반수)을 규정한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "상법 391조  이사회의 결의방법#KOBLEX-114867",
+      "quoted_text": "①이사회의 결의는 이사과반수의 출석과 출석이사의 과반수로 하여야 한다. 그러나 정관으로 그 비율을 높게 정할 수 있다.",
+      "support_description": "정관으로 의결 요건 비율을 상법 기준보다 높게 설정할 수 있는 예외 규정을 명시한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "상법 제391조 제1항에 따라 주식회사 이사회 결의는 이사 과반수의 출석과 출석 이사의 과반수로 하여야 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "conditional",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "exception",
+      "text": "상법 제391조 제1항 단서에 따라 정관으로 이사회 결의의 출석 또는 찬성 비율을 법정상한보다 높게 정할 수 있다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T12:35:47.621601+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 67766.959,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "정관에 의결 요건 비율을 상법 기준보다 높게 정한 경우, 해당 정관 규정이 우선 적용되므로 실제 의결 요건은 정관 확인이 필요하다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 99,
+      "dedup_collapse": 2,
+      "evidence_fusion": 99,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 99
+    }
+  },
+  "run_id": "bf0b705c-9ce2-4a51-853a-e42744951512",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "상법 391조  이사회의 결의방법#KOBLEX-114867"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_requirements",
+        "question_anchor": "갑 주식회사 이사회에서 안건을 의결하기 위해 필요한 조건은 무엇인가?",
+        "requested_output": "이사회 의결을 위한 정족수 및 의결권 행사 요건"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "상법 574조  총회의 정족수, 결의방법#KOBLEX-115729"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 22,
+        "first_stage_score": 0.594810426235199,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "상법 574조  총회의 정족수, 결의방법#KOBLEX-115729",
+        "provision_text": "제574조(총회의 정족수, 결의방법) 사원총회의 결의는 정관 또는 본법에 다른 규정이 있는 경우 외에는 총사원의 의결권의 과반수를 가지는 사원이 출석하고 그 의결권의 과반수로써 하여야 한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.5708667039871216,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "상법 574조  총회의 정족수, 결의방법",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 391조  이사회의 결의방법#KOBLEX-114867"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.6038321256637573,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "상법 391조  이사회의 결의방법#KOBLEX-114867",
+        "provision_text": "①이사회의 결의는 이사과반수의 출석과 출석이사의 과반수로 하여야 한다. 그러나 정관으로 그 비율을 높게 정할 수 있다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.01133174728602171,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "상법 391조  이사회의 결의방법 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 434조  정관변경의 특별결의#KOBLEX-115103"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 59,
+        "first_stage_score": 0.5761438012123108,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "상법 434조  정관변경의 특별결의#KOBLEX-115103",
+        "provision_text": "제434조(정관변경의 특별결의) 제433조제1항의 결의는 출석한 주주의 의결권의 3분의 2 이상의 수와 발행주식총수의 3분의 1 이상의 수로써 하여야 한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.001998202409595251,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "상법 434조  정관변경의 특별결의",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 383조  원수, 임기#KOBLEX-114841"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 47,
+        "first_stage_score": 0.580762505531311,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "상법 383조  원수, 임기#KOBLEX-114841",
+        "provision_text": "① 이사는 3명 이상이어야 한다. 다만, 자본금 총액이 10억원 미만인 회사는 1명 또는 2명으로 할 수 있다. <개정 2009.5.28>",
+        "rerank_rank": 4,
+        "rerank_score": 0.0017340716440230608,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "상법 383조  원수, 임기 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "사립학교법 18조  의사정족수와 의결정족수 등#KOBLEX-172188"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 21,
+        "first_stage_score": 0.5967247486114502,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "사립학교법 18조  의사정족수와 의결정족수 등#KOBLEX-172188",
+        "provision_text": "① 이사회는 정관에 특별한 규정이 없으면 재적이사 과반수의 출석으로 개의(開議)하고, 정관으로 정한 이사 정수 과반수의 찬성으로 의결한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.0011896827491000295,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "사립학교법 18조  의사정족수와 의결정족수 등 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "수산업협동조합법 135조  임원의 해임#KOBLEX-024772"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6199119091033936,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "수산업협동조합법 135조  임원의 해임#KOBLEX-024772",
+        "provision_text": "③ 이사회는 사업전담대표이사 또는 상임이사의 경영 상태를 평가한 결과 경영 실적이 부실하여 그 직무를 담당하기 곤란하다고 인정되거나, 이 법이나 이 법에 따른 명령 또는 정관을 위반하는 행위를 한 경우에는 총회에 사업전담대표이사 또는 상임이사의 해임을 요구할 수 있다. 이 경우 총회의 해임 의결에 관하여는 제1항 후단에 따른 의결정족수를 준용한다. <개정 2016.5.29>",
+        "rerank_rank": 6,
+        "rerank_score": 0.0006584765505976975,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "수산업협동조합법 135조  임원의 해임 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "독점규제 및 공정거래에 관한 법률 26조  대규모내부거래의 이사회 의결 및 공시#KOBLEX-020610",
+          "독점규제 및 공정거래에 관한 법률 26조  대규모내부거래의 이사회 의결 및 공시#KOBLEX-039038"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 45,
+        "first_stage_score": 0.5814523696899414,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "독점규제 및 공정거래에 관한 법률 26조  대규모내부거래의 이사회 의결 및 공시#KOBLEX-020610",
+        "provision_text": "⑤ 제1항의 경우에 상장법인이 「상법」 제393조의2에 따라 설치한 위원회(같은 법 제382조제3항에 따른 사외이사가 세 명 이상 포함되고, 사외이사의 수가 위원총수의 3분의 2 이상인 경우로 한정한다)에서 의결한 경우에는 이사회의 의결을 거친 것으로 본다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.0006511614774353802,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "독점규제 및 공정거래에 관한 법률 26조  대규모내부거래의 이사회 의결 및 공시 5항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "수산업협동조합법 57조  임원의 해임#KOBLEX-024437"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 80,
+        "first_stage_score": 0.5692893266677856,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "수산업협동조합법 57조  임원의 해임#KOBLEX-024437",
+        "provision_text": "③ 이사회는 제142조제2항에 따른 경영 상태의 평가 결과 상임이사가 소관 업무의 경영 실적이 부실하여 그 직무를 담당하기 곤란하다고 인정되거나, 이 법이나 이 법에 따른 명령 또는 정관을 위반하는 행위를 한 경우에는 상임이사의 해임을 총회에 요구할 수 있다. 이 경우 총회의 해임 의결에 관하여는 제1항에 따른 의결정족수를 준용한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.0005068943719379604,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "수산업협동조합법 57조  임원의 해임 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 585조  정관변경의 특별결의#KOBLEX-115764"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 95,
+        "first_stage_score": 0.5649872422218323,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "상법 585조  정관변경의 특별결의#KOBLEX-115764",
+        "provision_text": "①전조의 결의는 총사원의 반수 이상이며 총사원의 의결권의 4분의 3 이상을 가지는 자의 동의로 한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.00017608892812859267,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "상법 585조  정관변경의 특별결의 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 382조 2 집중투표#KOBLEX-114832"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 8,
+        "first_stage_score": 0.6070590615272522,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "상법 382조 2 집중투표#KOBLEX-114832",
+        "provision_text": "①2인 이상의 이사의 선임을 목적으로 하는 총회의 소집이 있는 때에는 의결권없는 주식을 제외한 발행주식총수의 100분의 3 이상에 해당하는 주식을 가진 주주는 정관에서 달리 정하는 경우를 제외하고는 회사에 대하여 집중투표의 방법으로 이사를 선임할 것을 청구할 수 있다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.00016470793343614787,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "상법 382조 2 집중투표 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "독점규제 및 공정거래에 관한 법률 26조  대규모내부거래의 이사회 의결 및 공시#KOBLEX-020610": "⑤ 제1항의 경우에 상장법인이 「상법」 제393조의2에 따라 설치한 위원회(같은 법 제382조제3항에 따른 사외이사가 세 명 이상 포함되고, 사외이사의 수가 위원총수의 3분의 2 이상인 경우로 한정한다)에서 의결한 경우에는 이사회의 의결을 거친 것으로 본다.",
+      "사립학교법 18조  의사정족수와 의결정족수 등#KOBLEX-172188": "① 이사회는 정관에 특별한 규정이 없으면 재적이사 과반수의 출석으로 개의(開議)하고, 정관으로 정한 이사 정수 과반수의 찬성으로 의결한다.",
+      "상법 382조 2 집중투표#KOBLEX-114832": "①2인 이상의 이사의 선임을 목적으로 하는 총회의 소집이 있는 때에는 의결권없는 주식을 제외한 발행주식총수의 100분의 3 이상에 해당하는 주식을 가진 주주는 정관에서 달리 정하는 경우를 제외하고는 회사에 대하여 집중투표의 방법으로 이사를 선임할 것을 청구할 수 있다.",
+      "상법 383조  원수, 임기#KOBLEX-114841": "① 이사는 3명 이상이어야 한다. 다만, 자본금 총액이 10억원 미만인 회사는 1명 또는 2명으로 할 수 있다. <개정 2009.5.28>",
+      "상법 391조  이사회의 결의방법#KOBLEX-114867": "①이사회의 결의는 이사과반수의 출석과 출석이사의 과반수로 하여야 한다. 그러나 정관으로 그 비율을 높게 정할 수 있다.",
+      "상법 434조  정관변경의 특별결의#KOBLEX-115103": "제434조(정관변경의 특별결의) 제433조제1항의 결의는 출석한 주주의 의결권의 3분의 2 이상의 수와 발행주식총수의 3분의 1 이상의 수로써 하여야 한다.",
+      "상법 574조  총회의 정족수, 결의방법#KOBLEX-115729": "제574조(총회의 정족수, 결의방법) 사원총회의 결의는 정관 또는 본법에 다른 규정이 있는 경우 외에는 총사원의 의결권의 과반수를 가지는 사원이 출석하고 그 의결권의 과반수로써 하여야 한다.",
+      "상법 585조  정관변경의 특별결의#KOBLEX-115764": "①전조의 결의는 총사원의 반수 이상이며 총사원의 의결권의 4분의 3 이상을 가지는 자의 동의로 한다.",
+      "수산업협동조합법 135조  임원의 해임#KOBLEX-024772": "③ 이사회는 사업전담대표이사 또는 상임이사의 경영 상태를 평가한 결과 경영 실적이 부실하여 그 직무를 담당하기 곤란하다고 인정되거나, 이 법이나 이 법에 따른 명령 또는 정관을 위반하는 행위를 한 경우에는 총회에 사업전담대표이사 또는 상임이사의 해임을 요구할 수 있다. 이 경우 총회의 해임 의결에 관하여는 제1항 후단에 따른 의결정족수를 준용한다. <개정 2016.5.29>",
+      "수산업협동조합법 57조  임원의 해임#KOBLEX-024437": "③ 이사회는 제142조제2항에 따른 경영 상태의 평가 결과 상임이사가 소관 업무의 경영 실적이 부실하여 그 직무를 담당하기 곤란하다고 인정되거나, 이 법이나 이 법에 따른 명령 또는 정관을 위반하는 행위를 한 경우에는 상임이사의 해임을 총회에 요구할 수 있다. 이 경우 총회의 해임 의결에 관하여는 제1항에 따른 의결정족수를 준용한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "상법 391조  이사회의 결의방법#KOBLEX-114867"
+            ],
+            "rationale": "상법 제391조 제1항은 '이사과반수의 출석'을 의결을 위한 출석 정족수로 규정하고 있다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "상법 391조  이사회의 결의방법#KOBLEX-114867"
+            ],
+            "rationale": "상법 제391조 제1항은 '출석이사의 과반수'를 의결을 위한 찬성 비율(의결 요건)로 규정하고 있다.",
+            "requirement_id": "E1-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "상법 391조  이사회의 결의방법#KOBLEX-114867"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "상법 제391조 제1항은 주식회사 이사회 의결을 위한 출석 정족수와 의결 요건을 명확히 규정하고 있어, 질문에서 요구하는 법적 근거가 완전히 충족된다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "상법 391조  이사회의 결의방법#KOBLEX-114867",
+        "support_spans": [
+          {
+            "end_char": 66,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "상법상 이사회 의결을 위한 출석 정족수 및 의결 요건이 무엇인지",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑 주식회사의 이사회가 새로운 사업 투자 안건에 대해 의결을 진행하려고 한다. 이사회는 대표이사 갑, 전무이사 을, 그리고 세 명의 이사들로 구성되어있다. [질문] 갑 주식회사 이사회에서 안건을 의결하기 위해 필요한 조건은 무엇인가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "상법",
+          "이사회",
+          "의결",
+          "정족수",
+          "출석"
+        ],
+        "query_text": "상법 이사회 의결 정족수 출석 요건 [원문 맥락] 이사회는 대표이사 갑, 전무이사 을, 그리고 세 명의 이사들로 구성되어있다. 갑 주식회사 이사회에서 안건을 의결하기 위해 필요한 조건은 무엇인가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "상법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑 주식회사의 이사회가 새로운 사업 투자 안건에 대해 의결을 진행하려고 한다. 이사회는 대표이사 갑, 전무이사 을, 그리고 세 명의 이사들로 구성되어있다.\n\n[질문]\n갑 주식회사 이사회에서 안건을 의결하기 위해 필요한 조건은 무엇인가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "이사회 의결을 위한 출석 정족수 및 의결 요건을 명시하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "이사회 의결을 위한 출석 정족수 규정 확인"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "이사회 의결을 위한 의결 요건(찬성 비율 등) 규정 확인"
+          }
+        ],
+        "critical": true,
+        "description": "상법상 이사회 의결을 위한 출석 정족수 및 의결 요건 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 의결 조건을 도출하기 위한 핵심 법적 근거",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "bf0b705c-9ce2-4a51-853a-e42744951512",
+    "seen_provision_ids": [
+      "상법 383조  원수, 임기#KOBLEX-114841",
+      "상법 434조  정관변경의 특별결의#KOBLEX-115103",
+      "사립학교법 18조  의사정족수와 의결정족수 등#KOBLEX-172188",
+      "수산업협동조합법 57조  임원의 해임#KOBLEX-024437",
+      "상법 574조  총회의 정족수, 결의방법#KOBLEX-115729",
+      "상법 585조  정관변경의 특별결의#KOBLEX-115764",
+      "수산업협동조합법 135조  임원의 해임#KOBLEX-024772",
+      "상법 391조  이사회의 결의방법#KOBLEX-114867",
+      "상법 382조 2 집중투표#KOBLEX-114832",
+      "독점규제 및 공정거래에 관한 법률 26조  대규모내부거래의 이사회 의결 및 공시#KOBLEX-020610"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

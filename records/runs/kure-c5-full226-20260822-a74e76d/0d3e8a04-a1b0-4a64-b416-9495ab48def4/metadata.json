@@ -1,0 +1,105 @@
+{
+  "configuration": {
+    "candidate_budget_scope": "per_round",
+    "candidate_selection": "evidence_balanced",
+    "condition": "C5-conclusion-first-KURE-v1-full226-Qwen3.8-Q8_0",
+    "conditional_generation": "answer_target_full_conditional_limited",
+    "dedup_mode": "legal_text_alias",
+    "final_top_k": 10,
+    "input_format": "koblex_background_plus_question",
+    "model": "legal-harness-qwen38-q8",
+    "monotonic_coverage": true,
+    "num_ctx": 32768,
+    "ollama_endpoint": "http://127.0.0.1:11434/api/generate",
+    "per_evidence_min_k": 1,
+    "planning_contract": "answer_targets_required",
+    "rerank_document_mode": "statute_and_body",
+    "rerank_pool_k": 100,
+    "rerank_query_mode": "per_request",
+    "retrieval_stage_provenance_required_for_evaluation": true,
+    "retriever": "kure",
+    "s1_max_tokens": 4096,
+    "s1_truncation_retry_max_tokens": 8192,
+    "s3_audit_fields": [
+      "assumptions",
+      "limitations",
+      "claims",
+      "claim_citations"
+    ],
+    "s3_public_answer_format": "conclusion_first_1_to_3_short_sentences",
+    "s3_public_answer_max_characters": 800,
+    "s3_public_answer_max_claims": 3,
+    "seed": 0,
+    "skill_max_tokens": {
+      "grounded_legal_answer_generation": 3072,
+      "legal_issue_and_query_planning": 4096,
+      "provision_coverage_assessment": 3072
+    },
+    "source_manifest_sha256": "9a775367bc138124d5d5c678c1436161262f2110ecd5f7a1bc26ac1cc77d6297",
+    "total_retrieval_requests": 9,
+    "total_retrieval_rounds": 3
+  },
+  "git_commit": "a74e76d1c8fade04486b681974475d8c88f7f136",
+  "git_source_worktree_dirty": false,
+  "index_metadata": {
+    "bm25": {
+      "database": "data/koblex/indexes/bm25/statute_fts5.sqlite3",
+      "type": "SQLite FTS5"
+    },
+    "documents": 233544,
+    "identity": {
+      "provision_id": "{KoBLEX index}#KOBLEX-{one-based source row number}",
+      "source_index": "original KoBLEX index value retained in normalized corpus"
+    },
+    "kure": {
+      "dimensions": 1024,
+      "model": "nlpai-lab/KURE-v1",
+      "provision_ids": "data/koblex/indexes/kure-v1/provision_ids.txt",
+      "similarity": "exact cosine similarity; float32 memory-mapped matrix",
+      "vector_file": "data/koblex/indexes/kure-v1/vectors.f32.npy"
+    },
+    "source": "JihyungL/KoBLEX-statute",
+    "source_file": "data/koblex/statute/corpus-00000-of-00001.parquet",
+    "source_sha256": "6323f7d024ec504f4b2346cd3ab67aa709aac49a5340c9f3d8372ad6bd5f9b8b"
+  },
+  "model_artifact": "/root/.ollama/models/blobs/sha256-f5c702d8820d36fb55985bb238fc83ee3a313e920f4b752a437c3a6a9e14e4c8",
+  "question": "[배경 시나리오]\n갑은 자신이 운영하는 식당에 대해 을시청이 발행한 영업정지 처분이 부당하다며 이의신청을 했지만 기각되었습니다. 이에 갑은 해당 처분을 취소하고자 법원에 취소소송을 제기하려고 합니다. 이 과정에서 갑은 취소소송을 제기할 자격이 있는지와 해당 처분의 효력이 언제까지 유효한지 궁금해하고 있습니다.\n\n[질문]\n갑은 을시청의 영업정지 처분에 대해 취소소송을 제기할 수 있는지, 그리고 그 처분의 효력은 언제까지 유효한가?",
+  "question_id": "qa_522_2hop_806",
+  "record_schema_version": "1.4",
+  "retrieval_provenance_schema_version": "1.0",
+  "run_id": "0d3e8a04-a1b0-4a64-b416-9495ab48def4",
+  "runtime": {
+    "packages": {
+      "pyarrow": "18.1.0",
+      "sentence-transformers": "5.1.2",
+      "torch": "2.7.1+cu128",
+      "transformers": "4.57.6"
+    },
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.35",
+    "python": "3.9.25 (main, Nov  7 2025, 18:07:57) \n[GCC 11.4.0]"
+  },
+  "skill_sha256": {
+    "grounded_legal_answer_generation/SKILL.md": "9739641437a1775d952c04534fe8252fc80634857ee963e24ea62751ee148b64",
+    "grounded_legal_answer_generation/references/contract.md": "71b86bb73ff3c9803710fdeba8a175a0684c282f79318eac9af7808eb0de5f5a",
+    "grounded_legal_answer_generation/references/input.schema.json": "3a9406523eb6f8d636c23a81a8996fdc08c51eedce01e6113588bad0a5a12160",
+    "grounded_legal_answer_generation/references/output.schema.json": "f73c1379c66318c07dbf4af1b7fe0911e62159b5abb892c49bd5844116378ddb",
+    "grounded_legal_answer_generation/scripts/validate_output.py": "7b178420f40e788938c47cbd92c502209060c03cae48e6e27fa3d60fa85a3b9d",
+    "legal_issue_and_query_planning/SKILL.md": "4aece0efccb8ccec3384a3228e123a93a71006d97cfade2e13afca45db0371ec",
+    "legal_issue_and_query_planning/references/contract.md": "faa084f830d212dc20e68eaff35dfe8002df3c61a51538b22c46f0d1f9bd76e6",
+    "legal_issue_and_query_planning/references/input.schema.json": "e54bf4fba632f8c71021a257f9cbd55bc924eed2db3487617acd68a7aca1b9cd",
+    "legal_issue_and_query_planning/references/output.schema.json": "0eed8d8a0bd3d270d5729e56473f4d12099e4747c700cebd798a394341ce82ef",
+    "legal_issue_and_query_planning/scripts/validate_output.py": "3502a82a29ceac6b68f6fa00b6335b6488e3e6d721f81abd269b6cdc8967e187",
+    "provision_coverage_assessment/SKILL.md": "fa448685add6df30fe22935d21df166d023a08b3df977d3259b0133acc95cdf0",
+    "provision_coverage_assessment/references/contract.md": "13761c45a8e0f66217251a0e5cf0e588d0bfe0fd973e32063ba75944a25ec4b2",
+    "provision_coverage_assessment/references/input.schema.json": "103a9c4996f5620f1a78c25e5f6c325fcbdb2622f7dd43f504234e09838ad7b8",
+    "provision_coverage_assessment/references/output.schema.json": "8c5e64b6c316421296a83a858a218febd27a9b69557ce0293bafd33d0cc7e0a6",
+    "provision_coverage_assessment/scripts/validate_output.py": "aa628086369fb9789e8136b94fd780abab739770b99096cc42320cd296d2b0e6",
+    "skill-pack-manifest.json": "dfb5cb7036a88ed43d8a9e17489dc1686f3f9a64ce9be525f230446af8868cd0"
+  },
+  "source_snapshot": {
+    "git_commit": "a74e76d1c8fade04486b681974475d8c88f7f136",
+    "git_tree": "f8a8ae185276bbb64247ff164b39c1ba5773a02a",
+    "source_manifest_sha256": "9a775367bc138124d5d5c678c1436161262f2110ecd5f7a1bc26ac1cc77d6297"
+  },
+  "started_at_utc": "2026-08-22T08:57:21.375506+00:00"
+}

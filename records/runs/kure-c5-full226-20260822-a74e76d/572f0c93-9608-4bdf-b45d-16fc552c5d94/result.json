@@ -1,0 +1,538 @@
+{
+  "abstention_reason": null,
+  "answer": "강제집행에 필요한 비용은 채무자가 부담하고, 그 집행에 의하여 우선적으로 변상을 받는다.[CT1]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "A1",
+      "message": "질문 시나리오에서 을이 채무자, 갑이 채권자이며, 강제집행 절차가 적법하게 진행되고 있다고 가정한다."
+    }
+  ],
+  "candidate_answer": "강제집행에 필요한 비용은 채무자가 부담하고, 그 집행에 의하여 우선적으로 변상을 받는다.[CT1]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "민사집행법 53조  집행비용의 부담#KOBLEX-128201",
+      "quoted_text": "①강제집행에 필요한 비용은 채무자가 부담하고 그 집행에 의하여 우선적으로 변상을 받는다.",
+      "support_description": "민사집행법 제53조 제1항은 강제집행 비용의 부담 주체가 채무자임을 명시하고 있어, 질문에서 요구하는 법적 결론을 직접적으로 뒷받침한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "강제집행에 필요한 비용은 채무자가 부담하고, 그 집행에 의하여 우선적으로 변상을 받는다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T14:14:59.342303+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 59538.952,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "L1",
+      "message": "본 답변은 민사집행법 제53조 제1항의 원칙적 규정에 기반하며, 채무자의 재산 상태나 기타 예외적 사정은 고려하지 않는다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 88,
+      "dedup_collapse": 20,
+      "evidence_fusion": 88,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 88
+    }
+  },
+  "run_id": "572f0c93-9608-4bdf-b45d-16fc552c5d94",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "민사집행법 53조  집행비용의 부담#KOBLEX-128201"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 1,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "을의 자산에 대한 강제집행에 필요한 비용은 누가 부담하는가?",
+        "requested_output": "강제집행 비용의 부담 주체"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "민사집행법 53조  집행비용의 부담#KOBLEX-128201"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6117739081382751,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "민사집행법 53조  집행비용의 부담#KOBLEX-128201",
+        "provision_text": "①강제집행에 필요한 비용은 채무자가 부담하고 그 집행에 의하여 우선적으로 변상을 받는다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9928619265556335,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사집행법 53조  집행비용의 부담 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 264조#KOBLEX-128924"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 16,
+        "first_stage_score": 0.5592784881591797,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "민사집행법 264조#KOBLEX-128924",
+        "provision_text": "제3편 담보권 실행 등을 위한 경매",
+        "rerank_rank": 2,
+        "rerank_score": 0.9905389547348022,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사집행법 264조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 78조  집행방법#KOBLEX-128312"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 50,
+        "first_stage_score": 0.5312408208847046,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "민사집행법 78조  집행방법#KOBLEX-128312",
+        "provision_text": "②강제집행은 다음 각호의 방법으로 한다. 1. 강제경매 2. 강제관리",
+        "rerank_rank": 3,
+        "rerank_score": 0.9837559461593628,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사집행법 78조  집행방법 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 1조  목적#KOBLEX-128036"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 7,
+        "first_stage_score": 0.5729295015335083,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "민사집행법 1조  목적#KOBLEX-128036",
+        "provision_text": "제1조(목적) 이 법은 강제집행, 담보권 실행을 위한 경매, 민법ㆍ상법, 그 밖의 법률의 규정에 의한 경매(이하 \"민사집행\"이라 한다) 및 보전처분의 절차를 규정함을 목적으로 한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.9836469292640686,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사집행법 1조  목적",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 80조  강제경매신청서#KOBLEX-128322"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.5922092795372009,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "민사집행법 80조  강제경매신청서#KOBLEX-128322",
+        "provision_text": "3. 경매의 이유가 된 일정한 채권과 집행할 수 있는 일정한 집행권원",
+        "rerank_rank": 5,
+        "rerank_score": 0.9802891612052917,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사집행법 80조  강제경매신청서 3호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 274조  유치권 등에 의한 경매#KOBLEX-128947"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 93,
+        "first_stage_score": 0.5201742649078369,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "민사집행법 274조  유치권 등에 의한 경매#KOBLEX-128947",
+        "provision_text": "③제2항의 경우에 강제경매 또는 담보권 실행을 위한 경매가 취소되면 유치권 등에 의한 경매절차를 계속하여 진행하여야 한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.9778426289558411,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사집행법 274조  유치권 등에 의한 경매 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송비용법 10조  강제집행, 신청사건의 비용#KOBLEX-018678"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.5828123688697815,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "민사소송비용법 10조  강제집행, 신청사건의 비용#KOBLEX-018678",
+        "provision_text": "제10조(강제집행, 신청사건의 비용)",
+        "rerank_rank": 7,
+        "rerank_score": 0.9683359265327454,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사소송비용법 10조  강제집행, 신청사건의 비용",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 79조  집행법원#KOBLEX-128316"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 22,
+        "first_stage_score": 0.5498043894767761,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "민사집행법 79조  집행법원#KOBLEX-128316",
+        "provision_text": "①부동산에 대한 강제집행은 그 부동산이 있는 곳의 지방법원이 관할한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.9646531343460083,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사집행법 79조  집행법원 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 53조  집행비용의 부담#KOBLEX-128200"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.5604959726333618,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "민사집행법 53조  집행비용의 부담#KOBLEX-128200",
+        "provision_text": "제53조(집행비용의 부담)",
+        "rerank_rank": 9,
+        "rerank_score": 0.9599050283432007,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사집행법 53조  집행비용의 부담",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 274조  유치권 등에 의한 경매#KOBLEX-128945"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 56,
+        "first_stage_score": 0.5291577577590942,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "민사집행법 274조  유치권 등에 의한 경매#KOBLEX-128945",
+        "provision_text": "①유치권에 의한 경매와 민법ㆍ상법, 그 밖의 법률이 규정하는 바에 따른 경매(이하 \"유치권등에 의한 경매\"라 한다)는 담보권 실행을 위한 경매의 예에 따라 실시한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.9555542469024658,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사집행법 274조  유치권 등에 의한 경매 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "민사소송비용법 10조  강제집행, 신청사건의 비용#KOBLEX-018678": "제10조(강제집행, 신청사건의 비용)",
+      "민사집행법 1조  목적#KOBLEX-128036": "제1조(목적) 이 법은 강제집행, 담보권 실행을 위한 경매, 민법ㆍ상법, 그 밖의 법률의 규정에 의한 경매(이하 \"민사집행\"이라 한다) 및 보전처분의 절차를 규정함을 목적으로 한다.",
+      "민사집행법 264조#KOBLEX-128924": "제3편 담보권 실행 등을 위한 경매",
+      "민사집행법 274조  유치권 등에 의한 경매#KOBLEX-128945": "①유치권에 의한 경매와 민법ㆍ상법, 그 밖의 법률이 규정하는 바에 따른 경매(이하 \"유치권등에 의한 경매\"라 한다)는 담보권 실행을 위한 경매의 예에 따라 실시한다.",
+      "민사집행법 274조  유치권 등에 의한 경매#KOBLEX-128947": "③제2항의 경우에 강제경매 또는 담보권 실행을 위한 경매가 취소되면 유치권 등에 의한 경매절차를 계속하여 진행하여야 한다.",
+      "민사집행법 53조  집행비용의 부담#KOBLEX-128200": "제53조(집행비용의 부담)",
+      "민사집행법 53조  집행비용의 부담#KOBLEX-128201": "①강제집행에 필요한 비용은 채무자가 부담하고 그 집행에 의하여 우선적으로 변상을 받는다.",
+      "민사집행법 78조  집행방법#KOBLEX-128312": "②강제집행은 다음 각호의 방법으로 한다. 1. 강제경매 2. 강제관리",
+      "민사집행법 79조  집행법원#KOBLEX-128316": "①부동산에 대한 강제집행은 그 부동산이 있는 곳의 지방법원이 관할한다.",
+      "민사집행법 80조  강제경매신청서#KOBLEX-128322": "3. 경매의 이유가 된 일정한 채권과 집행할 수 있는 일정한 집행권원"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민사집행법 53조  집행비용의 부담#KOBLEX-128201"
+            ],
+            "rationale": "C001은 강제집행 비용의 부담 주체를 채무자로 명시하고 있어 요구사항 E1-R1을 완전히 만족한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민사집행법 53조  집행비용의 부담#KOBLEX-128201"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "제시된 후보 조항 C001(민사집행법 제53조 제1항)은 강제집행 비용의 부담 주체가 채무자임을 명확히 규정하고 있어, 증거 항목 E1의 완료 기준인 '강제집행 비용의 원칙적 부담 주체를 명시하는 조항 확인'을 충족한다. 다른 후보 조항들은 경매 절차, 관할, 목적 등 부수적 사항만을 다루며 비용 부담 주체에 대한 직접적 규정은 아니므로, C001만 최소 지원 집합으로 선정한다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "민사집행법 53조  집행비용의 부담#KOBLEX-128201",
+        "support_spans": [
+          {
+            "end_char": 49,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "강제집행에 소요되는 비용의 부담 주체에 관한 법적 규정은 무엇인가?",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 을에게 5천만 원을 빌려주었으나, 을이 상환 기한이 지나도 돈을 갚지 않았습니다. 결국 갑은 법원에 강제집행을 신청하였고, 집행관이 을의 자산을 압류하여 경매를 통해 돈을 회수하기로 결정했습니다. 경매 절차를 진행하는 과정에서 강제집행에 소요되는 비용이 발생하였습니다. [질문] 을의 자산에 대한 강제집행에 필요한 비용은 누가 부담하는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "강제집행",
+          "비용",
+          "부담",
+          "채무자"
+        ],
+        "query_text": "민사집행법 강제집행 비용 부담 주체 [원문 맥락] 경매 절차를 진행하는 과정에서 강제집행에 소요되는 비용이 발생하였습니다. 을의 자산에 대한 강제집행에 필요한 비용은 누가 부담하는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민사집행법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 을에게 5천만 원을 빌려주었으나, 을이 상환 기한이 지나도 돈을 갚지 않았습니다. 결국 갑은 법원에 강제집행을 신청하였고, 집행관이 을의 자산을 압류하여 경매를 통해 돈을 회수하기로 결정했습니다. 경매 절차를 진행하는 과정에서 강제집행에 소요되는 비용이 발생하였습니다.\n\n[질문]\n을의 자산에 대한 강제집행에 필요한 비용은 누가 부담하는가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "강제집행 비용의 원칙적 부담 주체를 명시하는 조항을 확인해야 함",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "강제집행 비용의 부담 주체를 명시하는 조항의 존재와 내용을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "강제집행 비용의 부담 주체를 정한 민사집행법 조항",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문은 강제집행 비용의 부담 주체를 묻고 있으므로, 이를 정하는 법적 규정이 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "572f0c93-9608-4bdf-b45d-16fc552c5d94",
+    "seen_provision_ids": [
+      "민사집행법 53조  집행비용의 부담#KOBLEX-128201",
+      "민사집행법 80조  강제경매신청서#KOBLEX-128322",
+      "민사집행법 274조  유치권 등에 의한 경매#KOBLEX-128945",
+      "민사집행법 264조#KOBLEX-128924",
+      "민사집행법 274조  유치권 등에 의한 경매#KOBLEX-128947",
+      "민사집행법 1조  목적#KOBLEX-128036",
+      "민사집행법 53조  집행비용의 부담#KOBLEX-128200",
+      "민사집행법 78조  집행방법#KOBLEX-128312",
+      "민사소송비용법 10조  강제집행, 신청사건의 비용#KOBLEX-018678",
+      "민사집행법 79조  집행법원#KOBLEX-128316"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

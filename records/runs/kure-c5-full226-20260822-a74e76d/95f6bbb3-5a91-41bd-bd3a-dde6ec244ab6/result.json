@@ -1,0 +1,665 @@
+{
+  "abstention_reason": null,
+  "answer": "야간에 사람의 주거에 침입하여 타인의 재물을 절취한 자는 10년 이하의 징역에 처한다.[CT1]\n갑이 한밤중에 을의 집에 몰래 들어가 금목걸이를 훔친 행위는 형법 제330조의 야간주거침입절도죄 구성요건을 충족한다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "질문에 제시된 '한밤중'이 형법상 '야간'에 해당하고, '을의 집'이 형법상 '주거'에 해당한다고 가정한다."
+    }
+  ],
+  "candidate_answer": "야간에 사람의 주거에 침입하여 타인의 재물을 절취한 자는 10년 이하의 징역에 처한다.[CT1]\n갑이 한밤중에 을의 집에 몰래 들어가 금목걸이를 훔친 행위는 형법 제330조의 야간주거침입절도죄 구성요건을 충족한다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형법 330조  야간주거침입절도#KOBLEX-193368",
+      "quoted_text": "제330조(야간주거침입절도) 야간에 사람의 주거, 관리하는 건조물, 선박, 항공기 또는 점유하는 방실(房室)에 침입하여 타인의 재물을 절취(竊取)한 자는 10년 이하의 징역에 처한다.",
+      "support_description": "형법 제330조는 야간주거침입절도죄의 구성요건과 법정형(10년 이하 징역)을 명시하고 있다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "형법 330조  야간주거침입절도#KOBLEX-193368",
+      "quoted_text": "제330조(야간주거침입절도) 야간에 사람의 주거, 관리하는 건조물, 선박, 항공기 또는 점유하는 방실(房室)에 침입하여 타인의 재물을 절취(竊取)한 자는 10년 이하의 징역에 처한다.",
+      "support_description": "사실관계상 '한밤중'(야간), '을의 집'(주거), '몰래 들어가'(침입), '금목걸이를 훔쳤다'(재물 절취)가 조항의 구성요건에 부합함을 근거로 한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "야간에 사람의 주거에 침입하여 타인의 재물을 절취한 자는 10년 이하의 징역에 처한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "갑이 한밤중에 을의 집에 몰래 들어가 금목걸이를 훔친 행위는 형법 제330조의 야간주거침입절도죄 구성요건을 충족한다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T06:51:10.774869+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 91351.643,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "본 답변은 형법 제330조에 따른 법정형의 범위만 제시하며, 실제 선고 형량은 사법부의 재량에 따라 달라질 수 있다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 166,
+      "dedup_collapse": 56,
+      "evidence_fusion": 166,
+      "first_stage": 200,
+      "request_rerank": 200,
+      "round_selected": 10,
+      "rrf": 200,
+      "selected": 166
+    }
+  },
+  "run_id": "95f6bbb3-5a91-41bd-bd3a-dde6ec244ab6",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형법 330조  야간주거침입절도#KOBLEX-193368"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "갑이 야간에 을의 집에 몰래 들어가 금목걸이를 훔쳤다면 어떤 처벌을 받을 수 있는가?",
+        "requested_output": "The specific criminal penalty applicable to the act of stealing a gold necklace by secretly entering a residence at night."
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "형법 330조  야간주거침입절도#KOBLEX-193368"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.5903947353363037,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "형법 330조  야간주거침입절도#KOBLEX-193368",
+        "provision_text": "제330조(야간주거침입절도) 야간에 사람의 주거, 관리하는 건조물, 선박, 항공기 또는 점유하는 방실(房室)에 침입하여 타인의 재물을 절취(竊取)한 자는 10년 이하의 징역에 처한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.38150888681411743,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "형법 330조  야간주거침입절도",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 319조#KOBLEX-193339"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 8,
+        "first_stage_score": 0.5270243883132935,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "형법 319조#KOBLEX-193339",
+        "provision_text": "제36장 주거침입의 죄",
+        "rerank_rank": 2,
+        "rerank_score": 0.059234995394945145,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "형법 319조",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 41조  형의 종류#KOBLEX-192738"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 56,
+        "first_stage_score": 0.48215973377227783,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "형법 41조  형의 종류#KOBLEX-192738",
+        "provision_text": "6. 벌금",
+        "rerank_rank": 3,
+        "rerank_score": 0.0291752927005291,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "형법 41조  형의 종류 6호",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "성폭력범죄의 처벌 등에 관한 특례법 3조  특수강도강간 등#KOBLEX-157525"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.536724328994751,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "성폭력범죄의 처벌 등에 관한 특례법 3조  특수강도강간 등#KOBLEX-157525",
+        "provision_text": "① 「형법」 제319조제1항(주거침입), 제330조(야간주거침입절도), 제331조(특수절도) 또는 제342조(미수범. 다만, 제330조 및 제331조의 미수범으로 한정한다)의 죄를 범한 사람이 같은 법 제297조(강간), 제297조의2(유사강간), 제298조(강제추행) 및 제299조(준강간, 준강제추행)의 죄를 범한 경우에는 무기징역 또는 7년 이상의 징역에 처한다. <개정 2020.5.19>",
+        "rerank_rank": 3,
+        "rerank_score": 0.021521657705307007,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "성폭력범죄의 처벌 등에 관한 특례법 3조  특수강도강간 등 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 331조  특수절도#KOBLEX-193370"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.5696180462837219,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "형법 331조  특수절도#KOBLEX-193370",
+        "provision_text": "① 야간에 문이나 담 그 밖의 건조물의 일부를 손괴하고 제330조의 장소에 침입하여 타인의 재물을 절취한 자는 1년 이상 10년 이하의 징역에 처한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.01837266981601715,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형법 331조  특수절도 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 21조  정당방위#KOBLEX-192684"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.5239983797073364,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형법 21조  정당방위#KOBLEX-192684",
+        "provision_text": "③ 제2항의 경우에 야간이나 그 밖의 불안한 상태에서 공포를 느끼거나 경악(驚愕)하거나 흥분하거나 당황하였기 때문에 그 행위를 하였을 때에는 벌하지 아니한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.013798518106341362,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형법 21조  정당방위 3항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 334조  특수강도#KOBLEX-193376"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 24,
+        "first_stage_score": 0.5133436322212219,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "형법 334조  특수강도#KOBLEX-193376",
+        "provision_text": "①야간에 사람의 주거, 관리하는 건조물, 선박이나 항공기 또는 점유하는 방실에 침입하여 제333조의 죄를 범한 자는 무기 또는 5년 이상의 징역에 처한다. <개정 1995.12.29>",
+        "rerank_rank": 6,
+        "rerank_score": 0.007244654465466738,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형법 334조  특수강도 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 32조  종범#KOBLEX-192708"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 89,
+        "first_stage_score": 0.4767029881477356,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "형법 32조  종범#KOBLEX-192708",
+        "provision_text": "①타인의 범죄를 방조한 자는 종범으로 처벌한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.005670967046171427,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형법 32조  종범 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 331조  특수절도#KOBLEX-193371"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 52,
+        "first_stage_score": 0.48804253339767456,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "형법 331조  특수절도#KOBLEX-193371",
+        "provision_text": "② 흉기를 휴대하거나 2명 이상이 합동하여 타인의 재물을 절취한 자도 제1항의 형에 처한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.004878189880400896,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형법 331조  특수절도 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 133조  뇌물공여 등#KOBLEX-192962"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 65,
+        "first_stage_score": 0.48411113023757935,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "형법 133조  뇌물공여 등#KOBLEX-192962",
+        "provision_text": "② 제1항의 행위에 제공할 목적으로 제3자에게 금품을 교부한 자 또는 그 사정을 알면서 금품을 교부받은 제3자도 제1항의 형에 처한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.0047430675476789474,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형법 133조  뇌물공여 등 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "성폭력범죄의 처벌 등에 관한 특례법 3조  특수강도강간 등#KOBLEX-157525": "① 「형법」 제319조제1항(주거침입), 제330조(야간주거침입절도), 제331조(특수절도) 또는 제342조(미수범. 다만, 제330조 및 제331조의 미수범으로 한정한다)의 죄를 범한 사람이 같은 법 제297조(강간), 제297조의2(유사강간), 제298조(강제추행) 및 제299조(준강간, 준강제추행)의 죄를 범한 경우에는 무기징역 또는 7년 이상의 징역에 처한다. <개정 2020.5.19>",
+      "형법 133조  뇌물공여 등#KOBLEX-192962": "② 제1항의 행위에 제공할 목적으로 제3자에게 금품을 교부한 자 또는 그 사정을 알면서 금품을 교부받은 제3자도 제1항의 형에 처한다.",
+      "형법 21조  정당방위#KOBLEX-192684": "③ 제2항의 경우에 야간이나 그 밖의 불안한 상태에서 공포를 느끼거나 경악(驚愕)하거나 흥분하거나 당황하였기 때문에 그 행위를 하였을 때에는 벌하지 아니한다.",
+      "형법 319조#KOBLEX-193339": "제36장 주거침입의 죄",
+      "형법 32조  종범#KOBLEX-192708": "①타인의 범죄를 방조한 자는 종범으로 처벌한다.",
+      "형법 330조  야간주거침입절도#KOBLEX-193368": "제330조(야간주거침입절도) 야간에 사람의 주거, 관리하는 건조물, 선박, 항공기 또는 점유하는 방실(房室)에 침입하여 타인의 재물을 절취(竊取)한 자는 10년 이하의 징역에 처한다.",
+      "형법 331조  특수절도#KOBLEX-193370": "① 야간에 문이나 담 그 밖의 건조물의 일부를 손괴하고 제330조의 장소에 침입하여 타인의 재물을 절취한 자는 1년 이상 10년 이하의 징역에 처한다.",
+      "형법 331조  특수절도#KOBLEX-193371": "② 흉기를 휴대하거나 2명 이상이 합동하여 타인의 재물을 절취한 자도 제1항의 형에 처한다.",
+      "형법 334조  특수강도#KOBLEX-193376": "①야간에 사람의 주거, 관리하는 건조물, 선박이나 항공기 또는 점유하는 방실에 침입하여 제333조의 죄를 범한 자는 무기 또는 5년 이상의 징역에 처한다. <개정 1995.12.29>",
+      "형법 41조  형의 종류#KOBLEX-192738": "6. 벌금"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형법 330조  야간주거침입절도#KOBLEX-193368"
+            ],
+            "rationale": "C001은 '야간에 사람의 주거...에 침입하여 타인의 재물을 절취한 자'를 처벌 대상으로 규정하여, 야간 주거 침입 절도죄의 정의를 제공한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "형법 330조  야간주거침입절도#KOBLEX-193368"
+            ],
+            "rationale": "C001은 범죄 성립 조건으로 '야간'과 '주거'를 명시적으로 요구하며, 이는 해당 범죄의 구성요건으로서의 조건을 규정한다. 별도 정의 조항이 없더라도 본 조항의 문언이 해당 요건을 충족하는지 판단하는 법적 기준이 된다.",
+            "requirement_id": "E1-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형법 330조  야간주거침입절도#KOBLEX-193368"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C001(형법 제330조)은 야간주거침입절도죄의 정의와 구성요건을 명확히 규정하고 있어, E1의 모든 완료 기준을 충족한다. '야간'과 '주거'의 구체적 시간적/공간적 정의가 별도 조항에 명시되어 있지 않더라도, 본 조항의 문언 자체가 해당 범죄의 성립 요건으로 기능하므로 법적 근거는 완비되었다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형법 330조  야간주거침입절도#KOBLEX-193368"
+            ],
+            "rationale": "C001은 '10년 이하의 징역에 처한다'고 하여, 야간주거침입절도죄에 적용되는 구체적인 징역형의 범위를 명시한다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형법 330조  야간주거침입절도#KOBLEX-193368"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C001(형법 제330조)은 야간주거침입절도죄에 대한 법정형으로 '10년 이하의 징역'을 명시하고 있어, E2의 완료 기준을 충족한다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형법 330조  야간주거침입절도#KOBLEX-193368",
+        "support_spans": [
+          {
+            "end_char": 102,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "형법 330조  야간주거침입절도#KOBLEX-193368",
+        "support_spans": [
+          {
+            "end_char": 102,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "Does the act of secretly entering a residence at night to steal property constitute the aggravated offense of night-time residential theft?",
+        "issue_id": "I1"
+      },
+      {
+        "description": "What is the statutory penalty for the established offense?",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 한밤중에 을의 집에 몰래 들어가 을의 금목걸이를 훔쳤다. 을은 그 사실을 다음 날 아침에 발견하고 경찰에 신고하였다. [질문] 갑이 야간에 을의 집에 몰래 들어가 금목걸이를 훔쳤다면 어떤 처벌을 받을 수 있는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "야간주거침입절도",
+          "형법",
+          "주거",
+          "야간",
+          "침입"
+        ],
+        "query_text": "형법 야간주거침입절도 구성요건 [원문 맥락] 을은 그 사실을 다음 날 아침에 발견하고 경찰에 신고하였다. 갑이 야간에 을의 집에 몰래 들어가 금목걸이를 훔쳤다면 어떤 처벌을 받을 수 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법 제330조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "야간주거침입절도",
+          "형량",
+          "징역",
+          "벌금",
+          "형법"
+        ],
+        "query_text": "형법 야간주거침입절도 형량 처벌 [원문 맥락] 을은 그 사실을 다음 날 아침에 발견하고 경찰에 신고하였다. 갑이 야간에 을의 집에 몰래 들어가 금목걸이를 훔쳤다면 어떤 처벌을 받을 수 있는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법 제330조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 한밤중에 을의 집에 몰래 들어가 을의 금목걸이를 훔쳤다. 을은 그 사실을 다음 날 아침에 발견하고 경찰에 신고하였다.\n\n[질문]\n갑이 야간에 을의 집에 몰래 들어가 금목걸이를 훔쳤다면 어떤 처벌을 받을 수 있는가?",
+    "remaining_request_budget": 7,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific article defining the offense and its required elements: theft, residence, night, and secret entry.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The provision must define the offense of stealing property by entering a residence at night."
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "The provision must specify the conditions for 'night' and 'residence' relevant to the offense."
+          }
+        ],
+        "critical": true,
+        "description": "Statutory definition and constitutive elements of night-time residential theft (야간주거침입절도).",
+        "evidence_item_id": "E1",
+        "evidence_type": "element",
+        "issue_id": "I1",
+        "necessity_reason": "Determines whether the facts satisfy the specific aggravated offense rather than simple theft.",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific article prescribing the punishment (imprisonment or fine) for the offense.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "The provision must state the specific term of imprisonment or fine applicable to night-time residential theft."
+          }
+        ],
+        "critical": true,
+        "description": "Statutory penalty provision for night-time residential theft.",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "Directly answers the question regarding the potential punishment.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "95f6bbb3-5a91-41bd-bd3a-dde6ec244ab6",
+    "seen_provision_ids": [
+      "형법 21조  정당방위#KOBLEX-192684",
+      "형법 331조  특수절도#KOBLEX-193370",
+      "형법 41조  형의 종류#KOBLEX-192738",
+      "형법 32조  종범#KOBLEX-192708",
+      "성폭력범죄의 처벌 등에 관한 특례법 3조  특수강도강간 등#KOBLEX-157525",
+      "형법 133조  뇌물공여 등#KOBLEX-192962",
+      "형법 331조  특수절도#KOBLEX-193371",
+      "형법 334조  특수강도#KOBLEX-193376",
+      "형법 319조#KOBLEX-193339",
+      "형법 330조  야간주거침입절도#KOBLEX-193368"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

@@ -1,0 +1,781 @@
+{
+  "abstention_reason": null,
+  "answer": "피해자가 피고사건의 범죄행위로 인하여 발생한 피해에 관하여 다른 절차에 따른 손해배상청구가 법원에 계속 중일 때에는 배상신청을 할 수 없다.[CT1]\n갑이 제기한 민사소송이 법원에 계속 중이므로, 갑은 을을 상대로 형사배상명령을 신청할 수 없다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "A1",
+      "message": "갑이 제기한 민사소송이 형사배상명령 대상인 범죄행위로 인한 피해와 동일한 사안에 관한 것으로 가정한다."
+    }
+  ],
+  "candidate_answer": "피해자가 피고사건의 범죄행위로 인하여 발생한 피해에 관하여 다른 절차에 따른 손해배상청구가 법원에 계속 중일 때에는 배상신청을 할 수 없다.[CT1]\n갑이 제기한 민사소송이 법원에 계속 중이므로, 갑은 을을 상대로 형사배상명령을 신청할 수 없다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-085249",
+      "quoted_text": "⑦ 피해자는 피고사건의 범죄행위로 인하여 발생한 피해에 관하여 다른 절차에 따른 손해배상청구가 법원에 계속 중일 때에는 배상신청을 할 수 없다.",
+      "support_description": "민사소송 계속 시 형사배상명령 신청을 금지하는 명시적 규정을 제공한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-085249",
+      "quoted_text": "⑦ 피해자는 피고사건의 범죄행위로 인하여 발생한 피해에 관하여 다른 절차에 따른 손해배상청구가 법원에 계속 중일 때에는 배상신청을 할 수 없다.",
+      "support_description": "민사소송이 계속 중이라는 사실에 법적 규정을 적용하여 신청 불가 결론을 도출한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "피해자가 피고사건의 범죄행위로 인하여 발생한 피해에 관하여 다른 절차에 따른 손해배상청구가 법원에 계속 중일 때에는 배상신청을 할 수 없다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "갑이 제기한 민사소송이 법원에 계속 중이므로, 갑은 을을 상대로 형사배상명령을 신청할 수 없다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T13:40:34.211756+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 115356.902,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "L1",
+      "message": "본 답변은 소송촉진 등에 관한 특례법상 형사배상명령 신청 요건 및 제한에 관한 법적 결론만을 제공한다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 148,
+      "dedup_collapse": 111,
+      "evidence_fusion": 148,
+      "first_stage": 300,
+      "request_rerank": 300,
+      "round_selected": 20,
+      "rrf": 200,
+      "selected": 148
+    }
+  },
+  "run_id": "8f7323a5-9a25-466d-bab5-bab088a3be88",
+  "skill_generation_diagnostics": {
+    "attempt_count": 5,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-085249",
+      "소송촉진 등에 관한 특례법 25조  배상명령#KOBLEX-085240"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 4,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": true,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "민사소송이 법원에 계속 중일 때, 형사소송에서 형사배상명령을 신청할 수 있는가?",
+        "requested_output": "형사배상명령 신청의 허용 여부"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "행정기본법 37조  처분의 재심사#KOBLEX-201441"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 58,
+        "first_stage_score": 0.5534378886222839,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "행정기본법 37조  처분의 재심사#KOBLEX-201441",
+        "provision_text": "② 제1항에 따른 신청은 해당 처분의 절차, 행정심판, 행정소송 및 그 밖의 쟁송에서 당사자가 중대한 과실 없이 제1항 각 호의 사유를 주장하지 못한 경우에만 할 수 있다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9961960315704346,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "행정기본법 37조  처분의 재심사 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소송촉진 등에 관한 특례법 25조  배상명령#KOBLEX-085240",
+          "소송촉진 등에 관한 특례법 25조  배상명령#KOBLEX-194145",
+          "소송촉진 등에 관한 특례법 25조  배상명령#KOBLEX-203636"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 31,
+        "first_stage_score": 0.57243412733078,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "소송촉진 등에 관한 특례법 25조  배상명령#KOBLEX-085240",
+        "provision_text": "③ 법원은 다음 각 호의 어느 하나에 해당하는 경우에는 배상명령을 하여서는 아니 된다. 1. 피해자의 성명ㆍ주소가 분명하지 아니한 경우 2. 피해 금액이 특정되지 아니한 경우 3. 피고인의 배상책임의 유무 또는 그 범위가 명백하지 아니한 경우 4. 배상명령으로 인하여 공판절차가 현저히 지연될 우려가 있거나 형사소송 절차에서 배상명령을 하는 것이 타당하지 아니하다고 인정되는 경우",
+        "rerank_rank": 2,
+        "rerank_score": 0.9954808950424194,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "소송촉진 등에 관한 특례법 25조  배상명령 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사보상 및 명예회복에 관한 법률 2조  보상 요건#KOBLEX-003207"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 65,
+        "first_stage_score": 0.5502022504806519,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형사보상 및 명예회복에 관한 법률 2조  보상 요건#KOBLEX-003207",
+        "provision_text": "① 「형사소송법」에 따른 일반 절차 또는 재심(再審)이나 비상상고(非常上告) 절차에서 무죄재판을 받아 확정된 사건의 피고인이 미결구금(未決拘禁)을 당하였을 때에는 이 법에 따라 국가에 대하여 그 구금에 대한 보상을 청구할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.9941521286964417,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사보상 및 명예회복에 관한 법률 2조  보상 요건 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "하도급거래 공정화에 관한 법률 35조 5 소송기록 열람 등의 청구 통지 등#KOBLEX-228516"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 57,
+        "first_stage_score": 0.5537112355232239,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "하도급거래 공정화에 관한 법률 35조 5 소송기록 열람 등의 청구 통지 등#KOBLEX-228516",
+        "provision_text": "① 비밀유지명령이 내려진 소송(비밀유지명령이 모두 취소된 소송은 제외한다)에 관한 소송기록에 대하여 「민사소송법」 제163조제1항에 따라 열람 등의 신청인을 당사자로 제한하는 결정이 있었던 경우로서 당사자가 그 열람 등을 신청하였으나 그 절차를 비밀유지명령을 받지 아니한 자를 통하여 밟은 때에는 법원서기관, 법원사무관, 법원주사 또는 법원주사보(이하 이 조에서 \"법원사무관등\"이라 한다)는 즉시 같은 항에 따라 그 열람 등의 제한을 신청한 당사자(그 열람 등의 신청을 한 자는 제외한다. 이하 제2항 단서에서 같다)에게 그 열람 등의 신청이 있었다는 사실을 알려야 한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.9934618473052979,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "하도급거래 공정화에 관한 법률 35조 5 소송기록 열람 등의 청구 통지 등 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "개인정보 보호법 39조 4 비밀유지명령#KOBLEX-049291"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 73,
+        "first_stage_score": 0.5486547350883484,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "개인정보 보호법 39조 4 비밀유지명령#KOBLEX-049291",
+        "provision_text": "① 법원은 이 법을 위반한 행위로 인한 손해배상청구소송에서 당사자의 신청에 따른 결정으로 다음 각 호의 자에게 그 당사자가 보유한 영업비밀을 해당 소송의 계속적인 수행 외의 목적으로 사용하거나 그 영업비밀에 관계된 이 항에 따른 명령을 받은 자 외의 자에게 공개하지 아니할 것을 명할 수 있다. 다만, 그 신청 시점까지 다음 각 호의 자가 준비서면의 열람이나 증거조사 외의 방법으로 그 영업비밀을 이미 취득하고 있는 경우에는 그러하지 아니하다. 1. 다른 당사자(법인인 경우에는 그 대표자를 말한다) 2. 당사자를 위하여 해당 소송을 대리하는 자 3. 그 밖에 해당 소송으로 영업비밀을 알게 된 자",
+        "rerank_rank": 5,
+        "rerank_score": 0.9932234287261963,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "개인정보 보호법 39조 4 비밀유지명령 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "범죄피해자 보호법 41조  형사조정 회부#KOBLEX-012061"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 71,
+        "first_stage_score": 0.5491563081741333,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "범죄피해자 보호법 41조  형사조정 회부#KOBLEX-012061",
+        "provision_text": "② 형사조정에 회부할 수 있는 형사사건의 구체적인 범위는 대통령령으로 정한다. 다만, 다음 각 호의 어느 하나에 해당하는 경우에는 형사조정에 회부하여서는 아니 된다. 1. 피의자가 도주하거나 증거를 인멸할 염려가 있는 경우 2. 공소시효의 완성이 임박한 경우 3. 불기소처분의 사유에 해당함이 명백한 경우(다만, 기소유예처분의 사유에 해당하는 경우는 제외한다)",
+        "rerank_rank": 6,
+        "rerank_score": 0.9929898977279663,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "범죄피해자 보호법 41조  형사조정 회부 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부정경쟁방지 및 영업비밀보호에 관한 법률 14조 6 소송기록 열람 등의 청구 통지 등#KOBLEX-033874",
+          "부정경쟁방지 및 영업비밀보호에 관한 법률 14조 6 소송기록 열람 등의 청구 통지 등#KOBLEX-171326"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 77,
+        "first_stage_score": 0.5468302369117737,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "부정경쟁방지 및 영업비밀보호에 관한 법률 14조 6 소송기록 열람 등의 청구 통지 등#KOBLEX-033874",
+        "provision_text": "① 비밀유지명령이 내려진 소송(모든 비밀유지명령이 취소된 소송은 제외한다)에 관한 소송기록에 대하여 「민사소송법」 제163조제1항의 결정이 있었던 경우, 당사자가 같은 항에서 규정하는 비밀 기재 부분의 열람 등의 청구를 하였으나 그 청구절차를 해당 소송에서 비밀유지명령을 받지 아니한 자가 밟은 경우에는 법원서기관, 법원사무관, 법원주사 또는 법원주사보(이하 이 조에서 \"법원사무관등\"이라 한다)는 「민사소송법」 제163조제1항의 신청을 한 당사자(그 열람 등의 청구를 한 자는 제외한다. 이하 제3항에서 같다)에게 그 청구 직후에 그 열람 등의 청구가 있었다는 사실을 알려야 한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.9927264451980591,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "부정경쟁방지 및 영업비밀보호에 관한 법률 14조 6 소송기록 열람 등의 청구 통지 등 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "발명진흥법 55조 11 소송기록 열람 등의 청구 통지 등#KOBLEX-089176"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 94,
+        "first_stage_score": 0.5443792343139648,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "발명진흥법 55조 11 소송기록 열람 등의 청구 통지 등#KOBLEX-089176",
+        "provision_text": "① 비밀유지명령이 내려진 소송(모든 비밀유지명령이 취소된 소송은 제외한다)에 관한 소송기록에 대하여 「민사소송법」 제163조제1항의 결정이 있었던 경우, 당사자가 같은 항에서 규정하는 비밀 기재부분의 열람 등의 청구를 하였으나 그 청구 절차를 해당 소송에서 비밀유지명령을 받지 아니한 자가 밟은 경우에는 법원서기관, 법원사무관, 법원주사 또는 법원주사보(이하 이 조에서 \"법원사무관등\"이라 한다)는 「민사소송법」 제163조제1항의 신청을 한 당사자(그 열람 등의 청구를 한 자는 제외한다. 이하 제3항에서 같다)에게 그 청구 직후에 그 열람 등의 청구가 있었다는 사실을 알려야 한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.9920543432235718,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "발명진흥법 55조 11 소송기록 열람 등의 청구 통지 등 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "개인정보 보호법 39조 6 소송기록 열람 등의 청구 통지 등#KOBLEX-049304"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 56,
+        "first_stage_score": 0.5537388324737549,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "개인정보 보호법 39조 6 소송기록 열람 등의 청구 통지 등#KOBLEX-049304",
+        "provision_text": "① 비밀유지명령이 내려진 소송(모든 비밀유지명령이 취소된 소송은 제외한다)에 관한 소송기록에 대하여 「민사소송법」 제163조제1항에 따라 열람 등의 신청인을 당사자로 제한하는 결정이 있었던 경우로서 당사자가 같은 항에서 규정하는 비밀 기재부분의 열람 등의 청구를 하였으나 그 청구 절차를 해당 소송에서 비밀유지명령을 받지 아니한 자가 밟은 경우에는 법원서기관, 법원사무관, 법원주사 또는 법원주사보(이하 이 조에서 \"법원사무관등\"이라 한다)는 같은 항의 신청을 한 당사자(그 열람 등의 청구를 한 자는 제외한다. 이하 제3항에서 같다)에게 그 청구 직후에 그 열람 등의 청구가 있었다는 사실을 알려야 한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.991910994052887,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "개인정보 보호법 39조 6 소송기록 열람 등의 청구 통지 등 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상표법 229조  소송기록 열람 등의 청구 통지 등#KOBLEX-057774"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 53,
+        "first_stage_score": 0.5545353293418884,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "상표법 229조  소송기록 열람 등의 청구 통지 등#KOBLEX-057774",
+        "provision_text": "① 비밀유지명령이 내려진 소송(모든 비밀유지명령이 취소된 소송은 제외한다)에 관한 소송기록에 대하여 「민사소송법」 제163조제1항에 따른 열람 등의 제한 결정이 있는 경우로서, 그 소송에서 비밀유지명령을 받지 아니한 자가 열람 등이 가능한 당사자를 위하여 그 비밀 기재 부분의 열람 등의 청구절차를 밟은 경우에는 법원서기관, 법원사무관, 법원주사 또는 법원주사보(이하 이 조에서 \"법원사무관등\"이라 한다)는 「민사소송법」 제163조제1항에 따라 열람 등의 제한 신청을 한 당사자(그 열람 등의 청구를 한 자는 제외하며, 이하 제3항에서 같다)에게 그 청구 직후에 그 열람 등의 청구가 있었다는 사실을 알려야 한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.9918407201766968,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "상표법 229조  소송기록 열람 등의 청구 통지 등 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 294조 4 피해자 등의 공판기록 열람ㆍ등사#KOBLEX-232521"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 13,
+        "first_stage_score": 0.596852719783783,
+        "fusion_rank": 11,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 294조 4 피해자 등의 공판기록 열람ㆍ등사#KOBLEX-232521",
+        "provision_text": "①소송계속 중인 사건의 피해자(피해자가 사망하거나 그 심신에 중대한 장애가 있는 경우에는 그 배우자ㆍ직계친족 및 형제자매를 포함한다), 피해자 본인의 법정대리인 또는 이들로부터 위임을 받은 피해자 본인의 배우자ㆍ직계친족ㆍ형제자매ㆍ변호사는 소송기록의 열람 또는 등사를 재판장에게 신청할 수 있다.",
+        "rerank_rank": 11,
+        "rerank_score": 0.986686110496521,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형사소송법 294조 4 피해자 등의 공판기록 열람ㆍ등사 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "언론중재 및 피해구제 등에 관한 법률 26조  정정보도청구등의 소#KOBLEX-180747"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 72,
+        "first_stage_score": 0.5479274392127991,
+        "fusion_rank": 48,
+        "issue_id": "I1",
+        "provision_id": "언론중재 및 피해구제 등에 관한 법률 26조  정정보도청구등의 소#KOBLEX-180747",
+        "provision_text": "③ 제1항의 소는 제14조제1항(제16조제3항에 따라 준용되는 경우를 포함한다) 및 제17조제1항에 따른 기간 이내에 제기하여야 한다. 피해자는 제1항의 소와 동시에 그 인용(認容)을 조건으로 「민사집행법」 제261조제1항에 따른 간접강제의 신청을 병합하여 제기할 수 있다.",
+        "rerank_rank": 48,
+        "rerank_score": 0.9774806499481201,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "언론중재 및 피해구제 등에 관한 법률 26조  정정보도청구등의 소 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-085245",
+          "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-194150",
+          "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-203641"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 67,
+        "first_stage_score": 0.5496553182601929,
+        "fusion_rank": 50,
+        "issue_id": "I1",
+        "provision_id": "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-085245",
+        "provision_text": "③ 신청서에는 다음 각 호의 사항을 적고 신청인 또는 대리인이 서명ㆍ날인하여야 한다. 1. 피고사건의 번호, 사건명 및 사건이 계속된 법원 2. 신청인의 성명과 주소 3. 대리인이 신청할 때에는 그 대리인의 성명과 주소 4. 상대방 피고인의 성명과 주소 5. 배상의 대상과 그 내용 6. 배상 청구 금액",
+        "rerank_rank": 50,
+        "rerank_score": 0.967478334903717,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "소송촉진 등에 관한 특례법 26조  배상신청 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-085249",
+          "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-194154",
+          "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-203645"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6097851991653442,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-085249",
+        "provision_text": "⑦ 피해자는 피고사건의 범죄행위로 인하여 발생한 피해에 관하여 다른 절차에 따른 손해배상청구가 법원에 계속 중일 때에는 배상신청을 할 수 없다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.9620961546897888,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "소송촉진 등에 관한 특례법 26조  배상신청 7항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "개인정보 보호법 39조 4 비밀유지명령#KOBLEX-049291": "① 법원은 이 법을 위반한 행위로 인한 손해배상청구소송에서 당사자의 신청에 따른 결정으로 다음 각 호의 자에게 그 당사자가 보유한 영업비밀을 해당 소송의 계속적인 수행 외의 목적으로 사용하거나 그 영업비밀에 관계된 이 항에 따른 명령을 받은 자 외의 자에게 공개하지 아니할 것을 명할 수 있다. 다만, 그 신청 시점까지 다음 각 호의 자가 준비서면의 열람이나 증거조사 외의 방법으로 그 영업비밀을 이미 취득하고 있는 경우에는 그러하지 아니하다. 1. 다른 당사자(법인인 경우에는 그 대표자를 말한다) 2. 당사자를 위하여 해당 소송을 대리하는 자 3. 그 밖에 해당 소송으로 영업비밀을 알게 된 자",
+      "개인정보 보호법 39조 6 소송기록 열람 등의 청구 통지 등#KOBLEX-049304": "① 비밀유지명령이 내려진 소송(모든 비밀유지명령이 취소된 소송은 제외한다)에 관한 소송기록에 대하여 「민사소송법」 제163조제1항에 따라 열람 등의 신청인을 당사자로 제한하는 결정이 있었던 경우로서 당사자가 같은 항에서 규정하는 비밀 기재부분의 열람 등의 청구를 하였으나 그 청구 절차를 해당 소송에서 비밀유지명령을 받지 아니한 자가 밟은 경우에는 법원서기관, 법원사무관, 법원주사 또는 법원주사보(이하 이 조에서 \"법원사무관등\"이라 한다)는 같은 항의 신청을 한 당사자(그 열람 등의 청구를 한 자는 제외한다. 이하 제3항에서 같다)에게 그 청구 직후에 그 열람 등의 청구가 있었다는 사실을 알려야 한다.",
+      "발명진흥법 55조 11 소송기록 열람 등의 청구 통지 등#KOBLEX-089176": "① 비밀유지명령이 내려진 소송(모든 비밀유지명령이 취소된 소송은 제외한다)에 관한 소송기록에 대하여 「민사소송법」 제163조제1항의 결정이 있었던 경우, 당사자가 같은 항에서 규정하는 비밀 기재부분의 열람 등의 청구를 하였으나 그 청구 절차를 해당 소송에서 비밀유지명령을 받지 아니한 자가 밟은 경우에는 법원서기관, 법원사무관, 법원주사 또는 법원주사보(이하 이 조에서 \"법원사무관등\"이라 한다)는 「민사소송법」 제163조제1항의 신청을 한 당사자(그 열람 등의 청구를 한 자는 제외한다. 이하 제3항에서 같다)에게 그 청구 직후에 그 열람 등의 청구가 있었다는 사실을 알려야 한다.",
+      "범죄피해자 보호법 41조  형사조정 회부#KOBLEX-012061": "② 형사조정에 회부할 수 있는 형사사건의 구체적인 범위는 대통령령으로 정한다. 다만, 다음 각 호의 어느 하나에 해당하는 경우에는 형사조정에 회부하여서는 아니 된다. 1. 피의자가 도주하거나 증거를 인멸할 염려가 있는 경우 2. 공소시효의 완성이 임박한 경우 3. 불기소처분의 사유에 해당함이 명백한 경우(다만, 기소유예처분의 사유에 해당하는 경우는 제외한다)",
+      "부정경쟁방지 및 영업비밀보호에 관한 법률 14조 6 소송기록 열람 등의 청구 통지 등#KOBLEX-033874": "① 비밀유지명령이 내려진 소송(모든 비밀유지명령이 취소된 소송은 제외한다)에 관한 소송기록에 대하여 「민사소송법」 제163조제1항의 결정이 있었던 경우, 당사자가 같은 항에서 규정하는 비밀 기재 부분의 열람 등의 청구를 하였으나 그 청구절차를 해당 소송에서 비밀유지명령을 받지 아니한 자가 밟은 경우에는 법원서기관, 법원사무관, 법원주사 또는 법원주사보(이하 이 조에서 \"법원사무관등\"이라 한다)는 「민사소송법」 제163조제1항의 신청을 한 당사자(그 열람 등의 청구를 한 자는 제외한다. 이하 제3항에서 같다)에게 그 청구 직후에 그 열람 등의 청구가 있었다는 사실을 알려야 한다.",
+      "상표법 229조  소송기록 열람 등의 청구 통지 등#KOBLEX-057774": "① 비밀유지명령이 내려진 소송(모든 비밀유지명령이 취소된 소송은 제외한다)에 관한 소송기록에 대하여 「민사소송법」 제163조제1항에 따른 열람 등의 제한 결정이 있는 경우로서, 그 소송에서 비밀유지명령을 받지 아니한 자가 열람 등이 가능한 당사자를 위하여 그 비밀 기재 부분의 열람 등의 청구절차를 밟은 경우에는 법원서기관, 법원사무관, 법원주사 또는 법원주사보(이하 이 조에서 \"법원사무관등\"이라 한다)는 「민사소송법」 제163조제1항에 따라 열람 등의 제한 신청을 한 당사자(그 열람 등의 청구를 한 자는 제외하며, 이하 제3항에서 같다)에게 그 청구 직후에 그 열람 등의 청구가 있었다는 사실을 알려야 한다.",
+      "소송촉진 등에 관한 특례법 25조  배상명령#KOBLEX-085240": "③ 법원은 다음 각 호의 어느 하나에 해당하는 경우에는 배상명령을 하여서는 아니 된다. 1. 피해자의 성명ㆍ주소가 분명하지 아니한 경우 2. 피해 금액이 특정되지 아니한 경우 3. 피고인의 배상책임의 유무 또는 그 범위가 명백하지 아니한 경우 4. 배상명령으로 인하여 공판절차가 현저히 지연될 우려가 있거나 형사소송 절차에서 배상명령을 하는 것이 타당하지 아니하다고 인정되는 경우",
+      "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-085245": "③ 신청서에는 다음 각 호의 사항을 적고 신청인 또는 대리인이 서명ㆍ날인하여야 한다. 1. 피고사건의 번호, 사건명 및 사건이 계속된 법원 2. 신청인의 성명과 주소 3. 대리인이 신청할 때에는 그 대리인의 성명과 주소 4. 상대방 피고인의 성명과 주소 5. 배상의 대상과 그 내용 6. 배상 청구 금액",
+      "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-085249": "⑦ 피해자는 피고사건의 범죄행위로 인하여 발생한 피해에 관하여 다른 절차에 따른 손해배상청구가 법원에 계속 중일 때에는 배상신청을 할 수 없다.",
+      "언론중재 및 피해구제 등에 관한 법률 26조  정정보도청구등의 소#KOBLEX-180747": "③ 제1항의 소는 제14조제1항(제16조제3항에 따라 준용되는 경우를 포함한다) 및 제17조제1항에 따른 기간 이내에 제기하여야 한다. 피해자는 제1항의 소와 동시에 그 인용(認容)을 조건으로 「민사집행법」 제261조제1항에 따른 간접강제의 신청을 병합하여 제기할 수 있다.",
+      "하도급거래 공정화에 관한 법률 35조 5 소송기록 열람 등의 청구 통지 등#KOBLEX-228516": "① 비밀유지명령이 내려진 소송(비밀유지명령이 모두 취소된 소송은 제외한다)에 관한 소송기록에 대하여 「민사소송법」 제163조제1항에 따라 열람 등의 신청인을 당사자로 제한하는 결정이 있었던 경우로서 당사자가 그 열람 등을 신청하였으나 그 절차를 비밀유지명령을 받지 아니한 자를 통하여 밟은 때에는 법원서기관, 법원사무관, 법원주사 또는 법원주사보(이하 이 조에서 \"법원사무관등\"이라 한다)는 즉시 같은 항에 따라 그 열람 등의 제한을 신청한 당사자(그 열람 등의 신청을 한 자는 제외한다. 이하 제2항 단서에서 같다)에게 그 열람 등의 신청이 있었다는 사실을 알려야 한다.",
+      "행정기본법 37조  처분의 재심사#KOBLEX-201441": "② 제1항에 따른 신청은 해당 처분의 절차, 행정심판, 행정소송 및 그 밖의 쟁송에서 당사자가 중대한 과실 없이 제1항 각 호의 사유를 주장하지 못한 경우에만 할 수 있다.",
+      "형사보상 및 명예회복에 관한 법률 2조  보상 요건#KOBLEX-003207": "① 「형사소송법」에 따른 일반 절차 또는 재심(再審)이나 비상상고(非常上告) 절차에서 무죄재판을 받아 확정된 사건의 피고인이 미결구금(未決拘禁)을 당하였을 때에는 이 법에 따라 국가에 대하여 그 구금에 대한 보상을 청구할 수 있다.",
+      "형사소송법 294조 4 피해자 등의 공판기록 열람ㆍ등사#KOBLEX-232521": "①소송계속 중인 사건의 피해자(피해자가 사망하거나 그 심신에 중대한 장애가 있는 경우에는 그 배우자ㆍ직계친족 및 형제자매를 포함한다), 피해자 본인의 법정대리인 또는 이들로부터 위임을 받은 피해자 본인의 배우자ㆍ직계친족ㆍ형제자매ㆍ변호사는 소송기록의 열람 또는 등사를 재판장에게 신청할 수 있다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "소송촉진 등에 관한 특례법 25조  배상명령#KOBLEX-085240"
+            ],
+            "rationale": "C002는 법원이 배상명령을 할 수 없는 경우를 열거함으로써 형사배상명령 신청의 일반적 요건 및 제한 사항에 관한 법적 근거를 제공한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-085249"
+            ],
+            "rationale": "C014는 '다른 절차에 따른 손해배상청구가 법원에 계속 중일 때에는 배상신청을 할 수 없다'고 명시하여, 민사소송 계속 시 형사배상명령 신청의 제한 규정을 직접적으로 충족한다.",
+            "requirement_id": "E1-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-085249",
+          "소송촉진 등에 관한 특례법 25조  배상명령#KOBLEX-085240"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C014는 민사소송이 법원에 계속 중인 경우 형사배상명령 신청이 허용되지 않는다는 명시적 제한 규정을 제공하여 E1-R2를 충족한다. C002는 배상명령의 일반적 제한 요건을 규정하여 E1-R1의 법적 근거를 제공한다. 두 조항을 통해 질문의 핵심 쟁점인 '민사소송 계속 중 형사배상명령 신청 가능 여부'에 대한 법적 규정이 충분히 확보되었다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-085249",
+        "support_spans": [
+          {
+            "end_char": 80,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "소송촉진 등에 관한 특례법 25조  배상명령#KOBLEX-085240",
+        "support_spans": [
+          {
+            "end_char": 212,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 4,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "형사배상명령 신청의 요건 및 제한",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 을에게 폭행을 당해 부상을 입었고, 이에 대한 손해배상을 요구하고자 을을 상대로 민사소송을 제기하였다. 민사소송이 법원에 계류 중인 상황에서, 갑은 같은 사건으로 형사소송이 진행 중인 을에게 형사배상명령을 신청할 수 있는지 고민하고 있다. [질문] 갑은 을의 범죄행위로 인해 발생한 피해에 관하여 민사소송이 법원에 계속 중일 때, 형사소송에서 형사배상명령을 신청할 수 있는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "형사배상명령",
+          "신청요건",
+          "민사소송계속",
+          "형사소송법"
+        ],
+        "query_text": "형사배상명령 신청 요건 민사소송 계속 중 제한 [원문 맥락] 민사소송이 법원에 계류 중인 상황에서, 갑은 같은 사건으로 형사소송이 진행 중인 을에게 형사배상명령을 신청할 수 있는지 고민하고 있다. 갑은 을의 범죄행위로 인해 발생한 피해에 관하여 민사소송이 법원에 계속 중일 때, 형사소송에서 형사배상명령을 신청할 수 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "형사배상명령",
+          "신청요건",
+          "피해자",
+          "형사소송법"
+        ],
+        "query_text": "형사소송법 형사배상명령 신청 요건 피해자 신청권 [원문 맥락] 민사소송이 법원에 계류 중인 상황에서, 갑은 같은 사건으로 형사소송이 진행 중인 을에게 형사배상명령을 신청할 수 있는지 고민하고 있다. 갑은 을의 범죄행위로 인해 발생한 피해에 관하여 민사소송이 법원에 계속 중일 때, 형사소송에서 형사배상명령을 신청할 수 있는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "형사배상명령",
+          "민사소송",
+          "계속중",
+          "신청제한"
+        ],
+        "query_text": "형사배상명령 민사소송 계속 중 신청 제한 배제 [원문 맥락] 민사소송이 법원에 계류 중인 상황에서, 갑은 같은 사건으로 형사소송이 진행 중인 을에게 형사배상명령을 신청할 수 있는지 고민하고 있다. 갑은 을의 범죄행위로 인해 발생한 피해에 관하여 민사소송이 법원에 계속 중일 때, 형사소송에서 형사배상명령을 신청할 수 있는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 을에게 폭행을 당해 부상을 입었고, 이에 대한 손해배상을 요구하고자 을을 상대로 민사소송을 제기하였다. 민사소송이 법원에 계류 중인 상황에서, 갑은 같은 사건으로 형사소송이 진행 중인 을에게 형사배상명령을 신청할 수 있는지 고민하고 있다.\n\n[질문]\n갑은 을의 범죄행위로 인해 발생한 피해에 관하여 민사소송이 법원에 계속 중일 때, 형사소송에서 형사배상명령을 신청할 수 있는가?",
+    "remaining_request_budget": 6,
+    "remaining_round_budget": 1,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "형사소송법상 형사배상명령 신청 요건 및 민사소송 계속 시 신청 제한 여부를 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "형사배상명령 신청의 일반적 요건"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "민사소송 계속 시 형사배상명령 신청의 허용 또는 제한 규정"
+          }
+        ],
+        "critical": true,
+        "description": "형사배상명령 신청의 요건 및 민사소송과의 관계에 관한 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문은 민사소송 계속 중 형사배상명령 신청 가능 여부를 묻고 있으므로, 해당 신청의 법적 요건과 제한 규정이 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 2,
+    "run_id": "8f7323a5-9a25-466d-bab5-bab088a3be88",
+    "seen_provision_ids": [
+      "개인정보 보호법 39조 6 소송기록 열람 등의 청구 통지 등#KOBLEX-049304",
+      "언론중재 및 피해구제 등에 관한 법률 26조  정정보도청구등의 소#KOBLEX-180747",
+      "발명진흥법 55조 11 소송기록 열람 등의 청구 통지 등#KOBLEX-089176",
+      "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-085249",
+      "행정기본법 37조  처분의 재심사#KOBLEX-201441",
+      "상표법 229조  소송기록 열람 등의 청구 통지 등#KOBLEX-057774",
+      "범죄피해자 보호법 41조  형사조정 회부#KOBLEX-012061",
+      "하도급거래 공정화에 관한 법률 35조 5 소송기록 열람 등의 청구 통지 등#KOBLEX-228516",
+      "소송촉진 등에 관한 특례법 25조  배상명령#KOBLEX-085240",
+      "부정경쟁방지 및 영업비밀보호에 관한 법률 14조 6 소송기록 열람 등의 청구 통지 등#KOBLEX-033874",
+      "개인정보 보호법 39조 4 비밀유지명령#KOBLEX-049291",
+      "소송촉진 등에 관한 특례법 26조  배상신청#KOBLEX-085245",
+      "형사보상 및 명예회복에 관한 법률 2조  보상 요건#KOBLEX-003207",
+      "형사소송법 294조 4 피해자 등의 공판기록 열람ㆍ등사#KOBLEX-232521"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

@@ -1,0 +1,583 @@
+{
+  "abstention_reason": null,
+  "answer": "장내기능시험에 불합격한 사람은 불합격한 날부터 3일이 지난 후에 다시 장내기능시험에 응시할 수 있다.[CT1]\n도로주행시험에 불합격한 사람은 불합격한 날부터 3일이 지난 후에 다시 도로주행시험에 응시할 수 있다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "갑과 을이 각각 장내기능시험과 도로주행시험에 불합격했다는 사실은 질문의 전제로 가정함"
+    }
+  ],
+  "candidate_answer": "장내기능시험에 불합격한 사람은 불합격한 날부터 3일이 지난 후에 다시 장내기능시험에 응시할 수 있다.[CT1]\n도로주행시험에 불합격한 사람은 불합격한 날부터 3일이 지난 후에 다시 도로주행시험에 응시할 수 있다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "도로교통법 시행령 48조  자동차등의 운전에 필요한 기능에 관한 시험#KOBLEX-130823",
+      "quoted_text": "⑤ 장내기능시험에 불합격한 사람은 불합격한 날부터 3일이 지난 후에 다시 장내기능시험에 응시할 수 있다.",
+      "support_description": "장내기능시험 불합격 시 재응시 가능 시점을 규정하는 조항"
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "도로교통법 시행령 49조  도로에서 자동차를 운전할 능력이 있는지에 대한 시험#KOBLEX-130828",
+      "quoted_text": "④ 도로주행시험에 불합격한 사람은 불합격한 날부터 3일이 지난 후에 다시 도로주행시험에 응시할 수 있다.",
+      "support_description": "도로주행시험 불합격 시 재응시 가능 시점을 규정하는 조항"
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "장내기능시험에 불합격한 사람은 불합격한 날부터 3일이 지난 후에 다시 장내기능시험에 응시할 수 있다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "도로주행시험에 불합격한 사람은 불합격한 날부터 3일이 지난 후에 다시 도로주행시험에 응시할 수 있다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T13:52:27.779946+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 69829.969,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "본 답변은 도로교통법 시행령의 일반적 재응시 규정에 기반하며, 특별히 불합격 사유나 행정처분 등이 없는 경우를 전제로 함"
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 100,
+      "evidence_fusion": 100,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 100
+    }
+  },
+  "run_id": "2b4cf136-09e3-4a25-8662-8eba0df8cc4c",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "도로교통법 시행령 49조  도로에서 자동차를 운전할 능력이 있는지에 대한 시험#KOBLEX-130828",
+      "도로교통법 시행령 48조  자동차등의 운전에 필요한 기능에 관한 시험#KOBLEX-130823"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "갑은 장내기능시험에 불합격하였고 을은 도로주행시험에 불합격하였다. 갑과 을은 각각 언제 다시 시험에 응시할 수 있는가?",
+        "requested_output": "갑과 을의 재응시 가능 시점"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "도로교통법 시행령 48조  자동차등의 운전에 필요한 기능에 관한 시험#KOBLEX-130823"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.7037915587425232,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "도로교통법 시행령 48조  자동차등의 운전에 필요한 기능에 관한 시험#KOBLEX-130823",
+        "provision_text": "⑤ 장내기능시험에 불합격한 사람은 불합격한 날부터 3일이 지난 후에 다시 장내기능시험에 응시할 수 있다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9999499320983887,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "도로교통법 시행령 48조  자동차등의 운전에 필요한 기능에 관한 시험 5항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로교통법 시행령 49조  도로에서 자동차를 운전할 능력이 있는지에 대한 시험#KOBLEX-130828"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6861264109611511,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "도로교통법 시행령 49조  도로에서 자동차를 운전할 능력이 있는지에 대한 시험#KOBLEX-130828",
+        "provision_text": "④ 도로주행시험에 불합격한 사람은 불합격한 날부터 3일이 지난 후에 다시 도로주행시험에 응시할 수 있다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9999316930770874,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "도로교통법 시행령 49조  도로에서 자동차를 운전할 능력이 있는지에 대한 시험 4항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로교통법 시행규칙 57조  운전면허시험의 응시#KOBLEX-161657"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 60,
+        "first_stage_score": 0.5184594392776489,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "도로교통법 시행규칙 57조  운전면허시험의 응시#KOBLEX-161657",
+        "provision_text": "제57조(운전면허시험의 응시)",
+        "rerank_rank": 3,
+        "rerank_score": 0.9988208413124084,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "도로교통법 시행규칙 57조  운전면허시험의 응시",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "수상레저안전법 시행령 8조  필기시험의 과목 및 방법 등#KOBLEX-104180"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.5695695281028748,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "수상레저안전법 시행령 8조  필기시험의 과목 및 방법 등#KOBLEX-104180",
+        "provision_text": "⑤ 필기시험에 불합격한 사람은 그 불합격한 날의 다음 날부터 다시 필기시험에 응시할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.9985690116882324,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "수상레저안전법 시행령 8조  필기시험의 과목 및 방법 등 5항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "수상레저안전법 시행령 9조  실기시험의 방법 등#KOBLEX-104186"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 7,
+        "first_stage_score": 0.5860012173652649,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "수상레저안전법 시행령 9조  실기시험의 방법 등#KOBLEX-104186",
+        "provision_text": "⑤ 실기시험에 불합격한 사람은 그 불합격한 날의 다음다음 날부터 다시 실기시험에 응시할 수 있다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.9983208775520325,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "수상레저안전법 시행령 9조  실기시험의 방법 등 5항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로교통법 시행규칙 66조  기능시험의 채점 및 합격기준#KOBLEX-161685"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 40,
+        "first_stage_score": 0.526070773601532,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "도로교통법 시행규칙 66조  기능시험의 채점 및 합격기준#KOBLEX-161685",
+        "provision_text": "①제65조에 따른 기능시험의 운전면허 종류별 시험항목ㆍ채점기준 및 합격기준 등은 별표 24와 같다. <개정 2011.12.9>",
+        "rerank_rank": 6,
+        "rerank_score": 0.9974626302719116,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "도로교통법 시행규칙 66조  기능시험의 채점 및 합격기준 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로교통법 시행령 69조  기능검정의 방법 등#KOBLEX-130928"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6731953024864197,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "도로교통법 시행령 69조  기능검정의 방법 등#KOBLEX-130928",
+        "provision_text": "④ 장내기능검정 또는 도로주행기능검정에 합격하지 못한 교육생에 대해서는 장내기능검정 또는 도로주행검정에 불합격한 날부터 3일이 지난 후에 다시 기능검정을 실시할 수 있다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.9946771860122681,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "도로교통법 시행령 69조  기능검정의 방법 등 4항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로교통법 시행규칙 58조  응시원서의 접수 등#KOBLEX-161663"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 28,
+        "first_stage_score": 0.5340991020202637,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "도로교통법 시행규칙 58조  응시원서의 접수 등#KOBLEX-161663",
+        "provision_text": "②제57조제1항에 따른 자동차운전면허시험 응시원서의 유효기간은 최초의 필기시험일부터 1년간으로 하되, 제1종 보통연습면허 또는 제2종 보통연습면허를 받은 때에는 그 연습운전면허의 유효기간으로 한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.9936047196388245,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "도로교통법 시행규칙 58조  응시원서의 접수 등 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로교통법 시행규칙 68조  도로주행시험의 채점 및 합격기준 등#KOBLEX-161691"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 52,
+        "first_stage_score": 0.5217001438140869,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "도로교통법 시행규칙 68조  도로주행시험의 채점 및 합격기준 등#KOBLEX-161691",
+        "provision_text": "①제67조에 따른 도로주행시험의 운전면허 종류별 시험항목ㆍ채점기준 및 합격기준 등은 별표 26과 같다. <개정 2011.12.9>",
+        "rerank_rank": 9,
+        "rerank_score": 0.992506206035614,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "도로교통법 시행규칙 68조  도로주행시험의 채점 및 합격기준 등 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도로교통법 시행령 48조  자동차등의 운전에 필요한 기능에 관한 시험#KOBLEX-130818"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 78,
+        "first_stage_score": 0.5088151693344116,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "도로교통법 시행령 48조  자동차등의 운전에 필요한 기능에 관한 시험#KOBLEX-130818",
+        "provision_text": "제48조(자동차등의 운전에 필요한 기능에 관한 시험)",
+        "rerank_rank": 10,
+        "rerank_score": 0.9893562197685242,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "도로교통법 시행령 48조  자동차등의 운전에 필요한 기능에 관한 시험",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "도로교통법 시행규칙 57조  운전면허시험의 응시#KOBLEX-161657": "제57조(운전면허시험의 응시)",
+      "도로교통법 시행규칙 58조  응시원서의 접수 등#KOBLEX-161663": "②제57조제1항에 따른 자동차운전면허시험 응시원서의 유효기간은 최초의 필기시험일부터 1년간으로 하되, 제1종 보통연습면허 또는 제2종 보통연습면허를 받은 때에는 그 연습운전면허의 유효기간으로 한다.",
+      "도로교통법 시행규칙 66조  기능시험의 채점 및 합격기준#KOBLEX-161685": "①제65조에 따른 기능시험의 운전면허 종류별 시험항목ㆍ채점기준 및 합격기준 등은 별표 24와 같다. <개정 2011.12.9>",
+      "도로교통법 시행규칙 68조  도로주행시험의 채점 및 합격기준 등#KOBLEX-161691": "①제67조에 따른 도로주행시험의 운전면허 종류별 시험항목ㆍ채점기준 및 합격기준 등은 별표 26과 같다. <개정 2011.12.9>",
+      "도로교통법 시행령 48조  자동차등의 운전에 필요한 기능에 관한 시험#KOBLEX-130818": "제48조(자동차등의 운전에 필요한 기능에 관한 시험)",
+      "도로교통법 시행령 48조  자동차등의 운전에 필요한 기능에 관한 시험#KOBLEX-130823": "⑤ 장내기능시험에 불합격한 사람은 불합격한 날부터 3일이 지난 후에 다시 장내기능시험에 응시할 수 있다.",
+      "도로교통법 시행령 49조  도로에서 자동차를 운전할 능력이 있는지에 대한 시험#KOBLEX-130828": "④ 도로주행시험에 불합격한 사람은 불합격한 날부터 3일이 지난 후에 다시 도로주행시험에 응시할 수 있다.",
+      "도로교통법 시행령 69조  기능검정의 방법 등#KOBLEX-130928": "④ 장내기능검정 또는 도로주행기능검정에 합격하지 못한 교육생에 대해서는 장내기능검정 또는 도로주행검정에 불합격한 날부터 3일이 지난 후에 다시 기능검정을 실시할 수 있다.",
+      "수상레저안전법 시행령 8조  필기시험의 과목 및 방법 등#KOBLEX-104180": "⑤ 필기시험에 불합격한 사람은 그 불합격한 날의 다음 날부터 다시 필기시험에 응시할 수 있다.",
+      "수상레저안전법 시행령 9조  실기시험의 방법 등#KOBLEX-104186": "⑤ 실기시험에 불합격한 사람은 그 불합격한 날의 다음다음 날부터 다시 실기시험에 응시할 수 있다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "도로교통법 시행령 48조  자동차등의 운전에 필요한 기능에 관한 시험#KOBLEX-130823"
+            ],
+            "rationale": "C001은 장내기능시험 불합격 시 재응시 가능 시점을 명확히 규정하고 있다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "도로교통법 시행령 49조  도로에서 자동차를 운전할 능력이 있는지에 대한 시험#KOBLEX-130828"
+            ],
+            "rationale": "C002는 도로주행시험 불합격 시 재응시 가능 시점을 명확히 규정하고 있다.",
+            "requirement_id": "E1-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "도로교통법 시행령 48조  자동차등의 운전에 필요한 기능에 관한 시험#KOBLEX-130823",
+          "도로교통법 시행령 49조  도로에서 자동차를 운전할 능력이 있는지에 대한 시험#KOBLEX-130828"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "장내기능시험(C001)과 도로주행시험(C002) 각각의 불합격 시 재응시 가능 시점을 명시하는 법적 근거가 모두 확보되어 질문의 핵심 법적 요건이 완전히 충족된다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "도로교통법 시행령 48조  자동차등의 운전에 필요한 기능에 관한 시험#KOBLEX-130823",
+        "support_spans": [
+          {
+            "end_char": 58,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "도로교통법 시행령 49조  도로에서 자동차를 운전할 능력이 있는지에 대한 시험#KOBLEX-130828",
+        "support_spans": [
+          {
+            "end_char": 58,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "자동차 운전면허 시험에서 장내기능시험 또는 도로주행시험에 불합격할 경우 재응시 가능 시점을 정하는 법적 요건이 무엇인가.",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑과 을은 모두 자동차 운전 면허를 취득하기 위해 각각 시험을 보았다. 갑은 장내기능시험에서 불합격했고, 을은 도로주행시험에서 불합격하였다. 두 사람 모두 언제 다시 시험에 응시할 수 있는지를 알고 싶어 한다. [질문] 갑은 장내기능시험에 불합격하였고 을은 도로주행시험에 불합격하였다. 갑과 을은 각각 언제 다시 시험에 응시할 수 있는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "장내기능시험",
+          "도로주행시험",
+          "불합격",
+          "재응시",
+          "운전면허"
+        ],
+        "query_text": "자동차 운전면허 시험 장내기능시험 도로주행시험 불합격 재응시 가능 시점 [원문 맥락] 갑은 장내기능시험에 불합격하였고 을은 도로주행시험에 불합격하였다. 갑과 을은 각각 언제 다시 시험에 응시할 수 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "도로교통법",
+          "도로교통법 시행령"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑과 을은 모두 자동차 운전 면허를 취득하기 위해 각각 시험을 보았다. 갑은 장내기능시험에서 불합격했고, 을은 도로주행시험에서 불합격하였다. 두 사람 모두 언제 다시 시험에 응시할 수 있는지를 알고 싶어 한다.\n\n[질문]\n갑은 장내기능시험에 불합격하였고 을은 도로주행시험에 불합격하였다. 갑과 을은 각각 언제 다시 시험에 응시할 수 있는가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "장내기능시험과 도로주행시험 각각에 대한 재응시 가능 시점(기간)을 명시하는 조항을 확인해야 함",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "장내기능시험 불합격 시 재응시 가능 시점 또는 기간을 명시하는 규정"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "도로주행시험 불합격 시 재응시 가능 시점 또는 기간을 명시하는 규정"
+          }
+        ],
+        "critical": true,
+        "description": "장내기능시험 및 도로주행시험 불합격 시 재응시 가능 시점을 정하는 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 재응시 가능 시점을 직접 결정하는 핵심 법적 근거",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "2b4cf136-09e3-4a25-8662-8eba0df8cc4c",
+    "seen_provision_ids": [
+      "수상레저안전법 시행령 9조  실기시험의 방법 등#KOBLEX-104186",
+      "수상레저안전법 시행령 8조  필기시험의 과목 및 방법 등#KOBLEX-104180",
+      "도로교통법 시행규칙 66조  기능시험의 채점 및 합격기준#KOBLEX-161685",
+      "도로교통법 시행령 69조  기능검정의 방법 등#KOBLEX-130928",
+      "도로교통법 시행규칙 58조  응시원서의 접수 등#KOBLEX-161663",
+      "도로교통법 시행령 48조  자동차등의 운전에 필요한 기능에 관한 시험#KOBLEX-130823",
+      "도로교통법 시행규칙 57조  운전면허시험의 응시#KOBLEX-161657",
+      "도로교통법 시행규칙 68조  도로주행시험의 채점 및 합격기준 등#KOBLEX-161691",
+      "도로교통법 시행령 49조  도로에서 자동차를 운전할 능력이 있는지에 대한 시험#KOBLEX-130828",
+      "도로교통법 시행령 48조  자동차등의 운전에 필요한 기능에 관한 시험#KOBLEX-130818"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

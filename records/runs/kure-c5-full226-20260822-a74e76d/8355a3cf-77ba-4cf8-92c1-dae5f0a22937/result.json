@@ -1,0 +1,696 @@
+{
+  "abstention_reason": null,
+  "answer": "2인 이상이 공동하여 죄를 범한 때에는 각자를 그 죄의 정범으로 처벌한다.[CT1]\n야간에 사람의 주거 등에 침입하여 타인의 재물을 절취한 자는 10년 이하의 징역에 처한다.[CT3]\n갑과 을은 공동하여 절도죄를 범하였으므로, 형법 제30조에 따라 각자 정범으로 처벌된다.[CT2]",
+  "answer_mode": "conditional",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "갑과 을이 '함께 계획을 세워' 침입 및 절취 행위를 실행했다는 사실관계는 공동정범 성립을 위한 공동의사와 공동행위로 간주한다."
+    }
+  ],
+  "candidate_answer": "2인 이상이 공동하여 죄를 범한 때에는 각자를 그 죄의 정범으로 처벌한다.[CT1]\n야간에 사람의 주거 등에 침입하여 타인의 재물을 절취한 자는 10년 이하의 징역에 처한다.[CT3]\n갑과 을은 공동하여 절도죄를 범하였으므로, 형법 제30조에 따라 각자 정범으로 처벌된다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형법 30조  공동정범#KOBLEX-192702",
+      "quoted_text": "제30조(공동정범) 2인 이상이 공동하여 죄를 범한 때에는 각자를 그 죄의 정범으로 처벌한다.",
+      "support_description": "공동정범의 정의 및 처벌 원칙을 명시하여 공동범행 시 각 행위자의 형사책임 근거를 제공한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "형법 30조  공동정범#KOBLEX-192702",
+      "quoted_text": "제30조(공동정범) 2인 이상이 공동하여 죄를 범한 때에는 각자를 그 죄의 정범으로 처벌한다.",
+      "support_description": "갑과 을의 공동행위가 공동정범에 해당하며, 이를 통해 각자의 정범 처벌을 적용하는 근거를 제공한다."
+    },
+    {
+      "answer_marker": "[CT3]",
+      "citation_id": "CT3",
+      "claim_id": "C3",
+      "provision_id": "형법 330조  야간주거침입절도#KOBLEX-193368",
+      "quoted_text": "제330조(야간주거침입절도) 야간에 사람의 주거, 관리하는 건조물, 선박, 항공기 또는 점유하는 방실(房室)에 침입하여 타인의 재물을 절취(竊取)한 자는 10년 이하의 징역에 처한다.",
+      "support_description": "야간 주거침입절도죄의 구성요건과 법정형을 제시하며, 범행 시간이 야간일 경우 적용되는 조건부 법적 결과를 명시한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "2인 이상이 공동하여 죄를 범한 때에는 각자를 그 죄의 정범으로 처벌한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "갑과 을은 공동하여 절도죄를 범하였으므로, 형법 제30조에 따라 각자 정범으로 처벌된다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "conditional",
+      "citation_required": true,
+      "claim_id": "C3",
+      "claim_type": "legal_rule",
+      "text": "야간에 사람의 주거 등에 침입하여 타인의 재물을 절취한 자는 10년 이하의 징역에 처한다."
+    }
+  ],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T12:53:59.042775+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 100009.726,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "범행이 '야간'에 이루어졌는지 여부가 확인되지 않아, 형법 제330조(야간주거침입절도)의 직접 적용 여부가 불확실하다. 야간이 아닌 경우 일반 주거침입절도죄(형법 제331조)가 적용될 수 있으나, 해당 조항은 승인된 증거 범위에 포함되지 않았다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 157,
+      "dedup_collapse": 72,
+      "evidence_fusion": 157,
+      "first_stage": 200,
+      "request_rerank": 200,
+      "round_selected": 10,
+      "rrf": 200,
+      "selected": 157
+    }
+  },
+  "run_id": "8355a3cf-77ba-4cf8-92c1-dae5f0a22937",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형법 30조  공동정범#KOBLEX-192702",
+      "형법 330조  야간주거침입절도#KOBLEX-193368"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "conditional",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Legal support is complete; only question facts select an application branch.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "conditional",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 3,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "conditional",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "이들은 법적으로 어떻게 처벌되는가?",
+        "requested_output": "갑과 을의 공동절도죄 성립 및 형사처벌 결과"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "형법 30조  공동정범#KOBLEX-192702"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6001757383346558,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형법 30조  공동정범#KOBLEX-192702",
+        "provision_text": "제30조(공동정범) 2인 이상이 공동하여 죄를 범한 때에는 각자를 그 죄의 정범으로 처벌한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.489402174949646,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형법 30조  공동정범",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 331조  특수절도#KOBLEX-193371"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.5958694815635681,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "형법 331조  특수절도#KOBLEX-193371",
+        "provision_text": "② 흉기를 휴대하거나 2명 이상이 합동하여 타인의 재물을 절취한 자도 제1항의 형에 처한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.021782711148262024,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형법 331조  특수절도 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 11조  관련사건의 정의#KOBLEX-231436"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.5270336270332336,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 11조  관련사건의 정의#KOBLEX-231436",
+        "provision_text": "2. 수인이 공동으로 범한 죄",
+        "rerank_rank": 3,
+        "rerank_score": 0.02129005268216133,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형사소송법 11조  관련사건의 정의 2호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 319조#KOBLEX-193339"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 17,
+        "first_stage_score": 0.5164642333984375,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "형법 319조#KOBLEX-193339",
+        "provision_text": "제36장 주거침입의 죄",
+        "rerank_rank": 1,
+        "rerank_score": 0.01804967224597931,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "형법 319조",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "폭력행위 등 처벌에 관한 법률 2조  폭행 등#KOBLEX-126709",
+          "폭력행위 등 처벌에 관한 법률 2조  폭행 등#KOBLEX-178699"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.5437347292900085,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "폭력행위 등 처벌에 관한 법률 2조  폭행 등#KOBLEX-126709",
+        "provision_text": "② 2명 이상이 공동하여 다음 각 호의 죄를 범한 사람은 「형법」 각 해당 조항에서 정한 형의 2분의 1까지 가중한다. <개정 2016.1.6> 1. 「형법」 제260조제1항(폭행), 제283조제1항(협박), 제319조(주거침입, 퇴거불응) 또는 제366조(재물손괴 등)의 죄 2. 「형법」 제260조제2항(존속폭행), 제276조제1항(체포, 감금), 제283조제2항(존속협박) 또는 제324조제1항(강요)의 죄 3. 「형법」 제257조제1항(상해)ㆍ제2항(존속상해), 제276조제2항(존속체포, 존속감금) 또는 제350조(공갈)의 죄",
+        "rerank_rank": 2,
+        "rerank_score": 0.009860190562903881,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "폭력행위 등 처벌에 관한 법률 2조  폭행 등 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 330조  야간주거침입절도#KOBLEX-193368"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 11,
+        "first_stage_score": 0.5233853459358215,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "형법 330조  야간주거침입절도#KOBLEX-193368",
+        "provision_text": "제330조(야간주거침입절도) 야간에 사람의 주거, 관리하는 건조물, 선박, 항공기 또는 점유하는 방실(房室)에 침입하여 타인의 재물을 절취(竊取)한 자는 10년 이하의 징역에 처한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.008411755785346031,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "형법 330조  야간주거침입절도",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 16조  관련사건의 정의#KOBLEX-092135",
+          "군사법원법 16조  관련사건의 정의#KOBLEX-158100"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.5533335208892822,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 16조  관련사건의 정의#KOBLEX-092135",
+        "provision_text": "2. 여러 사람이 공동으로 범한 죄",
+        "rerank_rank": 4,
+        "rerank_score": 0.007330755237489939,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "군사법원법 16조  관련사건의 정의 2호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 335조  준강도#KOBLEX-193378"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 18,
+        "first_stage_score": 0.5369515419006348,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형법 335조  준강도#KOBLEX-193378",
+        "provision_text": "제335조(준강도) 절도가 재물의 탈환에 항거하거나 체포를 면탈하거나 범죄의 흔적을 인멸할 목적으로 폭행 또는 협박한 때에는 제333조 및 제334조의 예에 따른다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.007327812723815441,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형법 335조  준강도",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 16조  관련사건의 정의#KOBLEX-092136",
+          "군사법원법 16조  관련사건의 정의#KOBLEX-158101"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.5647991299629211,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 16조  관련사건의 정의#KOBLEX-092136",
+        "provision_text": "3. 여러 사람이 동시에 같은 장소에서 범한 죄",
+        "rerank_rank": 6,
+        "rerank_score": 0.00622690562158823,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "군사법원법 16조  관련사건의 정의 3호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 334조  특수강도#KOBLEX-193377"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 11,
+        "first_stage_score": 0.5301375389099121,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "형법 334조  특수강도#KOBLEX-193377",
+        "provision_text": "②흉기를 휴대하거나 2인 이상이 합동하여 전조의 죄를 범한 자도 전항의 형과 같다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.006045419257134199,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형법 334조  특수강도 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "군사법원법 16조  관련사건의 정의#KOBLEX-092135": "2. 여러 사람이 공동으로 범한 죄",
+      "군사법원법 16조  관련사건의 정의#KOBLEX-092136": "3. 여러 사람이 동시에 같은 장소에서 범한 죄",
+      "폭력행위 등 처벌에 관한 법률 2조  폭행 등#KOBLEX-126709": "② 2명 이상이 공동하여 다음 각 호의 죄를 범한 사람은 「형법」 각 해당 조항에서 정한 형의 2분의 1까지 가중한다. <개정 2016.1.6> 1. 「형법」 제260조제1항(폭행), 제283조제1항(협박), 제319조(주거침입, 퇴거불응) 또는 제366조(재물손괴 등)의 죄 2. 「형법」 제260조제2항(존속폭행), 제276조제1항(체포, 감금), 제283조제2항(존속협박) 또는 제324조제1항(강요)의 죄 3. 「형법」 제257조제1항(상해)ㆍ제2항(존속상해), 제276조제2항(존속체포, 존속감금) 또는 제350조(공갈)의 죄",
+      "형법 30조  공동정범#KOBLEX-192702": "제30조(공동정범) 2인 이상이 공동하여 죄를 범한 때에는 각자를 그 죄의 정범으로 처벌한다.",
+      "형법 319조#KOBLEX-193339": "제36장 주거침입의 죄",
+      "형법 330조  야간주거침입절도#KOBLEX-193368": "제330조(야간주거침입절도) 야간에 사람의 주거, 관리하는 건조물, 선박, 항공기 또는 점유하는 방실(房室)에 침입하여 타인의 재물을 절취(竊取)한 자는 10년 이하의 징역에 처한다.",
+      "형법 331조  특수절도#KOBLEX-193371": "② 흉기를 휴대하거나 2명 이상이 합동하여 타인의 재물을 절취한 자도 제1항의 형에 처한다.",
+      "형법 334조  특수강도#KOBLEX-193377": "②흉기를 휴대하거나 2인 이상이 합동하여 전조의 죄를 범한 자도 전항의 형과 같다.",
+      "형법 335조  준강도#KOBLEX-193378": "제335조(준강도) 절도가 재물의 탈환에 항거하거나 체포를 면탈하거나 범죄의 흔적을 인멸할 목적으로 폭행 또는 협박한 때에는 제333조 및 제334조의 예에 따른다.",
+      "형사소송법 11조  관련사건의 정의#KOBLEX-231436": "2. 수인이 공동으로 범한 죄"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형법 30조  공동정범#KOBLEX-192702"
+            ],
+            "rationale": "형법 제30조는 '2인 이상이 공동하여 죄를 범한 때'를 공동정범의 성립 요건으로 명확히 정의한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "형법 30조  공동정범#KOBLEX-192702"
+            ],
+            "rationale": "형법 제30조는 공동정범에 대해 '각자를 그 죄의 정범으로 처벌한다'고 하여 처벌 원칙을 명시한다.",
+            "requirement_id": "E1-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형법 30조  공동정범#KOBLEX-192702"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "형법 제30조(C001)는 공동정범의 정의(2인 이상 공동하여 죄를 범함)와 처벌 원칙(각자를 정범으로 처벌)을 모두 충족하여 E1의 모든 완료 요건을 만족한다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "conditional",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형법 330조  야간주거침입절도#KOBLEX-193368"
+            ],
+            "rationale": "형법 제330조는 주거침입절도죄의 구성요건 중 하나인 '야간 주거침입절도'의 요건을 제시한다. 그러나 범행 시간이 야간인지 여부가 확인되지 않아, 일반적인 주거침입절도와의 구별이 불가능하다.",
+            "requirement_id": "E2-R1",
+            "status": "partially_satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "형법 330조  야간주거침입절도#KOBLEX-193368"
+            ],
+            "rationale": "형법 제330조는 야간주거침입절도에 대한 법정형(10년 이하 징역)을 제시한다. 그러나 범행 시간이 야간인지 여부가 확인되지 않아, 최종 적용될 법정형을 확정할 수 없다.",
+            "requirement_id": "E2-R2",
+            "status": "partially_satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "missing_fact",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형법 330조  야간주거침입절도#KOBLEX-193368"
+        ],
+        "missing_aspects": [
+          "E2-R1",
+          "E2-R2"
+        ],
+        "partial_kind": "factual_condition",
+        "rationale": "형법 제330조(C006)는 주거침입절도죄의 일종인 '야간주거침입절도'의 구성요건과 법정형을 제공한다. 그러나 질문의 사실관계에서 범행이 '야간'에 이루어졌는지 여부가 불명확하여, 해당 조항이 직접 적용되는지(야간) 아니면 일반 주거침입절도(형법 제331조, 후보에 없음)가 적용되는지 판단하기 위한 사실관계가 부족하다. 법적 규정은 존재하나 적용 분기를 결정하는 사실이 누락된 상태이다.",
+        "status": "partially_covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형법 30조  공동정범#KOBLEX-192702",
+        "support_spans": [
+          {
+            "end_char": 52,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "형법 330조  야간주거침입절도#KOBLEX-193368",
+        "support_spans": [
+          {
+            "end_char": 102,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "공동정범의 성립 요건과 공동행위자의 형사책임",
+        "issue_id": "I1"
+      },
+      {
+        "description": "주거침입절도죄의 구성요건과 법정형",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑과 을은 함께 계획을 세워 을의 사무실에서 금고를 털기로 하고, 을의 사무실에 침입하여 금품을 절취하였다. 사건이 발각되어 둘 다 체포되었고, 검찰은 이들이 공동으로 범행을 저질렀다고 주장하며 기소하였다. [질문] 갑과 을이 공동으로 을의 사무실에서 절도죄를 범한 경우, 이들은 법적으로 어떻게 처벌되는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "공동정범",
+          "형법",
+          "처벌"
+        ],
+        "query_text": "형법 공동정범 처벌 규정 [원문 맥락] 사건이 발각되어 둘 다 체포되었고, 검찰은 이들이 공동으로 범행을 저질렀다고 주장하며 기소하였다. 갑과 을이 공동으로 을의 사무실에서 절도죄를 범한 경우, 이들은 법적으로 어떻게 처벌되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법 제30조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "주거침입절도",
+          "형법",
+          "법정형"
+        ],
+        "query_text": "형법 주거침입절도죄 구성요건 및 법정형 [원문 맥락] 사건이 발각되어 둘 다 체포되었고, 검찰은 이들이 공동으로 범행을 저질렀다고 주장하며 기소하였다. 갑과 을이 공동으로 을의 사무실에서 절도죄를 범한 경우, 이들은 법적으로 어떻게 처벌되는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법 제330조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑과 을은 함께 계획을 세워 을의 사무실에서 금고를 털기로 하고, 을의 사무실에 침입하여 금품을 절취하였다. 사건이 발각되어 둘 다 체포되었고, 검찰은 이들이 공동으로 범행을 저질렀다고 주장하며 기소하였다.\n\n[질문]\n갑과 을이 공동으로 을의 사무실에서 절도죄를 범한 경우, 이들은 법적으로 어떻게 처벌되는가?",
+    "remaining_request_budget": 7,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "공동정범의 성립 요건과 공동행위자 모두에게 적용되는 처벌 규정을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "공동정범의 법적 정의 및 성립 요건"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "공동정범에 대한 처벌 원칙"
+          }
+        ],
+        "critical": true,
+        "description": "공동정범의 정의 및 공동행위자 처벌 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "공동범행의 법적 성격과 책임 소재를 결정하는 핵심 규정",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "주거침입절도죄의 구성요건(주거, 침입, 절도)과 법정형을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "주거침입절도죄의 구성요건"
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "주거침입절도죄의 법정형"
+          }
+        ],
+        "critical": true,
+        "description": "주거침입절도죄의 구성요건 및 법정형",
+        "evidence_item_id": "E2",
+        "evidence_type": "element",
+        "issue_id": "I2",
+        "necessity_reason": "범행의 구체적 죄명과 처벌 수위를 결정하는 핵심 규정",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "8355a3cf-77ba-4cf8-92c1-dae5f0a22937",
+    "seen_provision_ids": [
+      "형법 30조  공동정범#KOBLEX-192702",
+      "형법 335조  준강도#KOBLEX-193378",
+      "군사법원법 16조  관련사건의 정의#KOBLEX-092135",
+      "형사소송법 11조  관련사건의 정의#KOBLEX-231436",
+      "형법 319조#KOBLEX-193339",
+      "형법 331조  특수절도#KOBLEX-193371",
+      "폭력행위 등 처벌에 관한 법률 2조  폭행 등#KOBLEX-126709",
+      "형법 334조  특수강도#KOBLEX-193377",
+      "군사법원법 16조  관련사건의 정의#KOBLEX-092136",
+      "형법 330조  야간주거침입절도#KOBLEX-193368"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

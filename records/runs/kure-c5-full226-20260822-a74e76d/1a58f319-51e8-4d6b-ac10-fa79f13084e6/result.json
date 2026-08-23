@@ -1,0 +1,660 @@
+{
+  "abstention_reason": null,
+  "answer": "공유자는 다른 공유자의 동의 없이 공유물을 처분하거나 변경할 수 없다.[CT1]\n공유자는 자신의 지분을 처분할 수 있다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1",
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_FACT",
+      "message": "갑, 을, 병이 해당 토지를 공동으로 소유하고 있다는 사실은 질문의 전제로 가정함."
+    }
+  ],
+  "candidate_answer": "공유자는 다른 공유자의 동의 없이 공유물을 처분하거나 변경할 수 없다.[CT1]\n공유자는 자신의 지분을 처분할 수 있다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "민법 264조  공유물의 처분, 변경#KOBLEX-058931",
+      "quoted_text": "제264조(공유물의 처분, 변경) 공유자는 다른 공유자의 동의없이 공유물을 처분하거나 변경하지 못한다.",
+      "support_description": "공유물 전체에 대한 처분 및 변경 시 다른 공유자의 동의가 필수임을 명시하여 갑의 단독 매각 불가 결론을 뒷받침함."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "민법 263조  공유지분의 처분과 공유물의 사용, 수익#KOBLEX-058930",
+      "quoted_text": "제263조(공유지분의 처분과 공유물의 사용, 수익) 공유자는 그 지분을 처분할 수 있고 공유물 전부를 지분의 비율로 사용, 수익할 수 있다.",
+      "support_description": "공유자가 자신의 지분을 단독으로 처분할 권리가 있음을 명시하여 갑의 지분 매각 가능 결론을 뒷받침함."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "공유자는 다른 공유자의 동의 없이 공유물을 처분하거나 변경할 수 없다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "공유자는 자신의 지분을 처분할 수 있다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T07:37:57.496509+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 72553.289,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_SCOPE",
+      "message": "본 답변은 민법상 공유물 처분 및 지분 처분의 일반적 법적 효력에 한정하며, 구체적인 계약 내용이나 사법적 판단은 포함하지 않음."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 176,
+      "dedup_collapse": 38,
+      "evidence_fusion": 176,
+      "first_stage": 200,
+      "request_rerank": 200,
+      "round_selected": 10,
+      "rrf": 200,
+      "selected": 176
+    }
+  },
+  "run_id": "1a58f319-51e8-4d6b-ac10-fa79f13084e6",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "민법 264조  공유물의 처분, 변경#KOBLEX-058931",
+      "민법 263조  공유지분의 처분과 공유물의 사용, 수익#KOBLEX-058930"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "갑은 을과 병의 동의 없이 토지를 매각하거나 변경할 수 있는가",
+        "requested_output": "Whether Gup can sell or modify the jointly owned land without the consent of Eul and Byung."
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "갑은 자신의 지분을 매각할 수 있는가",
+        "requested_output": "Whether Gup can sell his own share of the jointly owned land."
+      }
+    ],
+    "answered_target_ids": [
+      "T1",
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "민법 264조  공유물의 처분, 변경#KOBLEX-058931"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 30,
+        "first_stage_score": 0.5636192560195923,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "민법 264조  공유물의 처분, 변경#KOBLEX-058931",
+        "provision_text": "제264조(공유물의 처분, 변경) 공유자는 다른 공유자의 동의없이 공유물을 처분하거나 변경하지 못한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.8834458589553833,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "민법 264조  공유물의 처분, 변경",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 263조  공유지분의 처분과 공유물의 사용, 수익#KOBLEX-058930"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 28,
+        "first_stage_score": 0.5553336143493652,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "민법 263조  공유지분의 처분과 공유물의 사용, 수익#KOBLEX-058930",
+        "provision_text": "제263조(공유지분의 처분과 공유물의 사용, 수익) 공유자는 그 지분을 처분할 수 있고 공유물 전부를 지분의 비율로 사용, 수익할 수 있다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.5425577759742737,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 263조  공유지분의 처분과 공유물의 사용, 수익",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 273조  합유지분의 처분과 합유물의 분할금지#KOBLEX-058950"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 28,
+        "first_stage_score": 0.5892605781555176,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "민법 273조  합유지분의 처분과 합유물의 분할금지#KOBLEX-058950",
+        "provision_text": "①합유자는 전원의 동의없이 합유물에 대한 지분을 처분하지 못한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.41393163800239563,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "민법 273조  합유지분의 처분과 합유물의 분할금지 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 272조  합유물의 처분, 변경과 보존#KOBLEX-058948"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 48,
+        "first_stage_score": 0.551344633102417,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "민법 272조  합유물의 처분, 변경과 보존#KOBLEX-058948",
+        "provision_text": "제272조(합유물의 처분, 변경과 보존) 합유물을 처분 또는 변경함에는 합유자 전원의 동의가 있어야 한다. 그러나 보존행위는 각자가 할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.16008175909519196,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 272조  합유물의 처분, 변경과 보존",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 101조  일괄매각절차#KOBLEX-128404"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 92,
+        "first_stage_score": 0.5513110756874084,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "민사집행법 101조  일괄매각절차#KOBLEX-128404",
+        "provision_text": "③여러 개의 재산을 일괄매각하는 경우에 그 가운데 일부의 매각대금으로 모든 채권자의 채권액과 강제집행비용을 변제하기에 충분하면 다른 재산의 매각을 허가하지 아니한다. 다만, 토지와 그 위의 건물을 일괄매각하는 경우나 재산을 분리하여 매각하면 그 경제적 효용이 현저하게 떨어지는 경우 또는 채무자의 동의가 있는 경우에는 그러하지 아니하다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.023270942270755768,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "민사집행법 101조  일괄매각절차 3항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 282조  지상권의 양도, 임대#KOBLEX-058971"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.5732273459434509,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "민법 282조  지상권의 양도, 임대#KOBLEX-058971",
+        "provision_text": "제282조(지상권의 양도, 임대) 지상권자는 타인에게 그 권리를 양도하거나 그 권리의 존속기간 내에서 그 토지를 임대할 수 있다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.023085370659828186,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "민법 282조  지상권의 양도, 임대",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "농업협동조합법 23조  지분의 양도ㆍ양수와 공유금지#KOBLEX-187058"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 48,
+        "first_stage_score": 0.5440574884414673,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "농업협동조합법 23조  지분의 양도ㆍ양수와 공유금지#KOBLEX-187058",
+        "provision_text": "① 조합원은 지역농협의 승인 없이 그 지분을 양도(讓渡)할 수 없다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.01603473722934723,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "농업협동조합법 23조  지분의 양도ㆍ양수와 공유금지 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공유수면 관리 및 매립에 관한 법률 55조  공유수면 관리 및 점용ㆍ사용 관련 조사 등#KOBLEX-081268"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 37,
+        "first_stage_score": 0.5523046255111694,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "공유수면 관리 및 매립에 관한 법률 55조  공유수면 관리 및 점용ㆍ사용 관련 조사 등#KOBLEX-081268",
+        "provision_text": "⑤ 공유수면관리청은 제2항에 따라 토지등에 출입하거나 토지등을 재료적치장ㆍ임시통로 또는 임시도로로 일시 사용하거나 장애물을 변경 또는 제거하려는 경우에는 미리 그 소유자ㆍ점유자 또는 관리인의 동의를 받아야 한다. 다만, 그 소유자ㆍ점유자 또는 관리인을 알 수 없거나 그 밖의 부득이한 사유가 있으면 그러하지 아니하다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.010913738049566746,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "공유수면 관리 및 매립에 관한 법률 55조  공유수면 관리 및 점용ㆍ사용 관련 조사 등 5항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 829조  부부재산의 약정과 그 변경#KOBLEX-060070"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 43,
+        "first_stage_score": 0.5461242198944092,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "민법 829조  부부재산의 약정과 그 변경#KOBLEX-060070",
+        "provision_text": "②부부가 혼인성립전에 그 재산에 관하여 약정한 때에는 혼인중 이를 변경하지 못한다. 그러나 정당한 사유가 있는 때에는 법원의 허가를 얻어 변경할 수 있다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.006515334825962782,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "민법 829조  부부재산의 약정과 그 변경 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "수산업법 23조  공유자의 동의#KOBLEX-034670"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.5785058736801147,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "수산업법 23조  공유자의 동의#KOBLEX-034670",
+        "provision_text": "① 어업권의 공유자는 다른 공유자의 동의 없이 그 지분을 처분하거나 담보로 제공할 수 없다. 다만, 「민사집행법」 제264조에 따른 매각의 경우에는 그러하지 아니하다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.006379939150065184,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "수산업법 23조  공유자의 동의 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "공유수면 관리 및 매립에 관한 법률 55조  공유수면 관리 및 점용ㆍ사용 관련 조사 등#KOBLEX-081268": "⑤ 공유수면관리청은 제2항에 따라 토지등에 출입하거나 토지등을 재료적치장ㆍ임시통로 또는 임시도로로 일시 사용하거나 장애물을 변경 또는 제거하려는 경우에는 미리 그 소유자ㆍ점유자 또는 관리인의 동의를 받아야 한다. 다만, 그 소유자ㆍ점유자 또는 관리인을 알 수 없거나 그 밖의 부득이한 사유가 있으면 그러하지 아니하다.",
+      "농업협동조합법 23조  지분의 양도ㆍ양수와 공유금지#KOBLEX-187058": "① 조합원은 지역농협의 승인 없이 그 지분을 양도(讓渡)할 수 없다.",
+      "민법 263조  공유지분의 처분과 공유물의 사용, 수익#KOBLEX-058930": "제263조(공유지분의 처분과 공유물의 사용, 수익) 공유자는 그 지분을 처분할 수 있고 공유물 전부를 지분의 비율로 사용, 수익할 수 있다.",
+      "민법 264조  공유물의 처분, 변경#KOBLEX-058931": "제264조(공유물의 처분, 변경) 공유자는 다른 공유자의 동의없이 공유물을 처분하거나 변경하지 못한다.",
+      "민법 272조  합유물의 처분, 변경과 보존#KOBLEX-058948": "제272조(합유물의 처분, 변경과 보존) 합유물을 처분 또는 변경함에는 합유자 전원의 동의가 있어야 한다. 그러나 보존행위는 각자가 할 수 있다.",
+      "민법 273조  합유지분의 처분과 합유물의 분할금지#KOBLEX-058950": "①합유자는 전원의 동의없이 합유물에 대한 지분을 처분하지 못한다.",
+      "민법 282조  지상권의 양도, 임대#KOBLEX-058971": "제282조(지상권의 양도, 임대) 지상권자는 타인에게 그 권리를 양도하거나 그 권리의 존속기간 내에서 그 토지를 임대할 수 있다.",
+      "민법 829조  부부재산의 약정과 그 변경#KOBLEX-060070": "②부부가 혼인성립전에 그 재산에 관하여 약정한 때에는 혼인중 이를 변경하지 못한다. 그러나 정당한 사유가 있는 때에는 법원의 허가를 얻어 변경할 수 있다.",
+      "민사집행법 101조  일괄매각절차#KOBLEX-128404": "③여러 개의 재산을 일괄매각하는 경우에 그 가운데 일부의 매각대금으로 모든 채권자의 채권액과 강제집행비용을 변제하기에 충분하면 다른 재산의 매각을 허가하지 아니한다. 다만, 토지와 그 위의 건물을 일괄매각하는 경우나 재산을 분리하여 매각하면 그 경제적 효용이 현저하게 떨어지는 경우 또는 채무자의 동의가 있는 경우에는 그러하지 아니하다.",
+      "수산업법 23조  공유자의 동의#KOBLEX-034670": "① 어업권의 공유자는 다른 공유자의 동의 없이 그 지분을 처분하거나 담보로 제공할 수 없다. 다만, 「민사집행법」 제264조에 따른 매각의 경우에는 그러하지 아니하다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민법 264조  공유물의 처분, 변경#KOBLEX-058931"
+            ],
+            "rationale": "C001 specifies that a co-owner cannot dispose of or modify the jointly owned property without the consent of other co-owners.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민법 264조  공유물의 처분, 변경#KOBLEX-058931"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The supplied candidate C001 provides the specific statutory rule (Civil Code Art. 264) governing the disposition of jointly owned property, requiring unanimous consent. This fully satisfies the completion criteria for E1.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민법 263조  공유지분의 처분과 공유물의 사용, 수익#KOBLEX-058930"
+            ],
+            "rationale": "C002 clarifies that a co-owner has the right to dispose of their share.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민법 263조  공유지분의 처분과 공유물의 사용, 수익#KOBLEX-058930"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The supplied candidate C002 provides the specific statutory rule (Civil Code Art. 263) allowing a co-owner to dispose of their individual share. This fully satisfies the completion criteria for E2.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "민법 264조  공유물의 처분, 변경#KOBLEX-058931",
+        "support_spans": [
+          {
+            "end_char": 57,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "민법 263조  공유지분의 처분과 공유물의 사용, 수익#KOBLEX-058930",
+        "support_spans": [
+          {
+            "end_char": 78,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "The legal requirements for disposing of or modifying jointly owned property.",
+        "issue_id": "I1"
+      },
+      {
+        "description": "The legal capacity of a co-owner to dispose of their individual share.",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑, 을, 병은 공동으로 토지를 소유하고 있습니다. 갑은 다른 두 사람과의 협의 없이 토지를 매각하려고 합니다. 또한, 갑은 자신의 토지 지분을 개인적으로 매각하려고 합니다. [질문] 갑은 을과 병의 동의 없이 토지를 매각하거나 변경할 수 있는가, 그리고 갑은 자신의 지분을 매각할 수 있는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "공유물",
+          "처분",
+          "전원동의",
+          "민법"
+        ],
+        "query_text": "민법 공유물 처분 전원동의 원칙 [원문 맥락] 또한, 갑은 자신의 토지 지분을 개인적으로 매각하려고 합니다. 갑은 을과 병의 동의 없이 토지를 매각하거나 변경할 수 있는가, 그리고 갑은 자신의 지분을 매각할 수 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제268조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "공유지분",
+          "양도",
+          "매각",
+          "민법"
+        ],
+        "query_text": "민법 공유지분 양도 가능 여부 [원문 맥락] 또한, 갑은 자신의 토지 지분을 개인적으로 매각하려고 합니다. 갑은 을과 병의 동의 없이 토지를 매각하거나 변경할 수 있는가, 그리고 갑은 자신의 지분을 매각할 수 있는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제268조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑, 을, 병은 공동으로 토지를 소유하고 있습니다. 갑은 다른 두 사람과의 협의 없이 토지를 매각하려고 합니다. 또한, 갑은 자신의 토지 지분을 개인적으로 매각하려고 합니다.\n\n[질문]\n갑은 을과 병의 동의 없이 토지를 매각하거나 변경할 수 있는가, 그리고 갑은 자신의 지분을 매각할 수 있는가?",
+    "remaining_request_budget": 7,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific provision requiring unanimous consent or defining the legal effect of unauthorized disposition.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The provision must specify the consent requirement for disposing of jointly owned property."
+          }
+        ],
+        "critical": true,
+        "description": "Statutory rule governing the disposition or modification of jointly owned property.",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "Determines whether Gup's action to sell the whole land is legally valid or voidable.",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "Identify the provision allowing or restricting the sale of a co-owner's specific share.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "The provision must clarify the right of a co-owner to dispose of their share independently."
+          }
+        ],
+        "critical": true,
+        "description": "Statutory rule regarding the disposition of an individual co-owner's share.",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "Determines whether Gup can legally transfer his specific interest in the land.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "1a58f319-51e8-4d6b-ac10-fa79f13084e6",
+    "seen_provision_ids": [
+      "민법 264조  공유물의 처분, 변경#KOBLEX-058931",
+      "민법 272조  합유물의 처분, 변경과 보존#KOBLEX-058948",
+      "민법 282조  지상권의 양도, 임대#KOBLEX-058971",
+      "공유수면 관리 및 매립에 관한 법률 55조  공유수면 관리 및 점용ㆍ사용 관련 조사 등#KOBLEX-081268",
+      "수산업법 23조  공유자의 동의#KOBLEX-034670",
+      "민법 263조  공유지분의 처분과 공유물의 사용, 수익#KOBLEX-058930",
+      "민사집행법 101조  일괄매각절차#KOBLEX-128404",
+      "민법 829조  부부재산의 약정과 그 변경#KOBLEX-060070",
+      "농업협동조합법 23조  지분의 양도ㆍ양수와 공유금지#KOBLEX-187058",
+      "민법 273조  합유지분의 처분과 합유물의 분할금지#KOBLEX-058950"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

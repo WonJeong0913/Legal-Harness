@@ -1,0 +1,675 @@
+{
+  "abstention_reason": null,
+  "answer": "형사사건에서 상고인 또는 변호인은 전조의 통지를 받은 날로부터 20일 이내에 상고이유서를 상고법원에 제출하여야 한다.[CT1]\n법정기간은 소송행위를 할 자의 주거 또는 사무소의 소재지와 법원 또는 검찰청 소재지와의 거리 및 교통통신의 불편정도에 따라 대법원규칙으로 이를 연장할 수 있다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "질문에서 제시된 '법원에서 상당히 먼 거리에 위치해 있고, 이 지역은 교통과 통신이 매우 불편하다'는 사실은 기한 연장 가능성을 검토하기 위한 전제로 가정한다."
+    }
+  ],
+  "candidate_answer": "형사사건에서 상고인 또는 변호인은 전조의 통지를 받은 날로부터 20일 이내에 상고이유서를 상고법원에 제출하여야 한다.[CT1]\n법정기간은 소송행위를 할 자의 주거 또는 사무소의 소재지와 법원 또는 검찰청 소재지와의 거리 및 교통통신의 불편정도에 따라 대법원규칙으로 이를 연장할 수 있다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형사소송법 379조  상고이유서와 답변서#KOBLEX-232775",
+      "quoted_text": "①상고인 또는 변호인이 전조의 통지를 받은 날로부터 20일 이내에 상고이유서를 상고법원에 제출하여야 한다. 이 경우 제344조를 준용한다. <개정 1961.9.1, 2007.12.21>",
+      "support_description": "상고이유서 제출 기한의 일수(20일)와 기산점(전조의 통지를 받은 날)을 명시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "형사소송법 67조  법정기간의 연장#KOBLEX-231630",
+      "quoted_text": "제67조(법정기간의 연장) 법정기간은 소송행위를 할 자의 주거 또는 사무소의 소재지와 법원 또는 검찰청 소재지와의 거리 및 교통통신의 불편정도에 따라 대법원규칙으로 이를 연장할 수 있다.",
+      "support_description": "교통통신 불편 등을 사유로 법정기간을 대법원규칙으로 연장할 수 있음을 명시한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "형사사건에서 상고인 또는 변호인은 전조의 통지를 받은 날로부터 20일 이내에 상고이유서를 상고법원에 제출하여야 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "conditional",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "exception",
+      "text": "법정기간은 소송행위를 할 자의 주거 또는 사무소의 소재지와 법원 또는 검찰청 소재지와의 거리 및 교통통신의 불편정도에 따라 대법원규칙으로 이를 연장할 수 있다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T10:07:47.948398+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 82107.704,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "구체적인 연장 일수나 절차는 대법원규칙에 따라 정해지므로, 본 답변은 형사소송법상 원칙과 연장 가능성을 한정하여 설명한다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 162,
+      "dedup_collapse": 72,
+      "evidence_fusion": 162,
+      "first_stage": 200,
+      "request_rerank": 200,
+      "round_selected": 10,
+      "rrf": 200,
+      "selected": 162
+    }
+  },
+  "run_id": "c66504ed-fe84-4b68-ba4b-53a59c1fa73a",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형사소송법 67조  법정기간의 연장#KOBLEX-231630",
+      "형사소송법 379조  상고이유서와 답변서#KOBLEX-232775"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "statutory_rule_and_exception",
+        "question_anchor": "을 변호사가 상고이유서를 상고법원에 제출해야 하는 기한은 언제까지이며, 이 기한은 어떤 경우에 연장될 수 있는가?",
+        "requested_output": "형사사건 상고이유서 제출 기한 및 기한 연장의 법적 요건과 효과"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "형사소송법 379조  상고이유서와 답변서#KOBLEX-232775"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6455056071281433,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 379조  상고이유서와 답변서#KOBLEX-232775",
+        "provision_text": "①상고인 또는 변호인이 전조의 통지를 받은 날로부터 20일 이내에 상고이유서를 상고법원에 제출하여야 한다. 이 경우 제344조를 준용한다. <개정 1961.9.1, 2007.12.21>",
+        "rerank_rank": 1,
+        "rerank_score": 0.9999767541885376,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형사소송법 379조  상고이유서와 답변서 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 374조  상고기간#KOBLEX-232765"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 14,
+        "first_stage_score": 0.5915956497192383,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 374조  상고기간#KOBLEX-232765",
+        "provision_text": "제374조(상고기간) 상고의 제기기간은 7일로 한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9999498128890991,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형사소송법 374조  상고기간",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 379조  상고이유서와 답변서#KOBLEX-232778"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 82,
+        "first_stage_score": 0.541069507598877,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 379조  상고이유서와 답변서#KOBLEX-232778",
+        "provision_text": "④상대방은 전항의 송달을 받은 날로부터 10일 이내에 답변서를 상고법원에 제출할 수 있다. <개정 1961.9.1>",
+        "rerank_rank": 3,
+        "rerank_score": 0.9999415874481201,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형사소송법 379조  상고이유서와 답변서 4항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 377조  소송기록과 증거물의 송부#KOBLEX-232770"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 7,
+        "first_stage_score": 0.6041691899299622,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 377조  소송기록과 증거물의 송부#KOBLEX-232770",
+        "provision_text": "제377조(소송기록과 증거물의 송부) 제376조의 경우를 제외하고는 원심법원은 상고장을 받은 날부터 14일이내에 소송기록과 증거물을 상고법원에 송부하여야 한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.9998924732208252,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형사소송법 377조  소송기록과 증거물의 송부",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 408조  원심법원의 갱신결정#KOBLEX-232833"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 63,
+        "first_stage_score": 0.5451921224594116,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 408조  원심법원의 갱신결정#KOBLEX-232833",
+        "provision_text": "②항고의 전부 또는 일부가 이유없다고 인정한 때에는 항고장을 받은 날로부터 3일 이내에 의견서를 첨부하여 항고법원에 송부하여야 한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.9998388290405273,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형사소송법 408조  원심법원의 갱신결정 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 361조  소송기록과 증거물의 송부#KOBLEX-232708"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 83,
+        "first_stage_score": 0.5385494232177734,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 361조  소송기록과 증거물의 송부#KOBLEX-232708",
+        "provision_text": "제361조(소송기록과 증거물의 송부) 제360조의 경우를 제외하고는 원심법원은 항소장을 받은 날부터 14일이내에 소송기록과 증거물을 항소법원에 송부하여야 한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.999832034111023,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 361조  소송기록과 증거물의 송부",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 254조  공소제기의 방식과 공소장#KOBLEX-232288"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 86,
+        "first_stage_score": 0.5372223854064941,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 254조  공소제기의 방식과 공소장#KOBLEX-232288",
+        "provision_text": "①공소를 제기함에는 공소장을 관할법원에 제출하여야 한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.9997572302818298,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 254조  공소제기의 방식과 공소장 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 67조  법정기간의 연장#KOBLEX-231630"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 12,
+        "first_stage_score": 0.634239137172699,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 67조  법정기간의 연장#KOBLEX-231630",
+        "provision_text": "제67조(법정기간의 연장) 법정기간은 소송행위를 할 자의 주거 또는 사무소의 소재지와 법원 또는 검찰청 소재지와의 거리 및 교통통신의 불편정도에 따라 대법원규칙으로 이를 연장할 수 있다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.9997168183326721,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형사소송법 67조  법정기간의 연장",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 406조  항고의 절차#KOBLEX-232827"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 41,
+        "first_stage_score": 0.5536869764328003,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 406조  항고의 절차#KOBLEX-232827",
+        "provision_text": "제406조(항고의 절차) 항고를 함에는 항고장을 원심법원에 제출하여야 한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.9997164607048035,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형사소송법 406조  항고의 절차",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 375조  상고제기의 방식#KOBLEX-232766"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 34,
+        "first_stage_score": 0.5598037242889404,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 375조  상고제기의 방식#KOBLEX-232766",
+        "provision_text": "제375조(상고제기의 방식) 상고를 함에는 상고장을 원심법원에 제출하여야 한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.9997153878211975,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형사소송법 375조  상고제기의 방식",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "형사소송법 254조  공소제기의 방식과 공소장#KOBLEX-232288": "①공소를 제기함에는 공소장을 관할법원에 제출하여야 한다.",
+      "형사소송법 361조  소송기록과 증거물의 송부#KOBLEX-232708": "제361조(소송기록과 증거물의 송부) 제360조의 경우를 제외하고는 원심법원은 항소장을 받은 날부터 14일이내에 소송기록과 증거물을 항소법원에 송부하여야 한다.",
+      "형사소송법 374조  상고기간#KOBLEX-232765": "제374조(상고기간) 상고의 제기기간은 7일로 한다.",
+      "형사소송법 375조  상고제기의 방식#KOBLEX-232766": "제375조(상고제기의 방식) 상고를 함에는 상고장을 원심법원에 제출하여야 한다.",
+      "형사소송법 377조  소송기록과 증거물의 송부#KOBLEX-232770": "제377조(소송기록과 증거물의 송부) 제376조의 경우를 제외하고는 원심법원은 상고장을 받은 날부터 14일이내에 소송기록과 증거물을 상고법원에 송부하여야 한다.",
+      "형사소송법 379조  상고이유서와 답변서#KOBLEX-232775": "①상고인 또는 변호인이 전조의 통지를 받은 날로부터 20일 이내에 상고이유서를 상고법원에 제출하여야 한다. 이 경우 제344조를 준용한다. <개정 1961.9.1, 2007.12.21>",
+      "형사소송법 379조  상고이유서와 답변서#KOBLEX-232778": "④상대방은 전항의 송달을 받은 날로부터 10일 이내에 답변서를 상고법원에 제출할 수 있다. <개정 1961.9.1>",
+      "형사소송법 406조  항고의 절차#KOBLEX-232827": "제406조(항고의 절차) 항고를 함에는 항고장을 원심법원에 제출하여야 한다.",
+      "형사소송법 408조  원심법원의 갱신결정#KOBLEX-232833": "②항고의 전부 또는 일부가 이유없다고 인정한 때에는 항고장을 받은 날로부터 3일 이내에 의견서를 첨부하여 항고법원에 송부하여야 한다.",
+      "형사소송법 67조  법정기간의 연장#KOBLEX-231630": "제67조(법정기간의 연장) 법정기간은 소송행위를 할 자의 주거 또는 사무소의 소재지와 법원 또는 검찰청 소재지와의 거리 및 교통통신의 불편정도에 따라 대법원규칙으로 이를 연장할 수 있다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형사소송법 379조  상고이유서와 답변서#KOBLEX-232775"
+            ],
+            "rationale": "C001은 '20일 이내'라는 기한의 일수를 명시한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "형사소송법 379조  상고이유서와 답변서#KOBLEX-232775"
+            ],
+            "rationale": "C001은 '전조의 통지를 받은 날로부터'라는 기산점을 명시한다.",
+            "requirement_id": "E1-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형사소송법 379조  상고이유서와 답변서#KOBLEX-232775"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "형사소송법 제379조 제1항이 상고이유서 제출 기한의 일수(20일)와 기산점(전조의 통지를 받은 날)을 명확히 규정하고 있어 모든 완료 요건을 충족한다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형사소송법 67조  법정기간의 연장#KOBLEX-231630"
+            ],
+            "rationale": "C008은 '거리 및 교통통신의 불편정도'를 연장 사유로 명시한다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "형사소송법 67조  법정기간의 연장#KOBLEX-231630"
+            ],
+            "rationale": "C008은 '대법원규칙으로 이를 연장할 수 있다'고 하여 법적 효과를 명시한다.",
+            "requirement_id": "E2-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형사소송법 67조  법정기간의 연장#KOBLEX-231630"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "형사소송법 제67조가 법정기간 연장의 사유(교통통신 불편 등)와 효과(대법원규칙에 의한 연장)를 규정하여 모든 완료 요건을 충족한다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형사소송법 379조  상고이유서와 답변서#KOBLEX-232775",
+        "support_spans": [
+          {
+            "end_char": 103,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "형사소송법 67조  법정기간의 연장#KOBLEX-231630",
+        "support_spans": [
+          {
+            "end_char": 104,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "형사사건에서 상고이유서를 상고법원에 제출해야 하는 법정 기한은 무엇인가?",
+        "issue_id": "I1"
+      },
+      {
+        "description": "상고이유서 제출 기한이 연장될 수 있는 법적 사유와 절차는 무엇인가?",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 자신의 형사사건의 상고를 준비 중이다. 갑의 법률대리인 을 변호사는 재판 결과에 불복하여 상고를 제기하려고 한다. 을 변호사는 상고이유서를 상고법원에 제출해야 하지만, 갑과 을 변호사의 사무소는 법원에서 상당히 먼 거리에 위치해 있고, 이 지역은 교통과 통신이 매우 불편하다. [질문] 을 변호사가 상고이유서를 상고법원에 제출해야 하는 기한은 언제까지이며, 이 기한은 어떤 경우에 연장될 수 있는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "형사소송법",
+          "상고이유서",
+          "제출 기한",
+          "상고"
+        ],
+        "query_text": "형사소송법 상고이유서 제출 기한 [원문 맥락] 을 변호사는 상고이유서를 상고법원에 제출해야 하지만, 갑과 을 변호사의 사무소는 법원에서 상당히 먼 거리에 위치해 있고, 이 지역은 교통과 통신이 매우 불편하다. 을 변호사가 상고이유서를 상고법원에 제출해야 하는 기한은 언제까지이며, 이 기한은 어떤 경우에 연장될 수 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "형사소송법",
+          "기한 연장",
+          "교통 불편",
+          "통신 불편",
+          "상고이유서"
+        ],
+        "query_text": "형사소송법 기한 연장 교통 통신 불편 [원문 맥락] 을 변호사는 상고이유서를 상고법원에 제출해야 하지만, 갑과 을 변호사의 사무소는 법원에서 상당히 먼 거리에 위치해 있고, 이 지역은 교통과 통신이 매우 불편하다. 을 변호사가 상고이유서를 상고법원에 제출해야 하는 기한은 언제까지이며, 이 기한은 어떤 경우에 연장될 수 있는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 자신의 형사사건의 상고를 준비 중이다. 갑의 법률대리인 을 변호사는 재판 결과에 불복하여 상고를 제기하려고 한다. 을 변호사는 상고이유서를 상고법원에 제출해야 하지만, 갑과 을 변호사의 사무소는 법원에서 상당히 먼 거리에 위치해 있고, 이 지역은 교통과 통신이 매우 불편하다.\n\n[질문]\n을 변호사가 상고이유서를 상고법원에 제출해야 하는 기한은 언제까지이며, 이 기한은 어떤 경우에 연장될 수 있는가?",
+    "remaining_request_budget": 7,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "상고이유서 제출 기한의 일수 및 기산점을 명시하는 조항을 확인해야 한다.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "상고이유서 제출 기한의 일수(예: 7일)를 명시하는 조항"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "기한 기산점(판결문 송달일 등)을 명시하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "형사사건 상고이유서 제출 기한을 정하는 형사소송법 조항",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 기본 제출 기한을 도출하기 위해 필수적이다.",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "기한 연장이 가능한 사유(교통·통신 불편 등) 및 그 법적 효과를 명시하는 조항을 확인해야 한다.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "기한 연장이 가능한 구체적 사유(예: 교통·통신 불편, 천재지변 등)를 명시하는 조항"
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "기한 연장의 법적 효과(기한 정지, 기한 연장 등)를 명시하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "상고이유서 제출 기한 연장을 규정하는 예외 조항 또는 기한 계산 특례",
+        "evidence_item_id": "E2",
+        "evidence_type": "exception",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 요구하는 기한 연장 가능성을 판단하기 위해 필수적이다.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "c66504ed-fe84-4b68-ba4b-53a59c1fa73a",
+    "seen_provision_ids": [
+      "형사소송법 374조  상고기간#KOBLEX-232765",
+      "형사소송법 254조  공소제기의 방식과 공소장#KOBLEX-232288",
+      "형사소송법 379조  상고이유서와 답변서#KOBLEX-232778",
+      "형사소송법 379조  상고이유서와 답변서#KOBLEX-232775",
+      "형사소송법 361조  소송기록과 증거물의 송부#KOBLEX-232708",
+      "형사소송법 377조  소송기록과 증거물의 송부#KOBLEX-232770",
+      "형사소송법 375조  상고제기의 방식#KOBLEX-232766",
+      "형사소송법 67조  법정기간의 연장#KOBLEX-231630",
+      "형사소송법 406조  항고의 절차#KOBLEX-232827",
+      "형사소송법 408조  원심법원의 갱신결정#KOBLEX-232833"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

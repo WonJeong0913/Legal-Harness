@@ -1,0 +1,654 @@
+{
+  "abstention_reason": null,
+  "answer": "헌법재판소는 심판사건을 접수한 날부터 180일 이내에 종국결정의 선고를 하여야 한다.[CT1]\n정당의 해산을 명하는 결정이 선고된 때에는 그 정당은 해산된다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1",
+    "T2"
+  ],
+  "assumptions": [],
+  "candidate_answer": "헌법재판소는 심판사건을 접수한 날부터 180일 이내에 종국결정의 선고를 하여야 한다.[CT1]\n정당의 해산을 명하는 결정이 선고된 때에는 그 정당은 해산된다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "헌법재판소법 38조  심판기간#KOBLEX-188004",
+      "quoted_text": "제38조(심판기간) 헌법재판소는 심판사건을 접수한 날부터 180일 이내에 종국결정의 선고를 하여야 한다. 다만, 재판관의 궐위로 7명의 출석이 불가능한 경우에는 그 궐위된 기간은 심판기간에 산입하지 아니한다.",
+      "support_description": "정당해산심판 사건 종국결정 선고 기한을 명시하는 규정"
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "헌법재판소법 59조  결정의 효력#KOBLEX-188069",
+      "quoted_text": "제59조(결정의 효력) 정당의 해산을 명하는 결정이 선고된 때에는 그 정당은 해산된다.",
+      "support_description": "정당해산결정 선고 시 정당의 법적 지위 및 효과를 명시하는 규정"
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "헌법재판소는 심판사건을 접수한 날부터 180일 이내에 종국결정의 선고를 하여야 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "정당의 해산을 명하는 결정이 선고된 때에는 그 정당은 해산된다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T09:29:11.283830+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 74426.493,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 182,
+      "dedup_collapse": 36,
+      "evidence_fusion": 182,
+      "first_stage": 200,
+      "request_rerank": 200,
+      "round_selected": 10,
+      "rrf": 200,
+      "selected": 182
+    }
+  },
+  "run_id": "8f427fbc-166c-469c-8502-48a291df7d47",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "헌법재판소법 38조  심판기간#KOBLEX-188004",
+      "헌법재판소법 59조  결정의 효력#KOBLEX-188069"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "statutory_deadline",
+        "question_anchor": "종국결정의 선고는 몇 일 이내에 이루어져야 하며",
+        "requested_output": "정당해산심판 사건 종국결정의 선고 기한"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_effect",
+        "question_anchor": "을 정당의 해산을 명하는 결정이 선고된 경우 을 정당에 어떤 일이 발생하는가",
+        "requested_output": "정당해산결정 선고 시 정당의 법적 지위 및 효과"
+      }
+    ],
+    "answered_target_ids": [
+      "T1",
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "헌법재판소법 58조  청구 등의 통지#KOBLEX-188067"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6417682766914368,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "헌법재판소법 58조  청구 등의 통지#KOBLEX-188067",
+        "provision_text": "① 헌법재판소장은 정당해산심판의 청구가 있는 때, 가처분결정을 한 때 및 그 심판이 종료한 때에는 그 사실을 국회와 중앙선거관리위원회에 통지하여야 한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9945307374000549,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "헌법재판소법 58조  청구 등의 통지 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "헌법재판소법 57조  가처분#KOBLEX-188065"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 11,
+        "first_stage_score": 0.6000447273254395,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "헌법재판소법 57조  가처분#KOBLEX-188065",
+        "provision_text": "제57조(가처분) 헌법재판소는 정당해산심판의 청구를 받은 때에는 직권 또는 청구인의 신청에 의하여 종국결정의 선고 시까지 피청구인의 활동을 정지하는 결정을 할 수 있다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9934433698654175,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "헌법재판소법 57조  가처분",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "헌법재판소법 55조  정당해산심판의 청구#KOBLEX-188061"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.630582869052887,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "헌법재판소법 55조  정당해산심판의 청구#KOBLEX-188061",
+        "provision_text": "제55조(정당해산심판의 청구) 정당의 목적이나 활동이 민주적 기본질서에 위배될 때에는 정부는 국무회의의 심의를 거쳐 헌법재판소에 정당해산심판을 청구할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.9871838092803955,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "헌법재판소법 55조  정당해산심판의 청구",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "헌법재판소법 2조  관장사항#KOBLEX-187838"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 7,
+        "first_stage_score": 0.6220319867134094,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "헌법재판소법 2조  관장사항#KOBLEX-187838",
+        "provision_text": "3. 정당의 해산심판",
+        "rerank_rank": 4,
+        "rerank_score": 0.9519202709197998,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "헌법재판소법 2조  관장사항 3호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "헌법재판소법 38조  심판기간#KOBLEX-188004"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.5991905927658081,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "헌법재판소법 38조  심판기간#KOBLEX-188004",
+        "provision_text": "제38조(심판기간) 헌법재판소는 심판사건을 접수한 날부터 180일 이내에 종국결정의 선고를 하여야 한다. 다만, 재판관의 궐위로 7명의 출석이 불가능한 경우에는 그 궐위된 기간은 심판기간에 산입하지 아니한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.5382959246635437,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "헌법재판소법 38조  심판기간",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "헌법재판소법 58조  청구 등의 통지#KOBLEX-188068"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 13,
+        "first_stage_score": 0.5839115977287292,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "헌법재판소법 58조  청구 등의 통지#KOBLEX-188068",
+        "provision_text": "② 정당해산을 명하는 결정서는 피청구인 외에 국회, 정부 및 중앙선거관리위원회에도 송달하여야 한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.5159083604812622,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "헌법재판소법 58조  청구 등의 통지 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "정당법 45조  자진해산#KOBLEX-109697"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 38,
+        "first_stage_score": 0.5533391833305359,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "정당법 45조  자진해산#KOBLEX-109697",
+        "provision_text": "②제1항의 규정에 의하여 정당이 해산한 때에는 그 대표자는 지체 없이 그 뜻을 관할 선거관리위원회에 신고하여야 한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.3032391667366028,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "정당법 45조  자진해산 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "정당법 45조  자진해산#KOBLEX-109696"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 48,
+        "first_stage_score": 0.5444039702415466,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "정당법 45조  자진해산#KOBLEX-109696",
+        "provision_text": "①정당은 그 대의기관의 결의로써 해산할 수 있다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.2526140809059143,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "정당법 45조  자진해산 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "헌법재판소법 59조  결정의 효력#KOBLEX-188069"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6889981627464294,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "헌법재판소법 59조  결정의 효력#KOBLEX-188069",
+        "provision_text": "제59조(결정의 효력) 정당의 해산을 명하는 결정이 선고된 때에는 그 정당은 해산된다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.2286064624786377,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "헌법재판소법 59조  결정의 효력",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "정당법 48조  해산된 경우 등의 잔여재산 처분#KOBLEX-109701"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 50,
+        "first_stage_score": 0.5427957773208618,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "정당법 48조  해산된 경우 등의 잔여재산 처분#KOBLEX-109701",
+        "provision_text": "①정당이 제44조(등록의 취소)제1항의 규정에 의하여 등록이 취소되거나 제45조(자진해산)의 규정에 의하여 자진해산한 때에는 그 잔여재산은 당헌이 정하는 바에 따라 처분한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.22589077055454254,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "정당법 48조  해산된 경우 등의 잔여재산 처분 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "정당법 45조  자진해산#KOBLEX-109696": "①정당은 그 대의기관의 결의로써 해산할 수 있다.",
+      "정당법 45조  자진해산#KOBLEX-109697": "②제1항의 규정에 의하여 정당이 해산한 때에는 그 대표자는 지체 없이 그 뜻을 관할 선거관리위원회에 신고하여야 한다.",
+      "정당법 48조  해산된 경우 등의 잔여재산 처분#KOBLEX-109701": "①정당이 제44조(등록의 취소)제1항의 규정에 의하여 등록이 취소되거나 제45조(자진해산)의 규정에 의하여 자진해산한 때에는 그 잔여재산은 당헌이 정하는 바에 따라 처분한다.",
+      "헌법재판소법 2조  관장사항#KOBLEX-187838": "3. 정당의 해산심판",
+      "헌법재판소법 38조  심판기간#KOBLEX-188004": "제38조(심판기간) 헌법재판소는 심판사건을 접수한 날부터 180일 이내에 종국결정의 선고를 하여야 한다. 다만, 재판관의 궐위로 7명의 출석이 불가능한 경우에는 그 궐위된 기간은 심판기간에 산입하지 아니한다.",
+      "헌법재판소법 55조  정당해산심판의 청구#KOBLEX-188061": "제55조(정당해산심판의 청구) 정당의 목적이나 활동이 민주적 기본질서에 위배될 때에는 정부는 국무회의의 심의를 거쳐 헌법재판소에 정당해산심판을 청구할 수 있다.",
+      "헌법재판소법 57조  가처분#KOBLEX-188065": "제57조(가처분) 헌법재판소는 정당해산심판의 청구를 받은 때에는 직권 또는 청구인의 신청에 의하여 종국결정의 선고 시까지 피청구인의 활동을 정지하는 결정을 할 수 있다.",
+      "헌법재판소법 58조  청구 등의 통지#KOBLEX-188067": "① 헌법재판소장은 정당해산심판의 청구가 있는 때, 가처분결정을 한 때 및 그 심판이 종료한 때에는 그 사실을 국회와 중앙선거관리위원회에 통지하여야 한다.",
+      "헌법재판소법 58조  청구 등의 통지#KOBLEX-188068": "② 정당해산을 명하는 결정서는 피청구인 외에 국회, 정부 및 중앙선거관리위원회에도 송달하여야 한다.",
+      "헌법재판소법 59조  결정의 효력#KOBLEX-188069": "제59조(결정의 효력) 정당의 해산을 명하는 결정이 선고된 때에는 그 정당은 해산된다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "헌법재판소법 38조  심판기간#KOBLEX-188004"
+            ],
+            "rationale": "C005(헌법재판소법 제38조)가 종국결정 선고 기한을 명시하고 있다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "헌법재판소법 38조  심판기간#KOBLEX-188004"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "헌법재판소법 제38조가 정당해산심판 종국결정 선고 기한(180일)을 명확히 규정하고 있어, 요구된 법적 근거가 충족된다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "헌법재판소법 59조  결정의 효력#KOBLEX-188069"
+            ],
+            "rationale": "C009(헌법재판소법 제59조)가 정당해산결정 효력 발생 시점 및 정당의 해산 효과를 명시하고 있다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "헌법재판소법 59조  결정의 효력#KOBLEX-188069"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "헌법재판소법 제59조가 정당해산결정 선고 시 정당이 해산된다는 법적 효과를 명확히 규정하고 있어, 요구된 법적 근거가 충족된다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "헌법재판소법 38조  심판기간#KOBLEX-188004",
+        "support_spans": [
+          {
+            "end_char": 116,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "헌법재판소법 59조  결정의 효력#KOBLEX-188069",
+        "support_spans": [
+          {
+            "end_char": 48,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "정당해산심판 사건에서 헌법재판소가 종국결정을 선고해야 하는 법정 기한은 무엇인가.",
+        "issue_id": "I1"
+      },
+      {
+        "description": "정당해산결정이 선고된 경우 해당 정당에 발생하는 법적 효과는 무엇인가.",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 국가의 헌법에 위반되는 행위를 한 혐의로, 을 정당을 헌법재판소에 제소했습니다. 헌법재판소는 이 사건을 접수했고, 갑은 과연 을 정당이 언제까지 최종 결정을 받을지, 그리고 만약 해산 명령이 내려진다면 을 정당이 어떻게 될지 궁금해 하고 있습니다. [질문] 헌법재판소가 을 정당의 위헌 여부에 대한 사건을 접수한 경우, 종국결정의 선고는 몇 일 이내에 이루어져야 하며, 만약 을 정당의 해산을 명하는 결정이 선고된 경우 을 정당에 어떤 일이 발생하는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "정당해산심판",
+          "종국결정",
+          "선고기한",
+          "헌법재판소법"
+        ],
+        "query_text": "정당해산심판 종국결정 선고 기한 [원문 맥락] 헌법재판소는 이 사건을 접수했고, 갑은 과연 을 정당이 언제까지 최종 결정을 받을지, 그리고 만약 해산 명령이 내려진다면 을 정당이 어떻게 될지 궁금해 하고 있습니다. 헌법재판소가 을 정당의 위헌 여부에 대한 사건을 접수한 경우, 종국결정의 선고는 몇 일 이내에 이루어져야 하며, 만약 을 정당의 해산을 명하는 결정이 선고된 경우 을 정당에 어떤 일이 발생하는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "헌법재판소법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "정당해산결정",
+          "효력발생",
+          "정당해산",
+          "헌법재판소법"
+        ],
+        "query_text": "정당해산결정 효력 발생 시점 및 정당의 법적 지위 [원문 맥락] 헌법재판소는 이 사건을 접수했고, 갑은 과연 을 정당이 언제까지 최종 결정을 받을지, 그리고 만약 해산 명령이 내려진다면 을 정당이 어떻게 될지 궁금해 하고 있습니다. 헌법재판소가 을 정당의 위헌 여부에 대한 사건을 접수한 경우, 종국결정의 선고는 몇 일 이내에 이루어져야 하며, 만약 을 정당의 해산을 명하는 결정이 선고된 경우 을 정당에 어떤 일이 발생하는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "헌법재판소법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 국가의 헌법에 위반되는 행위를 한 혐의로, 을 정당을 헌법재판소에 제소했습니다. 헌법재판소는 이 사건을 접수했고, 갑은 과연 을 정당이 언제까지 최종 결정을 받을지, 그리고 만약 해산 명령이 내려진다면 을 정당이 어떻게 될지 궁금해 하고 있습니다.\n\n[질문]\n헌법재판소가 을 정당의 위헌 여부에 대한 사건을 접수한 경우, 종국결정의 선고는 몇 일 이내에 이루어져야 하며, 만약 을 정당의 해산을 명하는 결정이 선고된 경우 을 정당에 어떤 일이 발생하는가?",
+    "remaining_request_budget": 7,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "정당해산심판 종국결정 선고 기한(일수)을 명시하는 규정을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "정당해산심판 종국결정 선고 기한을 명시하는 조항 확인"
+          }
+        ],
+        "critical": true,
+        "description": "정당해산심판 사건 종국결정의 선고 기한을 정하는 헌법재판소법 조항",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 종국결정 선고 기한을 도출하기 위해 필수적임",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "정당해산결정 효력 발생 시점 및 정당의 소멸 또는 해산 효과를 명시하는 규정을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "정당해산결정 효력 발생 시점 및 정당의 법적 지위 변동 규정을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "정당해산결정 선고 시 정당의 법적 지위 및 효과에 관한 헌법재판소법 조항",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 요구하는 정당해산결정 시 정당의 법적 변화를 도출하기 위해 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "8f427fbc-166c-469c-8502-48a291df7d47",
+    "seen_provision_ids": [
+      "정당법 48조  해산된 경우 등의 잔여재산 처분#KOBLEX-109701",
+      "정당법 45조  자진해산#KOBLEX-109697",
+      "헌법재판소법 58조  청구 등의 통지#KOBLEX-188068",
+      "헌법재판소법 55조  정당해산심판의 청구#KOBLEX-188061",
+      "헌법재판소법 38조  심판기간#KOBLEX-188004",
+      "헌법재판소법 58조  청구 등의 통지#KOBLEX-188067",
+      "헌법재판소법 57조  가처분#KOBLEX-188065",
+      "헌법재판소법 59조  결정의 효력#KOBLEX-188069",
+      "정당법 45조  자진해산#KOBLEX-109696",
+      "헌법재판소법 2조  관장사항#KOBLEX-187838"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

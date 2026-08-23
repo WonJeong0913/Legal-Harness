@@ -1,0 +1,110 @@
+{
+  "prepared_at_utc": "2026-08-22",
+  "source_commit": "a74e76d1c8fade04486b681974475d8c88f7f136",
+  "condition": "C5 combined conclusion-first skill repair; KURE baseline routing; R1 excluded",
+  "stage_order": [
+    "static_regression",
+    "smoke8",
+    "dev21",
+    "full226"
+  ],
+  "static_regression": {
+    "committed_clean_worktree": {
+      "status": "PASS",
+      "tests": 118
+    },
+    "main_workspace_including_untracked_tests": {
+      "status": "PASS",
+      "tests": 127
+    },
+    "rerun_before_smoke": true
+  },
+  "entry_counts": {
+    "smoke8": 8,
+    "dev21": 21,
+    "full226": 226
+  },
+  "smoke_question_ids": [
+    "qa_213_2hop_812_rand",
+    "qa_140_3hop_540_rand",
+    "qa_32_3hop_125_rand",
+    "qa_125_1hop_225",
+    "qa_136_2hop_523_rand",
+    "qa_3_2hop_6",
+    "qa_365_2hop_578",
+    "qa_244_2hop_931_rand"
+  ],
+  "gates": {
+    "smoke8": "zero execution failures, zero public ABSTAIN leakage, citation integrity preserved, complete stage provenance",
+    "dev21": {
+      "macro_recall_min": 0.7381,
+      "macro_f1_min": 0.6149,
+      "complete_evidence_min": 0.6667
+    },
+    "full226": {
+      "macro_recall_min": 0.6969,
+      "macro_f1_noninferiority_min": 0.5644,
+      "complete_evidence_min": 0.6062,
+      "hop2_recall_min": 0.8071,
+      "hop2_f1_noninferiority_min": 0.644,
+      "hop2_complete_min": 0.6929
+    }
+  },
+  "unavailable_prerequisites": {
+    "C1_C4_isolated_ablations": "single combined upstream commit and no frozen per-stage replay fixture",
+    "lf_eval": "no frozen LF-Eval score JSON found",
+    "paired_bootstrap": "not implemented in the current evaluator"
+  },
+  "artifact_sha256": {
+    "records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/bm25_reference_c5_dev21_20260822.json": "55351f6ff4aa0d21b8fb658a6937775cffce92e254b02c8954661a215aeda298",
+    "records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/bm25_reference_c5_full226_20260822.json": "edee88689e7d99e635b03ca77056da5acfa132bbf1a36974a5f0a3bd8c762578",
+    "records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/bm25_reference_c5_smoke8_20260822.json": "45632513aa20ef162e787b356319da17fad8b897b32b38ce304b8211f33ac88b",
+    "records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/kure_c5_dev21_20260822.json": "9e41fe177fc783a74470139e9ec0cf596e4e5d1bb63f5545eb4d992160f2ad59",
+    "records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/kure_c5_full226_20260822.json": "d0465f1ff3cce92c766e453e75b250a2337c8b5e90568de9b019e49565b27e15",
+    "records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/kure_c5_smoke8_20260822.json": "44fb51ab0ceaf866a901ae8bebdf3893755592cb277363427db43d8b65cd0750",
+    "records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/run_stage.py": "8b8c473379fa863ebc2fb75bd3d8501157b63c5ddda522217434a5b86710f6b9",
+    "records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/tmux_commands.txt": "b4c20a7f0354f898556440d6bcc1a113edb03ad149738273f69e655b5da43cc4",
+    "records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/start_tmux.py": "f9c3f42b0d48421df0c44d01c36b0af2b0182638b01812ff6fa3a98d4e8f7277",
+    "records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/run_kure_smoke_full226.py": "a03a68b5ad68be03d691fc0783c26c0f2d77fc14103573ce22f2476252a7775d",
+    "records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/start_requested_tmux.py": "c0a3c0a5ec6c9c1b5c2be5838d2176b16d7fbff83772d6edb1957c1aa54d1a87"
+  },
+  "verified_asset_provenance": {
+    "kure_model_weights_sha256": "c18156e80caf8ff45eb84a24a853130c3bca03087ccb41b051f86e7556bae02c",
+    "kure_vectors_sha256": "f2482686836fee4b2488866df5229c72ebee491d4feece2013b7b4755e5dd9c8",
+    "kure_provision_ids_sha256": "37333588e1692927d5e6925e4f6bde1ea2d8291f3fda2dddbdad18507445cff8",
+    "bge_reranker_model_weights_sha256": "aba51b69d97bfff4cd2c1d8eb6c57764e350231850f712b75ae426270f265a43"
+  },
+  "requested_execution": {
+    "sequence": [
+      "smoke8",
+      "full226"
+    ],
+    "dev21_skipped": true,
+    "bm25_executed": false,
+    "bm25_reference_use": "configuration_validation_only",
+    "full226_checkpoints": [
+      40,
+      80,
+      120,
+      160,
+      200,
+      226
+    ],
+    "progress_jsonl": "records/progress/kure-c5-full226-20260822.jsonl",
+    "tmux_session": "lh-kure-c5-smoke-full226-20260822",
+    "initial_estimated_hours": [
+      22,
+      26
+    ],
+    "normal_abstain_exit_codes": [
+      0,
+      1
+    ],
+    "smoke_gate_status": "PASS",
+    "smoke_metrics": {
+      "macro_recall": 0.7291666666666666,
+      "macro_f1": 0.6472222222222223,
+      "complete_evidence_rate": 0.5
+    }
+  }
+}

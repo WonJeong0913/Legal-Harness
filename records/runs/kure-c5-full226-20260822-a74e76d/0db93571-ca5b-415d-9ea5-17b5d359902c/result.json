@@ -1,0 +1,998 @@
+{
+  "abstention_reason": null,
+  "answer": "을은 행사할 목적으로 공문서를 위조한 행위로 형법 제225조 공문서위조죄에 해당하여 10년 이하의 징역에 처해집니다.[CT1]\n갑은 위조된 공문서를 행사한 행위로 형법 제229조 공문서행사죄에 해당하여, 위조죄에 정한 형인 10년 이하의 징역에 처해집니다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "을이 위조한 문서가 공무원 또는 공무소의 문서에 해당한다고 가정합니다."
+    },
+    {
+      "code": "ASSUMPTION_2",
+      "message": "갑이 행사한 문서가 형법 제225조 내지 제228조의 죄에 의하여 만들어진 문서에 해당한다고 가정합니다."
+    }
+  ],
+  "candidate_answer": "을은 행사할 목적으로 공문서를 위조한 행위로 형법 제225조 공문서위조죄에 해당하여 10년 이하의 징역에 처해집니다.[CT1]\n갑은 위조된 공문서를 행사한 행위로 형법 제229조 공문서행사죄에 해당하여, 위조죄에 정한 형인 10년 이하의 징역에 처해집니다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135",
+      "quoted_text": "제225조(공문서등의 위조ㆍ변조) 행사할 목적으로 공무원 또는 공무소의 문서 또는 도화를 위조 또는 변조한 자는 10년 이하의 징역에 처한다. <개정 1995.12.29>",
+      "support_description": "을의 공문서 위조 행위가 공문서위조죄의 구성요건에 해당하고 10년 이하 징역의 법정형이 적용됨을 근거로 제시합니다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "형법 229조  위조등 공문서의 행사#KOBLEX-193142",
+      "quoted_text": "제229조(위조등 공문서의 행사) 제225조 내지 제228조의 죄에 의하여 만들어진 문서, 도화, 전자기록등 특수매체기록, 공정증서원본, 면허증, 허가증, 등록증 또는 여권을 행사한 자는 그 각 죄에 정한 형에 처한다.",
+      "support_description": "갑의 공문서 행사 행위가 공문서행사죄의 구성요건에 해당하고, 위조죄의 법정형이 적용됨을 근거로 제시합니다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "application",
+      "text": "을은 행사할 목적으로 공문서를 위조한 행위로 형법 제225조 공문서위조죄에 해당하여 10년 이하의 징역에 처해집니다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "갑은 위조된 공문서를 행사한 행위로 형법 제229조 공문서행사죄에 해당하여, 위조죄에 정한 형인 10년 이하의 징역에 처해집니다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T10:05:09.716176+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 129841.492,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "본 답변은 제공된 형법 조항에 근거한 법적 결론이며, 실제 사건의 구체적 사실관계나 양형에 따른 최종 판결과는 다를 수 있습니다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 340,
+      "dedup_collapse": 120,
+      "evidence_fusion": 340,
+      "first_stage": 400,
+      "request_rerank": 400,
+      "round_selected": 20,
+      "rrf": 400,
+      "selected": 340
+    }
+  },
+  "run_id": "0db93571-ca5b-415d-9ea5-17b5d359902c",
+  "skill_generation_diagnostics": {
+    "attempt_count": 5,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135",
+      "형법 229조  위조등 공문서의 행사#KOBLEX-193142"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 9,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": true,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "공문서를 각각 위조 및 행사한 갑과 을은 어떤 처벌을 받게 되는가?",
+        "requested_output": "을의 공문서위조죄와 갑의 공문서행사죄에 대한 형사처벌 내용"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "형법 136조#KOBLEX-192965"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 65,
+        "first_stage_score": 0.5127012729644775,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형법 136조#KOBLEX-192965",
+        "provision_text": "제8장 공무방해에 관한 죄",
+        "rerank_rank": 1,
+        "rerank_score": 0.3693595826625824,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형법 136조",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 627조  부실문서행사죄#KOBLEX-115875"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 34,
+        "first_stage_score": 0.5316393971443176,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "상법 627조  부실문서행사죄#KOBLEX-115875",
+        "provision_text": "제627조(부실문서행사죄)",
+        "rerank_rank": 1,
+        "rerank_score": 0.21972061693668365,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "상법 627조  부실문서행사죄",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "신탁법 142조  부실문서행사죄#KOBLEX-107605"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 26,
+        "first_stage_score": 0.537630021572113,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "신탁법 142조  부실문서행사죄#KOBLEX-107605",
+        "provision_text": "제142조(부실문서행사죄)",
+        "rerank_rank": 2,
+        "rerank_score": 0.1739886999130249,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "신탁법 142조  부실문서행사죄",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 239조  사인등의 위조, 부정사용#KOBLEX-193158"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 72,
+        "first_stage_score": 0.5130637884140015,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "형법 239조  사인등의 위조, 부정사용#KOBLEX-193158",
+        "provision_text": "제239조(사인등의 위조, 부정사용)",
+        "rerank_rank": 4,
+        "rerank_score": 0.10186096280813217,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형법 239조  사인등의 위조, 부정사용",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소방법 65조 9 등록의 취소ㆍ영업정지#KOBLEX-023338"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 91,
+        "first_stage_score": 0.5049513578414917,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "소방법 65조 9 등록의 취소ㆍ영업정지#KOBLEX-023338",
+        "provision_text": "3. 사위 그밖의 부정한 방법으로 등록을 한 때",
+        "rerank_rank": 5,
+        "rerank_score": 0.09310732036828995,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "소방법 65조 9 등록의 취소ㆍ영업정지 5호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 238조  공인 등의 위조, 부정사용#KOBLEX-193156"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6194688677787781,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "형법 238조  공인 등의 위조, 부정사용#KOBLEX-193156",
+        "provision_text": "②위조 또는 부정사용한 공무원 또는 공무소의 인장, 서명, 기명 또는 기호를 행사한 자도 전항의 형과 같다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.08648928254842758,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형법 238조  공인 등의 위조, 부정사용 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형의 실효 등에 관한 법률 10조  벌칙#KOBLEX-031328",
+          "형의 실효 등에 관한 법률 10조  벌칙#KOBLEX-205690"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 30,
+        "first_stage_score": 0.5395525097846985,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "형의 실효 등에 관한 법률 10조  벌칙#KOBLEX-031328",
+        "provision_text": "③ 제6조제4항을 위반하여 범죄경력자료 및 수사경력자료를 사용한 사람도 제2항과 같은 형에 처한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.07171956449747086,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형의 실효 등에 관한 법률 10조  벌칙 3항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 229조  위조등 공문서의 행사#KOBLEX-193142"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6271359324455261,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "형법 229조  위조등 공문서의 행사#KOBLEX-193142",
+        "provision_text": "제229조(위조등 공문서의 행사) 제225조 내지 제228조의 죄에 의하여 만들어진 문서, 도화, 전자기록등 특수매체기록, 공정증서원본, 면허증, 허가증, 등록증 또는 여권을 행사한 자는 그 각 죄에 정한 형에 처한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.0649360790848732,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형법 229조  위조등 공문서의 행사",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 239조  사인등의 위조, 부정사용#KOBLEX-193160"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.5649973154067993,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "형법 239조  사인등의 위조, 부정사용#KOBLEX-193160",
+        "provision_text": "②위조 또는 부정사용한 타인의 인장, 서명, 기명 또는 기호를 행사한 때에도 전항의 형과 같다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.055597543716430664,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형법 239조  사인등의 위조, 부정사용 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 230조  공문서 등의 부정행사#KOBLEX-193143"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 18,
+        "first_stage_score": 0.55677729845047,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "형법 230조  공문서 등의 부정행사#KOBLEX-193143",
+        "provision_text": "제230조(공문서 등의 부정행사) 공무원 또는 공무소의 문서 또는 도화를 부정행사한 자는 2년 이하의 징역이나 금고 또는 500만원 이하의 벌금에 처한다. <개정 1995.12.29>",
+        "rerank_rank": 10,
+        "rerank_score": 0.05416061356663704,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형법 230조  공문서 등의 부정행사",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6228481531143188,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135",
+        "provision_text": "제225조(공문서등의 위조ㆍ변조) 행사할 목적으로 공무원 또는 공무소의 문서 또는 도화를 위조 또는 변조한 자는 10년 이하의 징역에 처한다. <개정 1995.12.29>",
+        "rerank_rank": 1,
+        "rerank_score": 0.578178346157074,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형법 225조  공문서등의 위조ㆍ변조",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 5조  외국인의 국외범#KOBLEX-192657"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 11,
+        "first_stage_score": 0.5725789666175842,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "형법 5조  외국인의 국외범#KOBLEX-192657",
+        "provision_text": "6. 문서에 관한 죄중 제225조 내지 제230조",
+        "rerank_rank": 2,
+        "rerank_score": 0.361237108707428,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형법 5조  외국인의 국외범 6호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "특허법 225조  침해죄#KOBLEX-156466"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 27,
+        "first_stage_score": 0.545505166053772,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "특허법 225조  침해죄#KOBLEX-156466",
+        "provision_text": "제225조(침해죄)",
+        "rerank_rank": 3,
+        "rerank_score": 0.20525433123111725,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "특허법 225조  침해죄",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 229조  준수사항#KOBLEX-092855",
+          "군사법원법 229조  준수사항#KOBLEX-158820"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 70,
+        "first_stage_score": 0.5205718278884888,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "군사법원법 229조  준수사항#KOBLEX-092855",
+        "provision_text": "제229조(준수사항)",
+        "rerank_rank": 2,
+        "rerank_score": 0.20395787060260773,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2"
+        ],
+        "statute_name": "군사법원법 229조  준수사항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "디자인보호법 229조  과태료#KOBLEX-126603",
+          "디자인보호법 229조  과태료#KOBLEX-129866"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 28,
+        "first_stage_score": 0.5467882752418518,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "디자인보호법 229조  과태료#KOBLEX-126603",
+        "provision_text": "제229조(과태료)",
+        "rerank_rank": 3,
+        "rerank_score": 0.0868242159485817,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2"
+        ],
+        "statute_name": "디자인보호법 229조  과태료",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "디자인보호법 225조  비밀누설죄 등#KOBLEX-126591",
+          "디자인보호법 225조  비밀누설죄 등#KOBLEX-129854"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 88,
+        "first_stage_score": 0.5147905945777893,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "디자인보호법 225조  비밀누설죄 등#KOBLEX-126591",
+        "provision_text": "제225조(비밀누설죄 등)",
+        "rerank_rank": 4,
+        "rerank_score": 0.08555415272712708,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "디자인보호법 225조  비밀누설죄 등",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "특허법 229조 2 비밀유지명령 위반죄#KOBLEX-156480"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 42,
+        "first_stage_score": 0.5340684652328491,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "특허법 229조 2 비밀유지명령 위반죄#KOBLEX-156480",
+        "provision_text": "제229조의2(비밀유지명령 위반죄)",
+        "rerank_rank": 4,
+        "rerank_score": 0.08404523134231567,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2"
+        ],
+        "statute_name": "특허법 229조 2 비밀유지명령 위반죄",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 229조  배우자의 고소#KOBLEX-232183"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 20,
+        "first_stage_score": 0.5559940338134766,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "형사소송법 229조  배우자의 고소#KOBLEX-232183",
+        "provision_text": "제229조(배우자의 고소)",
+        "rerank_rank": 5,
+        "rerank_score": 0.06960093975067139,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형사소송법 229조  배우자의 고소",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "제주특별자치도 설치 및 국제자유도시 조성을 위한 특별법 229조  다른 법률의 적용#KOBLEX-037584"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 39,
+        "first_stage_score": 0.536963701248169,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "제주특별자치도 설치 및 국제자유도시 조성을 위한 특별법 229조  다른 법률의 적용#KOBLEX-037584",
+        "provision_text": "제229조(다른 법률의 적용)",
+        "rerank_rank": 6,
+        "rerank_score": 0.04431438073515892,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2"
+        ],
+        "statute_name": "제주특별자치도 설치 및 국제자유도시 조성을 위한 특별법 229조  다른 법률의 적용",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "군사법원법 229조  준수사항#KOBLEX-092855": "제229조(준수사항)",
+      "디자인보호법 225조  비밀누설죄 등#KOBLEX-126591": "제225조(비밀누설죄 등)",
+      "디자인보호법 229조  과태료#KOBLEX-126603": "제229조(과태료)",
+      "상법 627조  부실문서행사죄#KOBLEX-115875": "제627조(부실문서행사죄)",
+      "소방법 65조 9 등록의 취소ㆍ영업정지#KOBLEX-023338": "3. 사위 그밖의 부정한 방법으로 등록을 한 때",
+      "신탁법 142조  부실문서행사죄#KOBLEX-107605": "제142조(부실문서행사죄)",
+      "제주특별자치도 설치 및 국제자유도시 조성을 위한 특별법 229조  다른 법률의 적용#KOBLEX-037584": "제229조(다른 법률의 적용)",
+      "특허법 225조  침해죄#KOBLEX-156466": "제225조(침해죄)",
+      "특허법 229조 2 비밀유지명령 위반죄#KOBLEX-156480": "제229조의2(비밀유지명령 위반죄)",
+      "형법 136조#KOBLEX-192965": "제8장 공무방해에 관한 죄",
+      "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135": "제225조(공문서등의 위조ㆍ변조) 행사할 목적으로 공무원 또는 공무소의 문서 또는 도화를 위조 또는 변조한 자는 10년 이하의 징역에 처한다. <개정 1995.12.29>",
+      "형법 229조  위조등 공문서의 행사#KOBLEX-193142": "제229조(위조등 공문서의 행사) 제225조 내지 제228조의 죄에 의하여 만들어진 문서, 도화, 전자기록등 특수매체기록, 공정증서원본, 면허증, 허가증, 등록증 또는 여권을 행사한 자는 그 각 죄에 정한 형에 처한다.",
+      "형법 230조  공문서 등의 부정행사#KOBLEX-193143": "제230조(공문서 등의 부정행사) 공무원 또는 공무소의 문서 또는 도화를 부정행사한 자는 2년 이하의 징역이나 금고 또는 500만원 이하의 벌금에 처한다. <개정 1995.12.29>",
+      "형법 238조  공인 등의 위조, 부정사용#KOBLEX-193156": "②위조 또는 부정사용한 공무원 또는 공무소의 인장, 서명, 기명 또는 기호를 행사한 자도 전항의 형과 같다.",
+      "형법 239조  사인등의 위조, 부정사용#KOBLEX-193158": "제239조(사인등의 위조, 부정사용)",
+      "형법 239조  사인등의 위조, 부정사용#KOBLEX-193160": "②위조 또는 부정사용한 타인의 인장, 서명, 기명 또는 기호를 행사한 때에도 전항의 형과 같다.",
+      "형법 5조  외국인의 국외범#KOBLEX-192657": "6. 문서에 관한 죄중 제225조 내지 제230조",
+      "형사소송법 229조  배우자의 고소#KOBLEX-232183": "제229조(배우자의 고소)",
+      "형의 실효 등에 관한 법률 10조  벌칙#KOBLEX-031328": "③ 제6조제4항을 위반하여 범죄경력자료 및 수사경력자료를 사용한 사람도 제2항과 같은 형에 처한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135"
+            ],
+            "rationale": "C011은 공문서위조죄의 행위 유형과 처벌 수위가 명시된 조항으로 요구사항을 완전히 충족한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "후보군에 추가된 C011(형법 제225조)은 공문서위조죄의 구성요건(행사할 목적, 공무원/공무소 문서 위조)과 법정형(10년 이하 징역)을 명확히 규정하고 있어, 을의 처벌 근거가 되는 법적 요건을 완전히 충족한다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형법 229조  위조등 공문서의 행사#KOBLEX-193142",
+              "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135"
+            ],
+            "rationale": "C008은 행사 행위의 구성요건을, C011은 적용될 법정형을 규정하여 '구성요건과 법정형이 포함된 조항'이라는 요구사항을 충족한다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형법 229조  위조등 공문서의 행사#KOBLEX-193142",
+          "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C008(형법 제229조)은 위조된 공문서의 행사 행위를 처벌 대상으로 규정하고, C011(형법 제225조)은 해당 행위의 법정형을 규정한다. 두 조항의 결합으로 공문서행사죄의 구성요건과 법정형이 모두 확인되어 갑의 처벌 근거가 완성된다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135",
+        "support_spans": [
+          {
+            "end_char": 95,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "형법 229조  위조등 공문서의 행사#KOBLEX-193142",
+        "support_spans": [
+          {
+            "end_char": 122,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135",
+        "support_spans": [
+          {
+            "end_char": 95,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 9,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "을의 공문서 위조 행위가 공문서위조죄의 구성요건에 해당하는지 여부",
+        "issue_id": "I1"
+      },
+      {
+        "description": "갑의 공문서 행사 행위가 공문서행사죄의 구성요건에 해당하는지 여부",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 을은 행사할 목적으로 특정 자격을 증명하는 공문서를 위조하였습니다. 갑은 을로부터 허위로 발급된 이 문서를 구입했습니다. 갑은 이를 행사하여 취업을 시도했습니다. [질문] 공문서를 각각 위조 및 행사한 갑과 을은 어떤 처벌을 받게 되는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "공문서위조",
+          "위조",
+          "형법",
+          "처벌"
+        ],
+        "query_text": "공문서위조죄 구성요건 및 법정형 [원문 맥락] 갑은 이를 행사하여 취업을 시도했습니다. 공문서를 각각 위조 및 행사한 갑과 을은 어떤 처벌을 받게 되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법 제231조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "공문서행사",
+          "행사",
+          "형법",
+          "처벌"
+        ],
+        "query_text": "공문서행사죄 구성요건 및 법정형 [원문 맥락] 갑은 이를 행사하여 취업을 시도했습니다. 공문서를 각각 위조 및 행사한 갑과 을은 어떤 처벌을 받게 되는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법 제234조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "공문서위조",
+          "형법 제225조",
+          "법정형",
+          "위조"
+        ],
+        "query_text": "형법 제225조 공문서위조죄 구성요건 및 법정형 [원문 맥락] 갑은 이를 행사하여 취업을 시도했습니다. 공문서를 각각 위조 및 행사한 갑과 을은 어떤 처벌을 받게 되는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법 제225조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "공문서행사",
+          "형법 제229조",
+          "법정형",
+          "위조죄 형량"
+        ],
+        "query_text": "형법 제229조 공문서행사죄 법정형 적용 근거 및 위조죄 형량 [원문 맥락] 갑은 이를 행사하여 취업을 시도했습니다. 공문서를 각각 위조 및 행사한 갑과 을은 어떤 처벌을 받게 되는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법 제229조",
+          "형법 제225조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n을은 행사할 목적으로 특정 자격을 증명하는 공문서를 위조하였습니다.\r갑은 을로부터 허위로 발급된 이 문서를 구입했습니다. 갑은 이를 행사하여 취업을 시도했습니다.\n\n[질문]\n공문서를 각각 위조 및 행사한 갑과 을은 어떤 처벌을 받게 되는가?",
+    "remaining_request_budget": 5,
+    "remaining_round_budget": 1,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "공문서위조죄의 행위 유형과 처벌 수위가 명시된 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "공문서위조죄의 구성요건(위조 행위)과 법정형이 포함된 조항"
+          }
+        ],
+        "critical": true,
+        "description": "공문서위조죄의 구성요건 및 법정형",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "을의 처벌 근거를 결정하는 핵심 법규",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "공문서행사죄의 행위 유형과 처벌 수위가 명시된 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "공문서행사죄의 구성요건(행사 행위)과 법정형이 포함된 조항"
+          }
+        ],
+        "critical": true,
+        "description": "공문서행사죄의 구성요건 및 법정형",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "갑의 처벌 근거를 결정하는 핵심 법규",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 2,
+    "run_id": "0db93571-ca5b-415d-9ea5-17b5d359902c",
+    "seen_provision_ids": [
+      "형법 239조  사인등의 위조, 부정사용#KOBLEX-193160",
+      "형사소송법 229조  배우자의 고소#KOBLEX-232183",
+      "상법 627조  부실문서행사죄#KOBLEX-115875",
+      "특허법 225조  침해죄#KOBLEX-156466",
+      "신탁법 142조  부실문서행사죄#KOBLEX-107605",
+      "제주특별자치도 설치 및 국제자유도시 조성을 위한 특별법 229조  다른 법률의 적용#KOBLEX-037584",
+      "형법 5조  외국인의 국외범#KOBLEX-192657",
+      "형법 238조  공인 등의 위조, 부정사용#KOBLEX-193156",
+      "형의 실효 등에 관한 법률 10조  벌칙#KOBLEX-031328",
+      "형법 239조  사인등의 위조, 부정사용#KOBLEX-193158",
+      "형법 136조#KOBLEX-192965",
+      "디자인보호법 229조  과태료#KOBLEX-126603",
+      "소방법 65조 9 등록의 취소ㆍ영업정지#KOBLEX-023338",
+      "디자인보호법 225조  비밀누설죄 등#KOBLEX-126591",
+      "군사법원법 229조  준수사항#KOBLEX-092855",
+      "형법 229조  위조등 공문서의 행사#KOBLEX-193142",
+      "형법 230조  공문서 등의 부정행사#KOBLEX-193143",
+      "특허법 229조 2 비밀유지명령 위반죄#KOBLEX-156480",
+      "형법 225조  공문서등의 위조ㆍ변조#KOBLEX-193135"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

@@ -1,0 +1,1070 @@
+{
+  "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": null,
+  "candidate_answer_basis": "retrieved_candidates",
+  "candidate_answer_error": "grounded_legal_answer_generation did not produce a valid GENERATE_BENCHMARK_CANDIDATE result after 2 attempts: grounded_legal_answer_generation returned UNCOVERED_CRITICAL_EVIDENCE: 핵심 증거 항목 E1, E2, E3가 모두 미커버(uncovered) 상태입니다. 제공된 후보 조항들은 일반 상장회사가 아닌 금융투자업자, 종합금융회사, 보험회사, 자산운용회사 등에 적용되는 규정으로, 일반 상장회사의 대표이사가 주요주주에게 신용공여를 할 때의 이사회 승인 요건 및 위반 시 법적 책임, 회사 자체의 형사책임에 대한 직접적인 법적 근거를 제공하지 않습니다.",
+  "candidate_answer_status": "EXECUTION_FAILURE",
+  "candidate_answer_termination_reason": "INVALID_SKILL_OUTPUT",
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T15:29:15.851435+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 173945.578,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 387,
+      "dedup_collapse": 61,
+      "evidence_fusion": 562,
+      "first_stage": 600,
+      "request_rerank": 600,
+      "round_selected": 20,
+      "rrf": 400,
+      "selected": 387
+    }
+  },
+  "run_id": "485c2cdc-12ca-41e0-b10f-e69b87877d22",
+  "skill_generation_diagnostics": {
+    "attempt_count": 6,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 3,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 3,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 3,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 8,
+          "request_count": 3,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 3,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "ABSTAIN",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "Two consecutive retrieval rounds did not improve critical evidence.",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "ABSTAIN",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 18
+        },
+        "event": "BENCHMARK_CANDIDATE_GENERATION_STARTED",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "error": "grounded_legal_answer_generation did not produce a valid GENERATE_BENCHMARK_CANDIDATE result after 2 attempts: grounded_legal_answer_generation returned UNCOVERED_CRITICAL_EVIDENCE: 핵심 증거 항목 E1, E2, E3가 모두 미커버(uncovered) 상태입니다. 제공된 후보 조항들은 일반 상장회사가 아닌 금융투자업자, 종합금융회사, 보험회사, 자산운용회사 등에 적용되는 규정으로, 일반 상장회사의 대표이사가 주요주주에게 신용공여를 할 때의 이사회 승인 요건 및 위반 시 법적 책임, 회사 자체의 형사책임에 대한 직접적인 법적 근거를 제공하지 않습니다.",
+          "termination_reason": "INVALID_SKILL_OUTPUT"
+        },
+        "event": "BENCHMARK_CANDIDATE_EXECUTION_FAILURE",
+        "phase": "ABSTAINED"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "갑의 행위는 어떤 법적 책임을 수반하는가?",
+        "requested_output": "대표이사 갑의 신용공여 행위에 대한 법적 책임의 종류 및 범위"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "XYZ 회사 자체에도 형사처벌 가능성이 있는가?",
+        "requested_output": "XYZ 주식회사에 대한 형사처벌 가능성 여부"
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "보험업법 시행령 57조  대주주와의 거래제한 등#KOBLEX-121520"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 50,
+        "first_stage_score": 0.5424624681472778,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "보험업법 시행령 57조  대주주와의 거래제한 등#KOBLEX-121520",
+        "provision_text": "제57조(대주주와의 거래제한 등)",
+        "rerank_rank": 2,
+        "rerank_score": 0.9776108860969543,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2,E3",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "RQ3"
+        ],
+        "statute_name": "보험업법 시행령 57조  대주주와의 거래제한 등",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "자본시장과 금융투자업에 관한 법률 34조#KOBLEX-134983"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 85,
+        "first_stage_score": 0.5382619500160217,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "자본시장과 금융투자업에 관한 법률 34조#KOBLEX-134983",
+        "provision_text": "제2절 대주주와의 거래제한 등",
+        "rerank_rank": 1,
+        "rerank_score": 0.9765475392341614,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "자본시장과 금융투자업에 관한 법률 34조",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "종합금융회사에 관한 법률 17조 2 자금지원관련 금지행위#KOBLEX-046346"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 90,
+        "first_stage_score": 0.5372422933578491,
+        "fusion_rank": 59,
+        "issue_id": "I1",
+        "provision_id": "종합금융회사에 관한 법률 17조 2 자금지원관련 금지행위#KOBLEX-046346",
+        "provision_text": "③종합금융회사는 당해 종합금융회사의 주식을 매입시키기 위한 신용공여를 할 수 없다.",
+        "rerank_rank": 59,
+        "rerank_score": 0.969859778881073,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "종합금융회사에 관한 법률 17조 2 자금지원관련 금지행위 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "채무자 회생 및 파산에 관한 법률 267조  주식회사의 납입 등이 없는 사채발행에 관한 특례#KOBLEX-032369"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 53,
+        "first_stage_score": 0.5488412380218506,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "채무자 회생 및 파산에 관한 법률 267조  주식회사의 납입 등이 없는 사채발행에 관한 특례#KOBLEX-032369",
+        "provision_text": "제267조(주식회사의 납입 등이 없는 사채발행에 관한 특례)",
+        "rerank_rank": 4,
+        "rerank_score": 0.9666919708251953,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "RQ3"
+        ],
+        "statute_name": "채무자 회생 및 파산에 관한 법률 267조  주식회사의 납입 등이 없는 사채발행에 관한 특례",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "자본시장과 금융투자업에 관한 법률 445조  벌칙#KOBLEX-137557"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 100,
+        "first_stage_score": 0.52862948179245,
+        "fusion_rank": 54,
+        "issue_id": "I1",
+        "provision_id": "자본시장과 금융투자업에 관한 법률 445조  벌칙#KOBLEX-137557",
+        "provision_text": "36. 제301조제5항, 제323조의9제3항, 제327조제3항 또는 제383조제2항(제78조제6항에서 준용하는 경우를 포함한다)을 위반하여 자금의 공여, 손익의 분배, 그 밖에 영업에 관하여 특별한 이해관계를 가진 자",
+        "rerank_rank": 54,
+        "rerank_score": 0.9657802581787109,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "자본시장과 금융투자업에 관한 법률 445조  벌칙 47호",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 397조  경업금지#KOBLEX-114898"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 16,
+        "first_stage_score": 0.5741167068481445,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "상법 397조  경업금지#KOBLEX-114898",
+        "provision_text": "①이사는 이사회의 승인이 없으면 자기 또는 제3자의 계산으로 회사의 영업부류에 속한 거래를 하거나 동종영업을 목적으로 하는 다른 회사의 무한책임사원이나 이사가 되지 못한다. <개정 1995.12.29>",
+        "rerank_rank": 10,
+        "rerank_score": 0.959283709526062,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "RQ3"
+        ],
+        "statute_name": "상법 397조  경업금지 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "자본시장과 금융투자업에 관한 법률 34조  대주주와의 거래 등의 제한#KOBLEX-134991"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 27,
+        "first_stage_score": 0.5548413395881653,
+        "fusion_rank": 19,
+        "issue_id": "I1",
+        "provision_id": "자본시장과 금융투자업에 관한 법률 34조  대주주와의 거래 등의 제한#KOBLEX-134991",
+        "provision_text": "⑦ 금융위원회는 금융투자업자의 대주주(회사에 한한다)의 부채가 자산을 초과하는 등 재무구조의 부실로 인하여 금융투자업자의 경영건전성을 현저히 해칠 우려가 있는 경우로서 대통령령으로 정하는 경우에는 금융투자업자에 대하여 대주주가 발행한 증권의 신규취득 및 제2항 단서에 따른 신용공여를 제한할 수 있다. <개정 2008.2.29>",
+        "rerank_rank": 19,
+        "rerank_score": 0.9584453701972961,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "RQ3",
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R2-3"
+        ],
+        "statute_name": "자본시장과 금융투자업에 관한 법률 34조  대주주와의 거래 등의 제한 7항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "간접투자자산 운용업법 16조  (고유재산의 운용제한)#KOBLEX-081715"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 48,
+        "first_stage_score": 0.5504483580589294,
+        "fusion_rank": 13,
+        "issue_id": "I1",
+        "provision_id": "간접투자자산 운용업법 16조  (고유재산의 운용제한)#KOBLEX-081715",
+        "provision_text": "⑤자산운용회사의 대주주는 제1항 각 호 외의 부분 단서에 따른 경우를 제외하고는 그 자산운용회사로부터 신용공여를 받아서는 아니 된다. <신설 2007.7.19>",
+        "rerank_rank": 13,
+        "rerank_score": 0.9573200345039368,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "RQ3"
+        ],
+        "statute_name": "간접투자자산 운용업법 16조  (고유재산의 운용제한) 5항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "종합금융회사에 관한 법률 16조 2 대주주의 부당한 영향력 행사의 금지#KOBLEX-046332"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 52,
+        "first_stage_score": 0.5490599274635315,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "종합금융회사에 관한 법률 16조 2 대주주의 부당한 영향력 행사의 금지#KOBLEX-046332",
+        "provision_text": "2. 경제적 이익 등 반대급부의 제공을 조건으로 다른 주주와 담합하여 종합금융회사의 인사 또는 경영에 부당한 영향력을 행사하는 행위",
+        "rerank_rank": 7,
+        "rerank_score": 0.9557262659072876,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "RQ3"
+        ],
+        "statute_name": "종합금융회사에 관한 법률 16조 2 대주주의 부당한 영향력 행사의 금지 2호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "간접투자자산 운용업법 183조 2 (벌칙)#KOBLEX-082633"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 76,
+        "first_stage_score": 0.5380260944366455,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "간접투자자산 운용업법 183조 2 (벌칙)#KOBLEX-082633",
+        "provision_text": "1. 제5조의2제1항의 규정을 위반하여 승인을 얻지 아니하고 주식을 취득한 자",
+        "rerank_rank": 3,
+        "rerank_score": 0.9528288245201111,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "RQ3"
+        ],
+        "statute_name": "간접투자자산 운용업법 183조 2 (벌칙) 1호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "자본시장과 금융투자업에 관한 법률 34조  대주주와의 거래 등의 제한#KOBLEX-134984"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.6319302320480347,
+        "fusion_rank": 43,
+        "issue_id": "I1",
+        "provision_id": "자본시장과 금융투자업에 관한 법률 34조  대주주와의 거래 등의 제한#KOBLEX-134984",
+        "provision_text": "제34조(대주주와의 거래 등의 제한)",
+        "rerank_rank": 43,
+        "rerank_score": 0.9995409250259399,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E3",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-3"
+        ],
+        "statute_name": "자본시장과 금융투자업에 관한 법률 34조  대주주와의 거래 등의 제한",
+        "target_evidence_item_ids": [
+          "E1",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "자본시장과 금융투자업에 관한 법률 34조  대주주와의 거래 등의 제한#KOBLEX-134986"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.6307291984558105,
+        "fusion_rank": 12,
+        "issue_id": "I1",
+        "provision_id": "자본시장과 금융투자업에 관한 법률 34조  대주주와의 거래 등의 제한#KOBLEX-134986",
+        "provision_text": "② 금융투자업자는 대주주(그의 특수관계인을 포함한다. 이하 이 조에서 같다)에 대하여 신용공여(금전ㆍ증권 등 경제적 가치가 있는 재산의 대여, 채무이행의 보증, 자금 지원적 성격의 증권의 매입, 그 밖에 거래상의 신용위험을 수반하는 직접적ㆍ간접적 거래로서 대통령령으로 정하는 거래를 말한다. 이하 이 절에서 같다)를 하여서는 아니 되며, 대주주는 그 금융투자업자로부터 신용공여를 받아서는 아니 된다. 다만, 대주주에 대한 신용공여가 다음 각 호의 어느 하나에 해당하는 경우에는 이를 할 수 있다. <개정 2020.12.29> 1. 임원에 대하여 연간 급여액(근속기간 중에 그 금융투자업자로부터 지급된 소득세 과세대상이 되는 급여액을 말한다)과 대통령령으로 정하는 금액 중 적은 금액의 범위에서 하는 신용공여 2. 금융투자업자가 발행주식총수 또는 출자총액의 100분의 50 이상을 소유 또는 출자하거나 대통령령으로 정하는 기준에 의하여 사실상 경영을 지배하는 해외현지법인에 대한 신용공여 3. 그 밖에 금융투자업자의 건전성을 해할 우려가 없는 신용공여로서 대통령령으로 정하는 신용공여",
+        "rerank_rank": 12,
+        "rerank_score": 0.6385949850082397,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R2-3"
+        ],
+        "statute_name": "자본시장과 금융투자업에 관한 법률 34조  대주주와의 거래 등의 제한 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등#KOBLEX-136946"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 8,
+        "first_stage_score": 0.6126449704170227,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등#KOBLEX-136946",
+        "provision_text": "제343조(대주주와의 거래의 제한 등)",
+        "rerank_rank": 3,
+        "rerank_score": 0.5823136568069458,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R2-3"
+        ],
+        "statute_name": "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "자본시장과 금융투자업에 관한 법률 444조  벌칙#KOBLEX-137471"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 26,
+        "first_stage_score": 0.5764234662055969,
+        "fusion_rank": 44,
+        "issue_id": "I1",
+        "provision_id": "자본시장과 금융투자업에 관한 법률 444조  벌칙#KOBLEX-137471",
+        "provision_text": "4. 제34조제2항을 위반하여 신용공여를 한 금융투자업자와 그로부터 신용공여를 받은 자",
+        "rerank_rank": 44,
+        "rerank_score": 0.052108462899923325,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-3"
+        ],
+        "statute_name": "자본시장과 금융투자업에 관한 법률 444조  벌칙 7호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등#KOBLEX-136947"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 33,
+        "first_stage_score": 0.5780866742134094,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등#KOBLEX-136947",
+        "provision_text": "① 종합금융회사는 그의 대주주(그의 특수관계인을 포함한다. 이하 이 조에서 같다)에게 신용공여를 함에 있어서 자기자본의 100분의 25의 범위에서 대통령령으로 정하는 한도를 초과하여서는 아니 되며, 대주주는 그 종합금융회사로부터 그 한도를 초과하여 신용공여를 받아서는 아니 된다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.03639145940542221,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R2-3"
+        ],
+        "statute_name": "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "자본시장과 금융투자업에 관한 법률 444조  벌칙#KOBLEX-137504"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 30,
+        "first_stage_score": 0.5747289657592773,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "자본시장과 금융투자업에 관한 법률 444조  벌칙#KOBLEX-137504",
+        "provision_text": "25. 제343조제1항을 위반하여 신용공여를 한 종합금융회사와 그로부터 신용공여를 받은 자",
+        "rerank_rank": 2,
+        "rerank_score": 0.019515840336680412,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-3",
+        "source_request_ids": [
+          "GRQ-R2-3",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "자본시장과 금융투자업에 관한 법률 444조  벌칙 40호",
+        "target_evidence_item_ids": [
+          "E3",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등#KOBLEX-136949"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 57,
+        "first_stage_score": 0.5610660910606384,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등#KOBLEX-136949",
+        "provision_text": "③ 종합금융회사는 그의 대주주에게 제2항에 따라 대통령령으로 정하는 금액 이상의 신용공여를 하거나 대주주가 발행한 주식을 대통령령으로 정하는 금액 이상으로 취득한 경우에는 그 사실을 금융위원회에 지체 없이 보고하고, 인터넷 홈페이지 등을 이용하여 공시하여야 한다. <개정 2008.2.29>",
+        "rerank_rank": 5,
+        "rerank_score": 0.009836564771831036,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R2-3"
+        ],
+        "statute_name": "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등 3항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등#KOBLEX-136955"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 35,
+        "first_stage_score": 0.5758916735649109,
+        "fusion_rank": 11,
+        "issue_id": "I1",
+        "provision_id": "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등#KOBLEX-136955",
+        "provision_text": "⑨ 금융위원회는 종합금융회사의 대주주(회사에 한한다)의 부채가 자산을 초과하는 등 재무구조의 부실로 인하여 종합금융회사의 경영건전성을 현저히 해칠 우려가 있는 경우로서 대통령령으로 정하는 경우에는 그 종합금융회사에 대하여 다음 각 호의 조치를 할 수 있다. <개정 2008.2.29> 1. 그 대주주에 대한 신규 신용공여의 금지 2. 그 대주주가 발행한 증권의 신규취득 금지 3. 그 밖에 그 대주주에 대한 자금지원 성격의 거래제한 등 대통령령으로 정하는 조치",
+        "rerank_rank": 11,
+        "rerank_score": 0.009175923652946949,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R2-3"
+        ],
+        "statute_name": "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등 9항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2",
+          "E3"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "간접투자자산 운용업법 16조  (고유재산의 운용제한)#KOBLEX-081715": "⑤자산운용회사의 대주주는 제1항 각 호 외의 부분 단서에 따른 경우를 제외하고는 그 자산운용회사로부터 신용공여를 받아서는 아니 된다. <신설 2007.7.19>",
+      "간접투자자산 운용업법 183조 2 (벌칙)#KOBLEX-082633": "1. 제5조의2제1항의 규정을 위반하여 승인을 얻지 아니하고 주식을 취득한 자",
+      "보험업법 시행령 57조  대주주와의 거래제한 등#KOBLEX-121520": "제57조(대주주와의 거래제한 등)",
+      "상법 397조  경업금지#KOBLEX-114898": "①이사는 이사회의 승인이 없으면 자기 또는 제3자의 계산으로 회사의 영업부류에 속한 거래를 하거나 동종영업을 목적으로 하는 다른 회사의 무한책임사원이나 이사가 되지 못한다. <개정 1995.12.29>",
+      "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등#KOBLEX-136946": "제343조(대주주와의 거래의 제한 등)",
+      "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등#KOBLEX-136947": "① 종합금융회사는 그의 대주주(그의 특수관계인을 포함한다. 이하 이 조에서 같다)에게 신용공여를 함에 있어서 자기자본의 100분의 25의 범위에서 대통령령으로 정하는 한도를 초과하여서는 아니 되며, 대주주는 그 종합금융회사로부터 그 한도를 초과하여 신용공여를 받아서는 아니 된다.",
+      "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등#KOBLEX-136949": "③ 종합금융회사는 그의 대주주에게 제2항에 따라 대통령령으로 정하는 금액 이상의 신용공여를 하거나 대주주가 발행한 주식을 대통령령으로 정하는 금액 이상으로 취득한 경우에는 그 사실을 금융위원회에 지체 없이 보고하고, 인터넷 홈페이지 등을 이용하여 공시하여야 한다. <개정 2008.2.29>",
+      "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등#KOBLEX-136955": "⑨ 금융위원회는 종합금융회사의 대주주(회사에 한한다)의 부채가 자산을 초과하는 등 재무구조의 부실로 인하여 종합금융회사의 경영건전성을 현저히 해칠 우려가 있는 경우로서 대통령령으로 정하는 경우에는 그 종합금융회사에 대하여 다음 각 호의 조치를 할 수 있다. <개정 2008.2.29> 1. 그 대주주에 대한 신규 신용공여의 금지 2. 그 대주주가 발행한 증권의 신규취득 금지 3. 그 밖에 그 대주주에 대한 자금지원 성격의 거래제한 등 대통령령으로 정하는 조치",
+      "자본시장과 금융투자업에 관한 법률 34조  대주주와의 거래 등의 제한#KOBLEX-134984": "제34조(대주주와의 거래 등의 제한)",
+      "자본시장과 금융투자업에 관한 법률 34조  대주주와의 거래 등의 제한#KOBLEX-134986": "② 금융투자업자는 대주주(그의 특수관계인을 포함한다. 이하 이 조에서 같다)에 대하여 신용공여(금전ㆍ증권 등 경제적 가치가 있는 재산의 대여, 채무이행의 보증, 자금 지원적 성격의 증권의 매입, 그 밖에 거래상의 신용위험을 수반하는 직접적ㆍ간접적 거래로서 대통령령으로 정하는 거래를 말한다. 이하 이 절에서 같다)를 하여서는 아니 되며, 대주주는 그 금융투자업자로부터 신용공여를 받아서는 아니 된다. 다만, 대주주에 대한 신용공여가 다음 각 호의 어느 하나에 해당하는 경우에는 이를 할 수 있다. <개정 2020.12.29> 1. 임원에 대하여 연간 급여액(근속기간 중에 그 금융투자업자로부터 지급된 소득세 과세대상이 되는 급여액을 말한다)과 대통령령으로 정하는 금액 중 적은 금액의 범위에서 하는 신용공여 2. 금융투자업자가 발행주식총수 또는 출자총액의 100분의 50 이상을 소유 또는 출자하거나 대통령령으로 정하는 기준에 의하여 사실상 경영을 지배하는 해외현지법인에 대한 신용공여 3. 그 밖에 금융투자업자의 건전성을 해할 우려가 없는 신용공여로서 대통령령으로 정하는 신용공여",
+      "자본시장과 금융투자업에 관한 법률 34조  대주주와의 거래 등의 제한#KOBLEX-134991": "⑦ 금융위원회는 금융투자업자의 대주주(회사에 한한다)의 부채가 자산을 초과하는 등 재무구조의 부실로 인하여 금융투자업자의 경영건전성을 현저히 해칠 우려가 있는 경우로서 대통령령으로 정하는 경우에는 금융투자업자에 대하여 대주주가 발행한 증권의 신규취득 및 제2항 단서에 따른 신용공여를 제한할 수 있다. <개정 2008.2.29>",
+      "자본시장과 금융투자업에 관한 법률 34조#KOBLEX-134983": "제2절 대주주와의 거래제한 등",
+      "자본시장과 금융투자업에 관한 법률 444조  벌칙#KOBLEX-137471": "4. 제34조제2항을 위반하여 신용공여를 한 금융투자업자와 그로부터 신용공여를 받은 자",
+      "자본시장과 금융투자업에 관한 법률 444조  벌칙#KOBLEX-137504": "25. 제343조제1항을 위반하여 신용공여를 한 종합금융회사와 그로부터 신용공여를 받은 자",
+      "자본시장과 금융투자업에 관한 법률 445조  벌칙#KOBLEX-137557": "36. 제301조제5항, 제323조의9제3항, 제327조제3항 또는 제383조제2항(제78조제6항에서 준용하는 경우를 포함한다)을 위반하여 자금의 공여, 손익의 분배, 그 밖에 영업에 관하여 특별한 이해관계를 가진 자",
+      "종합금융회사에 관한 법률 16조 2 대주주의 부당한 영향력 행사의 금지#KOBLEX-046332": "2. 경제적 이익 등 반대급부의 제공을 조건으로 다른 주주와 담합하여 종합금융회사의 인사 또는 경영에 부당한 영향력을 행사하는 행위",
+      "종합금융회사에 관한 법률 17조 2 자금지원관련 금지행위#KOBLEX-046346": "③종합금융회사는 당해 종합금융회사의 주식을 매입시키기 위한 신용공여를 할 수 없다.",
+      "채무자 회생 및 파산에 관한 법률 267조  주식회사의 납입 등이 없는 사채발행에 관한 특례#KOBLEX-032369": "제267조(주식회사의 납입 등이 없는 사채발행에 관한 특례)"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No supplied provision establishes the restriction on credit extension to major shareholders for a general listed company. C012 applies to financial investment business operators, not general listed companies.",
+            "requirement_id": "E1-R1",
+            "status": "unsatisfied"
+          },
+          {
+            "linked_provision_ids": [],
+            "rationale": "No supplied provision establishes the specific board approval requirement for credit extension to major shareholders for a general listed company.",
+            "requirement_id": "E1-R2",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E1-R1",
+          "E1-R2"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "The question concerns a general listed company (XYZ 주식회사). The supplied candidates C011 and C012 (Capital Markets Act Art. 34) regulate 'financial investment business operators' (금융투자업자), not general listed companies. C015 (Art. 343) regulates 'comprehensive financial companies' (종합금융회사). C006 (Commercial Act Art. 397) addresses non-competition and self-dealing but does not specifically regulate credit extension to major shareholders or the board approval requirement for such transactions in the context of listed company credit extension restrictions. Therefore, the specific legal rule for credit extension restrictions and board approval for a general listed company's major shareholder is not established by the supplied candidates.",
+        "status": "uncovered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No supplied provision establishes the specific legal responsibility of the representative director for violating the credit extension restriction to major shareholders of a general listed company.",
+            "requirement_id": "E2-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E2-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "The legal responsibility of the representative director for violating credit extension restrictions to major shareholders is not established by the supplied candidates. C014 provides a penalty for violations of Capital Markets Act Art. 34(2), but since Art. 34 applies to financial investment business operators and not general listed companies, it does not establish the liability for the specific act described in the question (a general listed company's director). C006 provides for damages for non-competition/self-dealing but is not the specific liability for credit extension violations to major shareholders under the relevant listed company regulations.",
+        "status": "uncovered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No supplied provision establishes the criminal liability of the company itself for the violation of credit extension restrictions to major shareholders in the context of a general listed company.",
+            "requirement_id": "E3-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E3",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E3-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "The criminal liability of the company itself (XYZ 주식회사) for the violation is not established by the supplied candidates. C014 mentions penalties for violations of Capital Markets Act Art. 34(2), but this applies to financial investment business operators. Since the underlying rule for a general listed company is not established by the supplied candidates, the specific provision for corporate criminal liability for this specific violation in the context of a general listed company is missing.",
+        "status": "uncovered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [],
+    "last_retrieval_new_provision_count": 8,
+    "last_validated_event": "RESPONSE_ASSEMBLY.ABSTAIN",
+    "legal_issues": [
+      {
+        "description": "상장회사의 대표이사가 주요주주에게 이사회 승인 없이 신용공여를 한 행위의 위법성 및 법적 책임",
+        "issue_id": "I1"
+      },
+      {
+        "description": "상장회사의 대표이사가 주요주주에게 이사회 승인 없이 신용공여를 한 경우 회사 자체의 형사책임",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "상장회사의 주요주주에 대한 신용공여 제한 규정 및 이사회 승인 요건을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "상장회사의 주요주주에 대한 신용공여 제한 규정 확인"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "이사회 승인 요건 확인"
+          }
+        ],
+        "critical": true,
+        "description": "상장회사의 주요주주에 대한 신용공여 제한 및 이사회 승인 요건",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "갑의 행위가 위법한지 판단하기 위한 핵심 법적 근거",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "상장회사의 주요주주에 대한 신용공여 제한 위반 시 대표이사의 법적 책임 규정을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "상장회사의 주요주주에 대한 신용공여 제한 위반 시 대표이사의 법적 책임 규정 확인"
+          }
+        ],
+        "critical": true,
+        "description": "상장회사의 주요주주에 대한 신용공여 제한 위반 시 대표이사의 법적 책임",
+        "evidence_item_id": "E2",
+        "evidence_type": "remedy",
+        "issue_id": "I1",
+        "necessity_reason": "갑의 법적 책임을 판단하기 위한 핵심 법적 근거",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "상장회사의 주요주주에 대한 신용공여 제한 위반 시 회사 자체의 형사책임 규정을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E3-R1",
+            "text": "상장회사의 주요주주에 대한 신용공여 제한 위반 시 회사 자체의 형사책임 규정 확인"
+          }
+        ],
+        "critical": true,
+        "description": "상장회사의 주요주주에 대한 신용공여 제한 위반 시 회사 자체의 형사책임",
+        "evidence_item_id": "E3",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "XYZ 회사 자체의 형사처벌 가능성을 판단하기 위한 핵심 법적 근거",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] XYZ 주식회사는 상장회사로, 대표이사 갑은 주요주주인 을에게 이사회의 사전 승인 없이 10억 원 규모의 신용공여를 단독으로 결정하고 집행하였다. 이 사실이 사후에 내부 감사를 통해 드러나자, 회사는 해당 거래가 적법하게 이루어진 것인지, 회사 자체에 대한 법적 책임이 발생할 가능성이 있는지 내부적으로 검토를 시작했다. [질문] 상장회사인 XYZ 주식회사의 대표이사 갑이 주요주주 을에게 이사회 승인 없이 신용공여를 한 경우, 갑의 행위는 어떤 법적 책임을 수반하는가? XYZ 회사 자체에도 형사처벌 가능성이 있는가?",
+    "phase": "ABSTAINED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "상장회사",
+          "주요주주",
+          "신용공여",
+          "이사회 승인"
+        ],
+        "query_text": "상장회사 주요주주 신용공여 제한 이사회 승인 [원문 맥락] 상장회사인 XYZ 주식회사의 대표이사 갑이 주요주주 을에게 이사회 승인 없이 신용공여를 한 경우, 갑의 행위는 어떤 법적 책임을 수반하는가? XYZ 회사 자체에도 형사처벌 가능성이 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "상법",
+          "자본시장과 금융투자업에 관한 법률"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "상장회사",
+          "주요주주",
+          "신용공여",
+          "대표이사",
+          "법적 책임"
+        ],
+        "query_text": "상장회사 주요주주 신용공여 제한 위반 대표이사 법적 책임 [원문 맥락] 상장회사인 XYZ 주식회사의 대표이사 갑이 주요주주 을에게 이사회 승인 없이 신용공여를 한 경우, 갑의 행위는 어떤 법적 책임을 수반하는가? XYZ 회사 자체에도 형사처벌 가능성이 있는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "상법",
+          "자본시장과 금융투자업에 관한 법률"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E3",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "상장회사",
+          "주요주주",
+          "신용공여",
+          "회사",
+          "형사책임"
+        ],
+        "query_text": "상장회사 주요주주 신용공여 제한 위반 회사 형사책임 [원문 맥락] 상장회사인 XYZ 주식회사의 대표이사 갑이 주요주주 을에게 이사회 승인 없이 신용공여를 한 경우, 갑의 행위는 어떤 법적 책임을 수반하는가? XYZ 회사 자체에도 형사처벌 가능성이 있는가?",
+        "request_id": "RQ3",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "상법",
+          "자본시장과 금융투자업에 관한 법률"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "자본시장법 제34조",
+          "대주주와의 거래 제한",
+          "상장회사",
+          "신용공여",
+          "이사회 결의"
+        ],
+        "query_text": "자본시장법 제34조 대주주와의 거래 제한 상장회사 신용공여 이사회 결의 [원문 맥락] 상장회사인 XYZ 주식회사의 대표이사 갑이 주요주주 을에게 이사회 승인 없이 신용공여를 한 경우, 갑의 행위는 어떤 법적 책임을 수반하는가? XYZ 회사 자체에도 형사처벌 가능성이 있는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "자본시장과 금융투자업에 관한 법률"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "자본시장법 제445조",
+          "벌칙",
+          "제34조 위반",
+          "대표이사",
+          "형사책임"
+        ],
+        "query_text": "자본시장법 제445조 벌칙 제34조 위반 대표이사 형사책임 [원문 맥락] 상장회사인 XYZ 주식회사의 대표이사 갑이 주요주주 을에게 이사회 승인 없이 신용공여를 한 경우, 갑의 행위는 어떤 법적 책임을 수반하는가? XYZ 회사 자체에도 형사처벌 가능성이 있는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "자본시장과 금융투자업에 관한 법률"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E3",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "자본시장법 제445조",
+          "벌칙",
+          "회사",
+          "형사처벌",
+          "제34조 위반"
+        ],
+        "query_text": "자본시장법 제445조 벌칙 회사 형사처벌 제34조 위반 [원문 맥락] 상장회사인 XYZ 주식회사의 대표이사 갑이 주요주주 을에게 이사회 승인 없이 신용공여를 한 경우, 갑의 행위는 어떤 법적 책임을 수반하는가? XYZ 회사 자체에도 형사처벌 가능성이 있는가?",
+        "request_id": "GRQ-R2-3",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "자본시장과 금융투자업에 관한 법률"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\nXYZ 주식회사는 상장회사로, 대표이사 갑은 주요주주인 을에게 이사회의 사전 승인 없이 10억 원 규모의 신용공여를 단독으로 결정하고 집행하였다. 이 사실이 사후에 내부 감사를 통해 드러나자, 회사는 해당 거래가 적법하게 이루어진 것인지, 회사 자체에 대한 법적 책임이 발생할 가능성이 있는지 내부적으로 검토를 시작했다.\n\n[질문]\n상장회사인 XYZ 주식회사의 대표이사 갑이 주요주주 을에게 이사회 승인 없이 신용공여를 한 경우, 갑의 행위는 어떤 법적 책임을 수반하는가? XYZ 회사 자체에도 형사처벌 가능성이 있는가?",
+    "remaining_request_budget": 3,
+    "remaining_round_budget": 1,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "상장회사의 주요주주에 대한 신용공여 제한 규정 및 이사회 승인 요건을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "상장회사의 주요주주에 대한 신용공여 제한 규정 확인"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "이사회 승인 요건 확인"
+          }
+        ],
+        "critical": true,
+        "description": "상장회사의 주요주주에 대한 신용공여 제한 및 이사회 승인 요건",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "갑의 행위가 위법한지 판단하기 위한 핵심 법적 근거",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "상장회사의 주요주주에 대한 신용공여 제한 위반 시 대표이사의 법적 책임 규정을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "상장회사의 주요주주에 대한 신용공여 제한 위반 시 대표이사의 법적 책임 규정 확인"
+          }
+        ],
+        "critical": true,
+        "description": "상장회사의 주요주주에 대한 신용공여 제한 위반 시 대표이사의 법적 책임",
+        "evidence_item_id": "E2",
+        "evidence_type": "remedy",
+        "issue_id": "I1",
+        "necessity_reason": "갑의 법적 책임을 판단하기 위한 핵심 법적 근거",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "상장회사의 주요주주에 대한 신용공여 제한 위반 시 회사 자체의 형사책임 규정을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E3-R1",
+            "text": "상장회사의 주요주주에 대한 신용공여 제한 위반 시 회사 자체의 형사책임 규정 확인"
+          }
+        ],
+        "critical": true,
+        "description": "상장회사의 주요주주에 대한 신용공여 제한 위반 시 회사 자체의 형사책임",
+        "evidence_item_id": "E3",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "XYZ 회사 자체의 형사처벌 가능성을 판단하기 위한 핵심 법적 근거",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 2,
+    "run_id": "485c2cdc-12ca-41e0-b10f-e69b87877d22",
+    "seen_provision_ids": [
+      "자본시장과 금융투자업에 관한 법률 445조  벌칙#KOBLEX-137557",
+      "자본시장과 금융투자업에 관한 법률 34조  대주주와의 거래 등의 제한#KOBLEX-134986",
+      "자본시장과 금융투자업에 관한 법률 444조  벌칙#KOBLEX-137504",
+      "보험업법 시행령 57조  대주주와의 거래제한 등#KOBLEX-121520",
+      "간접투자자산 운용업법 16조  (고유재산의 운용제한)#KOBLEX-081715",
+      "종합금융회사에 관한 법률 17조 2 자금지원관련 금지행위#KOBLEX-046346",
+      "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등#KOBLEX-136946",
+      "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등#KOBLEX-136947",
+      "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등#KOBLEX-136955",
+      "자본시장과 금융투자업에 관한 법률 444조  벌칙#KOBLEX-137471",
+      "채무자 회생 및 파산에 관한 법률 267조  주식회사의 납입 등이 없는 사채발행에 관한 특례#KOBLEX-032369",
+      "자본시장과 금융투자업에 관한 법률 34조  대주주와의 거래 등의 제한#KOBLEX-134984",
+      "자본시장과 금융투자업에 관한 법률 34조#KOBLEX-134983",
+      "상법 397조  경업금지#KOBLEX-114898",
+      "종합금융회사에 관한 법률 16조 2 대주주의 부당한 영향력 행사의 금지#KOBLEX-046332",
+      "간접투자자산 운용업법 183조 2 (벌칙)#KOBLEX-082633",
+      "자본시장과 금융투자업에 관한 법률 34조  대주주와의 거래 등의 제한#KOBLEX-134991",
+      "자본시장과 금융투자업에 관한 법률 343조  대주주와의 거래의 제한 등#KOBLEX-136949"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ABSTAIN",
+  "termination_reason": "NO_RETRIEVAL_PROGRESS"
+}

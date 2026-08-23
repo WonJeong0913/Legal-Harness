@@ -1,0 +1,558 @@
+{
+  "abstention_reason": null,
+  "answer": "사무처리를 그르치게 할 목적으로 공무원 또는 공무소의 전자기록등 특수매체기록을 위작 또는 변작한 자는 10년 이하의 징역에 처한다.[CT1]\n갑이 시청의 전자 시스템에 접속하여 허가 관련 기록을 변작한 행위는 형법 제227조의2의 공전자기록변작죄에 해당하며, 10년 이하의 징역에 처해진다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "갑의 행위가 '사무처리를 그르치게 할 목적'을 가지고 이루어졌다고 가정한다."
+    }
+  ],
+  "candidate_answer": "사무처리를 그르치게 할 목적으로 공무원 또는 공무소의 전자기록등 특수매체기록을 위작 또는 변작한 자는 10년 이하의 징역에 처한다.[CT1]\n갑이 시청의 전자 시스템에 접속하여 허가 관련 기록을 변작한 행위는 형법 제227조의2의 공전자기록변작죄에 해당하며, 10년 이하의 징역에 처해진다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형법 227조 2 공전자기록위작ㆍ변작#KOBLEX-193138",
+      "quoted_text": "제227조의2(공전자기록위작ㆍ변작) 사무처리를 그르치게 할 목적으로 공무원 또는 공무소의 전자기록등 특수매체기록을 위작 또는 변작한 자는 10년 이하의 징역에 처한다.",
+      "support_description": "공무원의 전자기록 변작 행위에 대한 구성요건과 법정형(10년 이하 징역)을 명시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "형법 227조 2 공전자기록위작ㆍ변작#KOBLEX-193138",
+      "quoted_text": "제227조의2(공전자기록위작ㆍ변작) 사무처리를 그르치게 할 목적으로 공무원 또는 공무소의 전자기록등 특수매체기록을 위작 또는 변작한 자는 10년 이하의 징역에 처한다.",
+      "support_description": "갑의 행위가 해당 조항의 구성요건에 부합하여 특정 형벌이 적용됨을 근거로 한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "사무처리를 그르치게 할 목적으로 공무원 또는 공무소의 전자기록등 특수매체기록을 위작 또는 변작한 자는 10년 이하의 징역에 처한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "갑이 시청의 전자 시스템에 접속하여 허가 관련 기록을 변작한 행위는 형법 제227조의2의 공전자기록변작죄에 해당하며, 10년 이하의 징역에 처해진다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T08:52:38.119616+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 56320.734,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "본 답변은 제공된 형법 조항에 기반한 법적 결론이며, 실제 사건의 구체적 양형이나 다른 법률과의 관계는 다루지 않는다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 90,
+      "dedup_collapse": 18,
+      "evidence_fusion": 90,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 90
+    }
+  },
+  "run_id": "ae95f20e-81eb-4ba2-82d4-38a424d3ea3b",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형법 227조 2 공전자기록위작ㆍ변작#KOBLEX-193138"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "penalty",
+        "question_anchor": "갑은 어떤 형벌을 받게 되는가?",
+        "requested_output": "The specific criminal penalty applicable to the public official for altering electronic records."
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "초지법 12조  허가의 취소#KOBLEX-029203"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 82,
+        "first_stage_score": 0.5106391906738281,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "초지법 12조  허가의 취소#KOBLEX-029203",
+        "provision_text": "2. 거짓이나 그 밖의 부정한 방법으로 허가를 받은 경우",
+        "rerank_rank": 1,
+        "rerank_score": 0.48551490902900696,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "초지법 12조  허가의 취소 2호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 238조  공인 등의 위조, 부정사용#KOBLEX-193156"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 55,
+        "first_stage_score": 0.5201241970062256,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "형법 238조  공인 등의 위조, 부정사용#KOBLEX-193156",
+        "provision_text": "②위조 또는 부정사용한 공무원 또는 공무소의 인장, 서명, 기명 또는 기호를 행사한 자도 전항의 형과 같다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.4848122298717499,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 238조  공인 등의 위조, 부정사용 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 227조 2 공전자기록위작ㆍ변작#KOBLEX-193138"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.5912162065505981,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형법 227조 2 공전자기록위작ㆍ변작#KOBLEX-193138",
+        "provision_text": "제227조의2(공전자기록위작ㆍ변작) 사무처리를 그르치게 할 목적으로 공무원 또는 공무소의 전자기록등 특수매체기록을 위작 또는 변작한 자는 10년 이하의 징역에 처한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.4272266924381256,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 227조 2 공전자기록위작ㆍ변작",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직선거법 247조  사위등재ㆍ허위날인죄#KOBLEX-052631",
+          "공직선거법 247조  사위등재ㆍ허위날인죄#KOBLEX-175917"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 56,
+        "first_stage_score": 0.5195472836494446,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "공직선거법 247조  사위등재ㆍ허위날인죄#KOBLEX-052631",
+        "provision_text": "제247조(사위등재ㆍ허위날인죄)",
+        "rerank_rank": 4,
+        "rerank_score": 0.3523142337799072,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "공직선거법 247조  사위등재ㆍ허위날인죄",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직자윤리법 27조  무허가 열람ㆍ복사의 죄#KOBLEX-045219"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 28,
+        "first_stage_score": 0.5320413112640381,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "공직자윤리법 27조  무허가 열람ㆍ복사의 죄#KOBLEX-045219",
+        "provision_text": "제27조(무허가 열람ㆍ복사의 죄) 제10조제3항(제11조제2항에서 준용하는 경우를 포함한다)을 위반하여 허가 없이 재산등록사항을 열람ㆍ복사하거나 이를 하게 한 경우에는 1년 이하의 징역 또는 1천만원 이하의 벌금에 처한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.27563053369522095,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "공직자윤리법 27조  무허가 열람ㆍ복사의 죄",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "의료법 23조  전자의무기록#KOBLEX-180110"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 65,
+        "first_stage_score": 0.5168944001197815,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "의료법 23조  전자의무기록#KOBLEX-180110",
+        "provision_text": "제23조(전자의무기록)",
+        "rerank_rank": 6,
+        "rerank_score": 0.22102290391921997,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "의료법 23조  전자의무기록",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "간접투자자산 운용업법 182조  (벌칙)#KOBLEX-082610"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 100,
+        "first_stage_score": 0.5070399641990662,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "간접투자자산 운용업법 182조  (벌칙)#KOBLEX-082610",
+        "provision_text": "17. 허위 그 밖의 부정한 방법으로 제156조제1항에 의한 허가를 받은 자",
+        "rerank_rank": 7,
+        "rerank_score": 0.17231491208076477,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "간접투자자산 운용업법 182조  (벌칙) 20호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "간접투자자산 운용업법 182조  (벌칙)#KOBLEX-082593"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 72,
+        "first_stage_score": 0.5127608776092529,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "간접투자자산 운용업법 182조  (벌칙)#KOBLEX-082593",
+        "provision_text": "3. 허위 그 밖의 부정한 방법으로 제4조제1항의 규정에 의한 허가를 받은 자",
+        "rerank_rank": 8,
+        "rerank_score": 0.15776944160461426,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "간접투자자산 운용업법 182조  (벌칙) 3호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "관세법 268조 2 전자문서 위조ㆍ변조죄 등#KOBLEX-105909"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 32,
+        "first_stage_score": 0.5293761491775513,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "관세법 268조 2 전자문서 위조ㆍ변조죄 등#KOBLEX-105909",
+        "provision_text": "제268조의2(전자문서 위조ㆍ변조죄 등)",
+        "rerank_rank": 9,
+        "rerank_score": 0.14858072996139526,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "관세법 268조 2 전자문서 위조ㆍ변조죄 등",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 349조  부당이득#KOBLEX-193404"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 53,
+        "first_stage_score": 0.5215385556221008,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "형법 349조  부당이득#KOBLEX-193404",
+        "provision_text": "② 제1항의 방법으로 제3자로 하여금 부당한 이익을 취득하게 한 경우에도 제1항의 형에 처한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.14729957282543182,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 349조  부당이득 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "간접투자자산 운용업법 182조  (벌칙)#KOBLEX-082593": "3. 허위 그 밖의 부정한 방법으로 제4조제1항의 규정에 의한 허가를 받은 자",
+      "간접투자자산 운용업법 182조  (벌칙)#KOBLEX-082610": "17. 허위 그 밖의 부정한 방법으로 제156조제1항에 의한 허가를 받은 자",
+      "공직선거법 247조  사위등재ㆍ허위날인죄#KOBLEX-052631": "제247조(사위등재ㆍ허위날인죄)",
+      "공직자윤리법 27조  무허가 열람ㆍ복사의 죄#KOBLEX-045219": "제27조(무허가 열람ㆍ복사의 죄) 제10조제3항(제11조제2항에서 준용하는 경우를 포함한다)을 위반하여 허가 없이 재산등록사항을 열람ㆍ복사하거나 이를 하게 한 경우에는 1년 이하의 징역 또는 1천만원 이하의 벌금에 처한다.",
+      "관세법 268조 2 전자문서 위조ㆍ변조죄 등#KOBLEX-105909": "제268조의2(전자문서 위조ㆍ변조죄 등)",
+      "의료법 23조  전자의무기록#KOBLEX-180110": "제23조(전자의무기록)",
+      "초지법 12조  허가의 취소#KOBLEX-029203": "2. 거짓이나 그 밖의 부정한 방법으로 허가를 받은 경우",
+      "형법 227조 2 공전자기록위작ㆍ변작#KOBLEX-193138": "제227조의2(공전자기록위작ㆍ변작) 사무처리를 그르치게 할 목적으로 공무원 또는 공무소의 전자기록등 특수매체기록을 위작 또는 변작한 자는 10년 이하의 징역에 처한다.",
+      "형법 238조  공인 등의 위조, 부정사용#KOBLEX-193156": "②위조 또는 부정사용한 공무원 또는 공무소의 인장, 서명, 기명 또는 기호를 행사한 자도 전항의 형과 같다.",
+      "형법 349조  부당이득#KOBLEX-193404": "② 제1항의 방법으로 제3자로 하여금 부당한 이익을 취득하게 한 경우에도 제1항의 형에 처한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형법 227조 2 공전자기록위작ㆍ변작#KOBLEX-193138"
+            ],
+            "rationale": "C003 specifies the penalty (10년 이하의 징역) for a public official who alters electronic records, meeting the completion criterion.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형법 227조 2 공전자기록위작ㆍ변작#KOBLEX-193138"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The supplied candidate C003 fully establishes the legal rule and penalty for the specific act described in the question (alteration of electronic records by a public official). No other candidates are relevant to this specific offense.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형법 227조 2 공전자기록위작ㆍ변작#KOBLEX-193138",
+        "support_spans": [
+          {
+            "end_char": 93,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "Determination of the specific criminal offense and penalty for a public official who alters electronic records in the course of duty.",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 시청에서 일하는 공무원으로, 을이라는 민간인 친구로부터 시청의 허가 절차를 빠르게 처리해달라는 부탁을 받았다. 갑은 을을 돕기 위해 시청의 전자 시스템에 접속하여 허가 관련 기록을 변작하였다. 을은 이로 인해 부당하게 허가를 받았다. [질문] 갑이 을을 도와 시청의 전자기록을 변작한 경우, 갑은 어떤 형벌을 받게 되는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "공무원",
+          "전자기록",
+          "변작",
+          "형벌"
+        ],
+        "query_text": "공무원 전자기록 변작죄 형벌 [원문 맥락] 을은 이로 인해 부당하게 허가를 받았다. 갑이 을을 도와 시청의 전자기록을 변작한 경우, 갑은 어떤 형벌을 받게 되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "전자정부법",
+          "형법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 시청에서 일하는 공무원으로, 을이라는 민간인 친구로부터 시청의 허가 절차를 빠르게 처리해달라는 부탁을 받았다. 갑은 을을 돕기 위해 시청의 전자 시스템에 접속하여 허가 관련 기록을 변작하였다. 을은 이로 인해 부당하게 허가를 받았다.\n\n[질문]\n갑이 을을 도와 시청의 전자기록을 변작한 경우, 갑은 어떤 형벌을 받게 되는가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific article and penalty range for the act of altering electronic records by a public official.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The provision must specify the penalty for a public official who alters electronic records."
+          }
+        ],
+        "critical": true,
+        "description": "Statutory provision defining the offense of altering electronic records by a public official and the corresponding penalty.",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "The question asks for the specific penalty, which is defined in the statute governing the offense.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "ae95f20e-81eb-4ba2-82d4-38a424d3ea3b",
+    "seen_provision_ids": [
+      "공직선거법 247조  사위등재ㆍ허위날인죄#KOBLEX-052631",
+      "형법 227조 2 공전자기록위작ㆍ변작#KOBLEX-193138",
+      "간접투자자산 운용업법 182조  (벌칙)#KOBLEX-082610",
+      "형법 349조  부당이득#KOBLEX-193404",
+      "초지법 12조  허가의 취소#KOBLEX-029203",
+      "의료법 23조  전자의무기록#KOBLEX-180110",
+      "간접투자자산 운용업법 182조  (벌칙)#KOBLEX-082593",
+      "형법 238조  공인 등의 위조, 부정사용#KOBLEX-193156",
+      "공직자윤리법 27조  무허가 열람ㆍ복사의 죄#KOBLEX-045219",
+      "관세법 268조 2 전자문서 위조ㆍ변조죄 등#KOBLEX-105909"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

@@ -1,0 +1,660 @@
+{
+  "abstention_reason": null,
+  "answer": "귀속재산의 이동, 전대 또는 처분은 정부의 승인 없이는 할 수 없다.[CT1]\n제9조 제1호에 해당하는 자는 귀속재산의 임대차 또는 관리를 받을 수 없다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1",
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "을이 귀속재산처리법 제9조 제1호에 해당하는 자인지 여부는 사실관계 확인이 필요하다."
+    }
+  ],
+  "candidate_answer": "귀속재산의 이동, 전대 또는 처분은 정부의 승인 없이는 할 수 없다.[CT1]\n제9조 제1호에 해당하는 자는 귀속재산의 임대차 또는 관리를 받을 수 없다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "귀속재산처리법 34조#KOBLEX-048105",
+      "quoted_text": "2. 정부의 지시하에 그 재산을 보존하며 정부의 승인없이 그 재산의 이동, 전대 또는 처분을 하지 못할 것",
+      "support_description": "귀속재산의 이동, 전대 또는 처분에 대한 정부 승인 요건을 명시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "귀속재산처리법 26조#KOBLEX-048095",
+      "quoted_text": "제26조 제9조각호의 1에 해당하는 자는 귀속재산의 임대차 또는 관리를 받을 수 없다.",
+      "support_description": "귀속재산의 임대차 또는 관리가 금지되는 자의 범위를 명시한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "귀속재산의 이동, 전대 또는 처분은 정부의 승인 없이는 할 수 없다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "제9조 제1호에 해당하는 자는 귀속재산의 임대차 또는 관리를 받을 수 없다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T10:06:23.681443+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 71769.462,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "본 답변은 제공된 법령 조항에 기반한 법적 규칙 해석이며, 개별 사건의 구체적 사실관계 적용은 제외된다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 182,
+      "dedup_collapse": 30,
+      "evidence_fusion": 182,
+      "first_stage": 200,
+      "request_rerank": 200,
+      "round_selected": 10,
+      "rrf": 200,
+      "selected": 182
+    }
+  },
+  "run_id": "e4695f9b-9a54-4760-b4c5-8530079f67e3",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "귀속재산처리법 26조#KOBLEX-048095",
+      "귀속재산처리법 34조#KOBLEX-048105"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_rule",
+        "question_anchor": "갑은 귀속재산을 정부의 승인 없이 어떻게 처리할 수 없으며",
+        "requested_output": "Government approval requirement for disposition or use change of vested property"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_rule",
+        "question_anchor": "을과 같은 자는 귀속재산의 임대차 또는 관리를 받을 수 없는 이유는 무엇인가",
+        "requested_output": "Legal basis for prohibiting specific persons from leasing or managing vested property"
+      }
+    ],
+    "answered_target_ids": [
+      "T1",
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "귀속재산처리법 29조#KOBLEX-048098"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.5725466012954712,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "귀속재산처리법 29조#KOBLEX-048098",
+        "provision_text": "제29조 제15조의 규정은 귀속재산의 임대차 또는 관리에 적용한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9997689127922058,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "귀속재산처리법 29조",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "귀속재산처리법 26조#KOBLEX-048095"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 58,
+        "first_stage_score": 0.5443874001502991,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "귀속재산처리법 26조#KOBLEX-048095",
+        "provision_text": "제26조 제9조각호의 1에 해당하는 자는 귀속재산의 임대차 또는 관리를 받을 수 없다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9997746348381042,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "귀속재산처리법 26조",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "귀속재산처리법시행령 3조#KOBLEX-022941"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 47,
+        "first_stage_score": 0.5479792952537537,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "귀속재산처리법시행령 3조#KOBLEX-022941",
+        "provision_text": "제3조 법 제4조의 규정에 의하여 귀속재산중 국영 또는 공영으로 지정된 후 당해 재산에 관한 법령이 실시될 때까지의 관리는 그 재산에 대한 종전의 소관부장관 또는 관재청장이 법 제4장에 의하여 이를 관리한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.9986785054206848,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "귀속재산처리법시행령 3조",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 610조  차주의 사용, 수익권#KOBLEX-059611"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.5737131834030151,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "민법 610조  차주의 사용, 수익권#KOBLEX-059611",
+        "provision_text": "②차주는 대주의 승낙이 없으면 제삼자에게 차용물을 사용, 수익하게 하지 못한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.99831223487854,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "민법 610조  차주의 사용, 수익권 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "귀속재산처리법시행령 46조 2#KOBLEX-023015"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 33,
+        "first_stage_score": 0.5713405609130859,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "귀속재산처리법시행령 46조 2#KOBLEX-023015",
+        "provision_text": "제46조의2 귀속재산처리에 관하여 중요한 사항은 국무총리를 경하여 대통령의 결재를 얻어야 한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.9980477094650269,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "귀속재산처리법시행령 46조 2",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "귀속재산처리법 34조#KOBLEX-048105"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6395013332366943,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "귀속재산처리법 34조#KOBLEX-048105",
+        "provision_text": "2. 정부의 지시하에 그 재산을 보존하며 정부의 승인없이 그 재산의 이동, 전대 또는 처분을 하지 못할 것",
+        "rerank_rank": 6,
+        "rerank_score": 0.9978972673416138,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "귀속재산처리법 34조 2호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공유재산 및 물품 관리법 11조  용도의 변경 또는 폐지#KOBLEX-205320"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 42,
+        "first_stage_score": 0.5502182245254517,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "공유재산 및 물품 관리법 11조  용도의 변경 또는 폐지#KOBLEX-205320",
+        "provision_text": "2. 행정재산인 국제경기장 등 체육시설, 국제회의장 등 회의시설, 국제전시장 등 전시장, 그 밖의 공공시설로서 그 일부를 원래 용도로 사용하지 아니하기로 한 경우",
+        "rerank_rank": 7,
+        "rerank_score": 0.9977610111236572,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "공유재산 및 물품 관리법 11조  용도의 변경 또는 폐지 2호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국유재산법 8조  국유재산 사무의 총괄과 관리#KOBLEX-124534"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 49,
+        "first_stage_score": 0.559633731842041,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "국유재산법 8조  국유재산 사무의 총괄과 관리#KOBLEX-124534",
+        "provision_text": "④ 중앙관서의 장은 제3항 외의 국유재산을 행정재산으로 사용하려는 경우에는 대통령령으로 정하는 바에 따라 총괄청의 승인을 받아야 한다. <신설 2011.3.30>",
+        "rerank_rank": 8,
+        "rerank_score": 0.9977520108222961,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "국유재산법 8조  국유재산 사무의 총괄과 관리 4항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국유재산법 시행령 4조  국유재산의 구분#KOBLEX-091454"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 60,
+        "first_stage_score": 0.5434028506278992,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "국유재산법 시행령 4조  국유재산의 구분#KOBLEX-091454",
+        "provision_text": "⑥ 총괄청은 법 제6조제2항제1호ㆍ제3호 및 같은 조 제3항에 따른 국유재산 중 공무원 또는 정부기업에 종사하는 직원의 주거용으로 사용하거나 주거용으로 사용할 필요가 있다고 인정하는 국유재산의 관리ㆍ처분 방법을 따로 정할 수 있다. <신설 2013.12.30>",
+        "rerank_rank": 9,
+        "rerank_score": 0.9977152347564697,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "국유재산법 시행령 4조  국유재산의 구분 6항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민간임대주택에 관한 특별법 26조  촉진지구 지정 등의 고시 등#KOBLEX-201900"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 61,
+        "first_stage_score": 0.5620078444480896,
+        "fusion_rank": 10,
+        "issue_id": "I2",
+        "provision_id": "민간임대주택에 관한 특별법 26조  촉진지구 지정 등의 고시 등#KOBLEX-201900",
+        "provision_text": "④ 다음 각 호의 어느 하나에 해당하는 행위는 제3항에도 불구하고 허가를 받지 아니하고 할 수 있다. 1. 재해복구 또는 재난수습에 필요한 응급조치를 위하여 하는 행위 2. 그 밖에 경작을 위한 토지의 형질 변경 등 대통령령으로 정하는 행위",
+        "rerank_rank": 10,
+        "rerank_score": 0.9977007508277893,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "민간임대주택에 관한 특별법 26조  촉진지구 지정 등의 고시 등 4항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "공유재산 및 물품 관리법 11조  용도의 변경 또는 폐지#KOBLEX-205320": "2. 행정재산인 국제경기장 등 체육시설, 국제회의장 등 회의시설, 국제전시장 등 전시장, 그 밖의 공공시설로서 그 일부를 원래 용도로 사용하지 아니하기로 한 경우",
+      "국유재산법 8조  국유재산 사무의 총괄과 관리#KOBLEX-124534": "④ 중앙관서의 장은 제3항 외의 국유재산을 행정재산으로 사용하려는 경우에는 대통령령으로 정하는 바에 따라 총괄청의 승인을 받아야 한다. <신설 2011.3.30>",
+      "국유재산법 시행령 4조  국유재산의 구분#KOBLEX-091454": "⑥ 총괄청은 법 제6조제2항제1호ㆍ제3호 및 같은 조 제3항에 따른 국유재산 중 공무원 또는 정부기업에 종사하는 직원의 주거용으로 사용하거나 주거용으로 사용할 필요가 있다고 인정하는 국유재산의 관리ㆍ처분 방법을 따로 정할 수 있다. <신설 2013.12.30>",
+      "귀속재산처리법 26조#KOBLEX-048095": "제26조 제9조각호의 1에 해당하는 자는 귀속재산의 임대차 또는 관리를 받을 수 없다.",
+      "귀속재산처리법 29조#KOBLEX-048098": "제29조 제15조의 규정은 귀속재산의 임대차 또는 관리에 적용한다.",
+      "귀속재산처리법 34조#KOBLEX-048105": "2. 정부의 지시하에 그 재산을 보존하며 정부의 승인없이 그 재산의 이동, 전대 또는 처분을 하지 못할 것",
+      "귀속재산처리법시행령 3조#KOBLEX-022941": "제3조 법 제4조의 규정에 의하여 귀속재산중 국영 또는 공영으로 지정된 후 당해 재산에 관한 법령이 실시될 때까지의 관리는 그 재산에 대한 종전의 소관부장관 또는 관재청장이 법 제4장에 의하여 이를 관리한다.",
+      "귀속재산처리법시행령 46조 2#KOBLEX-023015": "제46조의2 귀속재산처리에 관하여 중요한 사항은 국무총리를 경하여 대통령의 결재를 얻어야 한다.",
+      "민간임대주택에 관한 특별법 26조  촉진지구 지정 등의 고시 등#KOBLEX-201900": "④ 다음 각 호의 어느 하나에 해당하는 행위는 제3항에도 불구하고 허가를 받지 아니하고 할 수 있다. 1. 재해복구 또는 재난수습에 필요한 응급조치를 위하여 하는 행위 2. 그 밖에 경작을 위한 토지의 형질 변경 등 대통령령으로 정하는 행위",
+      "민법 610조  차주의 사용, 수익권#KOBLEX-059611": "②차주는 대주의 승낙이 없으면 제삼자에게 차용물을 사용, 수익하게 하지 못한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "귀속재산처리법 34조#KOBLEX-048105"
+            ],
+            "rationale": "The text of C006 explicitly mandates government approval for the movement, sublease, or disposition of the property.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "귀속재산처리법 34조#KOBLEX-048105"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C006 provides the specific legal rule that disposition or sublease of vested property requires government approval, fully satisfying the evidence item's completion criteria.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "귀속재산처리법 26조#KOBLEX-048095"
+            ],
+            "rationale": "The text of C002 explicitly identifies the prohibited category of persons for leasing or managing vested property.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "귀속재산처리법 26조#KOBLEX-048095"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C002 explicitly lists the category of persons (those under Art. 9(1)(1)) who are prohibited from leasing or managing vested property, fully satisfying the evidence item's completion criteria.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "귀속재산처리법 34조#KOBLEX-048105",
+        "support_spans": [
+          {
+            "end_char": 59,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "귀속재산처리법 26조#KOBLEX-048095",
+        "support_spans": [
+          {
+            "end_char": 48,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "Whether the disposition or change of use of vested property requires government approval.",
+        "issue_id": "I1"
+      },
+      {
+        "description": "Whether specific persons are legally prohibited from leasing or managing vested property.",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 귀속재산을 임차하여 운영하고 있는 사업가이며, 을은 과거에 특정한 법률적 문제로 인해 신뢰를 잃은 상태이다. 갑은 갑의 사업이 확장됨에 따라 을에게 일부 귀속재산을 전대하여 사용하도록 하려고 하지만, 을이 이러한 재산을 관리할 수 있는 자격이 있는지 의문을 가지고 있다. 또한 갑은 귀속재산을 다른 용도로 사용하고자 하지만, 이 과정에서 정부의 승인을 받아야 하는지에 대한 법적 조언이 필요하다. [질문] 갑은 귀속재산을 정부의 승인 없이 어떻게 처리할 수 없으며, 을과 같은 자는 귀속재산의 임대차 또는 관리를 받을 수 없는 이유는 무엇인가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "귀속재산",
+          "처분",
+          "용도변경",
+          "정부 승인"
+        ],
+        "query_text": "귀속재산 처분 또는 용도변경 정부 승인 요건 [원문 맥락] 또한 갑은 귀속재산을 다른 용도로 사용하고자 하지만, 이 과정에서 정부의 승인을 받아야 하는지에 대한 법적 조언이 필요하다. 갑은 귀속재산을 정부의 승인 없이 어떻게 처리할 수 없으며, 을과 같은 자는 귀속재산의 임대차 또는 관리를 받을 수 없는 이유는 무엇인가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "귀속재산처분법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "귀속재산",
+          "임대차",
+          "관리",
+          "금지 대상"
+        ],
+        "query_text": "귀속재산 임대차 또는 관리 금지 대상자 [원문 맥락] 또한 갑은 귀속재산을 다른 용도로 사용하고자 하지만, 이 과정에서 정부의 승인을 받아야 하는지에 대한 법적 조언이 필요하다. 갑은 귀속재산을 정부의 승인 없이 어떻게 처리할 수 없으며, 을과 같은 자는 귀속재산의 임대차 또는 관리를 받을 수 없는 이유는 무엇인가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "귀속재산처분법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 귀속재산을 임차하여 운영하고 있는 사업가이며, 을은 과거에 특정한 법률적 문제로 인해 신뢰를 잃은 상태이다. 갑은 갑의 사업이 확장됨에 따라 을에게 일부 귀속재산을 전대하여 사용하도록 하려고 하지만, 을이 이러한 재산을 관리할 수 있는 자격이 있는지 의문을 가지고 있다. 또한 갑은 귀속재산을 다른 용도로 사용하고자 하지만, 이 과정에서 정부의 승인을 받아야 하는지에 대한 법적 조언이 필요하다.\n\n[질문]\n갑은 귀속재산을 정부의 승인 없이 어떻게 처리할 수 없으며, 을과 같은 자는 귀속재산의 임대차 또는 관리를 받을 수 없는 이유는 무엇인가?",
+    "remaining_request_budget": 7,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific article mandating approval for disposition or use change.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The provision must explicitly state that disposition or use change of vested property requires government approval."
+          }
+        ],
+        "critical": true,
+        "description": "Statutory provision requiring government approval for the disposition or use change of vested property.",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "Directly answers the requirement for government approval in T1.",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "Identify the specific article listing prohibited persons for leasing or management.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "The provision must explicitly list the categories of persons who cannot lease or manage vested property."
+          }
+        ],
+        "critical": true,
+        "description": "Statutory provision defining the categories of persons prohibited from leasing or managing vested property.",
+        "evidence_item_id": "E2",
+        "evidence_type": "exception",
+        "issue_id": "I2",
+        "necessity_reason": "Directly answers the reason for prohibiting specific persons in T2.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "e4695f9b-9a54-4760-b4c5-8530079f67e3",
+    "seen_provision_ids": [
+      "민법 610조  차주의 사용, 수익권#KOBLEX-059611",
+      "귀속재산처리법시행령 46조 2#KOBLEX-023015",
+      "귀속재산처리법 29조#KOBLEX-048098",
+      "귀속재산처리법 26조#KOBLEX-048095",
+      "귀속재산처리법시행령 3조#KOBLEX-022941",
+      "귀속재산처리법 34조#KOBLEX-048105",
+      "국유재산법 시행령 4조  국유재산의 구분#KOBLEX-091454",
+      "민간임대주택에 관한 특별법 26조  촉진지구 지정 등의 고시 등#KOBLEX-201900",
+      "공유재산 및 물품 관리법 11조  용도의 변경 또는 폐지#KOBLEX-205320",
+      "국유재산법 8조  국유재산 사무의 총괄과 관리#KOBLEX-124534"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

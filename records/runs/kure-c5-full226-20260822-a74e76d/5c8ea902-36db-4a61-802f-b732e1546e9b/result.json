@@ -1,0 +1,1216 @@
+{
+  "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": "당사자 일방이 채무를 이행하지 아니하는 때에는 상대방은 상당한 기간을 정하여 그 이행을 최고하고 그 기간내에 이행하지 아니한 때에는 계약을 해제할 수 있다. 그러나 채무자가 미리 이행하지 아니할 의사를 표시한 경우에는 최고를 요하지 아니한다.[CT1]\n계약 또는 법률의 규정에 의하여 당사자의 일방이나 쌍방이 해지 또는 해제의 권리가 있는 때에는 그 해지 또는 해제는 상대방에 대한 의사표시로 한다.[CT2]",
+  "candidate_answer_basis": "retrieved_candidates",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "GENERATED",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "갑이 을에게 물품을 공급하지 않은 채무불이행 사실이 존재한다고 가정한다."
+    }
+  ],
+  "candidate_claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "민법 544조  이행지체와 해제#KOBLEX-059486",
+      "quoted_text": "제544조(이행지체와 해제) 당사자 일방이 그 채무를 이행하지 아니하는 때에는 상대방은 상당한 기간을 정하여 그 이행을 최고하고 그 기간내에 이행하지 아니한 때에는 계약을 해제할 수 있다. 그러나 채무자가 미리 이행하지 아니할 의사를 표시한 경우에는 최고를 요하지 아니한다.",
+      "support_description": "채무불이행에 기한 계약 해제의 일반적 요건 및 최고 예외 규정을 제공한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "민법 543조  해지, 해제권#KOBLEX-059484",
+      "quoted_text": "①계약 또는 법률의 규정에 의하여 당사자의 일방이나 쌍방이 해지 또는 해제의 권리가 있는 때에는 그 해지 또는 해제는 상대방에 대한 의사표시로 한다.",
+      "support_description": "계약서에 명시된 해제 조건 조항의 효력 및 행사 방식에 관한 근거를 제공한다."
+    }
+  ],
+  "candidate_claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "당사자 일방이 채무를 이행하지 아니하는 때에는 상대방은 상당한 기간을 정하여 그 이행을 최고하고 그 기간내에 이행하지 아니한 때에는 계약을 해제할 수 있다. 그러나 채무자가 미리 이행하지 아니할 의사를 표시한 경우에는 최고를 요하지 아니한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "계약 또는 법률의 규정에 의하여 당사자의 일방이나 쌍방이 해지 또는 해제의 권리가 있는 때에는 그 해지 또는 해제는 상대방에 대한 의사표시로 한다."
+    }
+  ],
+  "candidate_limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "제출된 후보 조항 중 당사자 간 해제 조건 약정의 효력 및 법정 해제 요건과의 관계를 구체적으로 규정한 조항이 없어, 계약서 내 특별 조항의 법적 지위에 대한 완전한 분석은 제한적이다."
+    }
+  ],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T10:40:16.197899+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 174080.235,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 384,
+      "dedup_collapse": 80,
+      "evidence_fusion": 384,
+      "first_stage": 600,
+      "request_rerank": 600,
+      "round_selected": 30,
+      "rrf": 400,
+      "selected": 384
+    }
+  },
+  "run_id": "5c8ea902-36db-4a61-802f-b732e1546e9b",
+  "skill_generation_diagnostics": {
+    "attempt_count": 7,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "민법 544조  이행지체와 해제#KOBLEX-059486",
+      "민법 543조  해지, 해제권#KOBLEX-059484"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 8,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 6,
+          "request_count": 2,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "ABSTAIN",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "The frozen maximum number of retrieval rounds was used.",
+          "termination_reason": "MAX_RETRIEVAL_ROUNDS_REACHED"
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+          "termination_reason": "MAX_RETRIEVAL_ROUNDS_REACHED"
+        },
+        "event": "ABSTAIN",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 24
+        },
+        "event": "BENCHMARK_CANDIDATE_GENERATION_STARTED",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 24,
+          "claim_count": 2
+        },
+        "event": "BENCHMARK_CANDIDATE_VALIDATED",
+        "phase": "ABSTAINED"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "갑이 계약상 의무를 이행하지 않을 때 을은 어떤 조건 하에 계약을 해제할 수 있으며, 계약서에 이와 관련하여 다른 조항이 있을 경우 어떻게 되는가?",
+        "requested_output": "계약 해제의 법적 요건 및 계약서 내 특별 조항의 효력"
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068586"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 88,
+        "first_stage_score": 0.5554722547531128,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068586",
+        "provision_text": "제53조(채무불이행에 따른 절차)",
+        "rerank_rank": 1,
+        "rerank_score": 0.835667610168457,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "지방세징수법 시행령 53조  채무불이행에 따른 절차",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 483조  일부의 대위#KOBLEX-059377"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.6263858675956726,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "민법 483조  일부의 대위#KOBLEX-059377",
+        "provision_text": "②전항의 경우에 채무불이행을 원인으로 하는 계약의 해지 또는 해제는 채권자만이 할 수 있고 채권자는 대위자에게 그 변제한 가액과 이자를 상환하여야 한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.8018580079078674,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민법 483조  일부의 대위 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068587"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 57,
+        "first_stage_score": 0.5638371109962463,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068587",
+        "provision_text": "① 지방자치단체의 장은 법 제51조제1항에 따라 채권 압류의 통지를 받은 채무자가 채무이행의 기한이 지나도 이행하지 아니하는 경우에는 최고를 하여야 한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.3288761377334595,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "지방세징수법 시행령 53조  채무불이행에 따른 절차 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국세징수법 시행령 42조  채무불이행에 따른 절차#KOBLEX-000142"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 75,
+        "first_stage_score": 0.5593149065971375,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "국세징수법 시행령 42조  채무불이행에 따른 절차#KOBLEX-000142",
+        "provision_text": "① 관할 세무서장은 법 제51조제1항에 따라 채권 압류의 통지를 받은 제3채무자가 채무이행의 기한이 지나도 이행하지 않은 경우 체납자인 채권자를 대위(代位)하여 이행의 촉구를 해야 한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.25869378447532654,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "국세징수법 시행령 42조  채무불이행에 따른 절차 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068588"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 99,
+        "first_stage_score": 0.5524014234542847,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068588",
+        "provision_text": "② 지방자치단체의 장은 제1항에 따라 최고를 받은 채무자가 최고한 기한까지 채무를 이행하지 아니하는 경우에는 채권자를 대위(代位)하여 채무자를 상대로 소송을 제기하여야 한다. 다만, 채무이행의 자력(資力)이 없다고 인정하는 경우에는 채권의 압류를 해제할 수 있다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.1839139461517334,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "지방세징수법 시행령 53조  채무불이행에 따른 절차 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국세징수법 시행령 42조  채무불이행에 따른 절차#KOBLEX-000143"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 28,
+        "first_stage_score": 0.5841203331947327,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "국세징수법 시행령 42조  채무불이행에 따른 절차#KOBLEX-000143",
+        "provision_text": "② 관할 세무서장은 제1항에 따라 이행의 촉구를 받은 제3채무자가 촉구한 기한까지 채무를 이행하지 않는 경우 체납자인 채권자를 대위하여 제3채무자를 상대로 소송을 제기해야 한다. 다만, 채무이행의 자력(資力)이 없다고 인정하는 경우에는 소송을 제기하지 않고 채권의 압류를 해제할 수 있다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.16448603570461273,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "국세징수법 시행령 42조  채무불이행에 따른 절차 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 390조  채무불이행과 손해배상#KOBLEX-059183"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 41,
+        "first_stage_score": 0.5746047496795654,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "민법 390조  채무불이행과 손해배상#KOBLEX-059183",
+        "provision_text": "제390조(채무불이행과 손해배상) 채무자가 채무의 내용에 좇은 이행을 하지 아니한 때에는 채권자는 손해배상을 청구할 수 있다. 그러나 채무자의 고의나 과실없이 이행할 수 없게 된 때에는 그러하지 아니하다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.058166299015283585,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 390조  채무불이행과 손해배상",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "사회기반시설에 대한 민간투자법 37조  통지의무#KOBLEX-095132"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.6124564409255981,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "사회기반시설에 대한 민간투자법 37조  통지의무#KOBLEX-095132",
+        "provision_text": "3. 채무자가 채무를 이행하지 아니한 경우",
+        "rerank_rank": 8,
+        "rerank_score": 0.03156518563628197,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "사회기반시설에 대한 민간투자법 37조  통지의무 3호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 544조  이행지체와 해제#KOBLEX-059486"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.7139549851417542,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "민법 544조  이행지체와 해제#KOBLEX-059486",
+        "provision_text": "제544조(이행지체와 해제) 당사자 일방이 그 채무를 이행하지 아니하는 때에는 상대방은 상당한 기간을 정하여 그 이행을 최고하고 그 기간내에 이행하지 아니한 때에는 계약을 해제할 수 있다. 그러나 채무자가 미리 이행하지 아니할 의사를 표시한 경우에는 최고를 요하지 아니한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.028725525364279747,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 544조  이행지체와 해제",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 70조  채무불이행자명부 등재신청#KOBLEX-128276"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 59,
+        "first_stage_score": 0.5632259845733643,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "민사집행법 70조  채무불이행자명부 등재신청#KOBLEX-128276",
+        "provision_text": "①채무자가 다음 각호 가운데 어느 하나에 해당하면 채권자는 그 채무자를 채무불이행자명부(債務不履行者名簿)에 올리도록 신청할 수 있다. 1. 금전의 지급을 명한 집행권원이 확정된 후 또는 집행권원을 작성한 후 6월 이내에 채무를 이행하지 아니하는 때. 다만, 제61조제1항 단서에 규정된 집행권원의 경우를 제외한다. 2. 제68조제1항 각호의 사유 또는 같은 조제9항의 사유 가운데 어느 하나에 해당하는 때",
+        "rerank_rank": 10,
+        "rerank_score": 0.025466226041316986,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사집행법 70조  채무불이행자명부 등재신청 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 552조  해제권행사여부의 최고권#KOBLEX-059500"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 52,
+        "first_stage_score": 0.5771187543869019,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "민법 552조  해제권행사여부의 최고권#KOBLEX-059500",
+        "provision_text": "②전항의 기간내에 해제의 통지를 받지 못한 때에는 해제권은 소멸한다.",
+        "rerank_rank": 5,
+        "rerank_score": 6.163402576930821e-05,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E2",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 552조  해제권행사여부의 최고권 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 657조  권리의무의 전속성#KOBLEX-059700"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 23,
+        "first_stage_score": 0.5905061960220337,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "민법 657조  권리의무의 전속성#KOBLEX-059700",
+        "provision_text": "③당사자 일방이 전2항의 규정에 위반한 때에는 상대방은 계약을 해지할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 4.369605812826194e-05,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민법 657조  권리의무의 전속성 3항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 661조  부득이한 사유와 해지권#KOBLEX-059711"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 12,
+        "first_stage_score": 0.600334644317627,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "민법 661조  부득이한 사유와 해지권#KOBLEX-059711",
+        "provision_text": "제661조(부득이한 사유와 해지권) 고용기간의 약정이 있는 경우에도 부득이한 사유있는 때에는 각 당사자는 계약을 해지할 수 있다. 그러나 그 사유가 당사자 일방의 과실로 인하여 생긴 때에는 상대방에 대하여 손해를 배상하여야 한다.",
+        "rerank_rank": 3,
+        "rerank_score": 3.11895964841824e-05,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 661조  부득이한 사유와 해지권",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 543조  해지, 해제권#KOBLEX-059484"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 33,
+        "first_stage_score": 0.5670979619026184,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "민법 543조  해지, 해제권#KOBLEX-059484",
+        "provision_text": "①계약 또는 법률의 규정에 의하여 당사자의 일방이나 쌍방이 해지 또는 해제의 권리가 있는 때에는 그 해지 또는 해제는 상대방에 대한 의사표시로 한다.",
+        "rerank_rank": 2,
+        "rerank_score": 3.0007307941559702e-05,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 543조  해지, 해제권 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 565조  해약금#KOBLEX-059524"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 26,
+        "first_stage_score": 0.5878976583480835,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "민법 565조  해약금#KOBLEX-059524",
+        "provision_text": "①매매의 당사자 일방이 계약당시에 금전 기타 물건을 계약금, 보증금등의 명목으로 상대방에게 교부한 때에는 당사자간에 다른 약정이 없는 한 당사자의 일방이 이행에 착수할 때까지 교부자는 이를 포기하고 수령자는 그 배액을 상환하여 매매계약을 해제할 수 있다.",
+        "rerank_rank": 6,
+        "rerank_score": 2.2424526832764968e-05,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민법 565조  해약금 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 699조  기간의 약정없는 임치의 해지#KOBLEX-059808"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 11,
+        "first_stage_score": 0.6066315174102783,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "민법 699조  기간의 약정없는 임치의 해지#KOBLEX-059808",
+        "provision_text": "제699조(기간의 약정없는 임치의 해지) 임치기간의 약정이 없는 때에는 각 당사자는 언제든지 계약을 해지할 수 있다.",
+        "rerank_rank": 9,
+        "rerank_score": 2.1523092073039152e-05,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민법 699조  기간의 약정없는 임치의 해지",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 660조  기간의 약정이 없는 고용의 해지통고#KOBLEX-059708"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.5948156714439392,
+        "fusion_rank": 15,
+        "issue_id": "I2",
+        "provision_id": "민법 660조  기간의 약정이 없는 고용의 해지통고#KOBLEX-059708",
+        "provision_text": "①고용기간의 약정이 없는 때에는 당사자는 언제든지 계약해지의 통고를 할 수 있다.",
+        "rerank_rank": 15,
+        "rerank_score": 2.096137723128777e-05,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민법 660조  기간의 약정이 없는 고용의 해지통고 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 601조  무이자소비대차와 해제권#KOBLEX-059595"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 73,
+        "first_stage_score": 0.5586533546447754,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "민법 601조  무이자소비대차와 해제권#KOBLEX-059595",
+        "provision_text": "제601조(무이자소비대차와 해제권) 이자없는 소비대차의 당사자는 목적물의 인도전에는 언제든지 계약을 해제할 수 있다. 그러나 상대방에게 생긴 손해가 있는 때에는 이를 배상하여야 한다.",
+        "rerank_rank": 7,
+        "rerank_score": 1.9153669200022705e-05,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민법 601조  무이자소비대차와 해제권",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 553조  훼손 등으로 인한 해제권의 소멸#KOBLEX-059501"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 56,
+        "first_stage_score": 0.5693656802177429,
+        "fusion_rank": 13,
+        "issue_id": "I2",
+        "provision_id": "민법 553조  훼손 등으로 인한 해제권의 소멸#KOBLEX-059501",
+        "provision_text": "제553조(훼손 등으로 인한 해제권의 소멸) 해제권자의 고의나 과실로 인하여 계약의 목적물이 현저히 훼손되거나 이를 반환할 수 없게 된 때 또는 가공이나 개조로 인하여 다른 종류의 물건으로 변경된 때에는 해제권은 소멸한다.",
+        "rerank_rank": 13,
+        "rerank_score": 5.149576099938713e-05,
+        "retrieval_round": 3,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 553조  훼손 등으로 인한 해제권의 소멸",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 552조  해제권행사여부의 최고권#KOBLEX-059499"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 27,
+        "first_stage_score": 0.5868788361549377,
+        "fusion_rank": 52,
+        "issue_id": "I2",
+        "provision_id": "민법 552조  해제권행사여부의 최고권#KOBLEX-059499",
+        "provision_text": "①해제권의 행사의 기간을 정하지 아니한 때에는 상대방은 상당한 기간을 정하여 해제권행사여부의 확답을 해제권자에게 최고할 수 있다.",
+        "rerank_rank": 52,
+        "rerank_score": 4.497699410421774e-05,
+        "retrieval_round": 3,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-2",
+        "source_request_ids": [
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 552조  해제권행사여부의 최고권 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 668조  동전-도급인의 해제권#KOBLEX-059728"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 17,
+        "first_stage_score": 0.5920823812484741,
+        "fusion_rank": 12,
+        "issue_id": "I2",
+        "provision_id": "민법 668조  동전-도급인의 해제권#KOBLEX-059728",
+        "provision_text": "제668조(동전-도급인의 해제권) 도급인이 완성된 목적물의 하자로 인하여 계약의 목적을 달성할 수 없는 때에는 계약을 해제할 수 있다. 그러나 건물 기타 토지의 공작물에 대하여는 그러하지 아니하다.",
+        "rerank_rank": 12,
+        "rerank_score": 3.228887726436369e-05,
+        "retrieval_round": 3,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 668조  동전-도급인의 해제권",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 811조  법정사유로 인한 해제 등#KOBLEX-116383"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 47,
+        "first_stage_score": 0.5739982724189758,
+        "fusion_rank": 15,
+        "issue_id": "I2",
+        "provision_id": "상법 811조  법정사유로 인한 해제 등#KOBLEX-116383",
+        "provision_text": "①항해 또는 운송이 법령을 위반하게 되거나 그 밖에 불가항력으로 인하여 계약의 목적을 달할 수 없게 된 때에는 각 당사자는 계약을 해제할 수 있다.",
+        "rerank_rank": 15,
+        "rerank_score": 3.17394697049167e-05,
+        "retrieval_round": 3,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "상법 811조  법정사유로 인한 해제 등 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 83조  계약의 해지#KOBLEX-113732"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 28,
+        "first_stage_score": 0.5864043235778809,
+        "fusion_rank": 19,
+        "issue_id": "I2",
+        "provision_id": "상법 83조  계약의 해지#KOBLEX-113732",
+        "provision_text": "②조합의 존속기간의 약정의 유무에 불구하고 부득이한 사정이 있는 때에는 각 당사자는 언제든지 계약을 해지할 수 있다.",
+        "rerank_rank": 19,
+        "rerank_score": 2.8052940251654945e-05,
+        "retrieval_round": 3,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "상법 83조  계약의 해지 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 545조  정기행위와 해제#KOBLEX-059487"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6643319725990295,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "민법 545조  정기행위와 해제#KOBLEX-059487",
+        "provision_text": "제545조(정기행위와 해제) 계약의 성질 또는 당사자의 의사표시에 의하여 일정한 시일 또는 일정한 기간내에 이행하지 아니하면 계약의 목적을 달성할 수 없을 경우에 당사자 일방이 그 시기에 이행하지 아니한 때에는 상대방은 전조의 최고를 하지 아니하고 계약을 해제할 수 있다.",
+        "rerank_rank": 9,
+        "rerank_score": 2.6348041501478292e-05,
+        "retrieval_round": 3,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 545조  정기행위와 해제",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "국세징수법 시행령 42조  채무불이행에 따른 절차#KOBLEX-000142": "① 관할 세무서장은 법 제51조제1항에 따라 채권 압류의 통지를 받은 제3채무자가 채무이행의 기한이 지나도 이행하지 않은 경우 체납자인 채권자를 대위(代位)하여 이행의 촉구를 해야 한다.",
+      "국세징수법 시행령 42조  채무불이행에 따른 절차#KOBLEX-000143": "② 관할 세무서장은 제1항에 따라 이행의 촉구를 받은 제3채무자가 촉구한 기한까지 채무를 이행하지 않는 경우 체납자인 채권자를 대위하여 제3채무자를 상대로 소송을 제기해야 한다. 다만, 채무이행의 자력(資力)이 없다고 인정하는 경우에는 소송을 제기하지 않고 채권의 압류를 해제할 수 있다.",
+      "민법 390조  채무불이행과 손해배상#KOBLEX-059183": "제390조(채무불이행과 손해배상) 채무자가 채무의 내용에 좇은 이행을 하지 아니한 때에는 채권자는 손해배상을 청구할 수 있다. 그러나 채무자의 고의나 과실없이 이행할 수 없게 된 때에는 그러하지 아니하다.",
+      "민법 483조  일부의 대위#KOBLEX-059377": "②전항의 경우에 채무불이행을 원인으로 하는 계약의 해지 또는 해제는 채권자만이 할 수 있고 채권자는 대위자에게 그 변제한 가액과 이자를 상환하여야 한다.",
+      "민법 543조  해지, 해제권#KOBLEX-059484": "①계약 또는 법률의 규정에 의하여 당사자의 일방이나 쌍방이 해지 또는 해제의 권리가 있는 때에는 그 해지 또는 해제는 상대방에 대한 의사표시로 한다.",
+      "민법 544조  이행지체와 해제#KOBLEX-059486": "제544조(이행지체와 해제) 당사자 일방이 그 채무를 이행하지 아니하는 때에는 상대방은 상당한 기간을 정하여 그 이행을 최고하고 그 기간내에 이행하지 아니한 때에는 계약을 해제할 수 있다. 그러나 채무자가 미리 이행하지 아니할 의사를 표시한 경우에는 최고를 요하지 아니한다.",
+      "민법 545조  정기행위와 해제#KOBLEX-059487": "제545조(정기행위와 해제) 계약의 성질 또는 당사자의 의사표시에 의하여 일정한 시일 또는 일정한 기간내에 이행하지 아니하면 계약의 목적을 달성할 수 없을 경우에 당사자 일방이 그 시기에 이행하지 아니한 때에는 상대방은 전조의 최고를 하지 아니하고 계약을 해제할 수 있다.",
+      "민법 552조  해제권행사여부의 최고권#KOBLEX-059499": "①해제권의 행사의 기간을 정하지 아니한 때에는 상대방은 상당한 기간을 정하여 해제권행사여부의 확답을 해제권자에게 최고할 수 있다.",
+      "민법 552조  해제권행사여부의 최고권#KOBLEX-059500": "②전항의 기간내에 해제의 통지를 받지 못한 때에는 해제권은 소멸한다.",
+      "민법 553조  훼손 등으로 인한 해제권의 소멸#KOBLEX-059501": "제553조(훼손 등으로 인한 해제권의 소멸) 해제권자의 고의나 과실로 인하여 계약의 목적물이 현저히 훼손되거나 이를 반환할 수 없게 된 때 또는 가공이나 개조로 인하여 다른 종류의 물건으로 변경된 때에는 해제권은 소멸한다.",
+      "민법 565조  해약금#KOBLEX-059524": "①매매의 당사자 일방이 계약당시에 금전 기타 물건을 계약금, 보증금등의 명목으로 상대방에게 교부한 때에는 당사자간에 다른 약정이 없는 한 당사자의 일방이 이행에 착수할 때까지 교부자는 이를 포기하고 수령자는 그 배액을 상환하여 매매계약을 해제할 수 있다.",
+      "민법 601조  무이자소비대차와 해제권#KOBLEX-059595": "제601조(무이자소비대차와 해제권) 이자없는 소비대차의 당사자는 목적물의 인도전에는 언제든지 계약을 해제할 수 있다. 그러나 상대방에게 생긴 손해가 있는 때에는 이를 배상하여야 한다.",
+      "민법 657조  권리의무의 전속성#KOBLEX-059700": "③당사자 일방이 전2항의 규정에 위반한 때에는 상대방은 계약을 해지할 수 있다.",
+      "민법 660조  기간의 약정이 없는 고용의 해지통고#KOBLEX-059708": "①고용기간의 약정이 없는 때에는 당사자는 언제든지 계약해지의 통고를 할 수 있다.",
+      "민법 661조  부득이한 사유와 해지권#KOBLEX-059711": "제661조(부득이한 사유와 해지권) 고용기간의 약정이 있는 경우에도 부득이한 사유있는 때에는 각 당사자는 계약을 해지할 수 있다. 그러나 그 사유가 당사자 일방의 과실로 인하여 생긴 때에는 상대방에 대하여 손해를 배상하여야 한다.",
+      "민법 668조  동전-도급인의 해제권#KOBLEX-059728": "제668조(동전-도급인의 해제권) 도급인이 완성된 목적물의 하자로 인하여 계약의 목적을 달성할 수 없는 때에는 계약을 해제할 수 있다. 그러나 건물 기타 토지의 공작물에 대하여는 그러하지 아니하다.",
+      "민법 699조  기간의 약정없는 임치의 해지#KOBLEX-059808": "제699조(기간의 약정없는 임치의 해지) 임치기간의 약정이 없는 때에는 각 당사자는 언제든지 계약을 해지할 수 있다.",
+      "민사집행법 70조  채무불이행자명부 등재신청#KOBLEX-128276": "①채무자가 다음 각호 가운데 어느 하나에 해당하면 채권자는 그 채무자를 채무불이행자명부(債務不履行者名簿)에 올리도록 신청할 수 있다. 1. 금전의 지급을 명한 집행권원이 확정된 후 또는 집행권원을 작성한 후 6월 이내에 채무를 이행하지 아니하는 때. 다만, 제61조제1항 단서에 규정된 집행권원의 경우를 제외한다. 2. 제68조제1항 각호의 사유 또는 같은 조제9항의 사유 가운데 어느 하나에 해당하는 때",
+      "사회기반시설에 대한 민간투자법 37조  통지의무#KOBLEX-095132": "3. 채무자가 채무를 이행하지 아니한 경우",
+      "상법 811조  법정사유로 인한 해제 등#KOBLEX-116383": "①항해 또는 운송이 법령을 위반하게 되거나 그 밖에 불가항력으로 인하여 계약의 목적을 달할 수 없게 된 때에는 각 당사자는 계약을 해제할 수 있다.",
+      "상법 83조  계약의 해지#KOBLEX-113732": "②조합의 존속기간의 약정의 유무에 불구하고 부득이한 사정이 있는 때에는 각 당사자는 언제든지 계약을 해지할 수 있다.",
+      "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068586": "제53조(채무불이행에 따른 절차)",
+      "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068587": "① 지방자치단체의 장은 법 제51조제1항에 따라 채권 압류의 통지를 받은 채무자가 채무이행의 기한이 지나도 이행하지 아니하는 경우에는 최고를 하여야 한다.",
+      "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068588": "② 지방자치단체의 장은 제1항에 따라 최고를 받은 채무자가 최고한 기한까지 채무를 이행하지 아니하는 경우에는 채권자를 대위(代位)하여 채무자를 상대로 소송을 제기하여야 한다. 다만, 채무이행의 자력(資力)이 없다고 인정하는 경우에는 채권의 압류를 해제할 수 있다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민법 544조  이행지체와 해제#KOBLEX-059486",
+              "민법 543조  해지, 해제권#KOBLEX-059484"
+            ],
+            "rationale": "C009는 해제 요건(최고 또는 이행거절)을, C014는 해제권 행사 방식(의사표시)을 규정하여 채무불이행 시 계약 해제의 요건 및 절차에 관한 민법 조항을 충족한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민법 544조  이행지체와 해제#KOBLEX-059486",
+          "민법 543조  해지, 해제권#KOBLEX-059484"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "민법 제544조(C009)와 제543조(C014)는 채무불이행에 기한 계약 해제의 요건 및 절차에 관한 법적 근거를 충분히 제공한다. C009는 해제 요건을, C014는 해제권 행사 방식을 규정한다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "당사자 간 해제 조건 약정의 효력 및 법정 해제 요건과의 관계에 관한 규정이 후보 목록에 존재하지 않는다.",
+            "requirement_id": "E2-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E2-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "제출된 후보 조항들 중 당사자 간 해제 조건 약정의 효력 및 법정 해제 요건과의 관계를 규정한 조항이 없다. C009는 법정 요건만 규정할 뿐, 계약서 내 특별 조항의 법적 지위를 규명하지 않는다.",
+        "status": "uncovered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "민법 544조  이행지체와 해제#KOBLEX-059486",
+        "support_spans": [
+          {
+            "end_char": 153,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "민법 543조  해지, 해제권#KOBLEX-059484",
+        "support_spans": [
+          {
+            "end_char": 83,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 6,
+    "last_validated_event": "RESPONSE_ASSEMBLY.ABSTAIN",
+    "legal_issues": [
+      {
+        "description": "채무불이행에 기한 계약 해제의 일반적 요건",
+        "issue_id": "I1"
+      },
+      {
+        "description": "계약서 내 해제 조건 특별 조항의 효력",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "계약서에 명시된 해제 조건 조항이 법정 요건을 대체하거나 보완하는지, 그리고 그 효력의 범위를 확인해야 한다.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "당사자 간 해제 조건 약정의 효력 및 법정 해제 요건과의 관계에 관한 규정"
+          }
+        ],
+        "critical": true,
+        "description": "당사자 간 합의(계약 조항)와 법정 해제 요건 간의 관계 및 효력",
+        "evidence_item_id": "E2",
+        "evidence_type": "relationship",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 '계약서에 이와 관련하여 다른 조항이 있을 경우 어떻게 되는가'를 묻고 있으므로, 약정 해제 조항의 법적 지위를 파악해야 한다.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 1,
+    "normalized_question": "[배경 시나리오] 갑과 을은 물품 매매 계약을 체결하였다. 갑은 을에게 특정 상품을 한 달 안에 공급하기로 약정하였으나, 계약 이행 기한이 지나도록 물품을 공급하지 않았다. 을은 이로 인해 계약을 해제하려고 한다. 계약서에는 \"이행 기한이 지연될 경우 을은 계약 해제를 위해 추가적인 서면 통지를 필요로 하지 않는다\"라는 조항이 포함되어 있었다. [질문] 갑이 계약상 의무를 이행하지 않을 때 을은 어떤 조건 하에 계약을 해제할 수 있으며, 계약서에 이와 관련하여 다른 조항이 있을 경우 어떻게 되는가?",
+    "phase": "ABSTAINED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "채무불이행",
+          "계약해제",
+          "해제요건",
+          "기한이익상실"
+        ],
+        "query_text": "채무불이행에 기한 계약 해제 요건 및 절차 [원문 맥락] 계약서에는 \"이행 기한이 지연될 경우 을은 계약 해제를 위해 추가적인 서면 통지를 필요로 하지 않는다\"라는 조항이 포함되어 있었다. 갑이 계약상 의무를 이행하지 않을 때 을은 어떤 조건 하에 계약을 해제할 수 있으며, 계약서에 이와 관련하여 다른 조항이 있을 경우 어떻게 되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "해제조건",
+          "당사자합의",
+          "계약조항",
+          "해제권"
+        ],
+        "query_text": "계약서 해제 조건 조항 효력 법정 요건과의 관계 [원문 맥락] 계약서에는 \"이행 기한이 지연될 경우 을은 계약 해제를 위해 추가적인 서면 통지를 필요로 하지 않는다\"라는 조항이 포함되어 있었다. 갑이 계약상 의무를 이행하지 않을 때 을은 어떤 조건 하에 계약을 해제할 수 있으며, 계약서에 이와 관련하여 다른 조항이 있을 경우 어떻게 되는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "당사자합의",
+          "해제권",
+          "민법 제103조",
+          "계약자유"
+        ],
+        "query_text": "민법 제103조 당사자 간 합의의 효력 및 해제권 약정 [원문 맥락] 계약서에는 \"이행 기한이 지연될 경우 을은 계약 해제를 위해 추가적인 서면 통지를 필요로 하지 않는다\"라는 조항이 포함되어 있었다. 갑이 계약상 의무를 이행하지 않을 때 을은 어떤 조건 하에 계약을 해제할 수 있으며, 계약서에 이와 관련하여 다른 조항이 있을 경우 어떻게 되는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제103조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "해제요건",
+          "특별약정",
+          "채무불이행",
+          "해제권발생"
+        ],
+        "query_text": "채무불이행 시 해제권 발생 요건에 대한 당사자 간 특별 약정의 효력 [원문 맥락] 계약서에는 \"이행 기한이 지연될 경우 을은 계약 해제를 위해 추가적인 서면 통지를 필요로 하지 않는다\"라는 조항이 포함되어 있었다. 갑이 계약상 의무를 이행하지 않을 때 을은 어떤 조건 하에 계약을 해제할 수 있으며, 계약서에 이와 관련하여 다른 조항이 있을 경우 어떻게 되는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "민법 제544조",
+          "이행지체",
+          "해제요건",
+          "당사자약정",
+          "서면통지"
+        ],
+        "query_text": "민법 제544조 제2항 이행지체 해제요건에 대한 당사자 간 약정 변경 및 서면통지 면제 조항의 효력 [원문 맥락] 계약서에는 \"이행 기한이 지연될 경우 을은 계약 해제를 위해 추가적인 서면 통지를 필요로 하지 않는다\"라는 조항이 포함되어 있었다. 갑이 계약상 의무를 이행하지 않을 때 을은 어떤 조건 하에 계약을 해제할 수 있으며, 계약서에 이와 관련하여 다른 조항이 있을 경우 어떻게 되는가?",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제544조",
+          "민법 제543조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "해제권",
+          "특별약정",
+          "법정요건",
+          "계약자유",
+          "해제조건"
+        ],
+        "query_text": "계약 해제권 발생 요건에 관한 특별 약정의 법적 효력 및 법정 요건과의 관계 [원문 맥락] 계약서에는 \"이행 기한이 지연될 경우 을은 계약 해제를 위해 추가적인 서면 통지를 필요로 하지 않는다\"라는 조항이 포함되어 있었다. 갑이 계약상 의무를 이행하지 않을 때 을은 어떤 조건 하에 계약을 해제할 수 있으며, 계약서에 이와 관련하여 다른 조항이 있을 경우 어떻게 되는가?",
+        "request_id": "GRQ-R3-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑과 을은 물품 매매 계약을 체결하였다. 갑은 을에게 특정 상품을 한 달 안에 공급하기로 약정하였으나, 계약 이행 기한이 지나도록 물품을 공급하지 않았다. 을은 이로 인해 계약을 해제하려고 한다. 계약서에는 \"이행 기한이 지연될 경우 을은 계약 해제를 위해 추가적인 서면 통지를 필요로 하지 않는다\"라는 조항이 포함되어 있었다.\n\n[질문]\n갑이 계약상 의무를 이행하지 않을 때 을은 어떤 조건 하에 계약을 해제할 수 있으며, 계약서에 이와 관련하여 다른 조항이 있을 경우 어떻게 되는가?",
+    "remaining_request_budget": 3,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "채무불이행 시 계약 해제가 가능한 구체적 법적 요건(예: 기한이익 상실, 최고, 해제권 발생 요건)을 확인해야 한다.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "채무불이행에 기한 계약 해제의 요건 및 절차에 관한 민법 조항"
+          }
+        ],
+        "critical": true,
+        "description": "채무불이행에 기한 계약 해제의 일반적 요건 및 절차",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 '어떤 조건 하에' 계약 해제가 가능한지를 판단하기 위한 핵심 법적 근거이다.",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "계약서에 명시된 해제 조건 조항이 법정 요건을 대체하거나 보완하는지, 그리고 그 효력의 범위를 확인해야 한다.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "당사자 간 해제 조건 약정의 효력 및 법정 해제 요건과의 관계에 관한 규정"
+          }
+        ],
+        "critical": true,
+        "description": "당사자 간 합의(계약 조항)와 법정 해제 요건 간의 관계 및 효력",
+        "evidence_item_id": "E2",
+        "evidence_type": "relationship",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 '계약서에 이와 관련하여 다른 조항이 있을 경우 어떻게 되는가'를 묻고 있으므로, 약정 해제 조항의 법적 지위를 파악해야 한다.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "5c8ea902-36db-4a61-802f-b732e1546e9b",
+    "seen_provision_ids": [
+      "민법 543조  해지, 해제권#KOBLEX-059484",
+      "사회기반시설에 대한 민간투자법 37조  통지의무#KOBLEX-095132",
+      "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068588",
+      "민법 668조  동전-도급인의 해제권#KOBLEX-059728",
+      "민법 601조  무이자소비대차와 해제권#KOBLEX-059595",
+      "민법 390조  채무불이행과 손해배상#KOBLEX-059183",
+      "민법 483조  일부의 대위#KOBLEX-059377",
+      "국세징수법 시행령 42조  채무불이행에 따른 절차#KOBLEX-000142",
+      "민법 699조  기간의 약정없는 임치의 해지#KOBLEX-059808",
+      "민법 661조  부득이한 사유와 해지권#KOBLEX-059711",
+      "민법 565조  해약금#KOBLEX-059524",
+      "민법 660조  기간의 약정이 없는 고용의 해지통고#KOBLEX-059708",
+      "민법 544조  이행지체와 해제#KOBLEX-059486",
+      "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068586",
+      "국세징수법 시행령 42조  채무불이행에 따른 절차#KOBLEX-000143",
+      "민법 545조  정기행위와 해제#KOBLEX-059487",
+      "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068587",
+      "민법 552조  해제권행사여부의 최고권#KOBLEX-059499",
+      "민법 657조  권리의무의 전속성#KOBLEX-059700",
+      "상법 811조  법정사유로 인한 해제 등#KOBLEX-116383",
+      "상법 83조  계약의 해지#KOBLEX-113732",
+      "민법 552조  해제권행사여부의 최고권#KOBLEX-059500",
+      "민사집행법 70조  채무불이행자명부 등재신청#KOBLEX-128276",
+      "민법 553조  훼손 등으로 인한 해제권의 소멸#KOBLEX-059501"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ABSTAIN",
+  "termination_reason": "MAX_RETRIEVAL_ROUNDS_REACHED"
+}

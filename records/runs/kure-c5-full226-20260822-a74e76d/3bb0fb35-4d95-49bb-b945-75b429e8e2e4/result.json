@@ -1,0 +1,551 @@
+{
+  "abstention_reason": null,
+  "answer": "제척 또는 기피신청이 있는 경우 법원은 그 재판이 확정될 때까지 소송절차를 정지하여야 한다.[CT1]\n제척 또는 기피신청이 각하된 경우, 종국판결을 선고하거나 긴급을 요하는 행위를 하는 경우에는 소송절차를 정지하지 아니한다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [],
+  "candidate_answer": "제척 또는 기피신청이 있는 경우 법원은 그 재판이 확정될 때까지 소송절차를 정지하여야 한다.[CT1]\n제척 또는 기피신청이 각하된 경우, 종국판결을 선고하거나 긴급을 요하는 행위를 하는 경우에는 소송절차를 정지하지 아니한다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "민사소송법 48조  소송절차의 정지#KOBLEX-063639",
+      "quoted_text": "제48조(소송절차의 정지) 법원은 제척 또는 기피신청이 있는 경우에는 그 재판이 확정될 때까지 소송절차를 정지하여야 한다. 다만, 제척 또는 기피신청이 각하된 경우 또는 종국판결(終局判決)을 선고하거나 긴급을 요하는 행위를 하는 경우에는 그러하지 아니하다.",
+      "support_description": "제척신청 접수 시 소송절차 정지의 일반 원칙을 명시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "민사소송법 48조  소송절차의 정지#KOBLEX-063639",
+      "quoted_text": "제48조(소송절차의 정지) 법원은 제척 또는 기피신청이 있는 경우에는 그 재판이 확정될 때까지 소송절차를 정지하여야 한다. 다만, 제척 또는 기피신청이 각하된 경우 또는 종국판결(終局判決)을 선고하거나 긴급을 요하는 행위를 하는 경우에는 그러하지 아니하다.",
+      "support_description": "소송절차 정지의 예외 사항을 명시한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "제척 또는 기피신청이 있는 경우 법원은 그 재판이 확정될 때까지 소송절차를 정지하여야 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "conditional",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "exception",
+      "text": "제척 또는 기피신청이 각하된 경우, 종국판결을 선고하거나 긴급을 요하는 행위를 하는 경우에는 소송절차를 정지하지 아니한다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T10:37:19.739180+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 54933.825,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 85,
+      "dedup_collapse": 30,
+      "evidence_fusion": 85,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 85
+    }
+  },
+  "run_id": "3bb0fb35-4d95-49bb-b945-75b429e8e2e4",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "민사소송법 48조  소송절차의 정지#KOBLEX-063639"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "procedural_rule",
+        "question_anchor": "법원은 소송 절차를 어떻게 처리해야 하는가?",
+        "requested_output": "제척신청 접수 시 법원의 소송절차 처리 방식"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "하도급거래 공정화에 관한 법률 24조 8 소송과의 관계#KOBLEX-228425"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 73,
+        "first_stage_score": 0.5412712693214417,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "하도급거래 공정화에 관한 법률 24조 8 소송과의 관계#KOBLEX-228425",
+        "provision_text": "① 조정이 신청된 사건에 대하여 신청 전 또는 신청 후 소가 제기되어 소송이 진행 중일 때에는 수소법원(受訴法院)은 조정이 있을 때까지 소송절차를 중지할 수 있다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.7190703749656677,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "하도급거래 공정화에 관한 법률 24조 8 소송과의 관계 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "가맹사업거래의 공정화에 관한 법률 23조 2 소송과의 관계#KOBLEX-139698"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 78,
+        "first_stage_score": 0.5398089289665222,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "가맹사업거래의 공정화에 관한 법률 23조 2 소송과의 관계#KOBLEX-139698",
+        "provision_text": "① 제22조제1항에 따른 분쟁조정이 신청된 사건에 대하여 신청 전 또는 신청 후 소가 제기되어 소송이 진행 중일 때에는 수소법원(受訴法院)은 조정이 있을 때까지 소송절차를 중지할 수 있다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.5547575950622559,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "가맹사업거래의 공정화에 관한 법률 23조 2 소송과의 관계 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "독점규제 및 공정거래에 관한 법률 77조 2 소송과의 관계#KOBLEX-020818",
+          "독점규제 및 공정거래에 관한 법률 77조 2 소송과의 관계#KOBLEX-039246"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 84,
+        "first_stage_score": 0.5385669469833374,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "독점규제 및 공정거래에 관한 법률 77조 2 소송과의 관계#KOBLEX-020818",
+        "provision_text": "① 제76조제1항에 따라 분쟁조정이 신청된 사건에 대하여 신청 전 또는 신청 후 소가 제기되어 소송이 진행 중일 때에는 수소법원(受訴法院)은 조정이 있을 때까지 소송절차를 중지할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.5248475670814514,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "독점규제 및 공정거래에 관한 법률 77조 2 소송과의 관계 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "약관의 규제에 관한 법률 27조 3 소송과의 관계#KOBLEX-104008",
+          "약관의 규제에 관한 법률 27조 3 소송과의 관계#KOBLEX-167923"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 99,
+        "first_stage_score": 0.534907341003418,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "약관의 규제에 관한 법률 27조 3 소송과의 관계#KOBLEX-104008",
+        "provision_text": "① 제27조제1항에 따라 분쟁조정이 신청된 사건에 대하여 신청 전 또는 신청 후 소가 제기되어 소송이 진행 중일 때에는 수소법원(受訴法院)은 조정이 있을 때까지 소송절차를 중지할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.5005472302436829,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "약관의 규제에 관한 법률 27조 3 소송과의 관계 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 48조  소송절차의 정지#KOBLEX-063639"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.6432576179504395,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "민사소송법 48조  소송절차의 정지#KOBLEX-063639",
+        "provision_text": "제48조(소송절차의 정지) 법원은 제척 또는 기피신청이 있는 경우에는 그 재판이 확정될 때까지 소송절차를 정지하여야 한다. 다만, 제척 또는 기피신청이 각하된 경우 또는 종국판결(終局判決)을 선고하거나 긴급을 요하는 행위를 하는 경우에는 그러하지 아니하다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.44012129306793213,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사소송법 48조  소송절차의 정지",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소비자기본법 68조 4 소송과의 관계#KOBLEX-050166"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 80,
+        "first_stage_score": 0.5395081639289856,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "소비자기본법 68조 4 소송과의 관계#KOBLEX-050166",
+        "provision_text": "① 제58조 또는 제65조제1항에 따라 분쟁조정이 신청된 사건에 대하여 신청 전 또는 신청 후 소가 제기되어 소송이 진행 중일 때에는 수소법원(受訴法院)은 조정이 있을 때까지 소송절차를 중지할 수 있다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.4179002046585083,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "소비자기본법 68조 4 소송과의 관계 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "법원조직법 61조  감치 등#KOBLEX-177861"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 30,
+        "first_stage_score": 0.5600157380104065,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "법원조직법 61조  감치 등#KOBLEX-177861",
+        "provision_text": "④ 감치는 감치대상자에 대한 다른 사건으로 인한 구속 및 형에 우선하여 집행하며, 감치의 집행 중에는 감치대상자에 대한 다른 사건으로 인한 구속 및 형의 집행이 정지되고, 감치대상자가 당사자로 되어 있는 본래의 심판사건의 소송절차는 정지된다. 다만, 법원은 상당한 이유가 있는 경우에는 소송절차를 계속하여 진행하도록 명할 수 있다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.2437390834093094,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "법원조직법 61조  감치 등 4항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국제사법 11조  국제적 소송경합#KOBLEX-127755",
+          "국제사법 11조  국제적 소송경합#KOBLEX-200436"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 38,
+        "first_stage_score": 0.5559627413749695,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "국제사법 11조  국제적 소송경합#KOBLEX-127755",
+        "provision_text": "① 같은 당사자 간에 외국법원에 계속 중인 사건과 동일한 소가 법원에 다시 제기된 경우에 외국법원의 재판이 대한민국에서 승인될 것으로 예상되는 때에는 법원은 직권 또는 당사자의 신청에 의하여 결정으로 소송절차를 중지할 수 있다. 다만, 다음 각 호의 어느 하나에 해당하는 경우에는 그러하지 아니하다. 1. 전속적 국제재판관할의 합의에 따라 법원에 국제재판관할이 있는 경우 2. 법원에서 해당 사건을 재판하는 것이 외국법원에서 재판하는 것보다 더 적절함이 명백한 경우",
+        "rerank_rank": 8,
+        "rerank_score": 0.10557821393013,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "국제사법 11조  국제적 소송경합 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 233조  당사자의 사망으로 말미암은 중단#KOBLEX-064156"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 46,
+        "first_stage_score": 0.5529407858848572,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "민사소송법 233조  당사자의 사망으로 말미암은 중단#KOBLEX-064156",
+        "provision_text": "①당사자가 죽은 때에 소송절차는 중단된다. 이 경우 상속인ㆍ상속재산관리인, 그 밖에 법률에 의하여 소송을 계속하여 수행할 사람이 소송절차를 수계(受繼)하여야 한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.0829833447933197,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사소송법 233조  당사자의 사망으로 말미암은 중단 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 242조  수계신청의 통지#KOBLEX-064168"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.5813305377960205,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "민사소송법 242조  수계신청의 통지#KOBLEX-064168",
+        "provision_text": "제242조(수계신청의 통지) 소송절차의 수계신청이 있는 때에는 법원은 상대방에게 이를 통지하여야 한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.0537291094660759,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사소송법 242조  수계신청의 통지",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "가맹사업거래의 공정화에 관한 법률 23조 2 소송과의 관계#KOBLEX-139698": "① 제22조제1항에 따른 분쟁조정이 신청된 사건에 대하여 신청 전 또는 신청 후 소가 제기되어 소송이 진행 중일 때에는 수소법원(受訴法院)은 조정이 있을 때까지 소송절차를 중지할 수 있다.",
+      "국제사법 11조  국제적 소송경합#KOBLEX-127755": "① 같은 당사자 간에 외국법원에 계속 중인 사건과 동일한 소가 법원에 다시 제기된 경우에 외국법원의 재판이 대한민국에서 승인될 것으로 예상되는 때에는 법원은 직권 또는 당사자의 신청에 의하여 결정으로 소송절차를 중지할 수 있다. 다만, 다음 각 호의 어느 하나에 해당하는 경우에는 그러하지 아니하다. 1. 전속적 국제재판관할의 합의에 따라 법원에 국제재판관할이 있는 경우 2. 법원에서 해당 사건을 재판하는 것이 외국법원에서 재판하는 것보다 더 적절함이 명백한 경우",
+      "독점규제 및 공정거래에 관한 법률 77조 2 소송과의 관계#KOBLEX-020818": "① 제76조제1항에 따라 분쟁조정이 신청된 사건에 대하여 신청 전 또는 신청 후 소가 제기되어 소송이 진행 중일 때에는 수소법원(受訴法院)은 조정이 있을 때까지 소송절차를 중지할 수 있다.",
+      "민사소송법 233조  당사자의 사망으로 말미암은 중단#KOBLEX-064156": "①당사자가 죽은 때에 소송절차는 중단된다. 이 경우 상속인ㆍ상속재산관리인, 그 밖에 법률에 의하여 소송을 계속하여 수행할 사람이 소송절차를 수계(受繼)하여야 한다.",
+      "민사소송법 242조  수계신청의 통지#KOBLEX-064168": "제242조(수계신청의 통지) 소송절차의 수계신청이 있는 때에는 법원은 상대방에게 이를 통지하여야 한다.",
+      "민사소송법 48조  소송절차의 정지#KOBLEX-063639": "제48조(소송절차의 정지) 법원은 제척 또는 기피신청이 있는 경우에는 그 재판이 확정될 때까지 소송절차를 정지하여야 한다. 다만, 제척 또는 기피신청이 각하된 경우 또는 종국판결(終局判決)을 선고하거나 긴급을 요하는 행위를 하는 경우에는 그러하지 아니하다.",
+      "법원조직법 61조  감치 등#KOBLEX-177861": "④ 감치는 감치대상자에 대한 다른 사건으로 인한 구속 및 형에 우선하여 집행하며, 감치의 집행 중에는 감치대상자에 대한 다른 사건으로 인한 구속 및 형의 집행이 정지되고, 감치대상자가 당사자로 되어 있는 본래의 심판사건의 소송절차는 정지된다. 다만, 법원은 상당한 이유가 있는 경우에는 소송절차를 계속하여 진행하도록 명할 수 있다.",
+      "소비자기본법 68조 4 소송과의 관계#KOBLEX-050166": "① 제58조 또는 제65조제1항에 따라 분쟁조정이 신청된 사건에 대하여 신청 전 또는 신청 후 소가 제기되어 소송이 진행 중일 때에는 수소법원(受訴法院)은 조정이 있을 때까지 소송절차를 중지할 수 있다.",
+      "약관의 규제에 관한 법률 27조 3 소송과의 관계#KOBLEX-104008": "① 제27조제1항에 따라 분쟁조정이 신청된 사건에 대하여 신청 전 또는 신청 후 소가 제기되어 소송이 진행 중일 때에는 수소법원(受訴法院)은 조정이 있을 때까지 소송절차를 중지할 수 있다.",
+      "하도급거래 공정화에 관한 법률 24조 8 소송과의 관계#KOBLEX-228425": "① 조정이 신청된 사건에 대하여 신청 전 또는 신청 후 소가 제기되어 소송이 진행 중일 때에는 수소법원(受訴法院)은 조정이 있을 때까지 소송절차를 중지할 수 있다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민사소송법 48조  소송절차의 정지#KOBLEX-063639"
+            ],
+            "rationale": "민사소송법 제48조는 제척신청이 있는 경우 소송절차를 정지하여야 한다고 규정하여, 제척신청 접수 시 소송절차의 법적 효과를 명확히 명시하고 있다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민사소송법 48조  소송절차의 정지#KOBLEX-063639"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "제척신청 접수 시 소송절차의 중단 또는 진행에 관한 법적 효과를 명시하는 조항으로 민사소송법 제48조가 제공되어, 요구된 법적 근거가 충족된다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "민사소송법 48조  소송절차의 정지#KOBLEX-063639",
+        "support_spans": [
+          {
+            "end_char": 143,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "제척신청이 접수된 경우 법원이 소송절차를 어떻게 진행해야 하는지",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑과 을은 부동산 계약 관련 소송에서 대립 중입니다. 갑은 사건을 담당하는 판사인 병이 을과 사적인 관계에 있다는 이유로 병에 대하여 제척신청을 했습니다. 이 상황에서 을은 갑의 제척신청이 받아들여질지 걱정하며, 현재 소송 절차가 어떻게 진행될지 궁금해 합니다. [질문] 갑이 담당 판사에 대한 제척신청을 한 경우, 법원은 소송 절차를 어떻게 처리해야 하는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "제척신청",
+          "소송절차",
+          "중단",
+          "진행",
+          "법원"
+        ],
+        "query_text": "제척신청 접수 시 소송절차 중단 또는 진행 규정 [원문 맥락] 이 상황에서 을은 갑의 제척신청이 받아들여질지 걱정하며, 현재 소송 절차가 어떻게 진행될지 궁금해 합니다. 갑이 담당 판사에 대한 제척신청을 한 경우, 법원은 소송 절차를 어떻게 처리해야 하는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민사소송법",
+          "형사소송법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑과 을은 부동산 계약 관련 소송에서 대립 중입니다. 갑은 사건을 담당하는 판사인 병이 을과 사적인 관계에 있다는 이유로 병에 대하여 제척신청을 했습니다. 이 상황에서 을은 갑의 제척신청이 받아들여질지 걱정하며, 현재 소송 절차가 어떻게 진행될지 궁금해 합니다.\n\n[질문]\n갑이 담당 판사에 대한 제척신청을 한 경우, 법원은 소송 절차를 어떻게 처리해야 하는가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "제척신청이 접수된 경우 소송절차가 중단되는지 또는 계속되는지를 명시하는 조항을 확인해야 한다.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "제척신청 접수 시 소송절차의 중단 또는 진행에 관한 법적 효과를 명시하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "제척신청 접수 시 소송절차의 중단 또는 진행에 관한 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "procedure",
+        "issue_id": "I1",
+        "necessity_reason": "질문은 제척신청 시 소송절차의 처리 방식을 묻고 있으므로, 절차적 중단 또는 진행에 관한 규정이 결론에 필수적이다.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "3bb0fb35-4d95-49bb-b945-75b429e8e2e4",
+    "seen_provision_ids": [
+      "민사소송법 233조  당사자의 사망으로 말미암은 중단#KOBLEX-064156",
+      "약관의 규제에 관한 법률 27조 3 소송과의 관계#KOBLEX-104008",
+      "가맹사업거래의 공정화에 관한 법률 23조 2 소송과의 관계#KOBLEX-139698",
+      "법원조직법 61조  감치 등#KOBLEX-177861",
+      "독점규제 및 공정거래에 관한 법률 77조 2 소송과의 관계#KOBLEX-020818",
+      "민사소송법 48조  소송절차의 정지#KOBLEX-063639",
+      "소비자기본법 68조 4 소송과의 관계#KOBLEX-050166",
+      "국제사법 11조  국제적 소송경합#KOBLEX-127755",
+      "민사소송법 242조  수계신청의 통지#KOBLEX-064168",
+      "하도급거래 공정화에 관한 법률 24조 8 소송과의 관계#KOBLEX-228425"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

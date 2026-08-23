@@ -1,0 +1,1136 @@
+{
+  "abstention_reason": null,
+  "answer": "터미널사용자는 터미널사업자에게 승차권 판매를 위탁하여야 한다.[CT1]\n여객의 편의를 위하여 필요하다고 인정하면 운송사업자가 직접 판매하거나 터미널사업자가 아닌 자에게 승차권 판매를 위탁할 수 있다.[CT2]",
+  "answer_mode": "limited",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [],
+  "candidate_answer": "터미널사용자는 터미널사업자에게 승차권 판매를 위탁하여야 한다.[CT1]\n여객의 편의를 위하여 필요하다고 인정하면 운송사업자가 직접 판매하거나 터미널사업자가 아닌 자에게 승차권 판매를 위탁할 수 있다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-018947",
+      "quoted_text": "① 터미널사용자는 터미널사업자에게 승차권 판매를 위탁하여야 한다. 다만, 여객의 편의를 위하여 필요하다고 인정하면 국토교통부령으로 정하는 바에 따라 운송사업자가 직접 판매하거나 터미널사업자가 아닌 자에게 승차권 판매를 위탁할 수 있다. <개정 2013.3.23>",
+      "support_description": "터미널사용자의 승차권 판매 위탁 의무를 명시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-018947",
+      "quoted_text": "① 터미널사용자는 터미널사업자에게 승차권 판매를 위탁하여야 한다. 다만, 여객의 편의를 위하여 필요하다고 인정하면 국토교통부령으로 정하는 바에 따라 운송사업자가 직접 판매하거나 터미널사업자가 아닌 자에게 승차권 판매를 위탁할 수 있다. <개정 2013.3.23>",
+      "support_description": "직접 판매 또는 제3자 위탁의 예외적 허용 조건을 명시한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "터미널사용자는 터미널사업자에게 승차권 판매를 위탁하여야 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "conditional",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "exception",
+      "text": "여객의 편의를 위하여 필요하다고 인정하면 운송사업자가 직접 판매하거나 터미널사업자가 아닌 자에게 승차권 판매를 위탁할 수 있다."
+    }
+  ],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T12:01:14.606039+00:00",
+  "deferred_target_ids": [
+    "T2"
+  ],
+  "end_to_end_latency_ms": 197393.65,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "E2_PARTIAL_COVERAGE",
+      "message": "여객터미널 확장 시 면허기준 및 변경 요건에 대한 조항이 제공되지 않아 T2에 대한 답변을 보류합니다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 256,
+      "dedup_collapse": 212,
+      "evidence_fusion": 256,
+      "first_stage": 600,
+      "request_rerank": 600,
+      "round_selected": 30,
+      "rrf": 400,
+      "selected": 256
+    }
+  },
+  "run_id": "c66839e1-f9d2-407b-97aa-0d2e39a1f397",
+  "skill_generation_diagnostics": {
+    "attempt_count": 7,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "여객자동차 운수사업법 37조  면허기준#KOBLEX-018910",
+      "여객자동차 운수사업법 37조  면허기준#KOBLEX-018909",
+      "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-018947",
+      "여객자동차 운수사업법 시행규칙 89조  승차권판매의 위탁#KOBLEX-191203"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 6,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": true,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 1,
+          "request_count": 2,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [
+            "T2"
+          ],
+          "explanation": "Only the citable answer targets will be answered; remaining targets are deferred.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": [
+            "T2"
+          ]
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "limited",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_rule",
+        "question_anchor": "갑은 을에게 승차권 판매를 어떻게 위탁해야 하며",
+        "requested_output": "여객터미널 운영자가 운송회사에 승차권 판매를 위탁할 때 준수해야 할 법적 방식 및 제한"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_rule",
+        "question_anchor": "갑의 터미널 확장 계획에 대한 면허기준은 무엇인가",
+        "requested_output": "여객터미널 확장 시 적용되는 면허기준 및 요건"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "여객자동차 운수사업법 시행규칙 89조  승차권판매의 위탁#KOBLEX-191203"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.6517668962478638,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "여객자동차 운수사업법 시행규칙 89조  승차권판매의 위탁#KOBLEX-191203",
+        "provision_text": "제89조(승차권판매의 위탁) 법 제46조제1항 단서에 따라 운송사업자가 승차권을 직접 판매하거나 터미널사업자 외의 자에게 승차권판매를 위탁할 수 있는 경우는 다음 각 호와 같다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.6803243160247803,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "여객자동차 운수사업법 시행규칙 89조  승차권판매의 위탁",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-018947",
+          "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-088447",
+          "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-146959"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6885436177253723,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-018947",
+        "provision_text": "① 터미널사용자는 터미널사업자에게 승차권 판매를 위탁하여야 한다. 다만, 여객의 편의를 위하여 필요하다고 인정하면 국토교통부령으로 정하는 바에 따라 운송사업자가 직접 판매하거나 터미널사업자가 아닌 자에게 승차권 판매를 위탁할 수 있다. <개정 2013.3.23>",
+        "rerank_rank": 2,
+        "rerank_score": 0.5022274851799011,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "여객자동차 운수사업법 46조  승차권 판매 위탁 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-018946",
+          "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-088446",
+          "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-146958"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 27,
+        "first_stage_score": 0.5729904174804688,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-018946",
+        "provision_text": "제46조(승차권 판매 위탁)",
+        "rerank_rank": 3,
+        "rerank_score": 0.03515837714076042,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "여객자동차 운수사업법 46조  승차권 판매 위탁",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "여객자동차 운수사업법 36조  여객자동차터미널사업의 면허#KOBLEX-018906",
+          "여객자동차 운수사업법 36조  여객자동차터미널사업의 면허#KOBLEX-088406",
+          "여객자동차 운수사업법 36조  여객자동차터미널사업의 면허#KOBLEX-146918"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.5995101928710938,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "여객자동차 운수사업법 36조  여객자동차터미널사업의 면허#KOBLEX-018906",
+        "provision_text": "제36조(여객자동차터미널사업의 면허)",
+        "rerank_rank": 4,
+        "rerank_score": 0.033519480377435684,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "여객자동차 운수사업법 36조  여객자동차터미널사업의 면허",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "여객자동차 운수사업법 시행규칙 108조 2 규제의 재검토#KOBLEX-191375"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 18,
+        "first_stage_score": 0.5984057784080505,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "여객자동차 운수사업법 시행규칙 108조 2 규제의 재검토#KOBLEX-191375",
+        "provision_text": "23. 제73조에 따른 여객자동차터미널사업의 면허신청",
+        "rerank_rank": 5,
+        "rerank_score": 0.03147343918681145,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "여객자동차 운수사업법 시행규칙 108조 2 규제의 재검토 23호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "여객자동차 운수사업법 49조 3 여객자동차플랫폼운송사업의 허가 등#KOBLEX-018963",
+          "여객자동차 운수사업법 49조 3 여객자동차플랫폼운송사업의 허가 등#KOBLEX-088463",
+          "여객자동차 운수사업법 49조 3 여객자동차플랫폼운송사업의 허가 등#KOBLEX-146975"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 64,
+        "first_stage_score": 0.5510340929031372,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "여객자동차 운수사업법 49조 3 여객자동차플랫폼운송사업의 허가 등#KOBLEX-018963",
+        "provision_text": "제49조의3(여객자동차플랫폼운송사업의 허가 등)",
+        "rerank_rank": 6,
+        "rerank_score": 0.027454210445284843,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "여객자동차 운수사업법 49조 3 여객자동차플랫폼운송사업의 허가 등",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "여객자동차 운수사업법 89조 2 규제의 재검토#KOBLEX-019227",
+          "여객자동차 운수사업법 89조 2 규제의 재검토#KOBLEX-088727",
+          "여객자동차 운수사업법 89조 2 규제의 재검토#KOBLEX-147239"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 58,
+        "first_stage_score": 0.5535261631011963,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "여객자동차 운수사업법 89조 2 규제의 재검토#KOBLEX-019227",
+        "provision_text": "1. 제4조에 따른 여객자동차운송사업의 면허",
+        "rerank_rank": 7,
+        "rerank_score": 0.026173260062932968,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "여객자동차 운수사업법 89조 2 규제의 재검토 1호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "여객자동차 운수사업법 시행규칙 73조  여객자동차터미널사업의 면허신청#KOBLEX-191149"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 14,
+        "first_stage_score": 0.6013889908790588,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "여객자동차 운수사업법 시행규칙 73조  여객자동차터미널사업의 면허신청#KOBLEX-191149",
+        "provision_text": "제73조(여객자동차터미널사업의 면허신청)",
+        "rerank_rank": 8,
+        "rerank_score": 0.02571040391921997,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "여객자동차 운수사업법 시행규칙 73조  여객자동차터미널사업의 면허신청",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "여객자동차 운수사업법 시행령 4조  시ㆍ도지사의 면허 또는 등록 대상인 여객자동차운송사업#KOBLEX-227848"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 73,
+        "first_stage_score": 0.5493201613426208,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "여객자동차 운수사업법 시행령 4조  시ㆍ도지사의 면허 또는 등록 대상인 여객자동차운송사업#KOBLEX-227848",
+        "provision_text": "제4조(시ㆍ도지사의 면허 또는 등록 대상인 여객자동차운송사업)",
+        "rerank_rank": 9,
+        "rerank_score": 0.024034284055233,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "여객자동차 운수사업법 시행령 4조  시ㆍ도지사의 면허 또는 등록 대상인 여객자동차운송사업",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "여객자동차 운수사업법 89조 2 규제의 재검토#KOBLEX-019234",
+          "여객자동차 운수사업법 89조 2 규제의 재검토#KOBLEX-088734",
+          "여객자동차 운수사업법 89조 2 규제의 재검토#KOBLEX-147246"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 19,
+        "first_stage_score": 0.5932971239089966,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "여객자동차 운수사업법 89조 2 규제의 재검토#KOBLEX-019234",
+        "provision_text": "8. 제36조에 따른 여객자동차터미널사업의 면허",
+        "rerank_rank": 10,
+        "rerank_score": 0.023826055228710175,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "여객자동차 운수사업법 89조 2 규제의 재검토 8호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "여객자동차 운수사업법 36조  여객자동차터미널사업의 면허#KOBLEX-018907",
+          "여객자동차 운수사업법 36조  여객자동차터미널사업의 면허#KOBLEX-088407",
+          "여객자동차 운수사업법 36조  여객자동차터미널사업의 면허#KOBLEX-146919"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.6391988396644592,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "여객자동차 운수사업법 36조  여객자동차터미널사업의 면허#KOBLEX-018907",
+        "provision_text": "① 여객자동차터미널사업(이하 \"터미널사업\"이라 한다)을 경영하려는 자는 국토교통부령으로 정하는 바에 따라 시ㆍ도지사의 면허를 받아야 한다. <개정 2013.3.23>",
+        "rerank_rank": 6,
+        "rerank_score": 0.01648188941180706,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "여객자동차 운수사업법 36조  여객자동차터미널사업의 면허 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "농지법 시행규칙 47조  산지의 효율적 이용촉진을 위한 농지보전부담금의 면제대상사업#KOBLEX-178951"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 30,
+        "first_stage_score": 0.5883194208145142,
+        "fusion_rank": 15,
+        "issue_id": "I2",
+        "provision_id": "농지법 시행규칙 47조  산지의 효율적 이용촉진을 위한 농지보전부담금의 면제대상사업#KOBLEX-178951",
+        "provision_text": "8. 「여객자동차 운수사업법」에 따른 여객자동차터미널사업",
+        "rerank_rank": 15,
+        "rerank_score": 0.014696610160171986,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "농지법 시행규칙 47조  산지의 효율적 이용촉진을 위한 농지보전부담금의 면제대상사업 8호",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "여객자동차 운수사업법 37조  면허기준#KOBLEX-018909",
+          "여객자동차 운수사업법 37조  면허기준#KOBLEX-088409",
+          "여객자동차 운수사업법 37조  면허기준#KOBLEX-146921"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 31,
+        "first_stage_score": 0.5882236957550049,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "여객자동차 운수사업법 37조  면허기준#KOBLEX-018909",
+        "provision_text": "제37조(면허기준) 터미널사업의 면허기준은 다음 각 호와 같다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.006291574332863092,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "여객자동차 운수사업법 37조  면허기준",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "여객자동차 운수사업법 2조  정의#KOBLEX-018699",
+          "여객자동차 운수사업법 2조  정의#KOBLEX-088199",
+          "여객자동차 운수사업법 2조  정의#KOBLEX-146711"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 65,
+        "first_stage_score": 0.5609896183013916,
+        "fusion_rank": 52,
+        "issue_id": "I2",
+        "provision_id": "여객자동차 운수사업법 2조  정의#KOBLEX-018699",
+        "provision_text": "6. \"여객자동차터미널사업\"이란 여객자동차터미널을 여객자동차운송사업에 사용하게 하는 사업을 말한다.",
+        "rerank_rank": 52,
+        "rerank_score": 0.004553087055683136,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "여객자동차 운수사업법 2조  정의 6호",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "여객자동차 운수사업법 37조  면허기준#KOBLEX-018910",
+          "여객자동차 운수사업법 37조  면허기준#KOBLEX-088410",
+          "여객자동차 운수사업법 37조  면허기준#KOBLEX-146922"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 37,
+        "first_stage_score": 0.5790727138519287,
+        "fusion_rank": 10,
+        "issue_id": "I2",
+        "provision_id": "여객자동차 운수사업법 37조  면허기준#KOBLEX-018910",
+        "provision_text": "1. 여객자동차터미널(이하 \"터미널\"이라 한다)의 위치가 여객이 이용하기 편리하고 다른 교통수단과 쉽게 연계될 것",
+        "rerank_rank": 10,
+        "rerank_score": 0.004010203760117292,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "여객자동차 운수사업법 37조  면허기준 1호",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "여객자동차 운수사업법 시행규칙 80조  시설사용료의 인가신청 등#KOBLEX-191170"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 26,
+        "first_stage_score": 0.579329252243042,
+        "fusion_rank": 12,
+        "issue_id": "I2",
+        "provision_id": "여객자동차 운수사업법 시행규칙 80조  시설사용료의 인가신청 등#KOBLEX-191170",
+        "provision_text": "① 법 제41조제1항에 따라 여객자동차터미널 시설사용료의 인가 또는 변경인가를 받으려는 자는 별지 제43호서식의 여객자동차터미널 시설사용료 인가(변경인가)신청서(전자문서로 된 신청서를 포함한다)에 다음 각 호의 서류(전자문서를 포함한다)를 첨부하여 시ㆍ도지사에게 제출하여야 한다. <개정 2018.2.12> 1. 시설사용료의 산출계산서. 다만, 해당 터미널사용자와 협의하였을 때에는 제출하지 아니할 수 있다. 2. 시설사용료의 신ㆍ구 대비표(변경인가신청의 경우에만 첨부한다) 3. 터미널사업자와 터미널사용자 간의 시설사용료에 관한 협의서 사본",
+        "rerank_rank": 12,
+        "rerank_score": 0.003719522152096033,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "여객자동차 운수사업법 시행규칙 80조  시설사용료의 인가신청 등 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "여객자동차 운수사업법 시행규칙 73조  여객자동차터미널사업의 면허신청#KOBLEX-191150"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.6298429369926453,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "여객자동차 운수사업법 시행규칙 73조  여객자동차터미널사업의 면허신청#KOBLEX-191150",
+        "provision_text": "① 법 제36조제1항에 따라 여객자동차터미널사업(이하 \"터미널사업\"이라 한다)의 면허를 받으려는 자는 별지 제36호서식의 여객자동차터미널사업 면허신청서(전자문서로 된 신청서를 포함한다)를 시ㆍ도지사에게 제출하여야 한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.0009006178588606417,
+        "retrieval_round": 3,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "여객자동차 운수사업법 시행규칙 73조  여객자동차터미널사업의 면허신청 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "농지법 시행규칙 47조  산지의 효율적 이용촉진을 위한 농지보전부담금의 면제대상사업#KOBLEX-178951": "8. 「여객자동차 운수사업법」에 따른 여객자동차터미널사업",
+      "여객자동차 운수사업법 2조  정의#KOBLEX-018699": "6. \"여객자동차터미널사업\"이란 여객자동차터미널을 여객자동차운송사업에 사용하게 하는 사업을 말한다.",
+      "여객자동차 운수사업법 36조  여객자동차터미널사업의 면허#KOBLEX-018906": "제36조(여객자동차터미널사업의 면허)",
+      "여객자동차 운수사업법 36조  여객자동차터미널사업의 면허#KOBLEX-018907": "① 여객자동차터미널사업(이하 \"터미널사업\"이라 한다)을 경영하려는 자는 국토교통부령으로 정하는 바에 따라 시ㆍ도지사의 면허를 받아야 한다. <개정 2013.3.23>",
+      "여객자동차 운수사업법 37조  면허기준#KOBLEX-018909": "제37조(면허기준) 터미널사업의 면허기준은 다음 각 호와 같다.",
+      "여객자동차 운수사업법 37조  면허기준#KOBLEX-018910": "1. 여객자동차터미널(이하 \"터미널\"이라 한다)의 위치가 여객이 이용하기 편리하고 다른 교통수단과 쉽게 연계될 것",
+      "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-018946": "제46조(승차권 판매 위탁)",
+      "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-018947": "① 터미널사용자는 터미널사업자에게 승차권 판매를 위탁하여야 한다. 다만, 여객의 편의를 위하여 필요하다고 인정하면 국토교통부령으로 정하는 바에 따라 운송사업자가 직접 판매하거나 터미널사업자가 아닌 자에게 승차권 판매를 위탁할 수 있다. <개정 2013.3.23>",
+      "여객자동차 운수사업법 49조 3 여객자동차플랫폼운송사업의 허가 등#KOBLEX-018963": "제49조의3(여객자동차플랫폼운송사업의 허가 등)",
+      "여객자동차 운수사업법 89조 2 규제의 재검토#KOBLEX-019227": "1. 제4조에 따른 여객자동차운송사업의 면허",
+      "여객자동차 운수사업법 89조 2 규제의 재검토#KOBLEX-019234": "8. 제36조에 따른 여객자동차터미널사업의 면허",
+      "여객자동차 운수사업법 시행규칙 108조 2 규제의 재검토#KOBLEX-191375": "23. 제73조에 따른 여객자동차터미널사업의 면허신청",
+      "여객자동차 운수사업법 시행규칙 73조  여객자동차터미널사업의 면허신청#KOBLEX-191149": "제73조(여객자동차터미널사업의 면허신청)",
+      "여객자동차 운수사업법 시행규칙 73조  여객자동차터미널사업의 면허신청#KOBLEX-191150": "① 법 제36조제1항에 따라 여객자동차터미널사업(이하 \"터미널사업\"이라 한다)의 면허를 받으려는 자는 별지 제36호서식의 여객자동차터미널사업 면허신청서(전자문서로 된 신청서를 포함한다)를 시ㆍ도지사에게 제출하여야 한다.",
+      "여객자동차 운수사업법 시행규칙 80조  시설사용료의 인가신청 등#KOBLEX-191170": "① 법 제41조제1항에 따라 여객자동차터미널 시설사용료의 인가 또는 변경인가를 받으려는 자는 별지 제43호서식의 여객자동차터미널 시설사용료 인가(변경인가)신청서(전자문서로 된 신청서를 포함한다)에 다음 각 호의 서류(전자문서를 포함한다)를 첨부하여 시ㆍ도지사에게 제출하여야 한다. <개정 2018.2.12> 1. 시설사용료의 산출계산서. 다만, 해당 터미널사용자와 협의하였을 때에는 제출하지 아니할 수 있다. 2. 시설사용료의 신ㆍ구 대비표(변경인가신청의 경우에만 첨부한다) 3. 터미널사업자와 터미널사용자 간의 시설사용료에 관한 협의서 사본",
+      "여객자동차 운수사업법 시행규칙 89조  승차권판매의 위탁#KOBLEX-191203": "제89조(승차권판매의 위탁) 법 제46조제1항 단서에 따라 운송사업자가 승차권을 직접 판매하거나 터미널사업자 외의 자에게 승차권판매를 위탁할 수 있는 경우는 다음 각 호와 같다.",
+      "여객자동차 운수사업법 시행령 4조  시ㆍ도지사의 면허 또는 등록 대상인 여객자동차운송사업#KOBLEX-227848": "제4조(시ㆍ도지사의 면허 또는 등록 대상인 여객자동차운송사업)"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-018947"
+            ],
+            "rationale": "C002 explicitly states that terminal users must entrust ticket sales to the terminal operator, satisfying the requirement to confirm the obligation or prohibition.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "여객자동차 운수사업법 시행규칙 89조  승차권판매의 위탁#KOBLEX-191203",
+              "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-018947"
+            ],
+            "rationale": "C002 provides the statutory basis for direct sales or third-party entrustment as an exception, and C001 lists the specific cases where this is permitted, satisfying the requirement to confirm permissions and limitations.",
+            "requirement_id": "E1-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-018947",
+          "여객자동차 운수사업법 시행규칙 89조  승차권판매의 위탁#KOBLEX-191203"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The legal rule regarding ticket sales entrustment is fully established. C002 provides the primary obligation and the statutory exception, while C001 details the specific conditions for that exception. Together, they satisfy the requirements for both the operator's obligation and the transport company's direct sales permissions.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "여객자동차 운수사업법 37조  면허기준#KOBLEX-018909",
+              "여객자동차 운수사업법 37조  면허기준#KOBLEX-018910"
+            ],
+            "rationale": "C013 identifies the relevant article and C015 provides one criterion (location), but the full set of basic license requirements (facilities, personnel, capital) is not fully established by the supplied text.",
+            "requirement_id": "E2-R1",
+            "status": "partially_satisfied"
+          },
+          {
+            "linked_provision_ids": [],
+            "rationale": "No candidate provision contains the text specifying the requirements for license modification or re-licensing when the terminal is expanded or facilities are changed.",
+            "requirement_id": "E2-R2",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "missing_statute",
+        "legal_status": "partially_covered",
+        "linked_provision_ids": [
+          "여객자동차 운수사업법 37조  면허기준#KOBLEX-018909",
+          "여객자동차 운수사업법 37조  면허기준#KOBLEX-018910"
+        ],
+        "missing_aspects": [
+          "E2-R1",
+          "E2-R2"
+        ],
+        "partial_kind": "legal_support_gap",
+        "rationale": "The candidate set contains the header for the license criteria article (C013) and one specific criterion regarding location (C015). However, the substantive text detailing the full range of basic license requirements (such as personnel and capital) and the specific procedural requirements for license modification upon expansion are missing from the supplied candidates. Therefore, the legal support is incomplete.",
+        "status": "partially_covered"
+      }
+    ],
+    "deferred_target_ids": [
+      "T2"
+    ],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-018947",
+        "support_spans": [
+          {
+            "end_char": 146,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "여객자동차 운수사업법 시행규칙 89조  승차권판매의 위탁#KOBLEX-191203",
+        "support_spans": [
+          {
+            "end_char": 99,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "여객자동차 운수사업법 37조  면허기준#KOBLEX-018909",
+        "support_spans": [
+          {
+            "end_char": 35,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "여객자동차 운수사업법 37조  면허기준#KOBLEX-018910",
+        "support_spans": [
+          {
+            "end_char": 63,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 1,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "여객터미널 내 승차권 판매 위탁의 법적 구조와 제한",
+        "issue_id": "I1"
+      },
+      {
+        "description": "여객터미널 확장 시 면허기준",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "여객터미널 면허를 위한 시설, 인력, 자본 등 기준 및 변경(확장) 시 재면허 또는 변경면허 요건 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "여객터미널 면허의 기본 요건(시설, 인력, 자본 등)을 확인"
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "터미널 확장(면적, 시설 변경) 시 적용되는 면허 변경 또는 재면허 요건을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "여객터미널 면허기준 및 확장 시 요건",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 터미널 확장 계획에 대한 면허기준을 묻고 있으므로, 면허 요건 및 변경 시 적용 기준을 규정한 조항이 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 1,
+    "normalized_question": "[배경 시나리오] 갑은 대도시에 위치한 여객터미널의 소유자이자 운영자로, 을은 그 터미널을 이용하는 주요 운송회사 중 하나이다. 갑은 터미널에서 승차권을 판매할 계획을 가지고 있는데, 을은 승차권 판매 방식을 두고 갑과 갈등이 생겼다. 갑은 모든 승차권을 터미널 내 다른 업체를 통해 판매하려 하고, 을은 일부 승차권을 직접 판매하거나 타 업체를 통해 판매하고자 한다. 동시에, 이 터미널은 확장을 계획 중인데, 을은 터미널의 면허기준을 검토하고자 한다. [질문] 갑은 을에게 승차권 판매를 어떻게 위탁해야 하며, 갑의 터미널 확장 계획에 대한 면허기준은 무엇인가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "여객터미널",
+          "승차권 판매",
+          "위탁",
+          "직접판매",
+          "운송회사"
+        ],
+        "query_text": "여객터미널 승차권 판매 위탁 직접판매 금지 운송회사 [원문 맥락] 동시에, 이 터미널은 확장을 계획 중인데, 을은 터미널의 면허기준을 검토하고자 한다. 갑은 을에게 승차권 판매를 어떻게 위탁해야 하며, 갑의 터미널 확장 계획에 대한 면허기준은 무엇인가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "여객자동차 운수사업법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "여객터미널",
+          "면허기준",
+          "확장",
+          "변경면허",
+          "요건"
+        ],
+        "query_text": "여객터미널 면허기준 확장 변경면허 요건 [원문 맥락] 동시에, 이 터미널은 확장을 계획 중인데, 을은 터미널의 면허기준을 검토하고자 한다. 갑은 을에게 승차권 판매를 어떻게 위탁해야 하며, 갑의 터미널 확장 계획에 대한 면허기준은 무엇인가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "여객자동차 운수사업법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "여객자동차터미널사업",
+          "면허",
+          "시설",
+          "자본금",
+          "요건"
+        ],
+        "query_text": "여객자동차터미널사업 면허 기준 시설 요건 자본금 [원문 맥락] 동시에, 이 터미널은 확장을 계획 중인데, 을은 터미널의 면허기준을 검토하고자 한다. 갑은 을에게 승차권 판매를 어떻게 위탁해야 하며, 갑의 터미널 확장 계획에 대한 면허기준은 무엇인가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "여객자동차 운수사업법",
+          "여객자동차 운수사업법 시행규칙"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "여객터미널",
+          "면허변경",
+          "시설",
+          "확장",
+          "신고"
+        ],
+        "query_text": "여객터미널 면허 변경 시설 확장 신고 [원문 맥락] 동시에, 이 터미널은 확장을 계획 중인데, 을은 터미널의 면허기준을 검토하고자 한다. 갑은 을에게 승차권 판매를 어떻게 위탁해야 하며, 갑의 터미널 확장 계획에 대한 면허기준은 무엇인가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "여객자동차 운수사업법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "여객자동차터미널사업",
+          "면허기준",
+          "인력",
+          "자본금",
+          "시설"
+        ],
+        "query_text": "여객자동차터미널사업 면허기준 인력 자본금 시설 요건 [원문 맥락] 동시에, 이 터미널은 확장을 계획 중인데, 을은 터미널의 면허기준을 검토하고자 한다. 갑은 을에게 승차권 판매를 어떻게 위탁해야 하며, 갑의 터미널 확장 계획에 대한 면허기준은 무엇인가?",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "여객자동차 운수사업법",
+          "여객자동차 운수사업법 시행규칙"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "여객자동차터미널사업",
+          "면허변경",
+          "신고",
+          "시설",
+          "확장"
+        ],
+        "query_text": "여객자동차터미널사업 면허 변경 신고 시설 확장 [원문 맥락] 동시에, 이 터미널은 확장을 계획 중인데, 을은 터미널의 면허기준을 검토하고자 한다. 갑은 을에게 승차권 판매를 어떻게 위탁해야 하며, 갑의 터미널 확장 계획에 대한 면허기준은 무엇인가?",
+        "request_id": "GRQ-R3-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "여객자동차 운수사업법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 대도시에 위치한 여객터미널의 소유자이자 운영자로, 을은 그 터미널을 이용하는 주요 운송회사 중 하나이다. 갑은 터미널에서 승차권을 판매할 계획을 가지고 있는데, 을은 승차권 판매 방식을 두고 갑과 갈등이 생겼다. 갑은 모든 승차권을 터미널 내 다른 업체를 통해 판매하려 하고, 을은 일부 승차권을 직접 판매하거나 타 업체를 통해 판매하고자 한다. 동시에, 이 터미널은 확장을 계획 중인데, 을은 터미널의 면허기준을 검토하고자 한다.\n\n[질문]\n갑은 을에게 승차권 판매를 어떻게 위탁해야 하며, 갑의 터미널 확장 계획에 대한 면허기준은 무엇인가?",
+    "remaining_request_budget": 3,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "운송회사의 승차권 판매 방식(직접 판매 vs 위탁)에 대한 법적 허용 범위와 제한을 명시하는 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "여객터미널 운영자의 승차권 판매 위탁 의무 또는 금지 규정을 확인"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "운송회사의 직접 승차권 판매 허용 여부 및 제한 사항을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "여객터미널 내 승차권 판매 위탁에 관한 법적 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 승차권 판매 위탁 방식을 묻고 있으므로, 해당 행위의 법적 근거와 제한을 규정한 조항이 필수적임",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "여객터미널 면허를 위한 시설, 인력, 자본 등 기준 및 변경(확장) 시 재면허 또는 변경면허 요건 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "여객터미널 면허의 기본 요건(시설, 인력, 자본 등)을 확인"
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "터미널 확장(면적, 시설 변경) 시 적용되는 면허 변경 또는 재면허 요건을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "여객터미널 면허기준 및 확장 시 요건",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 터미널 확장 계획에 대한 면허기준을 묻고 있으므로, 면허 요건 및 변경 시 적용 기준을 규정한 조항이 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "c66839e1-f9d2-407b-97aa-0d2e39a1f397",
+    "seen_provision_ids": [
+      "여객자동차 운수사업법 36조  여객자동차터미널사업의 면허#KOBLEX-018907",
+      "여객자동차 운수사업법 37조  면허기준#KOBLEX-018909",
+      "여객자동차 운수사업법 시행규칙 73조  여객자동차터미널사업의 면허신청#KOBLEX-191150",
+      "여객자동차 운수사업법 89조 2 규제의 재검토#KOBLEX-019234",
+      "여객자동차 운수사업법 시행규칙 73조  여객자동차터미널사업의 면허신청#KOBLEX-191149",
+      "여객자동차 운수사업법 시행규칙 89조  승차권판매의 위탁#KOBLEX-191203",
+      "여객자동차 운수사업법 89조 2 규제의 재검토#KOBLEX-019227",
+      "농지법 시행규칙 47조  산지의 효율적 이용촉진을 위한 농지보전부담금의 면제대상사업#KOBLEX-178951",
+      "여객자동차 운수사업법 37조  면허기준#KOBLEX-018910",
+      "여객자동차 운수사업법 시행령 4조  시ㆍ도지사의 면허 또는 등록 대상인 여객자동차운송사업#KOBLEX-227848",
+      "여객자동차 운수사업법 36조  여객자동차터미널사업의 면허#KOBLEX-018906",
+      "여객자동차 운수사업법 2조  정의#KOBLEX-018699",
+      "여객자동차 운수사업법 49조 3 여객자동차플랫폼운송사업의 허가 등#KOBLEX-018963",
+      "여객자동차 운수사업법 시행규칙 80조  시설사용료의 인가신청 등#KOBLEX-191170",
+      "여객자동차 운수사업법 시행규칙 108조 2 규제의 재검토#KOBLEX-191375",
+      "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-018947",
+      "여객자동차 운수사업법 46조  승차권 판매 위탁#KOBLEX-018946"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

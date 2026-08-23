@@ -1,0 +1,557 @@
+{
+  "abstention_reason": null,
+  "answer": "헌법재판소장이 일시적인 사고로 인하여 직무를 수행할 수 없을 때에는 재판관 중 임명일자 순으로 그 권한을 대행한다.[CT1]\n임명일자가 같을 때에는 연장자 순으로 대행한다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "질문에서 제시된 '갑'이 헌법재판소장으로서 일시적인 사고로 직무를 수행할 수 없는 상태에 있다고 가정한다."
+    }
+  ],
+  "candidate_answer": "헌법재판소장이 일시적인 사고로 인하여 직무를 수행할 수 없을 때에는 재판관 중 임명일자 순으로 그 권한을 대행한다.[CT1]\n임명일자가 같을 때에는 연장자 순으로 대행한다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "헌법재판소법 12조 2 헌법재판소장의 권한대행#KOBLEX-187874",
+      "quoted_text": "① 헌법재판소장이 일시적인 사고로 인하여 직무를 수행할 수 없을 때에는 재판관 중 임명일자 순으로 그 권한을 대행한다. 다만, 임명일자가 같을 때에는 연장자 순으로 대행한다.",
+      "support_description": "소장 권한대행의 기본 원칙인 임명일자 순위를 명시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "헌법재판소법 12조 2 헌법재판소장의 권한대행#KOBLEX-187874",
+      "quoted_text": "① 헌법재판소장이 일시적인 사고로 인하여 직무를 수행할 수 없을 때에는 재판관 중 임명일자 순으로 그 권한을 대행한다. 다만, 임명일자가 같을 때에는 연장자 순으로 대행한다.",
+      "support_description": "임명일자가 동일한 경우의 예외적 순위 기준을 명시한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "헌법재판소장이 일시적인 사고로 인하여 직무를 수행할 수 없을 때에는 재판관 중 임명일자 순으로 그 권한을 대행한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "conditional",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "exception",
+      "text": "임명일자가 같을 때에는 연장자 순으로 대행한다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T07:27:55.108025+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 58788.351,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "본 답변은 헌법재판소법 제12조 제2항에 근거한 법적 결론이며, 구체적인 재판관 개인의 신원 확인은 해당 조항의 적용 결과에 따라 결정된다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 97,
+      "dedup_collapse": 6,
+      "evidence_fusion": 97,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 97
+    }
+  },
+  "run_id": "373139a8-a4b0-4d0f-83ab-7a358adbb19b",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "헌법재판소법 12조 2 헌법재판소장의 권한대행#KOBLEX-187874"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "헌법재판소장인 갑이 일시적인 사고로 직무를 수행할 수 없는 경우, (헌법)재판관 중 누구에게 그 권한이 대행되는가?",
+        "requested_output": "The specific Constitutional Court Justice who assumes the duties of the President."
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "법원조직법 13조  대법원장#KOBLEX-177579"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6369996070861816,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "법원조직법 13조  대법원장#KOBLEX-177579",
+        "provision_text": "③ 대법원장이 궐위되거나 부득이한 사유로 직무를 수행할 수 없을 때에는 선임대법관이 그 권한을 대행한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.0001802371843950823,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "법원조직법 13조  대법원장 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "대한민국헌법 71조#KOBLEX-019728"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.593666672706604,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "대한민국헌법 71조#KOBLEX-019728",
+        "provision_text": "제71조 대통령이 궐위되거나 사고로 인하여 직무를 수행할 수 없을 때에는 국무총리, 법률이 정한 국무위원의 순서로 그 권한을 대행한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.00016868443344719708,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "대한민국헌법 71조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "법원조직법 26조  고등법원장#KOBLEX-177633"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.6138582229614258,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "법원조직법 26조  고등법원장#KOBLEX-177633",
+        "provision_text": "④ 고등법원장이 궐위되거나 부득이한 사유로 직무를 수행할 수 없을 때에는 수석판사, 선임판사의 순서로 그 권한을 대행한다. <개정 2020.3.24>",
+        "rerank_rank": 3,
+        "rerank_score": 9.762134141055867e-05,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "법원조직법 26조  고등법원장 4항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "신용협동조합법 72조  임원의 직무와 임기 등#KOBLEX-063290"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 67,
+        "first_stage_score": 0.5516824722290039,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "신용협동조합법 72조  임원의 직무와 임기 등#KOBLEX-063290",
+        "provision_text": "⑥ 중앙회장이 부득이한 사유로 직무를 수행할 수 없을 때에는 정관에서 정하는 임원의 순으로 그 직무를 대행한다.",
+        "rerank_rank": 4,
+        "rerank_score": 3.1123221560847014e-05,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "신용협동조합법 72조  임원의 직무와 임기 등 6항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "신문 등의 진흥에 관한 법률 30조  임원#KOBLEX-215686"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 66,
+        "first_stage_score": 0.5520358681678772,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "신문 등의 진흥에 관한 법률 30조  임원#KOBLEX-215686",
+        "provision_text": "⑤ 이사장이 부득이한 사유로 직무를 수행할 수 없을 때에는 정관으로 정하는 순서에 따라 상임이사가 그 직무를 대행한다.",
+        "rerank_rank": 5,
+        "rerank_score": 3.044323602807708e-05,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "신문 등의 진흥에 관한 법률 30조  임원 5항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "감사원법 19조  사무총장 및 사무차장#KOBLEX-081417"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 31,
+        "first_stage_score": 0.5733652710914612,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "감사원법 19조  사무총장 및 사무차장#KOBLEX-081417",
+        "provision_text": "③ 사무차장은 사무총장을 보좌하고 사무총장이 사고로 인하여 직무를 수행할 수 없을 때에는 그 직무를 대행한다.",
+        "rerank_rank": 6,
+        "rerank_score": 2.4657636458869092e-05,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "감사원법 19조  사무총장 및 사무차장 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "헌법재판소법 12조 2 헌법재판소장의 권한대행#KOBLEX-187874"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.8397044539451599,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "헌법재판소법 12조 2 헌법재판소장의 권한대행#KOBLEX-187874",
+        "provision_text": "① 헌법재판소장이 일시적인 사고로 인하여 직무를 수행할 수 없을 때에는 재판관 중 임명일자 순으로 그 권한을 대행한다. 다만, 임명일자가 같을 때에는 연장자 순으로 대행한다.",
+        "rerank_rank": 7,
+        "rerank_score": 2.3485667043132707e-05,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "헌법재판소법 12조 2 헌법재판소장의 권한대행 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "법원조직법 67조  법원행정처장 등#KOBLEX-177887"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 27,
+        "first_stage_score": 0.5765267610549927,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "법원조직법 67조  법원행정처장 등#KOBLEX-177887",
+        "provision_text": "③ 차장은 처장을 보좌하여 법원행정처의 사무를 처리하고, 처장이 궐위되거나 부득이한 사유로 직무를 수행할 수 없을 때에는 그 권한을 대행한다.",
+        "rerank_rank": 8,
+        "rerank_score": 2.2421170797315426e-05,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "법원조직법 67조  법원행정처장 등 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "대한민국헌법 104조#KOBLEX-019829"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 97,
+        "first_stage_score": 0.5379247665405273,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "대한민국헌법 104조#KOBLEX-019829",
+        "provision_text": "①대법원장은 국회의 동의를 얻어 대통령이 임명한다.",
+        "rerank_rank": 9,
+        "rerank_score": 2.2023465135134757e-05,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "대한민국헌법 104조 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "기술보증기금법 20조  임원의 직무#KOBLEX-118001"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 99,
+        "first_stage_score": 0.5369865894317627,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "기술보증기금법 20조  임원의 직무#KOBLEX-118001",
+        "provision_text": "④ 이사장과 전무이사가 모두 부득이한 사유로 직무를 수행할 수 없을 때에는 이사장이 미리 지정한 순위의 이사가 이사장의 직무를 대행한다.",
+        "rerank_rank": 10,
+        "rerank_score": 2.1588257368421182e-05,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "기술보증기금법 20조  임원의 직무 4항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "감사원법 19조  사무총장 및 사무차장#KOBLEX-081417": "③ 사무차장은 사무총장을 보좌하고 사무총장이 사고로 인하여 직무를 수행할 수 없을 때에는 그 직무를 대행한다.",
+      "기술보증기금법 20조  임원의 직무#KOBLEX-118001": "④ 이사장과 전무이사가 모두 부득이한 사유로 직무를 수행할 수 없을 때에는 이사장이 미리 지정한 순위의 이사가 이사장의 직무를 대행한다.",
+      "대한민국헌법 104조#KOBLEX-019829": "①대법원장은 국회의 동의를 얻어 대통령이 임명한다.",
+      "대한민국헌법 71조#KOBLEX-019728": "제71조 대통령이 궐위되거나 사고로 인하여 직무를 수행할 수 없을 때에는 국무총리, 법률이 정한 국무위원의 순서로 그 권한을 대행한다.",
+      "법원조직법 13조  대법원장#KOBLEX-177579": "③ 대법원장이 궐위되거나 부득이한 사유로 직무를 수행할 수 없을 때에는 선임대법관이 그 권한을 대행한다.",
+      "법원조직법 26조  고등법원장#KOBLEX-177633": "④ 고등법원장이 궐위되거나 부득이한 사유로 직무를 수행할 수 없을 때에는 수석판사, 선임판사의 순서로 그 권한을 대행한다. <개정 2020.3.24>",
+      "법원조직법 67조  법원행정처장 등#KOBLEX-177887": "③ 차장은 처장을 보좌하여 법원행정처의 사무를 처리하고, 처장이 궐위되거나 부득이한 사유로 직무를 수행할 수 없을 때에는 그 권한을 대행한다.",
+      "신문 등의 진흥에 관한 법률 30조  임원#KOBLEX-215686": "⑤ 이사장이 부득이한 사유로 직무를 수행할 수 없을 때에는 정관으로 정하는 순서에 따라 상임이사가 그 직무를 대행한다.",
+      "신용협동조합법 72조  임원의 직무와 임기 등#KOBLEX-063290": "⑥ 중앙회장이 부득이한 사유로 직무를 수행할 수 없을 때에는 정관에서 정하는 임원의 순으로 그 직무를 대행한다.",
+      "헌법재판소법 12조 2 헌법재판소장의 권한대행#KOBLEX-187874": "① 헌법재판소장이 일시적인 사고로 인하여 직무를 수행할 수 없을 때에는 재판관 중 임명일자 순으로 그 권한을 대행한다. 다만, 임명일자가 같을 때에는 연장자 순으로 대행한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "헌법재판소법 12조 2 헌법재판소장의 권한대행#KOBLEX-187874"
+            ],
+            "rationale": "C007 specifies that the Justice with the earliest appointment date (임명일자 순) acts as the proxy, with seniority (연장자 순) as the tie-breaker. This meets the requirement to specify the identity or selection criterion.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "헌법재판소법 12조 2 헌법재판소장의 권한대행#KOBLEX-187874"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The supplied candidate C007 provides the specific statutory rule for succession of the Constitutional Court President's duties during temporary incapacity, identifying the Justice with the earliest appointment date (or seniority in case of a tie) as the successor. This fully satisfies the evidence item's completion criteria.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "헌법재판소법 12조 2 헌법재판소장의 권한대행#KOBLEX-187874",
+        "support_spans": [
+          {
+            "end_char": 97,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "Determination of the statutory successor for the duties of the Constitutional Court President during temporary incapacity.",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 헌법재판소장으로 임명되어 직무를 수행 중이다. 어느 날, 갑이 갑작스러운 질병으로 인해 몇 주간 직무를 수행할 수 없는 상황에 처하게 된다. 헌법재판소는 긴급히 재판관 중 한 명을 임시 소장으로 임명하여 갑의 직무를 대행해야 한다. [질문] 헌법재판소장인 갑이 일시적인 사고로 직무를 수행할 수 없는 경우, (헌법)재판관 중 누구에게 그 권한이 대행되는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "헌법재판소법",
+          "소장",
+          "직무대행",
+          "재판관",
+          "선임"
+        ],
+        "query_text": "Constitutional Court Act President temporary absence duties succession senior justice [원문 맥락] 헌법재판소는 긴급히 재판관 중 한 명을 임시 소장으로 임명하여 갑의 직무를 대행해야 한다. 헌법재판소장인 갑이 일시적인 사고로 직무를 수행할 수 없는 경우, (헌법)재판관 중 누구에게 그 권한이 대행되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "헌법재판소법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 헌법재판소장으로 임명되어 직무를 수행 중이다. 어느 날, 갑이 갑작스러운 질병으로 인해 몇 주간 직무를 수행할 수 없는 상황에 처하게 된다. 헌법재판소는 긴급히 재판관 중 한 명을 임시 소장으로 임명하여 갑의 직무를 대행해야 한다.\n\n[질문]\n헌법재판소장인 갑이 일시적인 사고로 직무를 수행할 수 없는 경우, (헌법)재판관 중 누구에게 그 권한이 대행되는가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identifies the specific Justice (e.g., the most senior Justice) who assumes the President's duties.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "Specifies the identity or selection criterion (e.g., seniority) of the Justice who acts as President."
+          }
+        ],
+        "critical": true,
+        "description": "The statutory provision specifying the order of succession or designation for the President of the Constitutional Court in cases of temporary absence or incapacity.",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "This rule directly determines the answer to who performs the duties.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "373139a8-a4b0-4d0f-83ab-7a358adbb19b",
+    "seen_provision_ids": [
+      "법원조직법 26조  고등법원장#KOBLEX-177633",
+      "대한민국헌법 104조#KOBLEX-019829",
+      "헌법재판소법 12조 2 헌법재판소장의 권한대행#KOBLEX-187874",
+      "기술보증기금법 20조  임원의 직무#KOBLEX-118001",
+      "대한민국헌법 71조#KOBLEX-019728",
+      "신용협동조합법 72조  임원의 직무와 임기 등#KOBLEX-063290",
+      "신문 등의 진흥에 관한 법률 30조  임원#KOBLEX-215686",
+      "법원조직법 13조  대법원장#KOBLEX-177579",
+      "감사원법 19조  사무총장 및 사무차장#KOBLEX-081417",
+      "법원조직법 67조  법원행정처장 등#KOBLEX-177887"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

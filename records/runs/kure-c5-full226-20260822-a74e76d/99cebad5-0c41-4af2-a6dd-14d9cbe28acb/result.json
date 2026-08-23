@@ -1,0 +1,998 @@
+{
+  "abstention_reason": null,
+  "answer": "형사소송법 제66조 제3항에 의하면 기간의 말일이 공휴일이거나 토요일이면 그날은 기간에 산입하지 아니한다.[CT1]\n형사소송법 제361조의5는 원심판결에 대한 항소이유로 할 수 있는 사유가 있음을 규정하나, 그 구체적 내용은 확인되지 않았다.[CT2]",
+  "answer_mode": "limited",
+  "answered_target_ids": [
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "갑의 항소기간 마지막 날이 토요일이라는 사실은 질문의 배경 시나리오에 기반한 가정이다."
+    }
+  ],
+  "candidate_answer": "형사소송법 제66조 제3항에 의하면 기간의 말일이 공휴일이거나 토요일이면 그날은 기간에 산입하지 아니한다.[CT1]\n형사소송법 제361조의5는 원심판결에 대한 항소이유로 할 수 있는 사유가 있음을 규정하나, 그 구체적 내용은 확인되지 않았다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형사소송법 66조  기간의 계산#KOBLEX-231629",
+      "quoted_text": "③ 기간의 말일이 공휴일이거나 토요일이면 그날은 기간에 산입하지 아니한다. 다만, 시효와 구속기간에 관하여는 예외로 한다.",
+      "support_description": "기간의 말일이 토요일인 경우의 산입 방식을 명시하는 조항 내용"
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "형사소송법 361조 5 항소이유#KOBLEX-232721",
+      "quoted_text": "제361조의5(항소이유) 다음 사유가 있을 경우에는 원심판결에 대한 항소이유로 할 수 있다. <개정 1963.12.13>",
+      "support_description": "항소이유 조항의 존재를 확인하나 구체적 사유 내용을 포함하지 않음"
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "형사소송법 제66조 제3항에 의하면 기간의 말일이 공휴일이거나 토요일이면 그날은 기간에 산입하지 아니한다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "conditional",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "형사소송법 제361조의5는 원심판결에 대한 항소이유로 할 수 있는 사유가 있음을 규정하나, 그 구체적 내용은 확인되지 않았다."
+    }
+  ],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T10:42:54.427695+00:00",
+  "deferred_target_ids": [
+    "T1"
+  ],
+  "end_to_end_latency_ms": 155841.989,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "형사소송법 제361조의5의 구체적 항소 사유 내용은 제공된 조항 텍스트에 포함되어 있지 않아, 항소 사유에 대한 법적 결론은 유보된다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 322,
+      "dedup_collapse": 150,
+      "evidence_fusion": 322,
+      "first_stage": 400,
+      "request_rerank": 400,
+      "round_selected": 30,
+      "rrf": 400,
+      "selected": 322
+    }
+  },
+  "run_id": "99cebad5-0c41-4af2-a6dd-14d9cbe28acb",
+  "skill_generation_diagnostics": {
+    "attempt_count": 7,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형사소송법 66조  기간의 계산#KOBLEX-231629",
+      "형사소송법 361조 5 항소이유#KOBLEX-232721"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 4,
+          "request_count": 1,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 3,
+          "request_count": 1,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T2"
+          ],
+          "deferred_target_ids": [
+            "T1"
+          ],
+          "explanation": "Only the citable answer targets will be answered; remaining targets are deferred.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": [
+            "T1"
+          ]
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "limited",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_rule",
+        "question_anchor": "원심판결에 대해 항소를 하려면 어떤 이유를 들 수 있으며",
+        "requested_output": "원심판결에 대한 항소 사유"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_rule",
+        "question_anchor": "항소기간의 마지막 날이 토요일인 경우 그 날은 기간에 어떻게 산입되는가",
+        "requested_output": "토요일이 기간의 마지막 날인 경우의 기간 산입 규칙"
+      }
+    ],
+    "answered_target_ids": [
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "형사소송법 361조 4 항소기각의 결정#KOBLEX-232719"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 26,
+        "first_stage_score": 0.5606101155281067,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 361조 4 항소기각의 결정#KOBLEX-232719",
+        "provision_text": "①항소인이나 변호인이 전조제1항의 기간 내에 항소이유서를 제출하지 아니한 때에는 결정으로 항소를 기각하여야 한다. 단, 직권조사사유가 있거나 항소장에 항소이유의 기재가 있는 때에는 예외로 한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9935632944107056,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "형사소송법 361조 4 항소기각의 결정 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 361조 5 항소이유#KOBLEX-232721"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 8,
+        "first_stage_score": 0.5889929533004761,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 361조 5 항소이유#KOBLEX-232721",
+        "provision_text": "제361조의5(항소이유) 다음 사유가 있을 경우에는 원심판결에 대한 항소이유로 할 수 있다. <개정 1963.12.13>",
+        "rerank_rank": 2,
+        "rerank_score": 0.9665983319282532,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "형사소송법 361조 5 항소이유",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 364조  항소법원의 심판#KOBLEX-232744"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 44,
+        "first_stage_score": 0.5552841424942017,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 364조  항소법원의 심판#KOBLEX-232744",
+        "provision_text": "①항소법원은 항소이유에 포함된 사유에 관하여 심판하여야 한다. <개정 1963.12.13>",
+        "rerank_rank": 3,
+        "rerank_score": 0.9620580077171326,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "형사소송법 364조  항소법원의 심판 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 369조  재판서의 기재방식#KOBLEX-232757"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 93,
+        "first_stage_score": 0.5389825701713562,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 369조  재판서의 기재방식#KOBLEX-232757",
+        "provision_text": "제369조(재판서의 기재방식) 항소법원의 재판서에는 항소이유에 대한 판단을 기재하여야 하며 원심판결에 기재한 사실과 증거를 인용할 수 있다. <개정 1963.12.13>",
+        "rerank_rank": 4,
+        "rerank_score": 0.9215269088745117,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "형사소송법 369조  재판서의 기재방식",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 364조  항소법원의 심판#KOBLEX-232749"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.5762467384338379,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 364조  항소법원의 심판#KOBLEX-232749",
+        "provision_text": "⑥항소이유가 있다고 인정한 때에는 원심판결을 파기하고 다시 판결을 하여야 한다. <개정 1963.12.13>",
+        "rerank_rank": 5,
+        "rerank_score": 0.9196358323097229,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "형사소송법 364조  항소법원의 심판 6항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 359조  항소제기의 방식#KOBLEX-232704"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.5935662388801575,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 359조  항소제기의 방식#KOBLEX-232704",
+        "provision_text": "제359조(항소제기의 방식) 항소를 함에는 항소장을 원심법원에 제출하여야 한다. <개정 1963.12.13>",
+        "rerank_rank": 6,
+        "rerank_score": 0.9086059331893921,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형사소송법 359조  항소제기의 방식",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 66조  기간의 계산#KOBLEX-231629"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 27,
+        "first_stage_score": 0.60775226354599,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 66조  기간의 계산#KOBLEX-231629",
+        "provision_text": "③ 기간의 말일이 공휴일이거나 토요일이면 그날은 기간에 산입하지 아니한다. 다만, 시효와 구속기간에 관하여는 예외로 한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.8951175212860107,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형사소송법 66조  기간의 계산 3항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 396조  항소기간#KOBLEX-064565"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 54,
+        "first_stage_score": 0.5418331623077393,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "민사소송법 396조  항소기간#KOBLEX-064565",
+        "provision_text": "제396조(항소기간)",
+        "rerank_rank": 1,
+        "rerank_score": 0.8939422369003296,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "민사소송법 396조  항소기간",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 160조  역에 의한 계산#KOBLEX-058702"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 89,
+        "first_stage_score": 0.5308897495269775,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "민법 160조  역에 의한 계산#KOBLEX-058702",
+        "provision_text": "②주, 월 또는 연의 처음으로부터 기간을 기산하지 아니하는 때에는 최후의 주, 월 또는 연에서 그 기산일에 해당한 날의 전일로 기간이 만료한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.8775671124458313,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "민법 160조  역에 의한 계산 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 361조 3 항소이유서와 답변서#KOBLEX-232714"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6022594571113586,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 361조 3 항소이유서와 답변서#KOBLEX-232714",
+        "provision_text": "①항소인 또는 변호인은 전조의 통지를 받은 날로부터 20일 이내에 항소이유서를 항소법원에 제출하여야 한다. 이 경우 제344조를 준용한다. <개정 1963.12.13, 2007.12.21>",
+        "rerank_rank": 8,
+        "rerank_score": 0.8608877062797546,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "형사소송법 361조 3 항소이유서와 답변서 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 361조 3 항소이유서와 답변서#KOBLEX-232713"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 11,
+        "first_stage_score": 0.5843040347099304,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 361조 3 항소이유서와 답변서#KOBLEX-232713",
+        "provision_text": "제361조의3(항소이유서와 답변서)",
+        "rerank_rank": 3,
+        "rerank_score": 0.8403708338737488,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 361조 3 항소이유서와 답변서",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 361조  소송기록과 증거물의 송부#KOBLEX-232708"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6181063055992126,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 361조  소송기록과 증거물의 송부#KOBLEX-232708",
+        "provision_text": "제361조(소송기록과 증거물의 송부) 제360조의 경우를 제외하고는 원심법원은 항소장을 받은 날부터 14일이내에 소송기록과 증거물을 항소법원에 송부하여야 한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.8032652139663696,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 361조  소송기록과 증거물의 송부",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 360조  원심법원의 항소기각 결정#KOBLEX-232706"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.5761038661003113,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 360조  원심법원의 항소기각 결정#KOBLEX-232706",
+        "provision_text": "①항소의 제기가 법률상의 방식에 위반하거나 항소권소멸 후인 것이 명백한 때에는 원심법원은 결정으로 항소를 기각하여야 한다. <개정 1963.12.13>",
+        "rerank_rank": 7,
+        "rerank_score": 0.0005462610861286521,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "형사소송법 360조  원심법원의 항소기각 결정 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 362조  항소기각의 결정#KOBLEX-232738"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 48,
+        "first_stage_score": 0.5541180372238159,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 362조  항소기각의 결정#KOBLEX-232738",
+        "provision_text": "①제360조의 규정에 해당한 경우에 원심법원이 항소기각의 결정을 하지 아니한 때에는 항소법원은 결정으로 항소를 기각하여야 한다. <개정 1963.12.13>",
+        "rerank_rank": 9,
+        "rerank_score": 0.0002609568473417312,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 362조  항소기각의 결정 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 361조 3 항소이유서와 답변서#KOBLEX-232716"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 86,
+        "first_stage_score": 0.5474553108215332,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 361조 3 항소이유서와 답변서#KOBLEX-232716",
+        "provision_text": "③상대방은 전항의 송달을 받은 날로부터 10일 이내에 답변서를 항소법원에 제출하여야 한다. <개정 1963.12.13>",
+        "rerank_rank": 6,
+        "rerank_score": 0.0003522392362356186,
+        "retrieval_round": 3,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "형사소송법 361조 3 항소이유서와 답변서 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 439조  재판서의 기재방법#KOBLEX-093552",
+          "군사법원법 439조  재판서의 기재방법#KOBLEX-159517"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 21,
+        "first_stage_score": 0.5774579048156738,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 439조  재판서의 기재방법#KOBLEX-093552",
+        "provision_text": "제439조(재판서의 기재방법) 재판서에는 항소의 이유에 관한 판단을 적어야 하며 원심판결에 적힌 사실과 증거를 인용(引用)할 수 있다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.0002534294908400625,
+        "retrieval_round": 3,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "군사법원법 439조  재판서의 기재방법",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 380조  상고기각 결정#KOBLEX-232781"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 52,
+        "first_stage_score": 0.5607327222824097,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 380조  상고기각 결정#KOBLEX-232781",
+        "provision_text": "①상고인이나 변호인이 전조제1항의 기간 내에 상고이유서를 제출하지 아니한 때에는 결정으로 상고를 기각하여야 한다. 단, 상고장에 이유의 기재가 있는 때에는 예외로 한다. <개정 1961.9.1, 2014.5.14>",
+        "rerank_rank": 9,
+        "rerank_score": 0.00018250994617119431,
+        "retrieval_round": 3,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "형사소송법 380조  상고기각 결정 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "군사법원법 439조  재판서의 기재방법#KOBLEX-093552": "제439조(재판서의 기재방법) 재판서에는 항소의 이유에 관한 판단을 적어야 하며 원심판결에 적힌 사실과 증거를 인용(引用)할 수 있다.",
+      "민법 160조  역에 의한 계산#KOBLEX-058702": "②주, 월 또는 연의 처음으로부터 기간을 기산하지 아니하는 때에는 최후의 주, 월 또는 연에서 그 기산일에 해당한 날의 전일로 기간이 만료한다.",
+      "민사소송법 396조  항소기간#KOBLEX-064565": "제396조(항소기간)",
+      "형사소송법 359조  항소제기의 방식#KOBLEX-232704": "제359조(항소제기의 방식) 항소를 함에는 항소장을 원심법원에 제출하여야 한다. <개정 1963.12.13>",
+      "형사소송법 360조  원심법원의 항소기각 결정#KOBLEX-232706": "①항소의 제기가 법률상의 방식에 위반하거나 항소권소멸 후인 것이 명백한 때에는 원심법원은 결정으로 항소를 기각하여야 한다. <개정 1963.12.13>",
+      "형사소송법 361조  소송기록과 증거물의 송부#KOBLEX-232708": "제361조(소송기록과 증거물의 송부) 제360조의 경우를 제외하고는 원심법원은 항소장을 받은 날부터 14일이내에 소송기록과 증거물을 항소법원에 송부하여야 한다.",
+      "형사소송법 361조 3 항소이유서와 답변서#KOBLEX-232713": "제361조의3(항소이유서와 답변서)",
+      "형사소송법 361조 3 항소이유서와 답변서#KOBLEX-232714": "①항소인 또는 변호인은 전조의 통지를 받은 날로부터 20일 이내에 항소이유서를 항소법원에 제출하여야 한다. 이 경우 제344조를 준용한다. <개정 1963.12.13, 2007.12.21>",
+      "형사소송법 361조 3 항소이유서와 답변서#KOBLEX-232716": "③상대방은 전항의 송달을 받은 날로부터 10일 이내에 답변서를 항소법원에 제출하여야 한다. <개정 1963.12.13>",
+      "형사소송법 361조 4 항소기각의 결정#KOBLEX-232719": "①항소인이나 변호인이 전조제1항의 기간 내에 항소이유서를 제출하지 아니한 때에는 결정으로 항소를 기각하여야 한다. 단, 직권조사사유가 있거나 항소장에 항소이유의 기재가 있는 때에는 예외로 한다.",
+      "형사소송법 361조 5 항소이유#KOBLEX-232721": "제361조의5(항소이유) 다음 사유가 있을 경우에는 원심판결에 대한 항소이유로 할 수 있다. <개정 1963.12.13>",
+      "형사소송법 362조  항소기각의 결정#KOBLEX-232738": "①제360조의 규정에 해당한 경우에 원심법원이 항소기각의 결정을 하지 아니한 때에는 항소법원은 결정으로 항소를 기각하여야 한다. <개정 1963.12.13>",
+      "형사소송법 364조  항소법원의 심판#KOBLEX-232744": "①항소법원은 항소이유에 포함된 사유에 관하여 심판하여야 한다. <개정 1963.12.13>",
+      "형사소송법 364조  항소법원의 심판#KOBLEX-232749": "⑥항소이유가 있다고 인정한 때에는 원심판결을 파기하고 다시 판결을 하여야 한다. <개정 1963.12.13>",
+      "형사소송법 369조  재판서의 기재방식#KOBLEX-232757": "제369조(재판서의 기재방식) 항소법원의 재판서에는 항소이유에 대한 판단을 기재하여야 하며 원심판결에 기재한 사실과 증거를 인용할 수 있다. <개정 1963.12.13>",
+      "형사소송법 380조  상고기각 결정#KOBLEX-232781": "①상고인이나 변호인이 전조제1항의 기간 내에 상고이유서를 제출하지 아니한 때에는 결정으로 상고를 기각하여야 한다. 단, 상고장에 이유의 기재가 있는 때에는 예외로 한다. <개정 1961.9.1, 2014.5.14>",
+      "형사소송법 66조  기간의 계산#KOBLEX-231629": "③ 기간의 말일이 공휴일이거나 토요일이면 그날은 기간에 산입하지 아니한다. 다만, 시효와 구속기간에 관하여는 예외로 한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형사소송법 361조 5 항소이유#KOBLEX-232721"
+            ],
+            "rationale": "C002는 항소이유 조항의 존재만 확인하고 구체적인 사유 내용을 제공하지 않아, 항소 사유를 규정하는 조항의 내용을 확인하는 요구사항을 충족하지 못한다.",
+            "requirement_id": "E1-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "missing_statute",
+        "legal_status": "partially_covered",
+        "linked_provision_ids": [
+          "형사소송법 361조 5 항소이유#KOBLEX-232721"
+        ],
+        "missing_aspects": [
+          "E1-R1"
+        ],
+        "partial_kind": "legal_support_gap",
+        "rationale": "제출된 후보 조항 C002는 항소이유 조항의 존재를 확인하지만, 실제 항소 사유의 구체적 내용을 포함하지 않는다. 따라서 항소 사유의 법적 근거를 완전히 확인하는 데 필요한 법적 지원이 부족하다.",
+        "status": "partially_covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형사소송법 66조  기간의 계산#KOBLEX-231629"
+            ],
+            "rationale": "C007은 '기간의 말일이 공휴일이거나 토요일이면 그날은 기간에 산입하지 아니한다'고 명시하여, 토요일이 기간의 마지막 날인 경우의 산입 방식을 규정하는 조항의 내용을 확인하는 요구사항을 충족한다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형사소송법 66조  기간의 계산#KOBLEX-231629"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "제출된 후보 조항 C007(형사소송법 제66조 제3항)은 기간의 말일이 토요일인 경우의 산입 방식을 명확히 규정하고 있어, 해당 증거 항목의 요구사항을 완전히 충족한다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [
+      "T1"
+    ],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형사소송법 361조 5 항소이유#KOBLEX-232721",
+        "support_spans": [
+          {
+            "end_char": 67,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "형사소송법 66조  기간의 계산#KOBLEX-231629",
+        "support_spans": [
+          {
+            "end_char": 68,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 3,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "형사소송법상 원심판결에 대한 항소 사유의 법적 요건",
+        "issue_id": "I1"
+      },
+      {
+        "description": "기간의 마지막 날이 토요일인 경우의 기간 산입 규정",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "항소 사유의 법적 근거를 명시하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "형사소송법상 항소 사유를 규정하는 조항의 내용을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "형사소송법상 항소 사유를 규정한 조항",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 항소 사유를 도출하기 위해 필수적",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] 갑은 폭행 혐의로 재판을 받았고, 재판부는 이유가 모순된 판결을 내렸다. 판결문에서 갑의 변호인은 명백한 이유 모순을 발견하였고, 항소를 준비중이었다. 항소기간 마지막 날이 토요일이라, 갑과 갑의 변호인은 이 경우 어떻게 해야 하는지 고민하게 되었다. [질문] 갑의 경우 원심판결에 대해 항소를 하려면 어떤 이유를 들 수 있으며, 항소기간의 마지막 날이 토요일인 경우 그 날은 기간에 어떻게 산입되는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "형사소송법",
+          "항소",
+          "사유"
+        ],
+        "query_text": "형사소송법 항소 사유 [원문 맥락] 항소기간 마지막 날이 토요일이라, 갑과 갑의 변호인은 이 경우 어떻게 해야 하는지 고민하게 되었다. 갑의 경우 원심판결에 대해 항소를 하려면 어떤 이유를 들 수 있으며, 항소기간의 마지막 날이 토요일인 경우 그 날은 기간에 어떻게 산입되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "기간",
+          "산입",
+          "토요일"
+        ],
+        "query_text": "기간 산입 토요일 [원문 맥락] 항소기간 마지막 날이 토요일이라, 갑과 갑의 변호인은 이 경우 어떻게 해야 하는지 고민하게 되었다. 갑의 경우 원심판결에 대해 항소를 하려면 어떤 이유를 들 수 있으며, 항소기간의 마지막 날이 토요일인 경우 그 날은 기간에 어떻게 산입되는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법",
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "형사소송법",
+          "제361조",
+          "항소이유",
+          "사유"
+        ],
+        "query_text": "형사소송법 제361조 항소이유 구체적 사유 [원문 맥락] 항소기간 마지막 날이 토요일이라, 갑과 갑의 변호인은 이 경우 어떻게 해야 하는지 고민하게 되었다. 갑의 경우 원심판결에 대해 항소를 하려면 어떤 이유를 들 수 있으며, 항소기간의 마지막 날이 토요일인 경우 그 날은 기간에 어떻게 산입되는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법 제361조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "항소이유서",
+          "판단의 이유",
+          "모순",
+          "형사소송법"
+        ],
+        "query_text": "형사소송법 항소이유서 기재사항 판단의 이유 모순 [원문 맥락] 항소기간 마지막 날이 토요일이라, 갑과 갑의 변호인은 이 경우 어떻게 해야 하는지 고민하게 되었다. 갑의 경우 원심판결에 대해 항소를 하려면 어떤 이유를 들 수 있으며, 항소기간의 마지막 날이 토요일인 경우 그 날은 기간에 어떻게 산입되는가?",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법 제361조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 폭행 혐의로 재판을 받았고, 재판부는 이유가 모순된 판결을 내렸다. 판결문에서 갑의 변호인은 명백한 이유 모순을 발견하였고, 항소를 준비중이었다. 항소기간 마지막 날이 토요일이라, 갑과 갑의 변호인은 이 경우 어떻게 해야 하는지 고민하게 되었다.\n\n[질문]\n갑의 경우 원심판결에 대해 항소를 하려면 어떤 이유를 들 수 있으며, 항소기간의 마지막 날이 토요일인 경우 그 날은 기간에 어떻게 산입되는가?",
+    "remaining_request_budget": 5,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "항소 사유의 법적 근거를 명시하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "형사소송법상 항소 사유를 규정하는 조항의 내용을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "형사소송법상 항소 사유를 규정한 조항",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 항소 사유를 도출하기 위해 필수적",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "토요일이 기간의 마지막 날인 경우의 산입 방식을 명시하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "기간의 마지막 날이 토요일인 경우의 산입 방식을 규정하는 조항의 내용을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "기간의 마지막 날이 토요일인 경우의 기간 산입 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 요구하는 기간 산입 방식을 도출하기 위해 필수적",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "99cebad5-0c41-4af2-a6dd-14d9cbe28acb",
+    "seen_provision_ids": [
+      "형사소송법 364조  항소법원의 심판#KOBLEX-232744",
+      "형사소송법 361조 3 항소이유서와 답변서#KOBLEX-232716",
+      "형사소송법 361조 4 항소기각의 결정#KOBLEX-232719",
+      "형사소송법 361조  소송기록과 증거물의 송부#KOBLEX-232708",
+      "민사소송법 396조  항소기간#KOBLEX-064565",
+      "형사소송법 361조 5 항소이유#KOBLEX-232721",
+      "형사소송법 359조  항소제기의 방식#KOBLEX-232704",
+      "형사소송법 361조 3 항소이유서와 답변서#KOBLEX-232713",
+      "형사소송법 362조  항소기각의 결정#KOBLEX-232738",
+      "형사소송법 380조  상고기각 결정#KOBLEX-232781",
+      "형사소송법 360조  원심법원의 항소기각 결정#KOBLEX-232706",
+      "군사법원법 439조  재판서의 기재방법#KOBLEX-093552",
+      "형사소송법 369조  재판서의 기재방식#KOBLEX-232757",
+      "형사소송법 66조  기간의 계산#KOBLEX-231629",
+      "민법 160조  역에 의한 계산#KOBLEX-058702",
+      "형사소송법 364조  항소법원의 심판#KOBLEX-232749",
+      "형사소송법 361조 3 항소이유서와 답변서#KOBLEX-232714"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

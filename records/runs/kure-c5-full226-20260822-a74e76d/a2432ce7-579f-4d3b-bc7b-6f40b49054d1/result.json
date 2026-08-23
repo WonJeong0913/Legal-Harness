@@ -1,0 +1,557 @@
+{
+  "abstention_reason": null,
+  "answer": "음란한 물건을 판매한 자는 1년 이하의 징역 또는 500만원 이하의 벌금에 처한다.[CT1]\n갑의 음란한 잡지 판매 행위는 형법 제243조의 구성요건에 해당하여 처벌 대상이 된다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "A1",
+      "message": "갑이 판매한 잡지가 형법상 '음란한 물건'에 해당하는 것으로 가정함"
+    }
+  ],
+  "candidate_answer": "음란한 물건을 판매한 자는 1년 이하의 징역 또는 500만원 이하의 벌금에 처한다.[CT1]\n갑의 음란한 잡지 판매 행위는 형법 제243조의 구성요건에 해당하여 처벌 대상이 된다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형법 243조  음화반포등#KOBLEX-193165",
+      "quoted_text": "제243조(음화반포등) 음란한 문서, 도화, 필름 기타 물건을 반포, 판매 또는 임대하거나 공연히 전시 또는 상영한 자는 1년 이하의 징역 또는 500만원 이하의 벌금에 처한다.",
+      "support_description": "음란물 판매 행위에 대한 법정형을 명시한 조항"
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "형법 243조  음화반포등#KOBLEX-193165",
+      "quoted_text": "제243조(음화반포등) 음란한 문서, 도화, 필름 기타 물건을 반포, 판매 또는 임대하거나 공연히 전시 또는 상영한 자는 1년 이하의 징역 또는 500만원 이하의 벌금에 처한다.",
+      "support_description": "갑의 판매 행위가 '판매' 유형에 해당함을 근거로 처벌 적용을 설명"
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "음란한 물건을 판매한 자는 1년 이하의 징역 또는 500만원 이하의 벌금에 처한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "갑의 음란한 잡지 판매 행위는 형법 제243조의 구성요건에 해당하여 처벌 대상이 된다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T14:54:32.562232+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 65618.331,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "L1",
+      "message": "본 답변은 형법 제243조에 근거한 일반적 법정형이며, 실제 형량은 사법부의 재량에 따라 달라질 수 있음"
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 83,
+      "dedup_collapse": 32,
+      "evidence_fusion": 83,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 83
+    }
+  },
+  "run_id": "a2432ce7-579f-4d3b-bc7b-6f40b49054d1",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형법 243조  음화반포등#KOBLEX-193165"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "penalty",
+        "question_anchor": "갑이 음란한 잡지를 판매한 경우, 갑은 어떠한 처벌을 받게 될까요?",
+        "requested_output": "음란물 판매 행위에 대한 형사처벌 내용"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "군형법 75조  군용물 등 범죄에 대한 형의 가중#KOBLEX-140810"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 28,
+        "first_stage_score": 0.4959052801132202,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "군형법 75조  군용물 등 범죄에 대한 형의 가중#KOBLEX-140810",
+        "provision_text": "② 제1항의 경우에는 「형법」에 정한 형과 비교하여 중한 형으로 처벌한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.07313346862792969,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "군형법 75조  군용물 등 범죄에 대한 형의 가중 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 334조  특수강도#KOBLEX-193377"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 98,
+        "first_stage_score": 0.4738795757293701,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "형법 334조  특수강도#KOBLEX-193377",
+        "provision_text": "②흉기를 휴대하거나 2인 이상이 합동하여 전조의 죄를 범한 자도 전항의 형과 같다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.05992528423666954,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 334조  특수강도 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 222조  인지ㆍ우표유사물의 제조 등#KOBLEX-193131"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.5416996479034424,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형법 222조  인지ㆍ우표유사물의 제조 등#KOBLEX-193131",
+        "provision_text": "②전항의 물건을 판매한 자도 전항의 형과 같다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.03722909465432167,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 222조  인지ㆍ우표유사물의 제조 등 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 348조  준사기#KOBLEX-193400"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 38,
+        "first_stage_score": 0.4892938733100891,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "형법 348조  준사기#KOBLEX-193400",
+        "provision_text": "② 제1항의 방법으로 제3자로 하여금 재물을 교부받게 하거나 재산상 이익을 취득하게 한 경우에도 제1항의 형에 처한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.035183485597372055,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 348조  준사기 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 243조  음화반포등#KOBLEX-193165"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.5506967902183533,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형법 243조  음화반포등#KOBLEX-193165",
+        "provision_text": "제243조(음화반포등) 음란한 문서, 도화, 필름 기타 물건을 반포, 판매 또는 임대하거나 공연히 전시 또는 상영한 자는 1년 이하의 징역 또는 500만원 이하의 벌금에 처한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.032958585768938065,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 243조  음화반포등",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 248조  복표의 발매 등#KOBLEX-193175"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 23,
+        "first_stage_score": 0.5070489645004272,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "형법 248조  복표의 발매 등#KOBLEX-193175",
+        "provision_text": "② 제1항의 복표발매를 중개한 사람은 3년 이하의 징역 또는 2천만원 이하의 벌금에 처한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.02918950468301773,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 248조  복표의 발매 등 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 40조  상상적 경합#KOBLEX-192729"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 60,
+        "first_stage_score": 0.480569452047348,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "형법 40조  상상적 경합#KOBLEX-192729",
+        "provision_text": "제40조(상상적 경합) 한 개의 행위가 여러 개의 죄에 해당하는 경우에는 가장 무거운 죄에 대하여 정한 형으로 처벌한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.025602955371141434,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 40조  상상적 경합",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군형법 52조  상관에 대한 폭행치사상#KOBLEX-140697"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 35,
+        "first_stage_score": 0.48953190445899963,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "군형법 52조  상관에 대한 폭행치사상#KOBLEX-140697",
+        "provision_text": "② 제48조 또는 제49조의 죄를 범하여 상관을 상해에 이르게 한 사람(제49조제1항 각 호의 죄를 범한 사람 중 수괴는 제외한다)은 다음 각 호의 구분에 따라 처벌한다. 1. 적전인 경우: 무기 또는 3년 이상의 징역 2. 그 밖의 경우: 1년 이상의 유기징역",
+        "rerank_rank": 8,
+        "rerank_score": 0.02311001904308796,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "군형법 52조  상관에 대한 폭행치사상 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 288조  추행 등 목적 약취, 유인 등#KOBLEX-193272"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 57,
+        "first_stage_score": 0.4815954864025116,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "형법 288조  추행 등 목적 약취, 유인 등#KOBLEX-193272",
+        "provision_text": "③ 국외에 이송할 목적으로 사람을 약취 또는 유인하거나 약취 또는 유인된 사람을 국외에 이송한 사람도 제2항과 동일한 형으로 처벌한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.015916209667921066,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 288조  추행 등 목적 약취, 유인 등 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 211조  통화유사물의 제조 등#KOBLEX-193113"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.5416996479034424,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "형법 211조  통화유사물의 제조 등#KOBLEX-193113",
+        "provision_text": "②전항의 물건을 판매한 자도 전항의 형과 같다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.01573893427848816,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형법 211조  통화유사물의 제조 등 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "군형법 52조  상관에 대한 폭행치사상#KOBLEX-140697": "② 제48조 또는 제49조의 죄를 범하여 상관을 상해에 이르게 한 사람(제49조제1항 각 호의 죄를 범한 사람 중 수괴는 제외한다)은 다음 각 호의 구분에 따라 처벌한다. 1. 적전인 경우: 무기 또는 3년 이상의 징역 2. 그 밖의 경우: 1년 이상의 유기징역",
+      "군형법 75조  군용물 등 범죄에 대한 형의 가중#KOBLEX-140810": "② 제1항의 경우에는 「형법」에 정한 형과 비교하여 중한 형으로 처벌한다.",
+      "형법 211조  통화유사물의 제조 등#KOBLEX-193113": "②전항의 물건을 판매한 자도 전항의 형과 같다.",
+      "형법 222조  인지ㆍ우표유사물의 제조 등#KOBLEX-193131": "②전항의 물건을 판매한 자도 전항의 형과 같다.",
+      "형법 243조  음화반포등#KOBLEX-193165": "제243조(음화반포등) 음란한 문서, 도화, 필름 기타 물건을 반포, 판매 또는 임대하거나 공연히 전시 또는 상영한 자는 1년 이하의 징역 또는 500만원 이하의 벌금에 처한다.",
+      "형법 248조  복표의 발매 등#KOBLEX-193175": "② 제1항의 복표발매를 중개한 사람은 3년 이하의 징역 또는 2천만원 이하의 벌금에 처한다.",
+      "형법 288조  추행 등 목적 약취, 유인 등#KOBLEX-193272": "③ 국외에 이송할 목적으로 사람을 약취 또는 유인하거나 약취 또는 유인된 사람을 국외에 이송한 사람도 제2항과 동일한 형으로 처벌한다.",
+      "형법 334조  특수강도#KOBLEX-193377": "②흉기를 휴대하거나 2인 이상이 합동하여 전조의 죄를 범한 자도 전항의 형과 같다.",
+      "형법 348조  준사기#KOBLEX-193400": "② 제1항의 방법으로 제3자로 하여금 재물을 교부받게 하거나 재산상 이익을 취득하게 한 경우에도 제1항의 형에 처한다.",
+      "형법 40조  상상적 경합#KOBLEX-192729": "제40조(상상적 경합) 한 개의 행위가 여러 개의 죄에 해당하는 경우에는 가장 무거운 죄에 대하여 정한 형으로 처벌한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형법 243조  음화반포등#KOBLEX-193165"
+            ],
+            "rationale": "형법 제243조는 음란한 물건의 판매를 행위 유형으로 포함하고 있으며, 이에 대한 형벌 규정을 명확히 제시하고 있다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형법 243조  음화반포등#KOBLEX-193165"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "제시된 후보 조항 중 형법 제243조(C005)가 음란물 판매 행위를 범죄로 규정하고 구체적인 법정형을 명시하고 있어, 질문에서 요구하는 음란물 유포죄의 구성요건 및 처벌 내용을 완전히 충족한다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형법 243조  음화반포등#KOBLEX-193165",
+        "support_spans": [
+          {
+            "end_char": 99,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "음란한 잡지의 판매 행위가 형법상 음란물 유포죄에 해당하는지 여부",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 자신의 가게에서 음란한 잡지를 손님에게 판매하였고, 이로 인해 경찰의 조사를 받게 되었습니다. 경찰은 갑이 형법을 위반했는지 여부를 조사하고 있습니다. 갑의 친구 을은 이러한 상황에서 갑이 어떤 처벌을 받을지 궁금해합니다. [질문] 갑이 음란한 잡지를 판매한 경우, 갑은 어떠한 처벌을 받게 될까요?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "음란물",
+          "유포",
+          "판매",
+          "형법",
+          "처벌"
+        ],
+        "query_text": "형법 음란물 유포죄 판매 처벌 [원문 맥락] 갑의 친구 을은 이러한 상황에서 갑이 어떤 처벌을 받을지 궁금해합니다. 갑이 음란한 잡지를 판매한 경우, 갑은 어떠한 처벌을 받게 될까요?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법 제243조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 자신의 가게에서 음란한 잡지를 손님에게 판매하였고, 이로 인해 경찰의 조사를 받게 되었습니다. 경찰은 갑이 형법을 위반했는지 여부를 조사하고 있습니다. 갑의 친구 을은 이러한 상황에서 갑이 어떤 처벌을 받을지 궁금해합니다.\n\n[질문]\n갑이 음란한 잡지를 판매한 경우, 갑은 어떠한 처벌을 받게 될까요?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "음란물 유포죄의 행위 유형(판매 포함)과 그에 따른 형벌 규정을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "음란물 유포죄의 행위 유형(판매 포함)과 그에 따른 형벌 규정을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "음란물 유포죄의 구성요건 및 법정형",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 처벌 내용을 도출하기 위해 해당 범죄의 구성요건과 법정형이 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "a2432ce7-579f-4d3b-bc7b-6f40b49054d1",
+    "seen_provision_ids": [
+      "형법 243조  음화반포등#KOBLEX-193165",
+      "형법 248조  복표의 발매 등#KOBLEX-193175",
+      "형법 348조  준사기#KOBLEX-193400",
+      "군형법 75조  군용물 등 범죄에 대한 형의 가중#KOBLEX-140810",
+      "형법 288조  추행 등 목적 약취, 유인 등#KOBLEX-193272",
+      "형법 222조  인지ㆍ우표유사물의 제조 등#KOBLEX-193131",
+      "형법 334조  특수강도#KOBLEX-193377",
+      "군형법 52조  상관에 대한 폭행치사상#KOBLEX-140697",
+      "형법 211조  통화유사물의 제조 등#KOBLEX-193113",
+      "형법 40조  상상적 경합#KOBLEX-192729"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

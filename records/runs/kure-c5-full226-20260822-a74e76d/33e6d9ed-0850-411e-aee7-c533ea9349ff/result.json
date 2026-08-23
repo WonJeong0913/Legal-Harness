@@ -1,0 +1,1243 @@
+{
+  "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": "형사소송법 제308조의2에 의하면 적법한 절차에 따르지 아니하고 수집한 증거는 증거로 할 수 없다.[CT1]\n경찰이 을의 동의 없이 사무실에 몰래 들어가 CCTV 영상을 확보한 행위는 적법한 절차에 따르지 아니한 증거수집에 해당하므로, 해당 영상은 원칙적으로 증거로 할 수 없다.[CT2]",
+  "candidate_answer_basis": "retrieved_candidates",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "GENERATED",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "경찰의 CCTV 영상 확보 행위가 형사소송법상 '적법한 절차'에 해당하지 않는다고 가정한다."
+    }
+  ],
+  "candidate_claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568",
+      "quoted_text": "제308조의2(위법수집증거의 배제) 적법한 절차에 따르지 아니하고 수집한 증거는 증거로 할 수 없다.",
+      "support_description": "위법수집증거의 증거능력 배제 원칙을 명시하여, 적법 절차 미준수 시 증거 불능의 법적 근거를 제공한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568",
+      "quoted_text": "제308조의2(위법수집증거의 배제) 적법한 절차에 따르지 아니하고 수집한 증거는 증거로 할 수 없다.",
+      "support_description": "동의 없는 사무실 침입 및 영상 확보 행위가 적법 절차 위반에 해당함을 전제로, 해당 영상의 증거능력 배제를 적용한다."
+    }
+  ],
+  "candidate_claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "형사소송법 제308조의2에 의하면 적법한 절차에 따르지 아니하고 수집한 증거는 증거로 할 수 없다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "conditional",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "경찰이 을의 동의 없이 사무실에 몰래 들어가 CCTV 영상을 확보한 행위는 적법한 절차에 따르지 아니한 증거수집에 해당하므로, 해당 영상은 원칙적으로 증거로 할 수 없다."
+    }
+  ],
+  "candidate_limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "공급된 후보 조항에 증거배제원칙의 예외사유(예: 이중위법성, 불가피성 등)를 명시하는 조항이 없어, 예외적 증거능력 인정 여부는 판단할 수 없다."
+    }
+  ],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T11:46:26.938382+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 210263.616,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 432,
+      "dedup_collapse": 190,
+      "evidence_fusion": 432,
+      "first_stage": 600,
+      "request_rerank": 600,
+      "round_selected": 30,
+      "rrf": 500,
+      "selected": 432
+    }
+  },
+  "run_id": "33e6d9ed-0850-411e-aee7-c533ea9349ff",
+  "skill_generation_diagnostics": {
+    "attempt_count": 7,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형사소송법 215조  압수, 수색, 검증#KOBLEX-232128",
+      "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568",
+      "형사소송법 215조  압수, 수색, 검증#KOBLEX-232129"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 8,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": true,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 5,
+          "request_count": 2,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "ABSTAIN",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "The frozen maximum number of retrieval rounds was used.",
+          "termination_reason": "MAX_RETRIEVAL_ROUNDS_REACHED"
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+          "termination_reason": "MAX_RETRIEVAL_ROUNDS_REACHED"
+        },
+        "event": "ABSTAIN",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 23
+        },
+        "event": "BENCHMARK_CANDIDATE_GENERATION_STARTED",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 23,
+          "claim_count": 2
+        },
+        "event": "BENCHMARK_CANDIDATE_VALIDATED",
+        "phase": "ABSTAINED"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "검찰이 을의 동의 없이 수집된 CCTV 영상을 증거로 제출할 수 있는가?",
+        "requested_output": "CCTV 영상 증거능력 유무"
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 25,
+        "first_stage_score": 0.5228961706161499,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568",
+        "provision_text": "제308조의2(위법수집증거의 배제) 적법한 절차에 따르지 아니하고 수집한 증거는 증거로 할 수 없다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.22682827711105347,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "형사소송법 308조 2 위법수집증거의 배제",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 359조 2 위법수집 증거의 배제#KOBLEX-093357",
+          "군사법원법 359조 2 위법수집 증거의 배제#KOBLEX-159322"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 64,
+        "first_stage_score": 0.5248749852180481,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 359조 2 위법수집 증거의 배제#KOBLEX-093357",
+        "provision_text": "제359조의2(위법수집 증거의 배제) 적법한 절차에 따르지 아니하고 수집한 증거는 증거로 할 수 없다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.009298470802605152,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "군사법원법 359조 2 위법수집 증거의 배제",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 318조  당사자의 동의와 증거능력#KOBLEX-232597"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 68,
+        "first_stage_score": 0.5029847621917725,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 318조  당사자의 동의와 증거능력#KOBLEX-232597",
+        "provision_text": "①검사와 피고인이 증거로 할 수 있음을 동의한 서류 또는 물건은 진정한 것으로 인정한 때에는 증거로 할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.005846874788403511,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 318조  당사자의 동의와 증거능력 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 184조#KOBLEX-231963"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 95,
+        "first_stage_score": 0.495054692029953,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "형사소송법 184조#KOBLEX-231963",
+        "provision_text": "제15장 증거보전",
+        "rerank_rank": 3,
+        "rerank_score": 0.0013827584916725755,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "형사소송법 184조",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "독점규제 및 공정거래에 관한 법률 94조  심의절차에서의 증거조사#KOBLEX-020895",
+          "독점규제 및 공정거래에 관한 법률 94조  심의절차에서의 증거조사#KOBLEX-039323"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 88,
+        "first_stage_score": 0.49859681725502014,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "독점규제 및 공정거래에 관한 법률 94조  심의절차에서의 증거조사#KOBLEX-020895",
+        "provision_text": "제94조(심의절차에서의 증거조사)",
+        "rerank_rank": 4,
+        "rerank_score": 0.00046857434790581465,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "독점규제 및 공정거래에 관한 법률 94조  심의절차에서의 증거조사",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 318조 3 간이공판절차에서의 증거능력에 관한 특례#KOBLEX-232602"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 87,
+        "first_stage_score": 0.498603880405426,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 318조 3 간이공판절차에서의 증거능력에 관한 특례#KOBLEX-232602",
+        "provision_text": "제318조의3(간이공판절차에서의 증거능력에 관한 특례) 제286조의2의 결정이 있는 사건의 증거에 관하여는 제310조의2, 제312조 내지 제314조 및 제316조의 규정에 의한 증거에 대하여 제318조제1항의 동의가 있는 것으로 간주한다. 단, 검사, 피고인 또는 변호인이 증거로 함에 이의가 있는 때에는 그러하지 아니하다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.0004541459493339062,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "형사소송법 318조 3 간이공판절차에서의 증거능력에 관한 특례",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 411조  소송기록등의 송부#KOBLEX-232838"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 84,
+        "first_stage_score": 0.49958696961402893,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "형사소송법 411조  소송기록등의 송부#KOBLEX-232838",
+        "provision_text": "②항고법원은 소송기록과 증거물의 송부를 요구할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.0003856442926917225,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 411조  소송기록등의 송부 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 244조 2 피의자진술의 영상녹화#KOBLEX-232219"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 35,
+        "first_stage_score": 0.5178210139274597,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 244조 2 피의자진술의 영상녹화#KOBLEX-232219",
+        "provision_text": "제244조의2(피의자진술의 영상녹화)",
+        "rerank_rank": 6,
+        "rerank_score": 0.0003240179212298244,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "형사소송법 244조 2 피의자진술의 영상녹화",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 294조  당사자의 증거신청#KOBLEX-232509"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 59,
+        "first_stage_score": 0.5066568851470947,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 294조  당사자의 증거신청#KOBLEX-232509",
+        "provision_text": "①검사, 피고인 또는 변호인은 서류나 물건을 증거로 제출할 수 있고, 증인ㆍ감정인ㆍ통역인 또는 번역인의 신문을 신청할 수 있다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.0002777103800326586,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "형사소송법 294조  당사자의 증거신청 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 221조  제3자의 출석요구 등#KOBLEX-232147"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.5975069403648376,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "형사소송법 221조  제3자의 출석요구 등#KOBLEX-232147",
+        "provision_text": "①검사 또는 사법경찰관은 수사에 필요한 때에는 피의자가 아닌 자의 출석을 요구하여 진술을 들을 수 있다. 이 경우 그의 동의를 받아 영상녹화할 수 있다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.00024278451746795326,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 221조  제3자의 출석요구 등 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 218조  영장에 의하지 아니한 압수#KOBLEX-232138"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 69,
+        "first_stage_score": 0.5148321390151978,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 218조  영장에 의하지 아니한 압수#KOBLEX-232138",
+        "provision_text": "제218조(영장에 의하지 아니한 압수) 검사, 사법경찰관은 피의자 기타인의 유류한 물건이나 소유자, 소지자 또는 보관자가 임의로 제출한 물건을 영장없이 압수할 수 있다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.04872501641511917,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 218조  영장에 의하지 아니한 압수",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 217조  영장에 의하지 아니하는 강제처분#KOBLEX-232135"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 13,
+        "first_stage_score": 0.5556333065032959,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 217조  영장에 의하지 아니하는 강제처분#KOBLEX-232135",
+        "provision_text": "①검사 또는 사법경찰관은 제200조의3에 따라 체포된 자가 소유ㆍ소지 또는 보관하는 물건에 대하여 긴급히 압수할 필요가 있는 경우에는 체포한 때부터 24시간 이내에 한하여 영장 없이 압수ㆍ수색 또는 검증을 할 수 있다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.037850432097911835,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 217조  영장에 의하지 아니하는 강제처분 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 215조  압수, 수색, 검증#KOBLEX-232128"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 48,
+        "first_stage_score": 0.5238491296768188,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 215조  압수, 수색, 검증#KOBLEX-232128",
+        "provision_text": "① 검사는 범죄수사에 필요한 때에는 피의자가 죄를 범하였다고 의심할 만한 정황이 있고 해당 사건과 관계가 있다고 인정할 수 있는 것에 한정하여 지방법원판사에게 청구하여 발부받은 영장에 의하여 압수, 수색 또는 검증을 할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.009518856182694435,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 215조  압수, 수색, 검증 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 216조  영장에 의하지 아니한 강제처분#KOBLEX-232133"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 32,
+        "first_stage_score": 0.52835613489151,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 216조  영장에 의하지 아니한 강제처분#KOBLEX-232133",
+        "provision_text": "③범행 중 또는 범행직후의 범죄 장소에서 긴급을 요하여 법원판사의 영장을 받을 수 없는 때에는 영장없이 압수, 수색 또는 검증을 할 수 있다. 이 경우에는 사후에 지체없이 영장을 받아야 한다. <신설 1961.9.1>",
+        "rerank_rank": 4,
+        "rerank_score": 0.00459296302869916,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 216조  영장에 의하지 아니한 강제처분 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 110조  군사상 비밀과 압수#KOBLEX-231767"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 67,
+        "first_stage_score": 0.5155946612358093,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 110조  군사상 비밀과 압수#KOBLEX-231767",
+        "provision_text": "①군사상 비밀을 요하는 장소는 그 책임자의 승낙 없이는 압수 또는 수색할 수 없다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.004083789419382811,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 110조  군사상 비밀과 압수 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 120조  집행과 필요한 처분#KOBLEX-231787"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 94,
+        "first_stage_score": 0.509090781211853,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 120조  집행과 필요한 처분#KOBLEX-231787",
+        "provision_text": "①압수ㆍ수색영장의 집행에 있어서는 건정을 열거나 개봉 기타 필요한 처분을 할 수 있다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.0036066072061657906,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 120조  집행과 필요한 처분 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 215조  압수, 수색, 검증#KOBLEX-232129"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 68,
+        "first_stage_score": 0.5150055289268494,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 215조  압수, 수색, 검증#KOBLEX-232129",
+        "provision_text": "② 사법경찰관이 범죄수사에 필요한 때에는 피의자가 죄를 범하였다고 의심할 만한 정황이 있고 해당 사건과 관계가 있다고 인정할 수 있는 것에 한정하여 검사에게 신청하여 검사의 청구로 지방법원판사가 발부한 영장에 의하여 압수, 수색 또는 검증을 할 수 있다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.0015706835547462106,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 215조  압수, 수색, 검증 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 109조  수색#KOBLEX-231765"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 59,
+        "first_stage_score": 0.5183329582214355,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 109조  수색#KOBLEX-231765",
+        "provision_text": "②피고인 아닌 자의 신체, 물건, 주거 기타 장소에 관하여는 압수할 물건이 있음을 인정할 수 있는 경우에 한하여 수색할 수 있다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.001391175203025341,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 109조  수색 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 371조  당사자의 동의와 증거능력#KOBLEX-093386",
+          "군사법원법 371조  당사자의 동의와 증거능력#KOBLEX-159351"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 51,
+        "first_stage_score": 0.5042749047279358,
+        "fusion_rank": 54,
+        "issue_id": "I2",
+        "provision_id": "군사법원법 371조  당사자의 동의와 증거능력#KOBLEX-093386",
+        "provision_text": "제371조(당사자의 동의와 증거능력)",
+        "rerank_rank": 54,
+        "rerank_score": 0.0034040131140500307,
+        "retrieval_round": 3,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-2",
+        "source_request_ids": [
+          "GRQ-R3-2"
+        ],
+        "statute_name": "군사법원법 371조  당사자의 동의와 증거능력",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "성폭력범죄의 처벌 등에 관한 특례법 30조 2 영상녹화물의 증거능력 특례#KOBLEX-157637"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.5448728799819946,
+        "fusion_rank": 11,
+        "issue_id": "I2",
+        "provision_id": "성폭력범죄의 처벌 등에 관한 특례법 30조 2 영상녹화물의 증거능력 특례#KOBLEX-157637",
+        "provision_text": "제30조의2(영상녹화물의 증거능력 특례)",
+        "rerank_rank": 11,
+        "rerank_score": 0.003114237217232585,
+        "retrieval_round": 3,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "성폭력범죄의 처벌 등에 관한 특례법 30조 2 영상녹화물의 증거능력 특례",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 309조  강제등 자백의 증거능력#KOBLEX-232569"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 30,
+        "first_stage_score": 0.4945140480995178,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "형사소송법 309조  강제등 자백의 증거능력#KOBLEX-232569",
+        "provision_text": "제309조(강제등 자백의 증거능력) 피고인의 자백이 고문, 폭행, 협박, 신체구속의 부당한  장기화 또는 기망 기타의 방법으로 임의로 진술한 것이 아니라고 의심할 만한 이유가 있는 때에는 이를 유죄의 증거로 하지 못한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.0017487270524725318,
+        "retrieval_round": 3,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "형사소송법 309조  강제등 자백의 증거능력",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 294조  당사자의 증거신청#KOBLEX-232508"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 29,
+        "first_stage_score": 0.5023046135902405,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "형사소송법 294조  당사자의 증거신청#KOBLEX-232508",
+        "provision_text": "제294조(당사자의 증거신청)",
+        "rerank_rank": 7,
+        "rerank_score": 0.0011851753806695342,
+        "retrieval_round": 3,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "형사소송법 294조  당사자의 증거신청",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 292조 2 증거물에 대한 조사방식#KOBLEX-232503"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 73,
+        "first_stage_score": 0.4986328184604645,
+        "fusion_rank": 66,
+        "issue_id": "I2",
+        "provision_id": "형사소송법 292조 2 증거물에 대한 조사방식#KOBLEX-232503",
+        "provision_text": "①검사, 피고인 또는 변호인의 신청에 따라 증거물을 조사하는 때에는 신청인이 이를 제시하여야 한다.",
+        "rerank_rank": 66,
+        "rerank_score": 0.0008953374344855547,
+        "retrieval_round": 3,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-2",
+        "source_request_ids": [
+          "GRQ-R3-2"
+        ],
+        "statute_name": "형사소송법 292조 2 증거물에 대한 조사방식 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "군사법원법 359조 2 위법수집 증거의 배제#KOBLEX-093357": "제359조의2(위법수집 증거의 배제) 적법한 절차에 따르지 아니하고 수집한 증거는 증거로 할 수 없다.",
+      "군사법원법 371조  당사자의 동의와 증거능력#KOBLEX-093386": "제371조(당사자의 동의와 증거능력)",
+      "독점규제 및 공정거래에 관한 법률 94조  심의절차에서의 증거조사#KOBLEX-020895": "제94조(심의절차에서의 증거조사)",
+      "성폭력범죄의 처벌 등에 관한 특례법 30조 2 영상녹화물의 증거능력 특례#KOBLEX-157637": "제30조의2(영상녹화물의 증거능력 특례)",
+      "형사소송법 109조  수색#KOBLEX-231765": "②피고인 아닌 자의 신체, 물건, 주거 기타 장소에 관하여는 압수할 물건이 있음을 인정할 수 있는 경우에 한하여 수색할 수 있다.",
+      "형사소송법 110조  군사상 비밀과 압수#KOBLEX-231767": "①군사상 비밀을 요하는 장소는 그 책임자의 승낙 없이는 압수 또는 수색할 수 없다.",
+      "형사소송법 120조  집행과 필요한 처분#KOBLEX-231787": "①압수ㆍ수색영장의 집행에 있어서는 건정을 열거나 개봉 기타 필요한 처분을 할 수 있다.",
+      "형사소송법 184조#KOBLEX-231963": "제15장 증거보전",
+      "형사소송법 215조  압수, 수색, 검증#KOBLEX-232128": "① 검사는 범죄수사에 필요한 때에는 피의자가 죄를 범하였다고 의심할 만한 정황이 있고 해당 사건과 관계가 있다고 인정할 수 있는 것에 한정하여 지방법원판사에게 청구하여 발부받은 영장에 의하여 압수, 수색 또는 검증을 할 수 있다.",
+      "형사소송법 215조  압수, 수색, 검증#KOBLEX-232129": "② 사법경찰관이 범죄수사에 필요한 때에는 피의자가 죄를 범하였다고 의심할 만한 정황이 있고 해당 사건과 관계가 있다고 인정할 수 있는 것에 한정하여 검사에게 신청하여 검사의 청구로 지방법원판사가 발부한 영장에 의하여 압수, 수색 또는 검증을 할 수 있다.",
+      "형사소송법 216조  영장에 의하지 아니한 강제처분#KOBLEX-232133": "③범행 중 또는 범행직후의 범죄 장소에서 긴급을 요하여 법원판사의 영장을 받을 수 없는 때에는 영장없이 압수, 수색 또는 검증을 할 수 있다. 이 경우에는 사후에 지체없이 영장을 받아야 한다. <신설 1961.9.1>",
+      "형사소송법 217조  영장에 의하지 아니하는 강제처분#KOBLEX-232135": "①검사 또는 사법경찰관은 제200조의3에 따라 체포된 자가 소유ㆍ소지 또는 보관하는 물건에 대하여 긴급히 압수할 필요가 있는 경우에는 체포한 때부터 24시간 이내에 한하여 영장 없이 압수ㆍ수색 또는 검증을 할 수 있다.",
+      "형사소송법 218조  영장에 의하지 아니한 압수#KOBLEX-232138": "제218조(영장에 의하지 아니한 압수) 검사, 사법경찰관은 피의자 기타인의 유류한 물건이나 소유자, 소지자 또는 보관자가 임의로 제출한 물건을 영장없이 압수할 수 있다.",
+      "형사소송법 221조  제3자의 출석요구 등#KOBLEX-232147": "①검사 또는 사법경찰관은 수사에 필요한 때에는 피의자가 아닌 자의 출석을 요구하여 진술을 들을 수 있다. 이 경우 그의 동의를 받아 영상녹화할 수 있다.",
+      "형사소송법 244조 2 피의자진술의 영상녹화#KOBLEX-232219": "제244조의2(피의자진술의 영상녹화)",
+      "형사소송법 292조 2 증거물에 대한 조사방식#KOBLEX-232503": "①검사, 피고인 또는 변호인의 신청에 따라 증거물을 조사하는 때에는 신청인이 이를 제시하여야 한다.",
+      "형사소송법 294조  당사자의 증거신청#KOBLEX-232508": "제294조(당사자의 증거신청)",
+      "형사소송법 294조  당사자의 증거신청#KOBLEX-232509": "①검사, 피고인 또는 변호인은 서류나 물건을 증거로 제출할 수 있고, 증인ㆍ감정인ㆍ통역인 또는 번역인의 신문을 신청할 수 있다.",
+      "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568": "제308조의2(위법수집증거의 배제) 적법한 절차에 따르지 아니하고 수집한 증거는 증거로 할 수 없다.",
+      "형사소송법 309조  강제등 자백의 증거능력#KOBLEX-232569": "제309조(강제등 자백의 증거능력) 피고인의 자백이 고문, 폭행, 협박, 신체구속의 부당한  장기화 또는 기망 기타의 방법으로 임의로 진술한 것이 아니라고 의심할 만한 이유가 있는 때에는 이를 유죄의 증거로 하지 못한다.",
+      "형사소송법 318조  당사자의 동의와 증거능력#KOBLEX-232597": "①검사와 피고인이 증거로 할 수 있음을 동의한 서류 또는 물건은 진정한 것으로 인정한 때에는 증거로 할 수 있다.",
+      "형사소송법 318조 3 간이공판절차에서의 증거능력에 관한 특례#KOBLEX-232602": "제318조의3(간이공판절차에서의 증거능력에 관한 특례) 제286조의2의 결정이 있는 사건의 증거에 관하여는 제310조의2, 제312조 내지 제314조 및 제316조의 규정에 의한 증거에 대하여 제318조제1항의 동의가 있는 것으로 간주한다. 단, 검사, 피고인 또는 변호인이 증거로 함에 이의가 있는 때에는 그러하지 아니하다.",
+      "형사소송법 411조  소송기록등의 송부#KOBLEX-232838": "②항고법원은 소송기록과 증거물의 송부를 요구할 수 있다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형사소송법 215조  압수, 수색, 검증#KOBLEX-232128",
+              "형사소송법 215조  압수, 수색, 검증#KOBLEX-232129"
+            ],
+            "rationale": "형사소송법 제215조 제1항 및 제2항은 수사기관이 증거를 수집할 때 영장을 받아야 한다는 구체적 절차적 요건을 명시한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568"
+            ],
+            "rationale": "형사소송법 제308조의2는 적법한 절차에 따르지 아니하고 수집한 증거를 위법수집증거로 정의한다.",
+            "requirement_id": "E1-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형사소송법 215조  압수, 수색, 검증#KOBLEX-232128",
+          "형사소송법 215조  압수, 수색, 검증#KOBLEX-232129",
+          "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C013과 C017은 증거수집 시 준수해야 할 절차적 요건(영장주의)을 명시하여 E1-R1을 충족하며, C001은 위법수집의 법적 정의를 제공하여 E1-R2를 충족한다. 모든 요구사항이 공급된 후보 조항에 의해 충족되었다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568"
+            ],
+            "rationale": "형사소송법 제308조의2는 위법하게 수집된 증거는 증거로 할 수 없다고 규정하여 배제 원칙을 충족한다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [],
+            "rationale": "공급된 후보 조항 중 증거배제원칙의 예외사유(예: 이중위법성, 불가피성 등)를 명시하는 조항이 없다.",
+            "requirement_id": "E2-R2",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "missing_statute",
+        "legal_status": "partially_covered",
+        "linked_provision_ids": [
+          "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568"
+        ],
+        "missing_aspects": [
+          "E2-R2"
+        ],
+        "partial_kind": "legal_support_gap",
+        "rationale": "C001은 위법수집증거의 증거능력 배제 원칙(E2-R1)을 명확히 규정한다. 그러나 공급된 후보 조항 중 증거배제원칙의 예외사유(E2-R2)를 명시하는 조항이 없어 커버리지가 불완전하다.",
+        "status": "partially_covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형사소송법 215조  압수, 수색, 검증#KOBLEX-232128",
+        "support_spans": [
+          {
+            "end_char": 128,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형사소송법 215조  압수, 수색, 검증#KOBLEX-232129",
+        "support_spans": [
+          {
+            "end_char": 142,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568",
+        "support_spans": [
+          {
+            "end_char": 56,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568",
+        "support_spans": [
+          {
+            "end_char": 56,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 5,
+    "last_validated_event": "RESPONSE_ASSEMBLY.ABSTAIN",
+    "legal_issues": [
+      {
+        "description": "경찰이 동의 없이 사무실에 침입하여 CCTV 영상을 확보한 행위가 증거수집절차에 위배되는지 여부",
+        "issue_id": "I1"
+      },
+      {
+        "description": "위법하게 수집된 CCTV 영상에 대해 증거배제원칙이 적용되는지 여부",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "위법하게 수집된 증거에 대해 증거능력이 배제되는지 여부 및 예외사유를 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "위법수집증거의 증거능력 배제 원칙"
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "증거배제원칙의 예외사유"
+          }
+        ],
+        "critical": true,
+        "description": "형사소송법상 증거배제원칙의 적용 범위 및 예외",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "검찰이 해당 영상을 증거로 제출할 수 있는지 판단하는 핵심 법적 근거",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 1,
+    "normalized_question": "[배경 시나리오] 경찰 갑은 을의 가게에서 도난 사건이 발생한 후, 을의 동의 없이 을의 사무실에 몰래 들어가 CCTV 영상을 확보했습니다. 이 영상을 통해 을의 직원 병이 범인이라는 것을 알아냈습니다. 을은 갑의 행위가 사생활 침해라며 법적 문제를 제기했고, 검찰은 이 CCTV 영상을 증거로 제출하려고 합니다. [질문] 검찰이 을의 동의 없이 수집된 CCTV 영상을 증거로 제출할 수 있는가?",
+    "phase": "ABSTAINED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "형사소송법",
+          "증거수집",
+          "절차적 요건",
+          "적법성"
+        ],
+        "query_text": "형사소송법 증거수집 절차 적법성 요건 [원문 맥락] 을은 갑의 행위가 사생활 침해라며 법적 문제를 제기했고, 검찰은 이 CCTV 영상을 증거로 제출하려고 합니다. 검찰이 을의 동의 없이 수집된 CCTV 영상을 증거로 제출할 수 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "형사소송법",
+          "위법수집증거",
+          "증거배제",
+          "증거능력"
+        ],
+        "query_text": "형사소송법 위법수집증거 증거배제원칙 [원문 맥락] 을은 갑의 행위가 사생활 침해라며 법적 문제를 제기했고, 검찰은 이 CCTV 영상을 증거로 제출하려고 합니다. 검찰이 을의 동의 없이 수집된 CCTV 영상을 증거로 제출할 수 있는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "형사소송법",
+          "압수",
+          "수색",
+          "영장주의",
+          "적법성"
+        ],
+        "query_text": "형사소송법 압수 수색 영장주의 예외 긴급체포 현장수색 적법성 요건 [원문 맥락] 을은 갑의 행위가 사생활 침해라며 법적 문제를 제기했고, 검찰은 이 CCTV 영상을 증거로 제출하려고 합니다. 검찰이 을의 동의 없이 수집된 CCTV 영상을 증거로 제출할 수 있는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "형사소송법",
+          "위법수집증거",
+          "배제",
+          "예외",
+          "이중위법성"
+        ],
+        "query_text": "형사소송법 위법수집증거 배제 예외 이중위법성 불가피성 판례 기준 [원문 맥락] 을은 갑의 행위가 사생활 침해라며 법적 문제를 제기했고, 검찰은 이 CCTV 영상을 증거로 제출하려고 합니다. 검찰이 을의 동의 없이 수집된 CCTV 영상을 증거로 제출할 수 있는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "형사소송법",
+          "제308조의2",
+          "위법수집증거",
+          "배제",
+          "예외"
+        ],
+        "query_text": "형사소송법 제308조의2 위법수집증거 배제 예외 사유 [원문 맥락] 을은 갑의 행위가 사생활 침해라며 법적 문제를 제기했고, 검찰은 이 CCTV 영상을 증거로 제출하려고 합니다. 검찰이 을의 동의 없이 수집된 CCTV 영상을 증거로 제출할 수 있는가?",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "형사소송법",
+          "증거능력",
+          "동의",
+          "수집",
+          "예외"
+        ],
+        "query_text": "형사소송법 증거능력 제한 동의 없는 수집 예외 규정 [원문 맥락] 을은 갑의 행위가 사생활 침해라며 법적 문제를 제기했고, 검찰은 이 CCTV 영상을 증거로 제출하려고 합니다. 검찰이 을의 동의 없이 수집된 CCTV 영상을 증거로 제출할 수 있는가?",
+        "request_id": "GRQ-R3-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n경찰 갑은 을의 가게에서 도난 사건이 발생한 후, 을의 동의 없이 을의 사무실에 몰래 들어가 CCTV 영상을 확보했습니다. 이 영상을 통해 을의 직원 병이 범인이라는 것을 알아냈습니다. 을은 갑의 행위가 사생활 침해라며 법적 문제를 제기했고, 검찰은 이 CCTV 영상을 증거로 제출하려고 합니다.\n\n[질문]\n검찰이 을의 동의 없이 수집된 CCTV 영상을 증거로 제출할 수 있는가?",
+    "remaining_request_budget": 3,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "수사기관이 증거를 수집할 때 준수해야 할 절차적 요건과 위법수집에 해당하는 행위의 법적 기준을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "형사소송법상 증거수집의 적법성 요건"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "위법하게 수집된 증거의 법적 정의"
+          }
+        ],
+        "critical": true,
+        "description": "형사소송법상 증거수집절차의 적법성 요건 및 위법수집의 정의",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "CCTV 영상의 수집행위가 적법한지 판단하는 법적 근거가 필요함",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "위법하게 수집된 증거에 대해 증거능력이 배제되는지 여부 및 예외사유를 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "위법수집증거의 증거능력 배제 원칙"
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "증거배제원칙의 예외사유"
+          }
+        ],
+        "critical": true,
+        "description": "형사소송법상 증거배제원칙의 적용 범위 및 예외",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "검찰이 해당 영상을 증거로 제출할 수 있는지 판단하는 핵심 법적 근거",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "33e6d9ed-0850-411e-aee7-c533ea9349ff",
+    "seen_provision_ids": [
+      "형사소송법 215조  압수, 수색, 검증#KOBLEX-232128",
+      "형사소송법 218조  영장에 의하지 아니한 압수#KOBLEX-232138",
+      "형사소송법 318조  당사자의 동의와 증거능력#KOBLEX-232597",
+      "형사소송법 110조  군사상 비밀과 압수#KOBLEX-231767",
+      "형사소송법 294조  당사자의 증거신청#KOBLEX-232508",
+      "형사소송법 292조 2 증거물에 대한 조사방식#KOBLEX-232503",
+      "군사법원법 371조  당사자의 동의와 증거능력#KOBLEX-093386",
+      "형사소송법 184조#KOBLEX-231963",
+      "형사소송법 294조  당사자의 증거신청#KOBLEX-232509",
+      "형사소송법 216조  영장에 의하지 아니한 강제처분#KOBLEX-232133",
+      "성폭력범죄의 처벌 등에 관한 특례법 30조 2 영상녹화물의 증거능력 특례#KOBLEX-157637",
+      "형사소송법 109조  수색#KOBLEX-231765",
+      "형사소송법 215조  압수, 수색, 검증#KOBLEX-232129",
+      "독점규제 및 공정거래에 관한 법률 94조  심의절차에서의 증거조사#KOBLEX-020895",
+      "형사소송법 244조 2 피의자진술의 영상녹화#KOBLEX-232219",
+      "군사법원법 359조 2 위법수집 증거의 배제#KOBLEX-093357",
+      "형사소송법 221조  제3자의 출석요구 등#KOBLEX-232147",
+      "형사소송법 309조  강제등 자백의 증거능력#KOBLEX-232569",
+      "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568",
+      "형사소송법 411조  소송기록등의 송부#KOBLEX-232838",
+      "형사소송법 217조  영장에 의하지 아니하는 강제처분#KOBLEX-232135",
+      "형사소송법 120조  집행과 필요한 처분#KOBLEX-231787",
+      "형사소송법 318조 3 간이공판절차에서의 증거능력에 관한 특례#KOBLEX-232602"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ABSTAIN",
+  "termination_reason": "MAX_RETRIEVAL_ROUNDS_REACHED"
+}

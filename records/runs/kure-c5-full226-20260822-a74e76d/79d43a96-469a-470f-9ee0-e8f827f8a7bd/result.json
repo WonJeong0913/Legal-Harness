@@ -1,0 +1,902 @@
+{
+  "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": null,
+  "candidate_answer_basis": "retrieved_candidates",
+  "candidate_answer_error": "grounded_legal_answer_generation did not produce a valid GENERATE_BENCHMARK_CANDIDATE result after 2 attempts: grounded_legal_answer_generation returned UNCOVERED_CRITICAL_EVIDENCE: 핵심 증거 항목 E1, E2, E3가 모두 미충족(uncovered) 상태입니다. 후보 조항에 정보통신망법 제48조 본문, 형법 제74조 제1항 등 질문 답변에 필수적인 조항이 포함되어 있지 않아, 근거 기반 답변 생성이 불가능합니다.",
+  "candidate_answer_status": "EXECUTION_FAILURE",
+  "candidate_answer_termination_reason": "INVALID_SKILL_OUTPUT",
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T12:49:12.463508+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 164189.815,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 511,
+      "dedup_collapse": 168,
+      "evidence_fusion": 511,
+      "first_stage": 600,
+      "request_rerank": 600,
+      "round_selected": 20,
+      "rrf": 600,
+      "selected": 511
+    }
+  },
+  "run_id": "79d43a96-469a-470f-9ee0-e8f827f8a7bd",
+  "skill_generation_diagnostics": {
+    "attempt_count": 6,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 3,
+          "issue_count": 3
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 3,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 3,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 3,
+          "request_count": 3,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 3,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "ABSTAIN",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "Two consecutive retrieval rounds did not improve critical evidence.",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "ABSTAIN",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 13
+        },
+        "event": "BENCHMARK_CANDIDATE_GENERATION_STARTED",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "error": "grounded_legal_answer_generation did not produce a valid GENERATE_BENCHMARK_CANDIDATE result after 2 attempts: grounded_legal_answer_generation returned UNCOVERED_CRITICAL_EVIDENCE: 핵심 증거 항목 E1, E2, E3가 모두 미충족(uncovered) 상태입니다. 후보 조항에 정보통신망법 제48조 본문, 형법 제74조 제1항 등 질문 답변에 필수적인 조항이 포함되어 있지 않아, 근거 기반 답변 생성이 불가능합니다.",
+          "termination_reason": "INVALID_SKILL_OUTPUT"
+        },
+        "event": "BENCHMARK_CANDIDATE_EXECUTION_FAILURE",
+        "phase": "ABSTAINED"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "statutory_penalty",
+        "question_anchor": "만약 갑의 컴퓨터 입력 행위로 실제로 자금이 송금되어 이익을 취득했을 경우, 어떤 처벌을 받을 수 있는가?",
+        "requested_output": "전산처리 조작을 통한 이익 취득 시 적용되는 형벌 규정 및 법정형"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "punishability_of_attempt",
+        "question_anchor": "갑처럼 이익을 실제로 취득하지 못한 경우에도 처벌이 가능한가?",
+        "requested_output": "미수범에 대한 처벌 가능성 및 적용 규정"
+      },
+      {
+        "answer_target_id": "T3",
+        "answer_type": "statute_of_limitations_start",
+        "question_anchor": "이 때의 시효는 언제부터 진행되는가?",
+        "requested_output": "형사소송시효의 기산점"
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "정보통신망 이용촉진 및 정보보호 등에 관한 법률 48조  정보통신망 침해행위 등의 금지#KOBLEX-177010"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.5714155435562134,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "정보통신망 이용촉진 및 정보보호 등에 관한 법률 48조  정보통신망 침해행위 등의 금지#KOBLEX-177010",
+        "provision_text": "제48조(정보통신망 침해행위 등의 금지)",
+        "rerank_rank": 1,
+        "rerank_score": 0.00036500758142210543,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "정보통신망 이용촉진 및 정보보호 등에 관한 법률 48조  정보통신망 침해행위 등의 금지",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 294조  시효의 기산점#KOBLEX-093079",
+          "군사법원법 294조  시효의 기산점#KOBLEX-159044"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6308406591415405,
+        "fusion_rank": 1,
+        "issue_id": "I3",
+        "provision_id": "군사법원법 294조  시효의 기산점#KOBLEX-093079",
+        "provision_text": "① 시효는 범죄행위가 끝난 때부터 진행한다.",
+        "rerank_rank": 1,
+        "rerank_score": 2.4728235075599514e-05,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "critical_quota:E1,E2,E3",
+        "source_request_id": "RQ3",
+        "source_request_ids": [
+          "RQ3",
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-3",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "군사법원법 294조  시효의 기산점 1항",
+        "target_evidence_item_ids": [
+          "E3",
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "정보통신망 이용촉진 및 정보보호 등에 관한 법률 48조 5 정보통신망연결기기등 관련 침해사고의 대응 등#KOBLEX-177036"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 31,
+        "first_stage_score": 0.5411800742149353,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "정보통신망 이용촉진 및 정보보호 등에 관한 법률 48조 5 정보통신망연결기기등 관련 침해사고의 대응 등#KOBLEX-177036",
+        "provision_text": "제48조의5(정보통신망연결기기등 관련 침해사고의 대응 등)",
+        "rerank_rank": 2,
+        "rerank_score": 8.624086331110448e-05,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "정보통신망 이용촉진 및 정보보호 등에 관한 법률 48조 5 정보통신망연결기기등 관련 침해사고의 대응 등",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 252조  시효의 기산점#KOBLEX-232279"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.5991020202636719,
+        "fusion_rank": 2,
+        "issue_id": "I3",
+        "provision_id": "형사소송법 252조  시효의 기산점#KOBLEX-232279",
+        "provision_text": "①시효는 범죄행위의 종료한 때로부터 진행한다.",
+        "rerank_rank": 2,
+        "rerank_score": 2.4614500944153406e-05,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ3",
+        "source_request_ids": [
+          "RQ3",
+          "RQ1",
+          "GRQ-R2-3",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 252조  시효의 기산점 1항",
+        "target_evidence_item_ids": [
+          "E3",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 349조  부당이득#KOBLEX-193404"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 40,
+        "first_stage_score": 0.5609846115112305,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "형법 349조  부당이득#KOBLEX-193404",
+        "provision_text": "② 제1항의 방법으로 제3자로 하여금 부당한 이익을 취득하게 한 경우에도 제1항의 형에 처한다.",
+        "rerank_rank": 1,
+        "rerank_score": 1.7939770259545185e-05,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형법 349조  부당이득 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "밀항단속법 3조  밀항ㆍ이선 등#KOBLEX-106479"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6181231737136841,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "밀항단속법 3조  밀항ㆍ이선 등#KOBLEX-106479",
+        "provision_text": "② 제1항의 경우 미수범도 처벌한다.",
+        "rerank_rank": 2,
+        "rerank_score": 6.8211711550247855e-06,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "밀항단속법 3조  밀항ㆍ이선 등 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "전기통신금융사기 피해 방지 및 피해금 환급에 관한 특별법 15조 2 벌칙#KOBLEX-112191"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 25,
+        "first_stage_score": 0.5720726251602173,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "전기통신금융사기 피해 방지 및 피해금 환급에 관한 특별법 15조 2 벌칙#KOBLEX-112191",
+        "provision_text": "② 제1항의 미수범은 처벌한다.",
+        "rerank_rank": 3,
+        "rerank_score": 5.8536907090456225e-06,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "전기통신금융사기 피해 방지 및 피해금 환급에 관한 특별법 15조 2 벌칙 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국가보안법 4조  목적수행#KOBLEX-076947"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 33,
+        "first_stage_score": 0.5666903257369995,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "국가보안법 4조  목적수행#KOBLEX-076947",
+        "provision_text": "②제1항의 미수범은 처벌한다.",
+        "rerank_rank": 4,
+        "rerank_score": 5.609628260572208e-06,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "국가보안법 4조  목적수행 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 325조  점유강취, 준점유강취#KOBLEX-193359"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 63,
+        "first_stage_score": 0.5537691712379456,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "형법 325조  점유강취, 준점유강취#KOBLEX-193359",
+        "provision_text": "③ 제1항과 제2항의 미수범은 처벌한다.",
+        "rerank_rank": 5,
+        "rerank_score": 4.519373305811314e-06,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형법 325조  점유강취, 준점유강취 3항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "전자문서 및 전자거래 기본법 43조  벌칙#KOBLEX-166113"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 27,
+        "first_stage_score": 0.5720726251602173,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "전자문서 및 전자거래 기본법 43조  벌칙#KOBLEX-166113",
+        "provision_text": "② 제1항의 미수범은 처벌한다.",
+        "rerank_rank": 6,
+        "rerank_score": 4.481732048589038e-06,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "전자문서 및 전자거래 기본법 43조  벌칙 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 295조  시효의 정지와 효력#KOBLEX-093082",
+          "군사법원법 295조  시효의 정지와 효력#KOBLEX-159047"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 47,
+        "first_stage_score": 0.5564821362495422,
+        "fusion_rank": 3,
+        "issue_id": "I3",
+        "provision_id": "군사법원법 295조  시효의 정지와 효력#KOBLEX-093082",
+        "provision_text": "① 시효는 공소의 제기로 진행이 정지되고 관할위반 또는 공소기각의 재판이 확정된 때부터 진행한다.",
+        "rerank_rank": 3,
+        "rerank_score": 7.959756658237893e-06,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-3",
+        "source_request_ids": [
+          "GRQ-R2-3"
+        ],
+        "statute_name": "군사법원법 295조  시효의 정지와 효력 1항",
+        "target_evidence_item_ids": [
+          "E3"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "전기사업법 100조  벌칙#KOBLEX-073005"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 88,
+        "first_stage_score": 0.5455201268196106,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "전기사업법 100조  벌칙#KOBLEX-073005",
+        "provision_text": "③ 제1항 및 제2항제1호의 미수범은 처벌한다.",
+        "rerank_rank": 3,
+        "rerank_score": 4.976246145815821e-06,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2"
+        ],
+        "statute_name": "전기사업법 100조  벌칙 3항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "징발법 28조  벌칙#KOBLEX-073265"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 29,
+        "first_stage_score": 0.5647398233413696,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "징발법 28조  벌칙#KOBLEX-073265",
+        "provision_text": "② 제1항의 미수범은 처벌한다.",
+        "rerank_rank": 7,
+        "rerank_score": 3.844267666863743e-06,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2"
+        ],
+        "statute_name": "징발법 28조  벌칙 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "국가보안법 4조  목적수행#KOBLEX-076947": "②제1항의 미수범은 처벌한다.",
+      "군사법원법 294조  시효의 기산점#KOBLEX-093079": "① 시효는 범죄행위가 끝난 때부터 진행한다.",
+      "군사법원법 295조  시효의 정지와 효력#KOBLEX-093082": "① 시효는 공소의 제기로 진행이 정지되고 관할위반 또는 공소기각의 재판이 확정된 때부터 진행한다.",
+      "밀항단속법 3조  밀항ㆍ이선 등#KOBLEX-106479": "② 제1항의 경우 미수범도 처벌한다.",
+      "전기사업법 100조  벌칙#KOBLEX-073005": "③ 제1항 및 제2항제1호의 미수범은 처벌한다.",
+      "전기통신금융사기 피해 방지 및 피해금 환급에 관한 특별법 15조 2 벌칙#KOBLEX-112191": "② 제1항의 미수범은 처벌한다.",
+      "전자문서 및 전자거래 기본법 43조  벌칙#KOBLEX-166113": "② 제1항의 미수범은 처벌한다.",
+      "정보통신망 이용촉진 및 정보보호 등에 관한 법률 48조  정보통신망 침해행위 등의 금지#KOBLEX-177010": "제48조(정보통신망 침해행위 등의 금지)",
+      "정보통신망 이용촉진 및 정보보호 등에 관한 법률 48조 5 정보통신망연결기기등 관련 침해사고의 대응 등#KOBLEX-177036": "제48조의5(정보통신망연결기기등 관련 침해사고의 대응 등)",
+      "징발법 28조  벌칙#KOBLEX-073265": "② 제1항의 미수범은 처벌한다.",
+      "형법 325조  점유강취, 준점유강취#KOBLEX-193359": "③ 제1항과 제2항의 미수범은 처벌한다.",
+      "형법 349조  부당이득#KOBLEX-193404": "② 제1항의 방법으로 제3자로 하여금 부당한 이익을 취득하게 한 경우에도 제1항의 형에 처한다.",
+      "형사소송법 252조  시효의 기산점#KOBLEX-232279": "①시효는 범죄행위의 종료한 때로부터 진행한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "전산처리 조작으로 이익을 취득한 자의 처벌 규정을 명시하는 조항 본문이 후보군에 없습니다.",
+            "requirement_id": "E1-R1",
+            "status": "unsatisfied"
+          },
+          {
+            "linked_provision_ids": [],
+            "rationale": "해당 범죄의 법정형(징역 또는 벌금)을 명시하는 조항 본문이 후보군에 없습니다.",
+            "requirement_id": "E1-R2",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E1-R1",
+          "E1-R2"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "C001은 정보통신망법 제48조의 제목만 제시하고 구성요건과 법정형이 포함된 본문이 없어 E1-R1과 E1-R2를 충족하지 못합니다. C005는 형법상 부당이득죄의 제3자 취득 규정이므로 전산처리 조작죄의 구성요건과 법정형을 입증하지 못합니다.",
+        "status": "uncovered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "정보통신망법 제48조 제2항의 미수범 처벌 규정을 확인하는 후보 조항이 없습니다.",
+            "requirement_id": "E2-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E2-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "후보군에 포함된 미수범 처벌 규정(C006, C007, C008, C009, C010)은 각각 밀항단속법, 전기통신금융사기 특별법, 국가보안법, 형법, 전자문서법 등 다른 법률의 조항으로, 정보통신망법 제48조 제2항의 미수범 처벌 규정을 입증하지 못합니다.",
+        "status": "uncovered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "형법 제74조 제1항의 형사소송시효 기산점(범죄 성립 시) 규정을 확인하는 후보 조항이 없습니다.",
+            "requirement_id": "E3-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E3",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E3-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "C002는 군사법원법, C004는 형사소송법 제252조로, 형법 제74조 제1항의 형사소송시효 기산점 규정을 직접적으로 입증하지 못합니다. 형사소송법 제252조는 공소시효의 기산점을 규정하지만, 질문에서 요구하는 형법 제74조 제1항의 '범죄 성립 시' 기산점 규정과는 별개의 조항이며, 후보군에 형법 제74조 제1항이 없습니다.",
+        "status": "uncovered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [],
+    "last_retrieval_new_provision_count": 3,
+    "last_validated_event": "RESPONSE_ASSEMBLY.ABSTAIN",
+    "legal_issues": [
+      {
+        "description": "전산처리 조작을 통한 이익 취득 행위의 법적 성질 및 처벌 규정",
+        "issue_id": "I1"
+      },
+      {
+        "description": "전산처리 조작 미수범의 처벌 가능성",
+        "issue_id": "I2"
+      },
+      {
+        "description": "형사소송시효의 기산점",
+        "issue_id": "I3"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "정보통신망 이용촉진 및 정보보호 등에 관한 법률 제48조 제1항의 구성요건과 형량 범위를 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "전산처리 조작으로 이익을 취득한 자의 처벌 규정 확인"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "해당 범죄의 법정형(징역 또는 벌금) 확인"
+          }
+        ],
+        "critical": true,
+        "description": "전산처리 조작을 통한 이익 취득죄의 구성요건 및 법정형",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 실제 이익 취득 시 처벌 규정을 특정하기 위해 필요",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "정보통신망법 제48조 제2항의 미수범 처벌 규정을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "전산처리 조작죄 미수범의 처벌 가능 여부 확인"
+          }
+        ],
+        "critical": true,
+        "description": "전산처리 조작죄의 미수범 처벌 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "exception",
+        "issue_id": "I2",
+        "necessity_reason": "이익을 취득하지 못한 미수 상태에서의 처벌 가능성을 판단하기 위해 필요",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T3"
+        ],
+        "completion_criteria": "형법 제74조 제1항의 시효 기산점(범죄의 성립 시) 규정을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E3-R1",
+            "text": "형사소송시효의 기산점(범죄 성립 시) 규정 확인"
+          }
+        ],
+        "critical": true,
+        "description": "형사소송시효의 기산점 규정",
+        "evidence_item_id": "E3",
+        "evidence_type": "rule",
+        "issue_id": "I3",
+        "necessity_reason": "형사소송시효가 언제부터 진행하는지 판단하기 위해 필요",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] 회사 직원인 갑은 회사의 내부 컴퓨터 시스템에 허위의 매출 정보를 입력하고, 부정한 명령을 실행하여 회사 자금 수천만 원을 자신의 계좌로 송금하려 했다. 이는 전산처리를 통한 회사 자금 탈취를 목적으로 한 것이었다. 다만 송금 절차 도중 시스템 오류로 인해 실제 자금 이전은 이루어지지 않았고, 범행은 미수에 그쳤다. 이후 내부 감사로 해당 행위가 적발되자 검찰은 갑의 행위에 대해 수사를 개시했다. [질문] 만약 갑의 컴퓨터 입력 행위로 실제로 자금이 송금되어 이익을 취득했을 경우, 어떤 처벌을 받을 수 있는가? 갑처럼 이익을 실제로 취득하지 못한 경우에도 처벌이 가능한가? 이 때의 시효는 언제부터 진행되는가?",
+    "phase": "ABSTAINED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "전산처리 조작",
+          "이익 취득",
+          "정보통신망법",
+          "제48조",
+          "형량"
+        ],
+        "query_text": "정보통신망 이용촉진 및 정보보호 등에 관한 법률 제48조 전산처리 조작 이익 취득 처벌 [원문 맥락] 갑처럼 이익을 실제로 취득하지 못한 경우에도 처벌이 가능한가? 이 때의 시효는 언제부터 진행되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "정보통신망 이용촉진 및 정보보호 등에 관한 법률"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "전산처리 조작",
+          "미수범",
+          "정보통신망법",
+          "제48조 제2항",
+          "처벌"
+        ],
+        "query_text": "정보통신망법 제48조 제2항 전산처리 조작 미수범 처벌 [원문 맥락] 갑처럼 이익을 실제로 취득하지 못한 경우에도 처벌이 가능한가? 이 때의 시효는 언제부터 진행되는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "정보통신망 이용촉진 및 정보보호 등에 관한 법률"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E3",
+        "first_stage_query_text": null,
+        "issue_id": "I3",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "형사소송시효",
+          "기산점",
+          "형법",
+          "제74조",
+          "범죄 성립"
+        ],
+        "query_text": "형법 제74조 형사소송시효 기산점 범죄 성립 시 [원문 맥락] 갑처럼 이익을 실제로 취득하지 못한 경우에도 처벌이 가능한가? 이 때의 시효는 언제부터 진행되는가?",
+        "request_id": "RQ3",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "전산처리 조작",
+          "이익 취득",
+          "법정형",
+          "정보통신망법 제48조"
+        ],
+        "query_text": "정보통신망법 제48조 제1항 전산처리 조작 이익 취득 구성요건 및 법정형 [원문 맥락] 갑처럼 이익을 실제로 취득하지 못한 경우에도 처벌이 가능한가? 이 때의 시효는 언제부터 진행되는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "정보통신망 이용촉진 및 정보보호 등에 관한 법률"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "전산처리 조작",
+          "미수범",
+          "정보통신망법 제48조 제2항"
+        ],
+        "query_text": "정보통신망법 제48조 제2항 전산처리 조작 미수범 처벌 규정 [원문 맥락] 갑처럼 이익을 실제로 취득하지 못한 경우에도 처벌이 가능한가? 이 때의 시효는 언제부터 진행되는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "정보통신망 이용촉진 및 정보보호 등에 관한 법률"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E3",
+        "first_stage_query_text": null,
+        "issue_id": "I3",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "공소시효",
+          "기산점",
+          "범죄 성립",
+          "형법 제74조"
+        ],
+        "query_text": "형법 제74조 제1항 공소시효 기산점 범죄 성립 시 [원문 맥락] 갑처럼 이익을 실제로 취득하지 못한 경우에도 처벌이 가능한가? 이 때의 시효는 언제부터 진행되는가?",
+        "request_id": "GRQ-R2-3",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n회사 직원인 갑은 회사의 내부 컴퓨터 시스템에 허위의 매출 정보를 입력하고, 부정한 명령을 실행하여 회사 자금 수천만 원을 자신의 계좌로 송금하려 했다. 이는 전산처리를 통한 회사 자금 탈취를 목적으로 한 것이었다. 다만 송금 절차 도중 시스템 오류로 인해 실제 자금 이전은 이루어지지 않았고, 범행은 미수에 그쳤다. 이후 내부 감사로 해당 행위가 적발되자 검찰은 갑의 행위에 대해 수사를 개시했다.\n\n[질문]\n만약 갑의 컴퓨터 입력 행위로 실제로 자금이 송금되어 이익을 취득했을 경우, 어떤 처벌을 받을 수 있는가? 갑처럼 이익을 실제로 취득하지 못한 경우에도 처벌이 가능한가? 이 때의 시효는 언제부터 진행되는가?",
+    "remaining_request_budget": 3,
+    "remaining_round_budget": 1,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "정보통신망 이용촉진 및 정보보호 등에 관한 법률 제48조 제1항의 구성요건과 형량 범위를 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "전산처리 조작으로 이익을 취득한 자의 처벌 규정 확인"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "해당 범죄의 법정형(징역 또는 벌금) 확인"
+          }
+        ],
+        "critical": true,
+        "description": "전산처리 조작을 통한 이익 취득죄의 구성요건 및 법정형",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 실제 이익 취득 시 처벌 규정을 특정하기 위해 필요",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "정보통신망법 제48조 제2항의 미수범 처벌 규정을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "전산처리 조작죄 미수범의 처벌 가능 여부 확인"
+          }
+        ],
+        "critical": true,
+        "description": "전산처리 조작죄의 미수범 처벌 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "exception",
+        "issue_id": "I2",
+        "necessity_reason": "이익을 취득하지 못한 미수 상태에서의 처벌 가능성을 판단하기 위해 필요",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T3"
+        ],
+        "completion_criteria": "형법 제74조 제1항의 시효 기산점(범죄의 성립 시) 규정을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E3-R1",
+            "text": "형사소송시효의 기산점(범죄 성립 시) 규정 확인"
+          }
+        ],
+        "critical": true,
+        "description": "형사소송시효의 기산점 규정",
+        "evidence_item_id": "E3",
+        "evidence_type": "rule",
+        "issue_id": "I3",
+        "necessity_reason": "형사소송시효가 언제부터 진행하는지 판단하기 위해 필요",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 2,
+    "run_id": "79d43a96-469a-470f-9ee0-e8f827f8a7bd",
+    "seen_provision_ids": [
+      "전기사업법 100조  벌칙#KOBLEX-073005",
+      "징발법 28조  벌칙#KOBLEX-073265",
+      "국가보안법 4조  목적수행#KOBLEX-076947",
+      "정보통신망 이용촉진 및 정보보호 등에 관한 법률 48조  정보통신망 침해행위 등의 금지#KOBLEX-177010",
+      "전자문서 및 전자거래 기본법 43조  벌칙#KOBLEX-166113",
+      "밀항단속법 3조  밀항ㆍ이선 등#KOBLEX-106479",
+      "전기통신금융사기 피해 방지 및 피해금 환급에 관한 특별법 15조 2 벌칙#KOBLEX-112191",
+      "정보통신망 이용촉진 및 정보보호 등에 관한 법률 48조 5 정보통신망연결기기등 관련 침해사고의 대응 등#KOBLEX-177036",
+      "형법 349조  부당이득#KOBLEX-193404",
+      "군사법원법 295조  시효의 정지와 효력#KOBLEX-093082",
+      "형법 325조  점유강취, 준점유강취#KOBLEX-193359",
+      "군사법원법 294조  시효의 기산점#KOBLEX-093079",
+      "형사소송법 252조  시효의 기산점#KOBLEX-232279"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ABSTAIN",
+  "termination_reason": "NO_RETRIEVAL_PROGRESS"
+}

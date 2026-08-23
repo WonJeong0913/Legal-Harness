@@ -1,0 +1,1136 @@
+{
+  "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": "세무사 자격이 없으면서 세무대리를 한 자는 3년 이하의 징역 또는 3천만원 이하의 벌금에 처한다.[CT1]\n세무사 자격이 없는 갑이 을의 세금 신고서 작성 및 제출 등 세무대리 업무를 수행한 행위는 세무사법 제22조 제1항 제1호의 처벌 대상에 해당한다.[CT2]",
+  "candidate_answer_basis": "retrieved_candidates",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "GENERATED",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [
+    {
+      "code": "ASSUMPTION_FACTS",
+      "message": "갑이 세무사 자격이 없으며, 을의 세금 신고서 작성 및 제출 등 세무대리 업무를 수행했다는 사실은 문제의 전제로 가정한다."
+    }
+  ],
+  "candidate_claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "세무사법 22조  벌칙#KOBLEX-177512",
+      "quoted_text": "① 다음 각 호의 어느 하나에 해당하는 자는 3년 이하의 징역 또는 3천만원 이하의 벌금에 처한다. <개정 2011.6.30> 1. 세무사 자격이 없으면서 세무대리를 한 자 2. 제11조(제16조의16제1항에서 준용하는 경우를 포함한다) 및 제19조의12제1항을 위반하여 직무상 알게 된 비밀을 누설한 자",
+      "support_description": "세무사 자격 없이 세무대리를 한 자에 대한 형벌(3년 이하 징역 또는 3천만원 이하 벌금)을 명시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "세무사법 22조  벌칙#KOBLEX-177512",
+      "quoted_text": "① 다음 각 호의 어느 하나에 해당하는 자는 3년 이하의 징역 또는 3천만원 이하의 벌금에 처한다. <개정 2011.6.30> 1. 세무사 자격이 없으면서 세무대리를 한 자 2. 제11조(제16조의16제1항에서 준용하는 경우를 포함한다) 및 제19조의12제1항을 위반하여 직무상 알게 된 비밀을 누설한 자",
+      "support_description": "세무사 자격이 없는 자가 세무대리를 한 경우를 처벌 대상으로 규정하여, 갑의 행위 적용 근거를 제공한다."
+    }
+  ],
+  "candidate_claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "세무사 자격이 없으면서 세무대리를 한 자는 3년 이하의 징역 또는 3천만원 이하의 벌금에 처한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "세무사 자격이 없는 갑이 을의 세금 신고서 작성 및 제출 등 세무대리 업무를 수행한 행위는 세무사법 제22조 제1항 제1호의 처벌 대상에 해당한다."
+    }
+  ],
+  "candidate_limitations": [
+    {
+      "code": "UNCOVERED_E1",
+      "message": "세무대리의 구체적 범위(세금 신고서 작성 및 제출 포함 여부)를 정의하는 본질적 규정(예: 세무사법 제2조)이 후보 조문에 포함되어 있지 않아, 해당 행위가 '세무대리'에 해당하는지 여부는 조건부로 판단한다."
+    }
+  ],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T10:36:22.445478+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 172651.155,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 381,
+      "dedup_collapse": 90,
+      "evidence_fusion": 381,
+      "first_stage": 600,
+      "request_rerank": 600,
+      "round_selected": 30,
+      "rrf": 400,
+      "selected": 381
+    }
+  },
+  "run_id": "acd334ed-32ae-4d7d-a5bb-9148d51d8be6",
+  "skill_generation_diagnostics": {
+    "attempt_count": 7,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "세무사법 22조  벌칙#KOBLEX-177512"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 6,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 4,
+          "request_count": 2,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "ABSTAIN",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "Two consecutive retrieval rounds did not improve critical evidence.",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "ABSTAIN",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 20
+        },
+        "event": "BENCHMARK_CANDIDATE_GENERATION_STARTED",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 20,
+          "claim_count": 2
+        },
+        "event": "BENCHMARK_CANDIDATE_VALIDATED",
+        "phase": "ABSTAINED"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_consequence",
+        "question_anchor": "갑이 세무사 자격 없이 세무대리 업무를 수행한 경우, 그는 어떤 처벌을 받게 되는가?",
+        "requested_output": "The specific criminal penalty (imprisonment term and/or fine amount) applicable to a person performing tax agency work without a tax accountant qualification."
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "세무사법 22조  벌칙#KOBLEX-177512"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6518069505691528,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "세무사법 22조  벌칙#KOBLEX-177512",
+        "provision_text": "① 다음 각 호의 어느 하나에 해당하는 자는 3년 이하의 징역 또는 3천만원 이하의 벌금에 처한다. <개정 2011.6.30> 1. 세무사 자격이 없으면서 세무대리를 한 자 2. 제11조(제16조의16제1항에서 준용하는 경우를 포함한다) 및 제19조의12제1항을 위반하여 직무상 알게 된 비밀을 누설한 자",
+        "rerank_rank": 1,
+        "rerank_score": 0.9989244341850281,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "세무사법 22조  벌칙 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "세무사법 22조 2 벌칙#KOBLEX-177522"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 21,
+        "first_stage_score": 0.5653596520423889,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "세무사법 22조 2 벌칙#KOBLEX-177522",
+        "provision_text": "8. 제17조(제19조의15에서 준용하는 경우를 포함한다)에 따른 직무정지 명령이나 등록거부를 받은 자로서 그 직무정지 기간이나 등록거부 기간 중에 세무대리를 수행한 자",
+        "rerank_rank": 2,
+        "rerank_score": 0.9979640245437622,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "세무사법 22조 2 벌칙 8호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "세무사법 22조 2 벌칙#KOBLEX-177515"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 44,
+        "first_stage_score": 0.5591411590576172,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "세무사법 22조 2 벌칙#KOBLEX-177515",
+        "provision_text": "1. 제2조의2(제20조의2제5항에서 준용하는 경우를 포함한다)를 위반하여 세무대리를 소개ㆍ알선하고 그 대가를 받거나 요구한 자",
+        "rerank_rank": 3,
+        "rerank_score": 0.9975278973579407,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "세무사법 22조 2 벌칙 1호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "세무사법 22조 2 벌칙#KOBLEX-177516"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.5793900489807129,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "세무사법 22조 2 벌칙#KOBLEX-177516",
+        "provision_text": "2. 이 법에 따라 세무대리를 할 수 있는 자로서 제6조 또는 제20조의2제1항을 위반하여 등록을 하지 아니하고 세무대리를 수행한 자",
+        "rerank_rank": 4,
+        "rerank_score": 0.9958381652832031,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "세무사법 22조 2 벌칙 2호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공인회계사법 53조  벌칙#KOBLEX-004220"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.5624788403511047,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "공인회계사법 53조  벌칙#KOBLEX-004220",
+        "provision_text": "⑤ 공인회계사 자격이 있는 자 또는 공인회계사로서 제7조제1항ㆍ제4항 또는 제40조의4제1항 및 제5항에 따른 등록이나 등록 갱신을 하지 아니하고 제2조 또는 제40조의3에 따른 직무를 수행한 자는 500만원 이하의 벌금에 처한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.9935693740844727,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "공인회계사법 53조  벌칙 5항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공인회계사법 54조  벌칙#KOBLEX-004223"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 24,
+        "first_stage_score": 0.547441840171814,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "공인회계사법 54조  벌칙#KOBLEX-004223",
+        "provision_text": "① 공인회계사가 아닌 자가 제50조를 위반하여 제2조에 따른 직무를 수행하면 3년 이하의 징역 또는 3천만원 이하의 벌금에 처한다. <개정 2015.7.24>",
+        "rerank_rank": 6,
+        "rerank_score": 0.9894586801528931,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "공인회계사법 54조  벌칙 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "세무사법 22조 2 벌칙#KOBLEX-177523"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 64,
+        "first_stage_score": 0.539798378944397,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "세무사법 22조 2 벌칙#KOBLEX-177523",
+        "provision_text": "9. 원자격국의 세무전문가로서 제19조의3에 따른 자격승인을 받지 아니하거나 제19조의5에 따른 등록을 하지 아니하고 제19조의7에 따른 업무를 수행한 자",
+        "rerank_rank": 7,
+        "rerank_score": 0.9891953468322754,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "세무사법 22조 2 벌칙 9호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상호저축은행법 39조  벌칙#KOBLEX-074326",
+          "상호저축은행법 39조  벌칙#KOBLEX-181216"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 50,
+        "first_stage_score": 0.5331799983978271,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "상호저축은행법 39조  벌칙#KOBLEX-074326",
+        "provision_text": "③ 제6조제1항을 위반하여 인가를 받지 아니하고 업무를 한 자는 5년 이하의 징역 또는 5천만원 이하의 벌금에 처한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.985082745552063,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "상호저축은행법 39조  벌칙 3항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "북한이탈주민의 보호 및 정착지원에 관한 법률 33조  벌칙#KOBLEX-119683"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 92,
+        "first_stage_score": 0.5203761458396912,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "북한이탈주민의 보호 및 정착지원에 관한 법률 33조  벌칙#KOBLEX-119683",
+        "provision_text": "② 이 법에 따른 업무와 관련하여 알게 된 정보 또는 자료를 정당한 사유 없이 이 법에 따른 업무 외의 목적에 이용한 자는 1년 이하의 징역 또는 1천만원 이하의 벌금에 처한다. <개정 2014.1.21>",
+        "rerank_rank": 9,
+        "rerank_score": 0.9823397994041443,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "북한이탈주민의 보호 및 정착지원에 관한 법률 33조  벌칙 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "법무사법 74조  법무사가 아닌 자의 행위#KOBLEX-061733",
+          "법무사법 74조  법무사가 아닌 자의 행위#KOBLEX-171697"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 14,
+        "first_stage_score": 0.5554379820823669,
+        "fusion_rank": 10,
+        "issue_id": "I2",
+        "provision_id": "법무사법 74조  법무사가 아닌 자의 행위#KOBLEX-061733",
+        "provision_text": "① 법무사가 아닌 자가 다음 각 호의 어느 하나에 해당하면 3년 이하의 징역 또는 500만원 이하의 벌금에 처한다. 1. 제3조를 위반하여 제2조에 규정된 사무를 업으로 하거나 법무사 또는 이와 비슷한 명칭을 사용한 경우 2. 이익을 얻을 목적으로 문서, 도화(圖畵), 시설물 등에 법무사 업무를 취급한다는 뜻을 표시하거나 기재한 경우",
+        "rerank_rank": 10,
+        "rerank_score": 0.9804708957672119,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "법무사법 74조  법무사가 아닌 자의 행위 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "세무사법 7조  등록의 취소#KOBLEX-177299"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 62,
+        "first_stage_score": 0.521014392375946,
+        "fusion_rank": 46,
+        "issue_id": "I1",
+        "provision_id": "세무사법 7조  등록의 취소#KOBLEX-177299",
+        "provision_text": "4. 해당 세무사가 폐업한 경우",
+        "rerank_rank": 46,
+        "rerank_score": 0.9603461027145386,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "세무사법 7조  등록의 취소 4호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "세무사법 12조 2 탈세 상담 등의 금지#KOBLEX-177310"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 17,
+        "first_stage_score": 0.5453481674194336,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "세무사법 12조 2 탈세 상담 등의 금지#KOBLEX-177310",
+        "provision_text": "제12조의2(탈세 상담 등의 금지) 세무사나 그 사무직원은 납세자가 사기나 그 밖의 부정한 방법으로 조세를 포탈(逋脫)하거나 환급 또는 공제받도록 하는 일에 가담하거나 방조하여서는 아니 되며, 이를 상담하거나 그 밖에 이와 비슷한 행위를 하여서는 아니 된다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.9597452282905579,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "세무사법 12조 2 탈세 상담 등의 금지",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "법무사법 3조  법무사가 아닌 자에 대한 금지#KOBLEX-061417",
+          "법무사법 3조  법무사가 아닌 자에 대한 금지#KOBLEX-171381"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 13,
+        "first_stage_score": 0.5347184538841248,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "법무사법 3조  법무사가 아닌 자에 대한 금지#KOBLEX-061417",
+        "provision_text": "① 법무사가 아닌 자는 제2조에 따른 사무를 업(業)으로 하지 못한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.9520111083984375,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "법무사법 3조  법무사가 아닌 자에 대한 금지 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "세무사법 3조  세무사의 자격#KOBLEX-177257"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 24,
+        "first_stage_score": 0.5384608507156372,
+        "fusion_rank": 53,
+        "issue_id": "I1",
+        "provision_id": "세무사법 3조  세무사의 자격#KOBLEX-177257",
+        "provision_text": "제3조(세무사의 자격) 다음 각 호의 어느 하나에 해당하는 사람은 세무사의 자격이 있다. <개정 2020.6.9>",
+        "rerank_rank": 53,
+        "rerank_score": 0.9519823789596558,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2"
+        ],
+        "statute_name": "세무사법 3조  세무사의 자격",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "관세법 283조  관세범#KOBLEX-105994"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 66,
+        "first_stage_score": 0.5195990800857544,
+        "fusion_rank": 18,
+        "issue_id": "I1",
+        "provision_id": "관세법 283조  관세범#KOBLEX-105994",
+        "provision_text": "② 관세범에 관한 조사ㆍ처분은 세관공무원이 한다.",
+        "rerank_rank": 18,
+        "rerank_score": 0.9481551051139832,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "관세법 283조  관세범 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "세무사법 14조 2 연고 관계 등의 선전금지#KOBLEX-177334"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 45,
+        "first_stage_score": 0.5134707689285278,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "세무사법 14조 2 연고 관계 등의 선전금지#KOBLEX-177334",
+        "provision_text": "제14조의2(연고 관계 등의 선전금지) 세무사나 그 사무직원은 세무대리의 수임을 위하여 세무공무원과의 연고(緣故) 등 사적인 관계를 드러내며 영향력을 미칠 수 있는 것으로 선전해서는 아니 된다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.9472077488899231,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "세무사법 14조 2 연고 관계 등의 선전금지",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공인회계사법 2조  직무범위#KOBLEX-003928"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 33,
+        "first_stage_score": 0.5140591263771057,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "공인회계사법 2조  직무범위#KOBLEX-003928",
+        "provision_text": "2. 세무대리",
+        "rerank_rank": 2,
+        "rerank_score": 0.9982309937477112,
+        "retrieval_round": 3,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "공인회계사법 2조  직무범위 2호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "세무사법 13조  사무소의 설치#KOBLEX-177328"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.5668136477470398,
+        "fusion_rank": 12,
+        "issue_id": "I1",
+        "provision_id": "세무사법 13조  사무소의 설치#KOBLEX-177328",
+        "provision_text": "② 세무사가 공인회계사ㆍ변호사ㆍ법무사ㆍ변리사ㆍ관세사ㆍ감정평가사ㆍ공인노무사ㆍ공인중개사ㆍ경영지도사ㆍ기술지도사ㆍ행정사, 그 밖에 이와 비슷한 자격자로서 대통령령으로 정하는 자격자의 업무에 동시에 종사하는 경우에는 세무대리만을 위하여 따로 사무소를 설치할 수 없다.",
+        "rerank_rank": 12,
+        "rerank_score": 0.9938977360725403,
+        "retrieval_round": 3,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "세무사법 13조  사무소의 설치 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "세무사법 2조 2 세무대리의 소개ㆍ알선 금지#KOBLEX-177256"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 29,
+        "first_stage_score": 0.5242086052894592,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "세무사법 2조 2 세무대리의 소개ㆍ알선 금지#KOBLEX-177256",
+        "provision_text": "제2조의2(세무대리의 소개ㆍ알선 금지) 누구든지 세무사나 그 사무직원, 세무법인이나 그 사원ㆍ직원에게 제2조의 세무대리를 소개ㆍ알선하고 그 대가를 받거나 요구하여서는 아니 된다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.9920250177383423,
+        "retrieval_round": 3,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "세무사법 2조 2 세무대리의 소개ㆍ알선 금지",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "세무사법 7조  등록의 취소#KOBLEX-177298"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 44,
+        "first_stage_score": 0.5309867262840271,
+        "fusion_rank": 21,
+        "issue_id": "I1",
+        "provision_id": "세무사법 7조  등록의 취소#KOBLEX-177298",
+        "provision_text": "3. 해당 세무사가 등록취소를 청구한 경우",
+        "rerank_rank": 21,
+        "rerank_score": 0.9917381405830383,
+        "retrieval_round": 3,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "세무사법 7조  등록의 취소 3호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "공인회계사법 2조  직무범위#KOBLEX-003928": "2. 세무대리",
+      "공인회계사법 53조  벌칙#KOBLEX-004220": "⑤ 공인회계사 자격이 있는 자 또는 공인회계사로서 제7조제1항ㆍ제4항 또는 제40조의4제1항 및 제5항에 따른 등록이나 등록 갱신을 하지 아니하고 제2조 또는 제40조의3에 따른 직무를 수행한 자는 500만원 이하의 벌금에 처한다.",
+      "공인회계사법 54조  벌칙#KOBLEX-004223": "① 공인회계사가 아닌 자가 제50조를 위반하여 제2조에 따른 직무를 수행하면 3년 이하의 징역 또는 3천만원 이하의 벌금에 처한다. <개정 2015.7.24>",
+      "관세법 283조  관세범#KOBLEX-105994": "② 관세범에 관한 조사ㆍ처분은 세관공무원이 한다.",
+      "법무사법 3조  법무사가 아닌 자에 대한 금지#KOBLEX-061417": "① 법무사가 아닌 자는 제2조에 따른 사무를 업(業)으로 하지 못한다.",
+      "법무사법 74조  법무사가 아닌 자의 행위#KOBLEX-061733": "① 법무사가 아닌 자가 다음 각 호의 어느 하나에 해당하면 3년 이하의 징역 또는 500만원 이하의 벌금에 처한다. 1. 제3조를 위반하여 제2조에 규정된 사무를 업으로 하거나 법무사 또는 이와 비슷한 명칭을 사용한 경우 2. 이익을 얻을 목적으로 문서, 도화(圖畵), 시설물 등에 법무사 업무를 취급한다는 뜻을 표시하거나 기재한 경우",
+      "북한이탈주민의 보호 및 정착지원에 관한 법률 33조  벌칙#KOBLEX-119683": "② 이 법에 따른 업무와 관련하여 알게 된 정보 또는 자료를 정당한 사유 없이 이 법에 따른 업무 외의 목적에 이용한 자는 1년 이하의 징역 또는 1천만원 이하의 벌금에 처한다. <개정 2014.1.21>",
+      "상호저축은행법 39조  벌칙#KOBLEX-074326": "③ 제6조제1항을 위반하여 인가를 받지 아니하고 업무를 한 자는 5년 이하의 징역 또는 5천만원 이하의 벌금에 처한다.",
+      "세무사법 12조 2 탈세 상담 등의 금지#KOBLEX-177310": "제12조의2(탈세 상담 등의 금지) 세무사나 그 사무직원은 납세자가 사기나 그 밖의 부정한 방법으로 조세를 포탈(逋脫)하거나 환급 또는 공제받도록 하는 일에 가담하거나 방조하여서는 아니 되며, 이를 상담하거나 그 밖에 이와 비슷한 행위를 하여서는 아니 된다.",
+      "세무사법 13조  사무소의 설치#KOBLEX-177328": "② 세무사가 공인회계사ㆍ변호사ㆍ법무사ㆍ변리사ㆍ관세사ㆍ감정평가사ㆍ공인노무사ㆍ공인중개사ㆍ경영지도사ㆍ기술지도사ㆍ행정사, 그 밖에 이와 비슷한 자격자로서 대통령령으로 정하는 자격자의 업무에 동시에 종사하는 경우에는 세무대리만을 위하여 따로 사무소를 설치할 수 없다.",
+      "세무사법 14조 2 연고 관계 등의 선전금지#KOBLEX-177334": "제14조의2(연고 관계 등의 선전금지) 세무사나 그 사무직원은 세무대리의 수임을 위하여 세무공무원과의 연고(緣故) 등 사적인 관계를 드러내며 영향력을 미칠 수 있는 것으로 선전해서는 아니 된다.",
+      "세무사법 22조  벌칙#KOBLEX-177512": "① 다음 각 호의 어느 하나에 해당하는 자는 3년 이하의 징역 또는 3천만원 이하의 벌금에 처한다. <개정 2011.6.30> 1. 세무사 자격이 없으면서 세무대리를 한 자 2. 제11조(제16조의16제1항에서 준용하는 경우를 포함한다) 및 제19조의12제1항을 위반하여 직무상 알게 된 비밀을 누설한 자",
+      "세무사법 22조 2 벌칙#KOBLEX-177515": "1. 제2조의2(제20조의2제5항에서 준용하는 경우를 포함한다)를 위반하여 세무대리를 소개ㆍ알선하고 그 대가를 받거나 요구한 자",
+      "세무사법 22조 2 벌칙#KOBLEX-177516": "2. 이 법에 따라 세무대리를 할 수 있는 자로서 제6조 또는 제20조의2제1항을 위반하여 등록을 하지 아니하고 세무대리를 수행한 자",
+      "세무사법 22조 2 벌칙#KOBLEX-177522": "8. 제17조(제19조의15에서 준용하는 경우를 포함한다)에 따른 직무정지 명령이나 등록거부를 받은 자로서 그 직무정지 기간이나 등록거부 기간 중에 세무대리를 수행한 자",
+      "세무사법 22조 2 벌칙#KOBLEX-177523": "9. 원자격국의 세무전문가로서 제19조의3에 따른 자격승인을 받지 아니하거나 제19조의5에 따른 등록을 하지 아니하고 제19조의7에 따른 업무를 수행한 자",
+      "세무사법 2조 2 세무대리의 소개ㆍ알선 금지#KOBLEX-177256": "제2조의2(세무대리의 소개ㆍ알선 금지) 누구든지 세무사나 그 사무직원, 세무법인이나 그 사원ㆍ직원에게 제2조의 세무대리를 소개ㆍ알선하고 그 대가를 받거나 요구하여서는 아니 된다.",
+      "세무사법 3조  세무사의 자격#KOBLEX-177257": "제3조(세무사의 자격) 다음 각 호의 어느 하나에 해당하는 사람은 세무사의 자격이 있다. <개정 2020.6.9>",
+      "세무사법 7조  등록의 취소#KOBLEX-177298": "3. 해당 세무사가 등록취소를 청구한 경우",
+      "세무사법 7조  등록의 취소#KOBLEX-177299": "4. 해당 세무사가 폐업한 경우"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No supplied candidate defines 'tax agency work' to include the preparation and submission of tax returns.",
+            "requirement_id": "E1-R1",
+            "status": "unsatisfied"
+          },
+          {
+            "linked_provision_ids": [],
+            "rationale": "No supplied candidate explicitly states that only qualified tax accountants may perform such work as a substantive prohibition; C001 is a penalty provision.",
+            "requirement_id": "E1-R2",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E1-R1",
+          "E1-R2"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "The supplied candidates do not include the substantive provision (e.g., Article 2 of the Tax Accountant Act) that defines the scope of 'tax agency work' to include preparing and submitting tax returns, nor does it explicitly state the prohibition on non-qualified individuals performing such work as a substantive rule. C001 is a penalty clause that references the act but does not define the scope of the work itself.",
+        "status": "uncovered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "세무사법 22조  벌칙#KOBLEX-177512"
+            ],
+            "rationale": "C001 specifies '3년 이하의 징역' (imprisonment of not more than 3 years).",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "세무사법 22조  벌칙#KOBLEX-177512"
+            ],
+            "rationale": "C001 specifies '3천만원 이하의 벌금' (fine of not more than 30 million won).",
+            "requirement_id": "E2-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "세무사법 22조  벌칙#KOBLEX-177512"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C001 (세무사법 22조 1항) explicitly prescribes the criminal penalty for performing tax agency work without a tax accountant qualification. It specifies both the maximum term of imprisonment (3 years) and the maximum fine (30 million won), satisfying all completion requirements for the penalty clause.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "세무사법 22조  벌칙#KOBLEX-177512",
+        "support_spans": [
+          {
+            "end_char": 170,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 4,
+    "last_validated_event": "RESPONSE_ASSEMBLY.ABSTAIN",
+    "legal_issues": [
+      {
+        "description": "Whether the act of preparing and submitting a tax return on behalf of another without a tax accountant qualification constitutes the offense of unauthorized practice of tax agency work.",
+        "issue_id": "I1"
+      },
+      {
+        "description": "What is the statutory penalty for the offense of unauthorized practice of tax agency work?",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific article that defines tax agency work to include preparing and submitting tax returns and explicitly prohibits non-qualified individuals from performing it.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The provision must define 'tax agency work' to include the preparation and submission of tax returns."
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "The provision must state that only qualified tax accountants may perform such work."
+          }
+        ],
+        "critical": true,
+        "description": "The statutory provision defining the scope of 'tax agency work' (sewudae-ri) and the prohibition on performing such work without a tax accountant qualification.",
+        "evidence_item_id": "E1",
+        "evidence_type": "element",
+        "issue_id": "I1",
+        "necessity_reason": "To establish that the specific acts described (preparing and submitting tax returns) fall within the statutory definition of the prohibited conduct.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] 갑은 세무사 자격증이 없는 일반인입니다. 그러나 그는 친구 을의 요청을 받고 을의 세금 신고서를 대신 작성하고 제출하는 등 세무대리 업무를 수행하였습니다. 이후 이를 알게 된 세무 당국은 갑에 대한 법적 조치를 검토하고 있습니다. [질문] 갑이 세무사 자격 없이 세무대리 업무를 수행한 경우, 그는 어떤 처벌을 받게 되는가?",
+    "phase": "ABSTAINED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "세무사법",
+          "세무대리",
+          "업무 범위",
+          "자격",
+          "금지"
+        ],
+        "query_text": "세무사법 세무대리 업무 범위 정의 자격 없는 자 금지 [원문 맥락] 이후 이를 알게 된 세무 당국은 갑에 대한 법적 조치를 검토하고 있습니다. 갑이 세무사 자격 없이 세무대리 업무를 수행한 경우, 그는 어떤 처벌을 받게 되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "세무사법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "세무사법",
+          "벌칙",
+          "징역",
+          "벌금",
+          "무자격"
+        ],
+        "query_text": "세무사법 자격 없는 자 세무대리 업무 수행 벌칙 징역 벌금 [원문 맥락] 이후 이를 알게 된 세무 당국은 갑에 대한 법적 조치를 검토하고 있습니다. 갑이 세무사 자격 없이 세무대리 업무를 수행한 경우, 그는 어떤 처벌을 받게 되는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "세무사법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "세무사법",
+          "세무대리",
+          "세무신고서",
+          "작성",
+          "제출"
+        ],
+        "query_text": "세무사법 제2조 세무대리 업무 정의 세무신고서 작성 제출 [원문 맥락] 이후 이를 알게 된 세무 당국은 갑에 대한 법적 조치를 검토하고 있습니다. 갑이 세무사 자격 없이 세무대리 업무를 수행한 경우, 그는 어떤 처벌을 받게 되는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "세무사법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "세무사",
+          "자격",
+          "금지",
+          "업무"
+        ],
+        "query_text": "세무사 자격 없는 자 세무대리 업무 금지 규정 [원문 맥락] 이후 이를 알게 된 세무 당국은 갑에 대한 법적 조치를 검토하고 있습니다. 갑이 세무사 자격 없이 세무대리 업무를 수행한 경우, 그는 어떤 처벌을 받게 되는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "세무사법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "세무사법",
+          "세무대리",
+          "업무 범위",
+          "세무신고서",
+          "작성"
+        ],
+        "query_text": "세무사법 제2조 제1항 세무대리 업무의 범위 세무신고서 작성 제출 [원문 맥락] 이후 이를 알게 된 세무 당국은 갑에 대한 법적 조치를 검토하고 있습니다. 갑이 세무사 자격 없이 세무대리 업무를 수행한 경우, 그는 어떤 처벌을 받게 되는가?",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "세무사법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "세무사",
+          "자격",
+          "금지",
+          "업무"
+        ],
+        "query_text": "세무사 자격 없는 자 세무대리 업무 금지 [원문 맥락] 이후 이를 알게 된 세무 당국은 갑에 대한 법적 조치를 검토하고 있습니다. 갑이 세무사 자격 없이 세무대리 업무를 수행한 경우, 그는 어떤 처벌을 받게 되는가?",
+        "request_id": "GRQ-R3-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "세무사법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 세무사 자격증이 없는 일반인입니다. 그러나 그는 친구 을의 요청을 받고 을의 세금 신고서를 대신 작성하고 제출하는 등 세무대리 업무를 수행하였습니다. 이후 이를 알게 된 세무 당국은 갑에 대한 법적 조치를 검토하고 있습니다.\n\n[질문]\n갑이 세무사 자격 없이 세무대리 업무를 수행한 경우, 그는 어떤 처벌을 받게 되는가?",
+    "remaining_request_budget": 3,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific article that defines tax agency work to include preparing and submitting tax returns and explicitly prohibits non-qualified individuals from performing it.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The provision must define 'tax agency work' to include the preparation and submission of tax returns."
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "The provision must state that only qualified tax accountants may perform such work."
+          }
+        ],
+        "critical": true,
+        "description": "The statutory provision defining the scope of 'tax agency work' (sewudae-ri) and the prohibition on performing such work without a tax accountant qualification.",
+        "evidence_item_id": "E1",
+        "evidence_type": "element",
+        "issue_id": "I1",
+        "necessity_reason": "To establish that the specific acts described (preparing and submitting tax returns) fall within the statutory definition of the prohibited conduct.",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific article that prescribes the imprisonment term and/or fine for the offense of performing tax agency work without qualification.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "The provision must specify the maximum term of imprisonment for the offense."
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "The provision must specify the maximum amount of the fine for the offense."
+          }
+        ],
+        "critical": true,
+        "description": "The statutory penalty clause prescribing the criminal punishment for violating the prohibition on unauthorized tax agency work.",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "To determine the specific legal consequence (punishment) requested in the question.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "acd334ed-32ae-4d7d-a5bb-9148d51d8be6",
+    "seen_provision_ids": [
+      "세무사법 22조 2 벌칙#KOBLEX-177516",
+      "세무사법 14조 2 연고 관계 등의 선전금지#KOBLEX-177334",
+      "세무사법 3조  세무사의 자격#KOBLEX-177257",
+      "세무사법 7조  등록의 취소#KOBLEX-177299",
+      "세무사법 22조 2 벌칙#KOBLEX-177523",
+      "세무사법 22조  벌칙#KOBLEX-177512",
+      "공인회계사법 54조  벌칙#KOBLEX-004223",
+      "상호저축은행법 39조  벌칙#KOBLEX-074326",
+      "공인회계사법 2조  직무범위#KOBLEX-003928",
+      "법무사법 3조  법무사가 아닌 자에 대한 금지#KOBLEX-061417",
+      "세무사법 13조  사무소의 설치#KOBLEX-177328",
+      "세무사법 7조  등록의 취소#KOBLEX-177298",
+      "세무사법 22조 2 벌칙#KOBLEX-177515",
+      "세무사법 22조 2 벌칙#KOBLEX-177522",
+      "공인회계사법 53조  벌칙#KOBLEX-004220",
+      "세무사법 12조 2 탈세 상담 등의 금지#KOBLEX-177310",
+      "북한이탈주민의 보호 및 정착지원에 관한 법률 33조  벌칙#KOBLEX-119683",
+      "법무사법 74조  법무사가 아닌 자의 행위#KOBLEX-061733",
+      "관세법 283조  관세범#KOBLEX-105994",
+      "세무사법 2조 2 세무대리의 소개ㆍ알선 금지#KOBLEX-177256"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ABSTAIN",
+  "termination_reason": "NO_RETRIEVAL_PROGRESS"
+}

@@ -1,0 +1,659 @@
+{
+  "abstention_reason": null,
+  "answer": "자산운용협회는 정관 중 대통령령이 정하는 사항을 변경하고자 하는 때에는 금융위원회의 인가를 받아야 한다.[CT1]\n자산운용협회는 업무에 관한 규정을 제정·변경 또는 폐지한 때에는 금융위원회에 이를 보고하여야 한다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1",
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "갑 주식회사가 자산운용협회로 간주된다는 전제"
+    }
+  ],
+  "candidate_answer": "자산운용협회는 정관 중 대통령령이 정하는 사항을 변경하고자 하는 때에는 금융위원회의 인가를 받아야 한다.[CT1]\n자산운용협회는 업무에 관한 규정을 제정·변경 또는 폐지한 때에는 금융위원회에 이를 보고하여야 한다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082482",
+      "quoted_text": "②자산운용협회는 정관중 대통령령이 정하는 사항을 변경하고자 하는 때에는 금융위원회의 인가를 받아야 한다. <개정 2008.2.29>",
+      "support_description": "정관 중 대통령령이 정하는 사항 변경 시 금융위원회 인가 요건을 명시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082483",
+      "quoted_text": "③자산운용협회는 업무에 관한 규정을 제정·변경 또는 폐지한 때에는 금융위원회에 이를 보고하여야 한다. <개정 2008.2.29>",
+      "support_description": "업무에 관한 규정 변경 시 금융위원회 보고 요건을 명시한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "자산운용협회는 정관 중 대통령령이 정하는 사항을 변경하고자 하는 때에는 금융위원회의 인가를 받아야 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "자산운용협회는 업무에 관한 규정을 제정·변경 또는 폐지한 때에는 금융위원회에 이를 보고하여야 한다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T12:07:30.720713+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 103030.819,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "본 답변은 제공된 법률 조항에 기반한 절차적 요건만 설명하며, 실제 인가 또는 보고의 구체적 행정 절차나 기한은 포함하지 않음"
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 185,
+      "dedup_collapse": 30,
+      "evidence_fusion": 185,
+      "first_stage": 200,
+      "request_rerank": 200,
+      "round_selected": 10,
+      "rrf": 200,
+      "selected": 185
+    }
+  },
+  "run_id": "7b13b47c-bd54-46a3-a188-56245b0256fa",
+  "skill_generation_diagnostics": {
+    "attempt_count": 4,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082483",
+      "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082482"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "procedure",
+        "question_anchor": "정관 중 대통령령이 정하는 사항을 변경하려면 어떤 절차를 따라야 하며",
+        "requested_output": "자산운용협회 정관 중 대통령령이 정하는 사항 변경 절차"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "procedure",
+        "question_anchor": "내부 업무에 관한 규정을 변경한 경우 어떤 절차를 따라야 하는가",
+        "requested_output": "자산운용협회 내부 업무 규정 변경 절차"
+      }
+    ],
+    "answered_target_ids": [
+      "T1",
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082482"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.6044897437095642,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082482",
+        "provision_text": "②자산운용협회는 정관중 대통령령이 정하는 사항을 변경하고자 하는 때에는 금융위원회의 인가를 받아야 한다. <개정 2008.2.29>",
+        "rerank_rank": 1,
+        "rerank_score": 0.9991313815116882,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "간접투자자산 운용업법 163조  (정관 및 규정) 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082483"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 49,
+        "first_stage_score": 0.5553867816925049,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082483",
+        "provision_text": "③자산운용협회는 업무에 관한 규정을 제정·변경 또는 폐지한 때에는 금융위원회에 이를 보고하여야 한다. <개정 2008.2.29>",
+        "rerank_rank": 2,
+        "rerank_score": 0.9455409646034241,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "간접투자자산 운용업법 163조  (정관 및 규정) 3항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "간접투자자산 운용업법 31조  (신탁약관의 변경)#KOBLEX-081792"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 45,
+        "first_stage_score": 0.5624821186065674,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "간접투자자산 운용업법 31조  (신탁약관의 변경)#KOBLEX-081792",
+        "provision_text": "①자산운용회사는 신탁약관을 변경하고자 하는 때에는 수익자의 이익에 영향을 미치지 아니하는 등 대통령령이 정하는 경우를 제외하고는 금융위원회에 미리 보고하여야 한다. 다만, 변경하고자 하는 신탁약관의 내용이 표준신탁약관에 부합되는 경우에는 변경일부터 7일 이내에 자산운용협회에 보고하여야 한다. <개정 2004.10.5, 2008.2.29>",
+        "rerank_rank": 2,
+        "rerank_score": 0.6421735882759094,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "간접투자자산 운용업법 31조  (신탁약관의 변경) 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "자본시장과 금융투자업에 관한 법률 287조  정관#KOBLEX-136612"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 25,
+        "first_stage_score": 0.5743071436882019,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "자본시장과 금융투자업에 관한 법률 287조  정관#KOBLEX-136612",
+        "provision_text": "② 협회는 정관 중 대통령령으로 정하는 사항을 변경하고자 하는 경우에는 금융위원회의 승인을 받아야 한다. <개정 2008.2.29>",
+        "rerank_rank": 3,
+        "rerank_score": 0.05344026908278465,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "자본시장과 금융투자업에 관한 법률 287조  정관 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "증권거래법 164조  규정의 신고 등<개정 2000.1.21>#KOBLEX-227157"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 55,
+        "first_stage_score": 0.5599697232246399,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "증권거래법 164조  규정의 신고 등<개정 2000.1.21>#KOBLEX-227157",
+        "provision_text": "②협회는 정관중 대통령령이 정하는 사항을 변경하고자 하는 경우에는 금융위원회의 승인을 얻어야 한다.<신설 2000.1.21, 2008.2.29>",
+        "rerank_rank": 4,
+        "rerank_score": 0.04848352447152138,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "증권거래법 164조  규정의 신고 등<개정 2000.1.21> 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "간접투자자산 운용업법 44조  (정관의 변경)#KOBLEX-081845"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6388677358627319,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "간접투자자산 운용업법 44조  (정관의 변경)#KOBLEX-081845",
+        "provision_text": "①정관의 내용중 다음 각호의 1에 해당하는 사항의 변경은 제75조제2항 단서의 규정에 의한 주주총회의 의결에 의하여야 한다. 1. 자산운용회사, 자산보관회사 등이 받는 보수 또는 그 밖의 수수료의 인상 2. 자산보관회사의 변경 3. 투자회사 존립기간의 변경 4. 그 밖에 주주의 이익과 관련된 중요한 사항으로서 대통령령이 정하는 사항",
+        "rerank_rank": 5,
+        "rerank_score": 0.040070775896310806,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "간접투자자산 운용업법 44조  (정관의 변경) 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "간접투자자산 운용업법 17조  (경영에 관한 보고 및 공시 등)#KOBLEX-081726"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 38,
+        "first_stage_score": 0.5660877227783203,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "간접투자자산 운용업법 17조  (경영에 관한 보고 및 공시 등)#KOBLEX-081726",
+        "provision_text": "④자산운용회사는 다음 각 호의 어느 하나에 해당하는 때에는 대통령령으로 정하는 바에 따라 그 사실을 금융위원회에 보고하여야 한다. <신설 2007.7.19, 2008.2.29> 1. 최대주주가 변경된 때 2. 대주주 또는 그의 특수관계인의 소유주식이 의결권 있는 발행주식 총수의 100분의 1 이상 변동된 때",
+        "rerank_rank": 6,
+        "rerank_score": 0.014999051578342915,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "간접투자자산 운용업법 17조  (경영에 관한 보고 및 공시 등) 4항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "간접투자자산 운용업법 17조  (경영에 관한 보고 및 공시 등)#KOBLEX-081727"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 8,
+        "first_stage_score": 0.5901307463645935,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "간접투자자산 운용업법 17조  (경영에 관한 보고 및 공시 등)#KOBLEX-081727",
+        "provision_text": "⑤자산운용회사의 경영에 관한 공시기준 등에 관하여 필요한 사항은 대통령령으로 정한다. <개정 2007.7.19>",
+        "rerank_rank": 7,
+        "rerank_score": 0.01088621374219656,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "간접투자자산 운용업법 17조  (경영에 관한 보고 및 공시 등) 5항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "간접투자자산 운용업법 16조  (고유재산의 운용제한)#KOBLEX-081718"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 12,
+        "first_stage_score": 0.5854200124740601,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "간접투자자산 운용업법 16조  (고유재산의 운용제한)#KOBLEX-081718",
+        "provision_text": "⑧자산운용회사의 고유재산의 건전성 확보, 위험관리 및 회계처리 등에 관하여 필요한 사항은 대통령령으로 정한다. <개정 2007.7.19>",
+        "rerank_rank": 8,
+        "rerank_score": 0.009628672152757645,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "간접투자자산 운용업법 16조  (고유재산의 운용제한) 8항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "보험업법 105조  금지 또는 제한되는 자산운용#KOBLEX-022208"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 99,
+        "first_stage_score": 0.5468563437461853,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "보험업법 105조  금지 또는 제한되는 자산운용#KOBLEX-022208",
+        "provision_text": "7. 자산운용의 안정성을 크게 해칠 우려가 있는 행위로서 대통령령으로 정하는 행위",
+        "rerank_rank": 9,
+        "rerank_score": 0.008324052207171917,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "보험업법 105조  금지 또는 제한되는 자산운용 7호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082482": "②자산운용협회는 정관중 대통령령이 정하는 사항을 변경하고자 하는 때에는 금융위원회의 인가를 받아야 한다. <개정 2008.2.29>",
+      "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082483": "③자산운용협회는 업무에 관한 규정을 제정·변경 또는 폐지한 때에는 금융위원회에 이를 보고하여야 한다. <개정 2008.2.29>",
+      "간접투자자산 운용업법 16조  (고유재산의 운용제한)#KOBLEX-081718": "⑧자산운용회사의 고유재산의 건전성 확보, 위험관리 및 회계처리 등에 관하여 필요한 사항은 대통령령으로 정한다. <개정 2007.7.19>",
+      "간접투자자산 운용업법 17조  (경영에 관한 보고 및 공시 등)#KOBLEX-081726": "④자산운용회사는 다음 각 호의 어느 하나에 해당하는 때에는 대통령령으로 정하는 바에 따라 그 사실을 금융위원회에 보고하여야 한다. <신설 2007.7.19, 2008.2.29> 1. 최대주주가 변경된 때 2. 대주주 또는 그의 특수관계인의 소유주식이 의결권 있는 발행주식 총수의 100분의 1 이상 변동된 때",
+      "간접투자자산 운용업법 17조  (경영에 관한 보고 및 공시 등)#KOBLEX-081727": "⑤자산운용회사의 경영에 관한 공시기준 등에 관하여 필요한 사항은 대통령령으로 정한다. <개정 2007.7.19>",
+      "간접투자자산 운용업법 31조  (신탁약관의 변경)#KOBLEX-081792": "①자산운용회사는 신탁약관을 변경하고자 하는 때에는 수익자의 이익에 영향을 미치지 아니하는 등 대통령령이 정하는 경우를 제외하고는 금융위원회에 미리 보고하여야 한다. 다만, 변경하고자 하는 신탁약관의 내용이 표준신탁약관에 부합되는 경우에는 변경일부터 7일 이내에 자산운용협회에 보고하여야 한다. <개정 2004.10.5, 2008.2.29>",
+      "간접투자자산 운용업법 44조  (정관의 변경)#KOBLEX-081845": "①정관의 내용중 다음 각호의 1에 해당하는 사항의 변경은 제75조제2항 단서의 규정에 의한 주주총회의 의결에 의하여야 한다. 1. 자산운용회사, 자산보관회사 등이 받는 보수 또는 그 밖의 수수료의 인상 2. 자산보관회사의 변경 3. 투자회사 존립기간의 변경 4. 그 밖에 주주의 이익과 관련된 중요한 사항으로서 대통령령이 정하는 사항",
+      "보험업법 105조  금지 또는 제한되는 자산운용#KOBLEX-022208": "7. 자산운용의 안정성을 크게 해칠 우려가 있는 행위로서 대통령령으로 정하는 행위",
+      "자본시장과 금융투자업에 관한 법률 287조  정관#KOBLEX-136612": "② 협회는 정관 중 대통령령으로 정하는 사항을 변경하고자 하는 경우에는 금융위원회의 승인을 받아야 한다. <개정 2008.2.29>",
+      "증권거래법 164조  규정의 신고 등<개정 2000.1.21>#KOBLEX-227157": "②협회는 정관중 대통령령이 정하는 사항을 변경하고자 하는 경우에는 금융위원회의 승인을 얻어야 한다.<신설 2000.1.21, 2008.2.29>"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082482"
+            ],
+            "rationale": "C001 establishes the requirement for Financial Services Commission approval for the specified changes.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082482"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The candidate provision C001 provides the specific legal rule requiring Financial Services Commission approval for changes to articles of incorporation matters prescribed by Presidential Decree for the Asset Management Association. This fully satisfies the completion criteria for E1.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082483"
+            ],
+            "rationale": "C002 establishes the requirement for reporting to the Financial Services Commission for the specified changes.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082483"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The candidate provision C002 provides the specific legal rule requiring reporting to the Financial Services Commission for changes to business regulations for the Asset Management Association. This fully satisfies the completion criteria for E2.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082482",
+        "support_spans": [
+          {
+            "end_char": 73,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082483",
+        "support_spans": [
+          {
+            "end_char": 71,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "자산운용협회 정관 중 대통령령이 정하는 사항 변경 시 법적 요건과 절차",
+        "issue_id": "I1"
+      },
+      {
+        "description": "자산운용협회 내부 업무에 관한 규정 변경 시 법적 요건과 절차",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑 주식회사는 자산운용협회로, 최근 새로운 사업 분야에 진출하기 위해 회사의 정관을 변경하려고 계획하고 있습니다. 변경하고자 하는 정관은 대통령령이 정하는 사항에 해당합니다. 또한, 갑 주식회사는 내부 업무 절차를 업데이트하여 업무에 관한 규정을 변경했습니다. [질문] 갑 주식회사가 정관 중 대통령령이 정하는 사항을 변경하려면 어떤 절차를 따라야 하며, 내부 업무에 관한 규정을 변경한 경우 어떤 절차를 따라야 하는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "자산운용협회",
+          "정관변경",
+          "대통령령",
+          "변경절차"
+        ],
+        "query_text": "자산운용협회 정관 변경 대통령령 정한 사항 절차 [원문 맥락] 또한, 갑 주식회사는 내부 업무 절차를 업데이트하여 업무에 관한 규정을 변경했습니다. 갑 주식회사가 정관 중 대통령령이 정하는 사항을 변경하려면 어떤 절차를 따라야 하며, 내부 업무에 관한 규정을 변경한 경우 어떤 절차를 따라야 하는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "자본시장과 금융투자업에 관한 법률"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "자산운용협회",
+          "업무규정",
+          "변경절차"
+        ],
+        "query_text": "자산운용협회 업무 규정 변경 절차 [원문 맥락] 또한, 갑 주식회사는 내부 업무 절차를 업데이트하여 업무에 관한 규정을 변경했습니다. 갑 주식회사가 정관 중 대통령령이 정하는 사항을 변경하려면 어떤 절차를 따라야 하며, 내부 업무에 관한 규정을 변경한 경우 어떤 절차를 따라야 하는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "자본시장과 금융투자업에 관한 법률"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑 주식회사는 자산운용협회로, 최근 새로운 사업 분야에 진출하기 위해 회사의 정관을 변경하려고 계획하고 있습니다. 변경하고자 하는 정관은 대통령령이 정하는 사항에 해당합니다. 또한, 갑 주식회사는 내부 업무 절차를 업데이트하여 업무에 관한 규정을 변경했습니다.\n\n[질문]\n갑 주식회사가 정관 중 대통령령이 정하는 사항을 변경하려면 어떤 절차를 따라야 하며, 내부 업무에 관한 규정을 변경한 경우 어떤 절차를 따라야 하는가?",
+    "remaining_request_budget": 7,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "대통령령이 정하는 정관 사항 변경 시 필요한 구체적 절차(승인, 신고 등)를 명시하는 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "자산운용협회 정관 변경 시 대통령령 정한 사항에 대한 특별 절차 규정 확인"
+          }
+        ],
+        "critical": true,
+        "description": "자산운용협회 정관 중 대통령령이 정하는 사항의 변경 절차에 관한 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 정관 변경 절차의 법적 근거를 제공",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "내부 업무 규정 변경 시 필요한 구체적 절차(승인, 신고 등)를 명시하는 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "자산운용협회 업무 규정 변경 시 필요한 절차 규정 확인"
+          }
+        ],
+        "critical": true,
+        "description": "자산운용협회 내부 업무에 관한 규정 변경 절차에 관한 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 요구하는 내부 규정 변경 절차의 법적 근거를 제공",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "7b13b47c-bd54-46a3-a188-56245b0256fa",
+    "seen_provision_ids": [
+      "간접투자자산 운용업법 16조  (고유재산의 운용제한)#KOBLEX-081718",
+      "간접투자자산 운용업법 31조  (신탁약관의 변경)#KOBLEX-081792",
+      "간접투자자산 운용업법 17조  (경영에 관한 보고 및 공시 등)#KOBLEX-081727",
+      "보험업법 105조  금지 또는 제한되는 자산운용#KOBLEX-022208",
+      "간접투자자산 운용업법 44조  (정관의 변경)#KOBLEX-081845",
+      "자본시장과 금융투자업에 관한 법률 287조  정관#KOBLEX-136612",
+      "증권거래법 164조  규정의 신고 등<개정 2000.1.21>#KOBLEX-227157",
+      "간접투자자산 운용업법 17조  (경영에 관한 보고 및 공시 등)#KOBLEX-081726",
+      "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082482",
+      "간접투자자산 운용업법 163조  (정관 및 규정)#KOBLEX-082483"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

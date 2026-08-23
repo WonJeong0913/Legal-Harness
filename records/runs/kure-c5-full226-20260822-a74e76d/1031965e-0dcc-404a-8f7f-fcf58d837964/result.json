@@ -1,0 +1,1021 @@
+{
+  "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": "사전투표소의 설치·공고·통보 및 사전투표사무원의 위촉에 관한 구체적 사항은 중앙선거관리위원회규칙으로 정한다.[CT1]\n구·시·군선거관리위원회는 사전투표소의 투표사무를 보조하게 하기 위하여 제147조제9항 각 호의 어느 하나에 해당하는 사람 중에서 사전투표사무원을 두어야 한다.[CT2]",
+  "candidate_answer_basis": "retrieved_candidates",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "GENERATED",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "질문에서 언급된 '명칭, 위치, 운영 기간' 등 구체적 공고 사항이 법 조문에 직접 열거되어 있다고 가정하지 않음"
+    }
+  ],
+  "candidate_claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "공직선거법 148조  사전투표소의 설치#KOBLEX-051959",
+      "quoted_text": "⑥ 사전투표소의 설치ㆍ공고ㆍ통보 및 사전투표사무원의 위촉, 그 밖에 필요한 사항은 중앙선거관리위원회규칙으로 정한다. <개정 2015.12.24>",
+      "support_description": "사전투표소 설치 및 공고·통보, 사무원 위촉 절차가 규칙에 위임됨을 명시"
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "공직선거법 148조  사전투표소의 설치#KOBLEX-051956",
+      "quoted_text": "③ 구ㆍ시ㆍ군선거관리위원회는 제1항에 따라 설치된 사전투표소의 투표사무를 보조하게 하기 위하여 제147조제9항 각 호의 어느 하나에 해당하는 사람 중에서 사전투표사무원을 두어야 한다.",
+      "support_description": "사전투표사무원의 임명 주체 및 자격 요건을 명시"
+    }
+  ],
+  "candidate_claims": [
+    {
+      "answer_target_ids": [
+        "T1",
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "사전투표소의 설치·공고·통보 및 사전투표사무원의 위촉에 관한 구체적 사항은 중앙선거관리위원회규칙으로 정한다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "구·시·군선거관리위원회는 사전투표소의 투표사무를 보조하게 하기 위하여 제147조제9항 각 호의 어느 하나에 해당하는 사람 중에서 사전투표사무원을 두어야 한다."
+    }
+  ],
+  "candidate_limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "공고 및 통지해야 할 구체적 사항(명칭, 위치, 기간 등)은 제공된 법 조문에 명시되지 않고 중앙선거관리위원회규칙에 위임되어 있어, 해당 규칙의 내용을 확인해야 함"
+    },
+    {
+      "code": "LIMITATION_2",
+      "message": "사전투표사무원의 구체적 임명 절차(추천, 심사 등)는 제공된 법 조문에 상세히 기술되지 않고 규칙에 위임되어 있어, 해당 규칙의 내용을 확인해야 함"
+    }
+  ],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T14:26:44.332826+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 214128.224,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 324,
+      "dedup_collapse": 552,
+      "evidence_fusion": 324,
+      "first_stage": 600,
+      "request_rerank": 600,
+      "round_selected": 30,
+      "rrf": 600,
+      "selected": 324
+    }
+  },
+  "run_id": "1031965e-0dcc-404a-8f7f-fcf58d837964",
+  "skill_generation_diagnostics": {
+    "attempt_count": 8,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "공직선거법 148조  사전투표소의 설치#KOBLEX-051956",
+      "공직선거법 148조  사전투표소의 설치#KOBLEX-051959"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 4,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 0,
+          "request_count": 2,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "ABSTAIN",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "Two consecutive retrieval rounds did not improve critical evidence.",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "ABSTAIN",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 14
+        },
+        "event": "BENCHMARK_CANDIDATE_GENERATION_STARTED",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 14,
+          "claim_count": 2
+        },
+        "event": "BENCHMARK_CANDIDATE_VALIDATED",
+        "phase": "ABSTAINED"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "statutory_list",
+        "question_anchor": "사전투표소를 설치할 때 어떤 사항들을 공고하고 통지해야 하며",
+        "requested_output": "사전투표소 설치 시 공고 및 통지 대상 사항"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "statutory_procedure",
+        "question_anchor": "사전투표사무원은 어떤 절차를 통해 임명해야 하는가",
+        "requested_output": "사전투표사무원 임명 절차"
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "공직선거법 148조  사전투표소의 설치#KOBLEX-051956",
+          "공직선거법 148조  사전투표소의 설치#KOBLEX-175242"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.6675527095794678,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "공직선거법 148조  사전투표소의 설치#KOBLEX-051956",
+        "provision_text": "③ 구ㆍ시ㆍ군선거관리위원회는 제1항에 따라 설치된 사전투표소의 투표사무를 보조하게 하기 위하여 제147조제9항 각 호의 어느 하나에 해당하는 사람 중에서 사전투표사무원을 두어야 한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9984972476959229,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-2",
+          "GRQ-R2-1",
+          "GRQ-R3-2",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "공직선거법 148조  사전투표소의 설치 3항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직선거법 146조 2 투표관리관 및 사전투표관리관#KOBLEX-051940",
+          "공직선거법 146조 2 투표관리관 및 사전투표관리관#KOBLEX-175226"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 71,
+        "first_stage_score": 0.5686514377593994,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "공직선거법 146조 2 투표관리관 및 사전투표관리관#KOBLEX-051940",
+        "provision_text": "④투표관리관 및 사전투표관리관의 위촉 및 해촉, 수당 그 밖에 필요한 사항은 중앙선거관리위원회규칙으로 정한다. <개정 2014.1.17, 2014.2.13>",
+        "rerank_rank": 2,
+        "rerank_score": 0.9982859492301941,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "GRQ-R2-2",
+          "GRQ-R2-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "공직선거법 146조 2 투표관리관 및 사전투표관리관 4항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직선거법 146조 2 투표관리관 및 사전투표관리관#KOBLEX-051938",
+          "공직선거법 146조 2 투표관리관 및 사전투표관리관#KOBLEX-175224"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 75,
+        "first_stage_score": 0.5674139261245728,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "공직선거법 146조 2 투표관리관 및 사전투표관리관#KOBLEX-051938",
+        "provision_text": "②투표관리관 및 사전투표관리관은 국가 또는 지방자치단체의 소속 공무원 또는 각급학교의 교직원 중에서 위촉하며, 사전투표관리관은 위촉된 투표관리관 중에서 지정할 수 있다. <개정 2014.1.17>",
+        "rerank_rank": 3,
+        "rerank_score": 0.9978922009468079,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "공직선거법 146조 2 투표관리관 및 사전투표관리관 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직선거법 147조  투표소의 설치#KOBLEX-051946",
+          "공직선거법 147조  투표소의 설치#KOBLEX-175232"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 92,
+        "first_stage_score": 0.5750240683555603,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "공직선거법 147조  투표소의 설치#KOBLEX-051946",
+        "provision_text": "⑤투표소에는 기표소ㆍ투표함ㆍ참관인의 좌석 그 밖의 투표관리에 필요한 시설을 설비하여야 한다. <개정 2005.8.4>",
+        "rerank_rank": 4,
+        "rerank_score": 0.9974743723869324,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R3-2",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "공직선거법 147조  투표소의 설치 5항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공공단체등 위탁선거에 관한 법률 45조  투표ㆍ개표의 참관#KOBLEX-086619"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 89,
+        "first_stage_score": 0.5621734261512756,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "공공단체등 위탁선거에 관한 법률 45조  투표ㆍ개표의 참관#KOBLEX-086619",
+        "provision_text": "⑥ 투표참관인ㆍ개표참관인의 선정ㆍ신고 및 투표참관인 지정의 구체적인 절차ㆍ방법, 그 밖에 필요한 사항은 중앙선거관리위원회규칙으로 정한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.9972202777862549,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "공공단체등 위탁선거에 관한 법률 45조  투표ㆍ개표의 참관 6항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직선거법 164조  투표소 등의 질서유지#KOBLEX-052092",
+          "공직선거법 164조  투표소 등의 질서유지#KOBLEX-175378"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 28,
+        "first_stage_score": 0.6046461462974548,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "공직선거법 164조  투표소 등의 질서유지#KOBLEX-052092",
+        "provision_text": "④ 사전투표소의 질서유지에 관하여는 제1항부터 제3항까지의 규정을 준용한다. 이 경우 \"투표관리관\"은 \"사전투표관리관\"으로, \"투표사무원\"은 \"사전투표사무원\"으로 본다. <개정 2014.1.17>",
+        "rerank_rank": 6,
+        "rerank_score": 0.9972171783447266,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-2",
+          "GRQ-R2-1",
+          "GRQ-R3-2",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "공직선거법 164조  투표소 등의 질서유지 4항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직선거법 62조  선거사무관계자의 선임#KOBLEX-051499"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 100,
+        "first_stage_score": 0.5577191114425659,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "공직선거법 62조  선거사무관계자의 선임#KOBLEX-051499",
+        "provision_text": "①제61조(選擧運動機構의 設置)의 선거사무소와 선거연락소를 설치한 자는 선거운동을 할 수 있는 자중에서 선거사무소에 선거사무장 1인을, 선거연락소에 선거연락소장 1인을 두어야 한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.9971767663955688,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "공직선거법 62조  선거사무관계자의 선임 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직선거법 278조  전산조직에 의한 투표ㆍ개표#KOBLEX-052802",
+          "공직선거법 278조  전산조직에 의한 투표ㆍ개표#KOBLEX-176088"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 94,
+        "first_stage_score": 0.5610958933830261,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "공직선거법 278조  전산조직에 의한 투표ㆍ개표#KOBLEX-052802",
+        "provision_text": "⑥투표 및 개표 기타 선거사무관리의 전산화에 있어서 투표 및 개표절차와 방법, 전산전문가의 투표 및 개표사무원 위촉과 전산조직운영프로그램의 작성ㆍ검증 및 보관, 전자선거추진협의회의 구성ㆍ기능 및 운영 그 밖에 필요한 사항은 중앙선거관리위원회규칙으로 정한다. <개정 2005.8.4>",
+        "rerank_rank": 8,
+        "rerank_score": 0.997090220451355,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "GRQ-R2-2",
+          "GRQ-R2-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "공직선거법 278조  전산조직에 의한 투표ㆍ개표 6항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직선거법 148조  사전투표소의 설치#KOBLEX-051959",
+          "공직선거법 148조  사전투표소의 설치#KOBLEX-175245"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6803653240203857,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "공직선거법 148조  사전투표소의 설치#KOBLEX-051959",
+        "provision_text": "⑥ 사전투표소의 설치ㆍ공고ㆍ통보 및 사전투표사무원의 위촉, 그 밖에 필요한 사항은 중앙선거관리위원회규칙으로 정한다. <개정 2015.12.24>",
+        "rerank_rank": 9,
+        "rerank_score": 0.9969262480735779,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-2",
+          "GRQ-R2-1",
+          "GRQ-R3-2",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "공직선거법 148조  사전투표소의 설치 6항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직선거법 146조 2 투표관리관 및 사전투표관리관#KOBLEX-051937",
+          "공직선거법 146조 2 투표관리관 및 사전투표관리관#KOBLEX-175223"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 22,
+        "first_stage_score": 0.6141403913497925,
+        "fusion_rank": 10,
+        "issue_id": "I2",
+        "provision_id": "공직선거법 146조 2 투표관리관 및 사전투표관리관#KOBLEX-051937",
+        "provision_text": "①구ㆍ시ㆍ군선거관리위원회는 투표에 관한 사무를 관리하게 하기 위하여 투표구마다 투표관리관 1명을, 사전투표소마다 사전투표관리관 1명을 각각 둔다. <개정 2014.1.17>",
+        "rerank_rank": 10,
+        "rerank_score": 0.9968730807304382,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-2",
+          "GRQ-R2-1",
+          "GRQ-R3-2",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "공직선거법 146조 2 투표관리관 및 사전투표관리관 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직선거법 148조  사전투표소의 설치#KOBLEX-051957",
+          "공직선거법 148조  사전투표소의 설치#KOBLEX-175243"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 50,
+        "first_stage_score": 0.5931310653686523,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "공직선거법 148조  사전투표소의 설치#KOBLEX-051957",
+        "provision_text": "④ 사전투표소 설치 장소의 제한ㆍ사용협조, 설비, 사전투표사무원의 추천 협조 등에 관하여는 제147조제3항부터 제7항까지, 제10항 및 제11항을 준용한다. <개정 2014.2.13, 2018.4.6>",
+        "rerank_rank": 4,
+        "rerank_score": 0.9997859597206116,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1",
+          "GRQ-R3-2",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "공직선거법 148조  사전투표소의 설치 4항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직선거법 147조  투표소의 설치#KOBLEX-051944",
+          "공직선거법 147조  투표소의 설치#KOBLEX-175230"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 93,
+        "first_stage_score": 0.5720431804656982,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "공직선거법 147조  투표소의 설치#KOBLEX-051944",
+        "provision_text": "③학교ㆍ관공서 및 공공기관ㆍ단체의 장은 선거관리위원회로부터 투표소 설치를 위한 장소사용 협조요구를 받은 때에는 우선적으로 이에 응하여야 한다. <신설 2004.3.12>",
+        "rerank_rank": 7,
+        "rerank_score": 0.9997621178627014,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1",
+          "GRQ-R3-2",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "공직선거법 147조  투표소의 설치 3항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직선거법 162조  사전투표참관#KOBLEX-052077",
+          "공직선거법 162조  사전투표참관#KOBLEX-175363"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 84,
+        "first_stage_score": 0.5704814791679382,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "공직선거법 162조  사전투표참관#KOBLEX-052077",
+        "provision_text": "① 사전투표관리관은 사전투표참관인으로 하여금 사전투표 상황을 참관하게 하고, 제158조제6항제1호에 따라 관할 우체국장에게 투표지를 인계하기까지 일련의 과정에 동행하게 하여야 한다. <개정 2014.1.17, 2021.3.26>",
+        "rerank_rank": 8,
+        "rerank_score": 0.9997531771659851,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "공직선거법 162조  사전투표참관 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공직선거법 6조 2 다른 자에게 고용된 사람의 투표시간 보장#KOBLEX-051044",
+          "공직선거법 6조 2 다른 자에게 고용된 사람의 투표시간 보장#KOBLEX-174330"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 82,
+        "first_stage_score": 0.5729957818984985,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "공직선거법 6조 2 다른 자에게 고용된 사람의 투표시간 보장#KOBLEX-051044",
+        "provision_text": "③ 고용주는 고용된 사람이 투표하기 위하여 필요한 시간을 청구할 수 있다는 사실을 선거일 전 7일부터 선거일 전 3일까지 인터넷 홈페이지, 사보, 사내게시판 등을 통하여 알려야 한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.9997476935386658,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "공직선거법 6조 2 다른 자에게 고용된 사람의 투표시간 보장 3항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "공공단체등 위탁선거에 관한 법률 45조  투표ㆍ개표의 참관#KOBLEX-086619": "⑥ 투표참관인ㆍ개표참관인의 선정ㆍ신고 및 투표참관인 지정의 구체적인 절차ㆍ방법, 그 밖에 필요한 사항은 중앙선거관리위원회규칙으로 정한다.",
+      "공직선거법 146조 2 투표관리관 및 사전투표관리관#KOBLEX-051937": "①구ㆍ시ㆍ군선거관리위원회는 투표에 관한 사무를 관리하게 하기 위하여 투표구마다 투표관리관 1명을, 사전투표소마다 사전투표관리관 1명을 각각 둔다. <개정 2014.1.17>",
+      "공직선거법 146조 2 투표관리관 및 사전투표관리관#KOBLEX-051938": "②투표관리관 및 사전투표관리관은 국가 또는 지방자치단체의 소속 공무원 또는 각급학교의 교직원 중에서 위촉하며, 사전투표관리관은 위촉된 투표관리관 중에서 지정할 수 있다. <개정 2014.1.17>",
+      "공직선거법 146조 2 투표관리관 및 사전투표관리관#KOBLEX-051940": "④투표관리관 및 사전투표관리관의 위촉 및 해촉, 수당 그 밖에 필요한 사항은 중앙선거관리위원회규칙으로 정한다. <개정 2014.1.17, 2014.2.13>",
+      "공직선거법 147조  투표소의 설치#KOBLEX-051944": "③학교ㆍ관공서 및 공공기관ㆍ단체의 장은 선거관리위원회로부터 투표소 설치를 위한 장소사용 협조요구를 받은 때에는 우선적으로 이에 응하여야 한다. <신설 2004.3.12>",
+      "공직선거법 147조  투표소의 설치#KOBLEX-051946": "⑤투표소에는 기표소ㆍ투표함ㆍ참관인의 좌석 그 밖의 투표관리에 필요한 시설을 설비하여야 한다. <개정 2005.8.4>",
+      "공직선거법 148조  사전투표소의 설치#KOBLEX-051956": "③ 구ㆍ시ㆍ군선거관리위원회는 제1항에 따라 설치된 사전투표소의 투표사무를 보조하게 하기 위하여 제147조제9항 각 호의 어느 하나에 해당하는 사람 중에서 사전투표사무원을 두어야 한다.",
+      "공직선거법 148조  사전투표소의 설치#KOBLEX-051957": "④ 사전투표소 설치 장소의 제한ㆍ사용협조, 설비, 사전투표사무원의 추천 협조 등에 관하여는 제147조제3항부터 제7항까지, 제10항 및 제11항을 준용한다. <개정 2014.2.13, 2018.4.6>",
+      "공직선거법 148조  사전투표소의 설치#KOBLEX-051959": "⑥ 사전투표소의 설치ㆍ공고ㆍ통보 및 사전투표사무원의 위촉, 그 밖에 필요한 사항은 중앙선거관리위원회규칙으로 정한다. <개정 2015.12.24>",
+      "공직선거법 162조  사전투표참관#KOBLEX-052077": "① 사전투표관리관은 사전투표참관인으로 하여금 사전투표 상황을 참관하게 하고, 제158조제6항제1호에 따라 관할 우체국장에게 투표지를 인계하기까지 일련의 과정에 동행하게 하여야 한다. <개정 2014.1.17, 2021.3.26>",
+      "공직선거법 164조  투표소 등의 질서유지#KOBLEX-052092": "④ 사전투표소의 질서유지에 관하여는 제1항부터 제3항까지의 규정을 준용한다. 이 경우 \"투표관리관\"은 \"사전투표관리관\"으로, \"투표사무원\"은 \"사전투표사무원\"으로 본다. <개정 2014.1.17>",
+      "공직선거법 278조  전산조직에 의한 투표ㆍ개표#KOBLEX-052802": "⑥투표 및 개표 기타 선거사무관리의 전산화에 있어서 투표 및 개표절차와 방법, 전산전문가의 투표 및 개표사무원 위촉과 전산조직운영프로그램의 작성ㆍ검증 및 보관, 전자선거추진협의회의 구성ㆍ기능 및 운영 그 밖에 필요한 사항은 중앙선거관리위원회규칙으로 정한다. <개정 2005.8.4>",
+      "공직선거법 62조  선거사무관계자의 선임#KOBLEX-051499": "①제61조(選擧運動機構의 設置)의 선거사무소와 선거연락소를 설치한 자는 선거운동을 할 수 있는 자중에서 선거사무소에 선거사무장 1인을, 선거연락소에 선거연락소장 1인을 두어야 한다.",
+      "공직선거법 6조 2 다른 자에게 고용된 사람의 투표시간 보장#KOBLEX-051044": "③ 고용주는 고용된 사람이 투표하기 위하여 필요한 시간을 청구할 수 있다는 사실을 선거일 전 7일부터 선거일 전 3일까지 인터넷 홈페이지, 사보, 사내게시판 등을 통하여 알려야 한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "공직선거법 148조  사전투표소의 설치#KOBLEX-051959"
+            ],
+            "rationale": "C009 delegates the details of public notice and notification to rules, failing to provide the specific statutory list of items (name, location, period) required by the completion criterion.",
+            "requirement_id": "E1-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "missing_statute",
+        "legal_status": "partially_covered",
+        "linked_provision_ids": [
+          "공직선거법 148조  사전투표소의 설치#KOBLEX-051959"
+        ],
+        "missing_aspects": [
+          "E1-R1"
+        ],
+        "partial_kind": "legal_support_gap",
+        "rationale": "The requirement E1-R1 asks for a provision listing the specific items to be publicly noticed or notified. C009 delegates these details to rules, failing to provide the specific statutory list of items (name, location, period) required by the completion criterion. No other candidate provides this specific list.",
+        "status": "partially_covered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "공직선거법 148조  사전투표소의 설치#KOBLEX-051956",
+              "공직선거법 148조  사전투표소의 설치#KOBLEX-051959"
+            ],
+            "rationale": "C001 establishes the qualification requirements and the obligation to appoint. C009 indicates the procedure is rule-based. The specific procedural steps are not detailed in the provided statutory text, leaving a gap in the statutory description of the procedure itself.",
+            "requirement_id": "E2-R1",
+            "status": "partially_satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "missing_statute",
+        "legal_status": "partially_covered",
+        "linked_provision_ids": [
+          "공직선거법 148조  사전투표소의 설치#KOBLEX-051956",
+          "공직선거법 148조  사전투표소의 설치#KOBLEX-051959"
+        ],
+        "missing_aspects": [
+          "E2-R1"
+        ],
+        "partial_kind": "legal_support_gap",
+        "rationale": "The requirement E2-R1 asks for the appointment procedure and qualification requirements. C001 provides the qualification requirements and the duty to appoint. C009 confirms that the appointment procedure is regulated by rules. However, the specific statutory text detailing the procedure is not present in the candidates; it is delegated to rules. Thus, the legal support for the specific procedure is incomplete in the statutory text provided.",
+        "status": "partially_covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "공직선거법 148조  사전투표소의 설치#KOBLEX-051959",
+        "support_spans": [
+          {
+            "end_char": 80,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "공직선거법 148조  사전투표소의 설치#KOBLEX-051956",
+        "support_spans": [
+          {
+            "end_char": 102,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "공직선거법 148조  사전투표소의 설치#KOBLEX-051959",
+        "support_spans": [
+          {
+            "end_char": 80,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 0,
+    "last_validated_event": "RESPONSE_ASSEMBLY.ABSTAIN",
+    "legal_issues": [
+      {
+        "description": "사전투표소 설치 시 선거관리위원회가 공고하거나 통지해야 할 법적 사항이 무엇인지",
+        "issue_id": "I1"
+      },
+      {
+        "description": "사전투표사무원의 임명 절차와 법적 요건이 무엇인지",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "공고 또는 통지해야 할 구체적 사항(예: 명칭, 위치, 기간 등)이 명시된 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "사전투표소 설치 시 공고 또는 통지해야 할 사항을 열거한 조항"
+          }
+        ],
+        "critical": true,
+        "description": "사전투표소 설치 시 공고 및 통지 대상 사항에 관한 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 공고 및 통지 사항의 법적 근거를 제공",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "임명 주체, 절차, 및 자격 요건이 명시된 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "사전투표사무원 임명 절차 및 자격 요건을 규정한 조항"
+          }
+        ],
+        "critical": true,
+        "description": "사전투표사무원 임명 절차 및 자격 요건에 관한 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "procedure",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 요구하는 임명 절차의 법적 근거를 제공",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] 갑시는 다가오는 시장 선거를 앞두고 사전투표소를 여러 곳에 설치하기로 결정했습니다. 을 선거관리위원회는 투표소 설치와 관련된 모든 절차를 따라야 하는 상황입니다. 을은 투표소의 명칭과 위치, 운영 기간 등을 공지하고, 적절한 사전투표사무원을 임명해야 합니다. [질문] 을 선거관리위원회는 사전투표소를 설치할 때 어떤 사항들을 공고하고 통지해야 하며, 사전투표사무원은 어떤 절차를 통해 임명해야 하는가?",
+    "phase": "ABSTAINED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "사전투표소",
+          "공고",
+          "통지",
+          "설치"
+        ],
+        "query_text": "사전투표소 설치 공고 통지 사항 [원문 맥락] 을은 투표소의 명칭과 위치, 운영 기간 등을 공지하고, 적절한 사전투표사무원을 임명해야 합니다. 을 선거관리위원회는 사전투표소를 설치할 때 어떤 사항들을 공고하고 통지해야 하며, 사전투표사무원은 어떤 절차를 통해 임명해야 하는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "공직선거법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "사전투표사무원",
+          "임명",
+          "절차",
+          "자격"
+        ],
+        "query_text": "사전투표사무원 임명 절차 자격 [원문 맥락] 을은 투표소의 명칭과 위치, 운영 기간 등을 공지하고, 적절한 사전투표사무원을 임명해야 합니다. 을 선거관리위원회는 사전투표소를 설치할 때 어떤 사항들을 공고하고 통지해야 하며, 사전투표사무원은 어떤 절차를 통해 임명해야 하는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "공직선거법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "사전투표소",
+          "공고",
+          "위치",
+          "기간"
+        ],
+        "query_text": "공직선거법 사전투표소 설치 공고 내용 위치 기간 [원문 맥락] 을은 투표소의 명칭과 위치, 운영 기간 등을 공지하고, 적절한 사전투표사무원을 임명해야 합니다. 을 선거관리위원회는 사전투표소를 설치할 때 어떤 사항들을 공고하고 통지해야 하며, 사전투표사무원은 어떤 절차를 통해 임명해야 하는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "공직선거법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "사전투표사무원",
+          "임명",
+          "절차",
+          "방법"
+        ],
+        "query_text": "공직선거법 사전투표사무원 임명 절차 방법 [원문 맥락] 을은 투표소의 명칭과 위치, 운영 기간 등을 공지하고, 적절한 사전투표사무원을 임명해야 합니다. 을 선거관리위원회는 사전투표소를 설치할 때 어떤 사항들을 공고하고 통지해야 하며, 사전투표사무원은 어떤 절차를 통해 임명해야 하는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "공직선거법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "사전투표소",
+          "공고",
+          "사항",
+          "열거"
+        ],
+        "query_text": "사전투표소 설치 공고 사항 열거 [원문 맥락] 을은 투표소의 명칭과 위치, 운영 기간 등을 공지하고, 적절한 사전투표사무원을 임명해야 합니다. 을 선거관리위원회는 사전투표소를 설치할 때 어떤 사항들을 공고하고 통지해야 하며, 사전투표사무원은 어떤 절차를 통해 임명해야 하는가?",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "공직선거법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "사전투표사무원",
+          "임명",
+          "절차",
+          "규정"
+        ],
+        "query_text": "사전투표사무원 임명 절차 규정 [원문 맥락] 을은 투표소의 명칭과 위치, 운영 기간 등을 공지하고, 적절한 사전투표사무원을 임명해야 합니다. 을 선거관리위원회는 사전투표소를 설치할 때 어떤 사항들을 공고하고 통지해야 하며, 사전투표사무원은 어떤 절차를 통해 임명해야 하는가?",
+        "request_id": "GRQ-R3-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "공직선거법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑시는 다가오는 시장 선거를 앞두고 사전투표소를 여러 곳에 설치하기로 결정했습니다. 을 선거관리위원회는 투표소 설치와 관련된 모든 절차를 따라야 하는 상황입니다. 을은 투표소의 명칭과 위치, 운영 기간 등을 공지하고, 적절한 사전투표사무원을 임명해야 합니다.\n\n[질문]\n을 선거관리위원회는 사전투표소를 설치할 때 어떤 사항들을 공고하고 통지해야 하며, 사전투표사무원은 어떤 절차를 통해 임명해야 하는가?",
+    "remaining_request_budget": 3,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "공고 또는 통지해야 할 구체적 사항(예: 명칭, 위치, 기간 등)이 명시된 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "사전투표소 설치 시 공고 또는 통지해야 할 사항을 열거한 조항"
+          }
+        ],
+        "critical": true,
+        "description": "사전투표소 설치 시 공고 및 통지 대상 사항에 관한 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 공고 및 통지 사항의 법적 근거를 제공",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "임명 주체, 절차, 및 자격 요건이 명시된 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "사전투표사무원 임명 절차 및 자격 요건을 규정한 조항"
+          }
+        ],
+        "critical": true,
+        "description": "사전투표사무원 임명 절차 및 자격 요건에 관한 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "procedure",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 요구하는 임명 절차의 법적 근거를 제공",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "1031965e-0dcc-404a-8f7f-fcf58d837964",
+    "seen_provision_ids": [
+      "공직선거법 148조  사전투표소의 설치#KOBLEX-051957",
+      "공직선거법 147조  투표소의 설치#KOBLEX-051944",
+      "공직선거법 147조  투표소의 설치#KOBLEX-051946",
+      "공직선거법 146조 2 투표관리관 및 사전투표관리관#KOBLEX-051940",
+      "공공단체등 위탁선거에 관한 법률 45조  투표ㆍ개표의 참관#KOBLEX-086619",
+      "공직선거법 162조  사전투표참관#KOBLEX-052077",
+      "공직선거법 164조  투표소 등의 질서유지#KOBLEX-052092",
+      "공직선거법 278조  전산조직에 의한 투표ㆍ개표#KOBLEX-052802",
+      "공직선거법 146조 2 투표관리관 및 사전투표관리관#KOBLEX-051937",
+      "공직선거법 6조 2 다른 자에게 고용된 사람의 투표시간 보장#KOBLEX-051044",
+      "공직선거법 146조 2 투표관리관 및 사전투표관리관#KOBLEX-051938",
+      "공직선거법 62조  선거사무관계자의 선임#KOBLEX-051499",
+      "공직선거법 148조  사전투표소의 설치#KOBLEX-051959",
+      "공직선거법 148조  사전투표소의 설치#KOBLEX-051956"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ABSTAIN",
+  "termination_reason": "NO_RETRIEVAL_PROGRESS"
+}

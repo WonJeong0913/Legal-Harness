@@ -1,0 +1,1208 @@
+{
+  "abstention_reason": null,
+  "answer": "고의 또는 과실로 인한 위법행위로 타인에게 손해를 가한 자는 그 손해를 배상할 책임이 있다.[CT1]\n부동산의 소유자는 그 부동산에 부합한 물건의 소유권을 취득한다.[CT3]\n법률상 원인없이 타인의 재산 또는 노무로 인하여 이익을 얻고 이로 인하여 타인에게 손해를 가한 자는 그 이익을 반환하여야 한다.[CT2]",
+  "answer_mode": "limited",
+  "answered_target_ids": [
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "을이 태양광 패널을 설치하는 과정에서 고의 또는 과실이 있었으며, 이로 인해 갑에게 손해가 발생했다고 가정한다."
+    },
+    {
+      "code": "ASSUMPTION_2",
+      "message": "을이 태양광 패널을 설치함으로써 법률상 원인 없이 이익을 얻었고, 이로 인해 갑에게 손해가 발생했다고 가정한다."
+    }
+  ],
+  "candidate_answer": "고의 또는 과실로 인한 위법행위로 타인에게 손해를 가한 자는 그 손해를 배상할 책임이 있다.[CT1]\n부동산의 소유자는 그 부동산에 부합한 물건의 소유권을 취득한다.[CT3]\n법률상 원인없이 타인의 재산 또는 노무로 인하여 이익을 얻고 이로 인하여 타인에게 손해를 가한 자는 그 이익을 반환하여야 한다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "민법 750조  불법행위의 내용#KOBLEX-059905",
+      "quoted_text": "제750조(불법행위의 내용) 고의 또는 과실로 인한 위법행위로 타인에게 손해를 가한 자는 그 손해를 배상할 책임이 있다.",
+      "support_description": "불법행위 손해배상 책임의 법적 근거를 제시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "민법 741조  부당이득의 내용#KOBLEX-059887",
+      "quoted_text": "제741조(부당이득의 내용) 법률상 원인없이 타인의 재산 또는 노무로 인하여 이익을 얻고 이로 인하여 타인에게 손해를 가한 자는 그 이익을 반환하여야 한다.",
+      "support_description": "부당이득 반환 청구의 법적 근거를 제시한다."
+    },
+    {
+      "answer_marker": "[CT3]",
+      "citation_id": "CT3",
+      "claim_id": "C3",
+      "provision_id": "민법 256조  부동산에의 부합#KOBLEX-058916",
+      "quoted_text": "제256조(부동산에의 부합) 부동산의 소유자는 그 부동산에 부합한 물건의 소유권을 취득한다. 그러나 타인의 권원에 의하여 부속된 것은 그러하지 아니하다.",
+      "support_description": "부동산에 부합한 물건의 소유권 취득 규칙을 제시하며, 태양광 패널의 법적 지위에 따른 조건적 적용 가능성을 시사한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "고의 또는 과실로 인한 위법행위로 타인에게 손해를 가한 자는 그 손해를 배상할 책임이 있다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "법률상 원인없이 타인의 재산 또는 노무로 인하여 이익을 얻고 이로 인하여 타인에게 손해를 가한 자는 그 이익을 반환하여야 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "conditional",
+      "citation_required": true,
+      "claim_id": "C3",
+      "claim_type": "legal_rule",
+      "text": "부동산의 소유자는 그 부동산에 부합한 물건의 소유권을 취득한다."
+    }
+  ],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T15:06:49.371999+00:00",
+  "deferred_target_ids": [
+    "T1"
+  ],
+  "end_to_end_latency_ms": 224187.553,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "태양광 패널이 부동산의 구성물 또는 부속물에 해당하는지 여부에 대한 법적 정의가 제공된 조문에 포함되어 있지 않아, 갑이 태양광 패널의 소유권을 취득하는지 여부에 대한 판단은 유보된다."
+    },
+    {
+      "code": "LIMITATION_2",
+      "message": "민법 제256조 단서에 따라 타인의 권원에 의하여 부속된 경우 소유권 취득이 제한될 수 있으나, 본 시나리오에서 을의 설치 행위가 '타인의 권원'에 해당하는지 여부는 판단 대상이 아니다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 475,
+      "dedup_collapse": 209,
+      "evidence_fusion": 475,
+      "first_stage": 800,
+      "request_rerank": 800,
+      "round_selected": 30,
+      "rrf": 500,
+      "selected": 475
+    }
+  },
+  "run_id": "c434e61e-c182-4189-bd0a-50afb93a4753",
+  "skill_generation_diagnostics": {
+    "attempt_count": 7,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "민법 750조  불법행위의 내용#KOBLEX-059905",
+      "민법 741조  부당이득의 내용#KOBLEX-059887",
+      "민법 256조  부동산에의 부합#KOBLEX-058916"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 8,
+          "request_count": 4,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": true,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 1,
+          "request_count": 2,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T2"
+          ],
+          "deferred_target_ids": [
+            "T1"
+          ],
+          "explanation": "Only the citable answer targets will be answered; remaining targets are deferred.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T2"
+          ],
+          "claim_count": 3,
+          "deferred_target_ids": [
+            "T1"
+          ]
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "limited",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "갑은 부동산에 설치된 을의 태양광 패널의 소유권을 취득할 수 있는가",
+        "requested_output": "Determination of whether Gup acquires ownership of the solar panels installed on his real estate by Eul."
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "만약 이로 인해 손해를 입었다면 갑은 어떻게 보상을 청구할 수 있는가",
+        "requested_output": "Identification of the legal basis and method for Gup to claim compensation for damages caused by the solar panels."
+      }
+    ],
+    "answered_target_ids": [
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "민법 261조  첨부로 인한 구상권#KOBLEX-058925"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.5580213665962219,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "민법 261조  첨부로 인한 구상권#KOBLEX-058925",
+        "provision_text": "제261조(첨부로 인한 구상권) 전5조의 경우에 손해를 받은 자는 부당이득에 관한 규정에 의하여 보상을 청구할 수 있다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.2736709713935852,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-3",
+          "GRQ-R2-4",
+          "GRQ-R2-2",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 261조  첨부로 인한 구상권",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 216조  인지사용청구권#KOBLEX-058831"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 28,
+        "first_stage_score": 0.5223899483680725,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "민법 216조  인지사용청구권#KOBLEX-058831",
+        "provision_text": "②전항의 경우에 이웃 사람이 손해를 받은 때에는 보상을 청구할 수 있다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.04798007383942604,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 216조  인지사용청구권 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 576조  저당권, 전세권의 행사와 매도인의 담보책임#KOBLEX-059550"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.5712476968765259,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "민법 576조  저당권, 전세권의 행사와 매도인의 담보책임#KOBLEX-059550",
+        "provision_text": "③전2항의 경우에 매수인이 손해를 받은 때에는 그 배상을 청구할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.03230227530002594,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 576조  저당권, 전세권의 행사와 매도인의 담보책임 3항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 256조  부동산에의 부합#KOBLEX-058916"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 8,
+        "first_stage_score": 0.5368449091911316,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "민법 256조  부동산에의 부합#KOBLEX-058916",
+        "provision_text": "제256조(부동산에의 부합) 부동산의 소유자는 그 부동산에 부합한 물건의 소유권을 취득한다. 그러나 타인의 권원에 의하여 부속된 것은 그러하지 아니하다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.023183535784482956,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 256조  부동산에의 부합",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 316조  원상회복의무, 매수청구권#KOBLEX-059047"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 69,
+        "first_stage_score": 0.5055961608886719,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "민법 316조  원상회복의무, 매수청구권#KOBLEX-059047",
+        "provision_text": "②전항의 경우에 그 부속물건이 전세권설정자의 동의를 얻어 부속시킨 것인 때에는 전세권자는 전세권설정자에 대하여 그 부속물건의 매수를 청구할 수 있다. 그 부속물건이 전세권설정자로부터 매수한 것인 때에도 같다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.015187687240540981,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-2",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 316조  원상회복의무, 매수청구권 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 576조  저당권, 전세권의 행사와 매도인의 담보책임#KOBLEX-059549"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 78,
+        "first_stage_score": 0.5035766363143921,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "민법 576조  저당권, 전세권의 행사와 매도인의 담보책임#KOBLEX-059549",
+        "provision_text": "②전항의 경우에 매수인의 출재로 그 소유권을 보존한 때에는 매도인에 대하여 그 상환을 청구할 수 있다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.011532177217304707,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 576조  저당권, 전세권의 행사와 매도인의 담보책임 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 245조#KOBLEX-058893"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 47,
+        "first_stage_score": 0.5126432776451111,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "민법 245조#KOBLEX-058893",
+        "provision_text": "제2절 소유권의 취득",
+        "rerank_rank": 7,
+        "rerank_score": 0.006259856279939413,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민법 245조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 578조  경매와 매도인의 담보책임#KOBLEX-059555"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 50,
+        "first_stage_score": 0.5166015028953552,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "민법 578조  경매와 매도인의 담보책임#KOBLEX-059555",
+        "provision_text": "③전2항의 경우에 채무자가 물건 또는 권리의 흠결을 알고 고지하지 아니하거나 채권자가 이를 알고 경매를 청구한 때에는 경락인은 그 흠결을 안 채무자나 채권자에 대하여 손해배상을 청구할 수 있다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.0033062947914004326,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 578조  경매와 매도인의 담보책임 3항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 204조  점유의 회수#KOBLEX-058800"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.5921645164489746,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "민법 204조  점유의 회수#KOBLEX-058800",
+        "provision_text": "①점유자가 점유의 침탈을 당한 때에는 그 물건의 반환 및 손해의 배상을 청구할 수 있다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.0026392482686787844,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 204조  점유의 회수 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 230조  언의 설치, 이용권#KOBLEX-058863"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.5512616038322449,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "민법 230조  언의 설치, 이용권#KOBLEX-058863",
+        "provision_text": "①수류지의 소유자가 언을 설치할 필요가 있는 때에는 그 언을 대안에 접촉하게 할 수 있다. 그러나 이로 인한 손해를 보상하여야 한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.0022614379413425922,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 230조  언의 설치, 이용권 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 99조  부동산, 동산#KOBLEX-058577"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 71,
+        "first_stage_score": 0.5137494206428528,
+        "fusion_rank": 47,
+        "issue_id": "I1",
+        "provision_id": "민법 99조  부동산, 동산#KOBLEX-058577",
+        "provision_text": "제99조(부동산, 동산)",
+        "rerank_rank": 47,
+        "rerank_score": 0.6945094466209412,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 99조  부동산, 동산",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 750조  불법행위의 내용#KOBLEX-059905"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 16,
+        "first_stage_score": 0.5389419794082642,
+        "fusion_rank": 41,
+        "issue_id": "I2",
+        "provision_id": "민법 750조  불법행위의 내용#KOBLEX-059905",
+        "provision_text": "제750조(불법행위의 내용) 고의 또는 과실로 인한 위법행위로 타인에게 손해를 가한 자는 그 손해를 배상할 책임이 있다.",
+        "rerank_rank": 41,
+        "rerank_score": 0.9776394367218018,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "critical_quota:E2",
+        "source_request_id": "GRQ-R2-3",
+        "source_request_ids": [
+          "GRQ-R2-3"
+        ],
+        "statute_name": "민법 750조  불법행위의 내용",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 741조  부당이득의 내용#KOBLEX-059887"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6000156402587891,
+        "fusion_rank": 40,
+        "issue_id": "I2",
+        "provision_id": "민법 741조  부당이득의 내용#KOBLEX-059887",
+        "provision_text": "제741조(부당이득의 내용) 법률상 원인없이 타인의 재산 또는 노무로 인하여 이익을 얻고 이로 인하여 타인에게 손해를 가한 자는 그 이익을 반환하여야 한다.",
+        "rerank_rank": 40,
+        "rerank_score": 0.6910198926925659,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-4",
+        "source_request_ids": [
+          "GRQ-R2-4"
+        ],
+        "statute_name": "민법 741조  부당이득의 내용",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 761조  정당방위, 긴급피난#KOBLEX-059932"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 7,
+        "first_stage_score": 0.5511608719825745,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "민법 761조  정당방위, 긴급피난#KOBLEX-059932",
+        "provision_text": "①타인의 불법행위에 대하여 자기 또는 제삼자의 이익을 방위하기 위하여 부득이 타인에게 손해를 가한 자는 배상할 책임이 없다. 그러나 피해자는 불법행위에 대하여 손해의 배상을 청구할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.005434955935925245,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-3",
+        "source_request_ids": [
+          "GRQ-R2-3",
+          "GRQ-R2-4"
+        ],
+        "statute_name": "민법 761조  정당방위, 긴급피난 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 647조  전차인의 부속물매수청구권#KOBLEX-059684"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 39,
+        "first_stage_score": 0.5245628356933594,
+        "fusion_rank": 49,
+        "issue_id": "I1",
+        "provision_id": "민법 647조  전차인의 부속물매수청구권#KOBLEX-059684",
+        "provision_text": "②임대인으로부터 매수하였거나 그 동의를 얻어 임차인으로부터 매수한 부속물에 대하여도 전항과 같다.",
+        "rerank_rank": 49,
+        "rerank_score": 0.00045637699076905847,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 647조  전차인의 부속물매수청구권 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 647조  전차인의 부속물매수청구권#KOBLEX-059683"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.5409745573997498,
+        "fusion_rank": 53,
+        "issue_id": "I1",
+        "provision_id": "민법 647조  전차인의 부속물매수청구권#KOBLEX-059683",
+        "provision_text": "①건물 기타 공작물의 임차인이 적법하게 전대한 경우에 전차인이 그 사용의 편익을 위하여 임대인의 동의를 얻어 이에 부속한 물건이 있는 때에는 전대차의 종료시에 임대인에 대하여 그 부속물의 매수를 청구할 수 있다.",
+        "rerank_rank": 53,
+        "rerank_score": 0.0002197776921093464,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 647조  전차인의 부속물매수청구권 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 646조  임차인의 부속물매수청구권#KOBLEX-059681"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 41,
+        "first_stage_score": 0.524140477180481,
+        "fusion_rank": 57,
+        "issue_id": "I1",
+        "provision_id": "민법 646조  임차인의 부속물매수청구권#KOBLEX-059681",
+        "provision_text": "②임대인으로부터 매수한 부속물에 대하여도 전항과 같다.",
+        "rerank_rank": 57,
+        "rerank_score": 0.00015857224934734404,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 646조  임차인의 부속물매수청구권 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 646조  임차인의 부속물매수청구권#KOBLEX-059680"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 11,
+        "first_stage_score": 0.5442745685577393,
+        "fusion_rank": 61,
+        "issue_id": "I1",
+        "provision_id": "민법 646조  임차인의 부속물매수청구권#KOBLEX-059680",
+        "provision_text": "①건물 기타 공작물의 임차인이 그 사용의 편익을 위하여 임대인의 동의를 얻어 이에 부속한 물건이 있는 때에는 임대차의 종료시에 임대인에 대하여 그 부속물의 매수를 청구할 수 있다.",
+        "rerank_rank": 61,
+        "rerank_score": 0.0001382581831421703,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 646조  임차인의 부속물매수청구권 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "법인세법 시행규칙 26조  업무와 관련이 없는 부동산 등의 범위#KOBLEX-150435"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 51,
+        "first_stage_score": 0.5163390636444092,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "법인세법 시행규칙 26조  업무와 관련이 없는 부동산 등의 범위#KOBLEX-150435",
+        "provision_text": "⑤영 제49조제1항제1호 각 목 외의 부분 단서에서 \"기획재정부령이 정하는 부득이한 사유가 있는 부동산\"이란 다음 각 호의 어느 하나에 해당하는 부동산을 말한다. <개정 2000.3.9, 2000.12.30, 2001.3.28, 2002.3.30, 2003.3.26, 2003.12.15, 2005.2.28, 2006.3.14, 2007.12.5, 2008.3.31, 2009.3.30, 2012.2.28, 2013.2.23, 2013.3.23, 2016.3.7, 2019.3.20> 1. 삭제 <2001.3.28> 2. 해당 부동산의 취득 후 다음 각 목의 어느 하나에 해당하는 사유가 발생한 부동산(다목 및 라목의 경우 제1항제2호의 매매용부동산을 제외한다) 3. 법률 제6538호 조세특례제한법중개정법률로 개정되기 전의 「조세특례제한법」 제78조제1항 각 호 또는 같은 법 제81조제1항에 규정된 자가 보유하는 같은 법 제78조제1항 각 호 또는 같은 법 제81조제1항에 규정된 부동산 4. 「광업법」에 의하여 산업통상자원부장관의 인가를 받아 휴광중인 광업용 부동산 5. 사업장(임시 작업장을 제외한다)의 진입도로로서 「사도법」에 의한 사도 또는 불특정다수인이 이용하는 도로 6. 「건축법」에 의하여 건축허가를 받을 당시에 공공공지로 제공한 토지(당해 건축물의 착공일부터 공공공지로의 제공이 끝나는 날까지의 기간에 한한다) 7. 「대덕연구개발특구 등의 육성에 관한 법률」 제34조의 특구관리계획에 의하여 원형지로 지정된 토지(원형지로 지정된 기간에 한한다) 8. 「농업협동조합의 구조개선에 관한 법률」에 의한 농업협동조합자산관리회사가 같은 법 제30조에 따라 「농업협동조합법」에 의한 조합, 농업협동조합중앙회, 농협은행, 농협생명보험 또는 농협손해보험으로부터 취득한 부동산 9. 「농업협동조합법」에 의한 조합, 농업협동조합중앙회, 농협은행, 농협생명보험 또는 농협손해보험이 「농업협동조합의 구조개선에 관한 법률」에 의한 농업협동조합자산관리회사에 매각을 위임한 부동산 10. 「민사집행법」에 의하여 경매가 진행중인 부동산과 「국세징수법」에 의하여 공매가 진행중인 부동산으로서 최초의 경매기일 또는 공매일부터 5년이 경과되지 아니한 부동산 11. 저당권의 실행 기타 채권을 변제받기 위하여 취득한 부동산 및 청산절차에 따라 잔여재산의 분배로 인하여 취득한 부동산으로서 취득일부터 5년이 경과되지 아니한 부동산 12. 「금융기관부실자산 등의 효율적 처리 및 한국자산관리공사의 설립에 관한 법률」에 의하여 설립된 한국자산관리공사(이하 이 조에서 \"한국자산관리공사\"라 한다)에 매각을 위임한 부동산으로서 3회 이상 유찰된 부동산 13. 영 제61조제2항 각 호의 어느 하나에 해당하는 금융회사 등이 저당권의 실행 또는 그 밖에 채권을 변제받기 위하여 취득한 자산으로서 다음 각 목의 어느 하나에 해당하는 부동산 14. 당해부동산을 취득한 후 소유권에 관한 소송이 계속중인 부동산으로서 법원에 의하여 사용이 금지된 부동산과 그 부동산의 소유권에 관한 확정판결일부터 5년이 경과되지 아니한 부동산 15. 「도시개발법」에 의한 도시개발구역안의 토지로서 환지방식에 의하여 시행되는 도시개발사업이 구획단위로 사실상 완료되어 건축이 가능한 날부터 5년이 경과되지 아니한 토지 16. 건축물이 멸실ㆍ철거되거나 무너진 경우에는 당해건축물이 멸실ㆍ철거되거나 무너진 날부터 5년이 경과되지 아니한 토지 17. 법인이 사업의 일부 또는 전부를 휴업ㆍ폐업 또는 이전함에 따라 업무에 직접 사용하지 아니하게 된 부동산으로서 그 휴업ㆍ폐업 또는 이전일부터 5년이 경과되지 아니한 부동산 18. 다음 각목의 1에 해당하는 법인이 신축한 건물로서 사용검사일부터 5년이 경과되지 아니한 건물과 그 부속토지 19. 「주택법」에 따라 주택건설사업자로 등록한 법인이 보유하는 토지 중 같은 법에 따라 승인을 얻은 주택건설사업계획서에 기재된 사업부지에 인접한 토지로서 해당 계획서상의 주택 및 대지 등에 대한 사용검사일부터 5년이 경과되지 아니한 토지 20. 「염관리법」 제16조의 규정에 의하여 허가의 효력이 상실된 염전으로서 허가의 효력이 상실된 날부터 5년이 경과되지 아니한 염전 21. 「공유수면매립법」에 의하여 매립의 면허를 받은 법인이 매립공사를 하여 취득한 매립지로서 당해 매립지의 소유권을 취득한 날부터 5년이 경과되지 아니한 매립지 22. 행정청이 아닌 도시개발사업의 시행자가 「도시개발법」에 의한 도시개발사업의 실시 계획인가를 받아 분양을 조건으로 조성하고 있는 토지 및 조성이 완료된 후 분양되지 아니하거나 분양후 「산업집적활성화 및 공장설립에 관한 법률」제41조의 규정에 의하여 환수 또는 환매한 토지로서 최초의 인가일부터 5년이 경과되지 아니한 토지 23. 다음 각 목의 어느 하나에 해당하는 기관이 「금융산업의 구조개선에 관한 법률」 제10조에 따른 적기시정조치 또는 같은 법 제14조제2항에 따른 계약이전의 결정에 따라 같은 법 제2조제3호에 따른 부실금융기관으로부터 취득한 부동산 24. 「자산유동화에 관한 법률」에 따른 유동화전문회사가 같은 법 제3조에 따른 자산유동화계획에 따라 자산보유자로부터 취득한 부동산 25. 유예기간내에 법인의 합병 또는 분할로 인하여 양도되는 부동산 26. 공장의 가동에 따른 소음ㆍ분진ㆍ악취 등에 의하여 생활환경의 오염피해가 발생되는 지역안의 토지로서 당해 토지소유자의 요구에 따라 취득한 공장용 부속토지의 인접토지 27. 전국을 보급지역으로 하는 일간신문을 포함한 3개 이상의 일간신문에 다음 각목의 조건으로 매각을 3일 이상 공고하고, 공고일(공고일이 서로 다른 경우에는 최초의 공고일을 말한다)부터 1년이 경과하지 아니하였거나 1년 이내에 매각계약을 체결한 부동산 28. 제27호의 규정에 의한 부동산으로서 동호 각목의 요건을 갖추어 매년 매각을 재공고하고, 재공고일부터 1년이 경과되지 아니하였거나 1년 이내에 매각계약을 체결한 부동산(직전 매각공고시의 매각예정가격에서 동금액의 100분의 10을 차감한 금액 이하로 매각을 재공고한 경우에 한한다) 29. 「주택법」 제16조 및 같은 법 시행령 제18조제5호에 따라 사업계획승인권자로부터 공사착수기간의 연장승인을 받아 연장된 공사착수기간 중에 있는 부동산으로서 최초의 공사착수기간 연장승인일부터 5년이 경과되지 아니한 부동산(공사착수가 연장된 기간에 한정한다) 30. 당해 부동산의 취득후 제2호부터 제29호까지의 사유외에 도시계획의 변경 등 정당한 사유로 인하여 업무에 사용하지 아니하는 부동산 31. 「송ㆍ변전설비 주변지역의 보상 및 지원에 관한 법률」 제5조에 따른 주택매수의 청구에 따라 사업자가 취득하여 보유하는 주택 및 그 대지",
+        "rerank_rank": 4,
+        "rerank_score": 0.00020573276560753584,
+        "retrieval_round": 3,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "법인세법 시행규칙 26조  업무와 관련이 없는 부동산 등의 범위 5항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "민법 204조  점유의 회수#KOBLEX-058800": "①점유자가 점유의 침탈을 당한 때에는 그 물건의 반환 및 손해의 배상을 청구할 수 있다.",
+      "민법 216조  인지사용청구권#KOBLEX-058831": "②전항의 경우에 이웃 사람이 손해를 받은 때에는 보상을 청구할 수 있다.",
+      "민법 230조  언의 설치, 이용권#KOBLEX-058863": "①수류지의 소유자가 언을 설치할 필요가 있는 때에는 그 언을 대안에 접촉하게 할 수 있다. 그러나 이로 인한 손해를 보상하여야 한다.",
+      "민법 245조#KOBLEX-058893": "제2절 소유권의 취득",
+      "민법 256조  부동산에의 부합#KOBLEX-058916": "제256조(부동산에의 부합) 부동산의 소유자는 그 부동산에 부합한 물건의 소유권을 취득한다. 그러나 타인의 권원에 의하여 부속된 것은 그러하지 아니하다.",
+      "민법 261조  첨부로 인한 구상권#KOBLEX-058925": "제261조(첨부로 인한 구상권) 전5조의 경우에 손해를 받은 자는 부당이득에 관한 규정에 의하여 보상을 청구할 수 있다.",
+      "민법 316조  원상회복의무, 매수청구권#KOBLEX-059047": "②전항의 경우에 그 부속물건이 전세권설정자의 동의를 얻어 부속시킨 것인 때에는 전세권자는 전세권설정자에 대하여 그 부속물건의 매수를 청구할 수 있다. 그 부속물건이 전세권설정자로부터 매수한 것인 때에도 같다.",
+      "민법 576조  저당권, 전세권의 행사와 매도인의 담보책임#KOBLEX-059549": "②전항의 경우에 매수인의 출재로 그 소유권을 보존한 때에는 매도인에 대하여 그 상환을 청구할 수 있다.",
+      "민법 576조  저당권, 전세권의 행사와 매도인의 담보책임#KOBLEX-059550": "③전2항의 경우에 매수인이 손해를 받은 때에는 그 배상을 청구할 수 있다.",
+      "민법 578조  경매와 매도인의 담보책임#KOBLEX-059555": "③전2항의 경우에 채무자가 물건 또는 권리의 흠결을 알고 고지하지 아니하거나 채권자가 이를 알고 경매를 청구한 때에는 경락인은 그 흠결을 안 채무자나 채권자에 대하여 손해배상을 청구할 수 있다.",
+      "민법 646조  임차인의 부속물매수청구권#KOBLEX-059680": "①건물 기타 공작물의 임차인이 그 사용의 편익을 위하여 임대인의 동의를 얻어 이에 부속한 물건이 있는 때에는 임대차의 종료시에 임대인에 대하여 그 부속물의 매수를 청구할 수 있다.",
+      "민법 646조  임차인의 부속물매수청구권#KOBLEX-059681": "②임대인으로부터 매수한 부속물에 대하여도 전항과 같다.",
+      "민법 647조  전차인의 부속물매수청구권#KOBLEX-059683": "①건물 기타 공작물의 임차인이 적법하게 전대한 경우에 전차인이 그 사용의 편익을 위하여 임대인의 동의를 얻어 이에 부속한 물건이 있는 때에는 전대차의 종료시에 임대인에 대하여 그 부속물의 매수를 청구할 수 있다.",
+      "민법 647조  전차인의 부속물매수청구권#KOBLEX-059684": "②임대인으로부터 매수하였거나 그 동의를 얻어 임차인으로부터 매수한 부속물에 대하여도 전항과 같다.",
+      "민법 741조  부당이득의 내용#KOBLEX-059887": "제741조(부당이득의 내용) 법률상 원인없이 타인의 재산 또는 노무로 인하여 이익을 얻고 이로 인하여 타인에게 손해를 가한 자는 그 이익을 반환하여야 한다.",
+      "민법 750조  불법행위의 내용#KOBLEX-059905": "제750조(불법행위의 내용) 고의 또는 과실로 인한 위법행위로 타인에게 손해를 가한 자는 그 손해를 배상할 책임이 있다.",
+      "민법 761조  정당방위, 긴급피난#KOBLEX-059932": "①타인의 불법행위에 대하여 자기 또는 제삼자의 이익을 방위하기 위하여 부득이 타인에게 손해를 가한 자는 배상할 책임이 없다. 그러나 피해자는 불법행위에 대하여 손해의 배상을 청구할 수 있다.",
+      "민법 99조  부동산, 동산#KOBLEX-058577": "제99조(부동산, 동산)",
+      "법인세법 시행규칙 26조  업무와 관련이 없는 부동산 등의 범위#KOBLEX-150435": "⑤영 제49조제1항제1호 각 목 외의 부분 단서에서 \"기획재정부령이 정하는 부득이한 사유가 있는 부동산\"이란 다음 각 호의 어느 하나에 해당하는 부동산을 말한다. <개정 2000.3.9, 2000.12.30, 2001.3.28, 2002.3.30, 2003.3.26, 2003.12.15, 2005.2.28, 2006.3.14, 2007.12.5, 2008.3.31, 2009.3.30, 2012.2.28, 2013.2.23, 2013.3.23, 2016.3.7, 2019.3.20> 1. 삭제 <2001.3.28> 2. 해당 부동산의 취득 후 다음 각 목의 어느 하나에 해당하는 사유가 발생한 부동산(다목 및 라목의 경우 제1항제2호의 매매용부동산을 제외한다) 3. 법률 제6538호 조세특례제한법중개정법률로 개정되기 전의 「조세특례제한법」 제78조제1항 각 호 또는 같은 법 제81조제1항에 규정된 자가 보유하는 같은 법 제78조제1항 각 호 또는 같은 법 제81조제1항에 규정된 부동산 4. 「광업법」에 의하여 산업통상자원부장관의 인가를 받아 휴광중인 광업용 부동산 5. 사업장(임시 작업장을 제외한다)의 진입도로로서 「사도법」에 의한 사도 또는 불특정다수인이 이용하는 도로 6. 「건축법」에 의하여 건축허가를 받을 당시에 공공공지로 제공한 토지(당해 건축물의 착공일부터 공공공지로의 제공이 끝나는 날까지의 기간에 한한다) 7. 「대덕연구개발특구 등의 육성에 관한 법률」 제34조의 특구관리계획에 의하여 원형지로 지정된 토지(원형지로 지정된 기간에 한한다) 8. 「농업협동조합의 구조개선에 관한 법률」에 의한 농업협동조합자산관리회사가 같은 법 제30조에 따라 「농업협동조합법」에 의한 조합, 농업협동조합중앙회, 농협은행, 농협생명보험 또는 농협손해보험으로부터 취득한 부동산 9. 「농업협동조합법」에 의한 조합, 농업협동조합중앙회, 농협은행, 농협생명보험 또는 농협손해보험이 「농업협동조합의 구조개선에 관한 법률」에 의한 농업협동조합자산관리회사에 매각을 위임한 부동산 10. 「민사집행법」에 의하여 경매가 진행중인 부동산과 「국세징수법」에 의하여 공매가 진행중인 부동산으로서 최초의 경매기일 또는 공매일부터 5년이 경과되지 아니한 부동산 11. 저당권의 실행 기타 채권을 변제받기 위하여 취득한 부동산 및 청산절차에 따라 잔여재산의 분배로 인하여 취득한 부동산으로서 취득일부터 5년이 경과되지 아니한 부동산 12. 「금융기관부실자산 등의 효율적 처리 및 한국자산관리공사의 설립에 관한 법률」에 의하여 설립된 한국자산관리공사(이하 이 조에서 \"한국자산관리공사\"라 한다)에 매각을 위임한 부동산으로서 3회 이상 유찰된 부동산 13. 영 제61조제2항 각 호의 어느 하나에 해당하는 금융회사 등이 저당권의 실행 또는 그 밖에 채권을 변제받기 위하여 취득한 자산으로서 다음 각 목의 어느 하나에 해당하는 부동산 14. 당해부동산을 취득한 후 소유권에 관한 소송이 계속중인 부동산으로서 법원에 의하여 사용이 금지된 부동산과 그 부동산의 소유권에 관한 확정판결일부터 5년이 경과되지 아니한 부동산 15. 「도시개발법」에 의한 도시개발구역안의 토지로서 환지방식에 의하여 시행되는 도시개발사업이 구획단위로 사실상 완료되어 건축이 가능한 날부터 5년이 경과되지 아니한 토지 16. 건축물이 멸실ㆍ철거되거나 무너진 경우에는 당해건축물이 멸실ㆍ철거되거나 무너진 날부터 5년이 경과되지 아니한 토지 17. 법인이 사업의 일부 또는 전부를 휴업ㆍ폐업 또는 이전함에 따라 업무에 직접 사용하지 아니하게 된 부동산으로서 그 휴업ㆍ폐업 또는 이전일부터 5년이 경과되지 아니한 부동산 18. 다음 각목의 1에 해당하는 법인이 신축한 건물로서 사용검사일부터 5년이 경과되지 아니한 건물과 그 부속토지 19. 「주택법」에 따라 주택건설사업자로 등록한 법인이 보유하는 토지 중 같은 법에 따라 승인을 얻은 주택건설사업계획서에 기재된 사업부지에 인접한 토지로서 해당 계획서상의 주택 및 대지 등에 대한 사용검사일부터 5년이 경과되지 아니한 토지 20. 「염관리법」 제16조의 규정에 의하여 허가의 효력이 상실된 염전으로서 허가의 효력이 상실된 날부터 5년이 경과되지 아니한 염전 21. 「공유수면매립법」에 의하여 매립의 면허를 받은 법인이 매립공사를 하여 취득한 매립지로서 당해 매립지의 소유권을 취득한 날부터 5년이 경과되지 아니한 매립지 22. 행정청이 아닌 도시개발사업의 시행자가 「도시개발법」에 의한 도시개발사업의 실시 계획인가를 받아 분양을 조건으로 조성하고 있는 토지 및 조성이 완료된 후 분양되지 아니하거나 분양후 「산업집적활성화 및 공장설립에 관한 법률」제41조의 규정에 의하여 환수 또는 환매한 토지로서 최초의 인가일부터 5년이 경과되지 아니한 토지 23. 다음 각 목의 어느 하나에 해당하는 기관이 「금융산업의 구조개선에 관한 법률」 제10조에 따른 적기시정조치 또는 같은 법 제14조제2항에 따른 계약이전의 결정에 따라 같은 법 제2조제3호에 따른 부실금융기관으로부터 취득한 부동산 24. 「자산유동화에 관한 법률」에 따른 유동화전문회사가 같은 법 제3조에 따른 자산유동화계획에 따라 자산보유자로부터 취득한 부동산 25. 유예기간내에 법인의 합병 또는 분할로 인하여 양도되는 부동산 26. 공장의 가동에 따른 소음ㆍ분진ㆍ악취 등에 의하여 생활환경의 오염피해가 발생되는 지역안의 토지로서 당해 토지소유자의 요구에 따라 취득한 공장용 부속토지의 인접토지 27. 전국을 보급지역으로 하는 일간신문을 포함한 3개 이상의 일간신문에 다음 각목의 조건으로 매각을 3일 이상 공고하고, 공고일(공고일이 서로 다른 경우에는 최초의 공고일을 말한다)부터 1년이 경과하지 아니하였거나 1년 이내에 매각계약을 체결한 부동산 28. 제27호의 규정에 의한 부동산으로서 동호 각목의 요건을 갖추어 매년 매각을 재공고하고, 재공고일부터 1년이 경과되지 아니하였거나 1년 이내에 매각계약을 체결한 부동산(직전 매각공고시의 매각예정가격에서 동금액의 100분의 10을 차감한 금액 이하로 매각을 재공고한 경우에 한한다) 29. 「주택법」 제16조 및 같은 법 시행령 제18조제5호에 따라 사업계획승인권자로부터 공사착수기간의 연장승인을 받아 연장된 공사착수기간 중에 있는 부동산으로서 최초의 공사착수기간 연장승인일부터 5년이 경과되지 아니한 부동산(공사착수가 연장된 기간에 한정한다) 30. 당해 부동산의 취득후 제2호부터 제29호까지의 사유외에 도시계획의 변경 등 정당한 사유로 인하여 업무에 사용하지 아니하는 부동산 31. 「송ㆍ변전설비 주변지역의 보상 및 지원에 관한 법률」 제5조에 따른 주택매수의 청구에 따라 사업자가 취득하여 보유하는 주택 및 그 대지"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No supplied candidate provision contains the statutory definition of component parts (구성물) of real estate.",
+            "requirement_id": "E1-R1",
+            "status": "unsatisfied"
+          },
+          {
+            "linked_provision_ids": [],
+            "rationale": "No supplied candidate provision contains the statutory definition of accessories (부속물) of real estate.",
+            "requirement_id": "E1-R2",
+            "status": "unsatisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "민법 256조  부동산에의 부합#KOBLEX-058916"
+            ],
+            "rationale": "C004 (Civil Code Art. 256) explicitly states that the owner of real estate acquires ownership of things attached to it, satisfying the requirement for the legal effect of ownership transfer.",
+            "requirement_id": "E1-R3",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "missing_statute",
+        "legal_status": "partially_covered",
+        "linked_provision_ids": [
+          "민법 256조  부동산에의 부합#KOBLEX-058916"
+        ],
+        "missing_aspects": [
+          "E1-R1",
+          "E1-R2"
+        ],
+        "partial_kind": "legal_support_gap",
+        "rationale": "The candidate set includes Civil Code Art. 256 (C004), which establishes the rule that ownership of attached items follows the principal real estate (E1-R3). However, the specific statutory definitions of 'component parts' (E1-R1) and 'accessories' (E1-R2) are missing from the supplied candidates. Therefore, the legal support is incomplete.",
+        "status": "partially_covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민법 750조  불법행위의 내용#KOBLEX-059905"
+            ],
+            "rationale": "C012 (Civil Code Art. 750) explicitly defines the elements of tort liability: intent or negligence, unlawful act, and causation of damage.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "민법 741조  부당이득의 내용#KOBLEX-059887"
+            ],
+            "rationale": "C013 (Civil Code Art. 741) explicitly defines the elements of unjust enrichment: obtaining a benefit without legal cause, at the expense of another's property or labor, causing damage to that person.",
+            "requirement_id": "E2-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민법 750조  불법행위의 내용#KOBLEX-059905",
+          "민법 741조  부당이득의 내용#KOBLEX-059887"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The candidate set includes Civil Code Art. 750 (C012) and Art. 741 (C013). C012 establishes the statutory elements for tort liability (E2-R1), and C013 establishes the statutory elements for unjust enrichment (E2-R2). Both requirements are fully satisfied by the supplied provisions.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [
+      "T1"
+    ],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "민법 256조  부동산에의 부합#KOBLEX-058916",
+        "support_spans": [
+          {
+            "end_char": 85,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "민법 750조  불법행위의 내용#KOBLEX-059905",
+        "support_spans": [
+          {
+            "end_char": 67,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "민법 741조  부당이득의 내용#KOBLEX-059887",
+        "support_spans": [
+          {
+            "end_char": 87,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 1,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "Whether the solar panels installed on Gup's real estate by Eul become part of the real estate or remain separate movable property.",
+        "issue_id": "I1"
+      },
+      {
+        "description": "Whether Gup can claim compensation for damages caused by the solar panels installed by Eul.",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the statutory definition of what constitutes a component part or accessory of real estate and the rule that ownership of such items follows the ownership of the principal real estate.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "Statutory definition of component parts (구성물) of real estate."
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "Statutory definition of accessories (부속물) of real estate."
+          },
+          {
+            "requirement_id": "E1-R3",
+            "text": "Legal effect that ownership of component parts/accessories is transferred with the principal real estate."
+          }
+        ],
+        "critical": true,
+        "description": "Definition of component parts (구성물) and accessories (부속물) of real estate and their legal effect on ownership.",
+        "evidence_item_id": "E1",
+        "evidence_type": "definition",
+        "issue_id": "I1",
+        "necessity_reason": "Determines whether the solar panels are legally part of the real estate, which is the prerequisite for Gup acquiring ownership.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 1,
+    "normalized_question": "[배경 시나리오] 갑은 자신의 부동산에 새로운 태양광 패널을 설치하려고 했다. 그러나 을이 잘못된 정보로 갑의 부동산에 태양광 패널을 설치하였다. 나중에 갑은 이 태양광 패널이 을의 소유라는 것을 알게 되었고, 태양광 패널로 인해 부동산에 문제가 발생하여 손해를 입었다. [질문] 갑은 부동산에 설치된 을의 태양광 패널의 소유권을 취득할 수 있는가, 만약 이로 인해 손해를 입었다면 갑은 어떻게 보상을 청구할 수 있는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "부동산",
+          "구성물",
+          "부속물",
+          "소유권"
+        ],
+        "query_text": "민법 부동산 구성물 부속물 소유권 귀속 [원문 맥락] 나중에 갑은 이 태양광 패널이 을의 소유라는 것을 알게 되었고, 태양광 패널로 인해 부동산에 문제가 발생하여 손해를 입었다. 갑은 부동산에 설치된 을의 태양광 패널의 소유권을 취득할 수 있는가, 만약 이로 인해 손해를 입었다면 갑은 어떻게 보상을 청구할 수 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제99조",
+          "민법 제100조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "불법행위",
+          "손해배상",
+          "부당이득",
+          "반환"
+        ],
+        "query_text": "민법 불법행위 손해배상 부당이득 반환 [원문 맥락] 나중에 갑은 이 태양광 패널이 을의 소유라는 것을 알게 되었고, 태양광 패널로 인해 부동산에 문제가 발생하여 손해를 입었다. 갑은 부동산에 설치된 을의 태양광 패널의 소유권을 취득할 수 있는가, 만약 이로 인해 손해를 입었다면 갑은 어떻게 보상을 청구할 수 있는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제750조",
+          "민법 제741조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "구성물",
+          "부동산",
+          "민법 제99조"
+        ],
+        "query_text": "민법 제99조 부동산의 구성물 정의 [원문 맥락] 나중에 갑은 이 태양광 패널이 을의 소유라는 것을 알게 되었고, 태양광 패널로 인해 부동산에 문제가 발생하여 손해를 입었다. 갑은 부동산에 설치된 을의 태양광 패널의 소유권을 취득할 수 있는가, 만약 이로 인해 손해를 입었다면 갑은 어떻게 보상을 청구할 수 있는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제99조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "부속물",
+          "부동산",
+          "민법 제100조"
+        ],
+        "query_text": "민법 제100조 부동산의 부속물 정의 [원문 맥락] 나중에 갑은 이 태양광 패널이 을의 소유라는 것을 알게 되었고, 태양광 패널로 인해 부동산에 문제가 발생하여 손해를 입었다. 갑은 부동산에 설치된 을의 태양광 패널의 소유권을 취득할 수 있는가, 만약 이로 인해 손해를 입었다면 갑은 어떻게 보상을 청구할 수 있는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제100조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "불법행위",
+          "손해배상",
+          "민법 제750조"
+        ],
+        "query_text": "민법 제750조 불법행위 손해배상 요건 [원문 맥락] 나중에 갑은 이 태양광 패널이 을의 소유라는 것을 알게 되었고, 태양광 패널로 인해 부동산에 문제가 발생하여 손해를 입었다. 갑은 부동산에 설치된 을의 태양광 패널의 소유권을 취득할 수 있는가, 만약 이로 인해 손해를 입었다면 갑은 어떻게 보상을 청구할 수 있는가?",
+        "request_id": "GRQ-R2-3",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제750조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "부당이득",
+          "반환의무",
+          "민법 제741조"
+        ],
+        "query_text": "민법 제741조 부당이득 반환의무 요건 [원문 맥락] 나중에 갑은 이 태양광 패널이 을의 소유라는 것을 알게 되었고, 태양광 패널로 인해 부동산에 문제가 발생하여 손해를 입었다. 갑은 부동산에 설치된 을의 태양광 패널의 소유권을 취득할 수 있는가, 만약 이로 인해 손해를 입었다면 갑은 어떻게 보상을 청구할 수 있는가?",
+        "request_id": "GRQ-R2-4",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제741조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "구성물",
+          "부동산",
+          "정의",
+          "판례"
+        ],
+        "query_text": "부동산의 구성물 정의 및 판례 기준 [원문 맥락] 나중에 갑은 이 태양광 패널이 을의 소유라는 것을 알게 되었고, 태양광 패널로 인해 부동산에 문제가 발생하여 손해를 입었다. 갑은 부동산에 설치된 을의 태양광 패널의 소유권을 취득할 수 있는가, 만약 이로 인해 손해를 입었다면 갑은 어떻게 보상을 청구할 수 있는가?",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제99조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "부속물",
+          "부동산",
+          "정의",
+          "판례"
+        ],
+        "query_text": "부동산의 부속물 정의 및 판례 기준 [원문 맥락] 나중에 갑은 이 태양광 패널이 을의 소유라는 것을 알게 되었고, 태양광 패널로 인해 부동산에 문제가 발생하여 손해를 입었다. 갑은 부동산에 설치된 을의 태양광 패널의 소유권을 취득할 수 있는가, 만약 이로 인해 손해를 입었다면 갑은 어떻게 보상을 청구할 수 있는가?",
+        "request_id": "GRQ-R3-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제100조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 자신의 부동산에 새로운 태양광 패널을 설치하려고 했다. 그러나 을이 잘못된 정보로 갑의 부동산에 태양광 패널을 설치하였다. 나중에 갑은 이 태양광 패널이 을의 소유라는 것을 알게 되었고, 태양광 패널로 인해 부동산에 문제가 발생하여 손해를 입었다.\n\n[질문]\n갑은 부동산에 설치된 을의 태양광 패널의 소유권을 취득할 수 있는가, 만약 이로 인해 손해를 입었다면 갑은 어떻게 보상을 청구할 수 있는가?",
+    "remaining_request_budget": 1,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the statutory definition of what constitutes a component part or accessory of real estate and the rule that ownership of such items follows the ownership of the principal real estate.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "Statutory definition of component parts (구성물) of real estate."
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "Statutory definition of accessories (부속물) of real estate."
+          },
+          {
+            "requirement_id": "E1-R3",
+            "text": "Legal effect that ownership of component parts/accessories is transferred with the principal real estate."
+          }
+        ],
+        "critical": true,
+        "description": "Definition of component parts (구성물) and accessories (부속물) of real estate and their legal effect on ownership.",
+        "evidence_item_id": "E1",
+        "evidence_type": "definition",
+        "issue_id": "I1",
+        "necessity_reason": "Determines whether the solar panels are legally part of the real estate, which is the prerequisite for Gup acquiring ownership.",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "Identify the statutory provisions establishing liability for damages caused by unlawful acts and the obligation to return unjustly acquired benefits or compensate for losses.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "Statutory elements for tort liability (unlawful act causing damage)."
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "Statutory elements for unjust enrichment (benefit without legal cause)."
+          }
+        ],
+        "critical": true,
+        "description": "General rules for tort liability (불법행위) and unjust enrichment (부당이득) regarding property damage.",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "Provides the legal basis for Gup to claim compensation for the damages suffered due to the solar panels.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "c434e61e-c182-4189-bd0a-50afb93a4753",
+    "seen_provision_ids": [
+      "민법 204조  점유의 회수#KOBLEX-058800",
+      "민법 245조#KOBLEX-058893",
+      "민법 647조  전차인의 부속물매수청구권#KOBLEX-059684",
+      "민법 261조  첨부로 인한 구상권#KOBLEX-058925",
+      "민법 647조  전차인의 부속물매수청구권#KOBLEX-059683",
+      "민법 646조  임차인의 부속물매수청구권#KOBLEX-059681",
+      "민법 99조  부동산, 동산#KOBLEX-058577",
+      "민법 761조  정당방위, 긴급피난#KOBLEX-059932",
+      "민법 316조  원상회복의무, 매수청구권#KOBLEX-059047",
+      "민법 576조  저당권, 전세권의 행사와 매도인의 담보책임#KOBLEX-059549",
+      "민법 741조  부당이득의 내용#KOBLEX-059887",
+      "민법 216조  인지사용청구권#KOBLEX-058831",
+      "법인세법 시행규칙 26조  업무와 관련이 없는 부동산 등의 범위#KOBLEX-150435",
+      "민법 256조  부동산에의 부합#KOBLEX-058916",
+      "민법 230조  언의 설치, 이용권#KOBLEX-058863",
+      "민법 750조  불법행위의 내용#KOBLEX-059905",
+      "민법 646조  임차인의 부속물매수청구권#KOBLEX-059680",
+      "민법 578조  경매와 매도인의 담보책임#KOBLEX-059555",
+      "민법 576조  저당권, 전세권의 행사와 매도인의 담보책임#KOBLEX-059550"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

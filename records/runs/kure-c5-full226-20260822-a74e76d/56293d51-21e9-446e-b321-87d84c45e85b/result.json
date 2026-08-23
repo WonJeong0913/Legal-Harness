@@ -1,0 +1,562 @@
+{
+  "abstention_reason": null,
+  "answer": "공소시효가 완성된 경우 법원은 판결로써 면소의 선고를 하여야 한다.[CT1][CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "A1",
+      "message": "질문에서 제시된 '기소 시점에 공소시효가 만료된 상태'라는 사실 전제를 사실로 가정한다."
+    }
+  ],
+  "candidate_answer": "공소시효가 완성된 경우 법원은 판결로써 면소의 선고를 하여야 한다.[CT1][CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형사소송법 326조  면소의 판결#KOBLEX-232621",
+      "quoted_text": "제326조(면소의 판결) 다음 경우에는 판결로써 면소의 선고를 하여야 한다.",
+      "support_description": "면소판결의 일반적 근거를 제시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C1",
+      "provision_id": "형사소송법 326조  면소의 판결#KOBLEX-232624",
+      "quoted_text": "3. 공소의 시효가 완성되었을 때",
+      "support_description": "공소시효 완성을 면소판결의 구체적 사유로 명시한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "공소시효가 완성된 경우 법원은 판결로써 면소의 선고를 하여야 한다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T12:58:34.061146+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 66807.078,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "L1",
+      "message": "본 답변은 형사소송법상 면소판결의 법적 효과에 한정하며, 실체법상 유무죄 판단이나 다른 절차적 쟁점을 다루지 않는다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 72,
+      "dedup_collapse": 52,
+      "evidence_fusion": 72,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 72
+    }
+  },
+  "run_id": "56293d51-21e9-446e-b321-87d84c45e85b",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형사소송법 326조  면소의 판결#KOBLEX-232621",
+      "형사소송법 326조  면소의 판결#KOBLEX-232624"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 1,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "공소시효가 만료된 상황에서 갑의 절도 혐의에 대해 법원은 어떤 판결을 내려야 하는가?",
+        "requested_output": "법원이 내려야 할 판결의 종류 및 법적 근거"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "형사소송법 326조  면소의 판결#KOBLEX-232624"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6458575129508972,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 326조  면소의 판결#KOBLEX-232624",
+        "provision_text": "3. 공소의 시효가 완성되었을 때",
+        "rerank_rank": 1,
+        "rerank_score": 0.8824865221977234,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 326조  면소의 판결 3호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 249조  공소시효의 기간#KOBLEX-232275"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.5707096457481384,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 249조  공소시효의 기간#KOBLEX-232275",
+        "provision_text": "②공소가 제기된 범죄는 판결의 확정이 없이 공소를 제기한 때로부터 25년을 경과하면 공소시효가 완성한 것으로 간주한다. <신설 1961.9.1, 2007.12.21>",
+        "rerank_rank": 2,
+        "rerank_score": 0.6698306202888489,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 249조  공소시효의 기간 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 262조 4 공소시효의 정지 등#KOBLEX-232327"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 63,
+        "first_stage_score": 0.5342991352081299,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 262조 4 공소시효의 정지 등#KOBLEX-232327",
+        "provision_text": "②제262조제2항제2호의 결정이 있는 때에는 공소시효에 관하여 그 결정이 있는 날에 공소가 제기된 것으로 본다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.5490989685058594,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 262조 4 공소시효의 정지 등 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 327조  공소기각의 판결#KOBLEX-232629"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 66,
+        "first_stage_score": 0.5341430306434631,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 327조  공소기각의 판결#KOBLEX-232629",
+        "provision_text": "3. 공소가 제기된 사건에 대하여 다시 공소가 제기되었을 때",
+        "rerank_rank": 4,
+        "rerank_score": 0.5321322679519653,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 327조  공소기각의 판결 3호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 327조  공소기각의 판결#KOBLEX-232626"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 19,
+        "first_stage_score": 0.5490325689315796,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 327조  공소기각의 판결#KOBLEX-232626",
+        "provision_text": "제327조(공소기각의 판결) 다음 각 호의 경우에는 판결로써 공소기각의 선고를 하여야 한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.515874981880188,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 327조  공소기각의 판결",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 326조  면소의 판결#KOBLEX-232621"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 26,
+        "first_stage_score": 0.545899510383606,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 326조  면소의 판결#KOBLEX-232621",
+        "provision_text": "제326조(면소의 판결) 다음 경우에는 판결로써 면소의 선고를 하여야 한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.4790023863315582,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 326조  면소의 판결",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 393조  공소기각과 환송의 판결#KOBLEX-232804"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 90,
+        "first_stage_score": 0.5294322371482849,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 393조  공소기각과 환송의 판결#KOBLEX-232804",
+        "provision_text": "제393조(공소기각과 환송의 판결) 적법한 공소를 기각하였다는 이유로 원심판결 또는 제1심판결을 파기하는 경우에는 판결로써 사건을 원심법원 또는 제1심법원에 환송하여야 한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.14959876239299774,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 393조  공소기각과 환송의 판결",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 322조  형면제 또는 형의 선고유예의 판결#KOBLEX-232615"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 28,
+        "first_stage_score": 0.5451231598854065,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 322조  형면제 또는 형의 선고유예의 판결#KOBLEX-232615",
+        "provision_text": "제322조(형면제 또는 형의 선고유예의 판결) 피고사건에 대하여 형의 면제 또는 선고유예를 하는 때에는 판결로써 선고하여야 한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.13665814697742462,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 322조  형면제 또는 형의 선고유예의 판결",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 372조  비약적 상고#KOBLEX-232762"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 35,
+        "first_stage_score": 0.5420911312103271,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 372조  비약적 상고#KOBLEX-232762",
+        "provision_text": "1. 원심판결이 인정한 사실에 대하여 법령을 적용하지 아니하였거나 법령의 적용에 착오가 있는 때",
+        "rerank_rank": 9,
+        "rerank_score": 0.11473175883293152,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 372조  비약적 상고 1호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 253조  시효의 정지와 효력#KOBLEX-232282"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 16,
+        "first_stage_score": 0.5514705181121826,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 253조  시효의 정지와 효력#KOBLEX-232282",
+        "provision_text": "①시효는 공소의 제기로 진행이 정지되고 공소기각 또는 관할위반의 재판이 확정된 때로부터 진행한다. <개정 1961.9.1>",
+        "rerank_rank": 10,
+        "rerank_score": 0.10604774206876755,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 253조  시효의 정지와 효력 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "형사소송법 249조  공소시효의 기간#KOBLEX-232275": "②공소가 제기된 범죄는 판결의 확정이 없이 공소를 제기한 때로부터 25년을 경과하면 공소시효가 완성한 것으로 간주한다. <신설 1961.9.1, 2007.12.21>",
+      "형사소송법 253조  시효의 정지와 효력#KOBLEX-232282": "①시효는 공소의 제기로 진행이 정지되고 공소기각 또는 관할위반의 재판이 확정된 때로부터 진행한다. <개정 1961.9.1>",
+      "형사소송법 262조 4 공소시효의 정지 등#KOBLEX-232327": "②제262조제2항제2호의 결정이 있는 때에는 공소시효에 관하여 그 결정이 있는 날에 공소가 제기된 것으로 본다.",
+      "형사소송법 322조  형면제 또는 형의 선고유예의 판결#KOBLEX-232615": "제322조(형면제 또는 형의 선고유예의 판결) 피고사건에 대하여 형의 면제 또는 선고유예를 하는 때에는 판결로써 선고하여야 한다.",
+      "형사소송법 326조  면소의 판결#KOBLEX-232621": "제326조(면소의 판결) 다음 경우에는 판결로써 면소의 선고를 하여야 한다.",
+      "형사소송법 326조  면소의 판결#KOBLEX-232624": "3. 공소의 시효가 완성되었을 때",
+      "형사소송법 327조  공소기각의 판결#KOBLEX-232626": "제327조(공소기각의 판결) 다음 각 호의 경우에는 판결로써 공소기각의 선고를 하여야 한다.",
+      "형사소송법 327조  공소기각의 판결#KOBLEX-232629": "3. 공소가 제기된 사건에 대하여 다시 공소가 제기되었을 때",
+      "형사소송법 372조  비약적 상고#KOBLEX-232762": "1. 원심판결이 인정한 사실에 대하여 법령을 적용하지 아니하였거나 법령의 적용에 착오가 있는 때",
+      "형사소송법 393조  공소기각과 환송의 판결#KOBLEX-232804": "제393조(공소기각과 환송의 판결) 적법한 공소를 기각하였다는 이유로 원심판결 또는 제1심판결을 파기하는 경우에는 판결로써 사건을 원심법원 또는 제1심법원에 환송하여야 한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형사소송법 326조  면소의 판결#KOBLEX-232621",
+              "형사소송법 326조  면소의 판결#KOBLEX-232624"
+            ],
+            "rationale": "C001(형사소송법 326조 3호)은 공소시효 완성 시 면소판결을 선고하도록 명시하고 있어, 판결 유형을 명시하는 조항이라는 요구사항을 충족한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형사소송법 326조  면소의 판결#KOBLEX-232621",
+          "형사소송법 326조  면소의 판결#KOBLEX-232624"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "공소시효가 완성된 경우 법원이 내려야 할 판결 유형은 형사소송법 제326조 제3호에 따라 '면소'임이 명확히 규정되어 있다. C006은 면소판결의 일반 조항이고, C001은 구체적 사유를 명시하여 요구된 법적 근거와 결론을 완전히 충족한다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형사소송법 326조  면소의 판결#KOBLEX-232621",
+        "support_spans": [
+          {
+            "end_char": 42,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형사소송법 326조  면소의 판결#KOBLEX-232624",
+        "support_spans": [
+          {
+            "end_char": 18,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "공소시효가 완성된 사건에 대해 공소가 제기된 경우의 법적 효과",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 2000년에 발생한 절도 혐의로 기소되었습니다. 하지만 검찰이 공소를 제기하는 과정에서 시효를 착오로 지나치게 되어, 기소가 이루어진 시점에는 이미 절도죄에 대한 공소시효가 만료된 상황입니다. [질문] 공소시효가 만료된 상황에서 갑의 절도 혐의에 대해 법원은 어떤 판결을 내려야 하는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "공소시효",
+          "시효완성",
+          "공소제기",
+          "무죄판결",
+          "기각"
+        ],
+        "query_text": "형사소송법 공소시효 완성 후 공소제기 판결 [원문 맥락] 하지만 검찰이 공소를 제기하는 과정에서 시효를 착오로 지나치게 되어, 기소가 이루어진 시점에는 이미 절도죄에 대한 공소시효가 만료된 상황입니다. 공소시효가 만료된 상황에서 갑의 절도 혐의에 대해 법원은 어떤 판결을 내려야 하는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 2000년에 발생한 절도 혐의로 기소되었습니다. 하지만 검찰이 공소를 제기하는 과정에서 시효를 착오로 지나치게 되어, 기소가 이루어진 시점에는 이미 절도죄에 대한 공소시효가 만료된 상황입니다.\n\n[질문]\n공소시효가 만료된 상황에서 갑의 절도 혐의에 대해 법원은 어떤 판결을 내려야 하는가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "공소시효 완성 후 공소가 제기된 경우 법원이 내려야 할 판결 유형(예: 무죄, 기각 등)을 명시하는 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "공소시효 완성 후 공소가 제기된 경우의 판결 유형(무죄, 기각 등)을 명시하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "공소시효 완성 시 공소제기의 무효 또는 기각에 관한 형사소송법 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문은 공소시효 만료 후 기소된 사건에 대한 법원의 판결을 묻고 있으므로, 시효 완성의 법적 효과와 판결 유형을 규정하는 조항이 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "56293d51-21e9-446e-b321-87d84c45e85b",
+    "seen_provision_ids": [
+      "형사소송법 326조  면소의 판결#KOBLEX-232621",
+      "형사소송법 326조  면소의 판결#KOBLEX-232624",
+      "형사소송법 327조  공소기각의 판결#KOBLEX-232629",
+      "형사소송법 372조  비약적 상고#KOBLEX-232762",
+      "형사소송법 253조  시효의 정지와 효력#KOBLEX-232282",
+      "형사소송법 327조  공소기각의 판결#KOBLEX-232626",
+      "형사소송법 249조  공소시효의 기간#KOBLEX-232275",
+      "형사소송법 262조 4 공소시효의 정지 등#KOBLEX-232327",
+      "형사소송법 393조  공소기각과 환송의 판결#KOBLEX-232804",
+      "형사소송법 322조  형면제 또는 형의 선고유예의 판결#KOBLEX-232615"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

@@ -1,0 +1,951 @@
+{
+  "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": "손해보험회사는 손해보험계약의 제3자가 보험사고로 입은 손해에 대한 보험금의 지급을 보장하여야 한다.[CT1]\n손해보험증권에는 보험의 목적을 기재하여야 하며, 이는 보험의 범위를 특정하는 근거가 된다.[CT2]",
+  "candidate_answer_basis": "retrieved_candidates",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "GENERATED",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "갑과 을 보험회사 간에 유효한 손해보험계약이 체결되어 있고, 갑의 자전거가 보험의 목적에 포함되어 있다고 가정합니다."
+    },
+    {
+      "code": "ASSUMPTION_2",
+      "message": "갑의 자전거 도난 사고가 보험계약에서 정한 보험사고에 해당한다고 가정합니다."
+    }
+  ],
+  "candidate_claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "보험업법 165조  제3자의 보험금 지급보장#KOBLEX-022463",
+      "quoted_text": "제165조(제3자의 보험금 지급보장) 손해보험회사는 손해보험계약의 제3자가 보험사고로 입은 손해에 대한 보험금의 지급을 이 장에서 정하는 바에 따라 보장하여야 한다.",
+      "support_description": "손해보험회사의 보험금 지급 보장 의무를 명시하여 T1의 법적 책임 내용을 뒷받침한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "상법 666조  손해보험증권#KOBLEX-115975",
+      "quoted_text": "1. 보험의 목적",
+      "support_description": "손해보험증권에 보험의 목적을 기재하도록 규정하여 T2의 보험 목적 범위를 특정하는 근거를 제공한다."
+    }
+  ],
+  "candidate_claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "손해보험회사는 손해보험계약의 제3자가 보험사고로 입은 손해에 대한 보험금의 지급을 보장하여야 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "손해보험증권에는 보험의 목적을 기재하여야 하며, 이는 보험의 범위를 특정하는 근거가 된다."
+    }
+  ],
+  "candidate_limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "제시된 후보 조문에는 손해보험계약에서 보험회사의 보험금 지급 의무를 일반적으로 규정하는 조항(예: 상법 제664조)이 포함되어 있지 않아, T1에 대한 일반적 법적 결론을 도출할 수 없습니다."
+    },
+    {
+      "code": "LIMITATION_2",
+      "message": "제시된 후보 조문에는 손해보험의 보험의 목적이 보험이익을 가진 재산으로 한정된다는 정의를 포함하는 조항(예: 상법 제663조)이 포함되어 있지 않아, T2에 대한 일반적 법적 범위를 도출할 수 없습니다."
+    },
+    {
+      "code": "LIMITATION_3",
+      "message": "본 결과는 비공개 벤치마크 후보이며, 공개 정책은 ABSTAIN으로 유지됩니다."
+    }
+  ],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T06:55:48.175008+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 140167.442,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 366,
+      "dedup_collapse": 68,
+      "evidence_fusion": 366,
+      "first_stage": 400,
+      "request_rerank": 400,
+      "round_selected": 20,
+      "rrf": 400,
+      "selected": 366
+    }
+  },
+  "run_id": "52041ac1-38b8-4e94-b451-39764d1d268a",
+  "skill_generation_diagnostics": {
+    "attempt_count": 6,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 7,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "ABSTAIN",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "Two consecutive retrieval rounds did not improve critical evidence.",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "ABSTAIN",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 17
+        },
+        "event": "BENCHMARK_CANDIDATE_GENERATION_STARTED",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 17,
+          "claim_count": 2
+        },
+        "event": "BENCHMARK_CANDIDATE_VALIDATED",
+        "phase": "ABSTAINED"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "을 보험회사가 부담하는 법적 책임은 무엇이며",
+        "requested_output": "손해보험계약에서 보험회사가 부담하는 법적 책임의 내용"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "이 계약에서 정할 수 있는 보험의 목적은 어떤 범위로 한정되는가",
+        "requested_output": "손해보험계약에서 보험의 목적의 법적 범위"
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "상법 666조  손해보험증권#KOBLEX-115975"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 7,
+        "first_stage_score": 0.6002976298332214,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "상법 666조  손해보험증권#KOBLEX-115975",
+        "provision_text": "1. 보험의 목적",
+        "rerank_rank": 1,
+        "rerank_score": 0.812674880027771,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상법 666조  손해보험증권 1호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "보험업법 165조  제3자의 보험금 지급보장#KOBLEX-022463"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6435190439224243,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "보험업법 165조  제3자의 보험금 지급보장#KOBLEX-022463",
+        "provision_text": "제165조(제3자의 보험금 지급보장) 손해보험회사는 손해보험계약의 제3자가 보험사고로 입은 손해에 대한 보험금의 지급을 이 장에서 정하는 바에 따라 보장하여야 한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.011974027380347252,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "보험업법 165조  제3자의 보험금 지급보장",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "보험업법 167조  지급불능의 보고#KOBLEX-022467"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 54,
+        "first_stage_score": 0.5559727549552917,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "보험업법 167조  지급불능의 보고#KOBLEX-022467",
+        "provision_text": "② 손해보험회사는 「예금자보호법」 제2조제8호나목에 따른 보험업 허가취소 등이 있었던 날부터 3개월 이내에 제3자에게 보험금을 지급하여야 할 사유가 발생하면 즉시 그 사실을 손해보험협회의 장에게 보고하여야 한다. <개정 2015.12.22>",
+        "rerank_rank": 2,
+        "rerank_score": 0.009281043894588947,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "보험업법 167조  지급불능의 보고 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 687조  동전#KOBLEX-116024"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 22,
+        "first_stage_score": 0.5640882253646851,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "상법 687조  동전#KOBLEX-116024",
+        "provision_text": "제687조(동전) 집합된 물건을 일괄하여 보험의 목적으로 한 때에는 그 목적에 속한 물건이 보험기간중에 수시로 교체된 경우에도 보험사고의 발생 시에 현존한 물건은 보험의 목적에 포함된 것으로 한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.002470101695507765,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "상법 687조  동전",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 698조  희망이익보험의 보험가액#KOBLEX-116051"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 56,
+        "first_stage_score": 0.5457170009613037,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "상법 698조  희망이익보험의 보험가액#KOBLEX-116051",
+        "provision_text": "제698조(희망이익보험의 보험가액) 적하의 도착으로 인하여 얻을 이익 또는 보수의 보험에 있어서는 계약으로 보험가액을 정하지 아니한 때에는 보험금액을 보험가액으로 한 것으로 추정한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.001719847903586924,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "상법 698조  희망이익보험의 보험가액",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "보험업법 34조  정관기재사항#KOBLEX-021921"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 98,
+        "first_stage_score": 0.5276308059692383,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "보험업법 34조  정관기재사항#KOBLEX-021921",
+        "provision_text": "1. 취급하려는 보험종목과 사업의 범위",
+        "rerank_rank": 4,
+        "rerank_score": 0.000804840587079525,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "보험업법 34조  정관기재사항 1호",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "보험업법 169조  보험금의 지급#KOBLEX-022473"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 40,
+        "first_stage_score": 0.5640735030174255,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "보험업법 169조  보험금의 지급#KOBLEX-022473",
+        "provision_text": "① 손해보험협회의 장은 제167조에 따른 보고를 받으면 금융위원회의 확인을 거쳐 손해보험계약의 제3자에게 대통령령으로 정하는 보험금을 지급하여야 한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.0006469584768638015,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "보험업법 169조  보험금의 지급 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 655조  계약해지와 보험금청구권#KOBLEX-115957"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.6361386775970459,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "상법 655조  계약해지와 보험금청구권#KOBLEX-115957",
+        "provision_text": "제655조(계약해지와 보험금청구권) 보험사고가 발생한 후라도 보험자가 제650조, 제651조, 제652조 및 제653조에 따라 계약을 해지하였을 때에는 보험금을 지급할 책임이 없고 이미 지급한 보험금의 반환을 청구할 수 있다. 다만, 고지의무(告知義務)를 위반한 사실 또는 위험이 현저하게 변경되거나 증가된 사실이 보험사고 발생에 영향을 미치지 아니하였음이 증명된 경우에는 보험금을 지급할 책임이 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.0006308426382020116,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "상법 655조  계약해지와 보험금청구권",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "보험업법 168조  출연#KOBLEX-022469"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 16,
+        "first_stage_score": 0.5837360620498657,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "보험업법 168조  출연#KOBLEX-022469",
+        "provision_text": "① 손해보험회사는 손해보험계약의 제3자에 대한 보험금의 지급을 보장하기 위하여 수입보험료 및 책임준비금을 고려하여 대통령령으로 정하는 비율을 곱한 금액을 손해보험협회에 출연(出捐)하여야 한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.0005224864580668509,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "보험업법 168조  출연 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "보험업법 188조  손해사정사 등의 업무#KOBLEX-022570"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.575981855392456,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "보험업법 188조  손해사정사 등의 업무#KOBLEX-022570",
+        "provision_text": "3. 손해액 및 보험금의 사정",
+        "rerank_rank": 5,
+        "rerank_score": 0.00041935156332328916,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "보험업법 188조  손해사정사 등의 업무 3호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 659조  보험자의 면책사유#KOBLEX-115964"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 68,
+        "first_stage_score": 0.5461276173591614,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "상법 659조  보험자의 면책사유#KOBLEX-115964",
+        "provision_text": "①보험사고가 보험계약자 또는 피보험자나 보험수익자의 고의 또는 중대한 과실로 인하여 생긴 때에는 보험자는 보험금액을 지급할 책임이 없다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.034428004175424576,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상법 659조  보험자의 면책사유 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 732조 2 중과실로 인한 보험사고 등#KOBLEX-116163"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 19,
+        "first_stage_score": 0.5788594484329224,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "상법 732조 2 중과실로 인한 보험사고 등#KOBLEX-116163",
+        "provision_text": "① 사망을 보험사고로 한 보험계약에서는 사고가 보험계약자 또는 피보험자나 보험수익자의 중대한 과실로 인하여 발생한 경우에도 보험자는 보험금을 지급할 책임을 면하지 못한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.02549971453845501,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "상법 732조 2 중과실로 인한 보험사고 등 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 694조 3 특별비용의 보상#KOBLEX-116042"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 91,
+        "first_stage_score": 0.5381505489349365,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "상법 694조 3 특별비용의 보상#KOBLEX-116042",
+        "provision_text": "제694조의3(특별비용의 보상) 보험자는 보험의 목적의 안전이나 보존을 위하여 지급할 특별비용을 보험금액의 한도내에서 보상할 책임이 있다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.01777743361890316,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상법 694조 3 특별비용의 보상",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 736조  보험적립금반환의무 등#KOBLEX-116180"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 49,
+        "first_stage_score": 0.5541810393333435,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "상법 736조  보험적립금반환의무 등#KOBLEX-116180",
+        "provision_text": "①제649조, 제650조, 제651조 및 제652조 내지 제655조의 규정에 의하여 보험계약이 해지된 때, 제659조와 제660조의 규정에 의하여 보험금액의 지급책임이 면제된 때에는 보험자는 보험수익자를 위하여 적립한 금액을 보험계약자에게 지급하여야 한다. 그러나 다른 약정이 없으면 제659조제1항의 보험사고가 보험계약자에 의하여 생긴 경우에는 그러하지 아니하다. <개정 1991.12.31>",
+        "rerank_rank": 7,
+        "rerank_score": 0.013165394775569439,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상법 736조  보험적립금반환의무 등 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 737조#KOBLEX-116182"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 78,
+        "first_stage_score": 0.5453076958656311,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "상법 737조#KOBLEX-116182",
+        "provision_text": "제3절 상해보험",
+        "rerank_rank": 8,
+        "rerank_score": 0.012528657913208008,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "상법 737조",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 727조  인보험자의 책임#KOBLEX-116149"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 22,
+        "first_stage_score": 0.5771870613098145,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "상법 727조  인보험자의 책임#KOBLEX-116149",
+        "provision_text": "①인보험계약의 보험자는 피보험자의 생명이나 신체에 관하여 보험사고가 발생할 경우에 보험계약으로 정하는 바에 따라 보험금이나 그 밖의 급여를 지급할 책임이 있다. <개정 2014.3.11>",
+        "rerank_rank": 9,
+        "rerank_score": 0.008482446894049644,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "상법 727조  인보험자의 책임 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 639조  타인을 위한 보험#KOBLEX-115922"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 81,
+        "first_stage_score": 0.5417163372039795,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "상법 639조  타인을 위한 보험#KOBLEX-115922",
+        "provision_text": "③제1항의 경우에는 보험계약자는 보험자에 대하여 보험료를 지급할 의무가 있다. 그러나 보험계약자가 파산선고를 받거나 보험료의 지급을 지체한 때에는 그 타인이 그 권리를 포기하지 아니하는 한 그 타인도 보험료를 지급할 의무가 있다. <개정 1991.12.31>",
+        "rerank_rank": 10,
+        "rerank_score": 0.00839243270456791,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상법 639조  타인을 위한 보험 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "보험업법 165조  제3자의 보험금 지급보장#KOBLEX-022463": "제165조(제3자의 보험금 지급보장) 손해보험회사는 손해보험계약의 제3자가 보험사고로 입은 손해에 대한 보험금의 지급을 이 장에서 정하는 바에 따라 보장하여야 한다.",
+      "보험업법 167조  지급불능의 보고#KOBLEX-022467": "② 손해보험회사는 「예금자보호법」 제2조제8호나목에 따른 보험업 허가취소 등이 있었던 날부터 3개월 이내에 제3자에게 보험금을 지급하여야 할 사유가 발생하면 즉시 그 사실을 손해보험협회의 장에게 보고하여야 한다. <개정 2015.12.22>",
+      "보험업법 168조  출연#KOBLEX-022469": "① 손해보험회사는 손해보험계약의 제3자에 대한 보험금의 지급을 보장하기 위하여 수입보험료 및 책임준비금을 고려하여 대통령령으로 정하는 비율을 곱한 금액을 손해보험협회에 출연(出捐)하여야 한다.",
+      "보험업법 169조  보험금의 지급#KOBLEX-022473": "① 손해보험협회의 장은 제167조에 따른 보고를 받으면 금융위원회의 확인을 거쳐 손해보험계약의 제3자에게 대통령령으로 정하는 보험금을 지급하여야 한다.",
+      "보험업법 188조  손해사정사 등의 업무#KOBLEX-022570": "3. 손해액 및 보험금의 사정",
+      "보험업법 34조  정관기재사항#KOBLEX-021921": "1. 취급하려는 보험종목과 사업의 범위",
+      "상법 639조  타인을 위한 보험#KOBLEX-115922": "③제1항의 경우에는 보험계약자는 보험자에 대하여 보험료를 지급할 의무가 있다. 그러나 보험계약자가 파산선고를 받거나 보험료의 지급을 지체한 때에는 그 타인이 그 권리를 포기하지 아니하는 한 그 타인도 보험료를 지급할 의무가 있다. <개정 1991.12.31>",
+      "상법 655조  계약해지와 보험금청구권#KOBLEX-115957": "제655조(계약해지와 보험금청구권) 보험사고가 발생한 후라도 보험자가 제650조, 제651조, 제652조 및 제653조에 따라 계약을 해지하였을 때에는 보험금을 지급할 책임이 없고 이미 지급한 보험금의 반환을 청구할 수 있다. 다만, 고지의무(告知義務)를 위반한 사실 또는 위험이 현저하게 변경되거나 증가된 사실이 보험사고 발생에 영향을 미치지 아니하였음이 증명된 경우에는 보험금을 지급할 책임이 있다.",
+      "상법 659조  보험자의 면책사유#KOBLEX-115964": "①보험사고가 보험계약자 또는 피보험자나 보험수익자의 고의 또는 중대한 과실로 인하여 생긴 때에는 보험자는 보험금액을 지급할 책임이 없다.",
+      "상법 666조  손해보험증권#KOBLEX-115975": "1. 보험의 목적",
+      "상법 687조  동전#KOBLEX-116024": "제687조(동전) 집합된 물건을 일괄하여 보험의 목적으로 한 때에는 그 목적에 속한 물건이 보험기간중에 수시로 교체된 경우에도 보험사고의 발생 시에 현존한 물건은 보험의 목적에 포함된 것으로 한다.",
+      "상법 694조 3 특별비용의 보상#KOBLEX-116042": "제694조의3(특별비용의 보상) 보험자는 보험의 목적의 안전이나 보존을 위하여 지급할 특별비용을 보험금액의 한도내에서 보상할 책임이 있다.",
+      "상법 698조  희망이익보험의 보험가액#KOBLEX-116051": "제698조(희망이익보험의 보험가액) 적하의 도착으로 인하여 얻을 이익 또는 보수의 보험에 있어서는 계약으로 보험가액을 정하지 아니한 때에는 보험금액을 보험가액으로 한 것으로 추정한다.",
+      "상법 727조  인보험자의 책임#KOBLEX-116149": "①인보험계약의 보험자는 피보험자의 생명이나 신체에 관하여 보험사고가 발생할 경우에 보험계약으로 정하는 바에 따라 보험금이나 그 밖의 급여를 지급할 책임이 있다. <개정 2014.3.11>",
+      "상법 732조 2 중과실로 인한 보험사고 등#KOBLEX-116163": "① 사망을 보험사고로 한 보험계약에서는 사고가 보험계약자 또는 피보험자나 보험수익자의 중대한 과실로 인하여 발생한 경우에도 보험자는 보험금을 지급할 책임을 면하지 못한다.",
+      "상법 736조  보험적립금반환의무 등#KOBLEX-116180": "①제649조, 제650조, 제651조 및 제652조 내지 제655조의 규정에 의하여 보험계약이 해지된 때, 제659조와 제660조의 규정에 의하여 보험금액의 지급책임이 면제된 때에는 보험자는 보험수익자를 위하여 적립한 금액을 보험계약자에게 지급하여야 한다. 그러나 다른 약정이 없으면 제659조제1항의 보험사고가 보험계약자에 의하여 생긴 경우에는 그러하지 아니하다. <개정 1991.12.31>",
+      "상법 737조#KOBLEX-116182": "제3절 상해보험"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No supplied candidate provision explicitly defines the insurer's obligation to pay insurance money upon the occurrence of a loss as a general rule.",
+            "requirement_id": "E1-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E1-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "The supplied candidates do not contain the core statutory provision (e.g., Commercial Act Article 664) that establishes the insurer's general obligation to pay insurance money upon the occurrence of an insured event. C002 and C008 address specific third-party guarantees or exceptions to liability, not the primary duty of payment required by the evidence item.",
+        "status": "uncovered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No supplied candidate provision defines the subject matter of property insurance as property or interests in property.",
+            "requirement_id": "E2-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E2-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "The supplied candidates do not contain the definition of the subject matter of property insurance (e.g., Commercial Act Article 663) which limits it to property or interests in property. C001 is a fragment of a policy document list, and C004/C005 address specific aspects of valuation or replacement, not the general legal definition of the scope of the subject matter.",
+        "status": "uncovered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [],
+    "last_retrieval_new_provision_count": 7,
+    "last_validated_event": "RESPONSE_ASSEMBLY.ABSTAIN",
+    "legal_issues": [
+      {
+        "description": "손해보험계약에서 보험회사의 법적 책임은 어떻게 규정되는가",
+        "issue_id": "I1"
+      },
+      {
+        "description": "손해보험계약에서 보험의 목적은 어떤 범위로 한정되는가",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "손해 발생 시 보험회사의 지급 의무를 명시하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "손해 발생 시 보험회사의 보험금 지급 의무를 규정하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "손해보험계약에서 보험회사의 보험금 지급 의무에 관한 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "보험회사의 법적 책임 내용을 도출하기 위해 필수적",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "손해보험의 보험의 목적이 보험이익을 가진 재산으로 한정됨을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "손해보험의 보험의 목적이 보험이익을 가진 재산으로 한정된다는 규정"
+          }
+        ],
+        "critical": true,
+        "description": "손해보험의 보험의 목적에 관한 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "definition",
+        "issue_id": "I2",
+        "necessity_reason": "보험의 목적의 범위를 도출하기 위해 필수적",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] 갑은 자신의 고급 자전거를 대상으로 을 보험회사와 손해보험계약을 체결했다. 얼마 후 갑의 자전거가 도난당하는 사고가 발생했고, 이에 갑은 보험금을 청구하기 위해 을 보험회사에 연락했다. [질문] 갑이 체결한 손해보험계약에서 을 보험회사가 부담하는 법적 책임은 무엇이며, 이 계약에서 정할 수 있는 보험의 목적은 어떤 범위로 한정되는가?",
+    "phase": "ABSTAINED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "손해보험",
+          "보험회사",
+          "보험금",
+          "지급의무"
+        ],
+        "query_text": "손해보험 보험회사 보험금 지급 의무 [원문 맥락] 얼마 후 갑의 자전거가 도난당하는 사고가 발생했고, 이에 갑은 보험금을 청구하기 위해 을 보험회사에 연락했다. 갑이 체결한 손해보험계약에서 을 보험회사가 부담하는 법적 책임은 무엇이며, 이 계약에서 정할 수 있는 보험의 목적은 어떤 범위로 한정되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "보험업법",
+          "상법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "손해보험",
+          "보험의 목적",
+          "보험이익",
+          "재산"
+        ],
+        "query_text": "손해보험 보험의 목적 보험이익 재산 [원문 맥락] 얼마 후 갑의 자전거가 도난당하는 사고가 발생했고, 이에 갑은 보험금을 청구하기 위해 을 보험회사에 연락했다. 갑이 체결한 손해보험계약에서 을 보험회사가 부담하는 법적 책임은 무엇이며, 이 계약에서 정할 수 있는 보험의 목적은 어떤 범위로 한정되는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "보험업법",
+          "상법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "상법",
+          "손해보험",
+          "보험금 지급",
+          "보험회사 의무"
+        ],
+        "query_text": "상법 손해보험 보험회사의 보험금 지급 의무 [원문 맥락] 얼마 후 갑의 자전거가 도난당하는 사고가 발생했고, 이에 갑은 보험금을 청구하기 위해 을 보험회사에 연락했다. 갑이 체결한 손해보험계약에서 을 보험회사가 부담하는 법적 책임은 무엇이며, 이 계약에서 정할 수 있는 보험의 목적은 어떤 범위로 한정되는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "상법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "상법",
+          "손해보험",
+          "보험의 목적",
+          "재산",
+          "보험이익"
+        ],
+        "query_text": "상법 손해보험 보험의 목적 재산 보험이익 [원문 맥락] 얼마 후 갑의 자전거가 도난당하는 사고가 발생했고, 이에 갑은 보험금을 청구하기 위해 을 보험회사에 연락했다. 갑이 체결한 손해보험계약에서 을 보험회사가 부담하는 법적 책임은 무엇이며, 이 계약에서 정할 수 있는 보험의 목적은 어떤 범위로 한정되는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "상법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 자신의 고급 자전거를 대상으로 을 보험회사와 손해보험계약을 체결했다. 얼마 후 갑의 자전거가 도난당하는 사고가 발생했고, 이에 갑은 보험금을 청구하기 위해 을 보험회사에 연락했다.\n\n[질문]\n갑이 체결한 손해보험계약에서 을 보험회사가 부담하는 법적 책임은 무엇이며, 이 계약에서 정할 수 있는 보험의 목적은 어떤 범위로 한정되는가?",
+    "remaining_request_budget": 5,
+    "remaining_round_budget": 1,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "손해 발생 시 보험회사의 지급 의무를 명시하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "손해 발생 시 보험회사의 보험금 지급 의무를 규정하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "손해보험계약에서 보험회사의 보험금 지급 의무에 관한 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "보험회사의 법적 책임 내용을 도출하기 위해 필수적",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "손해보험의 보험의 목적이 보험이익을 가진 재산으로 한정됨을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "손해보험의 보험의 목적이 보험이익을 가진 재산으로 한정된다는 규정"
+          }
+        ],
+        "critical": true,
+        "description": "손해보험의 보험의 목적에 관한 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "definition",
+        "issue_id": "I2",
+        "necessity_reason": "보험의 목적의 범위를 도출하기 위해 필수적",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 2,
+    "run_id": "52041ac1-38b8-4e94-b451-39764d1d268a",
+    "seen_provision_ids": [
+      "상법 687조  동전#KOBLEX-116024",
+      "상법 732조 2 중과실로 인한 보험사고 등#KOBLEX-116163",
+      "상법 736조  보험적립금반환의무 등#KOBLEX-116180",
+      "상법 659조  보험자의 면책사유#KOBLEX-115964",
+      "상법 698조  희망이익보험의 보험가액#KOBLEX-116051",
+      "상법 666조  손해보험증권#KOBLEX-115975",
+      "보험업법 169조  보험금의 지급#KOBLEX-022473",
+      "상법 639조  타인을 위한 보험#KOBLEX-115922",
+      "보험업법 34조  정관기재사항#KOBLEX-021921",
+      "상법 737조#KOBLEX-116182",
+      "보험업법 188조  손해사정사 등의 업무#KOBLEX-022570",
+      "상법 727조  인보험자의 책임#KOBLEX-116149",
+      "상법 694조 3 특별비용의 보상#KOBLEX-116042",
+      "상법 655조  계약해지와 보험금청구권#KOBLEX-115957",
+      "보험업법 168조  출연#KOBLEX-022469",
+      "보험업법 167조  지급불능의 보고#KOBLEX-022467",
+      "보험업법 165조  제3자의 보험금 지급보장#KOBLEX-022463"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ABSTAIN",
+  "termination_reason": "NO_RETRIEVAL_PROGRESS"
+}

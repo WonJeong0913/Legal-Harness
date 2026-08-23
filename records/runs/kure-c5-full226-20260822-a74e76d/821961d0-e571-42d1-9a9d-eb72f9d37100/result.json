@@ -1,0 +1,1242 @@
+{
+  "abstention_reason": null,
+  "answer": "과세기간 종료일 이전에 기본공제대상자에 해당되지 아니하게 되는 부양가족을 위하여 이미 지급한 금액이 있는 경우에는 그 사유가 발생한 날까지 지급한 금액에 대한 세액공제를 적용한다.[CT1]",
+  "answer_mode": "limited",
+  "answered_target_ids": [
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "을이 갑의 부양가족에 해당하며, 전학으로 인해 기본공제대상자 요건을 상실한 것으로 가정한다."
+    }
+  ],
+  "candidate_answer": "과세기간 종료일 이전에 기본공제대상자에 해당되지 아니하게 되는 부양가족을 위하여 이미 지급한 금액이 있는 경우에는 그 사유가 발생한 날까지 지급한 금액에 대한 세액공제를 적용한다.[CT1]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "소득세법 59조 4 특별세액공제#KOBLEX-153311",
+      "quoted_text": "⑤ 제1항부터 제3항까지의 규정을 적용할 때 과세기간 종료일 이전에 혼인ㆍ이혼ㆍ별거ㆍ취업 등의 사유로 기본공제대상자에 해당되지 아니하게 되는 종전의 배우자ㆍ부양가족ㆍ장애인 또는 과세기간 종료일 현재 65세 이상인 사람을 위하여 이미 지급한 금액이 있는 경우에는 그 사유가 발생한 날까지 지급한 금액에 제1항부터 제3항까지의 규정에 따른 율을 적용한 금액을 해당 과세기간의 종합소득산출세액에서 공제한다.",
+      "support_description": "기본공제대상자 자격 상실 시점(사유 발생일)까지의 지급액에 대한 세액공제 적용 근거를 명시한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "과세기간 종료일 이전에 기본공제대상자에 해당되지 아니하게 되는 부양가족을 위하여 이미 지급한 금액이 있는 경우에는 그 사유가 발생한 날까지 지급한 금액에 대한 세액공제를 적용한다."
+    }
+  ],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T12:34:37.469895+00:00",
+  "deferred_target_ids": [
+    "T1"
+  ],
+  "end_to_end_latency_ms": 182767.213,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "기본공제대상자가 아닌 자녀에 대한 교육비 세액공제 한도(T1)는 제출된 조항으로 확인되지 않아 답변에서 제외한다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 372,
+      "dedup_collapse": 130,
+      "evidence_fusion": 372,
+      "first_stage": 600,
+      "request_rerank": 600,
+      "round_selected": 30,
+      "rrf": 400,
+      "selected": 372
+    }
+  },
+  "run_id": "821961d0-e571-42d1-9a9d-eb72f9d37100",
+  "skill_generation_diagnostics": {
+    "attempt_count": 7,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "소득세법 59조 4 특별세액공제#KOBLEX-153311"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 6,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 9,
+          "request_count": 2,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T2"
+          ],
+          "deferred_target_ids": [
+            "T1"
+          ],
+          "explanation": "Only the citable answer targets will be answered; remaining targets are deferred.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T2"
+          ],
+          "claim_count": 1,
+          "deferred_target_ids": [
+            "T1"
+          ]
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "limited",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "statutory_rule",
+        "question_anchor": "기본공제대상자가 아닌 아들 을을 위해 지급한 교육비에 대해 받을 수 있는 세액공제의 한도",
+        "requested_output": "기본공제대상자가 아닌 자녀에 대한 교육비 세액공제 한도 및 요건"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "statutory_rule",
+        "question_anchor": "과세기간 종료일 이전에 을이 기본공제대상자에서 제외된 경우에 적용할 수 있는 세액공제",
+        "requested_output": "기본공제대상자에서 제외된 경우의 교육비 세액공제 적용 여부 및 범위"
+      }
+    ],
+    "answered_target_ids": [
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "부가가치세법 47조  전자세금계산서 발급 전송에 대한 세액공제 특례#KOBLEX-126976"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 77,
+        "first_stage_score": 0.5544285774230957,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "부가가치세법 47조  전자세금계산서 발급 전송에 대한 세액공제 특례#KOBLEX-126976",
+        "provision_text": "② 제1항을 적용할 때 공제받는 금액이 그 금액을 차감하기 전의 납부할 세액[제37조제2항에 따른 납부세액에서 이 법, 「국세기본법」 및 「조세특례제한법」에 따라 빼거나 더할 세액(제60조 및 「국세기본법」 제47조의2부터 제47조의4까지의 규정에 따른 가산세는 제외한다)을 빼거나 더하여 계산한 세액을 말하며, 그 계산한 세액이 0보다 작으면 0으로 본다]을 초과하면 그 초과하는 부분은 없는 것으로 본다. <신설 2021.12.8>",
+        "rerank_rank": 1,
+        "rerank_score": 0.9983307719230652,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "부가가치세법 47조  전자세금계산서 발급 전송에 대한 세액공제 특례 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "조세특례제한법 시행령 100조 28 자녀장려금의 신청대상#KOBLEX-070926"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 87,
+        "first_stage_score": 0.5512884259223938,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "조세특례제한법 시행령 100조 28 자녀장려금의 신청대상#KOBLEX-070926",
+        "provision_text": "제100조의28(자녀장려금의 신청대상) 법 제100조의28제1항 각 호 외의 부분에서 \"대통령령으로 정하는 자\"란 해당 소득세 과세기간 중 「부가가치세법 시행령」 제109조제2항제7호에 해당하는 사업을 영위하는 자(그 배우자를 포함한다)를 제외한 자를 말한다. <개정 2015.2.3, 2020.2.11>",
+        "rerank_rank": 2,
+        "rerank_score": 0.9974240064620972,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "조세특례제한법 시행령 100조 28 자녀장려금의 신청대상",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소득세법 59조 4 특별세액공제#KOBLEX-153311"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6410866975784302,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "소득세법 59조 4 특별세액공제#KOBLEX-153311",
+        "provision_text": "⑤ 제1항부터 제3항까지의 규정을 적용할 때 과세기간 종료일 이전에 혼인ㆍ이혼ㆍ별거ㆍ취업 등의 사유로 기본공제대상자에 해당되지 아니하게 되는 종전의 배우자ㆍ부양가족ㆍ장애인 또는 과세기간 종료일 현재 65세 이상인 사람을 위하여 이미 지급한 금액이 있는 경우에는 그 사유가 발생한 날까지 지급한 금액에 제1항부터 제3항까지의 규정에 따른 율을 적용한 금액을 해당 과세기간의 종합소득산출세액에서 공제한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.9974174499511719,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "소득세법 59조 4 특별세액공제 5항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "조세특례제한법 91조 16 장기집합투자증권저축에 대한 소득공제#KOBLEX-099707",
+          "조세특례제한법 91조 16 장기집합투자증권저축에 대한 소득공제#KOBLEX-151688"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 83,
+        "first_stage_score": 0.5584323406219482,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "조세특례제한법 91조 16 장기집합투자증권저축에 대한 소득공제#KOBLEX-099707",
+        "provision_text": "② 제1항에도 불구하고 장기집합투자증권저축에 가입한 거주자가 다음 각 호의 어느 하나에 해당하는 경우에는 해당 과세기간에 제1항에 따른 소득공제를 하지 아니한다. 1. 해당 과세기간에 근로소득만 있거나 근로소득 및 종합소득과세표준에 합산되지 않는 종합소득이 있는 경우로서 총급여액이 8천만원을 초과하는 경우 2. 해당 과세기간에 근로소득이 없는 경우",
+        "rerank_rank": 4,
+        "rerank_score": 0.9972996115684509,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "조세특례제한법 91조 16 장기집합투자증권저축에 대한 소득공제 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "조세특례제한법 시행규칙 52조 2 성실사업자에 대한 의료비등 공제#KOBLEX-146524"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 100,
+        "first_stage_score": 0.5494687557220459,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "조세특례제한법 시행규칙 52조 2 성실사업자에 대한 의료비등 공제#KOBLEX-146524",
+        "provision_text": "2. 교육비공제를 받으려는 경우 「소득세법 시행규칙」 제101조제18호에 따른 서식",
+        "rerank_rank": 5,
+        "rerank_score": 0.9969152212142944,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "조세특례제한법 시행규칙 52조 2 성실사업자에 대한 의료비등 공제 2호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방세특례제한법 97조 4 특별세액공제#KOBLEX-110414"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.6278616189956665,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "지방세특례제한법 97조 4 특별세액공제#KOBLEX-110414",
+        "provision_text": "⑤ 제1항부터 제3항까지의 규정을 적용할 때 과세기간 종료일 이전에 혼인·이혼·별거·취업 등의 사유로 기본공제대상자에 해당되지 아니하게 되는 종전의 배우자·부양가족·장애인 또는 과세기간 종료일 현재 65세 이상인 사람을 위하여 이미 지급한 금액이 있는 경우에는 그 사유가 발생한 날까지 지급한 금액에 제1항부터 제3항까지의 규정에 따른 율을 적용한 금액을 해당 과세기간의 종합소득분 개인지방소득 산출세액에서 공제한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.9969044327735901,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "지방세특례제한법 97조 4 특별세액공제 5항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부가가치세법 43조  면세사업등을 위한 감가상각자산의 과세사업 전환 시 매입세액공제 특례#KOBLEX-126957"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 25,
+        "first_stage_score": 0.575102686882019,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "부가가치세법 43조  면세사업등을 위한 감가상각자산의 과세사업 전환 시 매입세액공제 특례#KOBLEX-126957",
+        "provision_text": "제43조(면세사업등을 위한 감가상각자산의 과세사업 전환 시 매입세액공제 특례) 사업자는 제39조제1항제7호에 따라 매입세액이 공제되지 아니한 면세사업등을 위한 감가상각자산을 과세사업에 사용하거나 소비하는 경우 대통령령으로 정하는 바에 따라 계산한 금액을 그 과세사업에 사용하거나 소비하는 날이 속하는 과세기간의 매입세액으로 공제할 수 있다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.9968711733818054,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "부가가치세법 43조  면세사업등을 위한 감가상각자산의 과세사업 전환 시 매입세액공제 특례",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "조세특례제한법 91조 20 청년형 장기집합투자증권저축에 대한 소득공제#KOBLEX-099751",
+          "조세특례제한법 91조 20 청년형 장기집합투자증권저축에 대한 소득공제#KOBLEX-151732"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 55,
+        "first_stage_score": 0.5596389770507812,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "조세특례제한법 91조 20 청년형 장기집합투자증권저축에 대한 소득공제#KOBLEX-099751",
+        "provision_text": "⑫ 제1항에도 불구하고 이 법에 따른 비과세 등 조세특례 또는 「소득세법」 제20조의3제1항제2호를 적용받는 저축 등의 경우에는 제1항에 따른 소득공제를 적용하지 아니한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.9968664050102234,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "조세특례제한법 91조 20 청년형 장기집합투자증권저축에 대한 소득공제 12항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소득세법 시행령 118조 6 교육비 세액공제#KOBLEX-141721"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 70,
+        "first_stage_score": 0.5617053508758545,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "소득세법 시행령 118조 6 교육비 세액공제#KOBLEX-141721",
+        "provision_text": "제118조의6(교육비 세액공제)",
+        "rerank_rank": 9,
+        "rerank_score": 0.9967907071113586,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "소득세법 시행령 118조 6 교육비 세액공제",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "법인세법 시행규칙 11조  부가가치세 매입세액의 손금산입#KOBLEX-150344"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 68,
+        "first_stage_score": 0.556506872177124,
+        "fusion_rank": 10,
+        "issue_id": "I2",
+        "provision_id": "법인세법 시행규칙 11조  부가가치세 매입세액의 손금산입#KOBLEX-150344",
+        "provision_text": "1. 「부가가치세법」 제36조제1항부터 제3항까지의 규정에 의한 영수증을 교부받은 거래분에 포함된 매입세액으로서 매입세액공제대상이 아닌 금액",
+        "rerank_rank": 10,
+        "rerank_score": 0.996648371219635,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "법인세법 시행규칙 11조  부가가치세 매입세액의 손금산입 1호",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소득세법 59조 2 자녀세액공제#KOBLEX-153296"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 21,
+        "first_stage_score": 0.5729851722717285,
+        "fusion_rank": 20,
+        "issue_id": "I1",
+        "provision_id": "소득세법 59조 2 자녀세액공제#KOBLEX-153296",
+        "provision_text": "①종합소득이 있는 거주자의 기본공제대상자에 해당하는 자녀(입양자 및 위탁아동을 포함하며, 이하 이 조에서 \"공제대상자녀\"라 한다) 및 손자녀로서 8세 이상의 사람에 대해서는 다음 각 호의 구분에 따른 금액을 종합소득산출세액에서 공제한다. <개정 2015.5.13, 2017.12.19, 2018.12.31, 2019.12.31, 2022.12.31, 2023.12.31, 2024.12.31> 1. 1명인 경우: 연 25만원 2. 2명인 경우: 연 55만원 3. 3명 이상인 경우: 연 55만원과 2명을 초과하는 1명당 연 40만원을 합한 금액",
+        "rerank_rank": 20,
+        "rerank_score": 0.9942584037780762,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "소득세법 59조 2 자녀세액공제 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소득세법 54조  종합소득공제 등의 배제#KOBLEX-153247"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 76,
+        "first_stage_score": 0.5548917055130005,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "소득세법 54조  종합소득공제 등의 배제#KOBLEX-153247",
+        "provision_text": "① 분리과세이자소득, 분리과세배당소득, 분리과세연금소득과 분리과세기타소득만이 있는 자에 대해서는 종합소득공제를 적용하지 아니한다. <개정 2013.1.1>",
+        "rerank_rank": 10,
+        "rerank_score": 0.9929793477058411,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "소득세법 54조  종합소득공제 등의 배제 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "조세특례제한법 시행령 100조 31 자녀장려금 관련 사항의 준용 등#KOBLEX-070935"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 21,
+        "first_stage_score": 0.5767021775245667,
+        "fusion_rank": 18,
+        "issue_id": "I1",
+        "provision_id": "조세특례제한법 시행령 100조 31 자녀장려금 관련 사항의 준용 등#KOBLEX-070935",
+        "provision_text": "② 납세지 관할 세무서장은 제1항에 따라 자녀장려금을 결정할 때 신청자(그 배우자를 포함한다)가 「소득세법」 제59조의2에 따른 자녀세액공제를 받은 경우에는 같은 조 및 같은 법 제61조에 따라 계산한 금액을 공제하여야 한다. <신설 2017.2.7>",
+        "rerank_rank": 18,
+        "rerank_score": 0.9904040098190308,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "조세특례제한법 시행령 100조 31 자녀장려금 관련 사항의 준용 등 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소득세법 시행규칙 39조  부가가치세매입세액의 필요경비산입#KOBLEX-035946"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 62,
+        "first_stage_score": 0.5523651242256165,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "소득세법 시행규칙 39조  부가가치세매입세액의 필요경비산입#KOBLEX-035946",
+        "provision_text": "1. 「부가가치세법」 제36조제1항부터 제3항까지에 규정하는 영수증을 교부받은 거래분에 포함된 매입세액으로서 공제대상이 아닌 금액",
+        "rerank_rank": 8,
+        "rerank_score": 0.9896005392074585,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "소득세법 시행규칙 39조  부가가치세매입세액의 필요경비산입 1호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소득세법 51조 3 연금보험료공제#KOBLEX-153222"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 78,
+        "first_stage_score": 0.5538986325263977,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "소득세법 51조 3 연금보험료공제#KOBLEX-153222",
+        "provision_text": "③ 다음 각 호에 해당하는 공제를 모두 합한 금액이 종합소득금액을 초과하는 경우 그 초과하는 금액을 한도로 연금보험료공제를 받지 아니한 것으로 본다. <개정 2014.12.23> 1. 제51조제3항에 따른 인적공제 2. 이 조에 따른 연금보험료공제 3. 제51조의4에 따른 주택담보노후연금 이자비용공제 4. 제52조에 따른 특별소득공제 5. 「조세특례제한법」에 따른 소득공제",
+        "rerank_rank": 9,
+        "rerank_score": 0.9889529943466187,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "소득세법 51조 3 연금보험료공제 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "조세특례제한법 100조 30 자녀장려금의 신청 등#KOBLEX-100117",
+          "조세특례제한법 100조 30 자녀장려금의 신청 등#KOBLEX-152098"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 51,
+        "first_stage_score": 0.5622320771217346,
+        "fusion_rank": 70,
+        "issue_id": "I1",
+        "provision_id": "조세특례제한법 100조 30 자녀장려금의 신청 등#KOBLEX-100117",
+        "provision_text": "② 제1항에도 불구하고 자녀장려금은 「소득세법」 제59조의2에 따른 자녀세액공제와 중복하여 적용할 수 없다.",
+        "rerank_rank": 70,
+        "rerank_score": 0.9870896935462952,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "조세특례제한법 100조 30 자녀장려금의 신청 등 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방세특례제한법 97조 4 특별세액공제#KOBLEX-110413"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 39,
+        "first_stage_score": 0.5645105242729187,
+        "fusion_rank": 15,
+        "issue_id": "I1",
+        "provision_id": "지방세특례제한법 97조 4 특별세액공제#KOBLEX-110413",
+        "provision_text": "④ 거주자(사업소득만 있는 자는 제외하되, 「소득세법」 제73조제1항제4호에 따른 자 등 대통령령으로 정하는 자는 포함한다)가 해당 과세기간에 지급한 기부금[「소득세법」 제50조제1항제2호 및 제3호(나이의 제한을 받지 아니한다)에 해당하는 사람(다른 거주자의 기본공제를 적용받은 사람은 제외한다)이 지급한 기부금을 포함한다]이 있는 경우 다음 각 호의 기부금을 합한 금액에서 사업소득금액을 계산할 때 필요경비에 산입한 기부금을 뺀 금액의 1,000분의 15(해당 금액이 2천만원을 초과하는 경우 그 초과분에 대해서는 1,000분의 30)에 해당하는 금액(이하 이 조에서 \"기부금 세액공제액\"이라 한다)을 해당 과세기간의 합산과세되는 종합소득분 개인지방소득 산출세액(필요경비에 산입한 기부금이 있는 경우 사업소득에 대한 산출세액은 제외한다)에서 공제한다. 이 경우 제1호의 기부금과 제2호의 기부금이 함께 있으면 제1호의 기부금을 먼저 공제하되, 2013년 12월 31일 이전에 지급한 기부금을 2014년 1월 1일 이후에 개시하는 과세기간에 이월하여 소득공제하는 경우에는 해당 과세기간에 지급한 기부금보다 먼저 공제한다. <개정 2014.12.31, 2016.12.27> 1. 법정기부금 2. 지정기부금. 이 경우 지정기부금의 한도액은 다음 각 목의 구분에 따른다.",
+        "rerank_rank": 15,
+        "rerank_score": 0.9942717552185059,
+        "retrieval_round": 3,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "지방세특례제한법 97조 4 특별세액공제 4항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소득세법 시행령 106조  부양가족등의 인적공제#KOBLEX-141619"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 90,
+        "first_stage_score": 0.5483991503715515,
+        "fusion_rank": 59,
+        "issue_id": "I1",
+        "provision_id": "소득세법 시행령 106조  부양가족등의 인적공제#KOBLEX-141619",
+        "provision_text": "⑨ 법 제50조제1항제3호마목에서 \"대통령령으로 정하는 사람\"이란 해당 과세기간에 6개월 이상 직접 양육한 위탁아동(「아동복지법」 제16조제4항에 따라 보호기간이 연장된 경우로서 20세 이하인 위탁아동을 포함한다)을 말한다. 다만, 직전 과세기간에 소득공제를 받지 못한 경우에는 해당 위탁아동에 대한 직전 과세기간의 위탁기간을 포함하여 계산한다. <신설 2009.2.4, 2010.2.18, 2020.2.11>",
+        "rerank_rank": 59,
+        "rerank_score": 0.9910747408866882,
+        "retrieval_round": 3,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "소득세법 시행령 106조  부양가족등의 인적공제 9항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소득세법 51조  추가공제#KOBLEX-153214"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 67,
+        "first_stage_score": 0.5546042323112488,
+        "fusion_rank": 62,
+        "issue_id": "I1",
+        "provision_id": "소득세법 51조  추가공제#KOBLEX-153214",
+        "provision_text": "① 제50조에 따른 기본공제대상이 되는 사람(이하 \"기본공제대상자\"라 한다)이 다음 각 호의 어느 하나에 해당하는 경우에는 거주자의 해당 과세기간 종합소득금액에서 기본공제 외에 각 호별로 정해진 금액을 추가로 공제한다. 다만, 제3호와 제6호에 모두 해당되는 경우에는 제6호를 적용한다. <개정 2013.1.1, 2014.1.1> 1. 70세 이상인 사람(이하 \"경로우대자\"라 한다)의 경우 1명당 연 100만원 2. 대통령령으로 정하는 장애인(이하 \"장애인\"이라 한다)인 경우 1명당 연 200만원 3. 해당 거주자(해당 과세기간에 종합소득과세표준을 계산할 때 합산하는 종합소득금액이 3천만원 이하인 거주자로 한정한다)가 배우자가 없는 여성으로서 제50조제1항제3호에 따른 부양가족이 있는 세대주이거나 배우자가 있는 여성인 경우 연 50만원 4. 삭제 <2014.1.1> 5. 삭제 <2014.1.1> 6. 해당 거주자가 배우자가 없는 사람으로서 기본공제대상자인 직계비속 또는 입양자가 있는 경우 연 100만원",
+        "rerank_rank": 62,
+        "rerank_score": 0.9876775145530701,
+        "retrieval_round": 3,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "소득세법 51조  추가공제 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소득세법 59조 4 특별세액공제#KOBLEX-153310"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 17,
+        "first_stage_score": 0.5728937387466431,
+        "fusion_rank": 11,
+        "issue_id": "I1",
+        "provision_id": "소득세법 59조 4 특별세액공제#KOBLEX-153310",
+        "provision_text": "④ 거주자(사업소득만 있는 자는 제외하되, 제73조제1항제4호에 따른 자 등 대통령령으로 정하는 자는 포함한다)가 해당 과세기간에 지급한 기부금[제50조제1항제2호 및 제3호에 해당하는 사람(나이의 제한을 받지 아니하며, 다른 거주자의 기본공제를 적용받은 사람은 제외한다)이 지급한 기부금을 포함한다]이 있는 경우 다음 각 호의 기부금을 합한 금액에서 사업소득금액을 계산할 때 필요경비에 산입한 기부금을 뺀 금액의 100분의 15(해당 금액이 1천만원을 초과하는 경우 그 초과분에 대해서는 100분의 30)에 해당하는 금액(이하 제61조제2항에서 \"기부금 세액공제액\"이라 한다)을 해당 과세기간의 합산과세되는 종합소득산출세액(필요경비에 산입한 기부금이 있는 경우 사업소득에 대한 산출세액은 제외한다)에서 공제한다. 이 경우 제1호의 기부금과 제2호의 기부금이 함께 있으면 제1호의 기부금을 먼저 공제하되, 2013년 12월 31일 이전에 지급한 기부금을 2014년 1월 1일 이후에 개시하는 과세기간에 이월하여 소득공제하는 경우에는 해당 과세기간에 지급한 기부금보다 먼저 공제한다. <개정 2014.12.23, 2015.12.15, 2016.12.20, 2018.12.31, 2020.12.29, 2022.12.31> 1. 제34조제2항제1호의 특례기부금 2.제34조제3항제1호의 일반기부금. 이 경우 한도액은 다음 각 목의 구분에 따른다.",
+        "rerank_rank": 11,
+        "rerank_score": 0.9793238639831543,
+        "retrieval_round": 3,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "소득세법 59조 4 특별세액공제 4항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "장애인복지법 시행규칙 23조  자녀교육비 지급대상 및 기준#KOBLEX-020247"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 52,
+        "first_stage_score": 0.55019611120224,
+        "fusion_rank": 14,
+        "issue_id": "I1",
+        "provision_id": "장애인복지법 시행규칙 23조  자녀교육비 지급대상 및 기준#KOBLEX-020247",
+        "provision_text": "제23조(자녀교육비 지급대상 및 기준)",
+        "rerank_rank": 14,
+        "rerank_score": 0.952039897441864,
+        "retrieval_round": 3,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "장애인복지법 시행규칙 23조  자녀교육비 지급대상 및 기준",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소득세법 150조  납세조합의 징수의무#KOBLEX-154006"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 91,
+        "first_stage_score": 0.5453346967697144,
+        "fusion_rank": 61,
+        "issue_id": "I1",
+        "provision_id": "소득세법 150조  납세조합의 징수의무#KOBLEX-154006",
+        "provision_text": "④ 제2항 또는 제3항에 따라 공제하는 금액은 연 100만원(해당 과세기간이 1년 미만이거나 해당 과세기간의 근로제공기간이 1년 미만인 경우에는 100만원에 해당 과세기간의 월수 또는 근로제공 월수를 곱하고 이를 12로 나누어 산출한 금액을 말한다)을 한도로 한다. <신설 2021.12.8>",
+        "rerank_rank": 61,
+        "rerank_score": 0.951687216758728,
+        "retrieval_round": 3,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-2",
+        "source_request_ids": [
+          "GRQ-R3-2"
+        ],
+        "statute_name": "소득세법 150조  납세조합의 징수의무 4항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방세특례제한법 151조  대학 맞춤형 교육비용 등에 대한 세액공제#KOBLEX-110733"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 44,
+        "first_stage_score": 0.5437291264533997,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "지방세특례제한법 151조  대학 맞춤형 교육비용 등에 대한 세액공제#KOBLEX-110733",
+        "provision_text": "제151조(대학 맞춤형 교육비용 등에 대한 세액공제)",
+        "rerank_rank": 6,
+        "rerank_score": 0.950401246547699,
+        "retrieval_round": 3,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "지방세특례제한법 151조  대학 맞춤형 교육비용 등에 대한 세액공제",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소득세법 53조  생계를 같이 하는 부양가족의 범위와 그 판정시기#KOBLEX-153245"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 57,
+        "first_stage_score": 0.5573128461837769,
+        "fusion_rank": 66,
+        "issue_id": "I1",
+        "provision_id": "소득세법 53조  생계를 같이 하는 부양가족의 범위와 그 판정시기#KOBLEX-153245",
+        "provision_text": "⑤ 제50조제1항제3호 및 제59조의2에 따라 적용대상 나이가 정해진 경우에는 제4항 본문에도 불구하고 해당 과세기간의 과세기간 중에 해당 나이에 해당되는 날이 있는 경우에 공제대상자로 본다. <개정 2014.1.1>",
+        "rerank_rank": 66,
+        "rerank_score": 0.9496762156486511,
+        "retrieval_round": 3,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "소득세법 53조  생계를 같이 하는 부양가족의 범위와 그 판정시기 5항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "법인세법 13조  과세표준#KOBLEX-208795"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 16,
+        "first_stage_score": 0.5726735591888428,
+        "fusion_rank": 17,
+        "issue_id": "I1",
+        "provision_id": "법인세법 13조  과세표준#KOBLEX-208795",
+        "provision_text": "② 제1항의 과세표준을 계산할 때 다음 각 호의 금액은 해당 사업연도의 다음 사업연도 이후로 이월하여 공제할 수 없다. 1. 해당 사업연도의 과세표준을 계산할 때 공제되지 아니한 비과세소득 및 소득공제액 2. 「조세특례제한법」 제132조에 따른 최저한세의 적용으로 인하여 공제되지 아니한 소득공제액",
+        "rerank_rank": 17,
+        "rerank_score": 0.9440338015556335,
+        "retrieval_round": 3,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "법인세법 13조  과세표준 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "법인세법 13조  과세표준#KOBLEX-208795": "② 제1항의 과세표준을 계산할 때 다음 각 호의 금액은 해당 사업연도의 다음 사업연도 이후로 이월하여 공제할 수 없다. 1. 해당 사업연도의 과세표준을 계산할 때 공제되지 아니한 비과세소득 및 소득공제액 2. 「조세특례제한법」 제132조에 따른 최저한세의 적용으로 인하여 공제되지 아니한 소득공제액",
+      "법인세법 시행규칙 11조  부가가치세 매입세액의 손금산입#KOBLEX-150344": "1. 「부가가치세법」 제36조제1항부터 제3항까지의 규정에 의한 영수증을 교부받은 거래분에 포함된 매입세액으로서 매입세액공제대상이 아닌 금액",
+      "부가가치세법 43조  면세사업등을 위한 감가상각자산의 과세사업 전환 시 매입세액공제 특례#KOBLEX-126957": "제43조(면세사업등을 위한 감가상각자산의 과세사업 전환 시 매입세액공제 특례) 사업자는 제39조제1항제7호에 따라 매입세액이 공제되지 아니한 면세사업등을 위한 감가상각자산을 과세사업에 사용하거나 소비하는 경우 대통령령으로 정하는 바에 따라 계산한 금액을 그 과세사업에 사용하거나 소비하는 날이 속하는 과세기간의 매입세액으로 공제할 수 있다.",
+      "부가가치세법 47조  전자세금계산서 발급 전송에 대한 세액공제 특례#KOBLEX-126976": "② 제1항을 적용할 때 공제받는 금액이 그 금액을 차감하기 전의 납부할 세액[제37조제2항에 따른 납부세액에서 이 법, 「국세기본법」 및 「조세특례제한법」에 따라 빼거나 더할 세액(제60조 및 「국세기본법」 제47조의2부터 제47조의4까지의 규정에 따른 가산세는 제외한다)을 빼거나 더하여 계산한 세액을 말하며, 그 계산한 세액이 0보다 작으면 0으로 본다]을 초과하면 그 초과하는 부분은 없는 것으로 본다. <신설 2021.12.8>",
+      "소득세법 150조  납세조합의 징수의무#KOBLEX-154006": "④ 제2항 또는 제3항에 따라 공제하는 금액은 연 100만원(해당 과세기간이 1년 미만이거나 해당 과세기간의 근로제공기간이 1년 미만인 경우에는 100만원에 해당 과세기간의 월수 또는 근로제공 월수를 곱하고 이를 12로 나누어 산출한 금액을 말한다)을 한도로 한다. <신설 2021.12.8>",
+      "소득세법 51조  추가공제#KOBLEX-153214": "① 제50조에 따른 기본공제대상이 되는 사람(이하 \"기본공제대상자\"라 한다)이 다음 각 호의 어느 하나에 해당하는 경우에는 거주자의 해당 과세기간 종합소득금액에서 기본공제 외에 각 호별로 정해진 금액을 추가로 공제한다. 다만, 제3호와 제6호에 모두 해당되는 경우에는 제6호를 적용한다. <개정 2013.1.1, 2014.1.1> 1. 70세 이상인 사람(이하 \"경로우대자\"라 한다)의 경우 1명당 연 100만원 2. 대통령령으로 정하는 장애인(이하 \"장애인\"이라 한다)인 경우 1명당 연 200만원 3. 해당 거주자(해당 과세기간에 종합소득과세표준을 계산할 때 합산하는 종합소득금액이 3천만원 이하인 거주자로 한정한다)가 배우자가 없는 여성으로서 제50조제1항제3호에 따른 부양가족이 있는 세대주이거나 배우자가 있는 여성인 경우 연 50만원 4. 삭제 <2014.1.1> 5. 삭제 <2014.1.1> 6. 해당 거주자가 배우자가 없는 사람으로서 기본공제대상자인 직계비속 또는 입양자가 있는 경우 연 100만원",
+      "소득세법 51조 3 연금보험료공제#KOBLEX-153222": "③ 다음 각 호에 해당하는 공제를 모두 합한 금액이 종합소득금액을 초과하는 경우 그 초과하는 금액을 한도로 연금보험료공제를 받지 아니한 것으로 본다. <개정 2014.12.23> 1. 제51조제3항에 따른 인적공제 2. 이 조에 따른 연금보험료공제 3. 제51조의4에 따른 주택담보노후연금 이자비용공제 4. 제52조에 따른 특별소득공제 5. 「조세특례제한법」에 따른 소득공제",
+      "소득세법 53조  생계를 같이 하는 부양가족의 범위와 그 판정시기#KOBLEX-153245": "⑤ 제50조제1항제3호 및 제59조의2에 따라 적용대상 나이가 정해진 경우에는 제4항 본문에도 불구하고 해당 과세기간의 과세기간 중에 해당 나이에 해당되는 날이 있는 경우에 공제대상자로 본다. <개정 2014.1.1>",
+      "소득세법 54조  종합소득공제 등의 배제#KOBLEX-153247": "① 분리과세이자소득, 분리과세배당소득, 분리과세연금소득과 분리과세기타소득만이 있는 자에 대해서는 종합소득공제를 적용하지 아니한다. <개정 2013.1.1>",
+      "소득세법 59조 2 자녀세액공제#KOBLEX-153296": "①종합소득이 있는 거주자의 기본공제대상자에 해당하는 자녀(입양자 및 위탁아동을 포함하며, 이하 이 조에서 \"공제대상자녀\"라 한다) 및 손자녀로서 8세 이상의 사람에 대해서는 다음 각 호의 구분에 따른 금액을 종합소득산출세액에서 공제한다. <개정 2015.5.13, 2017.12.19, 2018.12.31, 2019.12.31, 2022.12.31, 2023.12.31, 2024.12.31> 1. 1명인 경우: 연 25만원 2. 2명인 경우: 연 55만원 3. 3명 이상인 경우: 연 55만원과 2명을 초과하는 1명당 연 40만원을 합한 금액",
+      "소득세법 59조 4 특별세액공제#KOBLEX-153310": "④ 거주자(사업소득만 있는 자는 제외하되, 제73조제1항제4호에 따른 자 등 대통령령으로 정하는 자는 포함한다)가 해당 과세기간에 지급한 기부금[제50조제1항제2호 및 제3호에 해당하는 사람(나이의 제한을 받지 아니하며, 다른 거주자의 기본공제를 적용받은 사람은 제외한다)이 지급한 기부금을 포함한다]이 있는 경우 다음 각 호의 기부금을 합한 금액에서 사업소득금액을 계산할 때 필요경비에 산입한 기부금을 뺀 금액의 100분의 15(해당 금액이 1천만원을 초과하는 경우 그 초과분에 대해서는 100분의 30)에 해당하는 금액(이하 제61조제2항에서 \"기부금 세액공제액\"이라 한다)을 해당 과세기간의 합산과세되는 종합소득산출세액(필요경비에 산입한 기부금이 있는 경우 사업소득에 대한 산출세액은 제외한다)에서 공제한다. 이 경우 제1호의 기부금과 제2호의 기부금이 함께 있으면 제1호의 기부금을 먼저 공제하되, 2013년 12월 31일 이전에 지급한 기부금을 2014년 1월 1일 이후에 개시하는 과세기간에 이월하여 소득공제하는 경우에는 해당 과세기간에 지급한 기부금보다 먼저 공제한다. <개정 2014.12.23, 2015.12.15, 2016.12.20, 2018.12.31, 2020.12.29, 2022.12.31> 1. 제34조제2항제1호의 특례기부금 2.제34조제3항제1호의 일반기부금. 이 경우 한도액은 다음 각 목의 구분에 따른다.",
+      "소득세법 59조 4 특별세액공제#KOBLEX-153311": "⑤ 제1항부터 제3항까지의 규정을 적용할 때 과세기간 종료일 이전에 혼인ㆍ이혼ㆍ별거ㆍ취업 등의 사유로 기본공제대상자에 해당되지 아니하게 되는 종전의 배우자ㆍ부양가족ㆍ장애인 또는 과세기간 종료일 현재 65세 이상인 사람을 위하여 이미 지급한 금액이 있는 경우에는 그 사유가 발생한 날까지 지급한 금액에 제1항부터 제3항까지의 규정에 따른 율을 적용한 금액을 해당 과세기간의 종합소득산출세액에서 공제한다.",
+      "소득세법 시행규칙 39조  부가가치세매입세액의 필요경비산입#KOBLEX-035946": "1. 「부가가치세법」 제36조제1항부터 제3항까지에 규정하는 영수증을 교부받은 거래분에 포함된 매입세액으로서 공제대상이 아닌 금액",
+      "소득세법 시행령 106조  부양가족등의 인적공제#KOBLEX-141619": "⑨ 법 제50조제1항제3호마목에서 \"대통령령으로 정하는 사람\"이란 해당 과세기간에 6개월 이상 직접 양육한 위탁아동(「아동복지법」 제16조제4항에 따라 보호기간이 연장된 경우로서 20세 이하인 위탁아동을 포함한다)을 말한다. 다만, 직전 과세기간에 소득공제를 받지 못한 경우에는 해당 위탁아동에 대한 직전 과세기간의 위탁기간을 포함하여 계산한다. <신설 2009.2.4, 2010.2.18, 2020.2.11>",
+      "소득세법 시행령 118조 6 교육비 세액공제#KOBLEX-141721": "제118조의6(교육비 세액공제)",
+      "장애인복지법 시행규칙 23조  자녀교육비 지급대상 및 기준#KOBLEX-020247": "제23조(자녀교육비 지급대상 및 기준)",
+      "조세특례제한법 100조 30 자녀장려금의 신청 등#KOBLEX-100117": "② 제1항에도 불구하고 자녀장려금은 「소득세법」 제59조의2에 따른 자녀세액공제와 중복하여 적용할 수 없다.",
+      "조세특례제한법 91조 16 장기집합투자증권저축에 대한 소득공제#KOBLEX-099707": "② 제1항에도 불구하고 장기집합투자증권저축에 가입한 거주자가 다음 각 호의 어느 하나에 해당하는 경우에는 해당 과세기간에 제1항에 따른 소득공제를 하지 아니한다. 1. 해당 과세기간에 근로소득만 있거나 근로소득 및 종합소득과세표준에 합산되지 않는 종합소득이 있는 경우로서 총급여액이 8천만원을 초과하는 경우 2. 해당 과세기간에 근로소득이 없는 경우",
+      "조세특례제한법 91조 20 청년형 장기집합투자증권저축에 대한 소득공제#KOBLEX-099751": "⑫ 제1항에도 불구하고 이 법에 따른 비과세 등 조세특례 또는 「소득세법」 제20조의3제1항제2호를 적용받는 저축 등의 경우에는 제1항에 따른 소득공제를 적용하지 아니한다.",
+      "조세특례제한법 시행규칙 52조 2 성실사업자에 대한 의료비등 공제#KOBLEX-146524": "2. 교육비공제를 받으려는 경우 「소득세법 시행규칙」 제101조제18호에 따른 서식",
+      "조세특례제한법 시행령 100조 28 자녀장려금의 신청대상#KOBLEX-070926": "제100조의28(자녀장려금의 신청대상) 법 제100조의28제1항 각 호 외의 부분에서 \"대통령령으로 정하는 자\"란 해당 소득세 과세기간 중 「부가가치세법 시행령」 제109조제2항제7호에 해당하는 사업을 영위하는 자(그 배우자를 포함한다)를 제외한 자를 말한다. <개정 2015.2.3, 2020.2.11>",
+      "조세특례제한법 시행령 100조 31 자녀장려금 관련 사항의 준용 등#KOBLEX-070935": "② 납세지 관할 세무서장은 제1항에 따라 자녀장려금을 결정할 때 신청자(그 배우자를 포함한다)가 「소득세법」 제59조의2에 따른 자녀세액공제를 받은 경우에는 같은 조 및 같은 법 제61조에 따라 계산한 금액을 공제하여야 한다. <신설 2017.2.7>",
+      "지방세특례제한법 151조  대학 맞춤형 교육비용 등에 대한 세액공제#KOBLEX-110733": "제151조(대학 맞춤형 교육비용 등에 대한 세액공제)",
+      "지방세특례제한법 97조 4 특별세액공제#KOBLEX-110413": "④ 거주자(사업소득만 있는 자는 제외하되, 「소득세법」 제73조제1항제4호에 따른 자 등 대통령령으로 정하는 자는 포함한다)가 해당 과세기간에 지급한 기부금[「소득세법」 제50조제1항제2호 및 제3호(나이의 제한을 받지 아니한다)에 해당하는 사람(다른 거주자의 기본공제를 적용받은 사람은 제외한다)이 지급한 기부금을 포함한다]이 있는 경우 다음 각 호의 기부금을 합한 금액에서 사업소득금액을 계산할 때 필요경비에 산입한 기부금을 뺀 금액의 1,000분의 15(해당 금액이 2천만원을 초과하는 경우 그 초과분에 대해서는 1,000분의 30)에 해당하는 금액(이하 이 조에서 \"기부금 세액공제액\"이라 한다)을 해당 과세기간의 합산과세되는 종합소득분 개인지방소득 산출세액(필요경비에 산입한 기부금이 있는 경우 사업소득에 대한 산출세액은 제외한다)에서 공제한다. 이 경우 제1호의 기부금과 제2호의 기부금이 함께 있으면 제1호의 기부금을 먼저 공제하되, 2013년 12월 31일 이전에 지급한 기부금을 2014년 1월 1일 이후에 개시하는 과세기간에 이월하여 소득공제하는 경우에는 해당 과세기간에 지급한 기부금보다 먼저 공제한다. <개정 2014.12.31, 2016.12.27> 1. 법정기부금 2. 지정기부금. 이 경우 지정기부금의 한도액은 다음 각 목의 구분에 따른다.",
+      "지방세특례제한법 97조 4 특별세액공제#KOBLEX-110414": "⑤ 제1항부터 제3항까지의 규정을 적용할 때 과세기간 종료일 이전에 혼인·이혼·별거·취업 등의 사유로 기본공제대상자에 해당되지 아니하게 되는 종전의 배우자·부양가족·장애인 또는 과세기간 종료일 현재 65세 이상인 사람을 위하여 이미 지급한 금액이 있는 경우에는 그 사유가 발생한 날까지 지급한 금액에 제1항부터 제3항까지의 규정에 따른 율을 적용한 금액을 해당 과세기간의 종합소득분 개인지방소득 산출세액에서 공제한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "교육비 세액공제 대상자 범위를 규정하는 조항이 후보 목록에 없습니다.",
+            "requirement_id": "E1-R1",
+            "status": "unsatisfied"
+          },
+          {
+            "linked_provision_ids": [],
+            "rationale": "교육비 세액공제 한도 금액을 규정하는 조항이 후보 목록에 없습니다.",
+            "requirement_id": "E1-R2",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E1-R1",
+          "E1-R2"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "제출된 후보 조항들(C001~C025) 중 근로소득자의 교육비 세액공제 대상자 범위(기본공제대상자 외 자녀 포함 여부) 및 구체적인 공제 한도 금액을 명시하는 조항이 없습니다. C009는 제목만 존재하고 본문 내용이 없어 법적 근거로 사용할 수 없으며, C011은 자녀세액공제에 관한 규정으로 교육비 세액공제와 구별됩니다. 나머지 조항들은 부가가치세, 자녀장려금, 장기집합투자증권저축 등 관련성이 없는 내용입니다.",
+        "status": "uncovered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "소득세법 59조 4 특별세액공제#KOBLEX-153311"
+            ],
+            "rationale": "C003 제5항은 기본공제대상자 자격 상실 시점(사유 발생일)과 세액공제 적용 관계(해당일까지 지급액에 대한 공제)를 규정하고 있습니다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "소득세법 59조 4 특별세액공제#KOBLEX-153311"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C003은 과세기간 종료일 이전에 기본공제대상자 자격을 상실한 경우(전학 등 사유 포함)에 대해 사유 발생일까지의 지급액에 대해 세액공제를 적용할 수 있는 법적 근거를 명확히 제공합니다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [
+      "T1"
+    ],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "소득세법 59조 4 특별세액공제#KOBLEX-153311",
+        "support_spans": [
+          {
+            "end_char": 224,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 9,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "근로소득자의 교육비 세액공제 대상 범위 및 한도",
+        "issue_id": "I1"
+      },
+      {
+        "description": "과세기간 중 기본공제대상자 자격 상실 시 세액공제 적용",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "기본공제대상자 외 자녀에 대한 교육비 공제 가능 여부와 한도 금액을 명시하는 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "교육비 세액공제 대상자 범위(기본공제대상자 포함 여부) 규정"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "교육비 세액공제 한도 금액 규정"
+          }
+        ],
+        "critical": true,
+        "description": "근로소득자의 교육비 세액공제 대상자 범위 및 공제 한도 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 기본공제대상자가 아닌 자녀에 대한 공제 한도 도출에 필수",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] 갑은 초등학생 아들 을을 둔 근로소득자로, 을의 학비를 위해 연간 300만원을 지급하고 있습니다. 그러나 과세기간 종료일 이전에 을은 전학을 가면서 갑의 기본공제대상자 요건에 해당되지 않게 되었습니다. 이러한 상황에서 갑이 받을 수 있는 교육비 세액공제가 궁금합니다. [질문] 갑이 기본공제대상자가 아닌 아들 을을 위해 지급한 교육비에 대해 받을 수 있는 세액공제의 한도와 과세기간 종료일 이전에 을이 기본공제대상자에서 제외된 경우에 적용할 수 있는 세액공제는 어떻게 되는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "교육비 세액공제",
+          "기본공제대상자",
+          "세액공제 한도",
+          "근로소득자"
+        ],
+        "query_text": "근로소득자 교육비 세액공제 대상자 범위 기본공제대상자 외 자녀 한도 [원문 맥락] 이러한 상황에서 갑이 받을 수 있는 교육비 세액공제가 궁금합니다. 갑이 기본공제대상자가 아닌 아들 을을 위해 지급한 교육비에 대해 받을 수 있는 세액공제의 한도와 과세기간 종료일 이전에 을이 기본공제대상자에서 제외된 경우에 적용할 수 있는 세액공제는 어떻게 되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "소득세법 제50조",
+          "소득세법 제51조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "기본공제대상자 제외",
+          "교육비 세액공제",
+          "과세기간",
+          "자격 상실"
+        ],
+        "query_text": "과세기간 중 기본공제대상자 제외 교육비 세액공제 적용 특례 [원문 맥락] 이러한 상황에서 갑이 받을 수 있는 교육비 세액공제가 궁금합니다. 갑이 기본공제대상자가 아닌 아들 을을 위해 지급한 교육비에 대해 받을 수 있는 세액공제의 한도와 과세기간 종료일 이전에 을이 기본공제대상자에서 제외된 경우에 적용할 수 있는 세액공제는 어떻게 되는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "소득세법 제50조",
+          "소득세법 제51조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "교육비 세액공제",
+          "기본공제대상자",
+          "세액공제 대상",
+          "자녀"
+        ],
+        "query_text": "소득세법 교육비 세액공제 대상자 범위 기본공제대상자 외 자녀 포함 여부 [원문 맥락] 이러한 상황에서 갑이 받을 수 있는 교육비 세액공제가 궁금합니다. 갑이 기본공제대상자가 아닌 아들 을을 위해 지급한 교육비에 대해 받을 수 있는 세액공제의 한도와 과세기간 종료일 이전에 을이 기본공제대상자에서 제외된 경우에 적용할 수 있는 세액공제는 어떻게 되는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "소득세법 제50조",
+          "소득세법 제51조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "세액공제 한도",
+          "교육비",
+          "공제율",
+          "근로소득자"
+        ],
+        "query_text": "교육비 세액공제 한도 금액 300만원 15% 근로소득자 [원문 맥락] 이러한 상황에서 갑이 받을 수 있는 교육비 세액공제가 궁금합니다. 갑이 기본공제대상자가 아닌 아들 을을 위해 지급한 교육비에 대해 받을 수 있는 세액공제의 한도와 과세기간 종료일 이전에 을이 기본공제대상자에서 제외된 경우에 적용할 수 있는 세액공제는 어떻게 되는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "소득세법 제50조",
+          "소득세법 제51조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "교육비 세액공제",
+          "기본공제대상자",
+          "세액공제 한도",
+          "소득세법 제50조"
+        ],
+        "query_text": "소득세법 제50조 교육비 세액공제 대상자 범위 및 한도 [원문 맥락] 이러한 상황에서 갑이 받을 수 있는 교육비 세액공제가 궁금합니다. 갑이 기본공제대상자가 아닌 아들 을을 위해 지급한 교육비에 대해 받을 수 있는 세액공제의 한도와 과세기간 종료일 이전에 을이 기본공제대상자에서 제외된 경우에 적용할 수 있는 세액공제는 어떻게 되는가?",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "소득세법 제50조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "교육비",
+          "세액공제",
+          "공제율",
+          "한도액",
+          "자녀"
+        ],
+        "query_text": "교육비 세액공제 공제율 한도액 기본공제대상자 외 자녀 [원문 맥락] 이러한 상황에서 갑이 받을 수 있는 교육비 세액공제가 궁금합니다. 갑이 기본공제대상자가 아닌 아들 을을 위해 지급한 교육비에 대해 받을 수 있는 세액공제의 한도와 과세기간 종료일 이전에 을이 기본공제대상자에서 제외된 경우에 적용할 수 있는 세액공제는 어떻게 되는가?",
+        "request_id": "GRQ-R3-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "소득세법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 초등학생 아들 을을 둔 근로소득자로, 을의 학비를 위해 연간 300만원을 지급하고 있습니다. 그러나 과세기간 종료일 이전에 을은 전학을 가면서 갑의 기본공제대상자 요건에 해당되지 않게 되었습니다. 이러한 상황에서 갑이 받을 수 있는 교육비 세액공제가 궁금합니다.\n\n[질문]\n갑이 기본공제대상자가 아닌 아들 을을 위해 지급한 교육비에 대해 받을 수 있는 세액공제의 한도와 과세기간 종료일 이전에 을이 기본공제대상자에서 제외된 경우에 적용할 수 있는 세액공제는 어떻게 되는가?",
+    "remaining_request_budget": 3,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "기본공제대상자 외 자녀에 대한 교육비 공제 가능 여부와 한도 금액을 명시하는 조항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "교육비 세액공제 대상자 범위(기본공제대상자 포함 여부) 규정"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "교육비 세액공제 한도 금액 규정"
+          }
+        ],
+        "critical": true,
+        "description": "근로소득자의 교육비 세액공제 대상자 범위 및 공제 한도 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 기본공제대상자가 아닌 자녀에 대한 공제 한도 도출에 필수",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "과세기간 종료일 이전에 기본공제대상자에서 제외된 경우의 공제 적용 여부 및 제한 사항 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "기본공제대상자 자격 상실 시점 및 세액공제 적용 관계 규정"
+          }
+        ],
+        "critical": true,
+        "description": "과세기간 중 기본공제대상자 자격 변동 시 세액공제 적용 특례 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "exception",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 요구하는 자격 상실 시 적용 가능한 공제 범위 도출에 필수",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "821961d0-e571-42d1-9a9d-eb72f9d37100",
+    "seen_provision_ids": [
+      "부가가치세법 47조  전자세금계산서 발급 전송에 대한 세액공제 특례#KOBLEX-126976",
+      "조세특례제한법 시행규칙 52조 2 성실사업자에 대한 의료비등 공제#KOBLEX-146524",
+      "소득세법 59조 2 자녀세액공제#KOBLEX-153296",
+      "소득세법 59조 4 특별세액공제#KOBLEX-153310",
+      "소득세법 51조 3 연금보험료공제#KOBLEX-153222",
+      "소득세법 59조 4 특별세액공제#KOBLEX-153311",
+      "소득세법 150조  납세조합의 징수의무#KOBLEX-154006",
+      "소득세법 시행령 118조 6 교육비 세액공제#KOBLEX-141721",
+      "조세특례제한법 100조 30 자녀장려금의 신청 등#KOBLEX-100117",
+      "소득세법 53조  생계를 같이 하는 부양가족의 범위와 그 판정시기#KOBLEX-153245",
+      "조세특례제한법 91조 16 장기집합투자증권저축에 대한 소득공제#KOBLEX-099707",
+      "조세특례제한법 시행령 100조 31 자녀장려금 관련 사항의 준용 등#KOBLEX-070935",
+      "지방세특례제한법 97조 4 특별세액공제#KOBLEX-110413",
+      "법인세법 시행규칙 11조  부가가치세 매입세액의 손금산입#KOBLEX-150344",
+      "법인세법 13조  과세표준#KOBLEX-208795",
+      "장애인복지법 시행규칙 23조  자녀교육비 지급대상 및 기준#KOBLEX-020247",
+      "소득세법 54조  종합소득공제 등의 배제#KOBLEX-153247",
+      "소득세법 시행령 106조  부양가족등의 인적공제#KOBLEX-141619",
+      "지방세특례제한법 151조  대학 맞춤형 교육비용 등에 대한 세액공제#KOBLEX-110733",
+      "소득세법 51조  추가공제#KOBLEX-153214",
+      "조세특례제한법 시행령 100조 28 자녀장려금의 신청대상#KOBLEX-070926",
+      "조세특례제한법 91조 20 청년형 장기집합투자증권저축에 대한 소득공제#KOBLEX-099751",
+      "지방세특례제한법 97조 4 특별세액공제#KOBLEX-110414",
+      "소득세법 시행규칙 39조  부가가치세매입세액의 필요경비산입#KOBLEX-035946",
+      "부가가치세법 43조  면세사업등을 위한 감가상각자산의 과세사업 전환 시 매입세액공제 특례#KOBLEX-126957"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

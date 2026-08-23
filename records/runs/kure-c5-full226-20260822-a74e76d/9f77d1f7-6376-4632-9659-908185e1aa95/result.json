@@ -1,0 +1,902 @@
+{
+  "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": null,
+  "candidate_answer_basis": "retrieved_candidates",
+  "candidate_answer_error": "grounded_legal_answer_generation did not produce a valid GENERATE_BENCHMARK_CANDIDATE result after 2 attempts: grounded_legal_answer_generation returned UNCOVERED_CRITICAL_EVIDENCE: Critical evidence items E1 and E2 are uncovered. The supplied candidate provisions do not establish the legal effect of a debtor's written refusal to perform (anticipatory breach) or the legal effect of a creditor's demand for receipt and notice of readiness to perform on the establishment of non-performance.",
+  "candidate_answer_status": "EXECUTION_FAILURE",
+  "candidate_answer_termination_reason": "INVALID_SKILL_OUTPUT",
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T14:44:22.509717+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 138683.793,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 386,
+      "dedup_collapse": 26,
+      "evidence_fusion": 386,
+      "first_stage": 400,
+      "request_rerank": 400,
+      "round_selected": 20,
+      "rrf": 400,
+      "selected": 386
+    }
+  },
+  "run_id": "9f77d1f7-6376-4632-9659-908185e1aa95",
+  "skill_generation_diagnostics": {
+    "attempt_count": 6,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 6,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "ABSTAIN",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "Two consecutive retrieval rounds did not improve critical evidence.",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "ABSTAIN",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 16
+        },
+        "event": "BENCHMARK_CANDIDATE_GENERATION_STARTED",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "error": "grounded_legal_answer_generation did not produce a valid GENERATE_BENCHMARK_CANDIDATE result after 2 attempts: grounded_legal_answer_generation returned UNCOVERED_CRITICAL_EVIDENCE: Critical evidence items E1 and E2 are uncovered. The supplied candidate provisions do not establish the legal effect of a debtor's written refusal to perform (anticipatory breach) or the legal effect of a creditor's demand for receipt and notice of readiness to perform on the establishment of non-performance.",
+          "termination_reason": "INVALID_SKILL_OUTPUT"
+        },
+        "event": "BENCHMARK_CANDIDATE_EXECUTION_FAILURE",
+        "phase": "ABSTAINED"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_effect",
+        "question_anchor": "법적으로 어떤 효과가 발생하는가?",
+        "requested_output": "을의 이행거절과 갑의 수령최고에 따른 법적 효과"
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "민법 546조  이행불능과 해제#KOBLEX-059488"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6350467205047607,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "민법 546조  이행불능과 해제#KOBLEX-059488",
+        "provision_text": "제546조(이행불능과 해제) 채무자의 책임있는 사유로 이행이 불능하게 된 때에는 채권자는 계약을 해제할 수 있다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.04327521100640297,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민법 546조  이행불능과 해제",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "사회기반시설에 대한 민간투자법 37조  통지의무#KOBLEX-095132"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.6056857705116272,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "사회기반시설에 대한 민간투자법 37조  통지의무#KOBLEX-095132",
+        "provision_text": "3. 채무자가 채무를 이행하지 아니한 경우",
+        "rerank_rank": 2,
+        "rerank_score": 0.0362229198217392,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "사회기반시설에 대한 민간투자법 37조  통지의무 3호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068588"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 14,
+        "first_stage_score": 0.567101776599884,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068588",
+        "provision_text": "② 지방자치단체의 장은 제1항에 따라 최고를 받은 채무자가 최고한 기한까지 채무를 이행하지 아니하는 경우에는 채권자를 대위(代位)하여 채무자를 상대로 소송을 제기하여야 한다. 다만, 채무이행의 자력(資力)이 없다고 인정하는 경우에는 채권의 압류를 해제할 수 있다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.029826102778315544,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "지방세징수법 시행령 53조  채무불이행에 따른 절차 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068587"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 30,
+        "first_stage_score": 0.5789151191711426,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068587",
+        "provision_text": "① 지방자치단체의 장은 법 제51조제1항에 따라 채권 압류의 통지를 받은 채무자가 채무이행의 기한이 지나도 이행하지 아니하는 경우에는 최고를 하여야 한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.02424406260251999,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "지방세징수법 시행령 53조  채무불이행에 따른 절차 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "서민의 금융생활 지원에 관한 법률 51조  채권자의 의무#KOBLEX-172774"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.6056857705116272,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "서민의 금융생활 지원에 관한 법률 51조  채권자의 의무#KOBLEX-172774",
+        "provision_text": "3. 채무자가 채무를 이행하지 아니한 경우",
+        "rerank_rank": 5,
+        "rerank_score": 0.015188144519925117,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "서민의 금융생활 지원에 관한 법률 51조  채권자의 의무 3호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 483조  일부의 대위#KOBLEX-059377"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.5988143086433411,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "민법 483조  일부의 대위#KOBLEX-059377",
+        "provision_text": "②전항의 경우에 채무불이행을 원인으로 하는 계약의 해지 또는 해제는 채권자만이 할 수 있고 채권자는 대위자에게 그 변제한 가액과 이자를 상환하여야 한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.015045774169266224,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "민법 483조  일부의 대위 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 395조  이행지체와 전보배상#KOBLEX-059190"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 19,
+        "first_stage_score": 0.5873699188232422,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "민법 395조  이행지체와 전보배상#KOBLEX-059190",
+        "provision_text": "제395조(이행지체와 전보배상) 채무자가 채무의 이행을 지체한 경우에 채권자가 상당한 기간을 정하여 이행을 최고하여도 그 기간내에 이행하지 아니하거나 지체후의 이행이 채권자에게 이익이 없는 때에는 채권자는 수령을 거절하고 이행에 갈음한 손해배상을 청구할 수 있다. <개정 2014.12.30>",
+        "rerank_rank": 7,
+        "rerank_score": 0.015043244697153568,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민법 395조  이행지체와 전보배상",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "한국주택금융공사법 40조  채권자의 의무#KOBLEX-183317"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.6056857705116272,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "한국주택금융공사법 40조  채권자의 의무#KOBLEX-183317",
+        "provision_text": "3. 채무자가 채무를 이행하지 아니한 경우",
+        "rerank_rank": 8,
+        "rerank_score": 0.012227393686771393,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "한국주택금융공사법 40조  채권자의 의무 3호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 451조  승낙, 통지의 효과#KOBLEX-059312"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 23,
+        "first_stage_score": 0.5816177129745483,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "민법 451조  승낙, 통지의 효과#KOBLEX-059312",
+        "provision_text": "①채무자가 이의를 보류하지 아니하고 전조의 승낙을 한 때에는 양도인에게 대항할 수 있는 사유로써 양수인에게 대항하지 못한다. 그러나 채무자가 채무를 소멸하게 하기 위하여 양도인에게 급여한 것이 있으면 이를 회수할 수 있고 양도인에 대하여 부담한 채무가 있으면 그 성립되지 아니함을 주장할 수 있다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.011481713503599167,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 451조  승낙, 통지의 효과 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 250조  채권자의 추심최고#KOBLEX-128888"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 77,
+        "first_stage_score": 0.5280892252922058,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "민사집행법 250조  채권자의 추심최고#KOBLEX-128888",
+        "provision_text": "제250조(채권자의 추심최고) 압류채권자가 추심절차를 게을리 한 때에는 집행력 있는 정본으로 배당을 요구한 채권자는 일정한 기간내에 추심하도록 최고하고, 최고에 따르지 아니한 때에는 법원의 허가를 얻어 직접 추심할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.010012015700340271,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "민사집행법 250조  채권자의 추심최고",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 538조  채권자귀책사유로 인한 이행불능#KOBLEX-059474"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 30,
+        "first_stage_score": 0.5747775435447693,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "민법 538조  채권자귀책사유로 인한 이행불능#KOBLEX-059474",
+        "provision_text": "①쌍무계약의 당사자 일방의 채무가 채권자의 책임있는 사유로 이행할 수 없게 된 때에는 채무자는 상대방의 이행을 청구할 수 있다. 채권자의 수령지체 중에 당사자쌍방의 책임없는 사유로 이행할 수 없게 된 때에도 같다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.0029361883644014597,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 538조  채권자귀책사유로 인한 이행불능 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 405조  채권자대위권행사의 통지#KOBLEX-059211"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 34,
+        "first_stage_score": 0.5559201240539551,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "민법 405조  채권자대위권행사의 통지#KOBLEX-059211",
+        "provision_text": "②채무자가 전항의 통지를 받은 후에는 그 권리를 처분하여도 이로써 채권자에게 대항하지 못한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.0008645995403639972,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 405조  채권자대위권행사의 통지 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "신용보증기금법 31조  채권자의 통지의무#KOBLEX-210970"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 37,
+        "first_stage_score": 0.5789527893066406,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "신용보증기금법 31조  채권자의 통지의무#KOBLEX-210970",
+        "provision_text": "4. 채무자가 채무를 이행하지 아니하였을 때",
+        "rerank_rank": 4,
+        "rerank_score": 0.0007512132287956774,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "신용보증기금법 31조  채권자의 통지의무 4호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "보증인 보호를 위한 특별법 5조  채권자의 통지의무 등#KOBLEX-220076"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 26,
+        "first_stage_score": 0.5622930526733398,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "보증인 보호를 위한 특별법 5조  채권자의 통지의무 등#KOBLEX-220076",
+        "provision_text": "① 채권자는 주채무자가 원본, 이자 그 밖의 채무를 3개월 이상 이행하지 아니하는 경우 또는 주채무자가 이행기에 이행할 수 없음을 미리 안 경우에는 지체 없이 보증인에게 그 사실을 알려야 한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.0006579927867278457,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "보증인 보호를 위한 특별법 5조  채권자의 통지의무 등 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "신용보증기금법 31조  채권자의 통지의무#KOBLEX-210969"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 63,
+        "first_stage_score": 0.5739232897758484,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "신용보증기금법 31조  채권자의 통지의무#KOBLEX-210969",
+        "provision_text": "3. 채무자가 기한의 이익을 상실하였을 때",
+        "rerank_rank": 6,
+        "rerank_score": 0.0005042314296588302,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "신용보증기금법 31조  채권자의 통지의무 3호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지역신용보증재단법 26조  채권자의 의무#KOBLEX-056832"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 23,
+        "first_stage_score": 0.5789527893066406,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "지역신용보증재단법 26조  채권자의 의무#KOBLEX-056832",
+        "provision_text": "4. 채무자가 채무를 이행하지 아니하였을 때",
+        "rerank_rank": 5,
+        "rerank_score": 0.0004001692868769169,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "지역신용보증재단법 26조  채권자의 의무 4호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "민법 395조  이행지체와 전보배상#KOBLEX-059190": "제395조(이행지체와 전보배상) 채무자가 채무의 이행을 지체한 경우에 채권자가 상당한 기간을 정하여 이행을 최고하여도 그 기간내에 이행하지 아니하거나 지체후의 이행이 채권자에게 이익이 없는 때에는 채권자는 수령을 거절하고 이행에 갈음한 손해배상을 청구할 수 있다. <개정 2014.12.30>",
+      "민법 405조  채권자대위권행사의 통지#KOBLEX-059211": "②채무자가 전항의 통지를 받은 후에는 그 권리를 처분하여도 이로써 채권자에게 대항하지 못한다.",
+      "민법 451조  승낙, 통지의 효과#KOBLEX-059312": "①채무자가 이의를 보류하지 아니하고 전조의 승낙을 한 때에는 양도인에게 대항할 수 있는 사유로써 양수인에게 대항하지 못한다. 그러나 채무자가 채무를 소멸하게 하기 위하여 양도인에게 급여한 것이 있으면 이를 회수할 수 있고 양도인에 대하여 부담한 채무가 있으면 그 성립되지 아니함을 주장할 수 있다.",
+      "민법 483조  일부의 대위#KOBLEX-059377": "②전항의 경우에 채무불이행을 원인으로 하는 계약의 해지 또는 해제는 채권자만이 할 수 있고 채권자는 대위자에게 그 변제한 가액과 이자를 상환하여야 한다.",
+      "민법 538조  채권자귀책사유로 인한 이행불능#KOBLEX-059474": "①쌍무계약의 당사자 일방의 채무가 채권자의 책임있는 사유로 이행할 수 없게 된 때에는 채무자는 상대방의 이행을 청구할 수 있다. 채권자의 수령지체 중에 당사자쌍방의 책임없는 사유로 이행할 수 없게 된 때에도 같다.",
+      "민법 546조  이행불능과 해제#KOBLEX-059488": "제546조(이행불능과 해제) 채무자의 책임있는 사유로 이행이 불능하게 된 때에는 채권자는 계약을 해제할 수 있다.",
+      "민사집행법 250조  채권자의 추심최고#KOBLEX-128888": "제250조(채권자의 추심최고) 압류채권자가 추심절차를 게을리 한 때에는 집행력 있는 정본으로 배당을 요구한 채권자는 일정한 기간내에 추심하도록 최고하고, 최고에 따르지 아니한 때에는 법원의 허가를 얻어 직접 추심할 수 있다.",
+      "보증인 보호를 위한 특별법 5조  채권자의 통지의무 등#KOBLEX-220076": "① 채권자는 주채무자가 원본, 이자 그 밖의 채무를 3개월 이상 이행하지 아니하는 경우 또는 주채무자가 이행기에 이행할 수 없음을 미리 안 경우에는 지체 없이 보증인에게 그 사실을 알려야 한다.",
+      "사회기반시설에 대한 민간투자법 37조  통지의무#KOBLEX-095132": "3. 채무자가 채무를 이행하지 아니한 경우",
+      "서민의 금융생활 지원에 관한 법률 51조  채권자의 의무#KOBLEX-172774": "3. 채무자가 채무를 이행하지 아니한 경우",
+      "신용보증기금법 31조  채권자의 통지의무#KOBLEX-210969": "3. 채무자가 기한의 이익을 상실하였을 때",
+      "신용보증기금법 31조  채권자의 통지의무#KOBLEX-210970": "4. 채무자가 채무를 이행하지 아니하였을 때",
+      "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068587": "① 지방자치단체의 장은 법 제51조제1항에 따라 채권 압류의 통지를 받은 채무자가 채무이행의 기한이 지나도 이행하지 아니하는 경우에는 최고를 하여야 한다.",
+      "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068588": "② 지방자치단체의 장은 제1항에 따라 최고를 받은 채무자가 최고한 기한까지 채무를 이행하지 아니하는 경우에는 채권자를 대위(代位)하여 채무자를 상대로 소송을 제기하여야 한다. 다만, 채무이행의 자력(資力)이 없다고 인정하는 경우에는 채권의 압류를 해제할 수 있다.",
+      "지역신용보증재단법 26조  채권자의 의무#KOBLEX-056832": "4. 채무자가 채무를 이행하지 아니하였을 때",
+      "한국주택금융공사법 40조  채권자의 의무#KOBLEX-183317": "3. 채무자가 채무를 이행하지 아니한 경우"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No candidate provision establishes that a debtor's refusal to perform constitutes non-performance or anticipatory breach.",
+            "requirement_id": "E1-R1",
+            "status": "unsatisfied"
+          },
+          {
+            "linked_provision_ids": [],
+            "rationale": "No candidate provision establishes the specific legal rights (e.g., termination, damages) arising from a debtor's refusal to perform.",
+            "requirement_id": "E1-R2",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E1-R1",
+          "E1-R2"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "Provided candidates do not establish the legal effect of a debtor's written refusal to perform (anticipatory breach) or the resulting rights of the creditor (e.g., immediate termination or damages). C001 addresses impossibility of performance, not refusal. Other candidates are irrelevant to this specific legal proposition.",
+        "status": "uncovered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No candidate provision establishes the legal effect of a creditor's demand for receipt on the establishment of non-performance.",
+            "requirement_id": "E2-R1",
+            "status": "unsatisfied"
+          },
+          {
+            "linked_provision_ids": [],
+            "rationale": "No candidate provision establishes the legal effect of a creditor's notice of readiness to perform on the establishment of non-performance.",
+            "requirement_id": "E2-R2",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E2-R1",
+          "E2-R2"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "Provided candidates do not establish the legal effect of a creditor's demand for receipt (수령최고) and notice of readiness to perform on the establishment of non-performance or creditor's delay. C007 discusses the creditor's right to refuse receipt after a period of delay, which is distinct from the creditor's act of demanding receipt to establish the debtor's default. Other candidates are irrelevant.",
+        "status": "uncovered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [],
+    "last_retrieval_new_provision_count": 6,
+    "last_validated_event": "RESPONSE_ASSEMBLY.ABSTAIN",
+    "legal_issues": [
+      {
+        "description": "채무자의 서면 이행거절이 채권자에게 부여하는 법적 지위와 효과",
+        "issue_id": "I1"
+      },
+      {
+        "description": "채권자의 수령최고와 이행준비 통지가 채무불이행의 성립에 미치는 효과",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "채무자의 서면 이행거절이 채무불이행으로 인정되는지, 또는 채권자에게 즉시 해지권/손해배상청구권을 부여하는지 규정이 확인되어야 함",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "채무자의 이행거절이 채무불이행으로 간주되는지 여부"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "이행거절 시 채권자가 취득하는 법적 지위(예: 즉시 해지권, 손해배상청구권)"
+          }
+        ],
+        "critical": true,
+        "description": "채무자의 이행거절에 따른 채권자의 법적 지위 및 채무불이행 성립 요건",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "을의 서면 이행거절이 법적 효과를 발생시키는지 판단하는 데 필수적",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "채권자의 수령최고와 이행준비 통지가 채무불이행의 성립 요건(채권자지체 등)을 충족하는지 규정이 확인되어야 함",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "채권자의 수령최고가 채무불이행의 성립에 미치는 효과"
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "채권자의 이행준비 완료 통지가 채무불이행의 성립에 미치는 효과"
+          }
+        ],
+        "critical": true,
+        "description": "채권자의 수령최고와 이행준비 통지가 채무불이행 성립에 미치는 효과",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "갑의 수령최고와 이행준비 통지가 법적 효과를 발생시키는지 판단하는 데 필수적",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] 갑은 을에게 특정 상품을 정해진 날짜에 판매하기로 하는 계약을 체결하였다. 그러나 거래일이 도래하기 전, 을은 갑에게 더 이상 해당 상품을 구매할 의사가 없음을 명백하게 서면으로 통지하였다. 이에 갑은 을이 계약을 이행하지 않을 의사임을 확정적으로 인식하고, 계약 해제를 검토하게 된다.그에 앞서 갑은 계약상 자신의 의무 이행을 준비하였고, 상품 인도 준비가 완료되었음을 통지하며 을에게 수령을 최고하였다. [질문] 을이 계약을 이행하지 않을 의사를 명확히 밝힌 상황에서, 갑이 자신의 변제를 준비하고 완료 사실을 통지하며 수령을 최고한 경우, 법적으로 어떤 효과가 발생하는가?",
+    "phase": "ABSTAINED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "이행거절",
+          "채무불이행",
+          "서면통지",
+          "채권자지체"
+        ],
+        "query_text": "채무자의 이행거절 채무불이행 성립 요건 [원문 맥락] 이에 갑은 을이 계약을 이행하지 않을 의사임을 확정적으로 인식하고, 계약 해제를 검토하게 된다.그에 앞서 갑은 계약상 자신의 의무 이행을 준비하였고, 상품 인도 준비가 완료되었음을 통지하며 을에게 수령을 최고하였다. 을이 계약을 이행하지 않을 의사를 명확히 밝힌 상황에서, 갑이 자신의 변제를 준비하고 완료 사실을 통지하며 수령을 최고한 경우, 법적으로 어떤 효과가 발생하는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제390조",
+          "민법 제391조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "수령최고",
+          "채무불이행",
+          "이행준비",
+          "채권자지체"
+        ],
+        "query_text": "채권자의 수령최고 채무불이행 성립 효과 [원문 맥락] 이에 갑은 을이 계약을 이행하지 않을 의사임을 확정적으로 인식하고, 계약 해제를 검토하게 된다.그에 앞서 갑은 계약상 자신의 의무 이행을 준비하였고, 상품 인도 준비가 완료되었음을 통지하며 을에게 수령을 최고하였다. 을이 계약을 이행하지 않을 의사를 명확히 밝힌 상황에서, 갑이 자신의 변제를 준비하고 완료 사실을 통지하며 수령을 최고한 경우, 법적으로 어떤 효과가 발생하는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제390조",
+          "민법 제391조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "이행거절",
+          "해지권",
+          "손해배상",
+          "채권자"
+        ],
+        "query_text": "채무자의 이행거절에 따른 채권자의 즉시 해지권 및 손해배상청구권 발생 요건 [원문 맥락] 이에 갑은 을이 계약을 이행하지 않을 의사임을 확정적으로 인식하고, 계약 해제를 검토하게 된다.그에 앞서 갑은 계약상 자신의 의무 이행을 준비하였고, 상품 인도 준비가 완료되었음을 통지하며 을에게 수령을 최고하였다. 을이 계약을 이행하지 않을 의사를 명확히 밝힌 상황에서, 갑이 자신의 변제를 준비하고 완료 사실을 통지하며 수령을 최고한 경우, 법적으로 어떤 효과가 발생하는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제544조",
+          "민법 제545조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "수령최고",
+          "이행지체",
+          "채무자",
+          "통지"
+        ],
+        "query_text": "채권자의 수령최고 및 이행준비 통지가 채무자의 이행지체 성립에 미치는 효과 [원문 맥락] 이에 갑은 을이 계약을 이행하지 않을 의사임을 확정적으로 인식하고, 계약 해제를 검토하게 된다.그에 앞서 갑은 계약상 자신의 의무 이행을 준비하였고, 상품 인도 준비가 완료되었음을 통지하며 을에게 수령을 최고하였다. 을이 계약을 이행하지 않을 의사를 명확히 밝힌 상황에서, 갑이 자신의 변제를 준비하고 완료 사실을 통지하며 수령을 최고한 경우, 법적으로 어떤 효과가 발생하는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제390조",
+          "민법 제391조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 을에게 특정 상품을 정해진 날짜에 판매하기로 하는 계약을 체결하였다. 그러나 거래일이 도래하기 전, 을은 갑에게 더 이상 해당 상품을 구매할 의사가 없음을 명백하게 서면으로 통지하였다. 이에 갑은 을이 계약을 이행하지 않을 의사임을 확정적으로 인식하고, 계약 해제를 검토하게 된다.그에 앞서 갑은 계약상 자신의 의무 이행을 준비하였고, 상품 인도 준비가 완료되었음을 통지하며 을에게 수령을 최고하였다.\n\n[질문]\n을이 계약을 이행하지 않을 의사를 명확히 밝힌 상황에서, 갑이 자신의 변제를 준비하고 완료 사실을 통지하며 수령을 최고한 경우, 법적으로 어떤 효과가 발생하는가?",
+    "remaining_request_budget": 5,
+    "remaining_round_budget": 1,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "채무자의 서면 이행거절이 채무불이행으로 인정되는지, 또는 채권자에게 즉시 해지권/손해배상청구권을 부여하는지 규정이 확인되어야 함",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "채무자의 이행거절이 채무불이행으로 간주되는지 여부"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "이행거절 시 채권자가 취득하는 법적 지위(예: 즉시 해지권, 손해배상청구권)"
+          }
+        ],
+        "critical": true,
+        "description": "채무자의 이행거절에 따른 채권자의 법적 지위 및 채무불이행 성립 요건",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "을의 서면 이행거절이 법적 효과를 발생시키는지 판단하는 데 필수적",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "채권자의 수령최고와 이행준비 통지가 채무불이행의 성립 요건(채권자지체 등)을 충족하는지 규정이 확인되어야 함",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "채권자의 수령최고가 채무불이행의 성립에 미치는 효과"
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "채권자의 이행준비 완료 통지가 채무불이행의 성립에 미치는 효과"
+          }
+        ],
+        "critical": true,
+        "description": "채권자의 수령최고와 이행준비 통지가 채무불이행 성립에 미치는 효과",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "갑의 수령최고와 이행준비 통지가 법적 효과를 발생시키는지 판단하는 데 필수적",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 2,
+    "run_id": "9f77d1f7-6376-4632-9659-908185e1aa95",
+    "seen_provision_ids": [
+      "보증인 보호를 위한 특별법 5조  채권자의 통지의무 등#KOBLEX-220076",
+      "신용보증기금법 31조  채권자의 통지의무#KOBLEX-210970",
+      "민법 451조  승낙, 통지의 효과#KOBLEX-059312",
+      "신용보증기금법 31조  채권자의 통지의무#KOBLEX-210969",
+      "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068588",
+      "민법 546조  이행불능과 해제#KOBLEX-059488",
+      "지역신용보증재단법 26조  채권자의 의무#KOBLEX-056832",
+      "서민의 금융생활 지원에 관한 법률 51조  채권자의 의무#KOBLEX-172774",
+      "민법 395조  이행지체와 전보배상#KOBLEX-059190",
+      "사회기반시설에 대한 민간투자법 37조  통지의무#KOBLEX-095132",
+      "민사집행법 250조  채권자의 추심최고#KOBLEX-128888",
+      "한국주택금융공사법 40조  채권자의 의무#KOBLEX-183317",
+      "민법 483조  일부의 대위#KOBLEX-059377",
+      "민법 405조  채권자대위권행사의 통지#KOBLEX-059211",
+      "민법 538조  채권자귀책사유로 인한 이행불능#KOBLEX-059474",
+      "지방세징수법 시행령 53조  채무불이행에 따른 절차#KOBLEX-068587"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ABSTAIN",
+  "termination_reason": "NO_RETRIEVAL_PROGRESS"
+}

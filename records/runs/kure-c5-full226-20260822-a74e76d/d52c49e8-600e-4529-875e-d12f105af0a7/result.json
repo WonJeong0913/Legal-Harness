@@ -1,0 +1,561 @@
+{
+  "abstention_reason": null,
+  "answer": "상법 제732조에 의하면 15세 미만자의 사망을 보험사고로 한 보험계약은 무효로 한다.[CT1]\n피보험자 을이 14세이므로 15세 미만자에 해당하여, 을의 사망을 보험사고로 한 생명보험계약은 무효입니다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "A1",
+      "message": "피보험자 을의 나이가 14세이며, 계약 체결 시점에 심신상실자 또는 심신박약자가 아님을 전제로 한다."
+    }
+  ],
+  "candidate_answer": "상법 제732조에 의하면 15세 미만자의 사망을 보험사고로 한 보험계약은 무효로 한다.[CT1]\n피보험자 을이 14세이므로 15세 미만자에 해당하여, 을의 사망을 보험사고로 한 생명보험계약은 무효입니다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "상법 732조  15세미만자등에 대한 계약의 금지#KOBLEX-116161",
+      "quoted_text": "제732조(15세미만자등에 대한 계약의 금지) 15세미만자, 심신상실자 또는 심신박약자의 사망을 보험사고로 한 보험계약은 무효로 한다. 다만, 심신박약자가 보험계약을 체결하거나 제735조의3에 따른 단체보험의 피보험자가 될 때에 의사능력이 있는 경우에는 그러하지 아니하다. <개정 1962.12.12, 1991.12.31, 2014.3.11>",
+      "support_description": "15세 미만자의 사망을 보험사고로 한 보험계약의 무효를 명시하는 법적 근거를 제공한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "상법 732조  15세미만자등에 대한 계약의 금지#KOBLEX-116161",
+      "quoted_text": "제732조(15세미만자등에 대한 계약의 금지) 15세미만자, 심신상실자 또는 심신박약자의 사망을 보험사고로 한 보험계약은 무효로 한다. 다만, 심신박약자가 보험계약을 체결하거나 제735조의3에 따른 단체보험의 피보험자가 될 때에 의사능력이 있는 경우에는 그러하지 아니하다. <개정 1962.12.12, 1991.12.31, 2014.3.11>",
+      "support_description": "14세 피보험자가 15세 미만자에 해당함을 근거로 계약의 무효를 적용하는 근거를 제공한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "상법 제732조에 의하면 15세 미만자의 사망을 보험사고로 한 보험계약은 무효로 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "피보험자 을이 14세이므로 15세 미만자에 해당하여, 을의 사망을 보험사고로 한 생명보험계약은 무효입니다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T10:32:09.534196+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 73918.555,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "L1",
+      "message": "본 답변은 상법 제732조에 따른 형식적 유효성 판단에 한정되며, 보험계약의 다른 유효성 요건(예: 보험이익, 보험료 납부 등)은 검토하지 않는다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 89,
+      "dedup_collapse": 22,
+      "evidence_fusion": 89,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 89
+    }
+  },
+  "run_id": "d52c49e8-600e-4529-875e-d12f105af0a7",
+  "skill_generation_diagnostics": {
+    "attempt_count": 4,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "상법 732조  15세미만자등에 대한 계약의 금지#KOBLEX-116161"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "법적으로 유효한가?",
+        "requested_output": "계약의 법적 유효성 여부"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "상법 644조  보험사고의 객관적 확정의 효과#KOBLEX-115929"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6396523714065552,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "상법 644조  보험사고의 객관적 확정의 효과#KOBLEX-115929",
+        "provision_text": "제644조(보험사고의 객관적 확정의 효과) 보험계약당시에 보험사고가 이미 발생하였거나 또는 발생할 수 없는 것인 때에는 그 계약은 무효로 한다. 그러나 당사자 쌍방과 피보험자가 이를 알지 못한 때에는 그러하지 아니하다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.7749872207641602,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "상법 644조  보험사고의 객관적 확정의 효과",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "약관의 규제에 관한 법률 16조  일부 무효의 특칙#KOBLEX-103943",
+          "약관의 규제에 관한 법률 16조  일부 무효의 특칙#KOBLEX-167858"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.5611502528190613,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "약관의 규제에 관한 법률 16조  일부 무효의 특칙#KOBLEX-103943",
+        "provision_text": "제16조(일부 무효의 특칙) 약관의 전부 또는 일부의 조항이 제3조제4항에 따라 계약의 내용이 되지 못하는 경우나 제6조부터 제14조까지의 규정에 따라 무효인 경우 계약은 나머지 부분만으로 유효하게 존속한다. 다만, 유효한 부분만으로는 계약의 목적 달성이 불가능하거나 그 유효한 부분이 한쪽 당사자에게 부당하게 불리한 경우에는 그 계약은 무효로 한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.5910018682479858,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "약관의 규제에 관한 법률 16조  일부 무효의 특칙",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 732조  15세미만자등에 대한 계약의 금지#KOBLEX-116161"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6260973215103149,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "상법 732조  15세미만자등에 대한 계약의 금지#KOBLEX-116161",
+        "provision_text": "제732조(15세미만자등에 대한 계약의 금지) 15세미만자, 심신상실자 또는 심신박약자의 사망을 보험사고로 한 보험계약은 무효로 한다. 다만, 심신박약자가 보험계약을 체결하거나 제735조의3에 따른 단체보험의 피보험자가 될 때에 의사능력이 있는 경우에는 그러하지 아니하다. <개정 1962.12.12, 1991.12.31, 2014.3.11>",
+        "rerank_rank": 3,
+        "rerank_score": 0.40989622473716736,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "상법 732조  15세미만자등에 대한 계약의 금지",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "약관의 규제에 관한 법률 14조  소송 제기의 금지 등#KOBLEX-103939",
+          "약관의 규제에 관한 법률 14조  소송 제기의 금지 등#KOBLEX-167854"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 16,
+        "first_stage_score": 0.5236173868179321,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "약관의 규제에 관한 법률 14조  소송 제기의 금지 등#KOBLEX-103939",
+        "provision_text": "제14조(소송 제기의 금지 등) 소송 제기 등과 관련된 약관의 내용 중 다음 각 호의 어느 하나에 해당하는 조항은 무효로 한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.34885308146476746,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "약관의 규제에 관한 법률 14조  소송 제기의 금지 등",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 726조  재보험에의 준용#KOBLEX-116130"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 83,
+        "first_stage_score": 0.4828778803348541,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "상법 726조  재보험에의 준용#KOBLEX-116130",
+        "provision_text": "제726조(재보험에의 준용) 이 절(節)의 규정은 그 성질에 반하지 아니하는 범위에서 재보험계약에 준용한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.34558162093162537,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "상법 726조  재보험에의 준용",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 651조 2 서면에 의한 질문의 효력#KOBLEX-115949"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 99,
+        "first_stage_score": 0.4797617495059967,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "상법 651조 2 서면에 의한 질문의 효력#KOBLEX-115949",
+        "provision_text": "제651조의2(서면에 의한 질문의 효력) 보험자가 서면으로 질문한 사항은 중요한 사항으로 추정한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.32122138142585754,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "상법 651조 2 서면에 의한 질문의 효력",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 730조#KOBLEX-116156"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 39,
+        "first_stage_score": 0.5038188099861145,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "상법 730조#KOBLEX-116156",
+        "provision_text": "제2절 생명보험",
+        "rerank_rank": 7,
+        "rerank_score": 0.2908863425254822,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "상법 730조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국제사법 49조  계약의 성립 및 유효성#KOBLEX-127875",
+          "국제사법 49조  계약의 성립 및 유효성#KOBLEX-200556"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 27,
+        "first_stage_score": 0.5127353668212891,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "국제사법 49조  계약의 성립 및 유효성#KOBLEX-127875",
+        "provision_text": "① 계약의 성립 및 유효성은 그 계약이 유효하게 성립하였을 경우 이 법에 따라 적용되어야 하는 준거법에 따라 판단한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.2858266830444336,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "국제사법 49조  계약의 성립 및 유효성 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "보험업법 시행령 7조  보험계약의 체결#KOBLEX-121224"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.5292179584503174,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "보험업법 시행령 7조  보험계약의 체결#KOBLEX-121224",
+        "provision_text": "제7조(보험계약의 체결)",
+        "rerank_rank": 9,
+        "rerank_score": 0.26744431257247925,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "보험업법 시행령 7조  보험계약의 체결",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 646조 2 보험대리상 등의 권한#KOBLEX-115936"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 78,
+        "first_stage_score": 0.4843757152557373,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "상법 646조 2 보험대리상 등의 권한#KOBLEX-115936",
+        "provision_text": "④ 피보험자나 보험수익자가 보험료를 지급하거나 보험계약에 관한 의사표시를 할 의무가 있는 경우에는 제1항부터 제3항까지의 규정을 그 피보험자나 보험수익자에게도 적용한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.24662081897258759,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "상법 646조 2 보험대리상 등의 권한 4항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "국제사법 49조  계약의 성립 및 유효성#KOBLEX-127875": "① 계약의 성립 및 유효성은 그 계약이 유효하게 성립하였을 경우 이 법에 따라 적용되어야 하는 준거법에 따라 판단한다.",
+      "보험업법 시행령 7조  보험계약의 체결#KOBLEX-121224": "제7조(보험계약의 체결)",
+      "상법 644조  보험사고의 객관적 확정의 효과#KOBLEX-115929": "제644조(보험사고의 객관적 확정의 효과) 보험계약당시에 보험사고가 이미 발생하였거나 또는 발생할 수 없는 것인 때에는 그 계약은 무효로 한다. 그러나 당사자 쌍방과 피보험자가 이를 알지 못한 때에는 그러하지 아니하다.",
+      "상법 646조 2 보험대리상 등의 권한#KOBLEX-115936": "④ 피보험자나 보험수익자가 보험료를 지급하거나 보험계약에 관한 의사표시를 할 의무가 있는 경우에는 제1항부터 제3항까지의 규정을 그 피보험자나 보험수익자에게도 적용한다.",
+      "상법 651조 2 서면에 의한 질문의 효력#KOBLEX-115949": "제651조의2(서면에 의한 질문의 효력) 보험자가 서면으로 질문한 사항은 중요한 사항으로 추정한다.",
+      "상법 726조  재보험에의 준용#KOBLEX-116130": "제726조(재보험에의 준용) 이 절(節)의 규정은 그 성질에 반하지 아니하는 범위에서 재보험계약에 준용한다.",
+      "상법 730조#KOBLEX-116156": "제2절 생명보험",
+      "상법 732조  15세미만자등에 대한 계약의 금지#KOBLEX-116161": "제732조(15세미만자등에 대한 계약의 금지) 15세미만자, 심신상실자 또는 심신박약자의 사망을 보험사고로 한 보험계약은 무효로 한다. 다만, 심신박약자가 보험계약을 체결하거나 제735조의3에 따른 단체보험의 피보험자가 될 때에 의사능력이 있는 경우에는 그러하지 아니하다. <개정 1962.12.12, 1991.12.31, 2014.3.11>",
+      "약관의 규제에 관한 법률 14조  소송 제기의 금지 등#KOBLEX-103939": "제14조(소송 제기의 금지 등) 소송 제기 등과 관련된 약관의 내용 중 다음 각 호의 어느 하나에 해당하는 조항은 무효로 한다.",
+      "약관의 규제에 관한 법률 16조  일부 무효의 특칙#KOBLEX-103943": "제16조(일부 무효의 특칙) 약관의 전부 또는 일부의 조항이 제3조제4항에 따라 계약의 내용이 되지 못하는 경우나 제6조부터 제14조까지의 규정에 따라 무효인 경우 계약은 나머지 부분만으로 유효하게 존속한다. 다만, 유효한 부분만으로는 계약의 목적 달성이 불가능하거나 그 유효한 부분이 한쪽 당사자에게 부당하게 불리한 경우에는 그 계약은 무효로 한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "상법 732조  15세미만자등에 대한 계약의 금지#KOBLEX-116161"
+            ],
+            "rationale": "상법 제732조는 15세 미만자 등의 사망을 보험사고로 한 보험계약의 무효 사유를 명시하고 있어, 사망보험계약의 무효 사유를 확인하는 요구사항을 충족한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "상법 732조  15세미만자등에 대한 계약의 금지#KOBLEX-116161"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "상법 제732조에 따라 15세 미만자의 사망을 보험사고로 한 보험계약은 무효로 규정되어 있어, 14세 아들의 사망을 보험사고로 한 계약의 무효를 결정하는 법적 근거가 충분히 확보되었다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "상법 732조  15세미만자등에 대한 계약의 금지#KOBLEX-116161",
+        "support_spans": [
+          {
+            "end_char": 191,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "14세 피보험자의 사망을 보험사고로 하는 생명보험계약의 유효성 판단 기준",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 자신의 14세 아들 을의 사망을 보험사고로 하는 생명보험계약을 보험회사와 체결하려고 한다. 갑은 이 계약이 유효한지 여부에 대해 궁금해한다. [질문] 갑이 14세 아들 을의 사망을 보험사고로 한 생명보험계약을 체결하는 것이 법적으로 유효한가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "생명보험",
+          "사망보험",
+          "보험사고",
+          "무효",
+          "유효성"
+        ],
+        "query_text": "생명보험계약 사망 보험사고 유효성 무효 요건 [원문 맥락] 갑은 이 계약이 유효한지 여부에 대해 궁금해한다. 갑이 14세 아들 을의 사망을 보험사고로 한 생명보험계약을 체결하는 것이 법적으로 유효한가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "보험업법",
+          "상법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 자신의 14세 아들 을의 사망을 보험사고로 하는 생명보험계약을 보험회사와 체결하려고 한다. 갑은 이 계약이 유효한지 여부에 대해 궁금해한다.\n\n[질문]\n갑이 14세 아들 을의 사망을 보험사고로 한 생명보험계약을 체결하는 것이 법적으로 유효한가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "피보험자의 사망을 보험사고로 하는 계약의 유효성 또는 무효를 결정하는 법적 요건을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "사망보험계약의 체결 요건 및 무효 사유를 명시하는 조항 확인"
+          }
+        ],
+        "critical": true,
+        "description": "사망보험계약의 유효성 요건 및 무효 사유를 규정한 조항",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문된 계약의 법적 효력을 판단하기 위한 핵심 근거",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "d52c49e8-600e-4529-875e-d12f105af0a7",
+    "seen_provision_ids": [
+      "상법 644조  보험사고의 객관적 확정의 효과#KOBLEX-115929",
+      "국제사법 49조  계약의 성립 및 유효성#KOBLEX-127875",
+      "상법 726조  재보험에의 준용#KOBLEX-116130",
+      "상법 651조 2 서면에 의한 질문의 효력#KOBLEX-115949",
+      "약관의 규제에 관한 법률 14조  소송 제기의 금지 등#KOBLEX-103939",
+      "약관의 규제에 관한 법률 16조  일부 무효의 특칙#KOBLEX-103943",
+      "상법 646조 2 보험대리상 등의 권한#KOBLEX-115936",
+      "상법 732조  15세미만자등에 대한 계약의 금지#KOBLEX-116161",
+      "보험업법 시행령 7조  보험계약의 체결#KOBLEX-121224",
+      "상법 730조#KOBLEX-116156"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

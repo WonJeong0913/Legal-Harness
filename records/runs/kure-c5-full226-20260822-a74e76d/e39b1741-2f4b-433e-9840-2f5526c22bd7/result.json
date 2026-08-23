@@ -1,0 +1,697 @@
+{
+  "abstention_reason": null,
+  "answer": "구치소 소장은 수용자가 건강유지에 필요한 운동 및 목욕을 정기적으로 할 수 있도록 하여야 한다.[CT1]\n구치소 소장은 수용자가 부상을 당하거나 질병에 걸리면 적절한 치료를 받도록 하여야 한다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1",
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "갑이 구치소 수용자이며, 을이 해당 구치소 소장임을 전제로 함"
+    }
+  ],
+  "candidate_answer": "구치소 소장은 수용자가 건강유지에 필요한 운동 및 목욕을 정기적으로 할 수 있도록 하여야 한다.[CT1]\n구치소 소장은 수용자가 부상을 당하거나 질병에 걸리면 적절한 치료를 받도록 하여야 한다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕#KOBLEX-075402",
+      "quoted_text": "① 소장은 수용자가 건강유지에 필요한 운동 및 목욕을 정기적으로 할 수 있도록 하여야 한다.",
+      "support_description": "소장의 운동 및 목욕 보장 의무를 명시적으로 규정"
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "형의 집행 및 수용자의 처우에 관한 법률 36조  부상자 등 치료#KOBLEX-075409",
+      "quoted_text": "①소장은 수용자가 부상을 당하거나 질병에 걸리면 적절한 치료를 받도록 하여야 한다. <개정 2010.5.4>",
+      "support_description": "부상 또는 질병 시 소장의 치료 보장 의무를 명시적으로 규정"
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "구치소 소장은 수용자가 건강유지에 필요한 운동 및 목욕을 정기적으로 할 수 있도록 하여야 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "구치소 소장은 수용자가 부상을 당하거나 질병에 걸리면 적절한 치료를 받도록 하여야 한다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T11:01:32.543875+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 90714.252,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "본 답변은 제공된 법률 조항에 근거한 법적 의무의 존재와 내용을 설명하며, 구체적인 행정 절차나 사법적 구제 수단에 대해서는 다루지 않음"
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 116,
+      "dedup_collapse": 168,
+      "evidence_fusion": 116,
+      "first_stage": 200,
+      "request_rerank": 200,
+      "round_selected": 10,
+      "rrf": 200,
+      "selected": 116
+    }
+  },
+  "run_id": "e39b1741-2f4b-433e-9840-2f5526c22bd7",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형의 집행 및 수용자의 처우에 관한 법률 36조  부상자 등 치료#KOBLEX-075409",
+      "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕#KOBLEX-075402"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_obligation",
+        "question_anchor": "을 소장이 수용자 갑의 건강유지에 필요한 운동 및 목욕을 어떻게 보장해야 하며",
+        "requested_output": "구치소 소장의 운동 및 목욕 보장 의무의 법적 근거와 구체적 내용"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_obligation",
+        "question_anchor": "갑이 부상을 당하거나 질병에 걸렸을 경우 을이 해야 할 조치는 무엇인가?",
+        "requested_output": "수용자 부상 또는 질병 발생 시 구치소 소장의 법적 조치 의무"
+      }
+    ],
+    "answered_target_ids": [
+      "T1",
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕#KOBLEX-075402",
+          "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕#KOBLEX-213589"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.7136797904968262,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕#KOBLEX-075402",
+        "provision_text": "① 소장은 수용자가 건강유지에 필요한 운동 및 목욕을 정기적으로 할 수 있도록 하여야 한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.986689031124115,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형의 집행 및 수용자의 처우에 관한 법률 30조  위생ㆍ의료 조치의무#KOBLEX-075396",
+          "형의 집행 및 수용자의 처우에 관한 법률 30조  위생ㆍ의료 조치의무#KOBLEX-213583"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.6628808975219727,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "형의 집행 및 수용자의 처우에 관한 법률 30조  위생ㆍ의료 조치의무#KOBLEX-075396",
+        "provision_text": "제30조(위생ㆍ의료 조치의무) 소장은 수용자가 건강한 생활을 하는 데에 필요한 위생 및 의료상의 적절한 조치를 하여야 한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9295309782028198,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형의 집행 및 수용자의 처우에 관한 법률 30조  위생ㆍ의료 조치의무",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕#KOBLEX-075401",
+          "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕#KOBLEX-213588"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 51,
+        "first_stage_score": 0.544766902923584,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕#KOBLEX-075401",
+        "provision_text": "제33조(운동 및 목욕)",
+        "rerank_rank": 3,
+        "rerank_score": 0.9284659624099731,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "감염병의 예방 및 관리에 관한 법률 44조  수감 중인 환자의 관리#KOBLEX-231001"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.5898601412773132,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "감염병의 예방 및 관리에 관한 법률 44조  수감 중인 환자의 관리#KOBLEX-231001",
+        "provision_text": "제44조(수감 중인 환자의 관리) 교도소장은 수감자로서 감염병에 감염된 자에게 감염병의 전파를 차단하기 위한 조치와 적절한 의료를 제공하여야 한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.8328030109405518,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "감염병의 예방 및 관리에 관한 법률 44조  수감 중인 환자의 관리",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형의 집행 및 수용자의 처우에 관한 법률 95조  보호실 수용#KOBLEX-075632",
+          "형의 집행 및 수용자의 처우에 관한 법률 95조  보호실 수용#KOBLEX-213819"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 67,
+        "first_stage_score": 0.538602352142334,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형의 집행 및 수용자의 처우에 관한 법률 95조  보호실 수용#KOBLEX-075632",
+        "provision_text": "④ 소장은 수용자를 보호실에 수용하거나 수용기간을 연장하는 경우에는 그 사유를 본인에게 알려 주어야 한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.8292756080627441,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형의 집행 및 수용자의 처우에 관한 법률 95조  보호실 수용 4항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형의 집행 및 수용자의 처우에 관한 법률 64조  교화프로그램#KOBLEX-075539",
+          "형의 집행 및 수용자의 처우에 관한 법률 64조  교화프로그램#KOBLEX-213726"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 76,
+        "first_stage_score": 0.5355313420295715,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "형의 집행 및 수용자의 처우에 관한 법률 64조  교화프로그램#KOBLEX-075539",
+        "provision_text": "① 소장은 수형자의 교정교화를 위하여 상담ㆍ심리치료, 그 밖의 교화프로그램을 실시하여야 한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.8222101926803589,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형의 집행 및 수용자의 처우에 관한 법률 64조  교화프로그램 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형의 집행 및 수용자의 처우에 관한 법률 97조  보호장비의 사용#KOBLEX-075643",
+          "형의 집행 및 수용자의 처우에 관한 법률 97조  보호장비의 사용#KOBLEX-213830"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 18,
+        "first_stage_score": 0.5873282551765442,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "형의 집행 및 수용자의 처우에 관한 법률 97조  보호장비의 사용#KOBLEX-075643",
+        "provision_text": "③ 교도관이 교정시설의 안에서 수용자에 대하여 보호장비를 사용한 경우 의무관은 그 수용자의 건강상태를 수시로 확인하여야 한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.8202823996543884,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형의 집행 및 수용자의 처우에 관한 법률 97조  보호장비의 사용 3항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형의 집행 및 수용자의 처우에 관한 법률 58조  외부전문가의 상담 등#KOBLEX-075515",
+          "형의 집행 및 수용자의 처우에 관한 법률 58조  외부전문가의 상담 등#KOBLEX-213702"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 85,
+        "first_stage_score": 0.5318480134010315,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "형의 집행 및 수용자의 처우에 관한 법률 58조  외부전문가의 상담 등#KOBLEX-075515",
+        "provision_text": "제58조(외부전문가의 상담 등) 소장은 수형자의 교화 또는 건전한 사회복귀를 위하여 필요하면 교육학ㆍ교정학ㆍ범죄학ㆍ사회학ㆍ심리학ㆍ의학 등에 관한 학식 또는 교정에 관한 경험이 풍부한 외부전문가로 하여금 수형자에 대한 상담ㆍ심리치료 또는 생활지도 등을 하게 할 수 있다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.8202180862426758,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형의 집행 및 수용자의 처우에 관한 법률 58조  외부전문가의 상담 등",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형의 집행 및 수용자의 처우에 관한 법률 36조  부상자 등 치료#KOBLEX-075409",
+          "형의 집행 및 수용자의 처우에 관한 법률 36조  부상자 등 치료#KOBLEX-213596"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6635147929191589,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "형의 집행 및 수용자의 처우에 관한 법률 36조  부상자 등 치료#KOBLEX-075409",
+        "provision_text": "①소장은 수용자가 부상을 당하거나 질병에 걸리면 적절한 치료를 받도록 하여야 한다. <개정 2010.5.4>",
+        "rerank_rank": 9,
+        "rerank_score": 0.817097008228302,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형의 집행 및 수용자의 처우에 관한 법률 36조  부상자 등 치료 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형의 집행 및 수용자의 처우에 관한 법률 23조  음식물의 지급#KOBLEX-075371",
+          "형의 집행 및 수용자의 처우에 관한 법률 23조  음식물의 지급#KOBLEX-213558"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 13,
+        "first_stage_score": 0.592671275138855,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "형의 집행 및 수용자의 처우에 관한 법률 23조  음식물의 지급#KOBLEX-075371",
+        "provision_text": "① 소장은 수용자에게 건강상태, 나이, 부과된 작업의 종류, 그 밖의 개인적 특성을 고려하여 건강 및 체력을 유지하는 데에 필요한 음식물을 지급한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.7612656354904175,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "형의 집행 및 수용자의 처우에 관한 법률 23조  음식물의 지급 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "감염병의 예방 및 관리에 관한 법률 44조  수감 중인 환자의 관리#KOBLEX-231001": "제44조(수감 중인 환자의 관리) 교도소장은 수감자로서 감염병에 감염된 자에게 감염병의 전파를 차단하기 위한 조치와 적절한 의료를 제공하여야 한다.",
+      "형의 집행 및 수용자의 처우에 관한 법률 23조  음식물의 지급#KOBLEX-075371": "① 소장은 수용자에게 건강상태, 나이, 부과된 작업의 종류, 그 밖의 개인적 특성을 고려하여 건강 및 체력을 유지하는 데에 필요한 음식물을 지급한다.",
+      "형의 집행 및 수용자의 처우에 관한 법률 30조  위생ㆍ의료 조치의무#KOBLEX-075396": "제30조(위생ㆍ의료 조치의무) 소장은 수용자가 건강한 생활을 하는 데에 필요한 위생 및 의료상의 적절한 조치를 하여야 한다.",
+      "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕#KOBLEX-075401": "제33조(운동 및 목욕)",
+      "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕#KOBLEX-075402": "① 소장은 수용자가 건강유지에 필요한 운동 및 목욕을 정기적으로 할 수 있도록 하여야 한다.",
+      "형의 집행 및 수용자의 처우에 관한 법률 36조  부상자 등 치료#KOBLEX-075409": "①소장은 수용자가 부상을 당하거나 질병에 걸리면 적절한 치료를 받도록 하여야 한다. <개정 2010.5.4>",
+      "형의 집행 및 수용자의 처우에 관한 법률 58조  외부전문가의 상담 등#KOBLEX-075515": "제58조(외부전문가의 상담 등) 소장은 수형자의 교화 또는 건전한 사회복귀를 위하여 필요하면 교육학ㆍ교정학ㆍ범죄학ㆍ사회학ㆍ심리학ㆍ의학 등에 관한 학식 또는 교정에 관한 경험이 풍부한 외부전문가로 하여금 수형자에 대한 상담ㆍ심리치료 또는 생활지도 등을 하게 할 수 있다.",
+      "형의 집행 및 수용자의 처우에 관한 법률 64조  교화프로그램#KOBLEX-075539": "① 소장은 수형자의 교정교화를 위하여 상담ㆍ심리치료, 그 밖의 교화프로그램을 실시하여야 한다.",
+      "형의 집행 및 수용자의 처우에 관한 법률 95조  보호실 수용#KOBLEX-075632": "④ 소장은 수용자를 보호실에 수용하거나 수용기간을 연장하는 경우에는 그 사유를 본인에게 알려 주어야 한다.",
+      "형의 집행 및 수용자의 처우에 관한 법률 97조  보호장비의 사용#KOBLEX-075643": "③ 교도관이 교정시설의 안에서 수용자에 대하여 보호장비를 사용한 경우 의무관은 그 수용자의 건강상태를 수시로 확인하여야 한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕#KOBLEX-075402"
+            ],
+            "rationale": "C001 explicitly states the warden must ensure regular exercise.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕#KOBLEX-075402"
+            ],
+            "rationale": "C001 explicitly states the warden must ensure regular bathing.",
+            "requirement_id": "E1-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕#KOBLEX-075402"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "Provision C001 provides the explicit legal basis for the warden's obligation to guarantee exercise and bathing for inmate health, fully covering the required evidence items.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형의 집행 및 수용자의 처우에 관한 법률 36조  부상자 등 치료#KOBLEX-075409"
+            ],
+            "rationale": "C009 explicitly states the warden must ensure appropriate treatment for injuries.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "형의 집행 및 수용자의 처우에 관한 법률 36조  부상자 등 치료#KOBLEX-075409"
+            ],
+            "rationale": "C009 explicitly states the warden must ensure appropriate treatment for diseases.",
+            "requirement_id": "E2-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형의 집행 및 수용자의 처우에 관한 법률 36조  부상자 등 치료#KOBLEX-075409"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "Provision C009 provides the explicit legal basis for the warden's obligation to ensure appropriate treatment for injured or ill inmates, fully covering the required evidence items.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕#KOBLEX-075402",
+        "support_spans": [
+          {
+            "end_char": 51,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "형의 집행 및 수용자의 처우에 관한 법률 36조  부상자 등 치료#KOBLEX-075409",
+        "support_spans": [
+          {
+            "end_char": 60,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "구치소 소장이 수용자의 건강 유지에 필요한 운동과 목욕을 보장해야 하는 법적 의무가 존재하는지",
+        "issue_id": "I1"
+      },
+      {
+        "description": "수용자가 부상이나 질병에 걸렸을 때 구치소 소장이 취해야 할 법적 조치가 무엇인지",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 구치소에 수감된 수용자로, 최근 부상을 입고 질병에 걸릴 위험이 있는 상황에 처해 있다. 을은 구치소의 소장으로, 수용자들의 건강과 안전을 책임지고 있다. 최근 갑의 변호인이 을에게 수용자의 건강을 위한 적절한 운동과 목욕이 이루어지고 있는지, 그리고 부상이나 질병에 대해 어떤 조치가 취해질 예정인지 문의하였다. [질문] 을 소장이 수용자 갑의 건강유지에 필요한 운동 및 목욕을 어떻게 보장해야 하며, 갑이 부상을 당하거나 질병에 걸렸을 경우 을이 해야 할 조치는 무엇인가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "구치소",
+          "소장",
+          "수용자",
+          "운동",
+          "목욕",
+          "건강유지"
+        ],
+        "query_text": "구치소 소장 수용자 운동 목욕 보장 의무 [원문 맥락] 최근 갑의 변호인이 을에게 수용자의 건강을 위한 적절한 운동과 목욕이 이루어지고 있는지, 그리고 부상이나 질병에 대해 어떤 조치가 취해질 예정인지 문의하였다. 을 소장이 수용자 갑의 건강유지에 필요한 운동 및 목욕을 어떻게 보장해야 하며, 갑이 부상을 당하거나 질병에 걸렸을 경우 을이 해야 할 조치는 무엇인가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "구치소법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "구치소",
+          "소장",
+          "수용자",
+          "부상",
+          "질병",
+          "조치"
+        ],
+        "query_text": "구치소 소장 수용자 부상 질병 조치 의무 [원문 맥락] 최근 갑의 변호인이 을에게 수용자의 건강을 위한 적절한 운동과 목욕이 이루어지고 있는지, 그리고 부상이나 질병에 대해 어떤 조치가 취해질 예정인지 문의하였다. 을 소장이 수용자 갑의 건강유지에 필요한 운동 및 목욕을 어떻게 보장해야 하며, 갑이 부상을 당하거나 질병에 걸렸을 경우 을이 해야 할 조치는 무엇인가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "구치소법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 구치소에 수감된 수용자로, 최근 부상을 입고 질병에 걸릴 위험이 있는 상황에 처해 있다. 을은 구치소의 소장으로, 수용자들의 건강과 안전을 책임지고 있다. 최근 갑의 변호인이 을에게 수용자의 건강을 위한 적절한 운동과 목욕이 이루어지고 있는지, 그리고 부상이나 질병에 대해 어떤 조치가 취해질 예정인지 문의하였다.\n\n[질문]\n을 소장이 수용자 갑의 건강유지에 필요한 운동 및 목욕을 어떻게 보장해야 하며, 갑이 부상을 당하거나 질병에 걸렸을 경우 을이 해야 할 조치는 무엇인가?",
+    "remaining_request_budget": 7,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "소장이 수용자의 건강을 위해 운동과 목욕을 보장해야 한다는 명시적 또는 묵시적 법적 근거를 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "구치소 소장의 운동 제공 의무를 규정한 조항 확인"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "구치소 소장의 목욕 제공 의무를 규정한 조항 확인"
+          }
+        ],
+        "critical": true,
+        "description": "구치소 소장의 수용자 운동 및 목욕 제공 의무를 규정한 조항",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 소장의 운동·목욕 보장 의무를 직접 묻고 있으므로 해당 법적 근거가 필수",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "부상·질병 수용자에 대한 소장의 의료 조치, 이송, 또는 보고 의무를 규정한 법적 근거를 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "부상 수용자에 대한 소장의 조치 의무를 규정한 조항 확인"
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "질병 수용자에 대한 소장의 조치 의무를 규정한 조항 확인"
+          }
+        ],
+        "critical": true,
+        "description": "수용자 부상 또는 질병 발생 시 구치소 소장의 조치 의무를 규정한 조항",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 부상·질병 시 소장의 조치를 직접 묻고 있으므로 해당 법적 근거가 필수",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "e39b1741-2f4b-433e-9840-2f5526c22bd7",
+    "seen_provision_ids": [
+      "형의 집행 및 수용자의 처우에 관한 법률 36조  부상자 등 치료#KOBLEX-075409",
+      "감염병의 예방 및 관리에 관한 법률 44조  수감 중인 환자의 관리#KOBLEX-231001",
+      "형의 집행 및 수용자의 처우에 관한 법률 58조  외부전문가의 상담 등#KOBLEX-075515",
+      "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕#KOBLEX-075402",
+      "형의 집행 및 수용자의 처우에 관한 법률 30조  위생ㆍ의료 조치의무#KOBLEX-075396",
+      "형의 집행 및 수용자의 처우에 관한 법률 97조  보호장비의 사용#KOBLEX-075643",
+      "형의 집행 및 수용자의 처우에 관한 법률 23조  음식물의 지급#KOBLEX-075371",
+      "형의 집행 및 수용자의 처우에 관한 법률 95조  보호실 수용#KOBLEX-075632",
+      "형의 집행 및 수용자의 처우에 관한 법률 33조  운동 및 목욕#KOBLEX-075401",
+      "형의 집행 및 수용자의 처우에 관한 법률 64조  교화프로그램#KOBLEX-075539"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

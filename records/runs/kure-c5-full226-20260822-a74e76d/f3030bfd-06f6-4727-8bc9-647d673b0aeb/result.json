@@ -1,0 +1,435 @@
+{
+  "abstention_reason": null,
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": null,
+  "candidate_answer_basis": null,
+  "candidate_answer_error": null,
+  "candidate_answer_status": null,
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-22T14:13:57.750946+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 69628.201,
+  "errors": [
+    "provision_coverage_assessment did not produce a valid ASSESS_COVERAGE result after 2 attempts: legacy status conflicts with coverage axes; partially_covered requires a valid partial_kind: E1; legacy status conflicts with coverage axes; missing_evidence_items must equal all non-covered assessments; legacy status conflicts with coverage axes"
+  ],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 90,
+      "dedup_collapse": 12,
+      "evidence_fusion": 90,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 90
+    }
+  },
+  "run_id": "f3030bfd-06f6-4727-8bc9-647d673b0aeb",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "error": "provision_coverage_assessment did not produce a valid ASSESS_COVERAGE result after 2 attempts: legacy status conflicts with coverage axes; partially_covered requires a valid partial_kind: E1; legacy status conflicts with coverage axes; missing_evidence_items must equal all non-covered assessments; legacy status conflicts with coverage axes",
+          "termination_reason": "INVALID_SKILL_OUTPUT"
+        },
+        "event": "EXECUTION_FAILURE",
+        "phase": "EXECUTION_FAILURE"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "을은 공중위생영업자의 지위를 승계할 수 있는가?",
+        "requested_output": "Determination of whether Eul can succeed to the public hygiene business operator status after the transfer and death of Gup."
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "축산물 위생관리법 26조  영업의 승계#KOBLEX-094718",
+          "축산물 위생관리법 26조  영업의 승계#KOBLEX-166323",
+          "축산물 위생관리법 26조  영업의 승계#KOBLEX-194853"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 7,
+        "first_stage_score": 0.6069663166999817,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "축산물 위생관리법 26조  영업의 승계#KOBLEX-094718",
+        "provision_text": "① 영업자가 사망하거나 그 영업을 양도하거나 법인인 영업자가 합병하였을 때에는 그 상속인이나 영업 양수인이나 합병 후 존속하는 법인 또는 합병으로 설립되는 법인(이하 \"양수인등\"이라 한다)은 그 영업자의 지위를 승계한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9987075328826904,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "축산물 위생관리법 26조  영업의 승계 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공중위생관리법 11조 3 행정제재처분효과의 승계#KOBLEX-164339"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.610386073589325,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "공중위생관리법 11조 3 행정제재처분효과의 승계#KOBLEX-164339",
+        "provision_text": "②공중위생영업자가 그 영업을 양도하거나 사망한 때 또는 법인의 합병이 있는 때에는 제11조제1항의 위반을 사유로 하여 종전의 영업자에 대하여 진행중인 행정제재처분 절차를 양수인ㆍ상속인 또는 합병 후 존속하는 법인에 대하여 속행할 수 있다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9971374273300171,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "공중위생관리법 11조 3 행정제재처분효과의 승계 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공중위생관리법 3조 2 공중위생영업의 승계#KOBLEX-164268"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.7072106003761292,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "공중위생관리법 3조 2 공중위생영업의 승계#KOBLEX-164268",
+        "provision_text": "③제1항 또는 제2항의 규정에 불구하고 이용업 또는 미용업의 경우에는 제6조의 규정에 의한 면허를 소지한 자에 한하여 공중위생영업자의 지위를 승계할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.9949117302894592,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "공중위생관리법 3조 2 공중위생영업의 승계 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "비료관리법 13조  영업의 승계#KOBLEX-149839"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 92,
+        "first_stage_score": 0.5207799077033997,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "비료관리법 13조  영업의 승계#KOBLEX-149839",
+        "provision_text": "제13조(영업의 승계)",
+        "rerank_rank": 4,
+        "rerank_score": 0.9941554069519043,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "비료관리법 13조  영업의 승계",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공중위생관리법 11조 3 행정제재처분효과의 승계#KOBLEX-164338"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 16,
+        "first_stage_score": 0.5880244970321655,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "공중위생관리법 11조 3 행정제재처분효과의 승계#KOBLEX-164338",
+        "provision_text": "①공중위생영업자가 그 영업을 양도하거나 사망한 때 또는 법인의 합병이 있는 때에는 종전의 영업자에 대하여 제11조제1항의 위반을 사유로 행한 행정제재처분의 효과는 그 처분기간이 만료된 날부터 1년간 양수인ㆍ상속인 또는 합병후 존속하는 법인에 승계된다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.9918324947357178,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "공중위생관리법 11조 3 행정제재처분효과의 승계 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공중위생관리법 3조 2 공중위생영업의 승계#KOBLEX-164266"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.7107352018356323,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "공중위생관리법 3조 2 공중위생영업의 승계#KOBLEX-164266",
+        "provision_text": "①공중위생영업자가 그 공중위생영업을 양도하거나 사망한 때 또는 법인의 합병이 있는 때에는 그 양수인ㆍ상속인 또는 합병후 존속하는 법인이나 합병에 의하여 설립되는 법인은 그 공중위생영업자의 지위를 승계한다. <개정 2005.3.31>",
+        "rerank_rank": 6,
+        "rerank_score": 0.9913372993469238,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "공중위생관리법 3조 2 공중위생영업의 승계 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공중위생관리법 3조 2 공중위생영업의 승계#KOBLEX-164267"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.6290504336357117,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "공중위생관리법 3조 2 공중위생영업의 승계#KOBLEX-164267",
+        "provision_text": "②민사집행법에 의한 경매, 「채무자 회생 및 파산에 관한 법률」에 의한 환가나 국세징수법ㆍ관세법 또는 「지방세징수법」에 의한 압류재산의 매각 그 밖에 이에 준하는 절차에 따라 공중위생영업 관련시설 및 설비의 전부를 인수한 자는 이 법에 의한 그 공중위생영업자의 지위를 승계한다. <개정 2005.3.31, 2010.3.31, 2016.12.27>",
+        "rerank_rank": 7,
+        "rerank_score": 0.9896406531333923,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "공중위생관리법 3조 2 공중위생영업의 승계 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공중위생관리법 3조 2 공중위생영업의 승계#KOBLEX-164265"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6463668942451477,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "공중위생관리법 3조 2 공중위생영업의 승계#KOBLEX-164265",
+        "provision_text": "제3조의2(공중위생영업의 승계)",
+        "rerank_rank": 8,
+        "rerank_score": 0.9893252849578857,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "공중위생관리법 3조 2 공중위생영업의 승계",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "축산물 위생관리법 26조  영업의 승계#KOBLEX-094719",
+          "축산물 위생관리법 26조  영업의 승계#KOBLEX-166324",
+          "축산물 위생관리법 26조  영업의 승계#KOBLEX-194854"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 52,
+        "first_stage_score": 0.5315557718276978,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "축산물 위생관리법 26조  영업의 승계#KOBLEX-094719",
+        "provision_text": "② 다음 각 호의 어느 하나에 해당하는 절차에 따라 영업용 시설의 전부를 인수한 자는 그 영업자의 지위를 승계한다. 1. 「민사집행법」에 따른 경매 2. 「채무자 회생 및 파산에 관한 법률」에 따른 환가(換價) 3. 「국세징수법」ㆍ「관세법」 또는 「지방세법」에 따른 압류재산의 매각 4. 그 밖에 제1호부터 제3호까지의 규정에 준하는 절차",
+        "rerank_rank": 9,
+        "rerank_score": 0.9889155626296997,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "축산물 위생관리법 26조  영업의 승계 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "동물보호법 75조  영업승계#KOBLEX-225045"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.588034451007843,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "동물보호법 75조  영업승계#KOBLEX-225045",
+        "provision_text": "① 제69조제1항에 따른 영업의 허가를 받거나 제73조제1항에 따라 영업의 등록을 한 자(이하 \"영업자\"라 한다)가 그 영업을 양도하거나 사망한 경우 또는 법인이 합병한 경우에는 그 양수인ㆍ상속인 또는 합병 후 존속하는 법인이나 합병으로 설립되는 법인(이하 \"양수인등\"이라 한다)은 그 영업자의 지위를 승계한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.9888408780097961,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "동물보호법 75조  영업승계 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "공중위생관리법 11조 3 행정제재처분효과의 승계#KOBLEX-164338": "①공중위생영업자가 그 영업을 양도하거나 사망한 때 또는 법인의 합병이 있는 때에는 종전의 영업자에 대하여 제11조제1항의 위반을 사유로 행한 행정제재처분의 효과는 그 처분기간이 만료된 날부터 1년간 양수인ㆍ상속인 또는 합병후 존속하는 법인에 승계된다.",
+      "공중위생관리법 11조 3 행정제재처분효과의 승계#KOBLEX-164339": "②공중위생영업자가 그 영업을 양도하거나 사망한 때 또는 법인의 합병이 있는 때에는 제11조제1항의 위반을 사유로 하여 종전의 영업자에 대하여 진행중인 행정제재처분 절차를 양수인ㆍ상속인 또는 합병 후 존속하는 법인에 대하여 속행할 수 있다.",
+      "공중위생관리법 3조 2 공중위생영업의 승계#KOBLEX-164265": "제3조의2(공중위생영업의 승계)",
+      "공중위생관리법 3조 2 공중위생영업의 승계#KOBLEX-164266": "①공중위생영업자가 그 공중위생영업을 양도하거나 사망한 때 또는 법인의 합병이 있는 때에는 그 양수인ㆍ상속인 또는 합병후 존속하는 법인이나 합병에 의하여 설립되는 법인은 그 공중위생영업자의 지위를 승계한다. <개정 2005.3.31>",
+      "공중위생관리법 3조 2 공중위생영업의 승계#KOBLEX-164267": "②민사집행법에 의한 경매, 「채무자 회생 및 파산에 관한 법률」에 의한 환가나 국세징수법ㆍ관세법 또는 「지방세징수법」에 의한 압류재산의 매각 그 밖에 이에 준하는 절차에 따라 공중위생영업 관련시설 및 설비의 전부를 인수한 자는 이 법에 의한 그 공중위생영업자의 지위를 승계한다. <개정 2005.3.31, 2010.3.31, 2016.12.27>",
+      "공중위생관리법 3조 2 공중위생영업의 승계#KOBLEX-164268": "③제1항 또는 제2항의 규정에 불구하고 이용업 또는 미용업의 경우에는 제6조의 규정에 의한 면허를 소지한 자에 한하여 공중위생영업자의 지위를 승계할 수 있다.",
+      "동물보호법 75조  영업승계#KOBLEX-225045": "① 제69조제1항에 따른 영업의 허가를 받거나 제73조제1항에 따라 영업의 등록을 한 자(이하 \"영업자\"라 한다)가 그 영업을 양도하거나 사망한 경우 또는 법인이 합병한 경우에는 그 양수인ㆍ상속인 또는 합병 후 존속하는 법인이나 합병으로 설립되는 법인(이하 \"양수인등\"이라 한다)은 그 영업자의 지위를 승계한다.",
+      "비료관리법 13조  영업의 승계#KOBLEX-149839": "제13조(영업의 승계)",
+      "축산물 위생관리법 26조  영업의 승계#KOBLEX-094718": "① 영업자가 사망하거나 그 영업을 양도하거나 법인인 영업자가 합병하였을 때에는 그 상속인이나 영업 양수인이나 합병 후 존속하는 법인 또는 합병으로 설립되는 법인(이하 \"양수인등\"이라 한다)은 그 영업자의 지위를 승계한다.",
+      "축산물 위생관리법 26조  영업의 승계#KOBLEX-094719": "② 다음 각 호의 어느 하나에 해당하는 절차에 따라 영업용 시설의 전부를 인수한 자는 그 영업자의 지위를 승계한다. 1. 「민사집행법」에 따른 경매 2. 「채무자 회생 및 파산에 관한 법률」에 따른 환가(換價) 3. 「국세징수법」ㆍ「관세법」 또는 「지방세법」에 따른 압류재산의 매각 4. 그 밖에 제1호부터 제3호까지의 규정에 준하는 절차"
+    },
+    "coverage_assessments": [],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D2.INITIAL_RETRIEVAL",
+    "legal_issues": [
+      {
+        "description": "Whether the public hygiene business operator status is transferable or inheritable under the Public Hygiene Management Act.",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 도시에서 작은 이발소를 운영하고 있는 공중위생영업자입니다. 갑이 건강상의 이유로 갑의 조카 을에게 이발소를 양도하기로 결정했습니다. 이후 갑은 갑자기 사망하게 되었고, 을은 이발소를 계속 운영하고자 했습니다. 이 상황에서 을이 공중위생영업자의 지위를 승계할 수 있는지 궁금합니다. [질문] 갑이 운영하던 이발소를 을에게 양도하고 갑이 사망한 경우, 을은 공중위생영업자의 지위를 승계할 수 있는가?",
+    "phase": "EXECUTION_FAILURE",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "공중위생관리법",
+          "영업자 지위",
+          "양도",
+          "상속",
+          "금지"
+        ],
+        "query_text": "공중위생관리법 영업자 지위 양도 상속 금지 [원문 맥락] 이 상황에서 을이 공중위생영업자의 지위를 승계할 수 있는지 궁금합니다. 갑이 운영하던 이발소를 을에게 양도하고 갑이 사망한 경우, 을은 공중위생영업자의 지위를 승계할 수 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "공중위생관리법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 도시에서 작은 이발소를 운영하고 있는 공중위생영업자입니다. 갑이 건강상의 이유로 갑의 조카 을에게 이발소를 양도하기로 결정했습니다. 이후 갑은 갑자기 사망하게 되었고, 을은 이발소를 계속 운영하고자 했습니다. 이 상황에서 을이 공중위생영업자의 지위를 승계할 수 있는지 궁금합니다.\n\n[질문]\n갑이 운영하던 이발소를 을에게 양도하고 갑이 사망한 경우, 을은 공중위생영업자의 지위를 승계할 수 있는가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific article in the Public Hygiene Management Act that addresses whether the business operator status can be transferred or inherited.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The provision must explicitly state whether the public hygiene business operator status is transferable or inheritable."
+          }
+        ],
+        "critical": true,
+        "description": "Statutory provision governing the transferability or inheritability of the public hygiene business operator status.",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "This rule directly determines if Eul can acquire the status from Gup via transfer or inheritance.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "f3030bfd-06f6-4727-8bc9-647d673b0aeb",
+    "seen_provision_ids": [
+      "공중위생관리법 11조 3 행정제재처분효과의 승계#KOBLEX-164339",
+      "공중위생관리법 3조 2 공중위생영업의 승계#KOBLEX-164266",
+      "축산물 위생관리법 26조  영업의 승계#KOBLEX-094718",
+      "축산물 위생관리법 26조  영업의 승계#KOBLEX-094719",
+      "공중위생관리법 3조 2 공중위생영업의 승계#KOBLEX-164267",
+      "공중위생관리법 3조 2 공중위생영업의 승계#KOBLEX-164265",
+      "공중위생관리법 3조 2 공중위생영업의 승계#KOBLEX-164268",
+      "공중위생관리법 11조 3 행정제재처분효과의 승계#KOBLEX-164338",
+      "비료관리법 13조  영업의 승계#KOBLEX-149839",
+      "동물보호법 75조  영업승계#KOBLEX-225045"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "EXECUTION_FAILURE",
+  "termination_reason": "INVALID_SKILL_OUTPUT"
+}

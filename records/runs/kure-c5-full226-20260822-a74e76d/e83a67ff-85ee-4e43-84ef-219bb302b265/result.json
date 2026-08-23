@@ -1,0 +1,671 @@
+{
+  "abstention_reason": null,
+  "answer": "군사법원법 제508조 제1항에 따라 사형집행의 명령은 판결이 확정된 날부터 6개월 이내에 하여야 합니다.[CT1]\n군사법원법 제509조에 따라 국방부장관이 사형의 집행을 명령하였을 때에는 5일 이내에 집행하여야 합니다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1",
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "갑의 사형 판결이 이미 확정되었음을 전제로 합니다."
+    }
+  ],
+  "candidate_answer": "군사법원법 제508조 제1항에 따라 사형집행의 명령은 판결이 확정된 날부터 6개월 이내에 하여야 합니다.[CT1]\n군사법원법 제509조에 따라 국방부장관이 사형의 집행을 명령하였을 때에는 5일 이내에 집행하여야 합니다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "군사법원법 508조  사형집행명령의 기간#KOBLEX-093780",
+      "quoted_text": "① 사형집행의 명령은 판결이 확정된 날부터 6개월 이내에 하여야 한다.",
+      "support_description": "사형집행 명령의 기한을 판결 확정일로부터 6개월 이내로 규정하고 있습니다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "군사법원법 509조  사형집행의 시기#KOBLEX-093782",
+      "quoted_text": "제509조(사형집행의 시기) 국방부장관이 사형의 집행을 명령하였을 때에는 5일 이내에 집행하여야 한다.",
+      "support_description": "사형집행 명령 후 5일 이내에 집행해야 하는 기한을 규정하고 있습니다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "군사법원법 제508조 제1항에 따라 사형집행의 명령은 판결이 확정된 날부터 6개월 이내에 하여야 합니다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "군사법원법 제509조에 따라 국방부장관이 사형의 집행을 명령하였을 때에는 5일 이내에 집행하여야 합니다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-22T11:31:48.450188+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 86898.03,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "본 답변은 군사법원법상 사형집행 절차의 기한에 한정하며, 형법상 일반 사형집행 절차나 특별사면 등 예외적 상황은 다루지 않습니다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 153,
+      "dedup_collapse": 94,
+      "evidence_fusion": 153,
+      "first_stage": 200,
+      "request_rerank": 200,
+      "round_selected": 10,
+      "rrf": 200,
+      "selected": 153
+    }
+  },
+  "run_id": "e83a67ff-85ee-4e43-84ef-219bb302b265",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "군사법원법 509조  사형집행의 시기#KOBLEX-093782",
+      "군사법원법 508조  사형집행명령의 기간#KOBLEX-093780"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "statutory_deadline",
+        "question_anchor": "국방부장관은 언제까지 사형 집행 명령을 내려야 하며",
+        "requested_output": "사형 집행 명령의 기한"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "statutory_deadline",
+        "question_anchor": "명령이 내려진 후 갑의 사형은 언제 집행되어야 하는가",
+        "requested_output": "사형 집행의 기한"
+      }
+    ],
+    "answered_target_ids": [
+      "T1",
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "군사법원법 501조 27 정식재판의 청구#KOBLEX-093757",
+          "군사법원법 501조 27 정식재판의 청구#KOBLEX-159722"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 81,
+        "first_stage_score": 0.5430946946144104,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 501조 27 정식재판의 청구#KOBLEX-093757",
+        "provision_text": "② 관할 군사경찰부대의 장은 제501조의24제5항의 경우 그 선고ㆍ고지를 한 날부터 7일 이내에 정식재판을 청구할 수 있다. 이 경우 군사경찰부대의 장은 관할 검찰부 군검사의 의견을 물어 정식재판 청구서를 군판사에게 제출하여야 한다. <개정 2016.1.6, 2020.2.4>",
+        "rerank_rank": 1,
+        "rerank_score": 0.9992676377296448,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "군사법원법 501조 27 정식재판의 청구 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 508조  사형집행명령의 기간#KOBLEX-093780",
+          "군사법원법 508조  사형집행명령의 기간#KOBLEX-159745"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 8,
+        "first_stage_score": 0.6530379056930542,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 508조  사형집행명령의 기간#KOBLEX-093780",
+        "provision_text": "① 사형집행의 명령은 판결이 확정된 날부터 6개월 이내에 하여야 한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9992637038230896,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "군사법원법 508조  사형집행명령의 기간 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 67조 2 개정의 장소#KOBLEX-092334",
+          "군사법원법 67조 2 개정의 장소#KOBLEX-158299"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 40,
+        "first_stage_score": 0.5621879696846008,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 67조 2 개정의 장소#KOBLEX-092334",
+        "provision_text": "④ 제1항부터 제3항까지에 따른 순회재판에 관한 사항은 국방부장관이 정한다. <신설 2021.9.24>",
+        "rerank_rank": 3,
+        "rerank_score": 0.9992247819900513,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "군사법원법 67조 2 개정의 장소 4항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 509조  사형집행의 시기#KOBLEX-093782",
+          "군사법원법 509조  사형집행의 시기#KOBLEX-159747"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.7605500221252441,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 509조  사형집행의 시기#KOBLEX-093782",
+        "provision_text": "제509조(사형집행의 시기) 국방부장관이 사형의 집행을 명령하였을 때에는 5일 이내에 집행하여야 한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.9988897442817688,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "군사법원법 509조  사형집행의 시기",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 512조  사형집행의 정지#KOBLEX-093789",
+          "군사법원법 512조  사형집행의 정지#KOBLEX-159754"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 18,
+        "first_stage_score": 0.5990778803825378,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 512조  사형집행의 정지#KOBLEX-093789",
+        "provision_text": "② 제1항에 따라 형의 집행을 정지한 경우에는 심신장애의 회복 또는 출산 후 국방부장관의 명령에 따라 형을 집행한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.9987008571624756,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "군사법원법 512조  사형집행의 정지 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 534조 11 재판관의 지정#KOBLEX-093881",
+          "군사법원법 534조 11 재판관의 지정#KOBLEX-159846"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 64,
+        "first_stage_score": 0.5498359799385071,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 534조 11 재판관의 지정#KOBLEX-093881",
+        "provision_text": "② 국방부장관, 각 군 참모총장 이외의 관할관이 심판관인 재판관을 지정하는 경우에는 각 군 참모총장의 승인을 받아야 하고, 각 군 참모총장인 관할관이 심판관인 재판관을 지정하는 경우에는 국방부장관의 승인을 받아야 한다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.9986346364021301,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "군사법원법 534조 11 재판관의 지정 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 501조 31 형의 집행#KOBLEX-093764",
+          "군사법원법 501조 31 형의 집행#KOBLEX-159729"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 12,
+        "first_stage_score": 0.6362846493721008,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 501조 31 형의 집행#KOBLEX-093764",
+        "provision_text": "① 형의 집행은 관할 군사경찰부대의 장이 하고 그 집행 결과를 군검사에게 통보하여야 한다. <개정 2016.1.6, 2020.2.4>",
+        "rerank_rank": 7,
+        "rerank_score": 0.9985675811767578,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "군사법원법 501조 31 형의 집행 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 507조  사형판결 확정과 소송기록의 제출#KOBLEX-093778",
+          "군사법원법 507조  사형판결 확정과 소송기록의 제출#KOBLEX-159743"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.6726014018058777,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 507조  사형판결 확정과 소송기록의 제출#KOBLEX-093778",
+        "provision_text": "제507조(사형판결 확정과 소송기록의 제출) 사형을 선고한 판결이 확정되었을 때에는 군검사는 지체 없이 소송기록을 국방부장관에게 제출하여야 한다. <개정 2016.1.6>",
+        "rerank_rank": 8,
+        "rerank_score": 0.9985495209693909,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "군사법원법 507조  사형판결 확정과 소송기록의 제출",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 506조  사형의 집행#KOBLEX-093777",
+          "군사법원법 506조  사형의 집행#KOBLEX-159742"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.7193338871002197,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 506조  사형의 집행#KOBLEX-093777",
+        "provision_text": "제506조(사형의 집행) 사형은 국방부장관의 명령에 따라 집행한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.9980138540267944,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "군사법원법 506조  사형의 집행",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 238조  구속#KOBLEX-092918",
+          "군사법원법 238조  구속#KOBLEX-158883"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 51,
+        "first_stage_score": 0.5552992820739746,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 238조  구속#KOBLEX-092918",
+        "provision_text": "④ 제1항의 청구를 받은 관할 군사법원 군판사는 신속히 구속영장 발부 여부를 결정하여야 한다. <개정 2021.9.24>",
+        "rerank_rank": 10,
+        "rerank_score": 0.9980078339576721,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "군사법원법 238조  구속 4항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "군사법원법 238조  구속#KOBLEX-092918": "④ 제1항의 청구를 받은 관할 군사법원 군판사는 신속히 구속영장 발부 여부를 결정하여야 한다. <개정 2021.9.24>",
+      "군사법원법 501조 27 정식재판의 청구#KOBLEX-093757": "② 관할 군사경찰부대의 장은 제501조의24제5항의 경우 그 선고ㆍ고지를 한 날부터 7일 이내에 정식재판을 청구할 수 있다. 이 경우 군사경찰부대의 장은 관할 검찰부 군검사의 의견을 물어 정식재판 청구서를 군판사에게 제출하여야 한다. <개정 2016.1.6, 2020.2.4>",
+      "군사법원법 501조 31 형의 집행#KOBLEX-093764": "① 형의 집행은 관할 군사경찰부대의 장이 하고 그 집행 결과를 군검사에게 통보하여야 한다. <개정 2016.1.6, 2020.2.4>",
+      "군사법원법 506조  사형의 집행#KOBLEX-093777": "제506조(사형의 집행) 사형은 국방부장관의 명령에 따라 집행한다.",
+      "군사법원법 507조  사형판결 확정과 소송기록의 제출#KOBLEX-093778": "제507조(사형판결 확정과 소송기록의 제출) 사형을 선고한 판결이 확정되었을 때에는 군검사는 지체 없이 소송기록을 국방부장관에게 제출하여야 한다. <개정 2016.1.6>",
+      "군사법원법 508조  사형집행명령의 기간#KOBLEX-093780": "① 사형집행의 명령은 판결이 확정된 날부터 6개월 이내에 하여야 한다.",
+      "군사법원법 509조  사형집행의 시기#KOBLEX-093782": "제509조(사형집행의 시기) 국방부장관이 사형의 집행을 명령하였을 때에는 5일 이내에 집행하여야 한다.",
+      "군사법원법 512조  사형집행의 정지#KOBLEX-093789": "② 제1항에 따라 형의 집행을 정지한 경우에는 심신장애의 회복 또는 출산 후 국방부장관의 명령에 따라 형을 집행한다.",
+      "군사법원법 534조 11 재판관의 지정#KOBLEX-093881": "② 국방부장관, 각 군 참모총장 이외의 관할관이 심판관인 재판관을 지정하는 경우에는 각 군 참모총장의 승인을 받아야 하고, 각 군 참모총장인 관할관이 심판관인 재판관을 지정하는 경우에는 국방부장관의 승인을 받아야 한다.",
+      "군사법원법 67조 2 개정의 장소#KOBLEX-092334": "④ 제1항부터 제3항까지에 따른 순회재판에 관한 사항은 국방부장관이 정한다. <신설 2021.9.24>"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "군사법원법 508조  사형집행명령의 기간#KOBLEX-093780"
+            ],
+            "rationale": "C002는 사형집행 명령의 기한(판결 확정일로부터 6개월 이내)을 명시하고 있습니다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "군사법원법 508조  사형집행명령의 기간#KOBLEX-093780"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C002(군사법원법 제508조)가 사형집행 명령의 기한을 명확히 규정하고 있어 법적 근거가 완전합니다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "군사법원법 509조  사형집행의 시기#KOBLEX-093782"
+            ],
+            "rationale": "C004는 사형집행의 기한(명령 후 5일 이내)을 명시하고 있습니다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "군사법원법 509조  사형집행의 시기#KOBLEX-093782"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C004(군사법원법 제509조)가 사형집행의 기한을 명확히 규정하고 있어 법적 근거가 완전합니다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "군사법원법 508조  사형집행명령의 기간#KOBLEX-093780",
+        "support_spans": [
+          {
+            "end_char": 39,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "군사법원법 509조  사형집행의 시기#KOBLEX-093782",
+        "support_spans": [
+          {
+            "end_char": 57,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "군사재판에서 확정된 사형 판결에 대해 국방부장관이 사형 집행 명령을 내려야 하는 기한은 무엇인가",
+        "issue_id": "I1"
+      },
+      {
+        "description": "사형 집행 명령이 내려진 후 사형이 집행되어야 하는 기한은 무엇인가",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 국가기밀을 누설한 혐의로 군사재판을 받았고, 사형 판결이 확정되었습니다. 이 사건은 고위 관계자들을 포함한 국방부가 관리하는 사안으로, 국방부장관이 사형 집행에 대한 명령을 내릴 책임이 있습니다. [질문] 갑에 대한 사형 판결이 확정된 후, 국방부장관은 언제까지 사형 집행 명령을 내려야 하며, 명령이 내려진 후 갑의 사형은 언제 집행되어야 하는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "군사재판",
+          "사형",
+          "집행명령",
+          "국방부장관",
+          "기한"
+        ],
+        "query_text": "군사재판 사형 판결 확정 후 국방부장관 사형 집행 명령 기한 [원문 맥락] 이 사건은 고위 관계자들을 포함한 국방부가 관리하는 사안으로, 국방부장관이 사형 집행에 대한 명령을 내릴 책임이 있습니다. 갑에 대한 사형 판결이 확정된 후, 국방부장관은 언제까지 사형 집행 명령을 내려야 하며, 명령이 내려진 후 갑의 사형은 언제 집행되어야 하는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "군사법원법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "사형",
+          "집행",
+          "기한",
+          "집행명령"
+        ],
+        "query_text": "사형 집행 명령 후 사형 집행 기한 [원문 맥락] 이 사건은 고위 관계자들을 포함한 국방부가 관리하는 사안으로, 국방부장관이 사형 집행에 대한 명령을 내릴 책임이 있습니다. 갑에 대한 사형 판결이 확정된 후, 국방부장관은 언제까지 사형 집행 명령을 내려야 하며, 명령이 내려진 후 갑의 사형은 언제 집행되어야 하는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법",
+          "형사소송법",
+          "군사법원법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 국가기밀을 누설한 혐의로 군사재판을 받았고, 사형 판결이 확정되었습니다. 이 사건은 고위 관계자들을 포함한 국방부가 관리하는 사안으로, 국방부장관이 사형 집행에 대한 명령을 내릴 책임이 있습니다.\n\n[질문]\n갑에 대한 사형 판결이 확정된 후, 국방부장관은 언제까지 사형 집행 명령을 내려야 하며, 명령이 내려진 후 갑의 사형은 언제 집행되어야 하는가?",
+    "remaining_request_budget": 7,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "사형 집행 명령의 기한을 명시하는 조항을 확인해야 함",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "사형 집행 명령의 기한을 명시하는 조항을 확인해야 함"
+          }
+        ],
+        "critical": true,
+        "description": "군사재판 사형 판결 확정 후 국방부장관의 사형 집행 명령 기한을 정하는 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 사형 집행 명령 기한을 도출하기 위해 필수적임",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "사형 집행의 기한을 명시하는 조항을 확인해야 함",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "사형 집행의 기한을 명시하는 조항을 확인해야 함"
+          }
+        ],
+        "critical": true,
+        "description": "사형 집행 명령 후 사형이 집행되어야 하는 기한을 정하는 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 요구하는 사형 집행 기한을 도출하기 위해 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "e83a67ff-85ee-4e43-84ef-219bb302b265",
+    "seen_provision_ids": [
+      "군사법원법 534조 11 재판관의 지정#KOBLEX-093881",
+      "군사법원법 512조  사형집행의 정지#KOBLEX-093789",
+      "군사법원법 509조  사형집행의 시기#KOBLEX-093782",
+      "군사법원법 507조  사형판결 확정과 소송기록의 제출#KOBLEX-093778",
+      "군사법원법 508조  사형집행명령의 기간#KOBLEX-093780",
+      "군사법원법 238조  구속#KOBLEX-092918",
+      "군사법원법 501조 31 형의 집행#KOBLEX-093764",
+      "군사법원법 506조  사형의 집행#KOBLEX-093777",
+      "군사법원법 501조 27 정식재판의 청구#KOBLEX-093757",
+      "군사법원법 67조 2 개정의 장소#KOBLEX-092334"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}
