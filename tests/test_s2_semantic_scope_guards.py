@@ -57,7 +57,7 @@ def covered_output(pairs):
 
 
 class SemanticScopeGuardTests(unittest.TestCase):
-    def _range_input(self, root_article="제13조", shared_target=True):
+    def _range_input(self, root_label="경계법 227조 2 법정 효과", shared_target=True):
         other_target = "T1" if shared_target else "T2"
         return {
             "schema_version": "1.0", "mode": "ASSESS_COVERAGE", "run_id": "scope-fixture",
@@ -74,27 +74,29 @@ class SemanticScopeGuardTests(unittest.TestCase):
             ],
             "candidate_provisions": [
                 {"provision_id": "C001", "source_provision_id": "root-range",
-                 "statute_name": "경계법 제2조", "article_label": "경계법 제2조",
-                 "text": "제10조부터 제12조까지의 규정을 적용한다.", "source_snapshot_id": "sha256:range"},
+                 "statute_name": "경계법 234조 행사", "article_label": "경계법 234조 행사",
+                 "text": "제231조 내지 제233조의 규정을 적용한다.", "source_snapshot_id": "sha256:range"},
                 {"provision_id": "C002", "source_provision_id": "root-effect",
-                 "statute_name": "경계법 %s" % root_article, "article_label": "경계법 %s" % root_article,
+                 "statute_name": root_label, "article_label": root_label,
                  "text": "법정 효과를 정한다.", "source_snapshot_id": "sha256:effect"},
             ], "prior_coverage_assessments": [],
         }
 
-    def test_explicit_same_law_range_blocks_direct_and_satisfied_only_for_shared_target_root_outside_range(self):
+    def test_runtime_shape_production_labels_without_je_and_subarticle_root_block_outside_range(self):
         input_data = self._range_input()
         output = covered_output([("E1", "C001", "E1-R1"), ("E2", "C002", "E2-R1")])
+        self.assertEqual(S2_VALIDATOR._article_identity(input_data["candidate_provisions"][0]), ("경계법", 234))
+        self.assertEqual(S2_VALIDATOR._article_identity(input_data["candidate_provisions"][1]), ("경계법", 227))
         mismatches = S2_VALIDATOR.semantic_scope_mismatches(output, input_data)
         self.assertEqual(mismatches[0]["kind"], "cross_reference_range_excludes_shared_target_root")
         self.assertEqual(mismatches[0]["violations"], ["direct", "satisfied:E1-R1"])
         errors = S2_VALIDATOR.validate(output, input_data)
         self.assertTrue(any("semantic scope mismatch" in error for error in errors))
-        self.assertTrue(any("root_provision_id=C002" in error and "range_start=10" in error for error in errors))
-        self.assertEqual(S2_VALIDATOR.validate(covered_output([("E1", "C001", "E1-R1"), ("E2", "C002", "E2-R1")]), self._range_input("제11조")), [])
+        self.assertTrue(any("root_provision_id=C002" in error and "range_start=231" in error for error in errors))
+        self.assertEqual(S2_VALIDATOR.validate(covered_output([("E1", "C001", "E1-R1"), ("E2", "C002", "E2-R1")]), self._range_input("경계법 232조 1 법정 효과")), [])
         self.assertEqual(S2_VALIDATOR.semantic_scope_mismatches(output, self._range_input(shared_target=False)), [])
 
-    def test_explicit_special_subtype_blocks_general_entity_but_not_text_absent_or_explicit_scope(self):
+    def test_runtime_shape_general_entity_blocks_external_candidate_explicit_special_subtype(self):
         input_data = {
             "schema_version": "1.0", "mode": "ASSESS_COVERAGE", "run_id": "scope-fixture",
             "normalized_question": "일반법인의 구성 요건을 판단하라.", "legal_issues": [{"issue_id": "I1"}],
@@ -106,7 +108,7 @@ class SemanticScopeGuardTests(unittest.TestCase):
             }],
             "candidate_provisions": [{
                 "provision_id": "C001", "source_provision_id": "root-subtype",
-                "statute_name": "일반법 제7조", "article_label": "일반법 제7조",
+                "statute_name": "일반법 7조", "article_label": "일반법 7조",
                 "text": "일반법인(유한)은 구성원 수를 갖춘다.", "source_snapshot_id": "sha256:subtype",
             }], "prior_coverage_assessments": [],
         }
@@ -119,6 +121,17 @@ class SemanticScopeGuardTests(unittest.TestCase):
         input_data["normalized_question"] = "일반법인의 구성 요건을 판단하라."
         input_data["candidate_provisions"][0]["text"] = "일반법인은 구성원 수를 갖춘다."
         input_data["candidate_provisions"][0]["statute_name"] = "일반법인(유한)법 제7조"
+        self.assertEqual(S2_VALIDATOR.semantic_scope_mismatches(output, input_data), [])
+
+    def test_article_heading_parenthesis_yields_no_subtype_or_scope_mismatch(self):
+        heading = "제227조의2(공전자기록등의 불실기재)의 경우에는 적용한다."
+        self.assertEqual(S2_VALIDATOR._explicit_subtypes({"text": heading}), [])
+        input_data = self._range_input()
+        input_data["normalized_question"] = "공전자기록등의 불실기재 적용 여부를 판단하라."
+        input_data["required_evidence_items"] = [input_data["required_evidence_items"][0]]
+        input_data["candidate_provisions"] = [input_data["candidate_provisions"][0]]
+        input_data["candidate_provisions"][0]["text"] = heading
+        output = covered_output([("E1", "C001", "E1-R1")])
         self.assertEqual(S2_VALIDATOR.semantic_scope_mismatches(output, input_data), [])
 
     def test_executor_records_scope_mismatch_before_validation_retry(self):

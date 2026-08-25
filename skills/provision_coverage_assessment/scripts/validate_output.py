@@ -60,9 +60,9 @@ def _normalize_scope_text(value):
 
 
 def _article_identity(provision):
-    for field in ("statute_name", "article_label"):
+    for field in ("article_label", "statute_name"):
         match = re.search(
-            r"(?P<statute>[가-힣A-Za-z][가-힣A-Za-z0-9·ㆍ\- ]*?(?:법률|법|시행령|시행규칙))\s*제\s*(?P<article>[0-9]+)\s*조",
+            r"(?P<statute>[가-힣A-Za-z][가-힣A-Za-z0-9·ㆍ\- ]*?(?:법률|법|시행령|시행규칙))\s*제?\s*(?P<article>[0-9]+)\s*조",
             _scope_text(provision.get(field)),
         )
         if match:
@@ -86,13 +86,16 @@ def _explicit_same_law_ranges(provision):
 
 
 def _explicit_subtypes(provision):
-    return [
-        (match.group("base"), match.group("subtype"))
-        for match in re.finditer(
-            r"(?P<base>[가-힣][가-힣0-9·ㆍ\-]{0,40})\s*\(\s*(?P<subtype>[가-힣][가-힣0-9·ㆍ\-]{0,20})\s*\)",
-            _scope_text(provision.get("text")),
-        )
-    ]
+    subtypes = []
+    for match in re.finditer(
+        r"(?P<base>[가-힣][가-힣0-9·ㆍ\-]{0,40})\s*\(\s*(?P<subtype>[가-힣][가-힣0-9·ㆍ\-]{0,20})\s*\)",
+        _scope_text(provision.get("text")),
+    ):
+        base = match.group("base")
+        if re.fullmatch(r"제\s*[0-9]+\s*조(?:의\s*[0-9]+)?", base):
+            continue
+        subtypes.append((base, match.group("subtype")))
+    return subtypes
 
 def _unsafe_direct_or_satisfied(assessment, provision_id):
     violations = []
