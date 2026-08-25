@@ -236,6 +236,24 @@ class KureExactIndexSearcher:
     every query is a full matrix-vector product rather than approximate ANN.
     """
 
+    @staticmethod
+    def _deterministic_top_k_indexes(scores, provision_id_ranks, top_k):
+        """Rank every finite score by score DESC, then provision ID ASC.
+
+        ``torch.topk`` does not define which items it returns when equal scores
+        straddle the cutoff. Sorting the complete score vector on CPU is the
+        explicit tie-break required for reproducible exact KURE output.
+        """
+        import numpy as np
+
+        score_array = np.asarray(scores)
+        rank_array = np.asarray(provision_id_ranks)
+        if score_array.ndim != 1 or rank_array.ndim != 1 or len(score_array) != len(rank_array):
+            raise ValueError("KURE scores and provision ID ranks must be equally sized vectors")
+        if not np.isfinite(score_array).all():
+            raise ValueError("KURE similarity scores must be finite")
+        return np.lexsort((rank_array, -score_array))[:top_k]
+
     def __init__(
         self,
         vectors_path: Path,
@@ -260,6 +278,8 @@ class KureExactIndexSearcher:
             provision_ids = [line.rstrip("\n") for line in handle]
         if vectors.shape[0] != len(provision_ids):
             raise ValueError("KURE vectors and provision IDs have different lengths")
+        if len(set(provision_ids)) != len(provision_ids):
+            raise ValueError("KURE provision IDs must be unique")
         corpus = InMemoryProvisionCorpus.from_jsonl(normalized_corpus_path)
         documents = corpus.all()
         documents_by_id: Dict[str, object] = {
@@ -272,6 +292,9 @@ class KureExactIndexSearcher:
         self.device = device
         self.model = SentenceTransformer(str(model_path), device=device)
         self.provision_ids = provision_ids
+        provision_id_order = np.argsort(np.asarray(provision_ids), kind="stable")
+        self._provision_id_ranks = np.empty(len(provision_ids), dtype=np.int64)
+        self._provision_id_ranks[provision_id_order] = np.arange(len(provision_ids))
         self.documents_by_id = documents_by_id
         self.vectors = torch.from_numpy(vectors).to(device=device, dtype=torch.float32)
 
@@ -284,12 +307,13 @@ class KureExactIndexSearcher:
         )[0]
         query_tensor = self._torch.as_tensor(query, dtype=self._torch.float32, device=self.device)
         top_k = min(request.top_k, len(self.provision_ids))
-        scores, indexes = self._torch.topk(self.vectors @ query_tensor, k=top_k)
+        scores = (self.vectors @ query_tensor).detach().cpu().numpy()
+        indexes = self._deterministic_top_k_indexes(scores, self._provision_id_ranks, top_k)
         return [
             RetrievalHit(
                 document=self.documents_by_id[self.provision_ids[index]],
                 score=float(score),
                 source_request_id=request.request_id,
             )
-            for score, index in zip(scores.detach().cpu().tolist(), indexes.detach().cpu().tolist())
+            for index, score in ((int(index), scores[index]) for index in indexes)
         ]
