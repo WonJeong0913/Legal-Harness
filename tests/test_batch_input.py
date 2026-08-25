@@ -3,8 +3,10 @@ from pathlib import Path
 from runtime.source_snapshot import SourceSnapshot
 
 from scripts.run_bm25_bge_pilot_batch import (
+    PROJECT_ROOT,
     build_run_command,
     format_benchmark_input,
+    resolve_batch_log_root,
 )
 
 
@@ -71,5 +73,15 @@ class BatchInputTests(unittest.TestCase):
         self.assertEqual(command[manifest_index + 1], "c" * 64)
 
 
+    def test_relative_batch_log_root_is_project_absolute_and_log_relative_to_succeeds(self):
+        relative_root = Path("records/batches/regression-relative")
+        resolved_root = resolve_batch_log_root(relative_root)
+        self.assertEqual(resolved_root, (PROJECT_ROOT / relative_root).resolve())
+        log_path = resolved_root / "01_q1.log"
+        self.assertEqual(log_path.relative_to(PROJECT_ROOT), relative_root / "01_q1.log")
+
+    def test_absolute_batch_log_root_is_preserved(self):
+        absolute_root = (PROJECT_ROOT / "records/batches/regression-absolute").resolve()
+        self.assertEqual(resolve_batch_log_root(absolute_root), absolute_root)
 if __name__ == "__main__":
     unittest.main()

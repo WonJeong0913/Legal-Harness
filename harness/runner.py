@@ -1,5 +1,6 @@
 """End-to-end deterministic orchestration around externally supplied skills."""
 
+import re
 import uuid
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Mapping, Optional, Sequence
@@ -43,6 +44,33 @@ from .validation import (
 S1 = "legal_issue_and_query_planning"
 S2 = "provision_coverage_assessment"
 S3 = "grounded_legal_answer_generation"
+SOURCE_REFERENCE_PATTERN = re.compile(
+    r"제?([0-9]+)조(?:의([0-9]+))?(?:[ ]*제?([0-9]+)항)?"
+)
+QUALIFIED_REFERENCE_PATTERN = re.compile(
+    r"(?:「(?P<quoted>[^」]+)」|(?P<plain>[가-힣A-Za-z0-9· ]{1,60}?(?:법률|법|시행령|시행규칙)))[ ]*제?(?P<article>[0-9]+)조(?:의(?P<subarticle>[0-9]+))?(?:[ ]*제?(?P<paragraph>[0-9]+)항)?(?:부터[ ]*제?(?P<range_article>[0-9]+)조(?:의(?P<range_subarticle>[0-9]+))?(?:[ ]*제?(?P<range_paragraph>[0-9]+)항)?까지)?"
+)
+RELATIVE_REFERENCE_PATTERN = re.compile(r"전[ ]*(조|항|[0-9]+조)")
+RANGE_REFERENCE_PREFIX_PATTERN = re.compile(
+    r"제?[0-9]+조(?:의[0-9]+)?(?:[ ]*제?[0-9]+항)?부터"
+)
+UNQUALIFIED_SOURCE_RANGE_PATTERN = re.compile(
+    r"제?(?P<article>[0-9]+)조부터[ ]*제?(?P<range_article>[0-9]+)조까지"
+)
+METADATA_SOURCE_PATTERN = re.compile(
+    r"^\s*(?P<statute>.+?)\s+제?(?P<article>[0-9]+)조(?P<tail>.*)\Z"
+)
+METADATA_LEADING_SUBARTICLE_PATTERN = re.compile(
+    r"^\s+(?P<subarticle>[0-9]+)(?=\s|\Z)"
+)
+METADATA_PARAGRAPH_PATTERN = re.compile(
+    r"(?:^|\s)(?P<paragraph>[0-9]+)항(?:\s|\Z)"
+)
+BODY_SOURCE_HEADING_PATTERN = re.compile(
+    r"^\s*제?([0-9]+)조(?:의([0-9]+))?(?:[ ]*제?([0-9]+)항)?"
+)
+MAX_CANDIDATE_CROSS_REFERENCES_PER_PROVISION = 12
+
 
 
 @dataclass(frozen=True)
@@ -464,6 +492,331 @@ class HarnessRunner:
             raise ValidationError("%s must return an object" % skill_name)
         return result
 
+    @staticmethod
+    def _compact_coverage_assessments(
+        assessments: Sequence[Any],
+        *,
+        include_links: bool,
+        include_criteria: bool,
+    ) -> List[Dict[str, Any]]:
+        """Keep S2/S3 decision fields while omitting replay-only audit prose."""
+        compact: List[Dict[str, Any]] = []
+        for raw in to_primitive(assessments):
+            if not isinstance(raw, Mapping):
+                continue
+            item: Dict[str, Any] = {}
+            for field in (
+                "evidence_item_id",
+                "status",
+                "partial_kind",
+                "legal_status",
+                "applicability_status",
+                "gap_type",
+                "missing_aspects",
+            ):
+                if field in raw:
+                    item[field] = raw[field]
+            if include_links and "linked_provision_ids" in raw:
+                item["linked_provision_ids"] = raw["linked_provision_ids"]
+            if include_criteria and isinstance(raw.get("criterion_results"), list):
+                item["criterion_results"] = [
+                    {
+                        field: result[field]
+                        for field in (
+                            "requirement_id",
+                            "status",
+                            "linked_provision_ids",
+                        )
+                        if field in result
+                    }
+                    for result in raw["criterion_results"]
+                    if isinstance(result, Mapping)
+                ]
+            compact.append(item)
+        return compact
+
+    @staticmethod
+    def _coverage_candidate_payload(state: RunState) -> List[Dict[str, Any]]:
+        """S2 needs legal text and identity, not retriever diagnostics."""
+        return [
+            {
+                "provision_id": candidate.provision_id,
+                "statute_name": candidate.statute_name,
+                "provision_text": candidate.provision_text,
+            }
+            for candidate in state.candidate_provisions
+        ]
+
+    @staticmethod
+    def _metadata_source_reference(candidate: Any) -> Optional[Dict[str, str]]:
+        """Return a consensus source label used only to resolve body references."""
+        parsed = []
+        for raw_label in (candidate.provision_id, candidate.statute_name):
+            if not isinstance(raw_label, str):
+                continue
+            label = raw_label.split("#", 1)[0].strip()
+            match = METADATA_SOURCE_PATTERN.match(label)
+            if not match:
+                continue
+            statute = " ".join(match.group("statute").split())
+            if not statute:
+                continue
+            tail = match.group("tail")
+            subarticle = METADATA_LEADING_SUBARTICLE_PATTERN.match(tail)
+            article = "제%s조%s" % (
+                match.group("article"),
+                ("의" + subarticle.group("subarticle")) if subarticle else "",
+            )
+            paragraph_values = {
+                paragraph_match.group("paragraph")
+                for paragraph_match in METADATA_PARAGRAPH_PATTERN.finditer(tail)
+            }
+            if len(paragraph_values) > 1:
+                return None
+            paragraph = (
+                "제%s항" % next(iter(paragraph_values))
+                if paragraph_values
+                else None
+            )
+            parsed.append((statute, article, paragraph))
+        if not parsed:
+            return None
+        statute_article_pairs = {(statute, article) for statute, article, _ in parsed}
+        if len(statute_article_pairs) != 1:
+            return None
+        paragraphs = {paragraph for _, _, paragraph in parsed if paragraph}
+        if len(paragraphs) > 1:
+            return None
+        statute, article = next(iter(statute_article_pairs))
+        source = {"statute": statute, "article": article}
+        if paragraphs:
+            source["paragraph"] = next(iter(paragraphs))
+        return source
+
+    @staticmethod
+    def _candidate_cross_references(state: RunState) -> List[Dict[str, Any]]:
+        """Expose compact, text-backed target statute references for GAP S1."""
+        references: List[Dict[str, Any]] = []
+        seen = set()
+
+        def statute_name(match) -> str:
+            quoted = match.group("quoted")
+            if quoted:
+                return " ".join(quoted.split())
+            plain = " ".join(match.group("plain").split())
+            # The reference grammar permits descriptive Korean words before an
+            # unquoted statute.  The target is the adjacent, rightmost
+            # law-named token, not that descriptive prefix.
+            words = plain.split()
+            for index in range(len(words) - 1, -1, -1):
+                word = words[index]
+                if (
+                    word in {"시행령", "시행규칙"}
+                    and index > 0
+                    and words[index - 1] not in {"법", "법률"}
+                    and words[index - 1].endswith(("법률", "법"))
+                ):
+                    return words[index - 1] + " " + word
+                if word not in {"법", "법률", "시행령", "시행규칙"} and word.endswith(
+                    ("시행규칙", "시행령", "법률", "법")
+                ):
+                    return word
+            return plain
+
+        def article_name(number: str, subarticle: Optional[str] = None) -> str:
+            return "제%s조%s" % (number, ("의" + subarticle) if subarticle else "")
+
+        def paragraph_name(number: Optional[str]) -> Optional[str]:
+            return "제%s항" % number if number else None
+
+        for candidate in state.candidate_provisions:
+            source = HarnessRunner._metadata_source_reference(candidate)
+            source_statute = source.get("statute") if source else None
+            source_article = source.get("article") if source else None
+            source_paragraph = source.get("paragraph") if source else None
+            heading = BODY_SOURCE_HEADING_PATTERN.match(candidate.provision_text)
+            heading_is_consistent = False
+            if heading and source_statute and source_article:
+                body_article = article_name(heading.group(1), heading.group(2))
+                body_paragraph = paragraph_name(heading.group(3))
+                metadata_is_base_for_body_subarticle = (
+                    "의" not in source_article
+                    and body_article.startswith(source_article + "의")
+                )
+                if (body_article == source_article or metadata_is_base_for_body_subarticle) and (
+                    not body_paragraph
+                    or not source_paragraph
+                    or body_paragraph == source_paragraph
+                ):
+                    source_article = body_article
+                    source_paragraph = body_paragraph or source_paragraph
+                    heading_is_consistent = True
+                else:
+                    # Conflicting metadata and body headings cannot resolve inherited references.
+                    source_statute = None
+                    source_article = None
+                    source_paragraph = None
+            count = 0
+
+            def add(target_statute_name: str, target_article: str, target_paragraph: Optional[str], start: int, end: int) -> None:
+                nonlocal count
+                key = (candidate.provision_id, target_statute_name, target_article, target_paragraph, start, end)
+                if key in seen or count >= MAX_CANDIDATE_CROSS_REFERENCES_PER_PROVISION:
+                    return
+                seen.add(key)
+                item: Dict[str, Any] = {
+                    "source_candidate_id": candidate.provision_id,
+                    "target_statute_name": target_statute_name,
+                    "target_article": target_article,
+                    "excerpt": candidate.provision_text[start:end],
+                    "start_char": start,
+                    "end_char": end,
+                }
+                if target_paragraph:
+                    item["target_paragraph"] = target_paragraph
+                references.append(item)
+                count += 1
+
+            qualified_matches = list(
+                QUALIFIED_REFERENCE_PATTERN.finditer(candidate.provision_text)
+            )
+            qualified_spans = [match.span() for match in qualified_matches]
+            range_prefix_spans = [
+                match.span()
+                for match in RANGE_REFERENCE_PREFIX_PATTERN.finditer(candidate.provision_text)
+            ]
+            heading_span = heading.span() if heading_is_consistent else None
+
+            def reserved_source_count_before(offset: int) -> int:
+                """Conservatively reserve earlier bare references for range atomicity."""
+                reserved = set()
+                for direct_match in SOURCE_REFERENCE_PATTERN.finditer(
+                    candidate.provision_text
+                ):
+                    if direct_match.start() >= offset:
+                        continue
+                    if any(
+                        direct_match.start() < end and start < direct_match.end()
+                        for start, end in qualified_spans + range_prefix_spans
+                    ):
+                        continue
+                    if heading_span and direct_match.span() == heading_span:
+                        continue
+                    reserved.add(direct_match.span())
+                return len(reserved)
+
+            for match in qualified_matches:
+                if candidate.provision_text[match.end():].lstrip().startswith("부터"):
+                    continue
+                target_statute = statute_name(match)
+                start_number = int(match.group("article"))
+                end_number = match.group("range_article")
+                if end_number is None:
+                    add(
+                        target_statute,
+                        article_name(match.group("article"), match.group("subarticle")),
+                        paragraph_name(match.group("paragraph")),
+                        match.start(),
+                        match.end(),
+                    )
+                    continue
+                end_value = int(end_number)
+                if (
+                    match.group("subarticle")
+                    or match.group("paragraph")
+                    or match.group("range_subarticle")
+                    or match.group("range_paragraph")
+                    or end_value < start_number
+                    or end_value - start_number + 1 > MAX_CANDIDATE_CROSS_REFERENCES_PER_PROVISION
+                    # Never emit only a prefix of an explicit range after
+                    # earlier outbound references used this candidate's cap.
+                    or end_value - start_number + 1
+                    > MAX_CANDIDATE_CROSS_REFERENCES_PER_PROVISION
+                    - count
+                    - reserved_source_count_before(match.start())
+                ):
+                    continue
+                for number in range(start_number, end_value + 1):
+                    add(target_statute, article_name(str(number)), None, match.start(), match.end())
+
+            # A bare range inherits the trusted source statute.  Process it
+            # before direct references so neither endpoint leaks through as a
+            # misleading one-article anchor when the range is invalid.
+            unqualified_range_spans = []
+            if source_statute:
+                for range_match in UNQUALIFIED_SOURCE_RANGE_PATTERN.finditer(
+                    candidate.provision_text
+                ):
+                    unqualified_range_spans.append(range_match.span())
+                    if any(
+                        range_match.start() < end and start < range_match.end()
+                        for start, end in qualified_spans
+                    ):
+                        continue
+                    start_value = int(range_match.group("article"))
+                    end_value = int(range_match.group("range_article"))
+                    if (
+                        end_value < start_value
+                        or end_value - start_value + 1
+                        > MAX_CANDIDATE_CROSS_REFERENCES_PER_PROVISION
+                        # A bounded range is an atomic provenance claim: do
+                        # not leave a partial prefix when prior references
+                        # already used the per-candidate cap.
+                        or end_value - start_value + 1
+                        > MAX_CANDIDATE_CROSS_REFERENCES_PER_PROVISION
+                        - count
+                        - reserved_source_count_before(range_match.start())
+                    ):
+                        continue
+                    for number in range(start_value, end_value + 1):
+                        add(
+                            source_statute,
+                            article_name(str(number)),
+                            None,
+                            range_match.start(),
+                            range_match.end(),
+                        )
+
+            for match in SOURCE_REFERENCE_PATTERN.finditer(candidate.provision_text):
+                if not source_statute:
+                    continue
+                if any(
+                    match.start() < end and start < match.end()
+                    for start, end in (
+                        qualified_spans
+                        + range_prefix_spans
+                        + unqualified_range_spans
+                    )
+                ):
+                    continue
+                if heading_span and match.span() == heading_span:
+                    continue
+                add(
+                    source_statute,
+                    article_name(match.group(1), match.group(2)),
+                    paragraph_name(match.group(3)),
+                    match.start(),
+                    match.end(),
+                )
+
+            if source_article and source_statute:
+                source_number = re.fullmatch(r"제([0-9]+)조", source_article)
+                source_paragraph_match = re.fullmatch(r"제([0-9]+)항", source_paragraph or "")
+                for match in RELATIVE_REFERENCE_PATTERN.finditer(candidate.provision_text):
+                    kind = match.group(1)
+                    if kind == "항" and source_paragraph_match and int(source_paragraph_match.group(1)) > 1:
+                        add(
+                            source_statute, source_article,
+                            paragraph_name(str(int(source_paragraph_match.group(1)) - 1)),
+                            match.start(), match.end(),
+                        )
+                    elif source_number and kind.endswith("조"):
+                        distance = 1 if kind == "조" else int(kind[:-1])
+                        current_article = int(source_number.group(1))
+                        if current_article > distance:
+                            add(source_statute, article_name(str(current_article - distance)), None, match.start(), match.end())
+        return references
+
     def _coverage_payload(self, state: RunState) -> Dict[str, Any]:
         return {
             "run_id": state.run_id,
@@ -471,8 +824,12 @@ class HarnessRunner:
             "legal_issues": to_primitive(state.legal_issues),
             "answer_targets": to_primitive(state.answer_targets),
             "required_evidence_items": to_primitive(state.required_evidence_items),
-            "candidate_provisions": to_primitive(state.candidate_provisions),
-            "prior_coverage_assessments": to_primitive(state.coverage_assessments),
+            "candidate_provisions": self._coverage_candidate_payload(state),
+            "prior_coverage_assessments": self._compact_coverage_assessments(
+                state.coverage_assessments,
+                include_links=True,
+                include_criteria=True,
+            ),
         }
 
     def _gap_payload(self, state: RunState) -> Dict[str, Any]:
@@ -483,11 +840,16 @@ class HarnessRunner:
             "legal_issues": to_primitive(state.legal_issues),
             "answer_targets": to_primitive(state.answer_targets),
             "required_evidence_items": to_primitive(state.required_evidence_items),
-            "coverage_assessments": to_primitive(state.coverage_assessments),
+            "coverage_assessments": self._compact_coverage_assessments(
+                state.coverage_assessments,
+                include_links=True,
+                include_criteria=True,
+            ),
             "missing_evidence_items": to_primitive(state.missing_critical_items),
             "evidence_conflicts": to_primitive(state.unresolved_critical_conflicts()),
             "accepted_provision_ids": sorted(state.accepted_provision_ids),
             "query_history": to_primitive(state.query_history),
+            "candidate_cross_references": self._candidate_cross_references(state),
             "seen_provision_ids": sorted(state.seen_provision_ids),
             "remaining_request_budget": state.remaining_request_budget,
         }
@@ -515,7 +877,11 @@ class HarnessRunner:
             "legal_issues": to_primitive(state.legal_issues),
             "answer_targets": to_primitive(state.answer_targets),
             "required_evidence_items": to_primitive(state.required_evidence_items),
-            "coverage_assessments": to_primitive(state.coverage_assessments),
+            "coverage_assessments": self._compact_coverage_assessments(
+                state.coverage_assessments,
+                include_links=True,
+                include_criteria=True,
+            ),
             "accepted_provisions": to_primitive(accepted),
             "answer_mode": state.answer_mode.value if state.answer_mode else AnswerMode.FULL.value,
             "answered_target_ids": list(state.answered_target_ids),
@@ -554,7 +920,11 @@ class HarnessRunner:
             "legal_issues": to_primitive(state.legal_issues),
             "answer_targets": to_primitive(state.answer_targets),
             "required_evidence_items": to_primitive(state.required_evidence_items),
-            "coverage_assessments": to_primitive(state.coverage_assessments),
+            "coverage_assessments": self._compact_coverage_assessments(
+                state.coverage_assessments,
+                include_links=True,
+                include_criteria=True,
+            ),
             "accepted_provisions": [],
             "candidate_provisions": candidates,
             "candidate_answer_basis": basis,

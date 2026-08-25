@@ -28,7 +28,7 @@ from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Set, 
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-EVALUATION_SCHEMA_VERSION = "1.3"
+EVALUATION_SCHEMA_VERSION = "1.4"
 OUTCOME_STATUSES = ("ANSWER", "ABSTAIN", "EXECUTION_FAILURE")
 ANSWER_MODES = ("full", "conditional", "limited")
 NORMAL_OUTCOME_STATUSES = ("ANSWER", "ABSTAIN")
@@ -620,6 +620,108 @@ def load_stage_sets(run_directory: Path) -> Tuple[Dict[str, Optional[Set[str]]],
     return output, warnings
 
 
+def load_round_selected_sets(
+    run_directory: Path,
+) -> Tuple[Optional[Dict[int, Set[str]]], List[str]]:
+    """Load selected candidates by retrieval round from provenance sidecar."""
+    stage_path = run_directory / "retrieval_stages.jsonl"
+    if not stage_path.is_file():
+        return None, ["ROUND_SELECTED_PROVENANCE_UNAVAILABLE"]
+
+    selected_by_round: Dict[int, Set[str]] = defaultdict(set)
+    found = False
+    for line_number, record in enumerate(_read_jsonl(stage_path), start=1):
+        if record.get("candidate_stage") != "round_selected":
+            continue
+        provision_id = str(record.get("provision_id") or "")
+        raw_round = record.get("retrieval_round")
+        try:
+            retrieval_round = int(raw_round)
+        except (TypeError, ValueError) as exc:
+            raise EvaluationError(
+                "invalid round-selected retrieval round: %s:%d"
+                % (stage_path, line_number)
+            ) from exc
+        if not provision_id or retrieval_round < 1:
+            raise EvaluationError(
+                "invalid round-selected row: %s:%d" % (stage_path, line_number)
+            )
+        found = True
+        selected_by_round[retrieval_round].add(provision_id)
+
+    if not found:
+        return None, ["ROUND_SELECTED_PROVENANCE_UNAVAILABLE"]
+    return dict(sorted(selected_by_round.items())), []
+
+
+def build_retrieval_loss_metrics(
+    run_directory: Path,
+    candidates: Sequence[Mapping[str, Any]],
+    candidate_ids: Set[str],
+    accepted_metrics: Mapping[str, Any],
+    groups: Sequence[GoldGroup],
+) -> Tuple[Optional[Dict[str, Any]], List[str]]:
+    """Measure the persisted retrieval funnel without rerunning retrieval."""
+    selected_by_round, warnings = load_round_selected_sets(run_directory)
+    if selected_by_round is None:
+        return None, warnings
+
+    cumulative_selected: Set[str] = set()
+    cumulative_selected_metrics: Dict[str, Dict[str, Any]] = {}
+    first_round_selected_complete_round: Optional[int] = None
+    for retrieval_round, provision_ids in selected_by_round.items():
+        cumulative_selected.update(provision_ids)
+        cumulative_selected_metrics[str(retrieval_round)] = precision_recall_f1(
+            cumulative_selected,
+            groups,
+        )
+        if (
+            first_round_selected_complete_round is None
+            and cumulative_selected_metrics[str(retrieval_round)]["complete"]
+        ):
+            first_round_selected_complete_round = retrieval_round
+    candidates_by_round: Dict[int, Set[str]] = defaultdict(set)
+    for candidate in candidates:
+        if not isinstance(candidate, Mapping):
+            continue
+        provision_id = str(candidate.get("provision_id") or "")
+        if not provision_id:
+            continue
+        try:
+            retrieval_round = int(candidate.get("retrieval_round"))
+        except (TypeError, ValueError):
+            continue
+        if retrieval_round >= 1:
+            candidates_by_round[retrieval_round].add(provision_id)
+
+    cumulative_candidates: Set[str] = set()
+    first_candidate_complete_round: Optional[int] = None
+    for retrieval_round, provision_ids in sorted(candidates_by_round.items()):
+        cumulative_candidates.update(provision_ids)
+        if (
+            first_candidate_complete_round is None
+            and precision_recall_f1(cumulative_candidates, groups)["complete"]
+        ):
+            first_candidate_complete_round = retrieval_round
+
+    round_selected_matches_final_candidate = cumulative_selected == candidate_ids
+    if not round_selected_matches_final_candidate:
+        warnings.append("ROUND_SELECTED_FINAL_CANDIDATE_MISMATCH")
+    final_round = max(selected_by_round)
+    return (
+        {
+            "round_selected_cumulative": cumulative_selected_metrics,
+            "round_selected_final": cumulative_selected_metrics[str(final_round)],
+            "final_candidate": precision_recall_f1(candidate_ids, groups),
+            "accepted": dict(accepted_metrics),
+            "first_candidate_complete_round": first_candidate_complete_round,
+            "first_round_selected_complete_round": first_round_selected_complete_round,
+            "round_selected_matches_final_candidate": round_selected_matches_final_candidate,
+        },
+        warnings,
+    )
+
+
 def load_answer_labels(path: Optional[Path]) -> Dict[str, bool]:
     """Load false-supported labels; True means the supported answer is false."""
     if path is None:
@@ -647,12 +749,30 @@ def load_answer_labels(path: Optional[Path]) -> Dict[str, bool]:
     return labels
 
 
+def _rebase_legacy_record_directory(raw_path: Path) -> Optional[Path]:
+    """Map an old absolute records/runs path to this project safely."""
+    if not raw_path.is_absolute():
+        return None
+    parts = raw_path.parts
+    for index in range(len(parts) - 1):
+        if parts[index : index + 2] != ("records", "runs"):
+            continue
+        suffix = parts[index + 2 :]
+        if len(suffix) < 2 or any(part in {"", ".", ".."} for part in suffix):
+            return None
+        return PROJECT_ROOT.joinpath("records", "runs", *suffix)
+    return None
+
+
 def _resolve_run_directory(batch_directory: Path, summary: Mapping[str, Any]) -> Path:
     candidates: List[Path] = []
     raw_directory = summary.get("record_directory")
     if raw_directory:
         raw_path = Path(str(raw_directory))
         candidates.append(raw_path)
+        rebased_path = _rebase_legacy_record_directory(raw_path)
+        if rebased_path is not None:
+            candidates.append(rebased_path)
         if not raw_path.is_absolute():
             candidates.extend([PROJECT_ROOT / raw_path, batch_directory / raw_path])
         candidates.append(PROJECT_ROOT / "records/runs" / raw_path.name)
@@ -988,6 +1108,20 @@ def evaluate_batch(
                 None if provision_ids is None else precision_recall_f1(provision_ids, groups)
             )
 
+        if normal_outcome:
+            retrieval_loss_metrics, retrieval_loss_warnings = (
+                build_retrieval_loss_metrics(
+                    run_directory,
+                    candidates,
+                    candidate_ids,
+                    provision,
+                    groups,
+                )
+            )
+            warnings.update(retrieval_loss_warnings)
+        else:
+            retrieval_loss_metrics = None
+        retrieval_loss = retrieval_loss_metrics or {}
         citation_attempted, citation_passed = _citation_status(result)
         supported_answer = result["status"] == "ANSWER" and citation_passed is True
         false_supported = labels.get(question_id) if supported_answer else None
@@ -1087,7 +1221,27 @@ def evaluate_batch(
                 else None
             ),
             "stage_metrics": stage_metrics,
+            "retrieval_loss_provenance_available": (
+                retrieval_loss_metrics is not None if normal_outcome else None
+            ),
+            "round_selected_cumulative_metrics": retrieval_loss.get(
+                "round_selected_cumulative"
+            ),
+            "round_selected_final_metrics": retrieval_loss.get(
+                "round_selected_final"
+            ),
+            "final_candidate_metrics": retrieval_loss.get("final_candidate"),
             "gold_match_types": dict(Counter(group.match_type for group in groups)),
+            "accepted_metrics": retrieval_loss.get("accepted"),
+            "first_candidate_complete_round": retrieval_loss.get(
+                "first_candidate_complete_round"
+            ),
+            "first_round_selected_complete_round": retrieval_loss.get(
+                "first_round_selected_complete_round"
+            ),
+            "round_selected_matches_final_candidate": retrieval_loss.get(
+                "round_selected_matches_final_candidate"
+            ),
         }
         per_question.append(row)
 
@@ -1295,6 +1449,124 @@ def _aggregate_stage(rows: Sequence[Mapping[str, Any]], metric_name: str) -> Dic
     }
 
 
+def _aggregate_provenance_metric(
+    metrics: Sequence[Mapping[str, Any]],
+) -> Dict[str, Any]:
+    total_predictions = sum(int(metric["predicted"]) for metric in metrics)
+    total_gold = sum(int(metric["gold"]) for metric in metrics)
+    total_true_positives = sum(int(metric["true_positive"]) for metric in metrics)
+    precision = total_true_positives / total_predictions if total_predictions else 0.0
+    recall = total_true_positives / total_gold if total_gold else 0.0
+    f1 = (
+        2 * precision * recall / (precision + recall)
+        if precision + recall
+        else 0.0
+    )
+    complete_count = sum(bool(metric["complete"]) for metric in metrics)
+    return {
+        "question_count": len(metrics),
+        "predicted": total_predictions,
+        "gold": total_gold,
+        "true_positive": total_true_positives,
+        "micro": {"precision": precision, "recall": recall, "f1": f1},
+        "macro": {
+            "precision": mean(float(metric["precision"]) for metric in metrics),
+            "recall": mean(float(metric["recall"]) for metric in metrics),
+            "f1": mean(float(metric["f1"]) for metric in metrics),
+        },
+        "complete_evidence": {
+            "count": complete_count,
+            "rate": complete_count / len(metrics) if metrics else None,
+        },
+    }
+
+
+def _aggregate_retrieval_loss(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
+    eligible = [row for row in rows if row["status"] in NORMAL_OUTCOME_STATUSES]
+    available = [
+        row for row in eligible if row.get("retrieval_loss_provenance_available")
+    ]
+    output: Dict[str, Any] = {
+        "available": False,
+        "normal_outcome_questions": len(eligible),
+        "available_questions": len(available),
+        "round_selected_cumulative": None,
+        "final_candidate": None,
+        "accepted": None,
+        "first_candidate_complete_round": None,
+        "first_round_selected_complete_round": None,
+        "round_selected_matches_final_candidate": None,
+        "unavailable_reason": None,
+    }
+    if not eligible:
+        output["unavailable_reason"] = "NO_NORMAL_OUTCOMES"
+        return output
+    if len(available) != len(eligible):
+        output["unavailable_reason"] = "INCOMPLETE_ROUND_SELECTED_PROVENANCE"
+        return output
+
+    round_numbers = sorted(
+        {
+            int(round_key)
+            for row in available
+            for round_key in row["round_selected_cumulative_metrics"]
+        }
+    )
+    cumulative: Dict[str, Dict[str, Any]] = {}
+    for retrieval_round in round_numbers:
+        metrics = []
+        for row in available:
+            rounds = row["round_selected_cumulative_metrics"]
+            completed_rounds = [
+                int(key) for key in rounds if int(key) <= retrieval_round
+            ]
+            metrics.append(rounds[str(max(completed_rounds))])
+        cumulative[str(retrieval_round)] = _aggregate_provenance_metric(metrics)
+
+    first_candidate_counts = Counter(
+        row["first_candidate_complete_round"]
+        for row in available
+        if row["first_candidate_complete_round"] is not None
+    )
+    first_selected_counts = Counter(
+        row["first_round_selected_complete_round"]
+        for row in available
+        if row["first_round_selected_complete_round"] is not None
+    )
+    matches = sum(
+        bool(row["round_selected_matches_final_candidate"]) for row in available
+    )
+    output.update(
+        {
+            "available": True,
+            "round_selected_cumulative": cumulative,
+            "final_candidate": _aggregate_provenance_metric(
+                [row["final_candidate_metrics"] for row in available]
+            ),
+            "accepted": _aggregate_provenance_metric(
+                [row["accepted_metrics"] for row in available]
+            ),
+            "first_candidate_complete_round": {
+                "counts": dict(sorted(first_candidate_counts.items())),
+                "never_complete_count": (
+                    len(available) - sum(first_candidate_counts.values())
+                ),
+            },
+            "first_round_selected_complete_round": {
+                "counts": dict(sorted(first_selected_counts.items())),
+                "never_complete_count": (
+                    len(available) - sum(first_selected_counts.values())
+                ),
+            },
+            "round_selected_matches_final_candidate": {
+                "match_count": matches,
+                "mismatch_count": len(available) - matches,
+            },
+        }
+    )
+    return output
+
+
 def _aggregate_answer_quality(
     rows: Sequence[Mapping[str, Any]], lf_eval_scores: Optional[LFEvalScores]
 ) -> Dict[str, Any]:
@@ -1483,6 +1755,7 @@ def aggregate_rows(
         "retrieval": {
             name: _aggregate_stage(rows, name) for name in STAGE_SPECS
         },
+        "retrieval_loss": _aggregate_retrieval_loss(rows),
         "answers": {
             "supported_answer_count": supported_count,
             "supported_answer_yield": supported_count / total if total else None,
@@ -1572,6 +1845,14 @@ CSV_FIELDS = [
     "end_to_end_latency_ms",
     "stage_provenance_available",
     "first_stage_recall_at_100",
+    "retrieval_loss_provenance_available",
+    "round_selected_final_recall",
+    "round_selected_final_complete_evidence",
+    "final_candidate_recall",
+    "final_candidate_complete_evidence",
+    "first_candidate_complete_round",
+    "first_round_selected_complete_round",
+    "round_selected_matches_final_candidate",
     "first_stage_complete_at_100",
     "rrf_recall_at_100",
     "rrf_complete_at_100",
@@ -1602,6 +1883,20 @@ def _flatten_csv_row(row: Mapping[str, Any]) -> Dict[str, Any]:
         metric = row["stage_metrics"].get(metric_name)
         flattened[recall_field] = None if metric is None else metric["recall"]
         flattened[complete_field] = None if metric is None else metric["complete"]
+    round_selected = row.get("round_selected_final_metrics")
+    final_candidate = row.get("final_candidate_metrics")
+    flattened["round_selected_final_recall"] = (
+        None if round_selected is None else round_selected["recall"]
+    )
+    flattened["round_selected_final_complete_evidence"] = (
+        None if round_selected is None else round_selected["complete"]
+    )
+    flattened["final_candidate_recall"] = (
+        None if final_candidate is None else final_candidate["recall"]
+    )
+    flattened["final_candidate_complete_evidence"] = (
+        None if final_candidate is None else final_candidate["complete"]
+    )
     return flattened
 
 

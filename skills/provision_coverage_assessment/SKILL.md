@@ -17,8 +17,9 @@ requirements and candidate provisions.
    alone is not support.
 2. Link the smallest candidate set that actually satisfies a requirement. One
    provision may support several requirements and one requirement may need
-   several provisions. Use only supplied candidate IDs and set `quoted_text` to
-   `[FULL_TEXT]`.
+   several provisions. In raw compact transport use only supplied candidate IDs
+   plus the selected relation and concise rationale; the harness restores the
+   immutable full-text quote deterministically.
 3. Treat the supplied requirements as closed. Do not invent a missing definition,
    procedure, background point, or general legal-opinion completeness test.
 4. Apply the contract's coverage mapping. Question facts need no statutory
@@ -40,3 +41,11 @@ Validate a result with:
 ```bash
 python3 scripts/validate_output.py output.json --input input.json
 ```
+
+## Direct-entailment boundary
+
+For each explicit answer target and supplied completion requirement, accept only the smallest directly entailing provision set.
+A direct evidence link is necessary to establish that requirement's proposition, not merely useful for understanding it.
+Audit-only helpful context may inform a concise rationale, but it must remain unlinked and cannot make an assessment covered or partially covered.
+Do not link related, background, neighboring, procedural, or general rules unless their text is necessary to directly entail a supplied requirement.
+Do not infer additional requirements from outside evaluation knowledge; the supplied targets and requirements remain closed.

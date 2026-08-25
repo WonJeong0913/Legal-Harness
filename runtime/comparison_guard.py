@@ -29,6 +29,7 @@ RUNTIME_CONFIGURATION_DEFAULTS = {
     "candidate_selection": "global_top_k",
     "per_evidence_min_k": 1,
     "candidate_budget_scope": "per_issue",
+    "round_merge_mode": "raw_score",
     "dedup_mode": "none",
     "rerank_document_mode": "body_only",
     "input_format": "koblex_background_plus_question",

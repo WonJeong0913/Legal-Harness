@@ -5,6 +5,8 @@ from harness.contracts import (
     AnswerTarget,
     CandidateProvision,
     CompletionRequirement,
+    CriterionResult,
+    CriterionStatus,
     CoverageAssessment,
     CoverageStatus,
     EvidenceConflict,
@@ -13,6 +15,7 @@ from harness.contracts import (
     LegalIssue,
     LegalStatus,
     PolicyAction,
+    TerminationReason,
     RequiredEvidenceItem,
     SupportSpan,
 )
@@ -321,6 +324,79 @@ class AnswerTargetPolicyTests(unittest.TestCase):
         self.assertFalse(progress)
         self.assertEqual(state.no_progress_rounds, 1)
 
+
+    def test_redundant_accepted_link_is_not_progress(self):
+        state = RunState(question="q", normalized_question="q", run_id="redundant")
+        state.required_evidence_items = [RequiredEvidenceItem("E1", "I1", "rule", "핵심 규칙", True)]
+        state.coverage_assessments = [assessment("E1", LegalStatus.UNCOVERED, ApplicabilityStatus.NOT_ASSESSED, GapType.MISSING_STATUTE)]
+        state.evidence_links = [EvidenceLink("I1", "E1", "P1", [SupportSpan(0, 1)], "accepted")]
+        progress = apply_coverage_assessment(
+            state,
+            [EvidenceLink("I1", "E1", "P2", [SupportSpan(0, 1)], "accepted")],
+            [assessment("E1", LegalStatus.UNCOVERED, ApplicabilityStatus.NOT_ASSESSED, GapType.MISSING_STATUTE)],
+            [],
+        )
+        self.assertFalse(progress)
+        self.assertEqual(state.no_progress_rounds, 1)
+
+    def test_late_critical_criterion_improvement_resets_progress(self):
+        state = RunState(question="q", normalized_question="q", run_id="criterion")
+        state.required_evidence_items = [RequiredEvidenceItem(
+            "E1", "I1", "rule", "핵심 규칙", True,
+            completion_requirements=[CompletionRequirement("E1-R1", "법정 근거")]
+        )]
+        prior = assessment("E1", LegalStatus.PARTIALLY_COVERED, ApplicabilityStatus.NOT_ASSESSED, GapType.MISSING_STATUTE, "P1")
+        prior = CoverageAssessment(
+            **{**prior.__dict__, "criterion_results": [CriterionResult("E1-R1", CriterionStatus.UNSATISFIED, [], "미충족")]}
+        )
+        current = assessment("E1", LegalStatus.PARTIALLY_COVERED, ApplicabilityStatus.NOT_ASSESSED, GapType.MISSING_STATUTE, "P1")
+        current = CoverageAssessment(
+            **{**current.__dict__, "criterion_results": [CriterionResult("E1-R1", CriterionStatus.PARTIALLY_SATISFIED, ["P1"], "일부 근거")]}
+        )
+        state.coverage_assessments = [prior]
+        state.no_progress_rounds = 1
+        progress = apply_coverage_assessment(
+            state, [EvidenceLink("I1", "E1", "P1", [SupportSpan(0, 1)], "accepted")], [current], []
+        )
+        self.assertTrue(progress)
+        self.assertEqual(state.no_progress_rounds, 0)
+
+    def test_initial_no_support_then_two_no_progress_assessments_stops_retrieval(self):
+        state = RunState(question="q", normalized_question="q", run_id="stop", remaining_round_budget=2)
+        state.legal_issues = [LegalIssue("I1", "핵심 쟁점")]
+        state.required_evidence_items = [RequiredEvidenceItem("E1", "I1", "rule", "핵심 규칙", True)]
+        uncovered = assessment("E1", LegalStatus.UNCOVERED, ApplicabilityStatus.NOT_ASSESSED, GapType.MISSING_STATUTE)
+        self.assertFalse(apply_coverage_assessment(state, [], [uncovered], []))
+        self.assertEqual(state.no_progress_rounds, 1)
+        self.assertEqual(decide_next_action(state).action, PolicyAction.RETRIEVE_GAP)
+        self.assertFalse(apply_coverage_assessment(state, [], [uncovered], []))
+        decision = decide_next_action(state)
+        self.assertEqual(state.no_progress_rounds, 2)
+        self.assertEqual(decision.action, PolicyAction.ABSTAIN)
+        self.assertEqual(decision.termination_reason, TerminationReason.NO_RETRIEVAL_PROGRESS)
+
+    def test_partial_initial_no_progress_then_late_status_improvement_stays_allowed(self):
+        state = RunState(question="q", normalized_question="q", run_id="late", remaining_round_budget=2)
+        state.legal_issues = [LegalIssue("I1", "핵심 쟁점")]
+        state.required_evidence_items = [RequiredEvidenceItem(
+            "E1", "I1", "rule", "핵심 규칙", True,
+            completion_requirements=[CompletionRequirement("E1-R1", "법정 근거")],
+        )]
+        partial = CoverageAssessment(
+            **{**assessment("E1", LegalStatus.PARTIALLY_COVERED, ApplicabilityStatus.NOT_ASSESSED, GapType.MISSING_STATUTE, "P1").__dict__,
+               "criterion_results": [CriterionResult("E1-R1", CriterionStatus.PARTIALLY_SATISFIED, ["P1"], "일부 근거")]}
+        )
+        state.coverage_assessments = [partial]
+        self.assertFalse(apply_coverage_assessment(state, [], [partial], []))
+        self.assertEqual(state.no_progress_rounds, 1)
+        self.assertEqual(decide_next_action(state).action, PolicyAction.RETRIEVE_GAP)
+        covered = CoverageAssessment(
+            **{**assessment("E1", LegalStatus.COVERED, ApplicabilityStatus.DIRECT, GapType.NONE, "P1").__dict__,
+               "criterion_results": [CriterionResult("E1-R1", CriterionStatus.SATISFIED, ["P1"], "완전 근거")]}
+        )
+        self.assertTrue(apply_coverage_assessment(state, [], [covered], []))
+        self.assertEqual(state.no_progress_rounds, 0)
+        self.assertEqual(decide_next_action(state).action, PolicyAction.GENERATE)
 
 if __name__ == "__main__":
     unittest.main()

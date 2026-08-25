@@ -35,11 +35,12 @@
     "generation_constraints": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["language", "max_answer_chars", "citation_marker_style"],
+      "required": ["language", "max_answer_chars", "citation_marker_style", "public_conclusion_contract"],
       "properties": {
         "language": {"type": "string", "minLength": 2},
         "max_answer_chars": {"type": "integer", "minimum": 1, "maximum": 800},
-        "citation_marker_style": {"const": "citation_id"}
+        "citation_marker_style": {"const": "citation_id"},
+        "public_conclusion_contract": {"const": "required"}
       }
     }
   },

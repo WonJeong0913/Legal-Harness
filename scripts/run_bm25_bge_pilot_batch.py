@@ -7,10 +7,17 @@ import argparse
 import hashlib
 import json
 import subprocess
+import sys
+import traceback
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Mapping, Set
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 
 from runtime.comparison_guard import (
     resolve_frozen_configuration,
@@ -27,7 +34,6 @@ from runtime.source_snapshot import (
 )
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MANIFEST = PROJECT_ROOT / "data/koblex/manifests/bm25_bge_pilot_20_seed_20260815.json"
 DEFAULT_RECORD_ROOT = PROJECT_ROOT / "records/runs"
 
@@ -46,6 +52,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--python", type=Path, default=PROJECT_ROOT / ".venv/bin/python")
     parser.add_argument("--record-root", type=Path, default=DEFAULT_RECORD_ROOT)
     parser.add_argument("--batch-log-root", type=Path, default=PROJECT_ROOT / "records/batches")
+    parser.add_argument(
+        "--warm-resources",
+        action="store_true",
+        help=(
+            "opt in to one sequential process that reuses KURE/BGE/corpus/skill "
+            "resources; default remains one isolated subprocess per entry"
+        ),
+    )
     return parser.parse_args()
 
 
@@ -60,16 +74,72 @@ def sha256(path: Path) -> str:
             digest.update(chunk)
     return digest.hexdigest()
 
+KURE_PROVENANCE_ARTIFACTS = (
+    ("normalized_corpus_path", "normalized_corpus_sha256"),
+    ("vectors_path", "vectors_sha256"),
+    ("provision_ids_path", "provision_ids_sha256"),
+)
+
+
+def verify_kure_retriever_provenance(
+    configuration: Mapping[str, Any], project_root: Path = PROJECT_ROOT
+) -> None:
+    """Fail closed when a KURE batch's declared artifacts are not exact."""
+    if configuration.get("retriever") != "kure":
+        return
+
+    provenance = configuration.get("retriever_provenance")
+    if not isinstance(provenance, Mapping):
+        raise RuntimeError("KURE retriever_provenance must be an object")
+
+    resolved_root = project_root.resolve()
+    for path_key, sha256_key in KURE_PROVENANCE_ARTIFACTS:
+        declared_path = provenance.get(path_key)
+        expected_sha256 = provenance.get(sha256_key)
+        if not isinstance(declared_path, str) or not declared_path:
+            raise RuntimeError(
+                "KURE retriever_provenance missing %s" % path_key
+            )
+        if not isinstance(expected_sha256, str) or not expected_sha256:
+            raise RuntimeError(
+                "KURE retriever_provenance missing %s" % sha256_key
+            )
+        artifact_relative_path = Path(declared_path)
+        if artifact_relative_path.is_absolute() or ".." in artifact_relative_path.parts:
+            raise RuntimeError(
+                "KURE provenance artifact must be project-relative without '..': %s"
+                % path_key
+            )
+        artifact_path = resolved_root / artifact_relative_path
+        if not artifact_path.is_file():
+            raise RuntimeError(
+                "KURE provenance artifact is missing for %s: %s"
+                % (path_key, artifact_path)
+            )
+        actual_sha256 = sha256(artifact_path)
+        if actual_sha256 != expected_sha256:
+            raise RuntimeError(
+                "KURE provenance SHA256 mismatch for %s: expected %s, actual %s"
+                % (path_key, expected_sha256, actual_sha256)
+            )
+
 
 def load_questions(dataset_path: Path) -> Dict[str, Mapping[str, Any]]:
     try:
         import pyarrow.parquet as pq
     except ImportError as exc:
-        raise RuntimeError("install pyarrow in the project environment to run the pilot batch") from exc
+        raise RuntimeError(
+            "install pyarrow in the project environment to run the pilot batch"
+        ) from exc
     rows = pq.read_table(
         dataset_path, columns=["id", "background", "question", "n_hops"]
     ).to_pylist()
     return {str(row["id"]): row for row in rows}
+
+def resolve_batch_log_root(batch_log_root: Path) -> Path:
+    if not batch_log_root.is_absolute():
+        batch_log_root = PROJECT_ROOT / batch_log_root
+    return batch_log_root.resolve()
 
 
 def format_benchmark_input(question: Mapping[str, Any]) -> str:
@@ -109,7 +179,10 @@ def build_run_command(
             )
         ),
         "--s1-truncation-retry-max-tokens", str(
-            configuration.get("s1_truncation_retry_max_tokens", DEFAULT_S1_TRUNCATION_RETRY_MAX_TOKENS)
+            configuration.get(
+                "s1_truncation_retry_max_tokens",
+                DEFAULT_S1_TRUNCATION_RETRY_MAX_TOKENS,
+            )
         ),
         "--rounds", str(configuration["total_retrieval_rounds"]),
         "--requests", str(configuration["total_retrieval_requests"]),
@@ -127,6 +200,9 @@ def build_run_command(
         "--per-evidence-min-k", str(configuration.get("per_evidence_min_k", 1)),
         "--candidate-budget-scope", str(
             configuration.get("candidate_budget_scope", "per_issue")
+        ),
+        "--round-merge-mode", str(
+            configuration.get("round_merge_mode", "raw_score")
         ),
         "--dedup-mode", str(configuration.get("dedup_mode", "none")),
         "--rerank-document-mode", str(
@@ -170,6 +246,15 @@ def read_result(created: Iterable[Path]) -> Dict[str, Any]:
     return outcome
 
 
+def _warm_harness_module() -> Any:
+    """Import only when the explicit persistent execution mode is selected."""
+    if str(PROJECT_ROOT) not in sys.path:
+        sys.path.insert(0, str(PROJECT_ROOT))
+    from scripts import run_local_harness
+
+    return run_local_harness
+
+
 def main() -> int:
     args = parse_args()
     source_snapshot = capture_clean_source_snapshot(PROJECT_ROOT)
@@ -177,6 +262,7 @@ def main() -> int:
         args.record_root = PROJECT_ROOT / args.record_root
     args.record_root = args.record_root.resolve()
     manifest_path = args.manifest
+    args.batch_log_root = resolve_batch_log_root(args.batch_log_root)
     if not manifest_path.is_absolute():
         manifest_path = PROJECT_ROOT / manifest_path
     manifest_path = manifest_path.resolve()
@@ -185,11 +271,12 @@ def main() -> int:
     dataset_path = PROJECT_ROOT / source["path"]
     if sha256(dataset_path) != source["sha256"]:
         raise RuntimeError("KoBLEX dataset hash does not match the frozen pilot manifest")
-    if not args.python.is_file():
+    if not args.warm_resources and not args.python.is_file():
         raise RuntimeError("project Python is unavailable: %s" % args.python)
 
     questions = load_questions(dataset_path)
     configuration = resolve_frozen_configuration(manifest["frozen_configuration"])
+    verify_kure_retriever_provenance(configuration)
     comparison_reference = args.comparison_manifest
     if comparison_reference is None:
         selection = manifest.get("selection", {})
@@ -260,10 +347,26 @@ def main() -> int:
         "configuration": configuration,
         "retriever_comparison": comparison_metadata,
         "record_root": str(args.record_root),
+        "execution_mode": (
+            "warm_persistent" if args.warm_resources else "subprocess_per_entry"
+        ),
     }
     (batch_dir / "metadata.json").write_text(
         json.dumps(batch_metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
+    warm_harness = None
+    warm_resources = None
+    if args.warm_resources:
+        warm_harness = _warm_harness_module()
+        warm_resource_args = warm_harness.build_frozen_run_args(
+            "",
+            "",
+            configuration,
+            args.record_root,
+            source_snapshot.git_commit,
+            source_snapshot.source_manifest_sha256,
+        )
+        warm_resources = warm_harness.PersistentHarnessResources(warm_resource_args)
 
     summary_path = batch_dir / "summary.jsonl"
     has_failure = False
@@ -291,14 +394,37 @@ def main() -> int:
             started_at = utc_now()
             assert_source_snapshot_unchanged(PROJECT_ROOT, source_snapshot)
             with log_path.open("w", encoding="utf-8") as log:
-                completed = subprocess.run(
-                    command,
-                    cwd=PROJECT_ROOT,
-                    stdout=log,
-                    stderr=subprocess.STDOUT,
-                    text=True,
-                    check=False,
-                )
+                if args.warm_resources:
+                    try:
+                        warm_args = warm_harness.build_frozen_run_args(
+                            benchmark_input,
+                            question_id,
+                            configuration,
+                            args.record_root,
+                            source_snapshot.git_commit,
+                            source_snapshot.source_manifest_sha256,
+                        )
+                        execution = warm_harness.run_question(
+                            warm_args,
+                            source_snapshot=source_snapshot,
+                            resources=warm_resources,
+                        )
+                    except Exception:
+                        traceback.print_exc(file=log)
+                        exit_code = 1
+                    else:
+                        print(execution.rendered_output, file=log)
+                        exit_code = execution.exit_code
+                else:
+                    completed = subprocess.run(
+                        command,
+                        cwd=PROJECT_ROOT,
+                        stdout=log,
+                        stderr=subprocess.STDOUT,
+                        text=True,
+                        check=False,
+                    )
+                    exit_code = completed.returncode
             assert_source_snapshot_unchanged(PROJECT_ROOT, source_snapshot)
             outcome = read_result(record_directories(args.record_root) - before)
             status = outcome.get("status")
@@ -310,7 +436,7 @@ def main() -> int:
                 "n_hops": entry["n_hops"],
                 "started_at_utc": started_at,
                 "completed_at_utc": utc_now(),
-                "exit_code": completed.returncode,
+                "exit_code": exit_code,
                 "log_file": str(log_path.relative_to(PROJECT_ROOT)),
                 **outcome,
             }

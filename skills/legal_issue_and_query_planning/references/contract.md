@@ -56,3 +56,7 @@ transport IDs without changing the plan.
 On invalid input, use the schema error envelope with `INVALID_INPUT`,
 `BUDGET_EXHAUSTED`, or `CONTRACT_UNSATISFIABLE`. An S1 error is not a policy
 action.
+
+## Epistemic neutrality
+
+Describe the statutory evidence needed to determine each explicit result while separating evidence obligations from retrieval hypotheses. Do not present a legal answer, article, condition, threshold, or extra legal theory absent from the question as established fact. Split only explicit independent requested outputs or genuinely distinct outcome-determinative rules, exceptions, cross-references, or effects. In GAP planning, a new statutory pinpoint must be grounded by the original question or a harness-supplied candidate cross-reference; otherwise query the unresolved statutory proposition neutrally. Candidate anchors identify the target statute and article (and paragraph where applicable), are extracted only from outbound provision-text references, and retain source candidate IDs with exact excerpts and spans.

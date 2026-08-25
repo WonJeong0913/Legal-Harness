@@ -10,14 +10,15 @@
     "claim": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["claim_id", "text", "claim_type", "applicability", "citation_required"],
+      "required": ["claim_id", "text", "claim_type", "applicability", "citation_required", "public_role"],
       "properties": {
         "claim_id": {"type": "string", "pattern": "^C[1-9][0-9]*$"},
         "text": {"type": "string", "minLength": 1},
         "claim_type": {"enum": ["legal_rule", "application", "exception", "procedure", "remedy"]},
         "applicability": {"enum": ["direct", "conditional"]},
         "answer_target_ids": {"type": "array", "items": {"type": "string", "pattern": "^T[1-9][0-9]*$"}, "uniqueItems": true},
-        "citation_required": {"const": true}
+        "citation_required": {"const": true},
+        "public_role": {"enum": ["conclusion", "audit"]}
       }
     },
     "citation": {
