@@ -119,6 +119,7 @@ class LocalOllamaSkillExecutor:
         self.seed = seed
         self._resources: Dict[str, Dict[str, str]] = {}
         self._validators: Dict[str, Callable[[Mapping[str, Any], Mapping[str, Any]], List[str]]] = {}
+        self._validator_modules: Dict[str, Any] = {}
         for skill_name in SKILL_IDS:
             self._load_skill(skill_name)
 
@@ -161,6 +162,11 @@ class LocalOllamaSkillExecutor:
                 skill_output = self._normalize_harness_owned_fields(
                     skill_name, entry_point, skill_input, copy.deepcopy(raw_skill_output)
                 )
+                skill_output, deterministic_repairs = self._repair_s1_transport(
+                    skill_name, entry_point, skill_output, skill_input
+                )
+                if deterministic_repairs:
+                    diagnostic["deterministic_repairs"] = deterministic_repairs
                 validation_errors = self._validators[skill_name](skill_output, skill_input)
                 if validation_errors:
                     errors = validation_errors
@@ -192,7 +198,7 @@ class LocalOllamaSkillExecutor:
                         + " Previous JSON: "
                         + json.dumps(
                             self._redact_run_ids_for_prompt(
-                                raw_skill_output if compact_transport else skill_output
+                                raw_skill_output if (compact_transport or deterministic_repairs) else skill_output
                             ),
                             ensure_ascii=False,
                             separators=(",", ":"),
@@ -835,6 +841,85 @@ class LocalOllamaSkillExecutor:
         if not callable(validator):
             raise SkillExecutionError("validator for %s has no validate function" % skill_name)
         self._validators[skill_name] = validator
+        self._validator_modules[skill_name] = module
+
+    def _repair_s1_transport(
+        self,
+        skill_name: str,
+        entry_point: str,
+        output: Dict[str, Any],
+        skill_input: Mapping[str, Any],
+    ) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
+        """Deterministically neutralize only S1 retrieval specificity the validator rejects.
+
+        The skill raw output remains the retry artifact. This repair never
+        introduces an article, changes legal/evidence decisions, or relaxes
+        provenance; it only removes unsupported pinpoint text and retains the
+        statute/semantic query. Grounded question/candidate references stay as
+        emitted.
+        """
+        if skill_name != "legal_issue_and_query_planning":
+            return output, []
+        repaired = copy.deepcopy(output)
+        audit: List[Dict[str, Any]] = []
+        if entry_point == "INITIAL_PLAN":
+            question = str(skill_input.get("original_question") or skill_input.get("normalized_question") or "")
+            question_segment = question.split("[질문]", 1)[-1]
+            normalized_question = self._normalized_query(question_segment)
+            for target in self._list(repaired, "answer_targets", required=False):
+                if not isinstance(target, dict):
+                    continue
+                anchor = target.get("question_anchor")
+                if isinstance(anchor, str) and self._normalized_query(anchor) in normalized_question:
+                    continue
+                requested = target.get("requested_output")
+                if isinstance(requested, str) and requested.strip() and self._normalized_query(requested) in normalized_question:
+                    target["question_anchor"] = requested.strip()
+                    audit.append({
+                        "kind": "normalized_question_anchor",
+                        "answer_target_id": target.get("answer_target_id"),
+                        "before": anchor,
+                        "after": target["question_anchor"],
+                    })
+            return repaired, audit
+        if entry_point != "GAP_QUERY_PLAN":
+            return repaired, audit
+        requests = repaired.get("gap_retrieval_requests")
+        neutralizer = getattr(
+            self._validator_modules[skill_name],
+            "neutralize_ungrounded_article_specificity",
+            None,
+        )
+        if not isinstance(requests, list) or not callable(neutralizer):
+            return repaired, audit
+        neutralized, article_repairs = neutralizer(requests, skill_input)
+        repaired["gap_retrieval_requests"] = neutralized
+        audit.extend(article_repairs)
+        evidence_by_id = {
+            item.get("evidence_item_id"): item
+            for item in self._list(skill_input, "required_evidence_items")
+            if isinstance(item, Mapping)
+        }
+        for request in neutralized:
+            if not isinstance(request, dict):
+                continue
+            for field in ("first_stage_query_text", "rerank_query_text"):
+                if request.get(field) == "":
+                    request.pop(field, None)
+            if isinstance(request.get("query_text"), str) and request["query_text"].strip():
+                continue
+            evidence = evidence_by_id.get(request.get("evidence_item_id"))
+            description = evidence.get("description") if isinstance(evidence, Mapping) else None
+            if not isinstance(description, str) or not description.strip():
+                continue
+            request["query_text"] = "%s 관련 법정 근거" % description.strip()
+            audit.append({
+                "kind": "neutral_semantic_gap_fallback",
+                "request_id": request.get("request_id"),
+                "field": "query_text",
+                "after": request["query_text"],
+            })
+        return repaired, audit
 
     def _build_skill_input(
         self,

@@ -247,6 +247,117 @@ def _pair_is_allowed(pair, allowed):
         for permitted_statute, permitted_article, _ in allowed
     )
 
+RETRIEVAL_TEXT_FIELDS = (
+    "query_text",
+    "first_stage_query_text",
+    "rerank_query_text",
+)
+RETRIEVAL_LIST_FIELDS = ("query_terms", "statute_hints")
+
+
+def _replace_spans(value, spans):
+    repaired = value
+    for start, end in sorted(set(spans), reverse=True):
+        repaired = repaired[:start] + repaired[end:]
+    return re.sub(r"\s+", " ", repaired).strip(" ,;:/")
+
+
+def _article_span(match, value):
+    start = match.start("article")
+    if start > match.start() and value[start - 1:start] == "제":
+        start -= 1
+    return start, match.end()
+
+
+def neutralize_ungrounded_article_specificity(requests, inp):
+    """Remove only article/paragraph specificity that S1 provenance cannot authorize.
+
+    This is a deterministic transport repair for retrieval text, not a legal
+    judgment. It keeps the statute token and surrounding semantic query;
+    question/candidate-cross-reference anchored pairs remain untouched.
+    """
+    allowed = _allowed_pairs(inp)
+    repairs = []
+    repaired_requests = []
+    known_statutes = {pair[0] for pair in allowed}
+    for original in requests:
+        if not isinstance(original, dict):
+            repaired_requests.append(original)
+            continue
+        request = dict(original)
+        for field in RETRIEVAL_TEXT_FIELDS:
+            value = request.get(field)
+            if not isinstance(value, str):
+                continue
+            spans = []
+            for match in QUALIFIED_PAIR_PATTERN.finditer(value):
+                statute, _unknown = _statute_name(match, known_statutes)
+                pair = (
+                    statute,
+                    _article_name(match.group("article"), match.group("subarticle")),
+                    _paragraph_name(match.group("paragraph")),
+                )
+                if not statute or not _pair_is_allowed(pair, allowed):
+                    spans.append(_article_span(match, value))
+            after_qualified = _replace_spans(value, spans) if spans else value
+            retained_spans = []
+            for match in QUALIFIED_PAIR_PATTERN.finditer(after_qualified):
+                statute, _unknown = _statute_name(match, known_statutes)
+                pair = (
+                    statute,
+                    _article_name(match.group("article"), match.group("subarticle")),
+                    _paragraph_name(match.group("paragraph")),
+                )
+                if statute and _pair_is_allowed(pair, allowed):
+                    retained_spans.append(match.span())
+            bare_spans = []
+            for match in ARTICLE_ONLY_PATTERN.finditer(after_qualified):
+                if any(match.start() < end and start < match.end() for start, end in retained_spans):
+                    continue
+                article = _article_name(match.group(1), match.group(2))
+                paragraph = _paragraph_name(match.group(3))
+                statutes = {
+                    pair[0] for pair in allowed
+                    if pair[1] == article and (paragraph is None or pair[2] == paragraph)
+                }
+                if len(statutes) != 1:
+                    bare_spans.append(match.span())
+            repaired = _replace_spans(after_qualified, bare_spans) if bare_spans else after_qualified
+            if repaired != value:
+                request[field] = repaired
+                repairs.append({
+                    "kind": "neutralized_ungrounded_article_specificity",
+                    "request_id": request.get("request_id"),
+                    "field": field,
+                    "before": value,
+                    "after": repaired,
+                })
+        for field in RETRIEVAL_LIST_FIELDS:
+            values = request.get(field)
+            if not isinstance(values, list):
+                continue
+            repaired_values = []
+            for value in values:
+                if not isinstance(value, str):
+                    repaired_values.append(value)
+                    continue
+                temporary = {"query_text": value}
+                repaired_value = neutralize_ungrounded_article_specificity([temporary], inp)[0][0].get("query_text", value)
+                if repaired_value:
+                    repaired_values.append(repaired_value)
+            if repaired_values != values:
+                request[field] = repaired_values
+                repairs.append({
+                    "kind": "neutralized_ungrounded_article_specificity",
+                    "request_id": request.get("request_id"),
+                    "field": field,
+                    "before": values,
+                    "after": repaired_values,
+                })
+        repaired_requests.append(request)
+    return repaired_requests, repairs
+
+
 def validate_article_grounding(requests, inp, errors):
     """Validate target statute/article pairs across every retrieval field."""
     allowed = _allowed_pairs(inp)
