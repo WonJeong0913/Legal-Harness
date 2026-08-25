@@ -30,6 +30,11 @@ requirements and candidate provisions.
    unless new evidence creates a real conflict.
 6. Return JSON only.
 
+## Deterministic scope guards
+
+Do not mark direct or satisfied support from a candidate whose text limits the same law to an explicit article range when a direct root provision for another evidence item under the same answer target falls outside that range. A no-prefix range such as `제10조부터 제12조까지` is read against that candidate's own statute label.
+Do not use a candidate's `base(subtype)` text as direct or satisfied support for a general base entity unless the supplied question or requirement also states that subtype. Parentheses in a statute label alone are not enough.
+
 ## Boundary
 
 Do not retrieve, generate an answer, derive `accepted_provision_ids`, or choose a

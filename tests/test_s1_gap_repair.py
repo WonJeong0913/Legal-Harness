@@ -165,9 +165,151 @@ class GapSpecificityRepairTests(unittest.TestCase):
         )
         output = executor.execute("legal_issue_and_query_planning", "GAP_QUERY_PLAN", gap_input())
         self.assertEqual(output["gap_retrieval_requests"][0]["issue_id"], "I1")
-        self.assertEqual(len(prompts), 2)
+        self.assertEqual(len(prompts), 3)
         self.assertIn("민법 제840조", prompts[1])
         self.assertIn("Previous JSON", prompts[1])
+        self.assertIn("NEUTRAL_SEMANTIC_GAP_REPLAN", prompts[2])
+
+    def test_material_scoring_repair_attempts_one_clean_neutral_replan_and_adopts_it(self):
+        repaired_source = {
+            "schema_version": "1.0", "skill_id": "S1", "mode": "GAP_QUERY_PLAN",
+            "status": "ok", "run_id": "model-owned", "target_evidence_item_ids": ["E1"],
+            "gap_retrieval_requests": [{
+                "request_id": "model-owned", "issue_id": "I1", "evidence_item_id": "E1",
+                "query_channel": "statute_aware",
+                "query_text": "예시법 제999조 구성 요건",
+                "query_terms": ["제999조", "구성 요건"],
+                "statute_hints": ["예시법 제999조"],
+                "first_stage_query_text": "예시법 제999조 넓은 검색",
+                "rerank_query_text": "예시법 제999조 구성 요건",
+                "rationale": "미확인 법정 근거를 검색한다.",
+                "gap_reason": "법정 요건이 미확인이다.",
+                "source_assessment_status": "uncovered",
+            }],
+        }
+        neutral_replan = copy.deepcopy(repaired_source)
+        request = neutral_replan["gap_retrieval_requests"][0]
+        request.update({
+            "query_text": "예시법 구성 요건",
+            "query_terms": ["구성 요건", "법정 근거"],
+            "statute_hints": ["예시법"],
+            "first_stage_query_text": "예시법 적용 요건",
+            "rerank_query_text": "예시법 구성 요건 법정 근거",
+        })
+        prompts, diagnostics = [], []
+        responses = iter([repaired_source, neutral_replan])
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills", "fixture-model",
+            generator=lambda prompt: (prompts.append(prompt) or json.dumps(next(responses), ensure_ascii=False)),
+            diagnostic_sink=diagnostics.append,
+        )
+        output = executor.execute(
+            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", gap_input()
+        )
+        request = output["gap_retrieval_requests"][0]
+        self.assertEqual(len(prompts), 2)
+        self.assertIn("NEUTRAL_SEMANTIC_GAP_REPLAN", prompts[1])
+        self.assertIn("first_stage_query_text when provided, otherwise query_text", prompts[1])
+        self.assertIn("rerank_query_text when provided, otherwise query_text", prompts[1])
+        self.assertEqual(request["first_stage_query_text"], "예시법 적용 요건")
+        self.assertEqual(request["rerank_query_text"], "예시법 구성 요건 법정 근거")
+        self.assertEqual(
+            [event["kind"] for event in diagnostics[-1]["semantic_replan_events"]],
+            [
+                "neutral_semantic_gap_replan_attempted",
+                "neutral_semantic_gap_replan_adopted",
+            ],
+        )
+
+    def test_failed_neutral_replan_keeps_the_valid_repaired_fallback(self):
+        raw = {
+            "schema_version": "1.0", "skill_id": "S1", "mode": "GAP_QUERY_PLAN",
+            "status": "ok", "run_id": "model-owned", "target_evidence_item_ids": ["E1"],
+            "gap_retrieval_requests": [{
+                "request_id": "model-owned", "issue_id": "I1", "evidence_item_id": "E1",
+                "query_channel": "statute_aware", "query_text": "예시법 제999조 구성 요건",
+                "query_terms": ["제999조"], "statute_hints": ["예시법 제999조"],
+                "rationale": "미확인 법정 근거를 검색한다.",
+                "gap_reason": "법정 요건이 미확인이다.",
+                "source_assessment_status": "uncovered",
+            }],
+        }
+        prompts, diagnostics = [], []
+        responses = iter([json.dumps(raw, ensure_ascii=False), "not json"])
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills", "fixture-model",
+            generator=lambda prompt: (prompts.append(prompt) or next(responses)),
+            diagnostic_sink=diagnostics.append,
+        )
+        output = executor.execute(
+            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", gap_input()
+        )
+        self.assertEqual(len(prompts), 2)
+        self.assertNotRegex(json.dumps(output, ensure_ascii=False), r"제999조")
+        self.assertEqual(
+            diagnostics[-1]["semantic_replan_events"][-1]["kind"],
+            "neutral_semantic_gap_replan_fallback",
+        )
+        self.assertNotIn("INVALID_SKILL_OUTPUT", json.dumps(diagnostics, ensure_ascii=False))
+
+    def test_list_or_hint_only_repair_does_not_replan_without_scoring_delta(self):
+        raw = {
+            "schema_version": "1.0", "skill_id": "S1", "mode": "GAP_QUERY_PLAN",
+            "status": "ok", "run_id": "model-owned", "target_evidence_item_ids": ["E1"],
+            "gap_retrieval_requests": [{
+                "request_id": "model-owned", "issue_id": "I1", "evidence_item_id": "E1",
+                "query_channel": "statute_aware", "query_text": "예시법 구성 요건",
+                "query_terms": ["제999조", "구성 요건"], "statute_hints": ["예시법 제999조"],
+                "rationale": "미확인 법정 근거를 검색한다.",
+                "gap_reason": "법정 요건이 미확인이다.",
+                "source_assessment_status": "uncovered",
+            }],
+        }
+        prompts = []
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills", "fixture-model",
+            generator=lambda prompt: (prompts.append(prompt) or json.dumps(raw, ensure_ascii=False)),
+        )
+        output = executor.execute(
+            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", gap_input()
+        )
+        self.assertEqual(len(prompts), 1)
+        self.assertEqual(output["gap_retrieval_requests"][0]["query_text"].splitlines()[0], "예시법 구성 요건")
+
+    def test_clean_replan_without_effective_scoring_delta_keeps_repaired_fallback(self):
+        raw = {
+            "schema_version": "1.0", "skill_id": "S1", "mode": "GAP_QUERY_PLAN",
+            "status": "ok", "run_id": "model-owned", "target_evidence_item_ids": ["E1"],
+            "gap_retrieval_requests": [{
+                "request_id": "model-owned", "issue_id": "I1", "evidence_item_id": "E1",
+                "query_channel": "statute_aware", "query_text": "예시법 제999조 구성 요건",
+                "query_terms": ["제999조"], "statute_hints": ["예시법 제999조"],
+                "rationale": "미확인 법정 근거를 검색한다.",
+                "gap_reason": "법정 요건이 미확인이다.",
+                "source_assessment_status": "uncovered",
+            }],
+        }
+        unchanged_replan = copy.deepcopy(raw)
+        request = unchanged_replan["gap_retrieval_requests"][0]
+        request.update({
+            "query_text": "예시법 구성 요건",
+            "query_terms": ["구성 요건"],
+            "statute_hints": ["예시법"],
+        })
+        diagnostics = []
+        responses = iter([raw, unchanged_replan])
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills", "fixture-model",
+            generator=lambda _prompt: json.dumps(next(responses), ensure_ascii=False),
+            diagnostic_sink=diagnostics.append,
+        )
+        output = executor.execute(
+            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", gap_input()
+        )
+        self.assertNotRegex(json.dumps(output, ensure_ascii=False), r"제999조")
+        event = diagnostics[-1]["semantic_replan_events"][-1]
+        self.assertEqual(event["kind"], "neutral_semantic_gap_replan_fallback")
+        self.assertEqual(event["reason"], "replan_no_scoring_delta")
 
     def test_question_anchor_placeholders_recover_only_from_requested_output_substrings(self):
         executor = LocalOllamaSkillExecutor(

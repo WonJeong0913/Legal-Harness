@@ -51,6 +51,157 @@ def effective_status(assessment, errors):
     return derived
 
 
+def _scope_text(value):
+    return value if isinstance(value, str) else ""
+
+
+def _normalize_scope_text(value):
+    return " ".join(_scope_text(value).split())
+
+
+def _article_identity(provision):
+    for field in ("statute_name", "article_label"):
+        match = re.search(
+            r"(?P<statute>[가-힣A-Za-z][가-힣A-Za-z0-9·ㆍ\- ]*?(?:법률|법|시행령|시행규칙))\s*제\s*(?P<article>[0-9]+)\s*조",
+            _scope_text(provision.get(field)),
+        )
+        if match:
+            return (_normalize_scope_text(match.group("statute")), int(match.group("article")))
+    return None
+
+
+def _explicit_same_law_ranges(provision):
+    identity = _article_identity(provision)
+    own_statute = identity[0] if identity else None
+    ranges = []
+    for match in re.finditer(
+        r"(?:(?P<statute>[가-힣A-Za-z][가-힣A-Za-z0-9·ㆍ\- ]*?(?:법률|법|시행령|시행규칙))\s*)?제\s*(?P<start>[0-9]+)\s*조\s*(?:부터|내지)\s*제\s*(?P<end>[0-9]+)\s*조(?:까지)?",
+        _scope_text(provision.get("text")),
+    ):
+        statute = _normalize_scope_text(match.group("statute")) if match.group("statute") else own_statute
+        start, end = int(match.group("start")), int(match.group("end"))
+        if statute and statute == own_statute and start <= end:
+            ranges.append((statute, start, end))
+    return ranges
+
+
+def _explicit_subtypes(provision):
+    return [
+        (match.group("base"), match.group("subtype"))
+        for match in re.finditer(
+            r"(?P<base>[가-힣][가-힣0-9·ㆍ\-]{0,40})\s*\(\s*(?P<subtype>[가-힣][가-힣0-9·ㆍ\-]{0,20})\s*\)",
+            _scope_text(provision.get("text")),
+        )
+    ]
+
+def _unsafe_direct_or_satisfied(assessment, provision_id):
+    violations = []
+    if (
+        assessment.get("applicability_status") == "direct"
+        and provision_id in assessment.get("linked_provision_ids", [])
+    ):
+        violations.append("direct")
+    for result in assessment.get("criterion_results", []):
+        if (
+            isinstance(result, dict)
+            and result.get("status") == "satisfied"
+            and provision_id in result.get("linked_provision_ids", [])
+        ):
+            violations.append("satisfied:%s" % result.get("requirement_id"))
+    return violations
+
+
+def semantic_scope_mismatches(output, input_data):
+    """Return narrow, text-backed direct-entailment scope mismatches."""
+    if not isinstance(output, dict) or not isinstance(input_data, dict):
+        return []
+    evidence_by_id = {
+        item.get("evidence_item_id"): item
+        for item in input_data.get("required_evidence_items", [])
+        if isinstance(item, dict)
+    }
+    provision_by_id = {
+        item.get("provision_id"): item
+        for item in input_data.get("candidate_provisions", [])
+        if isinstance(item, dict)
+    }
+    assessments = {
+        item.get("evidence_item_id"): item
+        for item in output.get("coverage_assessments", [])
+        if isinstance(item, dict)
+    }
+    supports = {}
+    for link in output.get("evidence_links", []):
+        if isinstance(link, dict) and link.get("relation") == "supports":
+            supports.setdefault(link.get("evidence_item_id"), set()).add(link.get("provision_id"))
+    targets = {
+        evidence_id: set(item.get("answer_target_ids", []))
+        for evidence_id, item in evidence_by_id.items()
+        if isinstance(item.get("answer_target_ids"), list)
+    }
+    mismatches, seen = [], set()
+
+    def add(kind, evidence_id, provision_id, violations, **details):
+        key = (kind, evidence_id, provision_id, tuple(violations), tuple(sorted(details.items())))
+        if violations and key not in seen:
+            seen.add(key)
+            mismatches.append({
+                "kind": kind,
+                "evidence_item_id": evidence_id,
+                "provision_id": provision_id,
+                "violations": violations,
+                **details,
+            })
+
+    for evidence_id, assessment in assessments.items():
+        evidence = evidence_by_id.get(evidence_id)
+        if not evidence:
+            continue
+        for provision_id in supports.get(evidence_id, set()):
+            provision = provision_by_id.get(provision_id)
+            if not provision:
+                continue
+            violations = _unsafe_direct_or_satisfied(assessment, provision_id)
+            for statute, start, end in _explicit_same_law_ranges(provision):
+                for other_id, other_assessment in assessments.items():
+                    if other_id == evidence_id or not targets.get(evidence_id, set()).intersection(targets.get(other_id, set())):
+                        continue
+                    if other_assessment.get("applicability_status") != "direct":
+                        continue
+                    for root_id in supports.get(other_id, set()):
+                        root = provision_by_id.get(root_id)
+                        root_identity = _article_identity(root) if root else None
+                        if root_identity and root_identity[0] == statute and not start <= root_identity[1] <= end:
+                            add(
+                                "cross_reference_range_excludes_shared_target_root",
+                                evidence_id,
+                                provision_id,
+                                violations,
+                                root_provision_id=root_id,
+                                range_start=start,
+                                range_end=end,
+                            )
+            scope = " ".join(
+                [_scope_text(input_data.get("normalized_question"))]
+                + [
+                    _scope_text(requirement.get("text"))
+                    for requirement in evidence.get("completion_requirements", [])
+                    if isinstance(requirement, dict)
+                ]
+            )
+            for base, subtype in _explicit_subtypes(provision):
+                if base in scope and subtype not in scope:
+                    add(
+                        "general_entity_uses_explicit_special_subtype",
+                        evidence_id,
+                        provision_id,
+                        violations,
+                        base_entity=base,
+                        special_subtype=subtype,
+                    )
+    return mismatches
+
+
 def validate(output, input_data):
     errors = []
     if output.get("schema_version") != "1.0" or output.get("skill_id") != "S2":
@@ -219,6 +370,16 @@ def validate(output, input_data):
     for conflict in conflicts:
         if set(conflict.get("provision_ids", [])) - set(provision_by_id):
             errors.append(f"conflict uses non-candidate provision: {conflict.get('conflict_id')}")
+    for mismatch in semantic_scope_mismatches(output, input_data):
+        details = ", ".join(
+            "%s=%s" % (key, value)
+            for key, value in mismatch.items()
+            if key not in {"kind", "violations"}
+        )
+        errors.append(
+            "semantic scope mismatch blocks direct/satisfied: %s; violations=%s; %s"
+            % (mismatch.get("kind"), mismatch.get("violations"), details)
+        )
     return errors
 
 

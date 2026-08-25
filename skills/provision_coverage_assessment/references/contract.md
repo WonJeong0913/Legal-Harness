@@ -58,6 +58,11 @@ Because this contract has no audit-context output field, do not invent one; leav
 Related, background, neighboring, procedural, or general rules are not accepted evidence unless they directly entail a supplied requirement.
 Do not infer requirements from outside evaluation knowledge; the supplied targets and requirements are the complete assessment scope.
 
+## Deterministic applicability scope
+
+Do not mark a candidate direct or a criterion satisfied when its own text limits the same law to an article range but a directly linked root provision for another evidence item under the same answer target lies outside that range. This includes a no-prefix range bound to the candidate's statute label.
+Likewise, do not treat `base(subtype)` text in a candidate as direct or satisfied support for a general base entity unless the supplied question or requirement states that subtype; a parenthetical only in a statute label is not candidate-text scope.
+
 ## Compact audit transport
 
 Keep every legal/status decision, criterion requirement ID, criterion linked candidate IDs, chosen support/conflict relation, and one concise rationale for each evidence link, coverage assessment, and criterion result. Omit link IDs, `[FULL_TEXT]`, assessment-level duplicate link/aspect arrays, and duplicate missing/conflict arrays; the harness reconstructs only those deterministic fields before unchanged validation.

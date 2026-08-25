@@ -162,12 +162,52 @@ class LocalOllamaSkillExecutor:
                 skill_output = self._normalize_harness_owned_fields(
                     skill_name, entry_point, skill_input, copy.deepcopy(raw_skill_output)
                 )
+                unrepaired_skill_output = copy.deepcopy(skill_output)
                 skill_output, deterministic_repairs = self._repair_s1_transport(
                     skill_name, entry_point, skill_output, skill_input
                 )
                 if deterministic_repairs:
                     diagnostic["deterministic_repairs"] = deterministic_repairs
                 validation_errors = self._validators[skill_name](skill_output, skill_input)
+                scope_mismatches = self._semantic_scope_mismatches(
+                    skill_name, skill_output, skill_input
+                )
+                if scope_mismatches:
+                    diagnostic["semantic_scope_mismatches"] = scope_mismatches
+                if (
+                    not validation_errors
+                    and skill_output.get("status") == "ok"
+                    and self._needs_neutral_s1_gap_replan(
+                        skill_name,
+                        entry_point,
+                        unrepaired_skill_output,
+                        skill_output,
+                        skill_input,
+                        deterministic_repairs,
+                    )
+                ):
+                    replan_events = [
+                        {
+                            "kind": "neutral_semantic_gap_replan_attempted",
+                            "reason": "material_scoring_query_repair",
+                        }
+                    ]
+                    replan, replan_failure = self._neutral_s1_gap_replan(
+                        entry_point, skill_input, skill_output, max_tokens
+                    )
+                    if replan is not None:
+                        skill_output = replan
+                        replan_events.append(
+                            {"kind": "neutral_semantic_gap_replan_adopted"}
+                        )
+                    else:
+                        replan_events.append(
+                            {
+                                "kind": "neutral_semantic_gap_replan_fallback",
+                                "reason": replan_failure,
+                            }
+                        )
+                    diagnostic["semantic_replan_events"] = replan_events
                 if validation_errors:
                     errors = validation_errors
                     compact_transport = (
@@ -920,6 +960,187 @@ class LocalOllamaSkillExecutor:
                 "after": request["query_text"],
             })
         return repaired, audit
+
+    def _neutral_s1_gap_replan(
+        self,
+        entry_point: str,
+        skill_input: Mapping[str, Any],
+        repaired_fallback: Mapping[str, Any],
+        max_tokens: int,
+    ) -> Tuple[Optional[Dict[str, Any]], str]:
+        fallback_targets = [
+            request.get("evidence_item_id")
+            for request in self._list(
+                repaired_fallback, "gap_retrieval_requests", required=False
+            )
+            if isinstance(request, Mapping)
+        ]
+        replan_note = (
+            "NEUTRAL_SEMANTIC_GAP_REPLAN: The prior GAP plan required a "
+            "deterministic provenance repair that changed a retrieval scoring "
+            "query. Return exactly one clean neutral semantic replan for the "
+            "same unresolved critical evidence target(s), without restoring an "
+            "unsupported statutory pinpoint. The retriever scores "
+            "first_stage_query_text when provided, otherwise query_text; it "
+            "scores rerank_query_text when provided, otherwise query_text. "
+            "Return a full replacement JSON. Repaired fallback JSON: "
+            + json.dumps(
+                self._redact_run_ids_for_prompt(repaired_fallback),
+                ensure_ascii=False,
+                separators=(",", ":"),
+            )
+        )
+        try:
+            generation = self._generate(
+                self._prompt(
+                    "legal_issue_and_query_planning",
+                    entry_point,
+                    skill_input,
+                    replan_note,
+                ),
+                max_tokens,
+            )
+            if generation.done_reason == "length":
+                return None, "replan_truncated"
+            raw_replan = self._parse_json_object(generation.text)
+            replan = self._normalize_harness_owned_fields(
+                "legal_issue_and_query_planning",
+                entry_point,
+                skill_input,
+                copy.deepcopy(raw_replan),
+            )
+            replan, replan_repairs = self._repair_s1_transport(
+                "legal_issue_and_query_planning", entry_point, replan, skill_input
+            )
+            if replan_repairs:
+                return None, "replan_required_deterministic_repair"
+            replan_targets = [
+                request.get("evidence_item_id")
+                for request in self._list(
+                    replan, "gap_retrieval_requests", required=False
+                )
+                if isinstance(request, Mapping)
+            ]
+            if replan_targets != fallback_targets:
+                return None, "replan_changed_evidence_targets"
+            if not self._s1_scoring_query_delta(repaired_fallback, replan):
+                return None, "replan_no_scoring_delta"
+            validation_errors = self._validators["legal_issue_and_query_planning"](
+                replan, skill_input
+            )
+            if validation_errors:
+                return None, "replan_validation_error"
+            if replan.get("status") != "ok":
+                return None, "replan_non_ok_status"
+            return replan, ""
+        except Exception as exc:
+            return None, "replan_failed:%s" % exc.__class__.__name__
+
+    def _needs_neutral_s1_gap_replan(
+        self,
+        skill_name: str,
+        entry_point: str,
+        unrepaired: Mapping[str, Any],
+        repaired: Mapping[str, Any],
+        skill_input: Mapping[str, Any],
+        repairs: List[Mapping[str, Any]],
+    ) -> bool:
+        if (
+            skill_name != "legal_issue_and_query_planning"
+            or entry_point != "GAP_QUERY_PLAN"
+        ):
+            return False
+        if not any(
+            repair.get("kind") == "neutralized_ungrounded_article_specificity"
+            for repair in repairs
+            if isinstance(repair, Mapping)
+        ):
+            return False
+        unresolved = {
+            item.get("evidence_item_id")
+            for key in ("missing_evidence_items", "evidence_conflicts")
+            for item in self._list(skill_input, key)
+            if isinstance(item, Mapping)
+        }
+        critical = {
+            item.get("evidence_item_id")
+            for item in self._list(skill_input, "required_evidence_items")
+            if isinstance(item, Mapping) and item.get("critical") is True
+        }
+        before = {
+            (index, request.get("request_id")): self._s1_scoring_query_fields(request)
+            for index, request in enumerate(
+                self._list(unrepaired, "gap_retrieval_requests", required=False)
+            )
+            if isinstance(request, Mapping)
+        }
+        for index, request in enumerate(
+            self._list(repaired, "gap_retrieval_requests", required=False)
+        ):
+            if not isinstance(request, Mapping):
+                continue
+            evidence_id = request.get("evidence_item_id")
+            if evidence_id not in unresolved or evidence_id not in critical:
+                continue
+            key = (index, request.get("request_id"))
+            current = self._s1_scoring_query_fields(request)
+            if before.get(key) != current:
+                return True
+        return False
+
+    @staticmethod
+    def _s1_scoring_query_fields(request: Mapping[str, Any]) -> Tuple[str, str]:
+        query = request.get("query_text")
+        if not isinstance(query, str):
+            query = ""
+        return (
+            request.get("first_stage_query_text")
+            if isinstance(request.get("first_stage_query_text"), str)
+            and request.get("first_stage_query_text")
+            else query,
+            request.get("rerank_query_text")
+            if isinstance(request.get("rerank_query_text"), str)
+            and request.get("rerank_query_text")
+            else query,
+        )
+
+    @classmethod
+    def _s1_scoring_query_delta(
+        cls, before: Mapping[str, Any], after: Mapping[str, Any]
+    ) -> bool:
+        before_requests = cls._list(before, "gap_retrieval_requests", required=False)
+        after_requests = cls._list(after, "gap_retrieval_requests", required=False)
+        if len(before_requests) != len(after_requests):
+            return True
+        return any(
+            not isinstance(left, Mapping)
+            or not isinstance(right, Mapping)
+            or tuple(
+                cls._normalized_query(query)
+                for query in cls._s1_scoring_query_fields(left)
+            )
+            != tuple(
+                cls._normalized_query(query)
+                for query in cls._s1_scoring_query_fields(right)
+            )
+            for left, right in zip(before_requests, after_requests)
+        )
+
+    def _semantic_scope_mismatches(
+        self,
+        skill_name: str,
+        output: Mapping[str, Any],
+        skill_input: Mapping[str, Any],
+    ) -> List[Dict[str, Any]]:
+        if skill_name != "provision_coverage_assessment":
+            return []
+        checker = getattr(
+            self._validator_modules[skill_name], "semantic_scope_mismatches", None
+        )
+        if not callable(checker):
+            return []
+        mismatches = checker(output, skill_input)
+        return [dict(item) for item in mismatches if isinstance(item, Mapping)]
 
     def _build_skill_input(
         self,
