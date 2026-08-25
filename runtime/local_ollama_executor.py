@@ -19,7 +19,7 @@ import unicodedata
 import urllib.error
 import urllib.request
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Mapping, Optional, Tuple
+from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence, Tuple
 
 from harness.interfaces import SkillExecutionError
 
@@ -56,7 +56,7 @@ S2_COMPACT_AUDIT_INVARIANT = (
     "For raw S2 transport omit link_id, [FULL_TEXT], assessment-level linked "
     "IDs, satisfied_aspects, missing_aspects, and missing/conflict arrays when "
     "derivable; retain each legal status, criterion requirement_id/status, "
-    "criterion linked candidate IDs, relation/conflict choice, and one concise rationale for each evidence link, coverage assessment, and criterion result."
+    "criterion linked candidate IDs, direct-entailment component statuses for direct satisfied requirements, relation/conflict choice, and one concise rationale for each evidence link, coverage assessment, and criterion result."
 )
 
 @dataclass(frozen=True)
@@ -135,6 +135,7 @@ class LocalOllamaSkillExecutor:
         errors: List[str] = []
         repair_note = ""
         max_tokens = self._max_tokens(skill_name)
+        previous_invalid_s3_public_role_hash: Optional[str] = None
         for attempt in range(1, self.max_attempts + 1):
             prompt = self._prompt(skill_name, entry_point, skill_input, repair_note)
             diagnostic: Dict[str, Any] = {
@@ -231,6 +232,34 @@ class LocalOllamaSkillExecutor:
                             "rebuild linked_provision_ids from evidence_links."
                         )
                     )
+                    public_role_diagnostic = self._s3_public_role_diagnostic(
+                        skill_name,
+                        skill_output,
+                        skill_input,
+                        validation_errors,
+                    )
+                    if public_role_diagnostic is not None:
+                        diagnostic["s3_public_role_contract"] = public_role_diagnostic
+                        repair_instruction += self._s3_public_role_repair_instruction(
+                            public_role_diagnostic
+                        )
+                        response_hash = diagnostic.get("response_sha256")
+                        if (
+                            isinstance(response_hash, str)
+                            and response_hash == previous_invalid_s3_public_role_hash
+                        ):
+                            diagnostic["retry_aborted"] = (
+                                "duplicate_invalid_s3_public_role_response"
+                            )
+                            diagnostic["duplicate_invalid_response_sha256"] = response_hash
+                            errors = validation_errors + [
+                                "duplicate invalid S3 public-role response reproduced"
+                            ]
+                            diagnostic["outcome"] = "validation_error"
+                            diagnostic["error"] = "; ".join(errors)
+                            break
+                        if isinstance(response_hash, str):
+                            previous_invalid_s3_public_role_hash = response_hash
                     repair_note = (
                         "Your previous JSON failed validation: "
                         + "; ".join(validation_errors)
@@ -279,6 +308,99 @@ class LocalOllamaSkillExecutor:
             "%s did not produce a valid %s result after %d attempts: %s"
             % (skill_name, entry_point, self.max_attempts, "; ".join(errors))
         )
+
+    @staticmethod
+    def _s3_public_role_diagnostic(
+        skill_name: str,
+        output: Mapping[str, Any],
+        skill_input: Mapping[str, Any],
+        validation_errors: Sequence[str],
+    ) -> Optional[Dict[str, Any]]:
+        """Measure an S3 public-role contract failure without repairing content.
+
+        The model owns claim text, target grouping, citations, and public/audit
+        roles. This method intentionally exposes only structural counts for a
+        bounded retry; it never reassigns roles or drops a claim.
+        """
+        if (
+            skill_name != "grounded_legal_answer_generation"
+            or skill_input.get("generation_constraints", {}).get(
+                "public_conclusion_contract"
+            )
+            != "required"
+            or not any(
+                "public conclusion contract" in error
+                or "public answer must contain 1 to 3 short lines" in error
+                for error in validation_errors
+            )
+        ):
+            return None
+        claims = output.get("claims")
+        claims = claims if isinstance(claims, list) else []
+        answered_target_ids = [
+            target_id
+            for target_id in skill_input.get("answered_target_ids", [])
+            if isinstance(target_id, str)
+        ]
+        public_claims = [
+            claim
+            for claim in claims
+            if isinstance(claim, Mapping)
+            and claim.get("public_role") == "conclusion"
+        ]
+        def claim_target_ids(claim: Mapping[str, Any]) -> List[str]:
+            target_ids = claim.get("answer_target_ids")
+            return target_ids if isinstance(target_ids, list) else []
+
+        coverage = {
+            target_id: [
+                claim.get("claim_id")
+                for claim in public_claims
+                if isinstance(claim.get("claim_id"), str)
+                and target_id in claim_target_ids(claim)
+            ]
+            for target_id in answered_target_ids
+        }
+        answer = output.get("answer")
+        answer_lines = (
+            [line.strip() for line in answer.splitlines() if line.strip()]
+            if isinstance(answer, str)
+            else []
+        )
+        missing_role_claim_ids = [
+            claim.get("claim_id")
+            for claim in claims
+            if isinstance(claim, Mapping)
+            and claim.get("public_role") not in {"conclusion", "audit"}
+            and isinstance(claim.get("claim_id"), str)
+        ]
+        return {
+            "public_conclusion_count": len(public_claims),
+            "public_line_count": len(answer_lines),
+            "answered_target_ids": answered_target_ids,
+            "public_claim_coverage_by_target": coverage,
+            "uncovered_answer_target_ids": [
+                target_id for target_id, claim_ids in coverage.items() if not claim_ids
+            ],
+            "claims_missing_valid_public_role": missing_role_claim_ids,
+        }
+
+    @staticmethod
+    def _s3_public_role_repair_instruction(diagnostic: Mapping[str, Any]) -> str:
+        """Return field-level retry instructions for the required public contract."""
+        serialized = json.dumps(diagnostic, ensure_ascii=False, separators=(",", ":"))
+        return (
+            " PUBLIC-CONCLUSION ROLE REPAIR (harness-measured, not an output "
+            "field): %s. Every claims[] item must declare public_role. Set "
+            "public_role=conclusion on exactly 1 to 3 claims whose union covers "
+            "every answered_target_id; set every remaining claim's public_role "
+            "to audit. If multiple supported facts are needed for one target, "
+            "write one concise conclusion claim for that target with all needed "
+            "claim_citations and retain supporting detail as audit claims. Do not "
+            "drop a claim, citation, assumption, limitation, or answered target."
+            % serialized
+        )
+
     def _normalize_harness_owned_fields(
         self,
         skill_name: str,
@@ -1810,17 +1932,19 @@ FINAL OUTPUT INVARIANTS:
             for result in self._list(assessment, "criterion_results", required=False):
                 if not isinstance(result, Mapping):
                     raise SkillExecutionError("S2 criterion result must be an object")
-                criterion_results.append(
-                    {
-                        "requirement_id": self._string(result, "requirement_id"),
-                        "status": self._string(result, "status"),
-                        "linked_provision_ids": [
-                            self._source_provision_id(provisions, provision_id)
-                            for provision_id in self._list(result, "linked_provision_ids")
-                        ],
-                        "rationale": self._string(result, "rationale"),
-                    }
-                )
+                mapped_result = {
+                    "requirement_id": self._string(result, "requirement_id"),
+                    "status": self._string(result, "status"),
+                    "linked_provision_ids": [
+                        self._source_provision_id(provisions, provision_id)
+                        for provision_id in self._list(result, "linked_provision_ids")
+                    ],
+                    "rationale": self._string(result, "rationale"),
+                }
+                direct_entailment = self._adaptable_s2_direct_entailment(assessment, result)
+                if direct_entailment is not None:
+                    mapped_result["direct_entailment"] = direct_entailment
+                criterion_results.append(mapped_result)
             mapped_assessment = {
                 "evidence_item_id": self._string(assessment, "evidence_item_id"),
                 "status": self._string({"status": status}, "status"),
@@ -1868,6 +1992,34 @@ FINAL OUTPUT INVARIANTS:
             "coverage_assessments": assessments,
             "evidence_conflicts": conflicts,
         }
+
+    @staticmethod
+    def _adaptable_s2_direct_entailment(
+        assessment: Mapping[str, Any], result: Mapping[str, Any]
+    ) -> Optional[Dict[str, str]]:
+        """Keep only a schema-valid audit for a direct satisfied criterion."""
+        if (
+            assessment.get("applicability_status") != "direct"
+            or result.get("status") != "satisfied"
+        ):
+            return None
+        audit = result.get("direct_entailment")
+        components = (
+            "regulated_subject_or_act",
+            "outcome_changing_qualifiers",
+            "legal_effect",
+            "procedure_or_remedy_path",
+        )
+        if not isinstance(audit, Mapping) or set(audit) != {*components, "rationale"}:
+            return None
+        if any(
+            audit.get(component) not in {"matched", "mismatch", "not_applicable"}
+            for component in components
+        ):
+            return None
+        if not isinstance(audit.get("rationale"), str) or not audit["rationale"].strip():
+            return None
+        return copy.deepcopy(dict(audit))
 
     def _source_provision_id(
         self, provisions: Mapping[str, Mapping[str, Any]], provision_id: Any

@@ -35,6 +35,19 @@ requirements and candidate provisions.
 Do not mark direct or satisfied support from a candidate whose text limits the same law to an explicit article range when a direct root provision for another evidence item under the same answer target falls outside that range. A no-prefix range such as `제10조부터 제12조까지` is read against that candidate's own statute label.
 Do not use a candidate's `base(subtype)` text as direct or satisfied support for a general base entity unless the supplied question or requirement also states that subtype. Parentheses in a statute label alone are not enough.
 
+## Atomic direct-entailment audit
+
+For every `direct` assessment whose criterion is `satisfied`, add a
+`direct_entailment` object to that criterion. Assess separately whether the
+candidate set matches the regulated subject or act, outcome-changing
+qualifiers (including medium, timing, or special actor), requested legal
+effect, and any required procedural path versus a later remedy. Use
+`not_applicable` only when that component is absent from the supplied
+requirement. For the candidate provision set that you would link as
+`direct`/`satisfied` support for that criterion, if any linked candidate
+mismatches an explicit component, mark that component `mismatch` and do not retain `direct` or `satisfied`; leave the
+legal requirement for the harness's bounded gap policy instead.
+
 ## Boundary
 
 Do not retrieve, generate an answer, derive `accepted_provision_ids`, or choose a

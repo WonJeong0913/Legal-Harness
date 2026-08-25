@@ -30,7 +30,7 @@ class CompactRawSchemaTests(unittest.TestCase):
         raw = {
             "schema_version": "1.0", "skill_id": "S2", "mode": "ASSESS_COVERAGE", "status": "ok",
             "evidence_links": [{"evidence_item_id": "E1", "provision_id": "C001", "relation": "supports", "rationale": "직접 근거"}],
-            "coverage_assessments": [{"evidence_item_id": "E1", "status": "covered", "rationale": "직접 근거", "legal_status": "covered", "applicability_status": "direct", "gap_type": "none", "criterion_results": [{"requirement_id": "E1-R1", "status": "satisfied", "linked_provision_ids": ["C001"], "rationale": "요건 충족"}]}],
+            "coverage_assessments": [{"evidence_item_id": "E1", "status": "covered", "rationale": "직접 근거", "legal_status": "covered", "applicability_status": "direct", "gap_type": "none", "criterion_results": [{"requirement_id": "E1-R1", "status": "satisfied", "linked_provision_ids": ["C001"], "rationale": "요건 충족", "direct_entailment": {"regulated_subject_or_act": "matched", "outcome_changing_qualifiers": "matched", "legal_effect": "matched", "procedure_or_remedy_path": "not_applicable", "rationale": "직접 근거"}}]}],
         }
         jsonschema.Draft202012Validator(self._schema("provision_coverage_assessment", "compact_output.schema.json")).validate(raw)
         prompt = self.executor._prompt("provision_coverage_assessment", "ASSESS_COVERAGE", skill_input, "")

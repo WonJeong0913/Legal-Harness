@@ -114,6 +114,85 @@ def _unsafe_direct_or_satisfied(assessment, provision_id):
     return violations
 
 
+DIRECT_ENTAILMENT_COMPONENTS = (
+    "regulated_subject_or_act",
+    "outcome_changing_qualifiers",
+    "legal_effect",
+    "procedure_or_remedy_path",
+)
+DIRECT_ENTAILMENT_STATUSES = {"matched", "mismatch", "not_applicable"}
+
+
+def _declared_direct_entailment_mismatches(output, input_data):
+    """Expose model-declared atomic scope failures as validation errors.
+
+    Korean legal entailment cannot be reduced safely to a fixed lexical
+    dictionary. The contract therefore requires an explicit component-wise
+    judgment from S2 for each direct satisfied criterion and makes a declared
+    mismatch non-overridable by a `direct` label.
+    """
+    if not isinstance(output, dict) or not isinstance(input_data, dict):
+        return []
+    assessments = {
+        item.get("evidence_item_id"): item
+        for item in output.get("coverage_assessments", [])
+        if isinstance(item, dict)
+    }
+    mismatches = []
+    for evidence_id, assessment in assessments.items():
+        if assessment.get("applicability_status") != "direct":
+            continue
+        for result in assessment.get("criterion_results", []):
+            if not isinstance(result, dict) or result.get("status") != "satisfied":
+                continue
+            requirement_id = result.get("requirement_id")
+            check = result.get("direct_entailment")
+            provision_ids = [
+                provision_id
+                for provision_id in result.get("linked_provision_ids", [])
+                if isinstance(provision_id, str)
+            ]
+            if not isinstance(check, dict):
+                mismatches.append({
+                    "kind": "missing_direct_entailment_check",
+                    "evidence_item_id": evidence_id,
+                    "requirement_id": requirement_id,
+                    "provision_ids": provision_ids,
+                    "components": list(DIRECT_ENTAILMENT_COMPONENTS),
+                })
+                continue
+            invalid = [
+                component
+                for component in DIRECT_ENTAILMENT_COMPONENTS
+                if check.get(component) not in DIRECT_ENTAILMENT_STATUSES
+            ]
+            if not isinstance(check.get("rationale"), str) or not check["rationale"].strip():
+                invalid.append("rationale")
+            if invalid:
+                mismatches.append({
+                    "kind": "invalid_direct_entailment_check",
+                    "evidence_item_id": evidence_id,
+                    "requirement_id": requirement_id,
+                    "provision_ids": provision_ids,
+                    "components": invalid,
+                })
+                continue
+            mismatched = [
+                component
+                for component in DIRECT_ENTAILMENT_COMPONENTS
+                if check.get(component) == "mismatch"
+            ]
+            if mismatched:
+                mismatches.append({
+                    "kind": "declared_direct_entailment_mismatch",
+                    "evidence_item_id": evidence_id,
+                    "requirement_id": requirement_id,
+                    "provision_ids": provision_ids,
+                    "components": mismatched,
+                })
+    return mismatches
+
+
 def semantic_scope_mismatches(output, input_data):
     """Return narrow, text-backed direct-entailment scope mismatches."""
     if not isinstance(output, dict) or not isinstance(input_data, dict):
@@ -202,8 +281,8 @@ def semantic_scope_mismatches(output, input_data):
                         base_entity=base,
                         special_subtype=subtype,
                     )
+    mismatches.extend(_declared_direct_entailment_mismatches(output, input_data))
     return mismatches
-
 
 def validate(output, input_data):
     errors = []

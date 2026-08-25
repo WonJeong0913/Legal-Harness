@@ -32,6 +32,13 @@ def assessment(evidence_id, provision_id, requirement_id):
             "status": "satisfied",
             "linked_provision_ids": [provision_id],
             "rationale": "직접 근거",
+            "direct_entailment": {
+                "regulated_subject_or_act": "matched",
+                "outcome_changing_qualifiers": "matched",
+                "legal_effect": "matched",
+                "procedure_or_remedy_path": "not_applicable",
+                "rationale": "공급된 요건의 직접 범위를 충족한다.",
+            },
         }],
     }
 
@@ -134,9 +141,56 @@ class SemanticScopeGuardTests(unittest.TestCase):
         output = covered_output([("E1", "C001", "E1-R1")])
         self.assertEqual(S2_VALIDATOR.semantic_scope_mismatches(output, input_data), [])
 
+    def test_declared_atomic_mismatch_blocks_direct_without_keyword_guard(self):
+        input_data = {
+            "schema_version": "1.0", "mode": "ASSESS_COVERAGE", "run_id": "scope-fixture",
+            "normalized_question": "발행 매체별 고지 행위와 이행 절차를 판단하라.",
+            "legal_issues": [{"issue_id": "I1"}], "answer_targets": [{"answer_target_id": "T1"}],
+            "required_evidence_items": [{
+                "evidence_item_id": "E1", "issue_id": "I1", "critical": True,
+                "completion_criteria": "지정 매체 고지 및 선행 이행 절차",
+                "answer_target_ids": ["T1"],
+                "completion_requirements": [{
+                    "requirement_id": "E1-R1",
+                    "text": "인쇄 매체 고지의 법적 효과와 선행 이행 절차",
+                }],
+            }],
+            "candidate_provisions": [{
+                "provision_id": "C001", "source_provision_id": "generic-scope",
+                "statute_name": "일반법 11조", "article_label": "일반법 11조",
+                "text": "영상 매체 고지 후 구제 신청을 할 수 있다.",
+                "source_snapshot_id": "sha256:generic-scope",
+            }], "prior_coverage_assessments": [],
+        }
+        output = covered_output([("E1", "C001", "E1-R1")])
+        check = output["coverage_assessments"][0]["criterion_results"][0]["direct_entailment"]
+        check["outcome_changing_qualifiers"] = "mismatch"
+        check["procedure_or_remedy_path"] = "mismatch"
+        check["legal_effect"] = "mismatch"
+        check["rationale"] = "매체와 요구된 선행 절차가 후보 조문과 다르다."
+
+        mismatches = S2_VALIDATOR.semantic_scope_mismatches(output, input_data)
+
+        declared = [
+            item for item in mismatches
+            if item["kind"] == "declared_direct_entailment_mismatch"
+        ]
+        self.assertEqual(declared[0]["evidence_item_id"], "E1")
+        self.assertEqual(declared[0]["requirement_id"], "E1-R1")
+        self.assertEqual(
+            declared[0]["components"],
+            ["outcome_changing_qualifiers", "legal_effect", "procedure_or_remedy_path"],
+        )
+        errors = S2_VALIDATOR.validate(output, input_data)
+        self.assertTrue(any("declared_direct_entailment_mismatch" in error for error in errors))
+
+        del output["coverage_assessments"][0]["criterion_results"][0]["direct_entailment"]
+        missing_errors = S2_VALIDATOR.validate(output, input_data)
+        self.assertTrue(any("missing_direct_entailment_check" in error for error in missing_errors))
+
     def test_executor_records_scope_mismatch_before_validation_retry(self):
-        diagnostics = []
         raw = covered_output([("E1", "C001", "E1-R1"), ("E2", "C002", "E2-R1")])
+        diagnostics = []
         raw.pop("run_id")
         raw["evidence_links"] = [
             {key: value for key, value in link.items() if key not in {"link_id", "quoted_text"}}

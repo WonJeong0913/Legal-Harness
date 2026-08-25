@@ -63,6 +63,25 @@ Do not infer requirements from outside evaluation knowledge; the supplied target
 Do not mark a candidate direct or a criterion satisfied when its own text limits the same law to an article range but a directly linked root provision for another evidence item under the same answer target lies outside that range. This includes a no-prefix range bound to the candidate's statute label.
 Likewise, do not treat `base(subtype)` text in a candidate as direct or satisfied support for a general base entity unless the supplied question or requirement states that subtype; a parenthetical only in a statute label is not candidate-text scope.
 
+## Atomic direct-entailment audit
+
+Each `direct` assessment with a `satisfied` criterion must include that
+criterion's `direct_entailment` object. It records one of `matched`,
+`mismatch`, or `not_applicable` for: `regulated_subject_or_act`,
+`outcome_changing_qualifiers`, `legal_effect`, and
+`procedure_or_remedy_path`, plus a concise rationale. This is not a new legal
+requirement: it is an audit of the proposition already supplied in the closed
+requirement.
+
+A mismatch in the candidate provision set selected for `direct`/`satisfied`
+support blocks those statuses. In particular, do not
+substitute a different medium, timing rule, or special actor; do not use a
+related legal effect as the requested effect; and do not treat a later remedy
+as proof of a requested antecedent procedure. Mark the requirement unsupported
+or partially supported under the existing coverage mapping so the harness may
+apply its bounded `RETRIEVE_GAP` policy. Do not infer any extra requirement
+from outside the supplied target and completion requirement.
+
 ## Compact audit transport
 
 Keep every legal/status decision, criterion requirement ID, criterion linked candidate IDs, chosen support/conflict relation, and one concise rationale for each evidence link, coverage assessment, and criterion result. Omit link IDs, `[FULL_TEXT]`, assessment-level duplicate link/aspect arrays, and duplicate missing/conflict arrays; the harness reconstructs only those deterministic fields before unchanged validation.

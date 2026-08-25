@@ -45,7 +45,19 @@
               "requirement_id": {"type": "string", "minLength": 1},
               "status": {"enum": ["satisfied", "partially_satisfied", "unsatisfied", "conflicting"]},
               "linked_provision_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
-              "rationale": {"type": "string", "minLength": 1}
+              "rationale": {"type": "string", "minLength": 1},
+              "direct_entailment": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["regulated_subject_or_act", "outcome_changing_qualifiers", "legal_effect", "procedure_or_remedy_path", "rationale"],
+                "properties": {
+                  "regulated_subject_or_act": {"enum": ["matched", "mismatch", "not_applicable"]},
+                  "outcome_changing_qualifiers": {"enum": ["matched", "mismatch", "not_applicable"]},
+                  "legal_effect": {"enum": ["matched", "mismatch", "not_applicable"]},
+                  "procedure_or_remedy_path": {"enum": ["matched", "mismatch", "not_applicable"]},
+                  "rationale": {"type": "string", "minLength": 1}
+                }
+              }
             }
           }
         }
