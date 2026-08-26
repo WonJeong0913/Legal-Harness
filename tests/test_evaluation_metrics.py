@@ -1190,6 +1190,20 @@ class EvidenceRoleEvaluationTests(unittest.TestCase):
             result_path = fixture.runs / "run-1/result.json"
             result = json.loads(result_path.read_text(encoding="utf-8"))
             state = result["state"]
+            state["candidate_provisions"] = [{"provision_id": "P1"}]
+            state["accepted_provision_ids"] = ["P1", "OUTSIDE"]
+            write_json(result_path, result)
+
+            with self.assertRaisesRegex(
+                EvaluationError, "authorized provision is absent from candidates"
+            ):
+                self._evaluate(fixture)
+
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = EvaluationFixture(Path(directory), include_stages=False)
+            result_path = fixture.runs / "run-1/result.json"
+            result = json.loads(result_path.read_text(encoding="utf-8"))
+            state = result["state"]
             state["core_accepted_provision_ids"] = ["P1"]
             state["supplemental_provision_ids"] = ["NOT-A-CANDIDATE"]
             state["qualifying_provision_ids"] = []

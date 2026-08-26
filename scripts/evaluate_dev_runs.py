@@ -856,6 +856,10 @@ def _evidence_role_sets(
         state, "accepted_provision_ids", question_id
     )
     authorized_ids = set() if authorized_ids is None else authorized_ids
+    if not authorized_ids.issubset(candidate_ids):
+        raise EvaluationError(
+            "authorized provision is absent from candidates: %s" % question_id
+        )
     core_ids = _optional_state_provision_id_set(
         state, "core_accepted_provision_ids", question_id
     )
