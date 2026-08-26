@@ -1286,13 +1286,12 @@ class LocalOllamaSkillExecutor:
         output: Dict[str, Any],
         skill_input: Mapping[str, Any],
     ) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
-        """Deterministically neutralize only S1 retrieval specificity the validator rejects.
+        """Apply narrow transport-only S1 repairs without legal decisions.
 
-        The skill raw output remains the retry artifact. This repair never
-        introduces an article, changes legal/evidence decisions, or relaxes
-        provenance; it only removes unsupported pinpoint text and retains the
-        statute/semantic query. Grounded question/candidate references stay as
-        emitted.
+        The skill raw output remains the retry artifact. Repairs only remove
+        unsupported retrieval pinpoint text or replace a guarded, single-target
+        ID-placeholder question anchor with the trusted question body. They
+        never change legal/evidence decisions, provenance, or retrieval intent.
         """
         if skill_name != "legal_issue_and_query_planning":
             return output, []
@@ -1302,7 +1301,8 @@ class LocalOllamaSkillExecutor:
             question = str(skill_input.get("original_question") or skill_input.get("normalized_question") or "")
             question_segment = question.split("[질문]", 1)[-1]
             normalized_question = self._normalized_query(question_segment)
-            for target in self._list(repaired, "answer_targets", required=False):
+            targets = self._list(repaired, "answer_targets", required=False)
+            for target in targets:
                 if not isinstance(target, dict):
                     continue
                 anchor = target.get("question_anchor")
@@ -1316,6 +1316,55 @@ class LocalOllamaSkillExecutor:
                         "answer_target_id": target.get("answer_target_id"),
                         "before": anchor,
                         "after": target["question_anchor"],
+                    })
+            if len(targets) == 1 and not audit and isinstance(targets[0], dict):
+                target = targets[0]
+                answer_target_id = target.get("answer_target_id")
+                anchor = target.get("question_anchor")
+                requested_output = target.get("requested_output")
+                question_body = None
+                question_source = None
+                original_question = skill_input.get("original_question")
+                if (
+                    isinstance(original_question, str)
+                    and "[질문]" in original_question
+                ):
+                    candidate = original_question.split("[질문]", 1)[1].strip()
+                    if candidate:
+                        question_body = candidate
+                        question_source = "original_question_marker"
+                else:
+                    normalized_question = skill_input.get("normalized_question")
+                    if isinstance(normalized_question, str) and normalized_question.strip():
+                        question_body = normalized_question.strip()
+                        question_source = "normalized_question"
+                if (
+                    isinstance(answer_target_id, str)
+                    and bool(answer_target_id.strip())
+                    and isinstance(anchor, str)
+                    and anchor.strip() == answer_target_id
+                    and isinstance(requested_output, str)
+                    and bool(requested_output.strip())
+                    and isinstance(question_body, str)
+                    and question_source is not None
+                ):
+                    target["question_anchor"] = question_body
+                    audit.append({
+                        "kind": "single_target_question_anchor_fallback",
+                        "answer_target_id": answer_target_id,
+                        "before": anchor,
+                        "after": question_body,
+                        "reason": "single_target_placeholder_anchor_transport",
+                        "guards": {
+                            "entry_point_is_initial_plan": True,
+                            "single_answer_target": True,
+                            "answer_target_id_nonempty_string": True,
+                            "question_anchor_matches_answer_target_id": True,
+                            "requested_output_nonempty_string": True,
+                            "requested_output_substring_repair_applied": False,
+                            "trusted_question_body_nonempty": True,
+                            "trusted_question_body_source": question_source,
+                        },
                     })
             return repaired, audit
         if entry_point != "GAP_QUERY_PLAN":

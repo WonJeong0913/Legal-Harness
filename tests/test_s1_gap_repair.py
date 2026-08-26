@@ -80,6 +80,62 @@ def gap_output(requests):
 
 
 class GapSpecificityRepairTests(unittest.TestCase):
+    @staticmethod
+    def _single_initial_anchor_output(
+        *, answer_target_id="T1", question_anchor="T1", requested_output="판단 결과"
+    ):
+        return {
+            "schema_version": "1.0",
+            "skill_id": "S1",
+            "mode": "INITIAL_PLAN",
+            "status": "ok",
+            "run_id": "run-1",
+            "answer_targets": [{
+                "answer_target_id": answer_target_id,
+                "question_anchor": question_anchor,
+                "requested_output": requested_output,
+                "answer_type": "requested_conclusion",
+                "transport_metadata": {"preserve": ["target"]},
+            }],
+            "legal_issues": [{"issue_id": "I1", "preserve": {"issue": True}}],
+            "required_evidence_items": [{
+                "evidence_item_id": "E1",
+                "issue_id": "I1",
+                "evidence_type": "rule",
+                "description": "검증 근거",
+                "critical": True,
+                "completion_criteria": "검증 기준",
+                "necessity_reason": "질문 판단에 필요",
+                "answer_target_ids": [answer_target_id],
+                "scope_source": "explicit_question",
+                "completion_requirements": [{
+                    "requirement_id": "E1-R1",
+                    "text": "검증 기준",
+                }],
+                "preserve": {"evidence": True},
+            }],
+            "retrieval_requests": [{
+                "request_id": "RQ1",
+                "issue_id": "I1",
+                "evidence_item_id": "E1",
+                "query_channel": "sparse_keywords",
+                "query_text": "원래 검색어",
+                "query_terms": ["원래", "검색어"],
+                "statute_hints": [],
+                "rationale": "검증 검색",
+                "preserve": {"request": True},
+            }],
+        }
+
+    @staticmethod
+    def _repair_initial_anchor(output, skill_input):
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills", "fixture-model", generator=lambda _prompt: "{}"
+        )
+        return executor._repair_s1_transport(
+            "legal_issue_and_query_planning", "INITIAL_PLAN", output, skill_input
+        )
+
     def _transcript_recovery(self, payload, raw):
         """Exercise the repair path directly; no generator or model call occurs."""
         executor = LocalOllamaSkillExecutor(
@@ -735,6 +791,143 @@ class GapSpecificityRepairTests(unittest.TestCase):
             ["계약을 해제할 수 있는지", "손해배상을 청구할 수 있는지", "T3"],
         )
         self.assertEqual(len(audit), 2)
+
+    def test_single_target_placeholder_anchor_uses_marker_question_body_only(self):
+        output = self._single_initial_anchor_output()
+        before = copy.deepcopy(output)
+        question_body = "계약 해제의 요건은 무엇인가?"
+        repaired, audit = self._repair_initial_anchor(
+            output,
+            {
+                "original_question": "배경 설명. [질문] " + question_body + "  ",
+                "normalized_question": "다른 정규화 질문",
+            },
+        )
+
+        expected = copy.deepcopy(before)
+        expected["answer_targets"][0]["question_anchor"] = question_body
+        self.assertEqual(repaired, expected)
+        self.assertEqual(
+            audit,
+            [{
+                "kind": "single_target_question_anchor_fallback",
+                "answer_target_id": "T1",
+                "before": "T1",
+                "after": question_body,
+                "reason": "single_target_placeholder_anchor_transport",
+                "guards": {
+                    "entry_point_is_initial_plan": True,
+                    "single_answer_target": True,
+                    "answer_target_id_nonempty_string": True,
+                    "question_anchor_matches_answer_target_id": True,
+                    "requested_output_nonempty_string": True,
+                    "requested_output_substring_repair_applied": False,
+                    "trusted_question_body_nonempty": True,
+                    "trusted_question_body_source": "original_question_marker",
+                },
+            }],
+        )
+
+    def test_single_target_placeholder_anchor_uses_normalized_question_without_marker(self):
+        output = self._single_initial_anchor_output()
+        question_body = "정규화된 질문 본문은 무엇인가?"
+        repaired, audit = self._repair_initial_anchor(
+            output,
+            {
+                "original_question": "질문 표식이 없는 배경 설명",
+                "normalized_question": "  " + question_body + "  ",
+            },
+        )
+
+        self.assertEqual(repaired["answer_targets"][0]["question_anchor"], question_body)
+        self.assertEqual(audit[0]["guards"]["trusted_question_body_source"], "normalized_question")
+
+    def test_single_target_placeholder_anchor_fails_closed_outside_guards(self):
+        cases = []
+
+        multiple_targets = self._single_initial_anchor_output()
+        multiple_targets["answer_targets"].append({
+            "answer_target_id": "T2",
+            "question_anchor": "T2",
+            "requested_output": "추가 결과",
+            "answer_type": "requested_conclusion",
+        })
+        cases.append((
+            "multiple_targets",
+            multiple_targets,
+            {"original_question": "[질문] 하나의 질문 본문"},
+        ))
+        cases.extend([
+            (
+                "non_placeholder_anchor",
+                self._single_initial_anchor_output(question_anchor="질문에 없는 앵커"),
+                {"original_question": "[질문] 하나의 질문 본문"},
+            ),
+            (
+                "target_id_mismatch",
+                self._single_initial_anchor_output(question_anchor="T2"),
+                {"original_question": "[질문] 하나의 질문 본문"},
+            ),
+            (
+                "empty_answer_target_id",
+                self._single_initial_anchor_output(answer_target_id="", question_anchor=""),
+                {"original_question": "[질문] 하나의 질문 본문"},
+            ),
+            (
+                "empty_requested_output",
+                self._single_initial_anchor_output(requested_output="  "),
+                {"original_question": "[질문] 하나의 질문 본문"},
+            ),
+            (
+                "malformed_requested_output",
+                self._single_initial_anchor_output(requested_output=None),
+                {"original_question": "[질문] 하나의 질문 본문"},
+            ),
+            (
+                "empty_marker_question_body",
+                self._single_initial_anchor_output(),
+                {
+                    "original_question": "배경 설명 [질문]   ",
+                    "normalized_question": "정규화된 질문을 사용하면 안 된다",
+                },
+            ),
+            (
+                "background_only_without_normalized_question",
+                self._single_initial_anchor_output(),
+                {"original_question": "질문 표식이 없는 배경 설명", "normalized_question": " "},
+            ),
+        ])
+
+        for name, output, skill_input in cases:
+            with self.subTest(name=name):
+                before = copy.deepcopy(output)
+                repaired, audit = self._repair_initial_anchor(output, skill_input)
+                self.assertEqual(repaired, before)
+                self.assertEqual(audit, [])
+                validation_input = {
+                    "run_id": "run-1",
+                    "mode": "INITIAL_PLAN",
+                    "constraints": {
+                        "answer_target_contract": "required",
+                    },
+                    **skill_input,
+                }
+                errors = S1_VALIDATOR.validate(repaired, validation_input)
+                self.assertTrue(
+                    any("question_anchor is not a question substring" in error for error in errors),
+                    errors,
+                )
+
+    def test_requested_output_substring_repair_has_priority_over_single_target_fallback(self):
+        requested_output = "계약을 해제할 수 있는지"
+        output = self._single_initial_anchor_output(requested_output=requested_output)
+        repaired, audit = self._repair_initial_anchor(
+            output,
+            {"original_question": "[질문] " + requested_output + " 판단하라."},
+        )
+
+        self.assertEqual(repaired["answer_targets"][0]["question_anchor"], requested_output)
+        self.assertEqual([item["kind"] for item in audit], ["normalized_question_anchor"])
 
 
 if __name__ == "__main__":

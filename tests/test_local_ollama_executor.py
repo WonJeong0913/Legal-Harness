@@ -308,6 +308,40 @@ class LocalOllamaExecutorTests(unittest.TestCase):
         )
         self.assertEqual(diagnostics[0]["schema_version"], "1.2")
 
+    def test_s1_single_target_placeholder_anchor_preserves_raw_response_and_audit(self):
+        raw = json.loads(self._generate("ENTRY POINT: INITIAL_PLAN"))
+        raw["answer_targets"][0]["question_anchor"] = "T1"
+        raw_response = json.dumps(raw, ensure_ascii=False)
+        diagnostics = []
+        executor = LocalOllamaSkillExecutor(
+            skills_root=PROJECT_ROOT / "skills",
+            model="test-model",
+            generator=lambda _prompt: raw_response,
+            diagnostic_sink=diagnostics.append,
+        )
+        payload = self._initial_plan_payload()
+        payload["question"] = "배경 설명. [질문] " + payload["normalized_question"]
+
+        result = executor.execute(
+            "legal_issue_and_query_planning", "INITIAL_PLAN", payload
+        )
+
+        question_body = payload["normalized_question"]
+        self.assertEqual(result["answer_targets"][0]["question_anchor"], question_body)
+        self.assertEqual(diagnostics[0]["response_text"], raw_response)
+        repair = diagnostics[0]["deterministic_repairs"]
+        self.assertEqual(len(repair), 1)
+        self.assertEqual(repair[0]["kind"], "single_target_question_anchor_fallback")
+        self.assertEqual(repair[0]["before"], "T1")
+        self.assertEqual(repair[0]["after"], question_body)
+        self.assertEqual(
+            repair[0]["reason"], "single_target_placeholder_anchor_transport"
+        )
+        self.assertEqual(
+            repair[0]["guards"]["trusted_question_body_source"],
+            "original_question_marker",
+        )
+
     def test_s1_context_anchor_keeps_only_the_last_fact_and_question(self):
         source = (
             "무관한 첫 사실이다. 상품이 인도된 날부터 기간을 계산한다. "
