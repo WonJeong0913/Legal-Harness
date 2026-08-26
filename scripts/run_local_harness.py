@@ -101,6 +101,14 @@ def parse_args() -> argparse.Namespace:
         choices=("body_only", "statute_and_body"),
         default="body_only",
     )
+    parser.add_argument(
+        "--article-family-sibling-rerank-expansion",
+        action="store_true",
+        help="opt in to post-BGE, KURE-only source-index family sibling expansion",
+    )
+    parser.add_argument("--article-family-expansion-trigger-top-k", type=int, default=3)
+    parser.add_argument("--article-family-expansion-max-siblings-per-root", type=int, default=4)
+    parser.add_argument("--article-family-expansion-max-siblings-per-request", type=int, default=8)
     parser.add_argument("--input-format", default="question_only")
     parser.add_argument("--record-dir", type=Path, default=PROJECT_ROOT / "records/runs")
     parser.add_argument(
@@ -143,6 +151,18 @@ def build_retriever(args: argparse.Namespace) -> RetrievalPipeline:
         dedup_mode=args.dedup_mode,
         candidate_budget_scope=args.candidate_budget_scope,
         round_merge_mode=getattr(args, "round_merge_mode", "raw_score"),
+        article_family_sibling_rerank_expansion=getattr(
+            args, "article_family_sibling_rerank_expansion", False
+        ),
+        article_family_expansion_trigger_top_k=getattr(
+            args, "article_family_expansion_trigger_top_k", 3
+        ),
+        article_family_expansion_max_siblings_per_root=getattr(
+            args, "article_family_expansion_max_siblings_per_root", 4
+        ),
+        article_family_expansion_max_siblings_per_request=getattr(
+            args, "article_family_expansion_max_siblings_per_request", 8
+        ),
     )
 
 
@@ -188,6 +208,18 @@ def build_frozen_run_args(
         round_merge_mode=configuration.get("round_merge_mode", "raw_score"),
         dedup_mode=configuration.get("dedup_mode", "none"),
         rerank_document_mode=configuration.get("rerank_document_mode", "body_only"),
+        article_family_sibling_rerank_expansion=configuration.get(
+            "article_family_sibling_rerank_expansion", False
+        ),
+        article_family_expansion_trigger_top_k=configuration.get(
+            "article_family_expansion_trigger_top_k", 3
+        ),
+        article_family_expansion_max_siblings_per_root=configuration.get(
+            "article_family_expansion_max_siblings_per_root", 4
+        ),
+        article_family_expansion_max_siblings_per_request=configuration.get(
+            "article_family_expansion_max_siblings_per_request", 8
+        ),
         input_format=configuration.get("input_format", "koblex_background_plus_question"),
         record_dir=record_dir,
         question_id=question_id,
@@ -313,6 +345,18 @@ def run_question(
         "per_evidence_min_k": args.per_evidence_min_k,
         "dedup_mode": args.dedup_mode,
         "rerank_document_mode": args.rerank_document_mode,
+        "article_family_sibling_rerank_expansion": getattr(
+            args, "article_family_sibling_rerank_expansion", False
+        ),
+        "article_family_expansion_trigger_top_k": getattr(
+            args, "article_family_expansion_trigger_top_k", 3
+        ),
+        "article_family_expansion_max_siblings_per_root": getattr(
+            args, "article_family_expansion_max_siblings_per_root", 4
+        ),
+        "article_family_expansion_max_siblings_per_request": getattr(
+            args, "article_family_expansion_max_siblings_per_request", 8
+        ),
         "conditional_generation": "answer_target_full_conditional_limited",
         "planning_contract": "answer_targets_required",
         "monotonic_coverage": True,

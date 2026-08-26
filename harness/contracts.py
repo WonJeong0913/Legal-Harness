@@ -256,6 +256,33 @@ class CandidateStageRecord:
 
 
 @dataclass(frozen=True)
+class ArticleFamilyExpansionRecord:
+    """Opt-in post-rerank sibling-expansion audit without a first-stage claim."""
+
+    provision_id: str
+    retrieval_round: int
+    candidate_stage: str
+    source_request_ids: List[str]
+    target_evidence_item_ids: List[str]
+    article_family_key: str
+    article_family_root_provision_id: str
+    article_family_sibling_candidate_count: int
+    article_family_sibling_selected_count: int
+    article_family_sibling_dropped_count: int
+    article_family_sibling_per_root_cap: int
+    article_family_sibling_per_request_cap: int
+    first_stage_rank: Optional[int] = None
+    fusion_rank: Optional[int] = None
+    rerank_rank: Optional[int] = None
+    selection_rank: Optional[int] = None
+    first_stage_score: Optional[float] = None
+    fusion_score: Optional[float] = None
+    rerank_score: Optional[float] = None
+    selection_reason: str = ""
+    alias_provision_ids: List[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
 class SupportSpan:
     start_char: int
     end_char: int

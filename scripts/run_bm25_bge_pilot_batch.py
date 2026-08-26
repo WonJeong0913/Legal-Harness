@@ -161,7 +161,7 @@ def build_run_command(
     source_snapshot: SourceSnapshot,
 ) -> List[str]:
     """Build one child run command without consulting mutable batch state."""
-    return [
+    command = [
         str(python),
         str(PROJECT_ROOT / "scripts/run_local_harness.py"),
         benchmark_input,
@@ -215,6 +215,20 @@ def build_run_command(
         "--expected-git-commit", source_snapshot.git_commit,
         "--expected-source-manifest-sha256", source_snapshot.source_manifest_sha256,
     ]
+    if configuration.get("article_family_sibling_rerank_expansion", False) is True:
+        command.extend([
+            "--article-family-sibling-rerank-expansion",
+            "--article-family-expansion-trigger-top-k", str(
+                configuration.get("article_family_expansion_trigger_top_k", 3)
+            ),
+            "--article-family-expansion-max-siblings-per-root", str(
+                configuration.get("article_family_expansion_max_siblings_per_root", 4)
+            ),
+            "--article-family-expansion-max-siblings-per-request", str(
+                configuration.get("article_family_expansion_max_siblings_per_request", 8)
+            ),
+        ])
+    return command
 
 
 def record_directories(root: Path) -> Set[Path]:

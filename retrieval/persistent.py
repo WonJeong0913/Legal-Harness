@@ -289,6 +289,7 @@ class KureExactIndexSearcher:
             raise ValueError("KURE ID mapping references a missing normalized provision")
 
         self._torch = torch
+        self.corpus = corpus
         self.device = device
         self.model = SentenceTransformer(str(model_path), device=device)
         self.provision_ids = provision_ids
@@ -297,6 +298,11 @@ class KureExactIndexSearcher:
         self._provision_id_ranks[provision_id_order] = np.arange(len(provision_ids))
         self.documents_by_id = documents_by_id
         self.vectors = torch.from_numpy(vectors).to(device=device, dtype=torch.float32)
+
+    article_family_sibling_expansion_capability = "kure_exact"
+
+    def article_family_members(self, provision_id: str):
+        return self.corpus.article_family_members(provision_id)
 
     def search(self, request: RetrievalRequest) -> List[RetrievalHit]:
         query = self.model.encode(

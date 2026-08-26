@@ -73,6 +73,47 @@ class BatchInputTests(unittest.TestCase):
         self.assertEqual(command[manifest_index + 1], "c" * 64)
 
 
+    def test_opt_in_family_expansion_is_forwarded_to_child_command(self):
+        snapshot = SourceSnapshot(
+            git_commit="a" * 40,
+            git_tree="b" * 40,
+            source_manifest_sha256="c" * 64,
+        )
+        command = build_run_command(
+            Path("/tmp/python"),
+            "[질문]\n질문",
+            "qa_test",
+            {
+                "retriever": "kure",
+                "model": "test-model",
+                "num_ctx": 32768,
+                "total_retrieval_rounds": 3,
+                "total_retrieval_requests": 9,
+                "condition": "C15-test",
+                "seed": 0,
+                "article_family_sibling_rerank_expansion": True,
+                "article_family_expansion_trigger_top_k": 2,
+                "article_family_expansion_max_siblings_per_root": 3,
+                "article_family_expansion_max_siblings_per_request": 5,
+            },
+            Path("/tmp/records"),
+            snapshot,
+        )
+
+        self.assertIn("--article-family-sibling-rerank-expansion", command)
+        self.assertEqual(
+            command[command.index("--article-family-expansion-trigger-top-k") + 1],
+            "2",
+        )
+        self.assertEqual(
+            command[command.index("--article-family-expansion-max-siblings-per-root") + 1],
+            "3",
+        )
+        self.assertEqual(
+            command[command.index("--article-family-expansion-max-siblings-per-request") + 1],
+            "5",
+        )
+
     def test_relative_batch_log_root_is_project_absolute_and_log_relative_to_succeeds(self):
         relative_root = Path("records/batches/regression-relative")
         resolved_root = resolve_batch_log_root(relative_root)

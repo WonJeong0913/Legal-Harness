@@ -39,6 +39,11 @@ class KureExactVectorRetriever:
         self.document_vectors = document_vectors
         self.query_encoder = query_encoder
 
+    article_family_sibling_expansion_capability = "kure_exact"
+
+    def article_family_members(self, provision_id: str):
+        return self.corpus.article_family_members(provision_id)
+
     def search(self, request: RetrievalRequest) -> List[RetrievalHit]:
         query_vector = self.query_encoder(request.query_text)
         hits = [

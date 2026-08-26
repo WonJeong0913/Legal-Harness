@@ -9,6 +9,7 @@ from .contracts import (
     ApplicabilityStatus,
     AnswerTarget,
     AnswerDraft,
+    ArticleFamilyExpansionRecord,
     CandidateProvision,
     CandidateStageRecord,
     Claim,
@@ -1105,10 +1106,14 @@ def validate_retrieval_stage_records(
     allowed_stages = {
         "first_stage", "rrf", "request_rerank", "bge_rerank", "selected",
         "round_selected", "dedup_collapse", "evidence_fusion",
+        "article_family_expansion_trigger", "article_family_sibling_rerank",
+    }
+    expansion_stages = {
+        "article_family_expansion_trigger", "article_family_sibling_rerank",
     }
     for record in records:
-        if not isinstance(record, CandidateStageRecord):
-            raise ValidationError("retrieval stage audit must contain CandidateStageRecord instances")
+        if not isinstance(record, (CandidateStageRecord, ArticleFamilyExpansionRecord)):
+            raise ValidationError("retrieval stage audit contains an unsupported record type")
         if record.retrieval_round != retrieval_round:
             raise ValidationError("retrieval stage record has the wrong round")
         if not record.provision_id or record.candidate_stage not in allowed_stages:
@@ -1137,8 +1142,33 @@ def validate_retrieval_stage_records(
             raise ValidationError("first-stage audit requires first_stage_rank")
         if record.candidate_stage in {"rrf", "evidence_fusion"} and record.fusion_rank is None:
             raise ValidationError("fusion audit requires fusion_rank")
-        if record.candidate_stage in {"request_rerank", "bge_rerank"} and record.rerank_rank is None:
+        if record.candidate_stage in {"request_rerank", "bge_rerank", "article_family_sibling_rerank"} and record.rerank_rank is None:
             raise ValidationError("rerank audit requires rerank_rank")
+        if record.candidate_stage in expansion_stages:
+            if not isinstance(record, ArticleFamilyExpansionRecord):
+                raise ValidationError("article-family expansion requires dedicated audit provenance")
+            if not record.article_family_key or not record.article_family_root_provision_id:
+                raise ValidationError("article-family expansion audit requires family and root provenance")
+            counts = (
+                record.article_family_sibling_candidate_count,
+                record.article_family_sibling_selected_count,
+                record.article_family_sibling_dropped_count,
+            )
+            if any(isinstance(value, bool) or not isinstance(value, int) or value < 0 for value in counts):
+                raise ValidationError("article-family expansion counts must be non-negative integers")
+            if record.article_family_sibling_candidate_count != (
+                record.article_family_sibling_selected_count
+                + record.article_family_sibling_dropped_count
+            ):
+                raise ValidationError("article-family expansion counts must reconcile")
+            if any(
+                isinstance(value, bool) or not isinstance(value, int) or value < 1
+                for value in (
+                    record.article_family_sibling_per_root_cap,
+                    record.article_family_sibling_per_request_cap,
+                )
+            ):
+                raise ValidationError("article-family expansion caps must be positive integers")
         if record.candidate_stage in {"selected", "round_selected"} and record.selection_rank is None:
             raise ValidationError("selection audit requires selection_rank")
         for score in (
