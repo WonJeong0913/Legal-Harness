@@ -10,6 +10,7 @@ from scripts.prepare_canonical_rerank_replay import (
     ReplayPreparationError,
     c02_paths_from_root,
     prepare_c02_qa150,
+    preflight_saved_request_fallback_compatibility,
     preflight_initial_structured_transforms,
 )
 
@@ -218,11 +219,12 @@ class ReplayPreparationTests(unittest.TestCase):
             payload["canonical_rerank_query"]["transforms"][0]["source"],
             "canonical_missing_only",
         )
-        self.assertNotIn(
-            "배경 전체는 canonical BGE 질의에 포함되지 않는다",
-            payload["canonical_rerank_query"]["transforms"][0]["final_request"][
-                "rerank_query_text"
-            ],
+        transform = payload["canonical_rerank_query"]["transforms"][0]
+        self.assertNotIn("raw_request", transform)
+        self.assertNotIn("final_request", transform)
+        self.assertEqual(
+            transform["effective_rerank_query_sha256"],
+            transform["final_rerank_query_sha256"],
         )
         stage = payload["retrieval_stage_observation"]
         self.assertTrue(
@@ -284,6 +286,50 @@ class ReplayPreparationTests(unittest.TestCase):
         self.assertEqual(report["valid_transform_count"], 1)
         self.assertEqual(report["failure_count"], 0)
 
+    def test_execution_compatibility_preflight_classifies_fallback_and_no_rq(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            paths, _profile = write_fixture(root)
+            result = json.loads(paths["result"].read_text(encoding="utf-8"))
+            # Each component remains within 512 chars, while fixed canonical
+            # sections exceed it; both saved RQ and GRQ take neutral fallback.
+            result["state"]["answer_targets"][0]["requested_output"] = "출력 " * 160
+            paths["result"].write_text(
+                json.dumps(result, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            no_rq_dir = root / "records" / "runs" / "existing-no-rq"
+            no_rq_dir.mkdir(parents=True)
+            no_rq = copy.deepcopy(result)
+            no_rq["state"]["query_history"] = []
+            (no_rq_dir / "result.json").write_text(
+                json.dumps(no_rq, ensure_ascii=False),
+                encoding="utf-8",
+            )
+
+            report = preflight_saved_request_fallback_compatibility(
+                root / "records" / "runs"
+            )
+
+        self.assertEqual(report["record_directory_count"], 2)
+        self.assertEqual(report["validated_request_count"], 2)
+        self.assertEqual(report["canonical_or_raw_success_count"], 0)
+        self.assertEqual(report["fallback_count"], 2)
+        self.assertEqual(
+            report["fallback_counts_by_plan_kind"],
+            {"gap": 1, "initial": 1},
+        )
+        self.assertEqual(
+            report["source_counts"],
+            {"raw_query_text_fallback": 2},
+        )
+        self.assertEqual(report["preexisting_not_applicable_count"], 1)
+        self.assertEqual(report["new_canonical_execution_failure_count"], 0)
+        self.assertNotIn(
+            "배경 전체는 canonical BGE 질의에 포함되지 않는다",
+            json.dumps(report, ensure_ascii=False),
+        )
+
     @unittest.skipUnless(
         (ACTUAL_C02_ROOT / "records" / "runs" / C02_QA150_PROFILE["run_id"] / "result.json").is_file(),
         "real C02 qa150 artifacts are not mounted",
@@ -311,6 +357,34 @@ class ReplayPreparationTests(unittest.TestCase):
             ],
             96,
         )
+
+    @unittest.skipUnless(
+        (ACTUAL_C02_ROOT / "records" / "runs").is_dir(),
+        "real C02 saved records are not mounted",
+    )
+    def test_actual_saved_request_fallback_compatibility_preflight(self):
+        report = preflight_saved_request_fallback_compatibility(
+            ACTUAL_C02_ROOT / "records" / "runs"
+        )
+
+        self.assertEqual(report["record_directory_count"], 168)
+        self.assertEqual(report["validated_request_count"], 603)
+        self.assertEqual(report["canonical_or_raw_success_count"], 585)
+        self.assertEqual(report["fallback_count"], 18)
+        self.assertEqual(
+            report["fallback_counts_by_plan_kind"],
+            {"gap": 7, "initial": 11},
+        )
+        self.assertEqual(
+            report["source_counts"],
+            {
+                "canonical_missing_only": 563,
+                "raw": 22,
+                "raw_query_text_fallback": 18,
+            },
+        )
+        self.assertEqual(report["preexisting_not_applicable_count"], 1)
+        self.assertEqual(report["new_canonical_execution_failure_count"], 0)
 
 
 if __name__ == "__main__":

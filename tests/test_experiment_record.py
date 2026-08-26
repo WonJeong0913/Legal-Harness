@@ -254,26 +254,50 @@ class ExperimentRecordTests(unittest.TestCase):
                 normalized_question="질문",
                 run_id="run-canonical-rerank",
             )
+            canonical_text = "원자 요건"
+            raw_fallback_text = "배경 전체 원문"
+
+            def metrics(value, prefix):
+                encoded = value.encode("utf-8")
+                return {
+                    "%s_sha256" % prefix: hashlib.sha256(encoded).hexdigest(),
+                    "%s_characters" % prefix: len(value),
+                    "%s_utf8_bytes" % prefix: len(encoded),
+                    "%s_token_like_units" % prefix: len(value.split()),
+                }
+
             state.rerank_query_transforms = [{
-                "schema_version": "1.0",
+                "schema_version": "1.1",
                 "request_id": "RQ-I1-01",
                 "source": "canonical_missing_only",
-                "original_rerank_query_sha256": hashlib.sha256(b"").hexdigest(),
-                "original_rerank_query_characters": 0,
-                "original_rerank_query_utf8_bytes": 0,
-                "final_rerank_query_sha256": hashlib.sha256(
-                    "원자 요건".encode("utf-8")
-                ).hexdigest(),
-                "final_rerank_query_characters": 5,
-                "final_rerank_query_utf8_bytes": len("원자 요건".encode("utf-8")),
-                "final_rerank_query_token_like_units": 2,
+                "canonical_attempted": True,
+                "fallback_applied": False,
+                "fallback_reason_code": None,
+                "original_rerank_query_present": False,
+                "final_rerank_query_present": True,
+                "effective_rerank_query_source": "rerank_query_text",
+                "canonical_output_within_bounds": True,
                 "max_characters": 512,
                 "max_token_like_units": 96,
-                "raw_request": {"query_text": "배경 전체", "rerank_query_text": None},
-                "final_request": {
-                    "query_text": "배경 전체",
-                    "rerank_query_text": "원자 요건",
-                },
+                **metrics("", "original_rerank_query"),
+                **metrics(canonical_text, "final_rerank_query"),
+                **metrics(canonical_text, "effective_rerank_query"),
+            }, {
+                "schema_version": "1.1",
+                "request_id": "GRQ-I1-01",
+                "source": "raw_query_text_fallback",
+                "canonical_attempted": True,
+                "fallback_applied": True,
+                "fallback_reason_code": "canonical_output_character_bound",
+                "original_rerank_query_present": False,
+                "final_rerank_query_present": False,
+                "effective_rerank_query_source": "query_text",
+                "canonical_output_within_bounds": None,
+                "max_characters": 512,
+                "max_token_like_units": 96,
+                **metrics("", "original_rerank_query"),
+                **metrics("", "final_rerank_query"),
+                **metrics(raw_fallback_text, "effective_rerank_query"),
             }]
             result_path = record.finalize(
                 HarnessOutcome(status=OutcomeStatus.ABSTAIN, state=state)
@@ -283,21 +307,41 @@ class ExperimentRecordTests(unittest.TestCase):
             provenance = result["retrieval_provenance"]
             self.assertEqual(provenance["schema_version"], "1.1")
             contract = provenance["canonical_rerank_query"]
+            self.assertEqual(contract["schema_version"], "1.1")
             self.assertEqual(
                 contract["contract"]["allowed_sources"],
-                ["raw", "canonical_missing_only"],
+                [
+                    "raw",
+                    "canonical_missing_only",
+                    "raw_query_text_fallback",
+                ],
+            )
+            self.assertEqual(
+                contract["contract"]["forbidden_fields"],
+                ["raw_request", "final_request"],
             )
             self.assertEqual(contract["transform_file"], "canonical_rerank_query_transforms.jsonl")
-            self.assertEqual(contract["transform_count"], 1)
+            self.assertEqual(contract["transform_count"], 2)
             self.assertNotIn("rerank_query_transforms", result["state"])
             sidecar = record.directory / contract["transform_file"]
-            saved = json.loads(sidecar.read_text(encoding="utf-8"))
-            self.assertEqual(saved["source"], "canonical_missing_only")
+            sidecar_text = sidecar.read_text(encoding="utf-8")
+            saved = [json.loads(line) for line in sidecar_text.splitlines()]
             self.assertEqual(
-                saved["final_rerank_query_sha256"],
+                [row["source"] for row in saved],
+                ["canonical_missing_only", "raw_query_text_fallback"],
+            )
+            self.assertNotIn("raw_request", saved[0])
+            self.assertNotIn("final_request", saved[0])
+            self.assertNotIn(raw_fallback_text, sidecar_text)
+            self.assertEqual(
+                saved[0]["final_rerank_query_sha256"],
                 hashlib.sha256(
-                    saved["final_request"]["rerank_query_text"].encode("utf-8")
+                    canonical_text.encode("utf-8")
                 ).hexdigest(),
+            )
+            self.assertEqual(
+                saved[1]["effective_rerank_query_sha256"],
+                hashlib.sha256(raw_fallback_text.encode("utf-8")).hexdigest(),
             )
 
 

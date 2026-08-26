@@ -1,9 +1,11 @@
 import hashlib
 import unittest
+from unittest.mock import patch
 
 from harness.canonical_rerank_query import (
     CanonicalRerankQueryValidationError,
     canonicalize_missing_rerank_query,
+    canonicalize_missing_rerank_query_or_preserve_raw,
 )
 from harness.contracts import (
     AnswerTarget,
@@ -193,6 +195,80 @@ class CanonicalRerankQueryTests(unittest.TestCase):
                 {"future_request": True}, evidence, targets
             )
 
+    def test_typed_canonical_error_preserves_exact_raw_request_and_bge_behavior(self):
+        request, evidence, targets = trusted_inputs()
+        preserved, audit = canonicalize_missing_rerank_query_or_preserve_raw(
+            request,
+            evidence,
+            targets,
+            max_characters=120,
+        )
+
+        self.assertIs(preserved, request)
+        self.assertEqual(preserved.__dict__, request.__dict__)
+        self.assertIsNone(preserved.rerank_query_text)
+        self.assertEqual(audit["source"], "raw_query_text_fallback")
+        self.assertTrue(audit["canonical_attempted"])
+        self.assertTrue(audit["fallback_applied"])
+        self.assertEqual(
+            audit["fallback_reason_code"],
+            "canonical_output_character_bound",
+        )
+        self.assertEqual(audit["effective_rerank_query_source"], "query_text")
+        self.assertEqual(
+            audit["effective_rerank_query_sha256"],
+            hashlib.sha256(request.query_text.encode("utf-8")).hexdigest(),
+        )
+        self.assertEqual(
+            audit["effective_rerank_query_characters"],
+            len(request.query_text),
+        )
+        self.assertEqual(
+            audit["effective_rerank_query_utf8_bytes"],
+            len(request.query_text.encode("utf-8")),
+        )
+        self.assertNotIn("raw_request", audit)
+        self.assertNotIn("final_request", audit)
+
+        first_stage = CaptureFirstStage()
+        reranker = CaptureReranker()
+        pipeline = RetrievalPipeline(
+            first_stage,
+            reranker,
+            rerank_pool_k=1,
+            final_top_k=1,
+            rerank_query_mode="per_request",
+        )
+        pipeline.retrieve([preserved], retrieval_round=1)
+        self.assertEqual(first_stage.requests[0].query_text, "원래 KURE 질의")
+        self.assertEqual(reranker.queries, [request.query_text])
+
+    def test_wrapper_propagates_config_invalid_request_and_unexpected_errors(self):
+        request, evidence, targets = trusted_inputs()
+        with self.assertRaises(ValueError):
+            canonicalize_missing_rerank_query_or_preserve_raw(
+                request,
+                evidence,
+                targets,
+                max_characters=0,
+            )
+        with self.assertRaises(CanonicalRerankQueryValidationError):
+            canonicalize_missing_rerank_query_or_preserve_raw(  # type: ignore[arg-type]
+                {"future_request": True},
+                evidence,
+                targets,
+            )
+        with patch(
+            "harness.canonical_rerank_query.canonicalize_missing_rerank_query",
+            side_effect=RuntimeError("unexpected canonicalizer failure"),
+        ):
+            with self.assertRaisesRegex(RuntimeError, "unexpected canonicalizer"):
+                canonicalize_missing_rerank_query_or_preserve_raw(
+                    request,
+                    evidence,
+                    targets,
+                )
+
     def test_opt_in_runner_retains_raw_history_and_records_initial_and_gap_audits(self):
         request, evidence, targets = trusted_inputs()
         state = RunState(question="질문", normalized_question="질문", run_id="r1")
@@ -229,6 +305,52 @@ class CanonicalRerankQueryTests(unittest.TestCase):
         )
         self.assertEqual(
             state.action_trace[-1].details["sources"], ["canonical_missing_only"]
+        )
+
+    def test_runner_uses_neutral_fallback_for_initial_and_gap_requests(self):
+        request, evidence, targets = trusted_inputs()
+        gap_request = RetrievalRequest(
+            **{**request.__dict__, "request_id": "GRQ-I1-01"}
+        )
+        state = RunState(question="질문", normalized_question="질문", run_id="r1")
+        state.required_evidence_items = list(evidence.values())
+        state.answer_targets = list(targets.values())
+        state.query_history = [request]
+        runner = HarnessRunner(
+            skill_executor=None,
+            retriever=None,
+            citation_validator=None,
+            config=HarnessConfig(
+                canonical_rerank_query_missing_only=True,
+                canonical_rerank_query_max_characters=120,
+            ),
+        )
+
+        initial = runner._canonicalize_missing_rerank_queries(
+            state, [request], is_gap=False
+        )
+        gap = runner._canonicalize_missing_rerank_queries(
+            state, [gap_request], is_gap=True
+        )
+
+        self.assertIs(initial[0], request)
+        self.assertIs(gap[0], gap_request)
+        self.assertIsNone(initial[0].rerank_query_text)
+        self.assertIsNone(gap[0].rerank_query_text)
+        self.assertEqual(
+            [audit["source"] for audit in state.rerank_query_transforms],
+            ["raw_query_text_fallback", "raw_query_text_fallback"],
+        )
+        self.assertEqual(
+            [audit["plan_kind"] for audit in state.rerank_query_transforms],
+            ["initial", "gap"],
+        )
+        self.assertEqual(
+            [
+                event.details["raw_query_text_fallback_count"]
+                for event in state.action_trace
+            ],
+            [1, 1],
         )
 
     def test_runner_keeps_raw_initial_request_in_history_but_retrieves_copy(self):
@@ -352,15 +474,12 @@ class CanonicalRerankQueryTests(unittest.TestCase):
             [audit["plan_kind"] for audit in outcome.state.rerank_query_transforms],
             ["initial", "gap"],
         )
+        initial_audit = outcome.state.rerank_query_transforms[0]
+        self.assertNotIn("raw_request", initial_audit)
+        self.assertNotIn("final_request", initial_audit)
         self.assertEqual(
-            outcome.state.rerank_query_transforms[0]["raw_request"]["query_text"],
-            outcome.state.query_history[0].query_text,
-        )
-        self.assertEqual(
-            outcome.state.rerank_query_transforms[0]["final_request"][
-                "rerank_query_text"
-            ],
-            sent.rerank_query_text,
+            initial_audit["effective_rerank_query_sha256"],
+            hashlib.sha256(sent.rerank_query_text.encode("utf-8")).hexdigest(),
         )
 
     def test_default_disabled_runner_does_not_construct_a_transform(self):
@@ -374,6 +493,7 @@ class CanonicalRerankQueryTests(unittest.TestCase):
             state, [request], is_gap=False
         )
         self.assertEqual(transformed, [request])
+        self.assertIs(transformed[0], request)
         self.assertFalse(state.rerank_query_transforms)
         self.assertFalse(state.action_trace)
 

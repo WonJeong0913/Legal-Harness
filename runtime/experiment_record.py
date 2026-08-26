@@ -207,19 +207,37 @@ class ExperimentRecord:
         }
         if rerank_query_transforms:
             retrieval_provenance["canonical_rerank_query"] = {
-                "schema_version": "1.0",
+                "schema_version": "1.1",
                 "transform_file": rerank_transform_file,
                 "transform_count": len(rerank_query_transforms),
                 "contract": {
                     "source_field": "source",
-                    "allowed_sources": ["raw", "canonical_missing_only"],
-                    "request_fields": {
-                        "raw": "raw_request",
-                        "final": "final_request",
+                    "allowed_sources": [
+                        "raw",
+                        "canonical_missing_only",
+                        "raw_query_text_fallback",
+                    ],
+                    "effective_source_field": "effective_rerank_query_source",
+                    "allowed_effective_sources": [
+                        "rerank_query_text",
+                        "query_text",
+                    ],
+                    "forbidden_fields": ["raw_request", "final_request"],
+                    "fallback": {
+                        "applied_field": "fallback_applied",
+                        "reason_field": "fallback_reason_code",
+                        "allowed_reason_codes": [
+                            "canonical_validation_error",
+                            "canonical_output_character_bound",
+                            "canonical_output_token_like_bound",
+                            "structured_input_character_bound",
+                            "structured_input_token_like_bound",
+                        ],
                     },
                     "integrity_fields": {
                         "original_sha256": "original_rerank_query_sha256",
                         "final_sha256": "final_rerank_query_sha256",
+                        "effective_sha256": "effective_rerank_query_sha256",
                         "original_characters": "original_rerank_query_characters",
                         "original_utf8_bytes": "original_rerank_query_utf8_bytes",
                         "original_token_like_units": (
@@ -230,6 +248,15 @@ class ExperimentRecord:
                         "final_token_like_units": (
                             "final_rerank_query_token_like_units"
                         ),
+                        "effective_characters": (
+                            "effective_rerank_query_characters"
+                        ),
+                        "effective_utf8_bytes": (
+                            "effective_rerank_query_utf8_bytes"
+                        ),
+                        "effective_token_like_units": (
+                            "effective_rerank_query_token_like_units"
+                        ),
                     },
                     "bounds": {
                         "max_characters_field": "max_characters",
@@ -237,6 +264,7 @@ class ExperimentRecord:
                         "canonical_output_within_bounds_field": (
                             "canonical_output_within_bounds"
                         ),
+                        "not_applicable_value": None,
                     },
                 },
             }

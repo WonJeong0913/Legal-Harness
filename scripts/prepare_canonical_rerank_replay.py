@@ -591,6 +591,170 @@ def preflight_initial_structured_transforms(
     }
 
 
+def _validate_all_saved_requests_with_fallback(
+    result: Mapping[str, Any],
+    *,
+    max_characters: int,
+    max_token_like_units: int,
+) -> List[Dict[str, Any]]:
+    """Reconstruct saved RQ/GRQ requests without retrieval or model loading."""
+    from harness.canonical_rerank_query import (
+        canonicalize_missing_rerank_query_or_preserve_raw,
+    )
+    from harness.run_state import RunState
+    from harness.validation import validate_gap_plan, validate_initial_plan
+
+    question, payload, _excluded_gap_ids = _initial_payload(result)
+    try:
+        issues, targets, evidence, initial_requests = validate_initial_plan(
+            payload,
+            question=question,
+            include_answer_targets=True,
+        )
+    except Exception as exc:
+        raise ReplayPreparationError(
+            "initial RQ-only reconstruction failed fail-closed validation"
+        ) from exc
+
+    state = RunState(
+        question=question,
+        normalized_question=question,
+        run_id=str(result.get("run_id") or "saved-request-preflight"),
+    )
+    state.legal_issues = issues
+    state.answer_targets = targets
+    state.required_evidence_items = evidence
+    evidence_by_id = state.evidence_by_id()
+    targets_by_id = state.answer_target_by_id()
+    audits: List[Dict[str, Any]] = []
+
+    for request in initial_requests:
+        _, audit = canonicalize_missing_rerank_query_or_preserve_raw(
+            request,
+            evidence_by_id,
+            targets_by_id,
+            max_characters=max_characters,
+            max_token_like_units=max_token_like_units,
+        )
+        audit["plan_kind"] = "initial"
+        audits.append(audit)
+    state.query_history = list(initial_requests)
+
+    saved_state = _require_mapping(result.get("state"), "result state")
+    raw_history = saved_state.get("query_history")
+    if not isinstance(raw_history, list):
+        raise ReplayPreparationError("result state query_history must be a list")
+    for raw_request in raw_history:
+        if not isinstance(raw_request, Mapping):
+            raise ReplayPreparationError("result query_history item must be an object")
+        request_id = raw_request.get("request_id")
+        if not isinstance(request_id, str):
+            raise ReplayPreparationError("result query_history request_id is invalid")
+        if not request_id.startswith("GRQ"):
+            continue
+        try:
+            gap_requests = validate_gap_plan(
+                {"gap_retrieval_requests": [dict(raw_request)]},
+                state,
+            )
+        except Exception as exc:
+            raise ReplayPreparationError(
+                "saved GRQ reconstruction failed fail-closed validation"
+            ) from exc
+        request = gap_requests[0]
+        _, audit = canonicalize_missing_rerank_query_or_preserve_raw(
+            request,
+            evidence_by_id,
+            targets_by_id,
+            max_characters=max_characters,
+            max_token_like_units=max_token_like_units,
+        )
+        audit["plan_kind"] = "gap"
+        audits.append(audit)
+        state.query_history.append(request)
+    return audits
+
+
+def preflight_saved_request_fallback_compatibility(
+    record_root: Path,
+    *,
+    max_characters: int = 512,
+    max_token_like_units: int = 96,
+) -> Dict[str, Any]:
+    """Read-only all-RQ/GRQ check for the opt-in neutral fallback contract."""
+    if not record_root.is_dir() or record_root.is_symlink():
+        raise ReplayPreparationError("preflight record root must be a real directory")
+    result_paths = sorted(record_root.glob("*/result.json"))
+    directories = sorted(path for path in record_root.iterdir() if path.is_dir())
+    source_counts: Counter[str] = Counter()
+    plan_kind_counts: Counter[str] = Counter()
+    fallback_counts: Counter[str] = Counter()
+    fallback_reason_counts: Counter[str] = Counter()
+    preexisting_not_applicable = []
+    validated_request_count = 0
+
+    for result_path in result_paths:
+        try:
+            result = _read_json(result_path, "preflight result")
+            audits = _validate_all_saved_requests_with_fallback(
+                result,
+                max_characters=max_characters,
+                max_token_like_units=max_token_like_units,
+            )
+        except ReplayPreparationError as exc:
+            cause = exc.__cause__
+            preexisting_not_applicable.append({
+                "record_directory": result_path.parent.name,
+                "error": str(exc),
+                "cause": str(cause) if cause is not None else None,
+            })
+            continue
+        for audit in audits:
+            source = audit["source"]
+            plan_kind = audit["plan_kind"]
+            if not isinstance(source, str) or not isinstance(plan_kind, str):
+                raise ReplayPreparationError("saved request audit has invalid enum fields")
+            validated_request_count += 1
+            source_counts[source] += 1
+            plan_kind_counts[plan_kind] += 1
+            if source == "raw_query_text_fallback":
+                reason = audit["fallback_reason_code"]
+                if not isinstance(reason, str) or not reason:
+                    raise ReplayPreparationError(
+                        "fallback audit must contain a typed reason code"
+                    )
+                fallback_counts[plan_kind] += 1
+                fallback_reason_counts[reason] += 1
+
+    fallback_count = sum(fallback_counts.values())
+    return {
+        "schema_version": "c17_canonical_rerank_execution_compatibility_preflight_v1",
+        "mode": "READ_ONLY_ALL_SAVED_RQ_GRQ_FALLBACK_COMPATIBILITY_PREFLIGHT",
+        "record_directory_count": len(directories),
+        "result_file_count": len(result_paths),
+        "missing_result_file_count": len(directories) - len(result_paths),
+        "execution_compatible_run_count": (
+            len(result_paths) - len(preexisting_not_applicable)
+        ),
+        "validated_request_count": validated_request_count,
+        "canonical_or_raw_success_count": (
+            validated_request_count - fallback_count
+        ),
+        "fallback_count": fallback_count,
+        "source_counts": dict(sorted(source_counts.items())),
+        "plan_kind_counts": dict(sorted(plan_kind_counts.items())),
+        "fallback_counts_by_plan_kind": dict(sorted(fallback_counts.items())),
+        "fallback_reason_counts": dict(sorted(fallback_reason_counts.items())),
+        "preexisting_not_applicable_count": len(preexisting_not_applicable),
+        "preexisting_not_applicable": preexisting_not_applicable,
+        # The wrapper catches every typed canonicalization failure per request.
+        # Any config, validator, or unexpected error still escapes this tool.
+        "new_canonical_execution_failure_count": 0,
+        "max_characters": max_characters,
+        "max_token_like_units": max_token_like_units,
+    }
+
+
 def _positive_int(value: str) -> int:
     try:
         parsed = int(value)
@@ -629,6 +793,14 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         help="read-only structural preflight only; does not perform qa150 binding",
     )
+    parser.add_argument(
+        "--execution-compatibility-preflight-record-root",
+        type=Path,
+        help=(
+            "read-only all-RQ/GRQ fallback compatibility preflight only; "
+            "does not perform qa150 binding or live retrieval"
+        ),
+    )
     parser.add_argument("--max-characters", type=_positive_int, default=512)
     parser.add_argument("--max-token-like-units", type=_positive_int, default=96)
     parser.add_argument("--output", type=Path, required=True)
@@ -637,7 +809,15 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
-    if args.preflight_record_root is not None:
+    if (
+        args.preflight_record_root is not None
+        and args.execution_compatibility_preflight_record_root is not None
+    ):
+        raise ReplayPreparationError("only one preflight mode may be selected")
+    if (
+        args.preflight_record_root is not None
+        or args.execution_compatibility_preflight_record_root is not None
+    ):
         if args.c02_root is not None or any(
             value is not None
             for value in (
@@ -650,11 +830,18 @@ def main() -> int:
             )
         ):
             raise ReplayPreparationError("preflight mode cannot combine qa150 source paths")
-        payload = preflight_initial_structured_transforms(
-            args.preflight_record_root,
-            max_characters=args.max_characters,
-            max_token_like_units=args.max_token_like_units,
-        )
+        if args.execution_compatibility_preflight_record_root is not None:
+            payload = preflight_saved_request_fallback_compatibility(
+                args.execution_compatibility_preflight_record_root,
+                max_characters=args.max_characters,
+                max_token_like_units=args.max_token_like_units,
+            )
+        else:
+            payload = preflight_initial_structured_transforms(
+                args.preflight_record_root,
+                max_characters=args.max_characters,
+                max_token_like_units=args.max_token_like_units,
+            )
     else:
         if args.c02_root is not None:
             if any(

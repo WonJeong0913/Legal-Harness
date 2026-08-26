@@ -23,7 +23,7 @@ from .contracts import (
 from .canonical_rerank_query import (
     DEFAULT_CANONICAL_RERANK_QUERY_MAX_CHARACTERS,
     DEFAULT_CANONICAL_RERANK_QUERY_MAX_TOKEN_LIKE_UNITS,
-    canonicalize_missing_rerank_query,
+    canonicalize_missing_rerank_query_or_preserve_raw,
 )
 from .interfaces import CitationIntegrityValidator, ProvisionRetriever, SkillExecutor
 from .policy import abstention_reason_for, decide_next_action
@@ -364,14 +364,18 @@ class HarnessRunner:
         evidence_by_id = state.evidence_by_id()
         answer_targets_by_id = state.answer_target_by_id()
         for request in requests:
-            transformed_request, audit = canonicalize_missing_rerank_query(
-                request,
-                evidence_by_id,
-                answer_targets_by_id,
-                max_characters=self.config.canonical_rerank_query_max_characters,
-                max_token_like_units=(
-                    self.config.canonical_rerank_query_max_token_like_units
-                ),
+            transformed_request, audit = (
+                canonicalize_missing_rerank_query_or_preserve_raw(
+                    request,
+                    evidence_by_id,
+                    answer_targets_by_id,
+                    max_characters=(
+                        self.config.canonical_rerank_query_max_characters
+                    ),
+                    max_token_like_units=(
+                        self.config.canonical_rerank_query_max_token_like_units
+                    ),
+                )
             )
             audit["plan_kind"] = "gap" if is_gap else "initial"
             audit["retrieval_round"] = state.retrieval_rounds_used + 1
@@ -383,6 +387,11 @@ class HarnessRunner:
             plan_kind="gap" if is_gap else "initial",
             request_ids=[request.request_id for request in transformed],
             sources=[audit["source"] for audit in audits],
+            raw_query_text_fallback_count=sum(
+                1
+                for audit in audits
+                if audit["source"] == "raw_query_text_fallback"
+            ),
         )
         self._trace(
             "CANONICAL_RERANK_QUERY_TRANSFORMED",
@@ -391,6 +400,11 @@ class HarnessRunner:
             request_count=len(transformed),
             canonical_missing_only_count=sum(
                 1 for audit in audits if audit["source"] == "canonical_missing_only"
+            ),
+            raw_query_text_fallback_count=sum(
+                1
+                for audit in audits
+                if audit["source"] == "raw_query_text_fallback"
             ),
         )
         return transformed
