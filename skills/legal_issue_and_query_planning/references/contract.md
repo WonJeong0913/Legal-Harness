@@ -25,9 +25,10 @@ retrieval request.
 ## `GAP_QUERY_PLAN`
 
 Return only new requests for supplied unresolved statute evidence. Preserve the
-evidence item's answer-target scope, avoid normalized queries in `query_history`,
-and respect `remaining_request_budget`. A missing question fact is not a search
-target.
+evidence item's answer-target scope, center each request on an unsatisfied atomic
+completion requirement, vary a material legal relation rather than paraphrasing
+`query_history`, and respect `remaining_request_budget`. A missing question fact
+is not a search target.
 
 ## Retrieval query fields
 
@@ -59,4 +60,4 @@ action.
 
 ## Epistemic neutrality
 
-Describe the statutory evidence needed to determine each explicit result while separating evidence obligations from retrieval hypotheses. Do not present a legal answer, article, condition, threshold, or extra legal theory absent from the question as established fact. Split only explicit independent requested outputs or genuinely distinct outcome-determinative rules, exceptions, cross-references, or effects. In GAP planning, a new statutory pinpoint must be grounded by the original question or a harness-supplied candidate cross-reference; otherwise query the unresolved statutory proposition neutrally. Candidate anchors identify the target statute and article (and paragraph where applicable), are extracted only from outbound provision-text references, and retain source candidate IDs with exact excerpts and spans.
+Describe the statutory evidence needed to determine each explicit result while separating evidence obligations from retrieval hypotheses. Do not present a legal answer, article, paragraph, condition, deadline, threshold, or extra legal theory absent from the question as established fact; a court, agency, actor, or procedure name alone is not a statute hint. Split only explicit independent requested outputs or genuinely distinct outcome-determinative rules, exceptions, cross-references, or effects. In GAP planning, a candidate cross-reference proves provenance, not relevance, for a numeric pinpoint. Use that pinpoint only when its supplied excerpt matches every material component stated in the unresolved completion requirement, including subject/actor, act, trigger/qualifier, and legal effect as applicable. A partial component overlap is insufficient; do not promote a literal range that excludes the requirement's relevant root. Otherwise query the unresolved statutory proposition neutrally. Preserve a supplied cross-reference pinpoint when that direct match is present. Candidate anchors identify the target statute and article (and paragraph where applicable), are extracted only from outbound provision-text references, and retain source candidate IDs with exact excerpts and spans.

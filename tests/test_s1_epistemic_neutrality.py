@@ -39,7 +39,7 @@ class S1EpistemicNeutralityFixtures(unittest.TestCase):
         self.assertIn("separate critical evidence for distinct rules, exceptions, cross-references, or legal effects", prompt)
         self.assertIn("genuinely independent rules", prompt)
 
-    def test_gap_article_requires_supplied_provenance_or_neutral_query(self):
+    def test_gap_prompt_requires_relevance_before_promoting_cross_reference_provenance(self):
         prompt = self.executor._output_invariants(
             "legal_issue_and_query_planning",
             {
@@ -50,7 +50,51 @@ class S1EpistemicNeutralityFixtures(unittest.TestCase):
                 "evidence_conflicts": [],
             },
         )
-        self.assertIn("supplied candidate_cross_references", prompt)
+        self.assertIn("candidate_cross_references item", prompt)
+        self.assertIn("provenance, not its relevance", prompt)
+        self.assertIn("matches every material component stated in the unresolved completion requirement", prompt)
+        self.assertIn("subject/actor, act, trigger/qualifier, and legal effect as applicable", prompt)
+        self.assertIn("A partial component overlap is insufficient", prompt)
+        self.assertIn("literal range that excludes the requirement's relevant root", prompt)
+        self.assertIn("Never invent an article, paragraph, deadline, or threshold", prompt)
+        self.assertIn("court, agency, actor, or procedure name alone is not a statute hint", prompt)
+        self.assertIn("unsatisfied atomic completion requirement", prompt)
+        self.assertIn("material legal relation rather than paraphrasing", prompt)
+
+        skill = (PROJECT_ROOT / "skills/legal_issue_and_query_planning/SKILL.md").read_text(encoding="utf-8")
+        contract = (PROJECT_ROOT / "skills/legal_issue_and_query_planning/references/contract.md").read_text(encoding="utf-8")
+        for source in (skill, contract):
+            normalized_source = " ".join(source.split())
+            self.assertIn("provenance, not relevance", normalized_source)
+            self.assertIn("matches every material component stated in the unresolved completion requirement", normalized_source)
+            self.assertIn("A partial component overlap is insufficient", normalized_source)
+            self.assertIn("literal range that excludes the requirement's relevant root", normalized_source)
+            self.assertIn("court, agency, actor, or procedure name alone is not a statute hint", normalized_source)
+            self.assertIn("unsatisfied atomic completion requirement", normalized_source)
+
+    def test_directly_matched_supplied_cross_reference_remains_transport_eligible(self):
+        errors = []
+        S1_VALIDATOR.validate_article_grounding(
+            [{
+                "query_text": "예시법 제14조 해제 통지의 효력",
+                "query_terms": ["해제 통지", "효력"],
+                "statute_hints": ["예시법 제14조"],
+            }],
+            {
+                "normalized_question": "통지의 효력을 판단하라.",
+                "seen_provision_ids": ["candidate-alpha"],
+                "candidate_cross_references": [{
+                    "source_candidate_id": "candidate-alpha",
+                    "target_statute_name": "예시법",
+                    "target_article": "제14조",
+                    "excerpt": "해제 통지의 효력은 예시법 제14조에 따른다.",
+                    "start_char": 0,
+                    "end_char": 23,
+                }],
+            },
+            errors,
+        )
+        self.assertEqual(errors, [])
 
 
     def test_validator_rejects_new_unanchored_article_and_allows_question_article(self):

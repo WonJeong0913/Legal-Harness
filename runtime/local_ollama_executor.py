@@ -1659,8 +1659,8 @@ FINAL OUTPUT INVARIANTS:
         ]
         return (
             "Target only unresolved statute-evidence IDs %s. Do not search for missing facts or scope excess. "
-            " A new statutory pinpoint must be grounded by the original question or the supplied candidate_cross_references; otherwise use a neutral semantic query for the original unresolved evidence item. "
-            "Each KURE semantic gap query must differ from prior queries %s. Copy run_id and stay within budget."
+            "A supplied candidate_cross_references item proves a numeric pinpoint's provenance, not its relevance: use it only when its supplied excerpt matches every material component stated in the unresolved completion requirement, including subject/actor, act, trigger/qualifier, and legal effect as applicable. A partial component overlap is insufficient; do not promote a literal range that excludes the requirement's relevant root. Otherwise use a neutral semantic query for the original unresolved evidence item. "
+            "Never invent an article, paragraph, deadline, or threshold; a court, agency, actor, or procedure name alone is not a statute hint. Center each request on an unsatisfied atomic completion requirement and vary a material legal relation rather than paraphrasing prior queries %s. Copy run_id and stay within budget."
             % (
                 json.dumps(unresolved),
                 json.dumps(prior_queries, ensure_ascii=False),

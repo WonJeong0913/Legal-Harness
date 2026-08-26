@@ -67,6 +67,7 @@ class RetrievalPipeline:
         if round_merge_mode not in {
             "raw_score",
             "request_rank_top1_guarded_swap",
+            "single_issue_fusion_top_k",
         }:
             raise ValueError("unsupported round merge mode: %s" % round_merge_mode)
         if (
@@ -82,6 +83,20 @@ class RetrievalPipeline:
         ):
             raise ValueError(
                 "request-rank guarded swapping requires per_round candidate budgeting"
+            )
+        if (
+            round_merge_mode == "single_issue_fusion_top_k"
+            and rerank_query_mode != "per_request"
+        ):
+            raise ValueError(
+                "single-issue fusion retention requires per_request reranking"
+            )
+        if (
+            round_merge_mode == "single_issue_fusion_top_k"
+            and candidate_budget_scope != "per_round"
+        ):
+            raise ValueError(
+                "single-issue fusion retention requires per_round candidate budgeting"
             )
         if per_evidence_min_k < 1:
             raise ValueError("per_evidence_min_k must be positive")
@@ -518,6 +533,79 @@ class RetrievalPipeline:
                     if self.candidate_selection == "global_top_k"
                     else "round_global_score_fill"
                 )
+            final_candidate = replace(
+                candidate,
+                selection_rank=selection_rank,
+                candidate_stage="selected",
+                selection_reason=selection_reason,
+            )
+            final_candidates.append(final_candidate)
+            self.last_stage_records.append(
+                CandidateStageRecord(
+                    provision_id=final_candidate.provision_id,
+                    retrieval_round=retrieval_round,
+                    candidate_stage="round_selected",
+                    source_request_ids=final_candidate.source_request_ids,
+                    target_evidence_item_ids=final_candidate.target_evidence_item_ids,
+                    first_stage_rank=final_candidate.first_stage_rank,
+                    fusion_rank=final_candidate.fusion_rank,
+                    rerank_rank=final_candidate.rerank_rank,
+                    selection_rank=selection_rank,
+                    first_stage_score=final_candidate.first_stage_score,
+                    rerank_score=final_candidate.rerank_score,
+                    selection_reason=selection_reason,
+                    alias_provision_ids=final_candidate.alias_provision_ids,
+                )
+            )
+        return final_candidates
+
+    def _select_single_issue_later_round_candidates(
+        self,
+        candidates: Sequence[CandidateProvision],
+        critical_evidence_item_ids: Sequence[str],
+        retrieval_round: int,
+    ) -> List[CandidateProvision]:
+        """Retain the issue-fusion cutoff when a later round has one issue.
+
+        Per-request reranking creates scores on separate query scales. Once a
+        gap-repair round has only one issue, sorting those raw scores a second
+        time cannot arbitrate between issues; it can only discard the
+        issue-level fusion ordering already established above. Preserve that
+        ordering at the ordinary final cutoff instead. Round one and
+        multi-issue rounds continue through the existing round-wide selector.
+        """
+        # ``selection_rank`` is the issue-level ``_select_ids`` order: critical
+        # evidence quota picks precede the issue-fusion fill. Keep that order,
+        # rather than rebuilding it from raw cross-request scores or from the
+        # fusion rank alone.
+        ranked = sorted(
+            self._round_ranked_candidates(candidates),
+            key=lambda candidate: (
+                candidate.selection_rank or self.rerank_pool_k + 1,
+                candidate.fusion_rank,
+                candidate.provision_id,
+                candidate.issue_id,
+            ),
+        )
+        selected = ranked[: self.final_top_k]
+        if self.candidate_selection == "evidence_balanced":
+            critical_ids = list(dict.fromkeys(critical_evidence_item_ids))
+            unsatisfied = [
+                evidence_id
+                for evidence_id in critical_ids
+                if sum(
+                    evidence_id in candidate.target_evidence_item_ids
+                    for candidate in selected
+                )
+                < self.per_evidence_min_k
+            ]
+            self.last_unsatisfied_critical_evidence_item_ids.extend(unsatisfied)
+        final_candidates: List[CandidateProvision] = []
+        for selection_rank, candidate in enumerate(selected, start=1):
+            if candidate.selection_reason.startswith("critical_quota:"):
+                selection_reason = "round_single_issue_%s" % candidate.selection_reason
+            else:
+                selection_reason = "round_single_issue_fusion_top_k"
             final_candidate = replace(
                 candidate,
                 selection_rank=selection_rank,
@@ -1167,12 +1255,23 @@ class RetrievalPipeline:
         finally:
             self.final_top_k = final_top_k
         if self.candidate_budget_scope == "per_round":
-            candidates = self._select_round_candidates(
-                candidates,
-                critical_evidence_item_ids,
-                retrieval_round,
-                [request.request_id for request in requests],
-            )
+            if (
+                self.round_merge_mode == "single_issue_fusion_top_k"
+                and retrieval_round > 1
+                and len(requests_by_issue) == 1
+            ):
+                candidates = self._select_single_issue_later_round_candidates(
+                    candidates,
+                    critical_evidence_item_ids,
+                    retrieval_round,
+                )
+            else:
+                candidates = self._select_round_candidates(
+                    candidates,
+                    critical_evidence_item_ids,
+                    retrieval_round,
+                    [request.request_id for request in requests],
+                )
             self._prior_round_selected_provision_ids.update(
                 provision_id
                 for candidate in candidates

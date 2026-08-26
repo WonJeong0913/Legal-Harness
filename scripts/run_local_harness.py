@@ -83,7 +83,11 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--round-merge-mode",
-        choices=("raw_score", "request_rank_top1_guarded_swap"),
+        choices=(
+            "raw_score",
+            "request_rank_top1_guarded_swap",
+            "single_issue_fusion_top_k",
+        ),
         default="raw_score",
         help="experimental per-round merge; default raw_score preserves C5",
     )

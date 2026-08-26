@@ -22,7 +22,7 @@
   "frozen_configuration": {
     "candidate_budget_scope": "per_round",
     "candidate_selection": "evidence_balanced",
-    "condition": "V2-KURE-offline-smoke3-Qwen3.8-Q8_0",
+        "condition": "V2-KURE-c03-combined-s1-neutral-single-issue-fusion-top10-offline-smoke3-Qwen3.8-Q8_0",
     "conditional_generation": "answer_target_full_conditional_limited",
     "contextual_query_dedup": "after_source_context_attachment",
     "coverage_contract": "legal_applicability_criterion_results",
@@ -73,7 +73,7 @@
       "vectors_path": "data/koblex/indexes/kure-v1/vectors.f32.npy",
       "vectors_sha256": "3e312dbf4cf24e7b91bc9833a9001416d85644e6868bdb657d889bd535a9d983"
     },
-    "round_merge_mode": "request_rank_top1_guarded_swap",
+        "round_merge_mode": "single_issue_fusion_top_k",
     "runtime_determinism": {
       "GGML_CUDA_DISABLE_GRAPHS": 1,
       "flash_attention": false,
@@ -104,7 +104,7 @@
     "total_retrieval_rounds": 3
   },
   "manifest_schema_version": "1.0",
-  "name": "v2-kure-qwen38-q8-offline-smoke3-20260825",
+    "name": "v2-kure-c03-combined-s1-neutral-single-issue-fusion-top10-qwen38-q8-offline-smoke3-20260826",
   "purpose": "V2 offline KURE orchestration. BM25 is read-only configuration comparison metadata; BM25 search/index execution, ParSeR, and LF-Eval are prohibited.",
   "selection": {
     "configuration_basis": "records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/kure_c5_seeded_direct_entailment_smoke8_20260824.json",

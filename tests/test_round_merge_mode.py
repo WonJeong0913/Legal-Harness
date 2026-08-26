@@ -1,6 +1,7 @@
 import json
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from harness.contracts import QueryChannel, RetrievalRequest
 from retrieval.corpus import ProvisionDocument
@@ -16,7 +17,7 @@ from scripts.analyze_round_merge_ablation import (
     analyze,
 )
 from scripts.run_bm25_bge_pilot_batch import build_run_command
-from scripts.run_local_harness import build_frozen_run_args
+from scripts.run_local_harness import build_frozen_run_args, parse_args
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -114,6 +115,24 @@ class RoundMergeModeTests(unittest.TestCase):
                 round_merge_mode="request_rank_top1_guarded_swap",
             )
 
+    def test_single_issue_fusion_mode_requires_per_request_per_round(self):
+        with self.assertRaisesRegex(ValueError, "requires per_request"):
+            RetrievalPipeline(
+                ScriptedFirstStage([], {}),
+                QueryScores({}),
+                rerank_query_mode="combined_issue",
+                candidate_budget_scope="per_round",
+                round_merge_mode="single_issue_fusion_top_k",
+            )
+        with self.assertRaisesRegex(ValueError, "requires per_round"):
+            RetrievalPipeline(
+                ScriptedFirstStage([], {}),
+                QueryScores({}),
+                rerank_query_mode="per_request",
+                candidate_budget_scope="per_issue",
+                round_merge_mode="single_issue_fusion_top_k",
+            )
+
     def test_guard_does_not_reintroduce_a_prior_round_alias(self):
         documents = [
             ProvisionDocument("P1", "공통법", "동일 본문"),
@@ -194,6 +213,145 @@ class RoundMergeModeTests(unittest.TestCase):
         self.assertEqual(first_records, tuple(pipeline.last_stage_records))
         self.assertNotIn("guarded_swap", first[-1].selection_reason)
 
+    def _later_round_single_issue_pipeline(self):
+        documents = [
+            ProvisionDocument("P1", "법1", "첫 번째"),
+            ProvisionDocument("P2", "법2", "두 번째"),
+            ProvisionDocument("P3", "법3", "세 번째"),
+        ]
+        return RetrievalPipeline(
+            ScriptedFirstStage(
+                documents,
+                {"RQ1": ["P1", "P2", "P3"], "RQ2": ["P2", "P3", "P1"]},
+            ),
+            QueryScores(
+                {
+                    "q1": {"P1": 0.20, "P2": 0.19, "P3": 0.18},
+                    "q2": {"P1": 0.10, "P2": 10.0, "P3": 9.0},
+                }
+            ),
+            rerank_pool_k=3,
+            final_top_k=2,
+            rerank_query_mode="per_request",
+            candidate_selection="global_top_k",
+            candidate_budget_scope="per_round",
+            round_merge_mode="single_issue_fusion_top_k",
+        )
+
+    def test_later_single_issue_round_retains_issue_fusion_top_k(self):
+        pipeline = self._later_round_single_issue_pipeline()
+        requests = [
+            RetrievalRequest("RQ1", "I1", "E1", QueryChannel.SPARSE_KEYWORD, "q1"),
+            RetrievalRequest("RQ2", "I1", "E2", QueryChannel.STATUTE_AWARE, "q2"),
+        ]
+
+        candidates = pipeline.retrieve(requests, retrieval_round=2)
+
+        self.assertEqual([candidate.provision_id for candidate in candidates], ["P2", "P1"])
+        self.assertEqual([candidate.fusion_rank for candidate in candidates], [1, 2])
+        self.assertEqual(
+            [candidate.selection_reason for candidate in candidates],
+            ["round_single_issue_fusion_top_k"] * 2,
+        )
+
+    def test_single_issue_mode_retains_multi_evidence_quota_and_accounting(self):
+        documents = [
+            ProvisionDocument("P1", "법1", "첫 번째"),
+            ProvisionDocument("P2", "법2", "두 번째"),
+            ProvisionDocument("P3", "법3", "세 번째"),
+        ]
+        pipeline = RetrievalPipeline(
+            ScriptedFirstStage(
+                documents,
+                {"RQ1": ["P1", "P3"], "RQ2": ["P2", "P3"]},
+            ),
+            QueryScores(
+                {
+                    "q1": {"P1": 0.20, "P3": 0.19},
+                    "q2": {"P2": 10.0, "P3": 9.0},
+                }
+            ),
+            rerank_pool_k=3,
+            final_top_k=2,
+            rerank_query_mode="per_request",
+            candidate_selection="evidence_balanced",
+            candidate_budget_scope="per_round",
+            round_merge_mode="single_issue_fusion_top_k",
+        )
+        requests = [
+            RetrievalRequest("RQ1", "I1", "E1", QueryChannel.SPARSE_KEYWORD, "q1"),
+            RetrievalRequest("RQ2", "I1", "E2", QueryChannel.STATUTE_AWARE, "q2"),
+        ]
+
+        candidates = pipeline.retrieve(
+            requests,
+            retrieval_round=2,
+            critical_evidence_item_ids=["E1", "E2"],
+        )
+
+        self.assertEqual([candidate.provision_id for candidate in candidates], ["P1", "P2"])
+        self.assertEqual(
+            [candidate.selection_reason for candidate in candidates],
+            [
+                "round_single_issue_critical_quota:E1",
+                "round_single_issue_critical_quota:E2",
+            ],
+        )
+        self.assertEqual(pipeline.last_unsatisfied_critical_evidence_item_ids, [])
+
+    def test_single_issue_global_top_k_does_not_record_missing_critical_id(self):
+        pipeline = self._later_round_single_issue_pipeline()
+        candidates = pipeline.retrieve(
+            [
+                RetrievalRequest(
+                    "RQ1", "I1", "E1", QueryChannel.SPARSE_KEYWORD, "q1"
+                ),
+                RetrievalRequest(
+                    "RQ2", "I1", "E2", QueryChannel.STATUTE_AWARE, "q2"
+                ),
+            ],
+            retrieval_round=2,
+            critical_evidence_item_ids=["E_MISSING"],
+        )
+
+        self.assertEqual([candidate.provision_id for candidate in candidates], ["P2", "P1"])
+        self.assertEqual(pipeline.last_unsatisfied_critical_evidence_item_ids, [])
+
+    def test_single_issue_mode_does_not_change_round_one_or_multi_issue(self):
+        round_one = self._later_round_single_issue_pipeline().retrieve(
+            [
+                RetrievalRequest(
+                    "RQ1", "I1", "E1", QueryChannel.SPARSE_KEYWORD, "q1"
+                ),
+                RetrievalRequest(
+                    "RQ2", "I1", "E2", QueryChannel.STATUTE_AWARE, "q2"
+                ),
+            ],
+            retrieval_round=1,
+        )
+        multi_issue = self._later_round_single_issue_pipeline().retrieve(
+            [
+                RetrievalRequest(
+                    "RQ1", "I1", "E1", QueryChannel.SPARSE_KEYWORD, "q1"
+                ),
+                RetrievalRequest(
+                    "RQ2", "I2", "E2", QueryChannel.STATUTE_AWARE, "q2"
+                ),
+            ],
+            retrieval_round=2,
+        )
+
+        self.assertEqual([candidate.provision_id for candidate in round_one], ["P2", "P3"])
+        self.assertEqual([candidate.provision_id for candidate in multi_issue], ["P2", "P3"])
+        self.assertEqual(
+            [candidate.selection_reason for candidate in round_one],
+            ["round_global_top_k"] * 2,
+        )
+        self.assertEqual(
+            [candidate.selection_reason for candidate in multi_issue],
+            ["round_global_top_k"] * 2,
+        )
+
     def test_guard_does_not_evict_a_critical_quota_slot(self):
         pipeline = self._pipeline(
             "request_rank_top1_guarded_swap",
@@ -252,7 +410,7 @@ class RoundMergeModeTests(unittest.TestCase):
             "num_ctx": 32768,
             "total_retrieval_rounds": 3,
             "total_retrieval_requests": 9,
-            "round_merge_mode": "request_rank_top1_guarded_swap",
+            "round_merge_mode": "single_issue_fusion_top_k",
         }
         frozen = build_frozen_run_args(
             "question",
@@ -272,10 +430,10 @@ class RoundMergeModeTests(unittest.TestCase):
             snapshot,
         )
 
-        self.assertEqual(frozen.round_merge_mode, "request_rank_top1_guarded_swap")
+        self.assertEqual(frozen.round_merge_mode, "single_issue_fusion_top_k")
         mode_index = command.index("--round-merge-mode")
         self.assertTrue(all(isinstance(argument, str) for argument in command))
-        self.assertEqual(command[mode_index + 1], "request_rank_top1_guarded_swap")
+        self.assertEqual(command[mode_index + 1], "single_issue_fusion_top_k")
         legacy = build_frozen_run_args(
             "question",
             "qa_test",
@@ -285,6 +443,20 @@ class RoundMergeModeTests(unittest.TestCase):
             "manifest",
         )
         self.assertEqual(legacy.round_merge_mode, "raw_score")
+
+    def test_cli_accepts_single_issue_fusion_mode(self):
+        with patch(
+            "sys.argv",
+            [
+                "run_local_harness.py",
+                "질문",
+                "--round-merge-mode",
+                "single_issue_fusion_top_k",
+            ],
+        ):
+            args = parse_args()
+
+        self.assertEqual(args.round_merge_mode, "single_issue_fusion_top_k")
 
     def test_experimental_smoke_manifests_are_paired_for_validation(self):
         directory = PROJECT_ROOT / "records/launch/kure-c5-conclusion-first-qwen38-q8-20260822"

@@ -26,8 +26,9 @@ output schema.
    contract's retrieval query-field rules and do not restate the whole question
    in each field.
 4. In `GAP_QUERY_PLAN`, target only supplied unresolved statute evidence. Do not
-   search for `missing_fact` or `scope_excess`. Use a genuinely new legal angle
-   and stay within the supplied budget.
+   search for `missing_fact` or `scope_excess`. Center each request on one
+   unsatisfied atomic completion requirement, and vary a material legal relation
+   rather than paraphrasing a prior query. Stay within the supplied budget.
 5. Compact descriptive prose, not the structural evidence coverage. Use one
    short sentence per descriptive field, avoid repeated rationale, close the
    JSON object, and return JSON only.
@@ -46,4 +47,4 @@ python3 scripts/validate_output.py output.json --input input.json
 
 ## Epistemic neutrality
 
-Keep evidence obligations and retrieval hypotheses distinct. Do not present a legal answer, article, condition, or threshold absent from the question as established fact. Preserve explicit independent outputs and genuinely distinct rules, exceptions, cross-references, and legal effects without inventing extra lanes. GAP queries remain tied to the supplied unresolved item; a new statutory pinpoint must be grounded by the original question or the harness-supplied candidate cross-reference, otherwise use a neutral semantic query.
+Keep evidence obligations and retrieval hypotheses distinct. Do not present a legal answer, article, paragraph, condition, deadline, or threshold absent from the question as established fact; a court, agency, actor, or procedure name alone is not a statute hint. Preserve explicit independent outputs and genuinely distinct rules, exceptions, cross-references, and legal effects without inventing extra lanes. GAP queries remain tied to the supplied unresolved item. A candidate cross-reference proves provenance, not relevance: use its numeric pinpoint only when its supplied excerpt matches every material component stated in the unresolved completion requirement, including subject/actor, act, trigger/qualifier, and legal effect as applicable. A partial component overlap is insufficient. Do not promote a literal range that excludes the requirement's relevant root. Otherwise use a neutral semantic query. Preserve a supplied cross-reference pinpoint when that direct match is present.
