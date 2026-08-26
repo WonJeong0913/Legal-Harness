@@ -11,9 +11,11 @@ from .contracts import (
     CandidateStageRecord,
     CoverageAssessment,
     CoverageStatus,
+    EvidenceRole,
     EvidenceConflict,
     EvidenceLink,
     GapType,
+    GoverningLegalRegime,
     LegalIssue,
     LegalStatus,
     Phase,
@@ -40,7 +42,14 @@ class RunState:
     coverage_assessments: List[CoverageAssessment] = field(default_factory=list)
     missing_critical_items: List[RequiredEvidenceItem] = field(default_factory=list)
     evidence_conflicts: List[EvidenceConflict] = field(default_factory=list)
+    # The authorized union is retained for auditability.  The role-specific
+    # projections are derived from accepted links and must never be authored
+    # independently.
     accepted_provision_ids: Set[str] = field(default_factory=set)
+    core_accepted_provision_ids: Set[str] = field(default_factory=set)
+    supplemental_provision_ids: Set[str] = field(default_factory=set)
+    qualifying_provision_ids: Set[str] = field(default_factory=set)
+    alternative_provision_ids: Set[str] = field(default_factory=set)
     seen_provision_ids: Set[str] = field(default_factory=set)
     query_history: List[RetrievalRequest] = field(default_factory=list)
     corpus_text_snapshots: Dict[str, str] = field(default_factory=dict)
@@ -85,6 +94,19 @@ class RunState:
         return LegalStatus(assessment.status.value)
 
     @staticmethod
+    def governing_legal_regime_for(
+        assessment: CoverageAssessment,
+    ) -> GoverningLegalRegime:
+        """Derive the pre-role meaning for legacy coverage assessments."""
+        if assessment.governing_legal_regime is not None:
+            return assessment.governing_legal_regime
+        return (
+            GoverningLegalRegime.DIRECT_ENTAILMENT
+            if RunState.legal_status_for(assessment) is LegalStatus.COVERED
+            else GoverningLegalRegime.NOT_DIRECT_ENTAILMENT
+        )
+
+    @staticmethod
     def gap_type_for(assessment: CoverageAssessment) -> GapType:
         if assessment.gap_type is not None:
             return assessment.gap_type
@@ -118,6 +140,8 @@ class RunState:
             if (
                 assessment is None
                 or self.legal_status_for(assessment) is not LegalStatus.COVERED
+                or self.governing_legal_regime_for(assessment)
+                is not GoverningLegalRegime.DIRECT_ENTAILMENT
             ):
                 return True
         return False
@@ -126,7 +150,7 @@ class RunState:
         return {
             link.evidence_item_id
             for link in self.evidence_links
-            if link.assessment == "accepted"
+            if link.assessment == "accepted" and link.role is EvidenceRole.CORE
         }
 
     def covered_answer_target_ids(self) -> List[str]:
@@ -146,6 +170,10 @@ class RunState:
                 coverage.get(item.evidence_item_id) is not None
                 and self.legal_status_for(coverage[item.evidence_item_id])
                 is LegalStatus.COVERED
+                and self.governing_legal_regime_for(
+                    coverage[item.evidence_item_id]
+                )
+                is GoverningLegalRegime.DIRECT_ENTAILMENT
                 and item.evidence_item_id in accepted_evidence_ids
                 for item in target_items
             ):
@@ -185,7 +213,7 @@ class RunState:
     def has_any_citable_answer_target(self) -> bool:
         if self.answer_targets:
             return bool(self.covered_answer_target_ids())
-        return bool(self.accepted_provision_ids)
+        return bool(self.core_accepted_provision_ids)
 
     def partially_citable_answer_target_ids(self) -> List[str]:
         if not self.answer_targets:
@@ -216,10 +244,37 @@ class RunState:
         """Rebuild fields that must never be independently authored."""
         evidence = self.evidence_by_id()
         coverage = self.coverage_by_evidence_id()
-        self.accepted_provision_ids = {
-            link.provision_id
+        candidate_ids = set(self.candidate_by_id())
+        authorized_links = [
+            link
             for link in self.evidence_links
             if link.assessment == "accepted"
+            and link.provision_id in candidate_ids
+            and link.evidence_item_id in evidence
+        ]
+        self.accepted_provision_ids = {
+            link.provision_id
+            for link in authorized_links
+        }
+        self.core_accepted_provision_ids = {
+            link.provision_id
+            for link in authorized_links
+            if link.role is EvidenceRole.CORE
+        }
+        self.supplemental_provision_ids = {
+            link.provision_id
+            for link in authorized_links
+            if link.role is EvidenceRole.SUPPLEMENTAL
+        }
+        self.qualifying_provision_ids = {
+            link.provision_id
+            for link in authorized_links
+            if link.role is EvidenceRole.QUALIFYING
+        }
+        self.alternative_provision_ids = {
+            link.provision_id
+            for link in authorized_links
+            if link.role is EvidenceRole.ALTERNATIVE
         }
         self.missing_critical_items = [
             item
@@ -229,19 +284,12 @@ class RunState:
                 item.evidence_item_id not in coverage
                 or self.legal_status_for(coverage[item.evidence_item_id])
                 is not LegalStatus.COVERED
+                or self.governing_legal_regime_for(
+                    coverage[item.evidence_item_id]
+                )
+                is not GoverningLegalRegime.DIRECT_ENTAILMENT
             )
         ]
-        # Ignore impossible links defensively; validation rejects them before state update.
-        self.accepted_provision_ids = {
-            provision_id
-            for provision_id in self.accepted_provision_ids
-            if provision_id in self.candidate_by_id()
-            and any(
-                link.provision_id == provision_id
-                and link.evidence_item_id in evidence
-                for link in self.evidence_links
-            )
-        }
 
     def record(self, event: str, **details: object) -> None:
         self.action_trace.append(

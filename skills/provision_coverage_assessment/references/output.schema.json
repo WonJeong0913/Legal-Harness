@@ -17,7 +17,9 @@
         "provision_id": {"type": "string", "minLength": 1},
         "relation": {"enum": ["supports", "partially_supports", "conflicts"]},
         "quoted_text": {"type": "string", "minLength": 1},
-        "rationale": {"type": "string", "minLength": 1}
+        "rationale": {"type": "string", "minLength": 1},
+        "role": {"enum": ["CORE", "SUPPLEMENTAL", "QUALIFYING", "ALTERNATIVE"]},
+        "condition": {"type": "string"}
       }
     },
     "assessment": {
@@ -35,6 +37,7 @@
         "legal_status": {"enum": ["covered", "partially_covered", "uncovered", "conflicting"]},
         "applicability_status": {"enum": ["direct", "conditional", "not_assessed"]},
         "gap_type": {"enum": ["none", "missing_statute", "missing_fact", "scope_excess", "conflict"]},
+        "governing_legal_regime": {"enum": ["direct_entailment", "not_direct_entailment", "not_assessed"]},
         "criterion_results": {
           "type": "array",
           "items": {

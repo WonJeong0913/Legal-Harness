@@ -221,10 +221,16 @@ def apply_coverage_assessment(
         link
         for link in state.evidence_links
         if link.evidence_item_id in preserved_ids
-        and link.provision_id in current[link.evidence_item_id].linked_provision_ids
     ]
     link_by_key = {
-        (link.evidence_item_id, link.provision_id, link.assessment): link
+        (
+            link.evidence_item_id,
+            link.provision_id,
+            link.assessment,
+            link.role,
+            link.condition,
+            link.rationale,
+        ): link
         for link in retained_links + incoming_links
         if link.evidence_item_id not in preserved_ids or link in retained_links
     }
@@ -268,6 +274,8 @@ def apply_coverage_assessment(
         no_progress_rounds=state.no_progress_rounds,
         missing_critical_count=len(state.missing_critical_items),
         unresolved_conflict_count=len(state.unresolved_critical_conflicts()),
+        core_accepted_provision_count=len(state.core_accepted_provision_ids),
+        accepted_provision_count=len(state.accepted_provision_ids),
         status_improved=status_improved,
         criterion_improved=criterion_improved,
         resolved_critical_conflict=resolved_critical_conflict,

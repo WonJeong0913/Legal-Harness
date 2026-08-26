@@ -58,6 +58,23 @@ Because this contract has no audit-context output field, do not invent one; leav
 Related, background, neighboring, procedural, or general rules are not accepted evidence unless they directly entail a supplied requirement.
 Do not infer requirements from outside evaluation knowledge; the supplied targets and requirements are the complete assessment scope.
 
+## Evidence roles and governing legal regime
+
+Each `evidence_links[]` record has `role`, `condition`, and `rationale`.
+`role` is one of `CORE`, `SUPPLEMENTAL`, `QUALIFYING`, or `ALTERNATIVE`.
+`QUALIFYING` and `ALTERNATIVE` require a non-empty condition. A role-less
+legacy link is interpreted as `CORE`.
+
+`CORE` is the only role allowed in assessment-level or criterion-level
+`linked_provision_ids`. Only accepted core support may satisfy a criterion or
+make the governing legal regime directly entailed. Auxiliary roles remain in
+the authorized evidence audit with their conditions and rationales, but never
+clear a coverage gap. `governing_legal_regime` is the explicit axis
+`direct_entailment`, `not_direct_entailment`, or `not_assessed`; a covered
+legal status requires `direct_entailment`, and direct entailment requires a
+covered legal status. The harness derives the authorized union and every role
+projection; S2 must not emit those derived ID lists.
+
 ## Deterministic applicability scope
 
 Do not mark a candidate direct or a criterion satisfied when its own text limits the same law to an article range but a directly linked root provision for another evidence item under the same answer target lies outside that range. This includes a no-prefix range bound to the candidate's statute label.

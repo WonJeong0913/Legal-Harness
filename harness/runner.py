@@ -512,6 +512,7 @@ class HarnessRunner:
                 "legal_status",
                 "applicability_status",
                 "gap_type",
+                "governing_legal_regime",
                 "missing_aspects",
             ):
                 if field in raw:
@@ -856,20 +857,36 @@ class HarnessRunner:
 
     def _answer_payload(self, state: RunState) -> Dict[str, Any]:
         supported_evidence_by_provision: Dict[str, List[str]] = {}
+        roles_by_provision: Dict[str, List[str]] = {}
         for link in state.evidence_links:
             if link.assessment == "accepted":
                 supported_evidence_by_provision.setdefault(link.provision_id, []).append(
                     link.evidence_item_id
                 )
-        accepted = []
-        for candidate in state.candidate_provisions:
-            if candidate.provision_id not in state.accepted_provision_ids:
-                continue
-            payload = to_primitive(candidate)
-            payload["supported_evidence_item_ids"] = sorted(
-                set(supported_evidence_by_provision.get(candidate.provision_id, []))
-            )
-            accepted.append(payload)
+                roles_by_provision.setdefault(link.provision_id, []).append(
+                    link.role.value
+                )
+
+        def provisions_for(provision_ids: Sequence[str]) -> List[Dict[str, Any]]:
+            accepted = []
+            for candidate in state.candidate_provisions:
+                if candidate.provision_id not in provision_ids:
+                    continue
+                payload = to_primitive(candidate)
+                payload["supported_evidence_item_ids"] = sorted(
+                    set(supported_evidence_by_provision.get(candidate.provision_id, []))
+                )
+                payload["evidence_roles"] = sorted(
+                    set(roles_by_provision.get(candidate.provision_id, []))
+                )
+                accepted.append(payload)
+            return accepted
+
+        accepted = provisions_for(state.accepted_provision_ids)
+        core_accepted = provisions_for(state.core_accepted_provision_ids)
+        supplemental = provisions_for(state.supplemental_provision_ids)
+        qualifying = provisions_for(state.qualifying_provision_ids)
+        alternative = provisions_for(state.alternative_provision_ids)
         return {
             "run_id": state.run_id,
             "question": state.question,
@@ -877,12 +894,16 @@ class HarnessRunner:
             "legal_issues": to_primitive(state.legal_issues),
             "answer_targets": to_primitive(state.answer_targets),
             "required_evidence_items": to_primitive(state.required_evidence_items),
-            "coverage_assessments": self._compact_coverage_assessments(
+            "coverage_assessments": HarnessRunner._compact_coverage_assessments(
                 state.coverage_assessments,
                 include_links=True,
                 include_criteria=True,
             ),
             "accepted_provisions": to_primitive(accepted),
+            "core_accepted_provisions": to_primitive(core_accepted),
+            "supplemental_provisions": to_primitive(supplemental),
+            "qualifying_provisions": to_primitive(qualifying),
+            "alternative_provisions": to_primitive(alternative),
             "answer_mode": state.answer_mode.value if state.answer_mode else AnswerMode.FULL.value,
             "answered_target_ids": list(state.answered_target_ids),
             "deferred_target_ids": list(state.deferred_target_ids),

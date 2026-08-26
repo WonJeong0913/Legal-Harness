@@ -4,7 +4,7 @@
   "title": "S3 grounded legal answer input",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "mode", "run_id", "normalized_question", "legal_issues", "required_evidence_items", "coverage_assessments", "accepted_provisions", "authorization", "generation_purpose", "publishable", "candidate_answer_basis", "generation_constraints"],
+  "required": ["schema_version", "mode", "run_id", "normalized_question", "legal_issues", "required_evidence_items", "coverage_assessments", "accepted_provisions", "core_accepted_provisions", "supplemental_provisions", "qualifying_provisions", "alternative_provisions", "authorization", "generation_purpose", "publishable", "candidate_answer_basis", "generation_constraints"],
   "properties": {
     "schema_version": {"const": "1.0"},
     "mode": {"enum": ["GENERATE_ANSWER", "GENERATE_BENCHMARK_CANDIDATE"]},
@@ -15,6 +15,10 @@
     "required_evidence_items": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/evidence"}},
     "coverage_assessments": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/assessment"}},
     "accepted_provisions": {"type": "array", "items": {"$ref": "#/$defs/provision"}},
+    "core_accepted_provisions": {"type": "array", "items": {"$ref": "#/$defs/provision"}},
+    "supplemental_provisions": {"type": "array", "items": {"$ref": "#/$defs/provision"}},
+    "qualifying_provisions": {"type": "array", "items": {"$ref": "#/$defs/provision"}},
+    "alternative_provisions": {"type": "array", "items": {"$ref": "#/$defs/provision"}},
     "candidate_provisions": {"type": "array", "items": {"$ref": "#/$defs/provision"}},
     "answer_mode": {"enum": ["full", "conditional", "limited", "abstain_candidate"]},
     "answered_target_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
@@ -59,7 +63,8 @@
       "required": ["evidence_item_id", "status"],
       "properties": {
         "evidence_item_id": {"type": "string", "pattern": "^E[1-9][0-9]*$"},
-        "status": {"enum": ["covered", "partially_covered", "uncovered", "conflicting"]}
+        "status": {"enum": ["covered", "partially_covered", "uncovered", "conflicting"]},
+        "governing_legal_regime": {"enum": ["direct_entailment", "not_direct_entailment", "not_assessed"]}
       }
     },
     "provision": {
@@ -73,7 +78,8 @@
         "heading": {"type": "string"},
         "text": {"type": "string", "minLength": 1},
         "source_snapshot_id": {"type": "string", "minLength": 1},
-        "supported_evidence_item_ids": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^E[1-9][0-9]*$"}, "uniqueItems": true}
+        "supported_evidence_item_ids": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^E[1-9][0-9]*$"}, "uniqueItems": true},
+        "evidence_roles": {"type": "array", "items": {"enum": ["CORE", "SUPPLEMENTAL", "QUALIFYING", "ALTERNATIVE"]}, "uniqueItems": true}
       }
     }
   }

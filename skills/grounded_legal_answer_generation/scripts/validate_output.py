@@ -78,9 +78,12 @@ def validate_preconditions(input_data, errors):
         errors.append("published generation must use the published_answer basis")
     evidence = {x.get("evidence_item_id"): x for x in input_data.get("required_evidence_items", [])}
     assessments = {x.get("evidence_item_id"): x for x in input_data.get("coverage_assessments", [])}
+    core_provisions = input_data.get(
+        "core_accepted_provisions", input_data.get("accepted_provisions", [])
+    )
     supported = {
         evidence_id
-        for provision in input_data.get("accepted_provisions", [])
+        for provision in core_provisions
         for evidence_id in provision.get("supported_evidence_item_ids", [])
     }
     deferred_target_ids = set(input_data.get("deferred_target_ids", []))
@@ -96,8 +99,8 @@ def validate_preconditions(input_data, errors):
         if status == "partially_covered" and evidence_id in supported:
             continue
         errors.append(f"critical evidence lacks citable support: {evidence_id}")
-    if not input_data.get("accepted_provisions"):
-        errors.append("accepted_provisions must not be empty")
+    if not core_provisions:
+        errors.append("core_accepted_provisions must not be empty")
 
 
 def validate_answer_target_scope(output, input_data, errors):
@@ -218,6 +221,12 @@ def validate(output, input_data):
     accepted_by_id = {x.get("provision_id"): x for x in sources}
     if len(accepted_by_id) != len(sources):
         errors.append("source provision IDs must be unique")
+    core_sources = input_data.get("core_accepted_provisions", sources)
+    core_ids = {
+        source.get("provision_id")
+        for source in core_sources
+        if isinstance(source, dict)
+    }
 
     citations_by_claim = {}
     for citation in citations:
@@ -238,6 +247,16 @@ def validate(output, input_data):
         expected_marker = f"[{citation_id}]"
         if marker != expected_marker:
             errors.append(f"answer_marker must be {expected_marker}: {citation_id}")
+        claim = claim_by_id.get(claim_id)
+        if (
+            input_data.get("mode") == "GENERATE_ANSWER"
+            and isinstance(claim, dict)
+            and claim.get("public_role", "conclusion") == "conclusion"
+            and provision_id not in core_ids
+        ):
+            errors.append(
+                f"public conclusion may cite only core accepted provision: {citation_id}"
+            )
 
     for claim_id, claim in claim_by_id.items():
         if claim.get("citation_required") is not True:

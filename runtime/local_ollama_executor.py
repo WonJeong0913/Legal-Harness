@@ -55,7 +55,7 @@ S3_COMPACT_TRANSPORT_INVARIANT = (
 S2_COMPACT_AUDIT_INVARIANT = (
     "For raw S2 transport omit link_id, [FULL_TEXT], assessment-level linked "
     "IDs, satisfied_aspects, missing_aspects, and missing/conflict arrays when "
-    "derivable; retain each legal status, criterion requirement_id/status, "
+    "derivable; retain each evidence-link role, condition, and rationale; retain each legal status, governing_legal_regime, criterion requirement_id/status, "
     "criterion linked candidate IDs, direct-entailment component statuses for direct satisfied requirements, relation/conflict choice, and one concise rationale for each evidence link, coverage assessment, and criterion result."
 )
 
@@ -719,23 +719,33 @@ class LocalOllamaSkillExecutor:
                 raw.get("evidence_item_id"),
                 raw.get("provision_id"),
                 raw.get("relation"),
+                raw.get("role", "CORE"),
+                raw.get("condition", ""),
             )
             if key in seen_links:
                 continue
             seen_links.add(key)
             link = dict(raw)
             link["link_id"] = "L%d" % (len(links) + 1)
+            link.setdefault("role", "CORE")
+            link.setdefault("condition", "")
             if key[0] in evidence_by_id and key[1] in candidate_ids:
                 link["quoted_text"] = "[FULL_TEXT]"
             links.append(link)
         output["evidence_links"] = links
 
         links_by_evidence: Dict[str, List[str]] = {}
+        conflict_links_by_evidence: Dict[str, List[str]] = {}
         for link in links:
             evidence_id = link.get("evidence_item_id")
             provision_id = link.get("provision_id")
             if isinstance(evidence_id, str) and isinstance(provision_id, str):
-                links_by_evidence.setdefault(evidence_id, []).append(provision_id)
+                if link.get("relation") == "conflicts":
+                    conflict_links_by_evidence.setdefault(evidence_id, []).append(
+                        provision_id
+                    )
+                elif link.get("role") == "CORE":
+                    links_by_evidence.setdefault(evidence_id, []).append(provision_id)
 
         first_assessment: Dict[str, Dict[str, Any]] = {}
         for raw in self._list(output, "coverage_assessments", required=False):
@@ -856,7 +866,12 @@ class LocalOllamaSkillExecutor:
                     "conflict_id": "CF%d" % (len(conflicts) + 1),
                     "evidence_item_id": evidence_id,
                     "provision_ids": list(
-                        dict.fromkeys(links_by_evidence.get(evidence_id, []))
+                        dict.fromkeys(
+                            conflict_links_by_evidence.get(
+                                evidence_id,
+                                links_by_evidence.get(evidence_id, []),
+                            )
+                        )
                     ),
                     "description": source.get("description")
                     or assessment.get("rationale")
@@ -1301,6 +1316,15 @@ class LocalOllamaSkillExecutor:
                 "question_only",
             }:
                 raise SkillExecutionError("benchmark candidate basis is invalid")
+            accepted_payload = self._list(payload, "accepted_provisions")
+            # Historical callers supplied only the undifferentiated accepted
+            # set.  It is a CORE-only legacy set; new role-aware payloads pass
+            # an explicit (possibly empty) core projection.
+            core_payload = (
+                self._list(payload, "core_accepted_provisions")
+                if "core_accepted_provisions" in payload
+                else accepted_payload
+            )
             return {
                 "schema_version": "1.0",
                 "mode": entry_point,
@@ -1311,7 +1335,25 @@ class LocalOllamaSkillExecutor:
                 "required_evidence_items": self._external_evidence(self._list(payload, "required_evidence_items")),
                 "coverage_assessments": self._list(payload, "coverage_assessments"),
                 "accepted_provisions": self._external_provisions(
-                    self._list(payload, "accepted_provisions"), run_id, accepted=True
+                    accepted_payload, run_id, accepted=True
+                ),
+                "core_accepted_provisions": self._external_provisions(
+                    core_payload, run_id, accepted=True
+                ),
+                "supplemental_provisions": self._external_provisions(
+                    self._list(payload, "supplemental_provisions", required=False),
+                    run_id,
+                    accepted=True,
+                ),
+                "qualifying_provisions": self._external_provisions(
+                    self._list(payload, "qualifying_provisions", required=False),
+                    run_id,
+                    accepted=True,
+                ),
+                "alternative_provisions": self._external_provisions(
+                    self._list(payload, "alternative_provisions", required=False),
+                    run_id,
+                    accepted=True,
                 ),
                 "candidate_provisions": self._external_provisions(
                     self._list(payload, "candidate_provisions", required=False),
@@ -1466,6 +1508,17 @@ class LocalOllamaSkillExecutor:
                         "S3 source provisions require supported evidence item IDs"
                     )
                 provision["supported_evidence_item_ids"] = supported
+            if accepted:
+                roles = candidate.get("evidence_roles")
+                if roles is not None:
+                    if not isinstance(roles, list) or not all(
+                        role in {"CORE", "SUPPLEMENTAL", "QUALIFYING", "ALTERNATIVE"}
+                        for role in roles
+                    ):
+                        raise SkillExecutionError(
+                            "accepted provision evidence_roles are invalid"
+                        )
+                    provision["evidence_roles"] = list(dict.fromkeys(roles))
             if not accepted:
                 provision["source_provision_id"] = source_provision_id
                 retrieval_metadata = {
@@ -1592,7 +1645,7 @@ FINAL OUTPUT INVARIANTS:
             ]
             if partial_ids:
                 return (
-                    "Use only accepted provision IDs supplied in INPUT. Answer mode is %s; substantive claims may name only answered target IDs %s and must not name deferred target IDs %s. Critical partial evidence IDs are %s. "
+                    "Use only accepted provision IDs supplied in INPUT. Conclusion claims may cite only core_accepted_provisions; supplemental, qualifying, and alternative provisions may be cited only by public_role=audit claims. Answer mode is %s; substantive claims may name only answered target IDs %s and must not name deferred target IDs %s. Critical partial evidence IDs are %s. "
                     "Do not assert their missing facts. Include at least one cited conditional legal claim and a non-empty "
                     "limitations array that states each unresolved condition. Every claims[] item must set citation_required "
                     "true and have at least one claim_citation. Keep uncited missing-fact and limitation prose out of claims[]; "
@@ -1608,7 +1661,7 @@ FINAL OUTPUT INVARIANTS:
                     + S3_COMPACT_TRANSPORT_INVARIANT
                 )
             return (
-                "Use only accepted provision IDs supplied in INPUT. Answer mode is %s; substantive claims may name only answered target IDs %s and must not name deferred target IDs %s. Every claims[] item must set citation_required true and have at least one claim_citation; keep uncited factual or limitation prose in assumptions[] or limitations[]. "
+                "Use only accepted provision IDs supplied in INPUT. Conclusion claims may cite only core_accepted_provisions; supplemental, qualifying, and alternative provisions may be cited only by public_role=audit claims. Answer mode is %s; substantive claims may name only answered target IDs %s and must not name deferred target IDs %s. Every claims[] item must set citation_required true and have at least one claim_citation; keep uncited factual or limitation prose in assumptions[] or limitations[]. "
                 "Preserve every audit field, but make the public answer conclusion-first, 1 to 3 short sentences, no more than 800 characters, and include only an outcome-changing condition and the minimum statutory basis; do not append all audit claims or notes."
                 % (answer_mode, json.dumps(answered_target_ids), json.dumps(deferred_target_ids))
                 + " "
@@ -1628,8 +1681,8 @@ FINAL OUTPUT INVARIANTS:
         ]
         return (
             "Use only evidence IDs %s and candidate IDs %s. Assess each ledger item exactly once: %s. "
-            "For raw compact transport omit link IDs and quoted text; retain one criterion result per supplied requirement, its linked candidate IDs, and every legal decision; never invent IDs or missing aspects. "
-            "Follow the contract's closed-requirement coverage mapping."
+            "Classify every evidence link as CORE, SUPPLEMENTAL, QUALIFYING, or ALTERNATIVE with its condition and rationale. Only accepted CORE links may appear in coverage_assessment linked_provision_ids or criterion linked_provision_ids, satisfy a criterion, or establish governing_legal_regime=direct_entailment; auxiliary roles are audit-only and cannot clear coverage. "
+            "For raw compact transport omit link IDs and quoted text; retain one criterion result per supplied requirement, its linked candidate IDs, and every legal decision; never invent IDs or missing aspects. Follow the contract's closed-requirement coverage mapping."
             % (
                 json.dumps([item["evidence_item_id"] for item in evidence_ledger]),
                 json.dumps(candidate_ids),
@@ -1903,6 +1956,9 @@ FINAL OUTPUT INVARIANTS:
                     "provision_id": self._source_provision_id(provisions, provision_id),
                     "support_spans": [{"start_char": start, "end_char": start + len(quote)}],
                     "assessment": "conflicting" if link.get("relation") == "conflicts" else "accepted",
+                    "role": self._s2_evidence_role(link),
+                    "condition": self._s2_link_condition(link),
+                    "rationale": self._string(link, "rationale"),
                 }
             )
         assessments = []
@@ -1971,6 +2027,9 @@ FINAL OUTPUT INVARIANTS:
                         "gap_type": gap_type,
                     }
                 )
+            governing_legal_regime = assessment.get("governing_legal_regime")
+            if isinstance(governing_legal_regime, str):
+                mapped_assessment["governing_legal_regime"] = governing_legal_regime
             assessments.append(mapped_assessment)
         conflicts = []
         for conflict in self._list(output, "evidence_conflicts", required=False):
@@ -1992,6 +2051,20 @@ FINAL OUTPUT INVARIANTS:
             "coverage_assessments": assessments,
             "evidence_conflicts": conflicts,
         }
+
+    @staticmethod
+    def _s2_evidence_role(link: Mapping[str, Any]) -> str:
+        role = link.get("role", "CORE")
+        if role not in {"CORE", "SUPPLEMENTAL", "QUALIFYING", "ALTERNATIVE"}:
+            raise SkillExecutionError("S2 evidence role is invalid")
+        return role
+
+    @staticmethod
+    def _s2_link_condition(link: Mapping[str, Any]) -> str:
+        condition = link.get("condition", "")
+        if not isinstance(condition, str):
+            raise SkillExecutionError("S2 evidence link condition must be a string")
+        return condition.strip()
 
     @staticmethod
     def _adaptable_s2_direct_entailment(

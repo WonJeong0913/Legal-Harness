@@ -39,6 +39,17 @@
         "rationale": {
           "type": "string",
           "minLength": 1
+        },
+        "role": {
+          "enum": [
+            "CORE",
+            "SUPPLEMENTAL",
+            "QUALIFYING",
+            "ALTERNATIVE"
+          ]
+        },
+        "condition": {
+          "type": "string"
         }
       }
     },
@@ -153,6 +164,13 @@
             "missing_fact",
             "scope_excess",
             "conflict"
+          ]
+        },
+        "governing_legal_regime": {
+          "enum": [
+            "direct_entailment",
+            "not_direct_entailment",
+            "not_assessed"
           ]
         },
         "criterion_results": {

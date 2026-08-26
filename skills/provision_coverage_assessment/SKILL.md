@@ -17,8 +17,10 @@ requirements and candidate provisions.
    alone is not support.
 2. Link the smallest candidate set that actually satisfies a requirement. One
    provision may support several requirements and one requirement may need
-   several provisions. In raw compact transport use only supplied candidate IDs
-   plus the selected relation and concise rationale; the harness restores the
+   several provisions. Classify every link as `CORE`, `SUPPLEMENTAL`,
+   `QUALIFYING`, or `ALTERNATIVE`, with a condition (required for qualifying or
+   alternative evidence) and concise rationale. In raw compact transport use
+   only supplied candidate IDs plus those decisions; the harness restores the
    immutable full-text quote deterministically.
 3. Treat the supplied requirements as closed. Do not invent a missing definition,
    procedure, background point, or general legal-opinion completeness test.
@@ -47,6 +49,17 @@ requirement. For the candidate provision set that you would link as
 `direct`/`satisfied` support for that criterion, if any linked candidate
 mismatches an explicit component, mark that component `mismatch` and do not retain `direct` or `satisfied`; leave the
 legal requirement for the harness's bounded gap policy instead.
+
+## Evidence-role boundary
+
+Only an accepted `CORE` link may appear in `linked_provision_ids`, satisfy a
+criterion, or establish `governing_legal_regime: direct_entailment`. A
+`SUPPLEMENTAL`, `QUALIFYING`, or `ALTERNATIVE` link is authorized audit context:
+it may be retained with its condition and rationale, but cannot make an item
+covered, partially covered, directly applicable, or criterion-satisfied. A
+covered legal status requires `direct_entailment`; do not relabel helpful
+context as core to pass this rule. Role-less legacy links are interpreted as
+`CORE` by the harness.
 
 ## Boundary
 

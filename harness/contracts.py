@@ -60,6 +60,28 @@ class CriterionStatus(str, Enum):
     CONFLICTING = "conflicting"
 
 
+class EvidenceRole(str, Enum):
+    """The legal function a provision has for one evidence link.
+
+    Only CORE evidence may establish a governing legal regime or support a
+    public conclusion.  The three auxiliary roles remain authorized evidence
+    for the structured audit trail, but cannot silently satisfy coverage.
+    """
+
+    CORE = "CORE"
+    SUPPLEMENTAL = "SUPPLEMENTAL"
+    QUALIFYING = "QUALIFYING"
+    ALTERNATIVE = "ALTERNATIVE"
+
+
+class GoverningLegalRegime(str, Enum):
+    """Whether core evidence directly entails the governing legal regime."""
+
+    DIRECT_ENTAILMENT = "direct_entailment"
+    NOT_DIRECT_ENTAILMENT = "not_direct_entailment"
+    NOT_ASSESSED = "not_assessed"
+
+
 class AnswerMode(str, Enum):
     FULL = "full"
     CONDITIONAL = "conditional"
@@ -209,6 +231,9 @@ class EvidenceLink:
     provision_id: str
     support_spans: List[SupportSpan]
     assessment: str = "accepted"
+    role: EvidenceRole = EvidenceRole.CORE
+    condition: str = ""
+    rationale: str = ""
 
 
 @dataclass(frozen=True)
@@ -222,6 +247,7 @@ class CoverageAssessment:
     legal_status: Optional[LegalStatus] = None
     applicability_status: Optional[ApplicabilityStatus] = None
     gap_type: Optional[GapType] = None
+    governing_legal_regime: Optional[GoverningLegalRegime] = None
     criterion_results: List["CriterionResult"] = field(default_factory=list)
 
 
@@ -246,6 +272,7 @@ class Claim:
     claim_id: str
     text: str
     answer_target_ids: List[str] = field(default_factory=list)
+    public_role: str = "conclusion"
 
 
 @dataclass(frozen=True)

@@ -214,7 +214,11 @@ def semantic_scope_mismatches(output, input_data):
     }
     supports = {}
     for link in output.get("evidence_links", []):
-        if isinstance(link, dict) and link.get("relation") == "supports":
+        if (
+            isinstance(link, dict)
+            and link.get("relation") == "supports"
+            and link.get("role", "CORE") == "CORE"
+        ):
             supports.setdefault(link.get("evidence_item_id"), set()).add(link.get("provision_id"))
     targets = {
         evidence_id: set(item.get("answer_target_ids", []))
@@ -336,6 +340,7 @@ def validate(output, input_data):
         errors.append(f"assessments must cover every evidence item exactly once: expected {sorted(expected)}, got {sorted(assessment_ids)}")
 
     links_by_evidence = {}
+    accepted_core_by_evidence = {}
     for link in links:
         evidence_id = link.get("evidence_item_id")
         provision_id = link.get("provision_id")
@@ -353,17 +358,28 @@ def validate(output, input_data):
                 errors.append(f"quoted_text is not exact source text: {link.get('link_id')}")
         if link.get("relation") not in {"supports", "partially_supports", "conflicts"}:
             errors.append(f"invalid link relation: {link.get('link_id')}")
+        role = link.get("role", "CORE")
+        if role not in {"CORE", "SUPPLEMENTAL", "QUALIFYING", "ALTERNATIVE"}:
+            errors.append(f"invalid evidence role: {link.get('link_id')}")
+            continue
+        condition = link.get("condition", "")
+        if not isinstance(condition, str):
+            errors.append(f"evidence link condition must be a string: {link.get('link_id')}")
+        elif role in {"QUALIFYING", "ALTERNATIVE"} and not condition.strip():
+            errors.append(f"qualifying or alternative link requires condition: {link.get('link_id')}")
+        if role == "CORE" and link.get("relation") in {"supports", "partially_supports"}:
+            accepted_core_by_evidence.setdefault(evidence_id, set()).add(provision_id)
 
     conflict_id_set = set(conflict_evidence_ids)
     assessment_by_id = {x.get("evidence_item_id"): x for x in assessments}
     for evidence_id, assessment in assessment_by_id.items():
         status = effective_status(assessment, errors)
         linked = assessment.get("linked_provision_ids", [])
-        actual_linked = {x.get("provision_id") for x in links_by_evidence.get(evidence_id, [])}
+        actual_linked = accepted_core_by_evidence.get(evidence_id, set())
         if len(linked) != len(set(linked)):
             errors.append(f"linked_provision_ids must be unique: {evidence_id}")
         if set(linked) != actual_linked:
-            errors.append(f"assessment/link provision mismatch: {evidence_id}")
+            errors.append(f"assessment/core-link provision mismatch: {evidence_id}")
         if set(linked) - set(provision_by_id):
             errors.append(f"assessment uses non-candidate provision: {evidence_id}")
         satisfied = assessment.get("satisfied_aspects", [])
@@ -388,6 +404,31 @@ def validate(output, input_data):
                 errors.append(f"conflicting consistency failure: {evidence_id}")
         else:
             errors.append(f"invalid coverage status: {evidence_id}")
+
+        legal_status = assessment.get("legal_status")
+        governing = assessment.get("governing_legal_regime")
+        if governing is not None and governing not in {
+            "direct_entailment",
+            "not_direct_entailment",
+            "not_assessed",
+        }:
+            errors.append(f"invalid governing_legal_regime: {evidence_id}")
+        effective_legal_status = legal_status or status
+        effective_governing = governing or (
+            "direct_entailment"
+            if effective_legal_status == "covered"
+            else "not_direct_entailment"
+        )
+        if (
+            effective_legal_status == "covered"
+            and effective_governing != "direct_entailment"
+        ):
+            errors.append(f"covered legal status requires direct governing regime: {evidence_id}")
+        if (
+            effective_governing == "direct_entailment"
+            and effective_legal_status != "covered"
+        ):
+            errors.append(f"direct governing regime requires covered legal status: {evidence_id}")
 
         evidence = evidence_by_id.get(evidence_id, {})
         requirements = evidence.get("completion_requirements", [])
@@ -425,6 +466,12 @@ def validate(output, input_data):
                 for result in criterion_results:
                     if not isinstance(result, dict) or result.get("status") not in {"satisfied", "partially_satisfied", "unsatisfied", "conflicting"}:
                         errors.append(f"invalid criterion result: {evidence_id}")
+                        continue
+                    result_links = result.get("linked_provision_ids", [])
+                    if not isinstance(result_links, list) or set(result_links) - actual_linked:
+                        errors.append(f"criterion may use only accepted CORE provisions: {evidence_id}")
+                    if result.get("status") == "satisfied" and not result_links:
+                        errors.append(f"satisfied criterion requires accepted CORE evidence: {evidence_id}")
         if any(key in assessment for key in ("legal_status", "applicability_status", "gap_type")) and requirements:
             if set(missing_aspects) - {
                 requirement.get("requirement_id")

@@ -20,7 +20,9 @@ from .contracts import (
     CriterionStatus,
     EvidenceConflict,
     EvidenceLink,
+    EvidenceRole,
     GapType,
+    GoverningLegalRegime,
     LegalStatus,
     LegalIssue,
     QueryChannel,
@@ -346,6 +348,16 @@ def _criterion_status_for_legacy(status: CoverageStatus) -> CriterionStatus:
     }[status]
 
 
+def _legacy_governing_legal_regime(
+    legal_status: LegalStatus,
+) -> GoverningLegalRegime:
+    return (
+        GoverningLegalRegime.DIRECT_ENTAILMENT
+        if legal_status is LegalStatus.COVERED
+        else GoverningLegalRegime.NOT_DIRECT_ENTAILMENT
+    )
+
+
 def _parse_criterion_results(
     raw: Mapping[str, Any],
     item: RequiredEvidenceItem,
@@ -421,6 +433,23 @@ def validate_coverage_assessment(
         candidate = candidate_by_id.get(provision_id)
         if candidate is None:
             raise ValidationError("evidence link references provision outside candidates")
+        raw_role = raw.get("role", EvidenceRole.CORE.value)
+        try:
+            role = EvidenceRole(raw_role)
+        except (TypeError, ValueError) as exc:
+            raise ValidationError("evidence link role is not a frozen allowed value") from exc
+        condition = raw.get("condition", "")
+        rationale = raw.get("rationale", "")
+        if not isinstance(condition, str):
+            raise ValidationError("evidence link condition must be a string")
+        if not isinstance(rationale, str):
+            raise ValidationError("evidence link rationale must be a string")
+        # Role-less historical outputs are migrated as CORE.  Once a role is
+        # authored, it must carry the decision context needed for audit.
+        if "role" in raw and not rationale.strip():
+            raise ValidationError("role-aware evidence link requires a rationale")
+        if role in {EvidenceRole.QUALIFYING, EvidenceRole.ALTERNATIVE} and not condition.strip():
+            raise ValidationError("qualifying or alternative evidence link requires a condition")
         spans: List[SupportSpan] = []
         for span_raw in _items(_mapping(raw, "evidence_link"), "support_spans"):
             start, end = span_raw.get("start_char"), span_raw.get("end_char")
@@ -434,8 +463,18 @@ def validate_coverage_assessment(
                 provision_id=provision_id,
                 support_spans=spans,
                 assessment=_string(raw, "assessment"),
+                role=role,
+                condition=condition.strip(),
+                rationale=rationale.strip(),
             )
         )
+
+    accepted_core_by_evidence = {}
+    for link in links:
+        if link.assessment == "accepted" and link.role is EvidenceRole.CORE:
+            accepted_core_by_evidence.setdefault(link.evidence_item_id, set()).add(
+                link.provision_id
+            )
 
     assessments: List[CoverageAssessment] = []
     for raw in _items(payload, "coverage_assessments"):
@@ -500,6 +539,39 @@ def validate_coverage_assessment(
                 raise ValidationError("coverage assessment requires status or legal_status")
             status = legacy_status
             legal_status, applicability_status, gap_type = _legacy_axes(status, partial_kind)
+        raw_governing_regime = raw.get("governing_legal_regime")
+        if raw_governing_regime is None:
+            governing_legal_regime = _legacy_governing_legal_regime(legal_status)
+        else:
+            try:
+                governing_legal_regime = GoverningLegalRegime(
+                    _string(raw, "governing_legal_regime")
+                )
+            except ValueError as exc:
+                raise ValidationError(
+                    "governing_legal_regime is not a frozen allowed value"
+                ) from exc
+        if (
+            legal_status is LegalStatus.COVERED
+            and governing_legal_regime is not GoverningLegalRegime.DIRECT_ENTAILMENT
+        ):
+            raise ValidationError(
+                "covered legal status requires direct_entailment governing_legal_regime"
+            )
+        if (
+            governing_legal_regime is GoverningLegalRegime.DIRECT_ENTAILMENT
+            and legal_status is not LegalStatus.COVERED
+        ):
+            raise ValidationError(
+                "direct_entailment governing_legal_regime requires covered legal status"
+            )
+        core_linked_ids = accepted_core_by_evidence.get(evidence_item_id, set())
+        if set(linked_ids) - core_linked_ids:
+            raise ValidationError(
+                "coverage assessment may link only accepted CORE provisions"
+            )
+        if legal_status is LegalStatus.COVERED and not linked_ids:
+            raise ValidationError("covered legal status requires an accepted CORE provision")
         missing_aspects = raw.get("missing_aspects", [])
         if not isinstance(missing_aspects, list) or not all(
             isinstance(value, str) and value.strip() for value in missing_aspects
@@ -515,6 +587,18 @@ def validate_coverage_assessment(
         criterion_results = _parse_criterion_results(
             raw, item, list(linked_ids), status, list(candidate_by_id)
         )
+        for result in criterion_results:
+            if set(result.linked_provision_ids) - core_linked_ids:
+                raise ValidationError(
+                    "criterion result may link only accepted CORE provisions"
+                )
+            if (
+                result.status is CriterionStatus.SATISFIED
+                and not result.linked_provision_ids
+            ):
+                raise ValidationError(
+                    "satisfied criterion requires an accepted CORE provision"
+                )
         assessments.append(
             CoverageAssessment(
                 evidence_item_id=evidence_item_id,
@@ -526,6 +610,7 @@ def validate_coverage_assessment(
                 legal_status=legal_status,
                 applicability_status=applicability_status,
                 gap_type=gap_type,
+                governing_legal_regime=governing_legal_regime,
                 criterion_results=criterion_results,
             )
         )
@@ -570,6 +655,7 @@ def _validate_answer_draft(
     allowed_provision_ids: Sequence[str],
     scope_error: str,
     allow_empty: bool = False,
+    core_conclusion_provision_ids: Optional[Sequence[str]] = None,
 ) -> AnswerDraft:
     raw_claims = _items(payload, "claims", allow_empty=allow_empty)
     claims = []
@@ -581,11 +667,15 @@ def _validate_answer_draft(
                 raise ValidationError("answer claims must identify answer_target_ids")
             if set(target_ids) - allowed_targets:
                 raise ValidationError(scope_error)
+        public_role = raw.get("public_role", "conclusion")
+        if public_role not in {"conclusion", "audit"}:
+            raise ValidationError("claim public_role must be conclusion or audit")
         claims.append(
             Claim(
                 claim_id=_string(raw, "claim_id"),
                 text=_string(raw, "text"),
                 answer_target_ids=target_ids,
+                public_role=public_role,
             )
         )
     _unique([claim.claim_id for claim in claims], "claims")
@@ -626,6 +716,18 @@ def _validate_answer_draft(
         raise ValidationError(
             "S3 cited a provision outside the authorized provision set"
         )
+    if core_conclusion_provision_ids is not None:
+        claim_by_id = {claim.claim_id: claim for claim in claims}
+        core_ids = set(core_conclusion_provision_ids)
+        for citation in citations:
+            claim = claim_by_id[citation.claim_id]
+            if (
+                claim.public_role == "conclusion"
+                and not set(citation.provision_ids).issubset(core_ids)
+            ):
+                raise ValidationError(
+                    "S3 conclusion claim may cite only CORE accepted provisions"
+                )
 
     audit_notes: Dict[str, List[Dict[str, Any]]] = {}
     for key in ("assumptions", "limitations"):
@@ -662,12 +764,20 @@ def _validate_answer_draft(
 
 
 def validate_answer_draft(payload: Mapping[str, Any], state: RunState) -> AnswerDraft:
+    core_ids = state.core_accepted_provision_ids
+    if not core_ids and not any(
+        link.role is not EvidenceRole.CORE for link in state.evidence_links
+    ):
+        # Compatibility for legacy state fixtures and records that predate
+        # role projections: their accepted set is semantically all CORE.
+        core_ids = state.accepted_provision_ids
     return _validate_answer_draft(
         payload,
         state,
         state.answered_target_ids,
         state.accepted_provision_ids,
         "answer claim references deferred or unknown answer target",
+        core_conclusion_provision_ids=core_ids,
     )
 
 

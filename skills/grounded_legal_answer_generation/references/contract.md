@@ -34,6 +34,17 @@ citation markers, answer serialization, and deterministic citation validation.
 It publicly renders only model-designated conclusion claims; material assumptions
 and limitations remain available in the structured audit record.
 
+## Core and auxiliary evidence boundary
+
+`accepted_provisions[]` is the authorized union. The harness separately supplies
+`core_accepted_provisions[]`, `supplemental_provisions[]`,
+`qualifying_provisions[]`, and `alternative_provisions[]`; the role lists may
+overlap because one provision can have distinct link roles. Every public
+`conclusion` claim must cite only `core_accepted_provisions[]`. Auxiliary
+provisions are authorized only for `audit` claim citations and must never be
+used to establish, serialize, or rescue a public conclusion. The core evidence
+set is the only coverage and governing-regime basis for publishable generation.
+
 On failed preconditions, use the schema error envelope with `INVALID_INPUT`,
 `GENERATION_NOT_AUTHORIZED`, `UNCOVERED_CRITICAL_EVIDENCE`, or
 `CONTRACT_UNSATISFIABLE`. An S3 error is `EXECUTION_FAILURE`, not `ABSTAIN`.
