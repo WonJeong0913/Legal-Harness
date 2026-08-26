@@ -14,6 +14,30 @@ necessary, and contain the minimum independently checkable completion
 requirements needed for the requested legal conclusion. A question fact is not
 statutory evidence and must not become a completion requirement.
 
+Before emitting JSON, make a mandatory internal deletion pass over every
+critical evidence item and requirement: if deleting it still permits the
+requested output to be stated legally and accurately, delete it or make it
+noncritical. This is an internal reasoning step only; do not add a
+self-certification field to the output.
+
+Background people, positions, numbers, and facts do not form a separate
+critical axis unless the question explicitly asks about that qualification or
+scope, or they change the governing rule. Where a question expressly assumes a
+violation and asks only for its penalty, treat re-proving the whole violation as
+supporting by default. Retain only a minimal cross-reference predicate when it
+is indispensable to identify the penalty subsection. Do not turn broad wording
+such as “necessary conditions” into every potentially relevant legal dimension:
+use only the immediate operative rule's minimum conjuncts.
+
+Start each answer target with one evidence item containing its atomic
+requirements. Split it only for an independently requested clause, an
+indispensable bridge, or an outcome-changing condition. Thus, a role list in
+background does not add a qualification axis to a quorum question; a stipulated
+violation does not add an unnecessary offense-proof axis to a penalty question;
+separately requested duration and post-expiry procedure remain distinct outputs;
+and an attempt-penalty question retains both the base offense and the attempt
+rule.
+
 Compactness applies to prose, not coverage. Do not create one requirement per
 expected provision: one provision may satisfy several requirements, and one
 requirement may need several provisions. Keep distinct outcome-determinative
