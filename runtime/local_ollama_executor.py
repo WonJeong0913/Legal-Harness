@@ -55,7 +55,7 @@ PROMPT_RUN_ID_PLACEHOLDER = "__HARNESS_RUN_ID__"
 S3_COMPACT_TRANSPORT_INVARIANT = (
     "For claim-bearing compact raw transport, omit answer, citation_id, "
     "quoted_text, and answer_marker; retain every claim plus claim_id, "
-    "provision_id, answer_target_ids, and short support_description for each citation. Mark each claim public_role as conclusion or audit; conclusion claims are the only public text."
+    "provision_id, answer_target_ids, and short support_description for each citation. Mark each claim public_role as conclusion or audit; conclusion claims are the only public text. For every supplied public_material_conditions card, its one conclusion claim must list the card ID, target, CORE citation, exact condition, and exact alternate outcome."
 )
 S2_COMPACT_AUDIT_INVARIANT = (
     "For raw S2 transport omit link_id, [FULL_TEXT], assessment-level linked "
@@ -65,7 +65,7 @@ S2_COMPACT_AUDIT_INVARIANT = (
     "condition, and rationale, criterion requirement_id/status, criterion linked "
     "candidate IDs, direct-entailment component statuses for direct satisfied "
     "requirements, relation/conflict choice, and one concise rationale for each "
-    "evidence link, coverage assessment, and criterion result."
+    "evidence link, coverage assessment, and criterion result. Emit optional public_material_conditions only for a critical direct covered satisfied CORE criterion, using exact condition/outcome source text; omit any material ID."
 )
 
 S2_AXIS_PROJECTIONS = {
@@ -1775,7 +1775,55 @@ class LocalOllamaSkillExecutor:
                 if "core_accepted_provisions" in payload
                 else accepted_payload
             )
-            return {
+            accepted_external = self._external_provisions(
+                accepted_payload, run_id, accepted=True
+            )
+            core_external = self._external_provisions(
+                core_payload, run_id, accepted=True
+            )
+            supplemental_external = self._external_provisions(
+                self._list(payload, "supplemental_provisions", required=False),
+                run_id,
+                accepted=True,
+            )
+            qualifying_external = self._external_provisions(
+                self._list(payload, "qualifying_provisions", required=False),
+                run_id,
+                accepted=True,
+            )
+            alternative_external = self._external_provisions(
+                self._list(payload, "alternative_provisions", required=False),
+                run_id,
+                accepted=True,
+            )
+            candidate_external = self._external_provisions(
+                self._list(payload, "candidate_provisions", required=False),
+                run_id,
+                benchmark_candidate=True,
+            )
+            raw_material_conditions = self._list(
+                payload, "public_material_conditions", required=False
+            )
+            if benchmark_candidate and raw_material_conditions:
+                raise SkillExecutionError(
+                    "benchmark candidate must not receive public material conditions"
+                )
+            accepted_source_ids = {
+                provision["provision_id"]
+                for provision in accepted_external
+            }
+            material_conditions = []
+            for raw_condition in raw_material_conditions:
+                if not isinstance(raw_condition, Mapping):
+                    raise SkillExecutionError("public material condition must be an object")
+                condition = dict(raw_condition)
+                source_provision_id = self._string(condition, "source_provision_id")
+                if source_provision_id not in accepted_source_ids:
+                    raise SkillExecutionError(
+                        "public material condition source is outside accepted provisions"
+                    )
+                material_conditions.append(condition)
+            input_payload = {
                 "schema_version": "1.0",
                 "mode": entry_point,
                 "run_id": run_id,
@@ -1784,32 +1832,12 @@ class LocalOllamaSkillExecutor:
                 "answer_targets": self._list(payload, "answer_targets", required=False),
                 "required_evidence_items": self._external_evidence(self._list(payload, "required_evidence_items")),
                 "coverage_assessments": self._list(payload, "coverage_assessments"),
-                "accepted_provisions": self._external_provisions(
-                    accepted_payload, run_id, accepted=True
-                ),
-                "core_accepted_provisions": self._external_provisions(
-                    core_payload, run_id, accepted=True
-                ),
-                "supplemental_provisions": self._external_provisions(
-                    self._list(payload, "supplemental_provisions", required=False),
-                    run_id,
-                    accepted=True,
-                ),
-                "qualifying_provisions": self._external_provisions(
-                    self._list(payload, "qualifying_provisions", required=False),
-                    run_id,
-                    accepted=True,
-                ),
-                "alternative_provisions": self._external_provisions(
-                    self._list(payload, "alternative_provisions", required=False),
-                    run_id,
-                    accepted=True,
-                ),
-                "candidate_provisions": self._external_provisions(
-                    self._list(payload, "candidate_provisions", required=False),
-                    run_id,
-                    benchmark_candidate=True,
-                ),
+                "accepted_provisions": accepted_external,
+                "core_accepted_provisions": core_external,
+                "supplemental_provisions": supplemental_external,
+                "qualifying_provisions": qualifying_external,
+                "alternative_provisions": alternative_external,
+                "candidate_provisions": candidate_external,
                 "answer_mode": payload.get("answer_mode", "full"),
                 "answered_target_ids": self._list(
                     payload, "answered_target_ids", required=False
@@ -1844,6 +1872,9 @@ class LocalOllamaSkillExecutor:
                     "public_conclusion_contract": "required",
                 },
             }
+            if material_conditions:
+                input_payload["public_material_conditions"] = material_conditions
+            return input_payload
         raise SkillExecutionError("unsupported skill: %s" % skill_name)
 
     def _planning_input(
@@ -2457,6 +2488,30 @@ FINAL OUTPUT INVARIANTS:
                 direct_entailment = self._adaptable_s2_direct_entailment(assessment, result)
                 if direct_entailment is not None:
                     mapped_result["direct_entailment"] = direct_entailment
+                material_conditions = self._list(
+                    result, "public_material_conditions", required=False
+                )
+                if material_conditions:
+                    if not all(isinstance(condition, Mapping) for condition in material_conditions):
+                        raise SkillExecutionError(
+                            "S2 public material condition must be an object"
+                        )
+                    mapped_result["public_material_conditions"] = [
+                        {
+                            "kind": self._string(condition, "kind"),
+                            "answer_target_id": self._string(
+                                condition, "answer_target_id"
+                            ),
+                            "condition_text": self._string(
+                                condition, "condition_text"
+                            ),
+                            "outcome_text": self._string(condition, "outcome_text"),
+                            "source_provision_id": self._source_provision_id(
+                                provisions, condition.get("source_provision_id")
+                            ),
+                        }
+                        for condition in material_conditions
+                    ]
                 criterion_results.append(mapped_result)
             mapped_assessment = {
                 "evidence_item_id": self._string(assessment, "evidence_item_id"),
@@ -2581,6 +2636,9 @@ FINAL OUTPUT INVARIANTS:
                     "text": self._string(claim, "text"),
                     "answer_target_ids": self._list(
                         claim, "answer_target_ids", required=False
+                    ),
+                    "public_material_condition_ids": self._list(
+                        claim, "public_material_condition_ids", required=False
                     ),
                 }
             )

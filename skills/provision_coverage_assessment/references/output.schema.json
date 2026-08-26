@@ -60,6 +60,27 @@
                   "procedure_or_remedy_path": {"enum": ["matched", "mismatch", "not_applicable"]},
                   "rationale": {"type": "string", "minLength": 1}
                 }
+              },
+              "public_material_conditions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "kind",
+                    "answer_target_id",
+                    "condition_text",
+                    "outcome_text",
+                    "source_provision_id"
+                  ],
+                  "properties": {
+                    "kind": {"const": "alternative_outcome"},
+                    "answer_target_id": {"type": "string", "minLength": 1},
+                    "condition_text": {"type": "string", "minLength": 1},
+                    "outcome_text": {"type": "string", "minLength": 1},
+                    "source_provision_id": {"type": "string", "minLength": 1}
+                  }
+                }
               }
             }
           }

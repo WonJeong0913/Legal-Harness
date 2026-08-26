@@ -33,7 +33,14 @@ requirements and candidate provisions.
    ledgers after the axes boundary; do not emit those projection fields.
    Preserve a prior supported finding when its provision remains, unless new
    evidence creates a real conflict.
-6. Return JSON only.
+6. For a critical, direct, covered, `satisfied` requirement only, emit an optional
+   `public_material_conditions[]` entry when its linked `CORE` rule expressly gives
+   a different legal outcome under a condition that must be stated to avoid changing
+   the answer. Use `alternative_outcome`, one supplied target ID, the linked candidate
+   ID, and exact condition/outcome substrings. Do not emit one for partial, deferred,
+   auxiliary, background, or merely related rules; the harness assigns the stable ID
+   and decides whether it is public.
+7. Return JSON only.
 
 ## Deterministic scope guards
 

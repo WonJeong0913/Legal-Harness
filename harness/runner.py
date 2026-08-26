@@ -769,8 +769,9 @@ class HarnessRunner:
                             "requirement_id",
                             "status",
                             "linked_provision_ids",
+                            "public_material_conditions",
                         )
-                        if field in result
+                        if field in result and (field != "public_material_conditions" or result[field])
                     }
                     for result in raw["criterion_results"]
                     if isinstance(result, Mapping)
@@ -1129,7 +1130,37 @@ class HarnessRunner:
         supplemental = provisions_for(state.supplemental_provision_ids)
         qualifying = provisions_for(state.qualifying_provision_ids)
         alternative = provisions_for(state.alternative_provision_ids)
-        return {
+        material_conditions = []
+        for assessment in state.coverage_assessments:
+            if assessment.status.value != "covered":
+                continue
+            if (
+                assessment.legal_status is not None
+                and assessment.legal_status.value != "covered"
+            ):
+                continue
+            if (
+                assessment.governing_legal_regime is not None
+                and assessment.governing_legal_regime.value != "direct_entailment"
+            ):
+                continue
+            for criterion in assessment.criterion_results:
+                if criterion.status.value != "satisfied":
+                    continue
+                for condition in criterion.public_material_conditions:
+                    if (
+                        condition.answer_target_id in state.answered_target_ids
+                        and condition.source_provision_id
+                        in state.core_accepted_provision_ids
+                    ):
+                        material_conditions.append(to_primitive(condition))
+        material_conditions.sort(
+            key=lambda condition: (
+                state.answered_target_ids.index(condition["answer_target_id"]),
+                condition["material_id"],
+            )
+        )
+        payload = {
             "run_id": state.run_id,
             "question": state.question,
             "normalized_question": state.normalized_question,
@@ -1151,6 +1182,9 @@ class HarnessRunner:
             "deferred_target_ids": list(state.deferred_target_ids),
             "state_version": len(state.action_trace),
         }
+        if material_conditions:
+            payload["public_material_conditions"] = material_conditions
+        return payload
 
     def _benchmark_candidate_payload(self, state: RunState) -> Dict[str, Any]:
         requests_by_id = {

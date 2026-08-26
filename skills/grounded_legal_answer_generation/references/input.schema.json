@@ -23,6 +23,23 @@
     "answer_mode": {"enum": ["full", "conditional", "limited", "abstain_candidate"]},
     "answered_target_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
     "deferred_target_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "public_material_conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["material_id", "evidence_item_id", "requirement_id", "answer_target_id", "condition_text", "outcome_text", "source_provision_id"],
+        "properties": {
+          "material_id": {"type": "string", "pattern": "^E[1-9][0-9]*-R[1-9][0-9]*-M[1-9][0-9]*$"},
+          "evidence_item_id": {"type": "string", "pattern": "^E[1-9][0-9]*$"},
+          "requirement_id": {"type": "string", "pattern": "^E[1-9][0-9]*-R[1-9][0-9]*$"},
+          "answer_target_id": {"type": "string", "pattern": "^T[1-9][0-9]*$"},
+          "condition_text": {"type": "string", "minLength": 1},
+          "outcome_text": {"type": "string", "minLength": 1},
+          "source_provision_id": {"type": "string", "minLength": 1}
+        }
+      }
+    },
     "authorization": {
       "type": "object",
       "additionalProperties": false,

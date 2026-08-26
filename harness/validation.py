@@ -25,6 +25,7 @@ from .contracts import (
     GoverningLegalRegime,
     LegalStatus,
     LegalIssue,
+    PublicMaterialCondition,
     QueryChannel,
     RequiredEvidenceItem,
     RetrievalRequest,
@@ -50,6 +51,17 @@ def normalize_question(question: str) -> str:
 
 def normalized_query(query: str) -> str:
     return normalize_question(query).casefold()
+
+
+def normalize_material_text(value: str) -> str:
+    """Compare statutory snippets after only Unicode/space/punctuation cleanup."""
+    if not isinstance(value, str):
+        raise ValidationError("material condition text must be a string")
+    normalized = unicodedata.normalize("NFC", value)
+    normalized = re.sub(r"[\s\W_]+", "", normalized, flags=re.UNICODE)
+    if not normalized:
+        raise ValidationError("material condition text must not be empty")
+    return normalized
 
 
 def answer_target_question_segment(question: str) -> str:
@@ -410,12 +422,86 @@ def _legacy_governing_legal_regime(
     )
 
 
+def _parse_public_material_conditions(
+    raw_conditions: Any,
+    *,
+    item: RequiredEvidenceItem,
+    requirement_id: str,
+    linked_provision_ids: Sequence[str],
+    candidate_by_id: Mapping[str, CandidateProvision],
+) -> List[PublicMaterialCondition]:
+    """Accept only target-scoped alternate outcomes quoted from a linked CORE rule."""
+    if raw_conditions is None:
+        return []
+    if not isinstance(raw_conditions, list):
+        raise ValidationError("public_material_conditions must be a list")
+    parsed = []
+    seen = set()
+    for raw_condition in raw_conditions:
+        condition = _mapping(raw_condition, "public_material_conditions[]")
+        if condition.get("kind") != "alternative_outcome":
+            raise ValidationError(
+                "public material condition kind must be alternative_outcome"
+            )
+        answer_target_id = _string(condition, "answer_target_id")
+        if answer_target_id not in item.answer_target_ids:
+            raise ValidationError(
+                "public material condition must target the evidence item target"
+            )
+        source_provision_id = _string(condition, "source_provision_id")
+        if source_provision_id not in linked_provision_ids:
+            raise ValidationError(
+                "public material condition source must link the satisfied criterion"
+            )
+        source = candidate_by_id.get(source_provision_id)
+        if source is None:
+            raise ValidationError("public material condition source is outside candidates")
+        condition_text = _string(condition, "condition_text")
+        outcome_text = _string(condition, "outcome_text")
+        normalized_condition = normalize_material_text(condition_text)
+        normalized_outcome = normalize_material_text(outcome_text)
+        if normalized_condition == normalized_outcome:
+            raise ValidationError("public material condition and outcome must be distinct")
+        normalized_source = normalize_material_text(source.provision_text)
+        if (
+            normalized_condition not in normalized_source
+            or normalized_outcome not in normalized_source
+        ):
+            raise ValidationError(
+                "public material condition must be an exact normalized CORE source substring"
+            )
+        key = (
+            answer_target_id,
+            source_provision_id,
+            normalized_condition,
+            normalized_outcome,
+        )
+        if key in seen:
+            raise ValidationError("duplicate public material condition")
+        seen.add(key)
+        parsed.append((key, condition_text.strip(), outcome_text.strip()))
+    parsed.sort(key=lambda entry: entry[0])
+    return [
+        PublicMaterialCondition(
+            material_id="%s-M%d" % (requirement_id, index),
+            evidence_item_id=item.evidence_item_id,
+            requirement_id=requirement_id,
+            answer_target_id=key[0],
+            condition_text=condition_text,
+            outcome_text=outcome_text,
+            source_provision_id=key[1],
+        )
+        for index, (key, condition_text, outcome_text) in enumerate(parsed, start=1)
+    ]
+
+
 def _parse_criterion_results(
     raw: Mapping[str, Any],
     item: RequiredEvidenceItem,
     linked_ids: List[str],
     legacy_status: CoverageStatus,
     candidate_ids: Sequence[str],
+    candidate_by_id: Mapping[str, CandidateProvision],
 ) -> List[CriterionResult]:
     raw_results = raw.get("criterion_results")
     if raw_results is None:
@@ -448,12 +534,20 @@ def _parse_criterion_results(
             raise ValidationError("criterion linked_provision_ids must be a list of strings")
         if any(provision_id not in candidate_ids for provision_id in result_linked_ids):
             raise ValidationError("criterion result references provision outside candidates")
+        requirement_id = _string(result, "requirement_id")
         results.append(
             CriterionResult(
-                requirement_id=_string(result, "requirement_id"),
+                requirement_id=requirement_id,
                 status=result_status,
                 linked_provision_ids=list(result_linked_ids),
                 rationale=_string(result, "rationale"),
+                public_material_conditions=_parse_public_material_conditions(
+                    result.get("public_material_conditions"),
+                    item=item,
+                    requirement_id=requirement_id,
+                    linked_provision_ids=result_linked_ids,
+                    candidate_by_id=candidate_by_id,
+                ),
             )
         )
     _unique([result.requirement_id for result in results], "criterion_results")
@@ -643,7 +737,12 @@ def validate_coverage_assessment(
             if set(missing_aspects) - requirement_ids:
                 raise ValidationError("missing_aspects must reference existing requirement_id values")
         criterion_results = _parse_criterion_results(
-            raw, item, list(linked_ids), status, list(candidate_by_id)
+            raw,
+            item,
+            list(linked_ids),
+            status,
+            list(candidate_by_id),
+            candidate_by_id,
         )
         for result in criterion_results:
             if set(result.linked_provision_ids) - core_linked_ids:
@@ -656,6 +755,17 @@ def validate_coverage_assessment(
             ):
                 raise ValidationError(
                     "satisfied criterion requires an accepted CORE provision"
+                )
+            if result.public_material_conditions and (
+                item.critical is not True
+                or status is not CoverageStatus.COVERED
+                or legal_status is not LegalStatus.COVERED
+                or governing_legal_regime
+                is not GoverningLegalRegime.DIRECT_ENTAILMENT
+                or result.status is not CriterionStatus.SATISFIED
+            ):
+                raise ValidationError(
+                    "public material conditions require critical direct covered satisfied criterion"
                 )
         assessments.append(
             CoverageAssessment(
@@ -728,12 +838,20 @@ def _validate_answer_draft(
         public_role = raw.get("public_role", "conclusion")
         if public_role not in {"conclusion", "audit"}:
             raise ValidationError("claim public_role must be conclusion or audit")
+        material_ids = raw.get("public_material_condition_ids", [])
+        if (
+            not isinstance(material_ids, list)
+            or not all(isinstance(material_id, str) and material_id for material_id in material_ids)
+            or len(material_ids) != len(set(material_ids))
+        ):
+            raise ValidationError("claim public_material_condition_ids must be unique strings")
         claims.append(
             Claim(
                 claim_id=_string(raw, "claim_id"),
                 text=_string(raw, "text"),
                 answer_target_ids=target_ids,
                 public_role=public_role,
+                public_material_condition_ids=list(material_ids),
             )
         )
     _unique([claim.claim_id for claim in claims], "claims")
@@ -821,6 +939,77 @@ def _validate_answer_draft(
     )
 
 
+def _active_public_material_conditions(
+    state: RunState,
+) -> List[PublicMaterialCondition]:
+    active = []
+    for assessment in state.coverage_assessments:
+        if (
+            assessment.status is not CoverageStatus.COVERED
+            or assessment.legal_status is not LegalStatus.COVERED
+            or assessment.governing_legal_regime
+            is not GoverningLegalRegime.DIRECT_ENTAILMENT
+        ):
+            continue
+        for criterion in assessment.criterion_results:
+            if criterion.status is not CriterionStatus.SATISFIED:
+                continue
+            active.extend(
+                condition
+                for condition in criterion.public_material_conditions
+                if (
+                    condition.answer_target_id in state.answered_target_ids
+                    and condition.source_provision_id
+                    in state.core_accepted_provision_ids
+                )
+            )
+    return active
+
+
+def _validate_public_material_conditions_in_draft(
+    draft: AnswerDraft, state: RunState
+) -> None:
+    active = {
+        condition.material_id: condition
+        for condition in _active_public_material_conditions(state)
+    }
+    citations_by_claim = {
+        citation.claim_id: set(citation.provision_ids)
+        for citation in draft.claim_citations
+    }
+    for claim in draft.claims:
+        if claim.public_role != "conclusion" and claim.public_material_condition_ids:
+            raise ValidationError(
+                "only a public conclusion claim may name a material condition"
+            )
+        if set(claim.public_material_condition_ids) - set(active):
+            raise ValidationError("claim names unknown public material condition")
+    for material_id, condition in active.items():
+        owners = [
+            claim
+            for claim in draft.claims
+            if material_id in claim.public_material_condition_ids
+        ]
+        if len(owners) != 1:
+            raise ValidationError(
+                "public material condition must appear in exactly one conclusion claim"
+            )
+        claim = owners[0]
+        if (
+            claim.public_role != "conclusion"
+            or condition.answer_target_id not in claim.answer_target_ids
+            or normalize_material_text(condition.condition_text)
+            not in normalize_material_text(claim.text)
+            or normalize_material_text(condition.outcome_text)
+            not in normalize_material_text(claim.text)
+            or condition.source_provision_id
+            not in citations_by_claim.get(claim.claim_id, set())
+        ):
+            raise ValidationError(
+                "public material condition is not rendered by its CORE conclusion claim"
+            )
+
+
 def validate_answer_draft(payload: Mapping[str, Any], state: RunState) -> AnswerDraft:
     core_ids = state.core_accepted_provision_ids
     if not core_ids and not any(
@@ -829,7 +1018,7 @@ def validate_answer_draft(payload: Mapping[str, Any], state: RunState) -> Answer
         # Compatibility for legacy state fixtures and records that predate
         # role projections: their accepted set is semantically all CORE.
         core_ids = state.accepted_provision_ids
-    return _validate_answer_draft(
+    draft = _validate_answer_draft(
         payload,
         state,
         state.answered_target_ids,
@@ -837,6 +1026,8 @@ def validate_answer_draft(payload: Mapping[str, Any], state: RunState) -> Answer
         "answer claim references deferred or unknown answer target",
         core_conclusion_provision_ids=core_ids,
     )
+    _validate_public_material_conditions_in_draft(draft, state)
+    return draft
 
 
 def validate_benchmark_candidate_draft(

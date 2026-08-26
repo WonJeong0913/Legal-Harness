@@ -101,6 +101,19 @@ or partially supported under the existing coverage mapping so the harness may
 apply its bounded `RETRIEVE_GAP` policy. Do not infer any extra requirement
 from outside the supplied target and completion requirement.
 
+## Public material conditions
+
+`public_material_conditions[]` is optional and narrow: use it only where a
+critical, direct, covered, `satisfied` requirement's accepted `CORE` provision
+states a condition and a distinct alternate legal outcome whose omission would
+change that target conclusion. Every entry is `alternative_outcome`, names one
+target already attached to the evidence item and a linked CORE candidate, and
+uses exact non-empty condition/outcome source substrings. Never use it for a
+partial criterion, non-direct regime, deferred scope, auxiliary role, general
+qualifier, or unresolved fact. The model never authors `material_id`; canonical
+normalization sorts the declarations and derives it. This is neither an answer
+nor a policy decision and cannot promote an abstention.
+
 ## Compact audit transport
 
 Keep the complete `legal_status`/`applicability_status`/`gap_type` tuple,

@@ -72,6 +72,10 @@ def _normalize_scope_text(value):
     return " ".join(_scope_text(value).split())
 
 
+def _normalize_material_text(value):
+    return re.sub(r"[\s\W_]+", "", _scope_text(value), flags=re.UNICODE)
+
+
 def _article_identity(provision):
     for field in ("article_label", "statute_name"):
         match = re.search(
@@ -491,6 +495,52 @@ def validate(output, input_data):
                         errors.append(f"criterion may use only accepted CORE provisions: {evidence_id}")
                     if result.get("status") == "satisfied" and not result_links:
                         errors.append(f"satisfied criterion requires accepted CORE evidence: {evidence_id}")
+                    conditions = result.get("public_material_conditions", [])
+                    if not isinstance(conditions, list):
+                        errors.append(f"public_material_conditions must be a list: {evidence_id}")
+                        continue
+                    seen_conditions = set()
+                    for condition in conditions:
+                        if not isinstance(condition, dict):
+                            errors.append(f"public material condition must be an object: {evidence_id}")
+                            continue
+                        source_id = condition.get("source_provision_id")
+                        target_id = condition.get("answer_target_id")
+                        condition_text = condition.get("condition_text")
+                        outcome_text = condition.get("outcome_text")
+                        source = provision_by_id.get(source_id)
+                        if (
+                            condition.get("kind") != "alternative_outcome"
+                            or not isinstance(target_id, str)
+                            or not isinstance(condition_text, str)
+                            or not isinstance(outcome_text, str)
+                            or not condition_text.strip()
+                            or not outcome_text.strip()
+                            or source_id not in result_links
+                            or target_id not in evidence.get("answer_target_ids", [])
+                            or evidence.get("critical") is not True
+                            or status != "covered"
+                            or effective_legal_status != "covered"
+                            or effective_governing != "direct_entailment"
+                            or result.get("status") != "satisfied"
+                        ):
+                            errors.append(f"public material condition is outside direct covered CORE scope: {evidence_id}")
+                            continue
+                        normalized_condition = _normalize_material_text(condition_text)
+                        normalized_outcome = _normalize_material_text(outcome_text)
+                        normalized_source = _normalize_material_text(source.get("text", "")) if source else ""
+                        key = (target_id, source_id, normalized_condition, normalized_outcome)
+                        if (
+                            not normalized_condition
+                            or not normalized_outcome
+                            or normalized_condition == normalized_outcome
+                            or normalized_condition not in normalized_source
+                            or normalized_outcome not in normalized_source
+                        ):
+                            errors.append(f"public material condition is not an exact source substring: {evidence_id}")
+                        elif key in seen_conditions:
+                            errors.append(f"duplicate public material condition: {evidence_id}")
+                        seen_conditions.add(key)
         if any(key in assessment for key in ("legal_status", "applicability_status", "gap_type")) and requirements:
             if set(missing_aspects) - {
                 requirement.get("requirement_id")
