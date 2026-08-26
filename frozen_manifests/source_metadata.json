@@ -1,35 +1,42 @@
 {
-  "created_at_utc": "2026-08-26T05:23:13.525792Z",
+  "created_at_utc": "2026-08-26T09:01:47.792726Z",
   "execution_policy": {
     "bm25_execution": "FORBIDDEN",
     "lf_eval_score_injection": "FORBIDDEN",
     "network": "OFFLINE_ONLY",
     "parser_execution": "FORBIDDEN",
     "primary_retriever": "kure",
-    "repair_collision_failsafe": "REQUIRED"
+    "repair_collision_failsafe": "REQUIRED",
+    "repair_induced_list_dedupe": "REQUIRED",
+    "s2_axis_canonical_projection": "REQUIRED"
   },
   "generated": {
     "full": {
       "path": "frozen_manifests/v2_kure_full226.json",
-      "sha256": "00c4705b27c23cfdf9f156d615e007d4876155e2e3ec930a4427fd21734c9685"
+      "sha256": "b0b2eb06992ed2034956c2aa129c89b3cfadadf9009ea891c9533b7513479ef9"
     },
     "reference": {
       "path": "frozen_manifests/v2_bm25_reference_full226.json",
-      "sha256": "9f56f2099bc40bdf607c9d16c8479cc4b72f480d224247383727d6a7cbd75c94"
+      "sha256": "f17c42e5b806a5bd7950010039ee9d3d0795377c6c86cd108cce0a5ecdea0aef"
     },
     "smoke": {
       "path": "frozen_manifests/v2_kure_smoke3.json",
-      "sha256": "a6ca2e286d09d0eb61ca12b0daf474bd876b9020ac1b05a0138e7fd9113aad29"
+      "sha256": "145d004becdfce540b4be148b1117d0d88dd4ef9c0117f6a2d9f68a14b1de5a6"
     },
     "smoke_reference": {
       "path": "frozen_manifests/v2_bm25_reference_smoke3.json",
-      "sha256": "1e01b446dffe48427c65c33319dd5950854d699a248eb5e83f538c9fcaa34694"
+      "sha256": "1273de5bfa3b97d18621557ea97921c810f3583d526dd6d674a2e4f3bd2e4a7e"
     }
   },
   "lineage": {
     "c04_evidence_role_contract": "c04_core_auxiliary_roles_v1",
     "c05_source_commit": "b27024cd15bf2692345670865c754608784ed7c4",
-    "c05_source_tree": "797897a99ec9e3da622aa313ce4bb3616c179423"
+    "c05_source_tree": "797897a99ec9e3da622aa313ce4bb3616c179423",
+    "c06_axis_canonical_projection_contract": "c06_s2_axis_canonical_projection_v1",
+    "c06_implementation_commit": "3569f8d44dc57ddb49c4fbb9e43f540e308cd17c",
+    "c06_protocol_commit": "3ab2388881322d9f08dc001e9a3764472cc89343",
+    "c08_candidate_commit": "6ae1f3c13aafbd1c23ba7106f8f9d9d96aab04db",
+    "c08_candidate_tree": "bb102d7728512b803973c02769b171d78975b273"
   },
   "primary_source_manifest": "/workspace/Legal-Harness/records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/kure_c5_prompt_stable_deterministic_backend_full226_20260825.json",
   "primary_source_manifest_sha256": "39aa8f397e886906829b6ec1f75f1c475111cbe2897c655eb83abab28c92791b",
@@ -41,6 +48,31 @@
     "mixed": "novel_only_dispatch",
     "raw_history_duplicate": "invalid",
     "repair_induced_history_collision": "typed_recovery"
+  },
+  "repair_induced_retrieval_list_dedupe_contract": {
+    "audit_kind": "deduplicated_repair_induced_list_values",
+    "contract": "c08_repair_induced_retrieval_list_dedupe_v1",
+    "drop_scope": "only_collisions_newly_induced_by_article_neutralization",
+    "fields": [
+      "query_terms",
+      "statute_hints"
+    ],
+    "order": "stable_first",
+    "raw_duplicates": "preserved_for_final_validator"
+  },
+  "s2_axis_canonical_projection_contract": {
+    "audit_event": "S2_LEGACY_PROJECTION_DERIVED",
+    "contract": "c06_s2_axis_canonical_projection_v1",
+    "invalid_partial_unsupported_or_semantic_tuple": "fail_closed",
+    "legacy_derived_by_harness": [
+      "status",
+      "partial_kind",
+      "governing_legal_regime",
+      "missing_evidence_items",
+      "evidence_conflicts"
+    ],
+    "no_runtime_state_or_role_union_mutation": true,
+    "scope_excess": "noncritical_only"
   },
   "smoke_entries": [
     {
