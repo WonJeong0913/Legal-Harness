@@ -842,6 +842,41 @@ class GapSpecificityRepairTests(unittest.TestCase):
         self.assertEqual(repaired["answer_targets"][0]["question_anchor"], question_body)
         self.assertEqual(audit[0]["guards"]["trusted_question_body_source"], "normalized_question")
 
+    def test_validator_trusted_question_source_matches_anchor_repair_contract(self):
+        cases = [
+            (
+                {
+                    "original_question": "배경 [질문] marker 본문 T1",
+                    "normalized_question": "normalized 본문 T1",
+                },
+                "marker 본문 t1",
+            ),
+            (
+                {
+                    "original_question": "배경 [질문]   ",
+                    "normalized_question": "normalized 본문 T1",
+                },
+                "",
+            ),
+            (
+                {
+                    "original_question": "marker 없는 배경 T1",
+                    "normalized_question": "normalized 본문 T1",
+                },
+                "normalized 본문 t1",
+            ),
+            (
+                {"original_question": "marker 없는 배경 T1", "normalized_question": " "},
+                "",
+            ),
+        ]
+        for skill_input, expected in cases:
+            with self.subTest(skill_input=skill_input):
+                self.assertEqual(
+                    S1_VALIDATOR.trusted_answer_question_segment(skill_input),
+                    expected,
+                )
+
     def test_single_target_placeholder_anchor_fails_closed_outside_guards(self):
         cases = []
 

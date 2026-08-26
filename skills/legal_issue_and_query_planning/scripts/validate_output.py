@@ -22,6 +22,19 @@ def answer_question_segment(text):
     return normalized.split(marker, 1)[1].strip() if marker in normalized else normalized
 
 
+def trusted_answer_question_segment(inp):
+    """Select the INITIAL_PLAN anchor source shared with runtime repair."""
+    original_question = (inp or {}).get("original_question")
+    if (
+        isinstance(original_question, str)
+        and original_question.strip()
+        and "[질문]" in original_question
+    ):
+        return answer_question_segment(original_question)
+    normalized_question = (inp or {}).get("normalized_question")
+    return norm(normalized_question) if isinstance(normalized_question, str) else ""
+
+
 def history_queries(data):
     values = set()
     for item in (data or {}).get("query_history", []):
@@ -481,11 +494,7 @@ def validate(out, inp):
         if requires_answer_targets and not targets:
             errors.append("answer_targets are required by the harness contract")
         if targets or requires_answer_targets:
-            question = answer_question_segment(
-                (inp or {}).get("original_question")
-                or (inp or {}).get("normalized_question")
-                or ""
-            )
+            question = trusted_answer_question_segment(inp)
             if not question:
                 errors.append("answer_targets require an input question")
             requirement_ids = set()

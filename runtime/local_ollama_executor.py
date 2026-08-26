@@ -1162,6 +1162,26 @@ class LocalOllamaSkillExecutor:
         return " ".join(unicodedata.normalize("NFKC", query).lower().split())
 
     @staticmethod
+    def _trusted_s1_question_body(
+        skill_input: Mapping[str, Any],
+    ) -> Tuple[Optional[str], Optional[str]]:
+        """Select the INITIAL_PLAN anchor source shared with the S1 validator."""
+        original_question = skill_input.get("original_question")
+        if (
+            isinstance(original_question, str)
+            and original_question.strip()
+            and "[질문]" in original_question
+        ):
+            question_body = original_question.split("[질문]", 1)[1].strip()
+            if question_body:
+                return question_body, "original_question_marker"
+            return None, None
+        normalized_question = skill_input.get("normalized_question")
+        if isinstance(normalized_question, str) and normalized_question.strip():
+            return normalized_question.strip(), "normalized_question"
+        return None, None
+
+    @staticmethod
     def _source_context_excerpt(source: str) -> str:
         parts = [
             part.strip()
@@ -1298,9 +1318,8 @@ class LocalOllamaSkillExecutor:
         repaired = copy.deepcopy(output)
         audit: List[Dict[str, Any]] = []
         if entry_point == "INITIAL_PLAN":
-            question = str(skill_input.get("original_question") or skill_input.get("normalized_question") or "")
-            question_segment = question.split("[질문]", 1)[-1]
-            normalized_question = self._normalized_query(question_segment)
+            question_body, question_source = self._trusted_s1_question_body(skill_input)
+            normalized_question = self._normalized_query(question_body or "")
             targets = self._list(repaired, "answer_targets", required=False)
             for target in targets:
                 if not isinstance(target, dict):
@@ -1334,22 +1353,6 @@ class LocalOllamaSkillExecutor:
                 answer_target_id = target.get("answer_target_id")
                 anchor = target.get("question_anchor")
                 requested_output = target.get("requested_output")
-                question_body = None
-                question_source = None
-                original_question = skill_input.get("original_question")
-                if (
-                    isinstance(original_question, str)
-                    and "[질문]" in original_question
-                ):
-                    candidate = original_question.split("[질문]", 1)[1].strip()
-                    if candidate:
-                        question_body = candidate
-                        question_source = "original_question_marker"
-                else:
-                    normalized_question = skill_input.get("normalized_question")
-                    if isinstance(normalized_question, str) and normalized_question.strip():
-                        question_body = normalized_question.strip()
-                        question_source = "normalized_question"
                 if (
                     isinstance(answer_target_id, str)
                     and bool(answer_target_id.strip())
