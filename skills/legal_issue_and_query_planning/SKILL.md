@@ -14,22 +14,43 @@ output schema.
 1. Plan only the result the question asks for. Use one `answer_target` when
    several clauses ask for one dispositive conclusion, even if several
    provisions are needed; split only independently requested outputs.
-2. Make critical requirements the minimum legal propositions needed to derive
-   those outputs. Do not predict benchmark hop count or assume one provision per
-   requirement. Preserve a distinct outcome-determinative rule, exception,
-   cross-reference, or legal effect, but do not make question facts, generic
-   completeness, background, definitions, or procedure critical unless the
-   question requests them or they change the conclusion.
-3. In `INITIAL_PLAN`, give every critical evidence item at least one focused
+2. Before writing JSON for `INITIAL_PLAN`, perform a mandatory internal
+   deletion pass. For every critical item and completion requirement, remove it
+   or lower it to noncritical when the requested output could still be stated
+   legally and accurately without it. Keep only the minimum legal propositions
+   needed to derive the explicit outputs. Do not predict benchmark hop count or
+   assume one provision per requirement. Preserve a distinct outcome-changing
+   rule, exception, indispensable cross-reference predicate, or legal effect;
+   do not make question facts, generic completeness, background, definitions,
+   or procedure critical unless the question asks for them or they change that
+   result.
+3. Treat people, titles, numbers, and other background facts as context, not a
+   separate critical axis, unless the question expressly asks about that
+   qualification or scope, or it changes the governing rule. If the question
+   expressly assumes a violation and asks only for the penalty, the full proof
+   of the violation is supporting by default; retain only the smallest
+   cross-reference predicate indispensable to identify the penalty subsection.
+   Do not expand broad wording such as “necessary conditions” into every
+   conceivably related legal dimension: plan only the immediate operative rule's
+   minimum conjuncts.
+4. Start each answer target with one evidence item that groups its atomic
+   requirements. Split it only for an independently requested clause, an
+   indispensable bridge, or an outcome-changing condition. For example, a
+   governance-role list beside a quorum question does not itself create a
+   qualification axis; a stipulated-violation penalty question does not require
+   an unnecessary offense re-proof; separately asked duration and post-expiry
+   procedure remain separate outputs; and an attempt penalty keeps both the
+   base offense and the attempt rule.
+5. In `INITIAL_PLAN`, give every critical evidence item at least one focused
    request. Add another request only for a genuinely different statutory route,
    exception, or cross-reference, within the supplied limit. Follow the
    contract's retrieval query-field rules and do not restate the whole question
    in each field.
-4. In `GAP_QUERY_PLAN`, target only supplied unresolved statute evidence. Do not
+6. In `GAP_QUERY_PLAN`, target only supplied unresolved statute evidence. Do not
    search for `missing_fact` or `scope_excess`. Center each request on one
    unsatisfied atomic completion requirement, and vary a material legal relation
    rather than paraphrasing a prior query. Stay within the supplied budget.
-5. Compact descriptive prose, not the structural evidence coverage. Use one
+7. Compact descriptive prose, not the structural evidence coverage. Use one
    short sentence per descriptive field, avoid repeated rationale, close the
    JSON object, and return JSON only.
 
