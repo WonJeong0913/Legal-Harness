@@ -14,7 +14,7 @@ from harness.contracts import (
 )
 from harness.interfaces import SkillExecutionError
 from harness.run_state import RunState
-from harness.runner import HarnessRunner
+from harness.runner import HarnessConfig, HarnessRunner
 from harness.validation import ValidationError, validate_coverage_assessment
 from retrieval.corpus import InMemoryProvisionCorpus, ProvisionDocument
 from runtime.local_ollama_executor import LocalOllamaSkillExecutor, SKILL_IDS
@@ -23,6 +23,8 @@ from tools.validate_citation_integrity import CitationIntegrityChecker
 
 ROOT = Path(__file__).resolve().parents[1]
 S2 = "provision_coverage_assessment"
+S1 = "legal_issue_and_query_planning"
+S3 = "grounded_legal_answer_generation"
 
 
 def s2_input(*, critical=True, requirements=False, question="axis fixture"):
@@ -119,6 +121,41 @@ class CaptureTrace:
                 "core": sorted(state.core_accepted_provision_ids),
             }
         )
+
+
+class RecordingLocalExecutor:
+    """Keep the real local adapter while recording only its dispatch contract."""
+
+    def __init__(self, delegate):
+        self.delegate = delegate
+        self.calls = []
+
+    def execute(self, skill_name, entry_point, payload):
+        self.calls.append((skill_name, entry_point, copy.deepcopy(payload)))
+        return self.delegate.execute(skill_name, entry_point, payload)
+
+
+class OneProvisionRetriever:
+    """CPU-only retrieval fixture with one valid, request-scoped candidate."""
+
+    def __init__(self):
+        self.calls = []
+
+    def retrieve(self, requests, retrieval_round, *, critical_evidence_item_ids=()):
+        self.calls.append((list(requests), retrieval_round, list(critical_evidence_item_ids)))
+        return [
+            CandidateProvision(
+                "P1",
+                "예시법 제1조",
+                "법률 요건을 정한다.",
+                requests[0].issue_id,
+                requests[0].request_id,
+                retrieval_round,
+                1.0,
+                1,
+                1.0,
+            )
+        ]
 
 
 class C06S2AxisCanonicalTests(unittest.TestCase):
@@ -341,6 +378,165 @@ class C06S2AxisCanonicalTests(unittest.TestCase):
             [result["_harness_s2_projection_diagnostics"][0]["derived_status"] for result in results],
             ["covered", "uncovered"],
         )
+
+    def test_s2_adapter_overwrites_model_private_diagnostic_spoof(self):
+        raw = raw_s2(
+            "covered", "direct", "none", links=[core_link(provision_id="C001")]
+        )
+        raw["_harness_s2_projection_diagnostics"] = [{
+            "evidence_item_id": "SPOOF-MARKER",
+            "secret": "model-owned text must never reach harness diagnostics",
+        }]
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture", generator=lambda _: json.dumps(raw)
+        )
+        result = executor.execute(
+            S2,
+            "ASSESS_COVERAGE",
+            {
+                "run_id": "spoof-c06",
+                "normalized_question": "법률 요건은?",
+                "legal_issues": [{"issue_id": "I1", "description": "법률 요건"}],
+                "required_evidence_items": [{
+                    "evidence_item_id": "E1", "issue_id": "I1", "evidence_type": "rule",
+                    "description": "법률 요건", "critical": True,
+                }],
+                "candidate_provisions": [{
+                    "provision_id": "P1", "statute_name": "예시법 제1조",
+                    "provision_text": "법률 요건을 정한다.",
+                }],
+            },
+        )
+        diagnostics = result["_harness_s2_projection_diagnostics"]
+        self.assertEqual(len(diagnostics), 1)
+        self.assertEqual(diagnostics[0]["evidence_item_id"], "E1")
+        self.assertEqual(diagnostics[0]["derived_status"], "covered")
+        serialized = json.dumps(diagnostics, ensure_ascii=False)
+        self.assertNotIn("SPOOF-MARKER", serialized)
+        self.assertNotIn("model-owned text", serialized)
+
+    def test_full_runner_uses_s1_s2_s3_and_projection_trace_is_preapply_only(self):
+        initial = {
+            "schema_version": "1.0", "skill_id": "S1", "mode": "INITIAL_PLAN",
+            "status": "ok", "run_id": "model-will-be-overwritten",
+            "answer_targets": [{
+                "answer_target_id": "T1", "question_anchor": "법률 요건은?",
+                "requested_output": "적용 요건", "answer_type": "legal_rule",
+            }],
+            "legal_issues": [{
+                "issue_id": "I1", "issue_statement": "법률 요건 적용",
+                "decision_question": "법률 요건은 무엇인가", "importance": "critical",
+            }],
+            "required_evidence_items": [{
+                "evidence_item_id": "E1", "issue_id": "I1", "evidence_type": "rule",
+                "description": "법률 요건", "critical": True,
+                "completion_criteria": "법률 요건", "necessity_reason": "답변의 핵심 근거",
+                "answer_target_ids": ["T1"], "scope_source": "explicit_question",
+                "completion_requirements": [{
+                    "requirement_id": "E1-R1", "text": "법률 요건의 직접 근거",
+                }],
+            }],
+            "retrieval_requests": [{
+                "request_id": "RQ1", "issue_id": "I1", "evidence_item_id": "E1",
+                "query_channel": "provision_style", "query_text": "법률 요건",
+                "query_terms": ["법률 요건"], "statute_hints": [],
+                "rationale": "핵심 요건 조문 검색",
+            }],
+        }
+        covered = raw_s2(
+            "covered",
+            "direct",
+            "none",
+            links=[core_link(provision_id="C001")],
+            criterion_results=[{
+                "requirement_id": "E1-R1", "status": "satisfied",
+                "linked_provision_ids": ["C001"], "rationale": "직접 근거",
+                "direct_entailment": {
+                    "regulated_subject_or_act": "matched",
+                    "outcome_changing_qualifiers": "matched",
+                    "legal_effect": "matched",
+                    "procedure_or_remedy_path": "not_applicable",
+                    "rationale": "직접 적용",
+                },
+            }],
+        )
+        covered["_harness_s2_projection_diagnostics"] = [{
+            "evidence_item_id": "SPOOF-MARKER",
+            "secret": "model-owned text must not reach trace events",
+        }]
+        answer = {
+            "schema_version": "1.0", "skill_id": "S3", "mode": "GENERATE_ANSWER",
+            "status": "ok", "run_id": "model-will-be-overwritten",
+            "answer": "법률 요건이 적용됩니다.",
+            "claims": [{
+                "claim_id": "claim", "text": "법률 요건이 적용됩니다.",
+                "claim_type": "legal_rule", "applicability": "direct",
+                "citation_required": True, "answer_target_ids": ["T1"],
+                "public_role": "conclusion",
+            }],
+            "claim_citations": [{
+                "claim_id": "claim", "provision_id": "P1", "support_description": "직접 근거",
+            }],
+            "assumptions": [], "limitations": [],
+        }
+
+        def generator(prompt):
+            if "ENTRY POINT: INITIAL_PLAN" in prompt:
+                return json.dumps(initial)
+            if "ENTRY POINT: ASSESS_COVERAGE" in prompt:
+                return json.dumps(covered)
+            if "ENTRY POINT: GENERATE_ANSWER" in prompt:
+                return json.dumps(answer)
+            raise AssertionError("unexpected test fixture prompt")
+
+        trace = CaptureTrace()
+        executor = RecordingLocalExecutor(
+            LocalOllamaSkillExecutor(ROOT / "skills", "fixture", generator=generator)
+        )
+        retriever = OneProvisionRetriever()
+        runner = HarnessRunner(
+            executor,
+            retriever,
+            CitationIntegrityChecker(InMemoryProvisionCorpus([
+                ProvisionDocument("P1", "예시법 제1조", "법률 요건을 정한다.")
+            ])),
+            config=HarnessConfig(total_retrieval_rounds=3, total_retrieval_requests=9),
+            trace_sink=trace,
+        )
+        outcome = runner.run("법률 요건은?", run_id="c06-full-flow")
+
+        self.assertEqual(outcome.status.value, "ANSWER")
+        self.assertEqual(
+            [(skill, entry) for skill, entry, _ in executor.calls],
+            [(S1, "INITIAL_PLAN"), (S2, "ASSESS_COVERAGE"), (S3, "GENERATE_ANSWER")],
+        )
+        self.assertEqual(list(SKILL_IDS), [S1, S2, S3])
+        self.assertEqual(len(retriever.calls), 1)
+
+        events = [record["event"] for record in trace.records]
+        initial_index = events.index("INITIAL_PLAN_VALIDATED")
+        retrieval_index = events.index("INITIAL_RETRIEVAL_VALIDATED")
+        projection_index = events.index("S2_LEGACY_PROJECTION_DERIVED")
+        coverage_index = events.index("COVERAGE_ASSESSMENT_VALIDATED")
+        terminal_index = events.index("RUN_COMPLETED")
+        self.assertLess(initial_index, retrieval_index)
+        self.assertLess(retrieval_index, projection_index)
+        self.assertLess(projection_index, coverage_index)
+        self.assertLess(coverage_index, terminal_index)
+        self.assertNotIn("SPOOF-MARKER", json.dumps(trace.records, ensure_ascii=False))
+        self.assertNotIn("model-owned text", json.dumps(trace.records, ensure_ascii=False))
+
+        retrieval_trace = trace.records[retrieval_index]
+        projection_trace = trace.records[projection_index]
+        coverage_trace = trace.records[coverage_index]
+        policy_trace = trace.records[events.index("POLICY_DECISION")]
+        self.assertEqual(projection_trace["action_trace_length"], retrieval_trace["action_trace_length"])
+        self.assertEqual(coverage_trace["action_trace_length"], projection_trace["action_trace_length"] + 1)
+        s3_payload = executor.calls[-1][2]
+        self.assertEqual(s3_payload["state_version"], policy_trace["action_trace_length"])
+        action_events = [item.event for item in outcome.state.action_trace]
+        self.assertNotIn("S2_LEGACY_PROJECTION_DERIVED", action_events)
+        self.assertEqual(action_events[-2:], ["ANSWER_DRAFT_VALIDATED", "CITATION_INTEGRITY_PASS"])
 
     def test_runner_trace_is_once_per_assessment_and_does_not_mutate_preapply_state(self):
         raw = raw_s2(
