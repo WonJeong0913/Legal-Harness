@@ -1306,7 +1306,19 @@ class LocalOllamaSkillExecutor:
                 if not isinstance(target, dict):
                     continue
                 anchor = target.get("question_anchor")
-                if isinstance(anchor, str) and self._normalized_query(anchor) in normalized_question:
+                answer_target_id = target.get("answer_target_id")
+                is_single_target_id_placeholder = (
+                    len(targets) == 1
+                    and isinstance(answer_target_id, str)
+                    and bool(answer_target_id.strip())
+                    and isinstance(anchor, str)
+                    and anchor.strip() == answer_target_id
+                )
+                if (
+                    isinstance(anchor, str)
+                    and self._normalized_query(anchor) in normalized_question
+                    and not is_single_target_id_placeholder
+                ):
                     continue
                 requested = target.get("requested_output")
                 if isinstance(requested, str) and requested.strip() and self._normalized_query(requested) in normalized_question:

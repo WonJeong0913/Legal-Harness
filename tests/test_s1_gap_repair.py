@@ -795,7 +795,7 @@ class GapSpecificityRepairTests(unittest.TestCase):
     def test_single_target_placeholder_anchor_uses_marker_question_body_only(self):
         output = self._single_initial_anchor_output()
         before = copy.deepcopy(output)
-        question_body = "계약 해제의 요건은 무엇인가?"
+        question_body = "T1 식별자가 본문에 있어도 계약 해제의 요건은 무엇인가?"
         repaired, audit = self._repair_initial_anchor(
             output,
             {
@@ -830,7 +830,7 @@ class GapSpecificityRepairTests(unittest.TestCase):
 
     def test_single_target_placeholder_anchor_uses_normalized_question_without_marker(self):
         output = self._single_initial_anchor_output()
-        question_body = "정규화된 질문 본문은 무엇인가?"
+        question_body = "정규화된 질문 본문에 T1 식별자가 있어도 무엇인가?"
         repaired, audit = self._repair_initial_anchor(
             output,
             {
@@ -855,13 +855,13 @@ class GapSpecificityRepairTests(unittest.TestCase):
         cases.append((
             "multiple_targets",
             multiple_targets,
-            {"original_question": "[질문] 하나의 질문 본문"},
+            {"original_question": "[질문] T1이 포함된 하나의 질문 본문"},
         ))
         cases.extend([
             (
                 "non_placeholder_anchor",
                 self._single_initial_anchor_output(question_anchor="질문에 없는 앵커"),
-                {"original_question": "[질문] 하나의 질문 본문"},
+                {"original_question": "[질문] T1이 포함된 하나의 질문 본문"},
             ),
             (
                 "target_id_mismatch",
@@ -923,7 +923,7 @@ class GapSpecificityRepairTests(unittest.TestCase):
         output = self._single_initial_anchor_output(requested_output=requested_output)
         repaired, audit = self._repair_initial_anchor(
             output,
-            {"original_question": "[질문] " + requested_output + " 판단하라."},
+            {"original_question": "[질문] T1 및 " + requested_output + " 판단하라."},
         )
 
         self.assertEqual(repaired["answer_targets"][0]["question_anchor"], requested_output)
