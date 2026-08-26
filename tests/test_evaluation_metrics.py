@@ -1005,7 +1005,7 @@ class RetrievalLossFunnelTests(unittest.TestCase):
             by_question = {row["question_id"]: row for row in rows}
             loss = aggregate["retrieval_loss"]
 
-            self.assertEqual(metadata["evaluation_schema_version"], "1.4")
+            self.assertEqual(metadata["evaluation_schema_version"], "1.5")
             self.assertTrue(by_question["q1"]["stage_provenance_available"])
             self.assertTrue(by_question["q1"]["retrieval_loss_provenance_available"])
             self.assertEqual(
@@ -1081,6 +1081,142 @@ class RetrievalLossFunnelTests(unittest.TestCase):
                 aggregate["retrieval_loss"]["round_selected_matches_final_candidate"],
                 {"match_count": 1, "mismatch_count": 1},
             )
+
+
+class EvidenceRoleEvaluationTests(unittest.TestCase):
+    @staticmethod
+    def _evaluate(fixture):
+        return evaluate_batch(
+            fixture.batch,
+            fixture.dataset,
+            fixture.corpus,
+            require_stage_provenance=False,
+        )
+
+    def test_legacy_accepted_evidence_falls_back_to_core_without_metric_change(self):
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = EvaluationFixture(Path(directory), include_stages=False)
+
+            aggregate, rows, metadata = self._evaluate(fixture)
+
+            q1 = next(row for row in rows if row["question_id"] == "q1")
+            self.assertFalse(q1["evidence_role_schema_available"])
+            self.assertEqual(
+                q1["provision_score_source"], "legacy_accepted_provision_ids"
+            )
+            self.assertEqual(q1["accepted_count"], 1)
+            self.assertEqual(q1["core_accepted_count"], 1)
+            self.assertEqual(q1["authorized_provision_count"], 1)
+            self.assertEqual(q1["auxiliary_provision_count"], 0)
+            self.assertEqual(q1["auxiliary_citation_count"], 0)
+            self.assertEqual(aggregate["provision"]["micro"]["predicted"], 1)
+            self.assertEqual(aggregate["provision"]["micro"]["true_positive"], 1)
+            self.assertEqual(
+                aggregate["evidence_roles"]["legacy_fallback_question_count"], 3
+            )
+            self.assertEqual(
+                aggregate["evidence_roles"]["core"]["per_question_unique_total"],
+                1,
+            )
+            self.assertIn(
+                "neither derives roles from KoBLEX gold",
+                metadata["evidence_roles"]["role_decision_boundary"],
+            )
+
+    def test_core_only_scoring_preserves_auxiliary_evidence_and_citations(self):
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = EvaluationFixture(Path(directory), include_stages=False)
+            result_path = fixture.runs / "run-1/result.json"
+            result = json.loads(result_path.read_text(encoding="utf-8"))
+            state = result["state"]
+            state["accepted_provision_ids"] = ["P1", "DISTRACTOR"]
+            state["core_accepted_provision_ids"] = ["P1"]
+            state["supplemental_provision_ids"] = ["DISTRACTOR"]
+            state["qualifying_provision_ids"] = ["P1"]
+            state["alternative_provision_ids"] = ["DISTRACTOR"]
+            result["claim_citations"] = [
+                {
+                    "claim_id": "C1",
+                    "provision_id": "DISTRACTOR",
+                    "evidence_role": "supplemental",
+                }
+            ]
+            write_json(result_path, result)
+
+            aggregate, rows, _ = self._evaluate(fixture)
+
+            q1 = next(row for row in rows if row["question_id"] == "q1")
+            self.assertTrue(q1["evidence_role_schema_available"])
+            self.assertEqual(
+                q1["provision_score_source"], "core_accepted_provision_ids"
+            )
+            self.assertEqual(q1["accepted_count"], 1)
+            self.assertEqual(q1["authorized_provision_count"], 2)
+            self.assertEqual(q1["core_accepted_count"], 1)
+            self.assertEqual(q1["supplemental_provision_count"], 1)
+            self.assertEqual(q1["qualifying_provision_count"], 1)
+            self.assertEqual(q1["alternative_provision_count"], 1)
+            self.assertEqual(q1["auxiliary_provision_count"], 2)
+            self.assertEqual(q1["auxiliary_citation_count"], 1)
+            self.assertEqual(q1["provision_precision"], 1.0)
+            self.assertEqual(
+                aggregate["evidence_roles"]["role_schema_available_question_count"],
+                1,
+            )
+            self.assertEqual(
+                aggregate["evidence_roles"]["authorized_union"][
+                    "per_question_unique_total"
+                ],
+                2,
+            )
+            self.assertEqual(
+                aggregate["evidence_roles"]["auxiliary_citations"]["count"], 1
+            )
+            output = fixture.root / "evaluation"
+            write_outputs(output, aggregate, rows, {"fixture": "evidence-roles"})
+            with (output / "per_question.csv").open(encoding="utf-8") as handle:
+                csv_rows = {row["question_id"]: row for row in csv.DictReader(handle)}
+            self.assertEqual(csv_rows["q1"]["authorized_provision_count"], "2")
+            self.assertEqual(csv_rows["q1"]["core_accepted_count"], "1")
+            self.assertEqual(csv_rows["q1"]["auxiliary_citation_count"], "1")
+            self.assertIn(
+                "## Evidence roles",
+                (output / "summary.md").read_text(encoding="utf-8"),
+            )
+
+    def test_role_ids_must_be_candidates_and_authorized(self):
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = EvaluationFixture(Path(directory), include_stages=False)
+            result_path = fixture.runs / "run-1/result.json"
+            result = json.loads(result_path.read_text(encoding="utf-8"))
+            state = result["state"]
+            state["core_accepted_provision_ids"] = ["P1"]
+            state["supplemental_provision_ids"] = ["NOT-A-CANDIDATE"]
+            state["qualifying_provision_ids"] = []
+            state["alternative_provision_ids"] = []
+            write_json(result_path, result)
+
+            with self.assertRaisesRegex(
+                EvaluationError, "supplemental provision is absent from candidates"
+            ):
+                self._evaluate(fixture)
+
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = EvaluationFixture(Path(directory), include_stages=False)
+            result_path = fixture.runs / "run-1/result.json"
+            result = json.loads(result_path.read_text(encoding="utf-8"))
+            state = result["state"]
+            state["core_accepted_provision_ids"] = ["P1"]
+            state["supplemental_provision_ids"] = ["DISTRACTOR"]
+            state["qualifying_provision_ids"] = []
+            state["alternative_provision_ids"] = []
+            write_json(result_path, result)
+
+            with self.assertRaisesRegex(
+                EvaluationError,
+                "supplemental provision is absent from authorized union",
+            ):
+                self._evaluate(fixture)
 
 
 class ImmutableC5ProvenanceTests(unittest.TestCase):
