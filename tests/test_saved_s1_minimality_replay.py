@@ -160,6 +160,15 @@ class SavedS1MinimalityReplayTests(unittest.TestCase):
                 self.assertEqual(attempts[0]["upstream_generation_kind"], "primary_skill_attempt")
                 self.assertTrue((replay.output_directory / "comparison.json").is_file())
 
+    def test_candidate_provenance_guard_uses_the_approved_c10_c12_final_base(self):
+        self.assertEqual(
+            REPLAY.APPROVED_C10_C12_FINAL_BASE_COMMIT,
+            "bf51c7173d7137e226b82fbc5ff0532e77e3ee2e",
+        )
+        commit, tree = REPLAY._assert_candidate_base(ROOT)
+        self.assertEqual(commit, REPLAY._git_value(ROOT, "HEAD"))
+        self.assertEqual(tree, REPLAY._git_value(ROOT, "HEAD^{tree}"))
+
     def test_resume_revalidates_bindings_without_constructing_executor(self):
         with tempfile.TemporaryDirectory() as raw:
             directory = Path(raw)

@@ -32,7 +32,7 @@ from runtime.local_ollama_executor import LocalOllamaSkillExecutor
 
 REPLAY_SCHEMA_VERSION = "saved_s1_initial_plan_minimality_probe.v1"
 GENERATION_DIAGNOSTIC_SCHEMA_VERSION = "1.2"
-C13_BASE_COMMIT = "96664c59eb6066f5f4c0d6c695f2d86ae1b38004"
+APPROVED_C10_C12_FINAL_BASE_COMMIT = "bf51c7173d7137e226b82fbc5ff0532e77e3ee2e"
 C02_COMMIT = "c02e2818ad54e9d5a1a9bd02b604e987192bb244"
 C02_TREE = "9fcb0ebceb0b3d96955f1626f2c952a457be930f"
 C02_MODEL = "legal-harness-qwen38-q8"
@@ -438,9 +438,9 @@ def _git_value(project_root: Path, expression: str) -> str:
 
 def _assert_candidate_base(project_root: Path) -> Tuple[str, str]:
     try:
-        subprocess.run(["git", "merge-base", "--is-ancestor", C13_BASE_COMMIT, "HEAD"], cwd=str(project_root), check=True, capture_output=True, text=True)
+        subprocess.run(["git", "merge-base", "--is-ancestor", APPROVED_C10_C12_FINAL_BASE_COMMIT, "HEAD"], cwd=str(project_root), check=True, capture_output=True, text=True)
     except (OSError, subprocess.CalledProcessError) as exc:
-        raise ReplayError("candidate source must descend from the C13 integration commit") from exc
+        raise ReplayError("candidate source must descend from the approved C10+C12 final base") from exc
     return _git_value(project_root, "HEAD"), _git_value(project_root, "HEAD^{tree}")
 
 
