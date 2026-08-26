@@ -438,7 +438,11 @@ class HarnessRunner:
                 "evidence_conflicts",
             }:
                 raise ValidationError("S2 projection diagnostic disposition fields are invalid")
-            if disposition.get("disposition") not in {"omitted", "suppressed"}:
+            disposition_name = disposition.get("disposition")
+            if (
+                not isinstance(disposition_name, str)
+                or disposition_name not in {"omitted", "suppressed"}
+            ):
                 raise ValidationError("S2 projection diagnostic disposition is invalid")
             HarnessRunner._validate_s2_projection_value(
                 disposition.get("status"),
@@ -471,11 +475,12 @@ class HarnessRunner:
                     or count > len(expected) + 1
                 ):
                     raise ValidationError("S2 projection diagnostic ledger count is invalid")
-                if not isinstance(ledger.get("present"), bool) or ledger.get("shape") not in {
-                    "list",
-                    "invalid",
-                    "omitted",
-                }:
+                shape = ledger.get("shape")
+                if (
+                    not isinstance(ledger.get("present"), bool)
+                    or not isinstance(shape, str)
+                    or shape not in {"list", "invalid", "omitted"}
+                ):
                     raise ValidationError("S2 projection diagnostic ledger shape is invalid")
             diagnostics.append(
                 S2LegacyProjectionDiagnostic(
@@ -510,11 +515,19 @@ class HarnessRunner:
         present = value.get("present")
         source = value.get("source")
         raw_value = value.get("value")
-        if not isinstance(present, bool) or source not in allowed_sources:
+        if (
+            not isinstance(present, bool)
+            or not isinstance(source, str)
+            or source not in allowed_sources
+        ):
             raise ValidationError("S2 projection diagnostic value metadata is invalid")
         if not present and (source != "omitted" or raw_value is not None):
             raise ValidationError("S2 omitted projection diagnostic is inconsistent")
-        if present and (source == "omitted" or raw_value not in allowed_values | {"invalid"}):
+        if present and (
+            source == "omitted"
+            or not isinstance(raw_value, str)
+            or raw_value not in allowed_values | {"invalid"}
+        ):
             raise ValidationError("S2 projection diagnostic value is invalid")
 
     def _generate_and_validate(self, state: RunState) -> HarnessOutcome:

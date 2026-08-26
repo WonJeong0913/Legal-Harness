@@ -274,6 +274,29 @@ class C06S2AxisCanonicalTests(unittest.TestCase):
         self.assertEqual(diagnostic.raw_projection_disposition["status"]["value"], "covered")
         self.assertEqual(diagnostic.raw_projection_disposition["missing_evidence_items"]["count"], 0)
 
+    def test_legacy_projection_garbage_is_bounded_invalid_without_changing_axes(self):
+        payload = s2_input()
+        for field in ("status", "partial_kind", "governing_legal_regime"):
+            for malformed in ([], {}):
+                with self.subTest(field=field, malformed_type=type(malformed).__name__):
+                    raw = raw_s2("covered", "direct", "none", links=[core_link()])
+                    raw["coverage_assessments"][0][field] = malformed
+                    normalized = self.normalize(raw, payload)
+                    assessment = normalized["coverage_assessments"][0]
+                    self.assertEqual(
+                        (assessment["legal_status"], assessment["applicability_status"], assessment["gap_type"]),
+                        ("covered", "direct", "none"),
+                    )
+                    self.assertEqual(assessment["status"], "covered")
+                    diagnostic = normalized.projection_diagnostics[0]
+                    self.assertEqual(
+                        diagnostic.raw_projection_disposition[field]["value"], "invalid"
+                    )
+                    self.assertEqual(
+                        diagnostic.raw_projection_disposition["disposition"], "suppressed"
+                    )
+                    self.assertEqual(self.executor._validators[S2](normalized, payload), [])
+
     def test_wrong_criterion_noncore_and_direct_entailment_remain_invalid(self):
         payload = s2_input(requirements=True)
         wrong_criterion = raw_s2(
@@ -605,6 +628,93 @@ class C06S2AxisCanonicalTests(unittest.TestCase):
         self.assertEqual(event["authorized"], baseline["authorized"])
         self.assertEqual(event["core"], baseline["core"])
         self.assertFalse(any(item.event == "S2_LEGACY_PROJECTION_DERIVED" for item in state.action_trace))
+
+    def test_forged_unhashable_private_diagnostic_is_clean_invalid_skill_output(self):
+        raw = raw_s2(
+            "covered", "direct", "none", links=[core_link(provision_id="C001")],
+            criterion_results=[{
+                "requirement_id": "E1-R1", "status": "satisfied",
+                "linked_provision_ids": ["C001"], "rationale": "직접 근거",
+                "direct_entailment": {
+                    "regulated_subject_or_act": "matched",
+                    "outcome_changing_qualifiers": "matched",
+                    "legal_effect": "matched",
+                    "procedure_or_remedy_path": "not_applicable",
+                    "rationale": "직접 근거",
+                },
+            }],
+        )
+        local = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture", generator=lambda _: json.dumps(raw)
+        )
+        response = local.execute(
+            S2,
+            "ASSESS_COVERAGE",
+            {
+                "run_id": "forged-private-c06",
+                "normalized_question": "법률 요건은?",
+                "legal_issues": [{"issue_id": "I1", "description": "법률 요건"}],
+                "required_evidence_items": [{
+                    "evidence_item_id": "E1", "issue_id": "I1", "evidence_type": "rule",
+                    "description": "법률 요건", "critical": True,
+                    "completion_criteria": "법률 요건",
+                    "completion_requirements": [{"requirement_id": "E1-R1", "text": "법률 요건"}],
+                }],
+                "candidate_provisions": [{
+                    "provision_id": "P1", "statute_name": "예시법 제1조",
+                    "provision_text": "법률 요건을 정한다.",
+                }],
+            },
+        )
+
+        class StaticExecutor:
+            def __init__(self, value):
+                self.value = value
+
+            def execute(self, skill_name, entry_point, payload):
+                return copy.deepcopy(self.value)
+
+        def coverage_state():
+            state = RunState(
+                question="법률 요건은?", normalized_question="법률 요건은?",
+                run_id="forged-private-c06", total_round_budget=3,
+                remaining_round_budget=2, remaining_request_budget=8,
+                phase=Phase.RETRIEVING_INITIAL,
+            )
+            state.legal_issues = [LegalIssue("I1", "법률 요건")]
+            state.required_evidence_items = [RequiredEvidenceItem(
+                "E1", "I1", "rule", "법률 요건", True,
+                completion_criteria="법률 요건",
+                completion_requirements=[CompletionRequirement("E1-R1", "법률 요건")],
+            )]
+            state.candidate_provisions = [CandidateProvision(
+                "P1", "예시법 제1조", "법률 요건을 정한다.", "I1", "RQ1", 1, 1.0, 1, 1.0,
+            )]
+            state.query_history = [RetrievalRequest(
+                "RQ1", "I1", "E1", "provision_style", "법률 요건"
+            )]
+            return state
+
+        mutations = {
+            "source": lambda diagnostic: diagnostic["raw_projection_disposition"]["status"].update({"source": []}),
+            "value": lambda diagnostic: diagnostic["raw_projection_disposition"]["status"].update({"value": {}}),
+            "ledger_shape": lambda diagnostic: diagnostic["raw_projection_disposition"]["missing_evidence_items"].update({"shape": []}),
+        }
+        for name, mutate in mutations.items():
+            with self.subTest(field=name):
+                forged = copy.deepcopy(response)
+                mutate(forged["_harness_s2_projection_diagnostics"][0])
+                runner = HarnessRunner(
+                    StaticExecutor(forged),
+                    retriever=object(),
+                    citation_validator=CitationIntegrityChecker(
+                        InMemoryProvisionCorpus([])
+                    ),
+                )
+                failure = runner._assess_coverage(coverage_state())
+                self.assertIsNotNone(failure)
+                self.assertEqual(failure.status.value, "EXECUTION_FAILURE")
+                self.assertEqual(failure.termination_reason.value, "INVALID_SKILL_OUTPUT")
 
     def test_exact_three_skill_order_is_unchanged(self):
         expected = [

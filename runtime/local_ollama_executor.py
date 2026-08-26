@@ -851,7 +851,11 @@ class LocalOllamaSkillExecutor:
         return {
             "present": bool(present_keys),
             "source": "both" if len(present_keys) > 1 else (present_keys[0] if present_keys else "omitted"),
-            "value": value if value in allowed_values else ("invalid" if present_keys else None),
+            "value": (
+                value
+                if isinstance(value, str) and value in allowed_values
+                else ("invalid" if present_keys else None)
+            ),
         }
 
     @staticmethod
