@@ -28,7 +28,7 @@ from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Set, 
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-EVALUATION_SCHEMA_VERSION = "1.4"
+EVALUATION_SCHEMA_VERSION = "1.5"
 OUTCOME_STATUSES = ("ANSWER", "ABSTAIN", "EXECUTION_FAILURE")
 ANSWER_MODES = ("full", "conditional", "limited")
 NORMAL_OUTCOME_STATUSES = ("ANSWER", "ABSTAIN")
@@ -54,6 +54,34 @@ STAGE_ALIASES = {
     "rerank": "rerank",
     "bge": "rerank",
     "bge_rerank": "rerank",
+}
+
+
+AUXILIARY_EVIDENCE_ROLES = frozenset(
+    {"supplemental", "qualifying", "alternative"}
+)
+EVIDENCE_ROLE_METRIC_DEFINITION = {
+    "schema": "c04_evidence_roles_v1",
+    "provision_score_source": "state.core_accepted_provision_ids when present; otherwise legacy state.accepted_provision_ids",
+    "authorized_union_source": "state.accepted_provision_ids",
+    "auxiliary_role_sources": {
+        "supplemental": "state.supplemental_provision_ids",
+        "qualifying": "state.qualifying_provision_ids",
+        "alternative": "state.alternative_provision_ids",
+    },
+    "role_decision_boundary": (
+        "The evaluator only reads persisted state roles. It neither derives roles "
+        "from KoBLEX gold nor supplies gold or role decisions to a running harness."
+    ),
+    "unique_count_note": (
+        "Role counts are unique within each role list. A provision may hold more "
+        "than one link-level role, so their sum can exceed the authorized-union count."
+    ),
+    "auxiliary_citation_count": (
+        "Count of structured claim-citation provision references explicitly marked "
+        "supplemental, qualifying, or alternative; legacy unmarked citations count "
+        "only when their provision belongs exclusively to an auxiliary role."
+    ),
 }
 
 
@@ -806,6 +834,144 @@ def _citation_status(result: Mapping[str, Any]) -> Tuple[bool, Optional[bool]]:
     return False, None
 
 
+def _optional_state_provision_id_set(
+    state: Mapping[str, Any], field: str, question_id: str
+) -> Optional[Set[str]]:
+    if field not in state:
+        return None
+    values = state.get(field)
+    if not isinstance(values, list) or not all(
+        isinstance(item, str) and item for item in values
+    ):
+        raise EvaluationError("invalid %s for %s" % (field, question_id))
+    return set(values)
+
+
+def _evidence_role_sets(
+    state: Mapping[str, Any],
+    candidate_ids: Set[str],
+    question_id: str,
+) -> Dict[str, Any]:
+    authorized_ids = _optional_state_provision_id_set(
+        state, "accepted_provision_ids", question_id
+    )
+    authorized_ids = set() if authorized_ids is None else authorized_ids
+    core_ids = _optional_state_provision_id_set(
+        state, "core_accepted_provision_ids", question_id
+    )
+    role_schema_available = core_ids is not None
+    if core_ids is None:
+        core_ids = set(authorized_ids)
+    role_sets = {
+        "core": core_ids,
+        "supplemental": _optional_state_provision_id_set(
+            state, "supplemental_provision_ids", question_id
+        ),
+        "qualifying": _optional_state_provision_id_set(
+            state, "qualifying_provision_ids", question_id
+        ),
+        "alternative": _optional_state_provision_id_set(
+            state, "alternative_provision_ids", question_id
+        ),
+    }
+    if not role_schema_available and any(
+        role_sets[role] is not None for role in AUXILIARY_EVIDENCE_ROLES
+    ):
+        raise EvaluationError(
+            "auxiliary role lists require core_accepted_provision_ids: %s"
+            % question_id
+        )
+    for role in AUXILIARY_EVIDENCE_ROLES:
+        if role_sets[role] is None:
+            role_sets[role] = set()
+    for role, provision_ids in role_sets.items():
+        if not provision_ids.issubset(candidate_ids):
+            raise EvaluationError(
+                "%s provision is absent from candidates: %s" % (role, question_id)
+            )
+        if not provision_ids.issubset(authorized_ids):
+            raise EvaluationError(
+                "%s provision is absent from authorized union: %s"
+                % (role, question_id)
+            )
+    auxiliary_ids = set().union(
+        *(role_sets[role] for role in AUXILIARY_EVIDENCE_ROLES)
+    )
+    return {
+        "authorized": authorized_ids,
+        "core": role_sets["core"],
+        "supplemental": role_sets["supplemental"],
+        "qualifying": role_sets["qualifying"],
+        "alternative": role_sets["alternative"],
+        "auxiliary": auxiliary_ids,
+        "role_schema_available": role_schema_available,
+        "score_source": (
+            "core_accepted_provision_ids"
+            if role_schema_available
+            else "legacy_accepted_provision_ids"
+        ),
+    }
+
+
+def _citation_provision_ids(
+    citation: Mapping[str, Any], question_id: str
+) -> List[str]:
+    has_single = "provision_id" in citation
+    has_multiple = "provision_ids" in citation
+    if has_single and has_multiple:
+        raise EvaluationError("citation has both provision_id and provision_ids: %s" % question_id)
+    if has_single:
+        provision_id = citation.get("provision_id")
+        if not isinstance(provision_id, str) or not provision_id:
+            raise EvaluationError("invalid citation provision_id: %s" % question_id)
+        return [provision_id]
+    if has_multiple:
+        provision_ids = citation.get("provision_ids")
+        if not isinstance(provision_ids, list) or not all(
+            isinstance(item, str) and item for item in provision_ids
+        ):
+            raise EvaluationError("invalid citation provision_ids: %s" % question_id)
+        return list(provision_ids)
+    return []
+
+
+def _auxiliary_citation_count(
+    result: Mapping[str, Any],
+    role_sets: Mapping[str, Any],
+    question_id: str,
+) -> int:
+    citations = result.get("claim_citations")
+    if citations is None:
+        return 0
+    if not isinstance(citations, list):
+        raise EvaluationError("claim_citations must be an array: %s" % question_id)
+    count = 0
+    auxiliary_only_ids = set(role_sets["auxiliary"]) - set(role_sets["core"])
+    for citation in citations:
+        if not isinstance(citation, Mapping):
+            raise EvaluationError("claim citation must be an object: %s" % question_id)
+        provision_ids = _citation_provision_ids(citation, question_id)
+        evidence_role = citation.get("evidence_role")
+        if evidence_role is not None and evidence_role not in {
+            "core",
+            *AUXILIARY_EVIDENCE_ROLES,
+        }:
+            raise EvaluationError("invalid citation evidence_role: %s" % question_id)
+        if evidence_role is not None:
+            role_ids = role_sets[str(evidence_role)]
+            if any(provision_id not in role_ids for provision_id in provision_ids):
+                raise EvaluationError(
+                    "citation evidence_role conflicts with state role: %s" % question_id
+                )
+            if evidence_role in AUXILIARY_EVIDENCE_ROLES:
+                count += len(provision_ids)
+        else:
+            count += sum(
+                provision_id in auxiliary_only_ids for provision_id in provision_ids
+            )
+    return count
+
+
 def _optional_string_list(
     result: Mapping[str, Any], field: str, question_id: str
 ) -> List[str]:
@@ -1088,10 +1254,13 @@ def evaluate_batch(
             for candidate in candidates
             if isinstance(candidate, dict) and candidate.get("provision_id")
         }
-        accepted_ids = {str(item) for item in state.get("accepted_provision_ids", [])}
-        if not accepted_ids.issubset(candidate_ids):
-            raise EvaluationError("accepted provision is absent from candidates: %s" % question_id)
-        provision = precision_recall_f1(accepted_ids, groups)
+        evidence_roles = _evidence_role_sets(state, candidate_ids, question_id)
+        accepted_ids = set(evidence_roles["authorized"])
+        core_ids = set(evidence_roles["core"])
+        provision = precision_recall_f1(core_ids, groups)
+        auxiliary_citation_count = _auxiliary_citation_count(
+            result, evidence_roles, question_id
+        )
         normal_outcome = result["status"] in NORMAL_OUTCOME_STATUSES
         if normal_outcome:
             stage_sets, stage_warnings = load_stage_sets(run_directory)
@@ -1186,6 +1355,15 @@ def evaluate_batch(
             "split_memberships": sorted(
                 name for name, identifiers in split_memberships.items() if question_id in identifiers
             ),
+            "evidence_role_schema_available": evidence_roles["role_schema_available"],
+            "provision_score_source": evidence_roles["score_source"],
+            "authorized_provision_count": len(accepted_ids),
+            "core_accepted_count": len(core_ids),
+            "supplemental_provision_count": len(evidence_roles["supplemental"]),
+            "qualifying_provision_count": len(evidence_roles["qualifying"]),
+            "alternative_provision_count": len(evidence_roles["alternative"]),
+            "auxiliary_provision_count": len(evidence_roles["auxiliary"]),
+            "auxiliary_citation_count": auxiliary_citation_count,
             "gold_count": provision["gold"],
             "accepted_count": provision["predicted"],
             "gold_true_positive": provision["true_positive"],
@@ -1328,6 +1506,7 @@ def evaluate_batch(
             "internal_score_scale": "0_1",
             "display_score_scale": "0_100",
         },
+        "evidence_roles": dict(EVIDENCE_ROLE_METRIC_DEFINITION),
         "lf_eval": {
             "provided": lf_eval_scores is not None,
             "judge_model": lf_eval_scores.judge_model if lf_eval_scores else None,
@@ -1404,6 +1583,44 @@ def _aggregate_provisions(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
             "rate": provision_em_count / len(rows) if rows else None,
         },
     }
+
+
+def _aggregate_evidence_roles(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
+    def count(field: str) -> Dict[str, Any]:
+        total = sum(int(row[field]) for row in rows)
+        return {
+            "per_question_unique_total": total,
+            "mean_unique_per_question": total / len(rows) if rows else None,
+        }
+
+    score_sources = Counter(
+        str(row["provision_score_source"]) for row in rows
+    )
+    auxiliary_citations = sum(
+        int(row["auxiliary_citation_count"]) for row in rows
+    )
+    return {
+        "role_schema_available_question_count": sum(
+            bool(row["evidence_role_schema_available"]) for row in rows
+        ),
+        "legacy_fallback_question_count": sum(
+            not bool(row["evidence_role_schema_available"]) for row in rows
+        ),
+        "provision_score_sources": dict(sorted(score_sources.items())),
+        "authorized_union": count("authorized_provision_count"),
+        "core": count("core_accepted_count"),
+        "supplemental": count("supplemental_provision_count"),
+        "qualifying": count("qualifying_provision_count"),
+        "alternative": count("alternative_provision_count"),
+        "auxiliary_union": count("auxiliary_provision_count"),
+        "auxiliary_citations": {
+            "count": auxiliary_citations,
+            "questions_with_citation_count": sum(
+                int(row["auxiliary_citation_count"]) > 0 for row in rows
+            ),
+        },
+    }
+
 
 
 def _aggregate_stage(rows: Sequence[Mapping[str, Any]], metric_name: str) -> Dict[str, Any]:
@@ -1751,6 +1968,7 @@ def aggregate_rows(
     output: Dict[str, Any] = {
         "outcomes": _outcomes(rows),
         "provision": _aggregate_provisions(rows),
+        "evidence_roles": _aggregate_evidence_roles(rows),
         "answer_quality": _aggregate_answer_quality(rows, lf_eval_scores),
         "retrieval": {
             name: _aggregate_stage(rows, name) for name in STAGE_SPECS
@@ -1815,6 +2033,15 @@ CSV_FIELDS = [
     "answered_target_ids",
     "deferred_target_ids",
     "split_memberships",
+    "evidence_role_schema_available",
+    "provision_score_source",
+    "authorized_provision_count",
+    "core_accepted_count",
+    "supplemental_provision_count",
+    "qualifying_provision_count",
+    "alternative_provision_count",
+    "auxiliary_provision_count",
+    "auxiliary_citation_count",
     "gold_count",
     "accepted_count",
     "gold_true_positive",
@@ -1930,6 +2157,53 @@ def render_markdown(aggregate: Mapping[str, Any], rows: Sequence[Mapping[str, An
             "| %s | %d | %s |"
             % (status, outcomes[status]["count"], _format_metric(outcomes[status]["rate"]))
         )
+    evidence_roles = aggregate["evidence_roles"]
+    role_metrics = (
+        ("Authorized union", "authorized_union"),
+        ("Core (scored)", "core"),
+        ("Supplemental", "supplemental"),
+        ("Qualifying", "qualifying"),
+        ("Alternative", "alternative"),
+        ("Auxiliary union", "auxiliary_union"),
+    )
+    lines.extend(
+        [
+            "",
+            "## Evidence roles",
+            "",
+            "Provision P/R/F1 and EM score CORE evidence only. Supplemental, qualifying, and alternative evidence remains reported but is not provision-scored.",
+            "",
+            "| Role | Per-question unique total | Mean per question |",
+            "| --- | ---: | ---: |",
+        ]
+    )
+    for label, key in role_metrics:
+        metric = evidence_roles[key]
+        lines.append(
+            "| %s | %d | %s |"
+            % (
+                label,
+                metric["per_question_unique_total"],
+                _format_number(metric["mean_unique_per_question"]),
+            )
+        )
+    auxiliary_citations = evidence_roles["auxiliary_citations"]
+    lines.extend(
+        [
+            "",
+            "- Role-schema records: %d; legacy accepted-evidence fallback records: %d."
+            % (
+                evidence_roles["role_schema_available_question_count"],
+                evidence_roles["legacy_fallback_question_count"],
+            ),
+            "- Auxiliary citation references: %d across %d questions."
+            % (
+                auxiliary_citations["count"],
+                auxiliary_citations["questions_with_citation_count"],
+            ),
+            "- Counts are unique within each role list; one provision can have multiple link-level roles, so role totals can exceed the authorized-union count.",
+        ]
+    )
     validity = aggregate.get("comparison_validity")
     if isinstance(validity, Mapping) and validity.get("status"):
         reasons = validity.get("reasons", [])
