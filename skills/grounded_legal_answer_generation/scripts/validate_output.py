@@ -155,6 +155,146 @@ def validate_answer_target_scope(output, input_data, errors):
         errors.append("limited generation requires an explicit limitation")
 
 
+def normalize_material_text(value):
+    if not isinstance(value, str):
+        return ""
+    return re.sub(r"[\s\W_]+", "", value, flags=re.UNICODE)
+
+
+def validate_public_material_conditions(
+    output, input_data, claims, citations_by_claim, core_sources, errors
+):
+    """Require active alternate outcomes in a cited public conclusion claim."""
+    conditions = input_data.get("public_material_conditions", [])
+    if not isinstance(conditions, list):
+        errors.append("public_material_conditions must be a list")
+        return
+    if input_data.get("mode") != "GENERATE_ANSWER":
+        if conditions:
+            errors.append("benchmark candidate must not receive public material conditions")
+        return
+    if not conditions:
+        return
+    answered = set(input_data.get("answered_target_ids", []))
+    deferred = set(input_data.get("deferred_target_ids", []))
+    evidence_by_id = {
+        item.get("evidence_item_id"): item
+        for item in input_data.get("required_evidence_items", [])
+        if isinstance(item, dict)
+    }
+    assessments = {
+        item.get("evidence_item_id"): item
+        for item in input_data.get("coverage_assessments", [])
+        if isinstance(item, dict)
+    }
+    core_by_source_id = {
+        source.get("source_provision_id", source.get("provision_id")): source
+        for source in core_sources
+        if isinstance(source, dict)
+    }
+    active = {}
+    for condition in conditions:
+        if not isinstance(condition, dict):
+            errors.append("public material condition must be an object")
+            continue
+        required = (
+            "material_id",
+            "evidence_item_id",
+            "requirement_id",
+            "answer_target_id",
+            "condition_text",
+            "outcome_text",
+            "source_provision_id",
+        )
+        if any(not isinstance(condition.get(key), str) or not condition[key].strip() for key in required):
+            errors.append("public material condition has invalid fields")
+            continue
+        material_id = condition["material_id"]
+        if material_id in active:
+            errors.append("duplicate public material condition ID: %s" % material_id)
+            continue
+        evidence = evidence_by_id.get(condition["evidence_item_id"])
+        assessment = assessments.get(condition["evidence_item_id"])
+        if (
+            condition["answer_target_id"] not in answered
+            or condition["answer_target_id"] in deferred
+            or not evidence
+            or evidence.get("critical") is not True
+            or condition["answer_target_id"] not in evidence.get("answer_target_ids", [])
+            or not assessment
+            or assessment.get("status") != "covered"
+            or assessment.get("legal_status", "covered") != "covered"
+            or assessment.get("governing_legal_regime", "direct_entailment")
+            != "direct_entailment"
+        ):
+            errors.append("public material condition is outside direct covered answered scope: %s" % material_id)
+            continue
+        criterion_matches = []
+        for result in assessment.get("criterion_results", []):
+            if not isinstance(result, dict):
+                continue
+            if (
+                result.get("requirement_id") == condition["requirement_id"]
+                and result.get("status") == "satisfied"
+                and condition["source_provision_id"] in result.get("linked_provision_ids", [])
+            ):
+                criterion_matches.extend(
+                    item
+                    for item in result.get("public_material_conditions", [])
+                    if isinstance(item, dict)
+                    and item.get("material_id") == material_id
+                )
+        if len(criterion_matches) != 1:
+            errors.append("public material condition is not the canonical satisfied criterion card: %s" % material_id)
+            continue
+        source = core_by_source_id.get(condition["source_provision_id"])
+        source_text = source.get("text") if isinstance(source, dict) else None
+        if (
+            not isinstance(source_text, str)
+            or normalize_material_text(condition["condition_text"])
+            not in normalize_material_text(source_text)
+            or normalize_material_text(condition["outcome_text"])
+            not in normalize_material_text(source_text)
+        ):
+            errors.append("public material condition is not anchored to CORE source text: %s" % material_id)
+            continue
+        active[material_id] = (condition, source)
+
+    for claim in claims:
+        ids = claim.get("public_material_condition_ids", [])
+        if not isinstance(ids, list) or len(ids) != len(set(ids)) or not all(isinstance(item, str) for item in ids):
+            errors.append("claim public_material_condition_ids must be unique strings")
+            continue
+        if claim.get("public_role") != "conclusion" and ids:
+            errors.append("only a public conclusion claim may name a material condition")
+        for material_id in ids:
+            if material_id not in active:
+                errors.append("claim names unknown public material condition: %s" % material_id)
+
+    for material_id, (condition, source) in active.items():
+        owners = [
+            claim for claim in claims
+            if material_id in claim.get("public_material_condition_ids", [])
+        ]
+        if len(owners) != 1:
+            errors.append("public material condition must appear in exactly one conclusion claim: %s" % material_id)
+            continue
+        claim = owners[0]
+        if (
+            claim.get("public_role") != "conclusion"
+            or condition["answer_target_id"] not in claim.get("answer_target_ids", [])
+            or normalize_material_text(condition["condition_text"])
+            not in normalize_material_text(claim.get("text"))
+            or normalize_material_text(condition["outcome_text"])
+            not in normalize_material_text(claim.get("text"))
+            or not any(
+                citation.get("provision_id") == source.get("provision_id")
+                for citation in citations_by_claim.get(claim.get("claim_id"), [])
+            )
+        ):
+            errors.append("public material condition is not rendered by its CORE conclusion claim: %s" % material_id)
+
+
 def validate(output, input_data):
     errors = []
     if output.get("schema_version") != "1.0" or output.get("skill_id") != "S3":
@@ -286,6 +426,15 @@ def validate(output, input_data):
         expected_answer = "\n".join(expected_lines)
         if answer != expected_answer:
             errors.append("public answer does not match deterministic concise serialization")
+
+    validate_public_material_conditions(
+        output,
+        input_data,
+        claims,
+        citations_by_claim,
+        core_sources,
+        errors,
+    )
 
     statuses = {
         item.get("evidence_item_id"): item.get("status")

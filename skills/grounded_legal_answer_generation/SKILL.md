@@ -24,7 +24,12 @@ authorization and answer scope.
 5. Keep uncited factual premises and limitation explanations out of `claims[]`; preserve them in `assumptions[]` and `limitations[]`. Do not append every audit note to the public answer.
 6. Preserve all assumptions and material limitations without presenting them as established facts. Repeat only an outcome-changing condition briefly in the public answer body.
 7. For every partially covered critical item, state the unresolved condition in `limitations[]` and phrase the corresponding claim with `applicability: "conditional"`. Do not turn the missing factual premise into a fact.
-8. Return JSON only.
+8. For each supplied `public_material_conditions[]` card, name its `material_id` in
+   exactly one `public_role: "conclusion"` claim for that card's target. The same
+   concise claim must cite the card's CORE source and include both exact condition and
+   alternate-outcome text. State the statutory condition conditionally; do not move it
+   to assumptions, limitations, or an audit claim, and do not add unsupplied cards.
+9. Return JSON only.
 
 For `GENERATE_ANSWER`, cite only `accepted_provisions`. For
 `GENERATE_BENCHMARK_CANDIDATE`, cite only `candidate_provisions`, answer all

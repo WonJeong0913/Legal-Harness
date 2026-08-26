@@ -49,9 +49,24 @@ On failed preconditions, use the schema error envelope with `INVALID_INPUT`,
 `GENERATION_NOT_AUTHORIZED`, `UNCOVERED_CRITICAL_EVIDENCE`, or
 `CONTRACT_UNSATISFIABLE`. An S3 error is `EXECUTION_FAILURE`, not `ABSTAIN`.
 
+## Public material-condition cards
+
+For every supplied active card, one and only one `public_role: conclusion`
+claim for that card's target must list its `material_id`, cite its supplied
+CORE source, and contain both its exact `condition_text` and `outcome_text`.
+The deterministic validator rejects an omitted card, an assumption-only or
+audit-only card, another target, another source, or a missing value. Keep the
+condition as a statutory conditional rule rather than asserting that a missing
+fact is true. Cards are supplied only from direct covered satisfied CORE
+criteria and answered targets; S3 may not create, broaden, defer, or use them
+in `GENERATE_BENCHMARK_CANDIDATE`. The serializer still renders only one to
+three conclusion claims under 800 characters, so combine cards into the
+existing target conclusion instead of adding boilerplate.
+
 ## Target-only generation boundary
 
 Generate only conclusions needed for the supplied, authorized requested answer targets; do not summarize every accepted provision.
+
 Every substantive claim and citation must support a requested target, not merely a related legal topic found in an accepted provision.
 An adjacent legal fact, background rule, neighboring procedure, or extra consequence is excluded unless necessary to answer that target or state its outcome-changing condition.
 Keep conditional and limited behavior intact: retain the existing cited target conclusion, put unresolved conditions in the existing assumptions or limitations fields, and do not add conclusions for deferred targets.

@@ -294,6 +294,22 @@ class CriterionResult:
     status: CriterionStatus
     linked_provision_ids: List[str]
     rationale: str
+    public_material_conditions: List["PublicMaterialCondition"] = field(
+        default_factory=list
+    )
+
+
+@dataclass(frozen=True)
+class PublicMaterialCondition:
+    """A CORE-anchored alternate legal result that must survive S2 -> S3."""
+
+    material_id: str
+    evidence_item_id: str
+    requirement_id: str
+    answer_target_id: str
+    condition_text: str
+    outcome_text: str
+    source_provision_id: str
 
 
 @dataclass(frozen=True)
@@ -310,6 +326,7 @@ class Claim:
     text: str
     answer_target_ids: List[str] = field(default_factory=list)
     public_role: str = "conclusion"
+    public_material_condition_ids: List[str] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
