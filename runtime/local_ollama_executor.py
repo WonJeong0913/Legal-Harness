@@ -926,10 +926,94 @@ class LocalOllamaSkillExecutor:
             if isinstance(item, Mapping)
         }
 
+        # Only a complete, unique atomic ledger is authoritative enough to
+        # decide whether compact CORE links were actually accepted.  Leave
+        # legacy/non-atomic or malformed transport to the semantic validator.
+        complete_ledgers: Dict[str, set[str]] = {}
+        assessment_counts: Dict[str, int] = {}
+        for raw_assessment in self._list(
+            output, "coverage_assessments", required=False
+        ):
+            if not isinstance(raw_assessment, Mapping):
+                continue
+            evidence_id = raw_assessment.get("evidence_item_id")
+            ledger = evidence_by_id.get(evidence_id)
+            if not isinstance(evidence_id, str) or ledger is None:
+                continue
+            assessment_counts[evidence_id] = assessment_counts.get(evidence_id, 0) + 1
+            requirements = ledger.get("completion_requirements")
+            if not isinstance(requirements, list) or not requirements:
+                continue
+            requirement_ids = []
+            for requirement in requirements:
+                requirement_id = (
+                    requirement.get("requirement_id")
+                    if isinstance(requirement, Mapping)
+                    else None
+                )
+                if (
+                    not isinstance(requirement_id, str)
+                    or requirement_id in requirement_ids
+                ):
+                    requirement_ids = []
+                    break
+                requirement_ids.append(requirement_id)
+            criterion_results = raw_assessment.get("criterion_results")
+            if (
+                not requirement_ids
+                or not isinstance(criterion_results, list)
+                or len(criterion_results) != len(requirement_ids)
+            ):
+                continue
+            results_by_id = {}
+            for result in criterion_results:
+                requirement_id = (
+                    result.get("requirement_id") if isinstance(result, Mapping) else None
+                )
+                if (
+                    not isinstance(requirement_id, str)
+                    or requirement_id in results_by_id
+                    or requirement_id not in requirement_ids
+                ):
+                    results_by_id = {}
+                    break
+                results_by_id[requirement_id] = result
+            if set(results_by_id) != set(requirement_ids):
+                continue
+            accepted_ids = set()
+            for result in results_by_id.values():
+                if result.get("status") not in {"satisfied", "partially_satisfied"}:
+                    continue
+                provision_ids = result.get("linked_provision_ids")
+                if not isinstance(provision_ids, list):
+                    continue
+                accepted_ids.update(
+                    provision_id
+                    for provision_id in provision_ids
+                    if isinstance(provision_id, str)
+                )
+            complete_ledgers[evidence_id] = accepted_ids
+        criterion_authorized_core_ids = {
+            evidence_id: accepted_ids
+            for evidence_id, accepted_ids in complete_ledgers.items()
+            if assessment_counts.get(evidence_id) == 1
+        }
+
         links = []
         seen_links = set()
         for raw in self._list(output, "evidence_links", required=False):
             if not isinstance(raw, Mapping):
+                continue
+            if (
+                raw.get("role", "CORE") == "CORE"
+                and raw.get("relation") in {"supports", "partially_supports"}
+                and raw.get("evidence_item_id") in criterion_authorized_core_ids
+                and raw.get("provision_id")
+                not in criterion_authorized_core_ids[raw.get("evidence_item_id")]
+            ):
+                # Compact transport omits the assessment-level CORE ledger. A
+                # link not claimed by a positive atomic criterion cannot become
+                # canonical accepted evidence during harness expansion.
                 continue
             key = (
                 raw.get("evidence_item_id"),
