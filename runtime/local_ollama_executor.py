@@ -200,7 +200,7 @@ class LocalOllamaSkillExecutor:
         for attempt in range(1, self.max_attempts + 1):
             prompt = self._prompt(skill_name, entry_point, skill_input, repair_note)
             diagnostic: Dict[str, Any] = {
-                "schema_version": "1.0",
+                "schema_version": "1.1",
                 "run_id": skill_input.get("run_id"),
                 "skill_name": skill_name,
                 "skill_id": SKILL_IDS[skill_name],
@@ -265,7 +265,7 @@ class LocalOllamaSkillExecutor:
                             }
                         )
                         replan, replan_failure = self._neutral_s1_gap_replan(
-                            entry_point, skill_input, skill_output, max_tokens
+                            entry_point, skill_input, skill_output, max_tokens, attempt
                         )
                     if replan is not None:
                         skill_output = replan
@@ -313,7 +313,7 @@ class LocalOllamaSkillExecutor:
                         }
                     ]
                     replan, replan_failure = self._neutral_s1_gap_replan(
-                        entry_point, skill_input, skill_output, max_tokens
+                        entry_point, skill_input, skill_output, max_tokens, attempt
                     )
                     if replan is not None:
                         skill_output = replan
@@ -1461,6 +1461,7 @@ class LocalOllamaSkillExecutor:
         skill_input: Mapping[str, Any],
         repaired_fallback: Mapping[str, Any],
         max_tokens: int,
+        attempt: int,
     ) -> Tuple[Optional[Dict[str, Any]], str]:
         fallback_targets = [
             request.get("evidence_item_id")
@@ -1469,6 +1470,17 @@ class LocalOllamaSkillExecutor:
             )
             if isinstance(request, Mapping)
         ]
+        replan_diagnostic: Dict[str, Any] = {
+            "schema_version": "1.1",
+            "run_id": skill_input.get("run_id"),
+            "skill_name": "legal_issue_and_query_planning",
+            "skill_id": SKILL_IDS["legal_issue_and_query_planning"],
+            "entry_point": entry_point,
+            "attempt": attempt,
+            "generation_kind": "neutral_semantic_gap_replan",
+            "parent_attempt": attempt,
+            "requested_max_tokens": max_tokens,
+        }
         replan_note = (
             "NEUTRAL_SEMANTIC_GAP_REPLAN: The prior GAP plan required a "
             "deterministic provenance repair that changed a retrieval scoring "
@@ -1484,6 +1496,12 @@ class LocalOllamaSkillExecutor:
                 separators=(",", ":"),
             )
         )
+
+        def reject(reason: str) -> Tuple[Optional[Dict[str, Any]], str]:
+            replan_diagnostic["outcome"] = "replan_rejected"
+            replan_diagnostic["replan_reason"] = reason
+            return None, reason
+
         try:
             generation = self._generate(
                 self._prompt(
@@ -1494,7 +1512,11 @@ class LocalOllamaSkillExecutor:
                 ),
                 max_tokens,
             )
+            replan_diagnostic.update(self._generation_diagnostic(generation))
             if generation.done_reason == "length":
+                replan_diagnostic["outcome"] = "truncated"
+                replan_diagnostic["error_code"] = "MODEL_OUTPUT_TRUNCATED"
+                replan_diagnostic["replan_reason"] = "replan_truncated"
                 return None, "replan_truncated"
             raw_replan = self._parse_json_object(generation.text)
             replan = self._normalize_harness_owned_fields(
@@ -1507,7 +1529,7 @@ class LocalOllamaSkillExecutor:
                 "legal_issue_and_query_planning", entry_point, replan, skill_input
             )
             if replan_repairs:
-                return None, "replan_required_deterministic_repair"
+                return reject("replan_required_deterministic_repair")
             replan_targets = [
                 request.get("evidence_item_id")
                 for request in self._list(
@@ -1516,19 +1538,25 @@ class LocalOllamaSkillExecutor:
                 if isinstance(request, Mapping)
             ]
             if replan_targets != fallback_targets:
-                return None, "replan_changed_evidence_targets"
+                return reject("replan_changed_evidence_targets")
             if not self._s1_scoring_query_delta(repaired_fallback, replan):
-                return None, "replan_no_scoring_delta"
+                return reject("replan_no_scoring_delta")
             validation_errors = self._validators["legal_issue_and_query_planning"](
                 replan, skill_input
             )
             if validation_errors:
-                return None, "replan_validation_error"
+                return reject("replan_validation_error")
             if replan.get("status") != "ok":
-                return None, "replan_non_ok_status"
+                return reject("replan_non_ok_status")
+            replan_diagnostic["outcome"] = "valid"
             return replan, ""
         except Exception as exc:
-            return None, "replan_failed:%s" % exc.__class__.__name__
+            reason = "replan_failed:%s" % exc.__class__.__name__
+            replan_diagnostic["outcome"] = "skill_error"
+            replan_diagnostic["error"] = reason
+            return None, reason
+        finally:
+            self._record_diagnostic(replan_diagnostic)
 
     def _needs_neutral_s1_gap_replan(
         self,
@@ -2145,6 +2173,7 @@ FINAL OUTPUT INVARIANTS:
             "response_utf8_bytes": len(encoded),
             "response_sha256": hashlib.sha256(encoded).hexdigest(),
             "response_tail": generation.text[-RESPONSE_TAIL_CHARACTERS:],
+            "response_text": generation.text,
         }
 
     def _record_diagnostic(self, diagnostic: Mapping[str, Any]) -> None:

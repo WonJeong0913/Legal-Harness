@@ -1,3 +1,4 @@
+import hashlib
 import json
 import unittest
 from pathlib import Path
@@ -1351,8 +1352,17 @@ class LocalOllamaExecutorTests(unittest.TestCase):
         self.assertEqual(diagnostics[0]["eval_count"], 4096)
         self.assertEqual(diagnostics[0]["response_tokens"], 4096)
         self.assertEqual(diagnostics[0]["response_characters"], 37)
+        self.assertEqual(diagnostics[0]["response_text"], '{"schema_version":"1.0","unfinished":')
+        self.assertEqual(
+            diagnostics[0]["response_sha256"],
+            hashlib.sha256('{"schema_version":"1.0","unfinished":'.encode("utf-8")).hexdigest(),
+        )
         self.assertEqual(len(diagnostics[0]["response_sha256"]), 64)
         self.assertTrue(diagnostics[0]["response_tail"].endswith('"unfinished":'))
+        self.assertEqual(
+            diagnostics[1]["response_text"],
+            self._generate("ENTRY POINT: INITIAL_PLAN"),
+        )
 
     def test_invalid_json_has_distinct_error_code_and_diagnostic(self):
         diagnostics = []
@@ -1379,6 +1389,18 @@ class LocalOllamaExecutorTests(unittest.TestCase):
         self.assertEqual(diagnostics[0]["outcome"], "invalid_json")
         self.assertEqual(diagnostics[0]["error_code"], "MODEL_OUTPUT_INVALID_JSON")
         self.assertEqual(diagnostics[0]["done_reason"], "stop")
+        self.assertEqual(diagnostics[0]["response_text"], '{"unfinished":')
+        self.assertEqual(
+            diagnostics[0]["response_characters"], len('{"unfinished":')
+        )
+        self.assertEqual(
+            diagnostics[0]["response_utf8_bytes"],
+            len('{"unfinished":'.encode("utf-8")),
+        )
+        self.assertEqual(
+            diagnostics[0]["response_sha256"],
+            hashlib.sha256('{"unfinished":'.encode("utf-8")).hexdigest(),
+        )
 
     def test_s1_query_terms_exact_duplicates_are_removed_deterministically(self):
         def generator(prompt):

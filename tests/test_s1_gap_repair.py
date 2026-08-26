@@ -1,4 +1,5 @@
 import copy
+import hashlib
 import importlib.util
 import json
 from pathlib import Path
@@ -380,6 +381,24 @@ class GapSpecificityRepairTests(unittest.TestCase):
         self.assertIn("rerank_query_text when provided, otherwise query_text", prompts[1])
         self.assertEqual(request["first_stage_query_text"], "예시법 적용 요건")
         self.assertEqual(request["rerank_query_text"], "예시법 구성 요건 법정 근거")
+        self.assertEqual(len(diagnostics), 2)
+        replan_diagnostic = diagnostics[0]
+        expected_replan_response = json.dumps(neutral_replan, ensure_ascii=False)
+        self.assertEqual(
+            replan_diagnostic["generation_kind"], "neutral_semantic_gap_replan"
+        )
+        self.assertEqual(replan_diagnostic["response_text"], expected_replan_response)
+        self.assertEqual(
+            replan_diagnostic["response_characters"], len(expected_replan_response)
+        )
+        self.assertEqual(
+            replan_diagnostic["response_utf8_bytes"],
+            len(expected_replan_response.encode("utf-8")),
+        )
+        self.assertEqual(
+            replan_diagnostic["response_sha256"],
+            hashlib.sha256(expected_replan_response.encode("utf-8")).hexdigest(),
+        )
         self.assertEqual(
             [event["kind"] for event in diagnostics[-1]["semantic_replan_events"]],
             [

@@ -1,3 +1,4 @@
+import hashlib
 import json
 import tempfile
 import unittest
@@ -59,14 +60,19 @@ class ExperimentRecordTests(unittest.TestCase):
                     selection_reason="request_top_k",
                 )
             ]
+            response_text = "첫 줄의 전체 응답🙂\n" + ("x" * 1024) + "\n마지막 줄"
+            response_bytes = response_text.encode("utf-8")
             record.record_skill_attempt(
                 {
                     "skill_id": "S1",
                     "attempt": 1,
                     "done_reason": "length",
                     "eval_count": 4096,
-                    "response_sha256": "d" * 64,
-                    "response_tail": "unfinished",
+                    "response_text": response_text,
+                    "response_characters": len(response_text),
+                    "response_utf8_bytes": len(response_bytes),
+                    "response_sha256": hashlib.sha256(response_bytes).hexdigest(),
+                    "response_tail": response_text[-512:],
                 }
             )
             record.trace_sink.record("RUN_STARTED", state)
@@ -90,10 +96,36 @@ class ExperimentRecordTests(unittest.TestCase):
             self.assertTrue((record.directory / "events.jsonl").is_file())
             self.assertEqual(result["record_schema_version"], "1.4")
             diagnostics = result["skill_generation_diagnostics"]
+            self.assertEqual(diagnostics["schema_version"], "1.1")
             self.assertEqual(diagnostics["attempt_file"], "skill_attempts.jsonl")
             self.assertEqual(diagnostics["attempt_count"], 1)
+            self.assertEqual(
+                diagnostics["response_retention"],
+                {
+                    "response_text": {
+                        "retention": "full",
+                        "encoding": "utf-8",
+                        "sha256_field": "response_sha256",
+                        "character_count_field": "response_characters",
+                        "utf8_byte_count_field": "response_utf8_bytes",
+                    },
+                    "response_tail": {
+                        "retention": "last_characters",
+                        "character_limit": 512,
+                    },
+                },
+            )
             attempts = (record.directory / "skill_attempts.jsonl").read_text(encoding="utf-8")
-            self.assertEqual(json.loads(attempts)["done_reason"], "length")
+            attempt = json.loads(attempts)
+            self.assertEqual(attempt["done_reason"], "length")
+            self.assertEqual(attempt["response_text"], response_text)
+            self.assertEqual(attempt["response_characters"], len(response_text))
+            self.assertEqual(attempt["response_utf8_bytes"], len(response_bytes))
+            self.assertEqual(
+                attempt["response_sha256"],
+                hashlib.sha256(attempt["response_text"].encode("utf-8")).hexdigest(),
+            )
+            self.assertEqual(attempt["response_tail"], response_text[-512:])
             self.assertIsNone(result["candidate_answer"])
             self.assertIsNone(result["candidate_answer_status"])
             self.assertEqual(
