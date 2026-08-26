@@ -1,34 +1,47 @@
 {
-  "created_at_utc": "2026-08-25T09:15:29.047620+00:00",
+  "created_at_utc": "2026-08-26T05:23:13.525792Z",
   "execution_policy": {
     "bm25_execution": "FORBIDDEN",
     "lf_eval_score_injection": "FORBIDDEN",
     "network": "OFFLINE_ONLY",
     "parser_execution": "FORBIDDEN",
-    "primary_retriever": "kure"
+    "primary_retriever": "kure",
+    "repair_collision_failsafe": "REQUIRED"
   },
   "generated": {
     "full": {
       "path": "frozen_manifests/v2_kure_full226.json",
-            "sha256": "6076f22478a944faeba6a09d1ee4d100815444efab06304cb2c5e3d989157ec4"
+      "sha256": "00c4705b27c23cfdf9f156d615e007d4876155e2e3ec930a4427fd21734c9685"
     },
     "reference": {
       "path": "frozen_manifests/v2_bm25_reference_full226.json",
-            "sha256": "2870e9b6b5285487a5b261b22d023650a245c813d48572fd965ef9174a49942e"
+      "sha256": "9f56f2099bc40bdf607c9d16c8479cc4b72f480d224247383727d6a7cbd75c94"
     },
     "smoke": {
       "path": "frozen_manifests/v2_kure_smoke3.json",
-            "sha256": "d6b305f7727c004bab04399af122b06bbdada46eaf080a07ebdb5ee6ebc527b2"
+      "sha256": "a6ca2e286d09d0eb61ca12b0daf474bd876b9020ac1b05a0138e7fd9113aad29"
     },
     "smoke_reference": {
       "path": "frozen_manifests/v2_bm25_reference_smoke3.json",
-            "sha256": "547351769becc91924bded72628a89dd67f9db6496778c12b4a5e005259e4f84"
+      "sha256": "1e01b446dffe48427c65c33319dd5950854d699a248eb5e83f538c9fcaa34694"
     }
+  },
+  "lineage": {
+    "c04_evidence_role_contract": "c04_core_auxiliary_roles_v1",
+    "c05_source_commit": "b27024cd15bf2692345670865c754608784ed7c4",
+    "c05_source_tree": "797897a99ec9e3da622aa313ce4bb3616c179423"
   },
   "primary_source_manifest": "/workspace/Legal-Harness/records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/kure_c5_prompt_stable_deterministic_backend_full226_20260825.json",
   "primary_source_manifest_sha256": "39aa8f397e886906829b6ec1f75f1c475111cbe2897c655eb83abab28c92791b",
   "reference_source_manifest": "/workspace/Legal-Harness/records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/bm25_reference_c5_prompt_stable_deterministic_backend_full226_20260825.json",
   "reference_source_manifest_sha256": "ca275c7d5a8ecf8b20e9f438bfa56a4fa894917c9d134c8df4bd3a4b00b30429",
+  "repair_collision_contract": {
+    "all_dropped": "existing_limited_or_abstain_no_state_mutation",
+    "bounded_neutral_replan": 1,
+    "mixed": "novel_only_dispatch",
+    "raw_history_duplicate": "invalid",
+    "repair_induced_history_collision": "typed_recovery"
+  },
   "smoke_entries": [
     {
       "n_hops": 1,
