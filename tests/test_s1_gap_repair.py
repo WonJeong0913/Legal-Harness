@@ -5,6 +5,7 @@ from pathlib import Path
 import unittest
 
 from harness.contracts import GapPlanRecovery, GapPlanRecoveryDisposition
+from harness.interfaces import SkillExecutionError
 from runtime.local_ollama_executor import LocalOllamaSkillExecutor
 
 
@@ -477,35 +478,39 @@ class GapSpecificityRepairTests(unittest.TestCase):
         self.assertEqual(recovery.dropped_request_ids, ["GRQ-R3-1"])
         self.assertEqual(recovery.remaining_request_count, 1)
 
-    def test_raw_history_duplicate_is_not_recovered(self):
-        executor = LocalOllamaSkillExecutor(
-            PROJECT_ROOT / "skills", "fixture-model", generator=lambda _prompt: "{}"
-        )
+    def test_execute_rejects_raw_history_duplicate_without_fallback(self):
         payload = gap_input()
         raw_query = "민법 권리남용 원칙 [원문 맥락] 관련 법정 근거의 적용 여부를 판단하라."
         payload["query_history"] = [{"request_id": "GRQ-R1-1", "query_text": raw_query}]
-        skill_input = executor._build_skill_input(
-            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
-        )
         duplicate = gap_output([gap_request("E1", raw_query, request_id="GRQ-R2-1")])
-        duplicate["run_id"] = payload["run_id"]
-        errors = executor._validators["legal_issue_and_query_planning"](
-            duplicate, skill_input
+        prompts, diagnostics = [], []
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills",
+            "fixture-model",
+            max_attempts=2,
+            generator=lambda prompt: (
+                prompts.append(prompt) or json.dumps(duplicate, ensure_ascii=False)
+            ),
+            diagnostic_sink=diagnostics.append,
         )
 
-        recovered, recovery = executor._repair_induced_history_collision_recovery(
-            "legal_issue_and_query_planning",
-            "GAP_QUERY_PLAN",
-            duplicate,
-            duplicate,
-            skill_input,
-            [],
-            errors,
-        )
+        with self.assertRaisesRegex(
+            SkillExecutionError, "query repeats query_history"
+        ):
+            executor.execute(
+                "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
+            )
 
-        self.assertEqual(errors, ["query repeats query_history: %s" % raw_query])
-        self.assertIsNone(recovered)
-        self.assertIsNone(recovery)
+        self.assertEqual(len(prompts), 2)
+        self.assertEqual(len(diagnostics), 2)
+        self.assertEqual(
+            [diagnostic["outcome"] for diagnostic in diagnostics],
+            ["validation_error", "validation_error"],
+        )
+        self.assertEqual(
+            [diagnostic["error"] for diagnostic in diagnostics],
+            ["query repeats query_history: %s" % raw_query] * 2,
+        )
 
     def test_c02_qa406_and_qa99_transcript_shapes_drop_only_repaired_history_collision(self):
         qa406_question = "갑이 을의 꽃 꺾기 행위에 대해 방해의 제거를 청구할 수 있는가? 또한, 갑에게 방해제거청구권이 인정되는 경우, 갑은 이를 남용할 수 있는가?"

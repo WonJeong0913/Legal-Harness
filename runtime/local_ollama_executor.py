@@ -537,7 +537,12 @@ class LocalOllamaSkillExecutor:
                 for item in self._list(skill_input, "query_history")
                 if isinstance(item, Mapping) and isinstance(item.get("query_text") or item.get("normalized_query"), str)
             }
-            emitted_queries = set(prior_queries)
+            # A copied historical query is a raw S1 validation error, not a
+            # transport defect to rewrite.  Keep the emitted-output dedupe
+            # separate so missing or same-output duplicate queries retain the
+            # existing deterministic fallback behavior, while a fallback is
+            # still prevented from choosing a prior query.
+            emitted_queries = set()
             for index, request in enumerate(requests, start=1):
                 if not isinstance(request, dict):
                     continue
@@ -552,7 +557,12 @@ class LocalOllamaSkillExecutor:
                 query = request.get("query_text")
                 contextual_query = self._with_source_context(query, skill_input)
                 if not isinstance(query, str) or self._normalized_query(contextual_query) in emitted_queries:
-                    query = self._fallback_gap_query(evidence, index, emitted_queries, skill_input)
+                    query = self._fallback_gap_query(
+                        evidence,
+                        index,
+                        prior_queries | emitted_queries,
+                        skill_input,
+                    )
                     contextual_query = self._with_source_context(query, skill_input)
                 request["query_text"] = contextual_query
                 emitted_queries.add(self._normalized_query(contextual_query))

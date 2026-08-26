@@ -258,6 +258,9 @@ class HarnessPathTests(unittest.TestCase):
         self.assertEqual(outcome.state.retrieval_rounds_used, 1)
         self.assertEqual(outcome.state.remaining_round_budget, 2)
         self.assertEqual(outcome.state.remaining_request_budget, 8)
+        # The initial uncovered coverage assessment already set this to one;
+        # all-dropped recovery must preserve it rather than advancing it.
+        self.assertEqual(outcome.state.no_progress_rounds, 1)
         self.assertEqual(len(outcome.state.query_history), 1)
         self.assertEqual(outcome.state.coverage_assessments[0].status.value, "uncovered")
         self.assertEqual(outcome.state.accepted_provision_ids, set())
