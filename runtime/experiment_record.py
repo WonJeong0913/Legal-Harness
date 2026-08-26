@@ -18,7 +18,7 @@ from runtime.source_snapshot import source_dirty_paths_from_porcelain
 
 
 RECORD_SCHEMA_VERSION = "1.4"
-RETRIEVAL_PROVENANCE_SCHEMA_VERSION = "1.0"
+RETRIEVAL_PROVENANCE_SCHEMA_VERSION = "1.1"
 SKILL_GENERATION_DIAGNOSTIC_SCHEMA_VERSION = "1.2"
 
 
@@ -176,6 +176,7 @@ class ExperimentRecord:
         completed_at = datetime.now(timezone.utc)
         state = to_primitive(outcome.state)
         stage_records = state.pop("retrieval_stage_records", [])
+        rerank_query_transforms = state.pop("rerank_query_transforms", [])
         stage_counts = Counter(
             record.get("candidate_stage", "unknown")
             for record in stage_records
@@ -188,13 +189,60 @@ class ExperimentRecord:
                 for record in stage_records:
                     handle.write(json.dumps(record, ensure_ascii=False, sort_keys=True))
                     handle.write("\n")
+        rerank_transform_file = None
+        if rerank_query_transforms:
+            rerank_transform_file = "canonical_rerank_query_transforms.jsonl"
+            with (self.directory / rerank_transform_file).open(
+                "w", encoding="utf-8"
+            ) as handle:
+                for transform in rerank_query_transforms:
+                    handle.write(
+                        json.dumps(transform, ensure_ascii=False, sort_keys=True)
+                    )
+                    handle.write("\n")
+        retrieval_provenance = {
+            "schema_version": RETRIEVAL_PROVENANCE_SCHEMA_VERSION,
+            "stage_file": stage_file,
+            "stage_record_counts": dict(sorted(stage_counts.items())),
+        }
+        if rerank_query_transforms:
+            retrieval_provenance["canonical_rerank_query"] = {
+                "schema_version": "1.0",
+                "transform_file": rerank_transform_file,
+                "transform_count": len(rerank_query_transforms),
+                "contract": {
+                    "source_field": "source",
+                    "allowed_sources": ["raw", "canonical_missing_only"],
+                    "request_fields": {
+                        "raw": "raw_request",
+                        "final": "final_request",
+                    },
+                    "integrity_fields": {
+                        "original_sha256": "original_rerank_query_sha256",
+                        "final_sha256": "final_rerank_query_sha256",
+                        "original_characters": "original_rerank_query_characters",
+                        "original_utf8_bytes": "original_rerank_query_utf8_bytes",
+                        "original_token_like_units": (
+                            "original_rerank_query_token_like_units"
+                        ),
+                        "final_characters": "final_rerank_query_characters",
+                        "final_utf8_bytes": "final_rerank_query_utf8_bytes",
+                        "final_token_like_units": (
+                            "final_rerank_query_token_like_units"
+                        ),
+                    },
+                    "bounds": {
+                        "max_characters_field": "max_characters",
+                        "max_token_like_units_field": "max_token_like_units",
+                        "canonical_output_within_bounds_field": (
+                            "canonical_output_within_bounds"
+                        ),
+                    },
+                },
+            }
         result = {
             "record_schema_version": RECORD_SCHEMA_VERSION,
-            "retrieval_provenance": {
-                "schema_version": RETRIEVAL_PROVENANCE_SCHEMA_VERSION,
-                "stage_file": stage_file,
-                "stage_record_counts": dict(sorted(stage_counts.items())),
-            },
+            "retrieval_provenance": retrieval_provenance,
             "skill_generation_diagnostics": {
                 "schema_version": SKILL_GENERATION_DIAGNOSTIC_SCHEMA_VERSION,
                 "attempt_file": (

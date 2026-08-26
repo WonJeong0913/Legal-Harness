@@ -106,6 +106,24 @@ class RetrieverComparisonGuardTests(unittest.TestCase):
         self.assertTrue(
             resolved["retrieval_stage_provenance_required_for_evaluation"]
         )
+        self.assertFalse(resolved["canonical_rerank_query_missing_only"])
+        self.assertEqual(resolved["canonical_rerank_query_max_characters"], 512)
+        self.assertEqual(resolved["canonical_rerank_query_max_token_like_units"], 96)
+
+    def test_canonical_rerank_configuration_is_comparison_guarded(self):
+        primary = self._manifest("kure")
+        reference = self._manifest("bm25")
+        primary["frozen_configuration"][
+            "canonical_rerank_query_missing_only"
+        ] = True
+
+        with self.assertRaisesRegex(
+            RuntimeError,
+            "configuration mismatch outside allowed fields: canonical_rerank_query_missing_only",
+        ):
+            validate_retriever_comparison(
+                primary, reference, Path("kure.json"), Path("bm25.json")
+            )
 
 
 if __name__ == "__main__":

@@ -38,6 +38,37 @@ from tools.validate_citation_integrity import CitationIntegrityChecker
 
 
 
+def _positive_int(value: str) -> int:
+    try:
+        parsed = int(value)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError("must be a positive integer") from exc
+    if parsed < 1:
+        raise argparse.ArgumentTypeError("must be a positive integer")
+    return parsed
+
+
+def _canonical_rerank_config_kwargs(args: argparse.Namespace) -> Dict[str, Any]:
+    enabled = getattr(args, "canonical_rerank_query_missing_only", False)
+    max_characters = getattr(args, "canonical_rerank_query_max_characters", 512)
+    max_token_like_units = getattr(
+        args, "canonical_rerank_query_max_token_like_units", 96
+    )
+    if not isinstance(enabled, bool):
+        raise ValueError("canonical_rerank_query_missing_only must be a boolean")
+    for value, label in (
+        (max_characters, "canonical_rerank_query_max_characters"),
+        (max_token_like_units, "canonical_rerank_query_max_token_like_units"),
+    ):
+        if isinstance(value, bool) or not isinstance(value, int) or value < 1:
+            raise ValueError("%s must be a positive integer" % label)
+    return {
+        "canonical_rerank_query_missing_only": enabled,
+        "canonical_rerank_query_max_characters": max_characters,
+        "canonical_rerank_query_max_token_like_units": max_token_like_units,
+    }
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("question", help="Korean statutory question to run")
@@ -69,6 +100,21 @@ def parse_args() -> argparse.Namespace:
         "--rerank-query-mode",
         choices=("combined_issue", "per_request"),
         default="combined_issue",
+    )
+    parser.add_argument(
+        "--canonical-rerank-query-missing-only",
+        action="store_true",
+        help="opt in to a bounded harness-owned BGE query only when S1 omitted it",
+    )
+    parser.add_argument(
+        "--canonical-rerank-query-max-characters",
+        type=_positive_int,
+        default=512,
+    )
+    parser.add_argument(
+        "--canonical-rerank-query-max-token-like-units",
+        type=_positive_int,
+        default=96,
     )
     parser.add_argument(
         "--candidate-selection",
@@ -182,6 +228,15 @@ def build_frozen_run_args(
         rerank_pool_k=configuration.get("rerank_pool_k", 100),
         final_top_k=configuration.get("final_top_k", 10),
         rerank_query_mode=configuration.get("rerank_query_mode", "combined_issue"),
+        canonical_rerank_query_missing_only=configuration.get(
+            "canonical_rerank_query_missing_only", False
+        ),
+        canonical_rerank_query_max_characters=configuration.get(
+            "canonical_rerank_query_max_characters", 512
+        ),
+        canonical_rerank_query_max_token_like_units=configuration.get(
+            "canonical_rerank_query_max_token_like_units", 96
+        ),
         candidate_selection=configuration.get("candidate_selection", "global_top_k"),
         per_evidence_min_k=configuration.get("per_evidence_min_k", 1),
         candidate_budget_scope=configuration.get("candidate_budget_scope", "per_issue"),
@@ -230,6 +285,7 @@ class PersistentHarnessResources:
     """
 
     def __init__(self, args: argparse.Namespace):
+        _canonical_rerank_config_kwargs(args)
         assert_skill_layout_complete(args.skills_root)
         self.corpus = InMemoryProvisionCorpus.from_jsonl(
             PROJECT_ROOT / "data/koblex/normalized/statute.jsonl"
@@ -250,6 +306,7 @@ class PersistentHarnessResources:
             config=HarnessConfig(
                 total_retrieval_rounds=args.rounds,
                 total_retrieval_requests=args.requests,
+                **_canonical_rerank_config_kwargs(args),
             ),
             trace_sink=record.trace_sink,
         )
@@ -258,6 +315,7 @@ class PersistentHarnessResources:
 def _build_fresh_runner(
     args: argparse.Namespace, record: ExperimentRecord
 ) -> HarnessRunner:
+    _canonical_rerank_config_kwargs(args)
     assert_skill_layout_complete(args.skills_root)
     corpus = InMemoryProvisionCorpus.from_jsonl(
         PROJECT_ROOT / "data/koblex/normalized/statute.jsonl"
@@ -269,6 +327,7 @@ def _build_fresh_runner(
         config=HarnessConfig(
             total_retrieval_rounds=args.rounds,
             total_retrieval_requests=args.requests,
+            **_canonical_rerank_config_kwargs(args),
         ),
         trace_sink=record.trace_sink,
     )
@@ -281,6 +340,7 @@ def run_question(
     resources: Optional[PersistentHarnessResources] = None,
 ) -> LocalHarnessExecution:
     """Execute one question with fresh or sequentially shared resources."""
+    _canonical_rerank_config_kwargs(args)
     source_snapshot = source_snapshot or capture_clean_source_snapshot(PROJECT_ROOT)
     if (
         args.expected_git_commit is not None
@@ -309,6 +369,7 @@ def run_question(
         "candidate_budget_scope": args.candidate_budget_scope,
         "round_merge_mode": getattr(args, "round_merge_mode", "raw_score"),
         "rerank_query_mode": args.rerank_query_mode,
+        **_canonical_rerank_config_kwargs(args),
         "candidate_selection": args.candidate_selection,
         "per_evidence_min_k": args.per_evidence_min_k,
         "dedup_mode": args.dedup_mode,

@@ -417,3 +417,47 @@ class FrozenArgumentParityTests(unittest.TestCase):
             self.assertEqual(child_values[flag], str(value), flag)
         self.assertEqual(args.skills_root, local.PROJECT_ROOT / "skills")
         self.assertIsNone(args.result_file)
+
+    def test_canonical_rerank_cli_rejects_nonpositive_bounds(self):
+        with patch(
+            "sys.argv",
+            [
+                "run_local_harness.py",
+                "question",
+                "--canonical-rerank-query-max-characters",
+                "0",
+            ],
+        ):
+            with self.assertRaises(SystemExit):
+                local.parse_args()
+
+    def test_canonical_rerank_opt_in_is_frozen_for_direct_and_child_paths(self):
+        configuration = frozen_configuration()
+        configuration.update({
+            "canonical_rerank_query_missing_only": True,
+            "canonical_rerank_query_max_characters": 321,
+            "canonical_rerank_query_max_token_like_units": 45,
+        })
+        snapshot = SourceSnapshot("a" * 40, "b" * 40, "c" * 64)
+        command = batch.build_run_command(
+            Path("/python"), "question", "q1", configuration, Path("/records"), snapshot
+        )
+        args = local.build_frozen_run_args(
+            "question", "q1", configuration, Path("/records"),
+            snapshot.git_commit, snapshot.source_manifest_sha256,
+        )
+
+        self.assertIn("--canonical-rerank-query-missing-only", command)
+        self.assertEqual(
+            command[command.index("--canonical-rerank-query-max-characters") + 1],
+            "321",
+        )
+        self.assertEqual(
+            command[
+                command.index("--canonical-rerank-query-max-token-like-units") + 1
+            ],
+            "45",
+        )
+        self.assertTrue(args.canonical_rerank_query_missing_only)
+        self.assertEqual(args.canonical_rerank_query_max_characters, 321)
+        self.assertEqual(args.canonical_rerank_query_max_token_like_units, 45)

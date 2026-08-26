@@ -161,7 +161,7 @@ def build_run_command(
     source_snapshot: SourceSnapshot,
 ) -> List[str]:
     """Build one child run command without consulting mutable batch state."""
-    return [
+    command = [
         str(python),
         str(PROJECT_ROOT / "scripts/run_local_harness.py"),
         benchmark_input,
@@ -215,6 +215,15 @@ def build_run_command(
         "--expected-git-commit", source_snapshot.git_commit,
         "--expected-source-manifest-sha256", source_snapshot.source_manifest_sha256,
     ]
+    if configuration.get("canonical_rerank_query_missing_only", False):
+        command.extend([
+            "--canonical-rerank-query-missing-only",
+            "--canonical-rerank-query-max-characters",
+            str(configuration.get("canonical_rerank_query_max_characters", 512)),
+            "--canonical-rerank-query-max-token-like-units",
+            str(configuration.get("canonical_rerank_query_max_token_like_units", 96)),
+        ])
+    return command
 
 
 def record_directories(root: Path) -> Set[Path]:

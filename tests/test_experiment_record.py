@@ -230,5 +230,76 @@ class ExperimentRecordTests(unittest.TestCase):
             self.assertEqual(result["candidate_limitations"][0]["code"], "L1")
 
 
+    def test_writes_canonical_rerank_query_transform_sidecar_and_contract(self):
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            project = root / "project"
+            skills = project / "skills"
+            skills.mkdir(parents=True)
+            record = ExperimentRecord(
+                record_root=root / "records",
+                run_id="run-canonical-rerank",
+                project_root=project,
+                skills_root=skills,
+                configuration={
+                    "canonical_rerank_query_missing_only": True,
+                    "canonical_rerank_query_max_characters": 512,
+                    "canonical_rerank_query_max_token_like_units": 96,
+                },
+                question="질문",
+                question_id="qa150-shape",
+            )
+            state = RunState(
+                question="질문",
+                normalized_question="질문",
+                run_id="run-canonical-rerank",
+            )
+            state.rerank_query_transforms = [{
+                "schema_version": "1.0",
+                "request_id": "RQ-I1-01",
+                "source": "canonical_missing_only",
+                "original_rerank_query_sha256": hashlib.sha256(b"").hexdigest(),
+                "original_rerank_query_characters": 0,
+                "original_rerank_query_utf8_bytes": 0,
+                "final_rerank_query_sha256": hashlib.sha256(
+                    "원자 요건".encode("utf-8")
+                ).hexdigest(),
+                "final_rerank_query_characters": 5,
+                "final_rerank_query_utf8_bytes": len("원자 요건".encode("utf-8")),
+                "final_rerank_query_token_like_units": 2,
+                "max_characters": 512,
+                "max_token_like_units": 96,
+                "raw_request": {"query_text": "배경 전체", "rerank_query_text": None},
+                "final_request": {
+                    "query_text": "배경 전체",
+                    "rerank_query_text": "원자 요건",
+                },
+            }]
+            result_path = record.finalize(
+                HarnessOutcome(status=OutcomeStatus.ABSTAIN, state=state)
+            )
+
+            result = json.loads(result_path.read_text(encoding="utf-8"))
+            provenance = result["retrieval_provenance"]
+            self.assertEqual(provenance["schema_version"], "1.1")
+            contract = provenance["canonical_rerank_query"]
+            self.assertEqual(
+                contract["contract"]["allowed_sources"],
+                ["raw", "canonical_missing_only"],
+            )
+            self.assertEqual(contract["transform_file"], "canonical_rerank_query_transforms.jsonl")
+            self.assertEqual(contract["transform_count"], 1)
+            self.assertNotIn("rerank_query_transforms", result["state"])
+            sidecar = record.directory / contract["transform_file"]
+            saved = json.loads(sidecar.read_text(encoding="utf-8"))
+            self.assertEqual(saved["source"], "canonical_missing_only")
+            self.assertEqual(
+                saved["final_rerank_query_sha256"],
+                hashlib.sha256(
+                    saved["final_request"]["rerank_query_text"].encode("utf-8")
+                ).hexdigest(),
+            )
+
+
 if __name__ == "__main__":
     unittest.main()

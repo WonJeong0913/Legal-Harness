@@ -20,6 +20,11 @@ from .contracts import (
     S2LegacyProjectionDiagnostic,
     TerminationReason,
 )
+from .canonical_rerank_query import (
+    DEFAULT_CANONICAL_RERANK_QUERY_MAX_CHARACTERS,
+    DEFAULT_CANONICAL_RERANK_QUERY_MAX_TOKEN_LIKE_UNITS,
+    canonicalize_missing_rerank_query,
+)
 from .interfaces import CitationIntegrityValidator, ProvisionRetriever, SkillExecutor
 from .policy import abstention_reason_for, decide_next_action
 from .run_state import RunState
@@ -80,12 +85,30 @@ MAX_CANDIDATE_CROSS_REFERENCES_PER_PROVISION = 12
 class HarnessConfig:
     total_retrieval_rounds: int = 3
     total_retrieval_requests: int = 9
+    canonical_rerank_query_missing_only: bool = False
+    canonical_rerank_query_max_characters: int = (
+        DEFAULT_CANONICAL_RERANK_QUERY_MAX_CHARACTERS
+    )
+    canonical_rerank_query_max_token_like_units: int = (
+        DEFAULT_CANONICAL_RERANK_QUERY_MAX_TOKEN_LIKE_UNITS
+    )
 
     def __post_init__(self) -> None:
         if self.total_retrieval_rounds < 1:
             raise ValueError("total_retrieval_rounds must include the initial round")
         if self.total_retrieval_requests < 1:
             raise ValueError("total_retrieval_requests must be positive")
+        if not isinstance(self.canonical_rerank_query_missing_only, bool):
+            raise ValueError("canonical_rerank_query_missing_only must be a boolean")
+        for value, label in (
+            (self.canonical_rerank_query_max_characters, "canonical rerank max characters"),
+            (
+                self.canonical_rerank_query_max_token_like_units,
+                "canonical rerank max token-like units",
+            ),
+        ):
+            if isinstance(value, bool) or not isinstance(value, int) or value < 1:
+                raise ValueError("%s must be a positive integer" % label)
 
 
 @dataclass
@@ -180,11 +203,24 @@ class HarnessRunner:
             if len(initial_requests) > state.remaining_request_budget:
                 raise ValidationError("initial retrieval requests exceed the frozen request budget")
             apply_initial_plan(state, issues, evidence_items, answer_targets)
-            self._trace("INITIAL_PLAN_VALIDATED", state, retrieval_request_count=len(initial_requests))
+            raw_initial_requests = list(initial_requests)
+            retrieval_initial_requests = self._canonicalize_missing_rerank_queries(
+                state, initial_requests, is_gap=False
+            )
+            self._trace(
+                "INITIAL_PLAN_VALIDATED",
+                state,
+                retrieval_request_count=len(retrieval_initial_requests),
+            )
         except (ValidationError, StateInvariantError, RuntimeError) as exc:
             return self._failure(state, TerminationReason.INVALID_SKILL_OUTPUT, exc)
 
-        retrieval_error = self._retrieve(state, initial_requests, is_gap=False)
+        retrieval_error = self._retrieve(
+            state,
+            retrieval_initial_requests,
+            is_gap=False,
+            state_requests=raw_initial_requests,
+        )
         if retrieval_error:
             return retrieval_error
 
@@ -294,17 +330,82 @@ class HarnessRunner:
                     )
                     return self._generate_and_validate(state)
                 return self._abstain(state, TerminationReason.RETRIEVAL_BUDGET_EXHAUSTED)
-            retrieval_error = self._retrieve(state, gap_requests, is_gap=True)
+            raw_gap_requests = list(gap_requests)
+            try:
+                retrieval_gap_requests = self._canonicalize_missing_rerank_queries(
+                    state, gap_requests, is_gap=True
+                )
+            except ValidationError as exc:
+                return self._failure(
+                    state, TerminationReason.INVALID_SKILL_OUTPUT, exc
+                )
+            retrieval_error = self._retrieve(
+                state,
+                retrieval_gap_requests,
+                is_gap=True,
+                state_requests=raw_gap_requests,
+            )
             if retrieval_error:
                 return retrieval_error
+
+    def _canonicalize_missing_rerank_queries(
+        self,
+        state: RunState,
+        requests: Sequence,
+        *,
+        is_gap: bool,
+    ) -> List:
+        # Raw S1 requests remain the validator/history truth. This opt-in path
+        # returns separate retriever copies and records their bounded audit.
+        if not self.config.canonical_rerank_query_missing_only:
+            return list(requests)
+        transformed = []
+        audits = []
+        evidence_by_id = state.evidence_by_id()
+        answer_targets_by_id = state.answer_target_by_id()
+        for request in requests:
+            transformed_request, audit = canonicalize_missing_rerank_query(
+                request,
+                evidence_by_id,
+                answer_targets_by_id,
+                max_characters=self.config.canonical_rerank_query_max_characters,
+                max_token_like_units=(
+                    self.config.canonical_rerank_query_max_token_like_units
+                ),
+            )
+            audit["plan_kind"] = "gap" if is_gap else "initial"
+            audit["retrieval_round"] = state.retrieval_rounds_used + 1
+            transformed.append(transformed_request)
+            audits.append(audit)
+        state.rerank_query_transforms.extend(audits)
+        state.record(
+            "CANONICAL_RERANK_QUERY_TRANSFORMED",
+            plan_kind="gap" if is_gap else "initial",
+            request_ids=[request.request_id for request in transformed],
+            sources=[audit["source"] for audit in audits],
+        )
+        self._trace(
+            "CANONICAL_RERANK_QUERY_TRANSFORMED",
+            state,
+            plan_kind="gap" if is_gap else "initial",
+            request_count=len(transformed),
+            canonical_missing_only_count=sum(
+                1 for audit in audits if audit["source"] == "canonical_missing_only"
+            ),
+        )
+        return transformed
 
     def _retrieve(
         self,
         state: RunState,
         requests: Sequence,
         is_gap: bool,
+        *,
+        state_requests: Optional[Sequence] = None,
     ) -> Optional[HarnessOutcome]:
+        """Retrieve copied BGE requests while retaining raw S1 requests in state."""
         retrieval_round = state.retrieval_rounds_used + 1
+        state_requests = list(state_requests) if state_requests is not None else requests
         try:
             critical_evidence_item_ids = [
                 item.evidence_item_id
@@ -316,7 +417,9 @@ class HarnessRunner:
                 retrieval_round,
                 critical_evidence_item_ids=critical_evidence_item_ids,
             )
-            validate_retrieval_candidates(candidates, requests, retrieval_round)
+            validate_retrieval_candidates(
+                candidates, state_requests, retrieval_round
+            )
             stage_records = list(
                 getattr(self.retriever, "last_stage_records", ())
             )
@@ -331,11 +434,11 @@ class HarnessRunner:
             ):
                 dedup_removed_count = 0
             validate_retrieval_stage_records(
-                stage_records, requests, retrieval_round
+                stage_records, state_requests, retrieval_round
             )
             register_retrieval_round(
                 state,
-                requests,
+                state_requests,
                 candidates,
                 is_gap=is_gap,
                 candidate_stage_records=stage_records,

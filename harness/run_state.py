@@ -1,7 +1,7 @@
 """Mutable run state and derived evidence-control fields."""
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional, Set
 
 from .contracts import (
     ActionTrace,
@@ -61,6 +61,8 @@ class RunState:
     answered_target_ids: List[str] = field(default_factory=list)
     deferred_target_ids: List[str] = field(default_factory=list)
     action_trace: List[ActionTrace] = field(default_factory=list)
+    # Harness-owned BGE-only request copies. Raw S1 requests remain unchanged.
+    rerank_query_transforms: List[Dict[str, Any]] = field(default_factory=list)
 
     def candidate_by_id(self) -> Dict[str, CandidateProvision]:
         return {candidate.provision_id: candidate for candidate in self.candidate_provisions}
