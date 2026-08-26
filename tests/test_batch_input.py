@@ -6,6 +6,7 @@ from scripts.run_bm25_bge_pilot_batch import (
     PROJECT_ROOT,
     build_run_command,
     format_benchmark_input,
+    recorded_path,
     resolve_batch_log_root,
 )
 
@@ -83,5 +84,13 @@ class BatchInputTests(unittest.TestCase):
     def test_absolute_batch_log_root_is_preserved(self):
         absolute_root = (PROJECT_ROOT / "records/batches/regression-absolute").resolve()
         self.assertEqual(resolve_batch_log_root(absolute_root), absolute_root)
+
+    def test_recorded_path_is_project_relative_when_inside_project(self):
+        path = PROJECT_ROOT / "skills/skill-pack-manifest.json"
+        self.assertEqual(recorded_path(path), "skills/skill-pack-manifest.json")
+
+    def test_recorded_path_is_stable_absolute_when_outside_project(self):
+        external_path = Path("/tmp/c19-external-batch/01_q1.log")
+        self.assertEqual(recorded_path(external_path), str(external_path.resolve()))
 if __name__ == "__main__":
     unittest.main()

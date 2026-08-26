@@ -74,6 +74,15 @@ def sha256(path: Path) -> str:
             digest.update(chunk)
     return digest.hexdigest()
 
+
+def recorded_path(path: Path, project_root: Path = PROJECT_ROOT) -> str:
+    """Use a project-relative path when possible, otherwise a stable absolute path."""
+    resolved_path = path.resolve()
+    try:
+        return str(resolved_path.relative_to(project_root.resolve()))
+    except ValueError:
+        return str(resolved_path)
+
 KURE_PROVENANCE_ARTIFACTS = (
     ("normalized_corpus_path", "normalized_corpus_sha256"),
     ("vectors_path", "vectors_sha256"),
@@ -337,7 +346,7 @@ def main() -> int:
     batch_metadata = {
         "batch_id": batch_id,
         "started_at_utc": utc_now(),
-        "manifest": str(manifest_path.relative_to(PROJECT_ROOT)),
+        "manifest": recorded_path(manifest_path),
         "source_snapshot": source_snapshot.to_dict(),
         "manifest_sha256": sha256(manifest_path),
         "batch_manifest_sha256": sha256(batch_manifest_path),
@@ -437,7 +446,7 @@ def main() -> int:
                 "started_at_utc": started_at,
                 "completed_at_utc": utc_now(),
                 "exit_code": exit_code,
-                "log_file": str(log_path.relative_to(PROJECT_ROOT)),
+                "log_file": recorded_path(log_path),
                 **outcome,
             }
             summary.write(json.dumps(summary_row, ensure_ascii=False) + "\n")
