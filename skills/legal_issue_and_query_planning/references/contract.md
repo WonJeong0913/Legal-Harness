@@ -58,7 +58,10 @@ is not a search target.
 
 - `query_text`: the backward-compatible focused query.
 - `query_terms`: 2-6 unique exact legal nouns or phrases.
-- `statute_hints`: tentative statute or article names supported by the question.
+- `statute_hints`: tentative statute or article names only when directly named
+  by the question or a supplied mode-allowed input. Do not infer a special
+  statute from facts or replace an uncertain special statute with a general
+  statute; if direct support is uncertain, omit the hint.
 - `first_stage_query_text`: optional broad first-stage wording.
 - `rerank_query_text`: optional answer target plus one atomic requirement for BGE.
 

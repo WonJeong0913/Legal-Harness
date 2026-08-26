@@ -44,6 +44,7 @@ C02_BATCH_RELATIVE = Path("batches/c02e281-targeted-resume-ord042-054-061-226-20
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 GIT_RE = re.compile(r"^[0-9a-f]{40}$")
 INITIAL_REQUEST_RE = re.compile(r"^RQ[1-9][0-9]*$")
+STATUTE_NAME_RE = re.compile(r"(?<![가-힣])([가-힣][가-힣·ㆍ ]{0,48}?(?:법률|법|시행령|시행규칙))(?![가-힣])")
 S1_SKILL = "legal_issue_and_query_planning"
 S1_ENTRY_POINT = "INITIAL_PLAN"
 FORBIDDEN_STAGES = frozenset({
@@ -113,7 +114,7 @@ QUESTION_PROFILES: Dict[str, Dict[str, Any]] = {
         "class": "positive_unasked_fallback_removed", "sequence": 73, "ordinal": 131, "n_hops": 3,
         "run_id": "4c420b6d-9294-415c-8a13-f78f5ba2f454", "receipt": "073_ord131_qa_209_3hop_360.json",
         "hashes": ("2a21c28939e22e2d9bdca2538579ff2ddca022fab0899298fc59aad9da8462c3", "2870d7364f9b2bd280882321d935c02f30068a7aa7370a2a010c7ac9984f6a80", "eca7ae4c2c72f0395684caa7331d67f338fd64568fbfa93fae80e411a978ee14"),
-        "assertions": [{"kind": "at_most", "counts": {"answer_targets": 1, "issues": 2, "evidence_items": 2, "queries": 2}}, {"kind": "all_targets_have_critical_evidence"}],
+        "assertions": [{"kind": "distinct_critical_obligations"}, {"kind": "all_targets_have_critical_evidence"}],
     },
     "qa_2_1hop_4": {
         "class": "positive_unasked_definition_lane_removed", "sequence": 75, "ordinal": 133, "n_hops": 1,
@@ -379,6 +380,30 @@ def _full_diff(baseline: Mapping[str, Any], candidate: Mapping[str, Any]) -> Lis
     return list(difflib.unified_diff(before, after, fromfile="saved_baseline_plan", tofile="candidate_s1_initial_plan", lineterm=""))
 
 
+def _normalized_text(value: str) -> str:
+    return re.sub(r"\s+", "", value).casefold()
+
+
+def _assert_direct_statute_hint_support(candidate: Mapping[str, Any], *, question: str,
+                                        allowed_inputs: Sequence[str] = ()) -> None:
+    """Reject a named-law hint absent from the trusted prompt inputs.
+
+    The saved S1 replay restores only the question, but keeping the allowed
+    input parameter makes the guard match the S1 contract without authorizing
+    a fact-derived special-law guess or general-law substitution.
+    """
+    support_texts = [_normalized_text(question)]
+    support_texts.extend(_normalized_text(value) for value in allowed_inputs)
+    for request in _list(candidate.get("retrieval_requests"), "candidate retrieval requests"):
+        request_item = _mapping(request, "candidate retrieval request")
+        for hint in _list(request_item.get("statute_hints", []), "candidate statute_hints"):
+            hint_text = _string(hint, "candidate statute hint")
+            for statute_name in STATUTE_NAME_RE.findall(hint_text):
+                normalized_name = _normalized_text(statute_name)
+                if not any(normalized_name in source for source in support_texts):
+                    raise ReplayError("candidate statute hint names a law not directly supported by trusted input")
+
+
 def _assert_profile(profile: Mapping[str, Any], candidate: Mapping[str, Any]) -> List[Dict[str, Any]]:
     counts = _counts(candidate)
     outcomes: List[Dict[str, Any]] = []
@@ -404,6 +429,20 @@ def _assert_profile(profile: Mapping[str, Any], candidate: Mapping[str, Any]) ->
             missing = sorted(target for target in targets if target not in covered)
             passed = not missing
             detail["missing_target_ids"] = missing
+        elif kind == "distinct_critical_obligations":
+            signatures: Dict[Tuple[Tuple[str, ...], Tuple[str, ...]], List[str]] = {}
+            for evidence in _list(candidate.get("required_evidence_items"), "candidate evidence"):
+                evidence_item = _mapping(evidence, "candidate evidence item")
+                if evidence_item.get("critical") is not True:
+                    continue
+                target_ids = tuple(sorted(_string(target, "critical evidence target id") for target in _list(evidence_item.get("answer_target_ids", []), "critical evidence target ids")))
+                requirements = tuple(sorted(_normalized_text(_string(_mapping(requirement, "critical completion requirement").get("text"), "critical completion requirement text")) for requirement in _list(evidence_item.get("completion_requirements", []), "critical completion requirements")))
+                if not target_ids or not requirements:
+                    raise ReplayError("critical evidence must have target-linked atomic completion requirements")
+                signatures.setdefault((target_ids, requirements), []).append(_string(evidence_item.get("evidence_item_id"), "critical evidence item id"))
+            duplicates = sorted(item_ids for item_ids in signatures.values() if len(item_ids) > 1)
+            passed = not duplicates
+            detail["duplicate_critical_evidence_item_ids"] = duplicates
         else:
             raise ReplayError("unknown profile assertion kind: %s" % kind)
         outcomes.append({**detail, "passed": passed})
@@ -547,6 +586,7 @@ def replay_saved_s1_initial_plan(*, source_result: Path, source_metadata: Path,
         validate_initial_plan(candidate_raw, question=payload["question"], include_answer_targets=True)
     except (ValidationError, ValueError) as exc:
         raise ReplayError("candidate S1 INITIAL_PLAN failed deterministic validation: %s" % exc) from exc
+    _assert_direct_statute_hint_support(candidate_raw, question=payload["question"])
     candidate_plan = _project_plan(candidate_raw)
     baseline_counts, candidate_counts = _counts(source.baseline_plan), _counts(candidate_plan)
     assertions = _assert_profile(_profile(question_id), candidate_plan)

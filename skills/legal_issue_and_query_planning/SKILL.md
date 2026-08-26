@@ -45,7 +45,11 @@ output schema.
    request. Add another request only for a genuinely different statutory route,
    exception, or cross-reference, within the supplied limit. Follow the
    contract's retrieval query-field rules and do not restate the whole question
-   in each field.
+   in each field. Retain a law or statute name in `statute_hints` only when the
+   question or a supplied mode-allowed input directly names it. Do not infer a
+   special statute from facts or replace an uncertain special statute with a
+   general statute; when direct support is uncertain, omit the hint and keep
+   the query neutral.
 6. In `GAP_QUERY_PLAN`, target only supplied unresolved statute evidence. Do not
    search for `missing_fact` or `scope_excess`. Center each request on one
    unsatisfied atomic completion requirement, and vary a material legal relation
