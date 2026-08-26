@@ -52,9 +52,13 @@ audit-only and cannot clear coverage.
 
 The compact model transport will remove assessment-level legacy `status`,
 `partial_kind`, and `governing_legal_regime`, plus model-authored
-`missing_evidence_items` and `evidence_conflicts` ledgers.  The harness will
-derive their public/state projections only after semantic validation.  In
-particular, `governing_legal_regime` is a projection of validated
+`missing_evidence_items` and `evidence_conflicts` ledgers.  Validation order is
+fixed: first fail closed on a complete raw axes tuple, valid enums, and an
+allowed tuple; then derive or suppress only presentation projections; then run
+the existing full semantic validator over criteria, links, roles,
+direct-entailment, and the derived ledgers.  Projection derivation never
+replaces full semantic validation.  In particular, `governing_legal_regime` is
+a projection of validated
 `legal_status` using the frozen legal-regime mapping; it is not newly inferred
 from a question or statute.  Links, role choices, criterion results, and the
 atomic axes are not repairable presentation fields.
@@ -70,12 +74,14 @@ The canonical mapping is exactly:
 | `partially_covered` | `not_assessed` | `missing_statute` | `partially_covered` | `legal_support_gap` |
 | `uncovered` | `not_assessed` | `missing_statute` | `uncovered` | `not_applicable` |
 | `conflicting` | `not_assessed` | `conflict` | `conflicting` | `not_applicable` |
+| `uncovered` | `not_assessed` | `scope_excess` | `uncovered` | `not_applicable` |
 
-`scope_excess` retains its existing non-core boundary meaning.  C06 must
-specify and validate its existing permitted tuple explicitly; it must not
-silently coerce it to coverage, partial coverage, a factual condition, or a
-different gap type.  This is a fail-closed case until its current semantic
-contract is represented exactly.
+The `scope_excess` row is permitted **only** for an input evidence item with
+`critical=false`.  It retains its existing non-core boundary meaning.  A
+critical item, or any tuple other than
+`uncovered/not_assessed/scope_excess`, is invalid; it must not be silently
+coerced to coverage, partial coverage, a factual condition, or a different gap
+type.
 
 The harness derives the missing ledger from the resulting canonical status:
 every assessment other than `covered` appears once, with its validated
@@ -116,6 +122,14 @@ following without a model or retriever invocation:
 - action traces demonstrate exactly S1 -> S2 -> S3 and show no prohibited
   mutation from projection derivation.
 
+After C06 source freeze but before the blind holdout, run the disclosed c03
+ordinal 21 exact question twice in fresh offline KURE/Qwen3.8 Q8 runtime
+roots.  Do not inspect or use its gold, evaluator, or quality fields.  Both
+runs must reach a normal terminal status (not a source, validation, or
+execution failure), have the exact S1 -> S2 -> S3 order, emit the projection
+event where applicable, and show no prohibited mutation.  This disclosed
+regression gate is not a quality comparison.
+
 ## Quality-blinded preregistered holdout
 
 The full-manifest ordinals 121--140 are preregistered as the new blind
@@ -135,10 +149,12 @@ Each run must have zero terminal execution/validation/source failures, exact
 Post-run evaluation records citation, core-provision, authorized-role-union,
 and token metrics transparently; it must not conceal auxiliary evidence.
 The repeat gate records status stability, authorized role-union stability, and
-trace/projection-event integrity.  Any comparison with c05 must use only the
-same IDs and frozen configuration.  No broader execution is authorized until
-all run records, evaluator outputs, trace audit, and manifest/source hashes
-are preserved.
+trace/projection-event integrity.  A normal exact-20 c05 reference permits a
+comparison only on the same IDs and frozen configuration.  If that reference
+is abnormal, preserve its root immutably as an invalid baseline, continue the
+two independent c06 blocks, and make no c05 exact-20 comparative score claim.
+No broader execution is authorized until all run records, evaluator outputs,
+trace audit, and manifest/source hashes are preserved.
 
 ## Sequencing
 
