@@ -21,6 +21,7 @@ import urllib.request
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence, Tuple
 
+from harness.contracts import GapPlanRecovery, GapPlanRecoveryDisposition
 from harness.interfaces import SkillExecutionError
 
 
@@ -175,7 +176,65 @@ class LocalOllamaSkillExecutor:
                 )
                 if scope_mismatches:
                     diagnostic["semantic_scope_mismatches"] = scope_mismatches
-                if (
+                recovery_output, gap_plan_recovery = (
+                    self._repair_induced_history_collision_recovery(
+                        skill_name,
+                        entry_point,
+                        unrepaired_skill_output,
+                        skill_output,
+                        skill_input,
+                        deterministic_repairs,
+                        validation_errors,
+                    )
+                )
+                if gap_plan_recovery is not None:
+                    replan_events = []
+                    replan = None
+                    if self._needs_neutral_s1_gap_replan(
+                        skill_name,
+                        entry_point,
+                        unrepaired_skill_output,
+                        skill_output,
+                        skill_input,
+                        deterministic_repairs,
+                    ):
+                        replan_events.append(
+                            {
+                                "kind": "neutral_semantic_gap_replan_attempted",
+                                "reason": "repair_induced_history_collision",
+                            }
+                        )
+                        replan, replan_failure = self._neutral_s1_gap_replan(
+                            entry_point, skill_input, skill_output, max_tokens
+                        )
+                    if replan is not None:
+                        skill_output = replan
+                        validation_errors = self._validators[skill_name](
+                            skill_output, skill_input
+                        )
+                        gap_plan_recovery = None
+                        replan_events.append(
+                            {"kind": "neutral_semantic_gap_replan_adopted"}
+                        )
+                    else:
+                        if recovery_output is None:
+                            raise SkillExecutionError(
+                                "repair-induced gap collision is missing recovery output"
+                            )
+                        skill_output = recovery_output
+                        validation_errors = self._validators[skill_name](
+                            skill_output, skill_input
+                        )
+                        if replan_events:
+                            replan_events.append(
+                                {
+                                    "kind": "neutral_semantic_gap_replan_fallback",
+                                    "reason": replan_failure,
+                                }
+                            )
+                    if replan_events:
+                        diagnostic["semantic_replan_events"] = replan_events
+                elif (
                     not validation_errors
                     and skill_output.get("status") == "ok"
                     and self._needs_neutral_s1_gap_replan(
@@ -282,6 +341,18 @@ class LocalOllamaSkillExecutor:
                         "%s returned %s: %s"
                         % (skill_name, error.get("code", "UNKNOWN"), error.get("message", ""))
                     )
+                if gap_plan_recovery is not None:
+                    skill_output = dict(skill_output)
+                    skill_output["_harness_gap_plan_recovery"] = gap_plan_recovery
+                    diagnostic["harness_gap_plan_recovery"] = {
+                        "disposition": gap_plan_recovery.disposition.value,
+                        "dropped_request_ids": list(gap_plan_recovery.dropped_request_ids),
+                        "repaired_query_sha256": list(
+                            gap_plan_recovery.repaired_query_sha256
+                        ),
+                        "dropped_request_count": gap_plan_recovery.dropped_request_count,
+                        "remaining_request_count": gap_plan_recovery.remaining_request_count,
+                    }
                 diagnostic["outcome"] = "valid"
                 return self._adapt_output(skill_name, entry_point, skill_output, skill_input)
             except ModelOutputTruncatedError as exc:
@@ -1098,6 +1169,105 @@ class LocalOllamaSkillExecutor:
             })
         return repaired, audit
 
+    def _repair_induced_history_collision_recovery(
+        self,
+        skill_name: str,
+        entry_point: str,
+        unrepaired: Mapping[str, Any],
+        repaired: Mapping[str, Any],
+        skill_input: Mapping[str, Any],
+        repairs: Sequence[Mapping[str, Any]],
+        validation_errors: Sequence[str],
+    ) -> Tuple[Optional[Dict[str, Any]], Optional[GapPlanRecovery]]:
+        """Drop only query-history collisions introduced by deterministic repair.
+
+        This is deliberately narrower than a duplicate-query repair.  The raw
+        normalized request must have been novel, the exact repaired request
+        must have received the article-specificity repair, and the S1 validator
+        must report no error other than those repaired collisions.
+        """
+        if (
+            skill_name != "legal_issue_and_query_planning"
+            or entry_point != "GAP_QUERY_PLAN"
+            or not validation_errors
+        ):
+            return None, None
+        raw_requests = unrepaired.get("gap_retrieval_requests")
+        repaired_requests = repaired.get("gap_retrieval_requests")
+        history = skill_input.get("query_history")
+        if (
+            not isinstance(raw_requests, list)
+            or not isinstance(repaired_requests, list)
+            or not isinstance(history, list)
+            or len(raw_requests) != len(repaired_requests)
+            or not all(isinstance(request, Mapping) for request in raw_requests)
+            or not all(isinstance(request, Mapping) for request in repaired_requests)
+        ):
+            return None, None
+        prior_queries = {
+            self._normalized_query(item.get("query_text") or item.get("normalized_query"))
+            for item in history
+            if isinstance(item, Mapping)
+            and isinstance(item.get("query_text") or item.get("normalized_query"), str)
+        }
+        query_text_repair_ids = {
+            repair.get("request_id")
+            for repair in repairs
+            if isinstance(repair, Mapping)
+            and repair.get("kind") == "neutralized_ungrounded_article_specificity"
+            and repair.get("field") == "query_text"
+            and isinstance(repair.get("request_id"), str)
+        }
+        if not query_text_repair_ids:
+            return None, None
+
+        dropped_ids: List[str] = []
+        dropped_hashes: List[str] = []
+        expected_errors: List[str] = []
+        for raw_request, repaired_request in zip(raw_requests, repaired_requests):
+            request_id = repaired_request.get("request_id")
+            raw_query = raw_request.get("query_text")
+            repaired_query = repaired_request.get("query_text")
+            if (
+                not isinstance(request_id, str)
+                or not isinstance(raw_query, str)
+                or not isinstance(repaired_query, str)
+                or request_id not in query_text_repair_ids
+                or self._normalized_query(raw_query) in prior_queries
+                or self._normalized_query(repaired_query) not in prior_queries
+            ):
+                continue
+            dropped_ids.append(request_id)
+            dropped_hashes.append(
+                hashlib.sha256(repaired_query.encode("utf-8")).hexdigest()
+            )
+            expected_errors.append("query repeats query_history: %s" % repaired_query)
+
+        if not dropped_ids or list(validation_errors) != expected_errors:
+            return None, None
+        dropped_id_set = set(dropped_ids)
+        remaining_requests = [
+            dict(request)
+            for request in repaired_requests
+            if request.get("request_id") not in dropped_id_set
+        ]
+        recovered = copy.deepcopy(dict(repaired))
+        recovered["gap_retrieval_requests"] = remaining_requests
+        recovered["target_evidence_item_ids"] = list(
+            dict.fromkeys(
+                request.get("evidence_item_id")
+                for request in remaining_requests
+                if isinstance(request.get("evidence_item_id"), str)
+            )
+        )
+        return recovered, GapPlanRecovery(
+            disposition=GapPlanRecoveryDisposition.REPAIR_INDUCED_HISTORY_COLLISION,
+            dropped_request_ids=dropped_ids,
+            repaired_query_sha256=dropped_hashes,
+            dropped_request_count=len(dropped_ids),
+            remaining_request_count=len(remaining_requests),
+        )
+
     def _neutral_s1_gap_replan(
         self,
         entry_point: str,
@@ -1862,7 +2032,13 @@ FINAL OUTPUT INVARIANTS:
                 }
             )
         if entry_point == "GAP_QUERY_PLAN":
-            return {"gap_retrieval_requests": requests}
+            adapted: Dict[str, Any] = {"gap_retrieval_requests": requests}
+            recovery = output.get("_harness_gap_plan_recovery")
+            if recovery is not None:
+                if not isinstance(recovery, GapPlanRecovery):
+                    raise SkillExecutionError("S1 harness gap-plan recovery is invalid")
+                adapted["harness_gap_plan_recovery"] = recovery
+            return adapted
         issues = []
         for issue in self._list(output, "legal_issues"):
             if not isinstance(issue, Mapping):

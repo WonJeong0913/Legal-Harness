@@ -11,6 +11,8 @@ from .contracts import (
     CandidateAnswerBasis,
     AnswerDraft,
     CandidateAnswerStatus,
+    GapPlanRecovery,
+    GapPlanRecoveryDisposition,
     OutcomeStatus,
     Phase,
     PolicyAction,
@@ -212,13 +214,53 @@ class HarnessRunner:
                 state.phase = Phase.PLANNING_GAP
                 gap_raw = self._execute(S1, "GAP_QUERY_PLAN", self._gap_payload(state))
                 gap_requests = validate_gap_plan(gap_raw, state)
+                gap_recovery = self._validated_gap_plan_recovery(
+                    gap_raw, len(gap_requests)
+                )
             except (ValidationError, RuntimeError) as exc:
                 return self._failure(state, TerminationReason.INVALID_SKILL_OUTPUT, exc)
 
+            if gap_recovery is not None:
+                recovery_details = {
+                    "disposition": gap_recovery.disposition.value,
+                    "dropped_request_ids": list(gap_recovery.dropped_request_ids),
+                    "repaired_query_sha256": list(
+                        gap_recovery.repaired_query_sha256
+                    ),
+                    "dropped_request_count": gap_recovery.dropped_request_count,
+                    "remaining_request_count": gap_recovery.remaining_request_count,
+                }
+                state.record("GAP_PLAN_REPAIR_COLLISION_RECOVERED", **recovery_details)
+                self._trace("GAP_PLAN_REPAIR_COLLISION_RECOVERED", state, **recovery_details)
             if not gap_requests:
                 fallback = decide_next_action(state, can_attempt_gap_query=False)
+                if gap_recovery is not None:
+                    record_policy_decision(
+                        state,
+                        fallback.action.value,
+                        termination_reason=(
+                            fallback.termination_reason.value
+                            if fallback.termination_reason
+                            else None
+                        ),
+                        explanation=fallback.explanation,
+                        answer_mode=(
+                            fallback.answer_mode.value if fallback.answer_mode else None
+                        ),
+                        answered_target_ids=fallback.answered_target_ids,
+                        deferred_target_ids=fallback.deferred_target_ids,
+                    )
+                    self._trace(
+                        "POLICY_DECISION",
+                        state,
+                        action=fallback.action.value,
+                        explanation=fallback.explanation,
+                    )
                 if fallback.action is PolicyAction.GENERATE:
-                    self._record_and_apply_generation_decision(state, fallback)
+                    if gap_recovery is not None:
+                        self._apply_generation_scope(state, fallback)
+                    else:
+                        self._record_and_apply_generation_decision(state, fallback)
                     return self._generate_and_validate(state)
                 return self._abstain(state, fallback.termination_reason)
             if len(gap_requests) > state.remaining_request_budget:
@@ -491,6 +533,40 @@ class HarnessRunner:
         if not isinstance(result, Mapping):
             raise ValidationError("%s must return an object" % skill_name)
         return result
+
+    @staticmethod
+    def _validated_gap_plan_recovery(
+        payload: Mapping[str, Any], request_count: int
+    ) -> Optional[GapPlanRecovery]:
+        recovery = payload.get("harness_gap_plan_recovery")
+        if recovery is None:
+            return None
+        if not isinstance(recovery, GapPlanRecovery):
+            raise ValidationError("gap-plan recovery must be harness-owned")
+        if recovery.disposition is not GapPlanRecoveryDisposition.REPAIR_INDUCED_HISTORY_COLLISION:
+            raise ValidationError("gap-plan recovery disposition is invalid")
+        if (
+            isinstance(recovery.dropped_request_count, bool)
+            or not isinstance(recovery.dropped_request_count, int)
+            or recovery.dropped_request_count < 1
+            or isinstance(recovery.remaining_request_count, bool)
+            or not isinstance(recovery.remaining_request_count, int)
+            or recovery.remaining_request_count != request_count
+            or recovery.dropped_request_count != len(recovery.dropped_request_ids)
+            or recovery.dropped_request_count != len(recovery.repaired_query_sha256)
+            or len(recovery.dropped_request_ids) != len(set(recovery.dropped_request_ids))
+            or not all(
+                isinstance(request_id, str) and request_id
+                for request_id in recovery.dropped_request_ids
+            )
+            or not all(
+                isinstance(query_hash, str)
+                and re.fullmatch(r"[0-9a-f]{64}", query_hash)
+                for query_hash in recovery.repaired_query_sha256
+            )
+        ):
+            raise ValidationError("gap-plan recovery audit is invalid")
+        return recovery
 
     @staticmethod
     def _compact_coverage_assessments(

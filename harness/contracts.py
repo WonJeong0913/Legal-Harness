@@ -106,6 +106,23 @@ class QueryChannel(str, Enum):
     STATUTE_AWARE = "statute_aware"
 
 
+class GapPlanRecoveryDisposition(str, Enum):
+    """A harness-only disposition for a repaired S1 gap-plan collision."""
+
+    REPAIR_INDUCED_HISTORY_COLLISION = "repair_induced_history_collision"
+
+
+@dataclass(frozen=True)
+class GapPlanRecovery:
+    """Auditable recovery metadata that cannot originate in S1 JSON."""
+
+    disposition: GapPlanRecoveryDisposition
+    dropped_request_ids: List[str]
+    repaired_query_sha256: List[str]
+    dropped_request_count: int
+    remaining_request_count: int
+
+
 class AbstentionReason(str, Enum):
     INSUFFICIENT_CRITICAL_EVIDENCE = "INSUFFICIENT_CRITICAL_EVIDENCE"
     UNRESOLVED_EVIDENCE_CONFLICT = "UNRESOLVED_EVIDENCE_CONFLICT"

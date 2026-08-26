@@ -3,6 +3,8 @@ import unittest
 from harness.contracts import (
     CandidateAnswerStatus,
     CandidateProvision,
+    GapPlanRecovery,
+    GapPlanRecoveryDisposition,
     OutcomeStatus,
     TerminationReason,
 )
@@ -142,6 +144,16 @@ def gap_plan(query="예외 규정"):
     }
 
 
+def repair_collision_recovery(*, dropped_ids, remaining_count):
+    return GapPlanRecovery(
+        disposition=GapPlanRecoveryDisposition.REPAIR_INDUCED_HISTORY_COLLISION,
+        dropped_request_ids=list(dropped_ids),
+        repaired_query_sha256=["a" * 64 for _ in dropped_ids],
+        dropped_request_count=len(dropped_ids),
+        remaining_request_count=remaining_count,
+    )
+
+
 class HarnessPathTests(unittest.TestCase):
     def make_runner(self, skill_responses, provisions_by_round, corpus_documents, config=None):
         executor = ScriptedSkillExecutor(skill_responses)
@@ -220,6 +232,130 @@ class HarnessPathTests(unittest.TestCase):
             (S3, "GENERATE_BENCHMARK_CANDIDATE"),
             [call[:2] for call in executor.calls],
         )
+
+    def test_all_collision_recovery_preserves_validated_state_and_abstains(self):
+        runner, executor, retriever = self.make_runner(
+            {
+                (S1, "INITIAL_PLAN"): [initial_plan()],
+                (S1, "GAP_QUERY_PLAN"): [{
+                    "gap_retrieval_requests": [],
+                    "harness_gap_plan_recovery": repair_collision_recovery(
+                        dropped_ids=["GRQ-R2-1"], remaining_count=0
+                    ),
+                }],
+                (S2, "ASSESS_COVERAGE"): [coverage("uncovered")],
+                (S3, "GENERATE_BENCHMARK_CANDIDATE"): [answer("P1")],
+            },
+            {1: [("P1", "초기 조문")]},
+            [ProvisionDocument("P1", "테스트법", "초기 조문")],
+        )
+
+        outcome = runner.run("질문", run_id="all-collision")
+
+        self.assertEqual(outcome.status, OutcomeStatus.ABSTAIN)
+        self.assertEqual(outcome.termination_reason, TerminationReason.NO_VALID_GAP_QUERY)
+        self.assertEqual(len(retriever.calls), 1)
+        self.assertEqual(outcome.state.retrieval_rounds_used, 1)
+        self.assertEqual(outcome.state.remaining_round_budget, 2)
+        self.assertEqual(outcome.state.remaining_request_budget, 8)
+        self.assertEqual(len(outcome.state.query_history), 1)
+        self.assertEqual(outcome.state.coverage_assessments[0].status.value, "uncovered")
+        self.assertEqual(outcome.state.accepted_provision_ids, set())
+        self.assertEqual(outcome.state.core_accepted_provision_ids, set())
+        self.assertEqual(outcome.state.supplemental_provision_ids, set())
+        self.assertEqual(outcome.state.qualifying_provision_ids, set())
+        self.assertEqual(outcome.state.alternative_provision_ids, set())
+        recovery_events = [
+            event for event in outcome.state.action_trace
+            if event.event == "GAP_PLAN_REPAIR_COLLISION_RECOVERED"
+        ]
+        fallback_policies = [
+            event for event in outcome.state.action_trace
+            if event.event == "POLICY_DECISION"
+            and event.details["action"] == "ABSTAIN"
+        ]
+        self.assertEqual(len(recovery_events), 1)
+        self.assertEqual(len(fallback_policies), 1)
+        self.assertEqual(recovery_events[0].details["dropped_request_ids"], ["GRQ-R2-1"])
+        self.assertEqual(recovery_events[0].details["remaining_request_count"], 0)
+        self.assertNotIn(
+            (S3, "GENERATE_ANSWER"), [call[:2] for call in executor.calls]
+        )
+
+    def test_all_collision_recovery_records_limited_policy_once(self):
+        runner, _, retriever = self.make_runner(
+            {
+                (S1, "INITIAL_PLAN"): [initial_plan()],
+                (S1, "GAP_QUERY_PLAN"): [{
+                    "gap_retrieval_requests": [],
+                    "harness_gap_plan_recovery": repair_collision_recovery(
+                        dropped_ids=["GRQ-R2-1"], remaining_count=0
+                    ),
+                }],
+                (S2, "ASSESS_COVERAGE"): [coverage("partially_covered", "P1")],
+                (S3, "GENERATE_ANSWER"): [answer("P1")],
+            },
+            {1: [("P1", "초기 조문")]},
+            [ProvisionDocument("P1", "테스트법", "초기 조문")],
+        )
+
+        outcome = runner.run("질문", run_id="all-collision-limited")
+
+        self.assertEqual(outcome.status, OutcomeStatus.ANSWER)
+        self.assertEqual(outcome.state.answer_mode.value, "limited")
+        self.assertEqual(len(retriever.calls), 1)
+        fallback_policies = [
+            event for event in outcome.state.action_trace
+            if event.event == "POLICY_DECISION"
+            and event.details["action"] == "GENERATE"
+        ]
+        self.assertEqual(len(fallback_policies), 1)
+        self.assertEqual(fallback_policies[0].details["answer_mode"], "limited")
+
+    def test_mixed_collision_recovery_dispatches_only_novel_request(self):
+        novel = {
+            "request_id": "GRQ-R2-2",
+            "issue_id": "I1",
+            "evidence_item_id": "E1",
+            "query_channel": "statute_aware",
+            "query_text": "새로운 법정 요건",
+            "top_k": 100,
+        }
+        runner, _, retriever = self.make_runner(
+            {
+                (S1, "INITIAL_PLAN"): [initial_plan()],
+                (S1, "GAP_QUERY_PLAN"): [{
+                    "gap_retrieval_requests": [novel],
+                    "harness_gap_plan_recovery": repair_collision_recovery(
+                        dropped_ids=["GRQ-R2-1"], remaining_count=1
+                    ),
+                }],
+                (S2, "ASSESS_COVERAGE"): [
+                    coverage("uncovered"), coverage("covered", "P2")
+                ],
+                (S3, "GENERATE_ANSWER"): [answer("P2")],
+            },
+            {1: [("P1", "초기 조문")], 2: [("P2", "보충 조문")]},
+            [
+                ProvisionDocument("P1", "테스트법", "초기 조문"),
+                ProvisionDocument("P2", "테스트법", "보충 조문"),
+            ],
+        )
+
+        outcome = runner.run("질문", run_id="mixed-collision")
+
+        self.assertEqual(outcome.status, OutcomeStatus.ANSWER)
+        self.assertEqual(len(retriever.calls), 2)
+        self.assertEqual(
+            [request.query_text for request in retriever.calls[1][0]],
+            ["새로운 법정 요건"],
+        )
+        recovery_event = next(
+            event for event in outcome.state.action_trace
+            if event.event == "GAP_PLAN_REPAIR_COLLISION_RECOVERED"
+        )
+        self.assertEqual(recovery_event.details["dropped_request_count"], 1)
+        self.assertEqual(recovery_event.details["remaining_request_count"], 1)
 
     def test_benchmark_candidate_failure_does_not_reclassify_abstention(self):
         runner, _, _ = self.make_runner(

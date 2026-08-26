@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import unittest
 
+from harness.contracts import GapPlanRecovery, GapPlanRecoveryDisposition
 from runtime.local_ollama_executor import LocalOllamaSkillExecutor
 
 
@@ -40,7 +41,69 @@ def gap_input():
     }
 
 
+def gap_request(evidence_item_id, query_text, *, issue_id="I1", request_id="model-owned"):
+    return {
+        "request_id": request_id,
+        "issue_id": issue_id,
+        "evidence_item_id": evidence_item_id,
+        "query_channel": "statute_aware",
+        "query_text": query_text,
+        "query_terms": [query_text],
+        "statute_hints": [query_text.split()[0]],
+        "rationale": "미확인 법정 근거를 검색한다.",
+        "gap_reason": "법정 요건이 미확인이다.",
+        "source_assessment_status": "uncovered",
+    }
+
+
+def gap_output(requests):
+    return {
+        "schema_version": "1.0",
+        "skill_id": "S1",
+        "mode": "GAP_QUERY_PLAN",
+        "status": "ok",
+        "run_id": "model-owned",
+        "target_evidence_item_ids": [
+            request["evidence_item_id"] for request in requests
+        ],
+        "gap_retrieval_requests": requests,
+    }
+
+
 class GapSpecificityRepairTests(unittest.TestCase):
+    def _transcript_recovery(self, payload, raw):
+        """Exercise the repair path directly; no generator or model call occurs."""
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills", "fixture-model", generator=lambda _prompt: "{}"
+        )
+        skill_input = executor._build_skill_input(
+            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
+        )
+        unrepaired = executor._normalize_harness_owned_fields(
+            "legal_issue_and_query_planning",
+            "GAP_QUERY_PLAN",
+            skill_input,
+            copy.deepcopy(raw),
+        )
+        repaired, repairs = executor._repair_s1_transport(
+            "legal_issue_and_query_planning",
+            "GAP_QUERY_PLAN",
+            unrepaired,
+            skill_input,
+        )
+        errors = executor._validators["legal_issue_and_query_planning"](
+            repaired, skill_input
+        )
+        return executor._repair_induced_history_collision_recovery(
+            "legal_issue_and_query_planning",
+            "GAP_QUERY_PLAN",
+            unrepaired,
+            repaired,
+            skill_input,
+            repairs,
+            errors,
+        )
+
     def test_persisted_failure_shapes_neutralize_unguarded_article_specificity(self):
         # These are retrieval traces only: statute/semantic text, no gold answer.
         for source in (
@@ -310,6 +373,214 @@ class GapSpecificityRepairTests(unittest.TestCase):
         event = diagnostics[-1]["semantic_replan_events"][-1]
         self.assertEqual(event["kind"], "neutral_semantic_gap_replan_fallback")
         self.assertEqual(event["reason"], "replan_no_scoring_delta")
+
+    def test_all_repair_collisions_use_one_neutral_replan_then_return_typed_recovery(self):
+        payload = gap_input()
+        prior = "민법 재판상 이혼 청구권 소멸 기간 [원문 맥락] 관련 법정 근거의 적용 여부를 판단하라."
+        payload["query_history"] = [{"request_id": "GRQ-R1-1", "query_text": prior}]
+        raw = gap_output([
+            gap_request("E1", "민법 제840조 재판상 이혼 청구권 소멸 기간"),
+        ])
+        prompts, diagnostics = [], []
+        responses = iter([json.dumps(raw, ensure_ascii=False), "not json"])
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills",
+            "fixture-model",
+            generator=lambda prompt: (prompts.append(prompt) or next(responses)),
+            diagnostic_sink=diagnostics.append,
+        )
+
+        output = executor.execute(
+            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
+        )
+
+        self.assertEqual(len(prompts), 2)
+        self.assertIn("NEUTRAL_SEMANTIC_GAP_REPLAN", prompts[1])
+        self.assertEqual(output["gap_retrieval_requests"], [])
+        recovery = output["harness_gap_plan_recovery"]
+        self.assertIsInstance(recovery, GapPlanRecovery)
+        self.assertEqual(
+            recovery.disposition,
+            GapPlanRecoveryDisposition.REPAIR_INDUCED_HISTORY_COLLISION,
+        )
+        self.assertEqual(recovery.dropped_request_ids, ["GRQ-R2-1"])
+        self.assertEqual(recovery.dropped_request_count, 1)
+        self.assertEqual(recovery.remaining_request_count, 0)
+        self.assertEqual(len(recovery.repaired_query_sha256[0]), 64)
+        self.assertEqual(
+            diagnostics[-1]["semantic_replan_events"][-1]["kind"],
+            "neutral_semantic_gap_replan_fallback",
+        )
+
+    def test_mixed_repair_collision_keeps_only_novel_request_and_recomputes_targets(self):
+        payload = gap_input()
+        payload.update({
+            "next_retrieval_round": 3,
+            "legal_issues": [{"issue_id": "I1"}, {"issue_id": "I2"}],
+            "required_evidence_items": [
+                payload["required_evidence_items"][0],
+                {
+                    "evidence_item_id": "E2",
+                    "issue_id": "I2",
+                    "evidence_type": "remedy",
+                    "description": "구제결정의 법적 효과",
+                    "critical": True,
+                },
+            ],
+            "coverage_assessments": [
+                {"evidence_item_id": "E1", "status": "uncovered"},
+                {"evidence_item_id": "E2", "status": "uncovered"},
+            ],
+            "missing_evidence_items": [
+                {"evidence_item_id": "E1"},
+                {"evidence_item_id": "E2"},
+            ],
+            "remaining_request_budget": 3,
+            "query_history": [{
+                "request_id": "GRQ-R2-1",
+                "query_text": "근로기준법 부당해고 구제신청 기한 60일 관할 중앙노동위원회 [원문 맥락] 관련 법정 근거의 적용 여부를 판단하라.",
+            }],
+        })
+        raw = gap_output([
+            gap_request(
+                "E1",
+                "근로기준법 제28조 제1항 부당해고 구제신청 기한 60일 관할 중앙노동위원회",
+                request_id="model-owned-1",
+            ),
+            gap_request(
+                "E2",
+                "근로기준법 제33조 부당해고 구제결정 확정 효력 이행 강제",
+                issue_id="I2",
+                request_id="model-owned-2",
+            ),
+        ])
+        responses = iter([json.dumps(raw, ensure_ascii=False), "not json"])
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills",
+            "fixture-model",
+            generator=lambda _prompt: next(responses),
+        )
+
+        output = executor.execute(
+            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
+        )
+
+        self.assertEqual(
+            [request["request_id"] for request in output["gap_retrieval_requests"]],
+            ["GRQ-R3-2"],
+        )
+        self.assertEqual(
+            [request["evidence_item_id"] for request in output["gap_retrieval_requests"]],
+            ["E2"],
+        )
+        recovery = output["harness_gap_plan_recovery"]
+        self.assertEqual(recovery.dropped_request_ids, ["GRQ-R3-1"])
+        self.assertEqual(recovery.remaining_request_count, 1)
+
+    def test_raw_history_duplicate_is_not_recovered(self):
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills", "fixture-model", generator=lambda _prompt: "{}"
+        )
+        payload = gap_input()
+        raw_query = "민법 권리남용 원칙 [원문 맥락] 관련 법정 근거의 적용 여부를 판단하라."
+        payload["query_history"] = [{"request_id": "GRQ-R1-1", "query_text": raw_query}]
+        skill_input = executor._build_skill_input(
+            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
+        )
+        duplicate = gap_output([gap_request("E1", raw_query, request_id="GRQ-R2-1")])
+        duplicate["run_id"] = payload["run_id"]
+        errors = executor._validators["legal_issue_and_query_planning"](
+            duplicate, skill_input
+        )
+
+        recovered, recovery = executor._repair_induced_history_collision_recovery(
+            "legal_issue_and_query_planning",
+            "GAP_QUERY_PLAN",
+            duplicate,
+            duplicate,
+            skill_input,
+            [],
+            errors,
+        )
+
+        self.assertEqual(errors, ["query repeats query_history: %s" % raw_query])
+        self.assertIsNone(recovered)
+        self.assertIsNone(recovery)
+
+    def test_c02_qa406_and_qa99_transcript_shapes_drop_only_repaired_history_collision(self):
+        qa406_question = "갑이 을의 꽃 꺾기 행위에 대해 방해의 제거를 청구할 수 있는가? 또한, 갑에게 방해제거청구권이 인정되는 경우, 갑은 이를 남용할 수 있는가?"
+        qa406_payload = gap_input()
+        qa406_payload.update({
+            "normalized_question": qa406_question,
+            "next_retrieval_round": 3,
+            "remaining_request_budget": 5,
+            "query_history": [{
+                "request_id": "GRQ-R2-2",
+                "query_text": "민법 권리남용 금지 원칙 및 판단 기준 [원문 맥락] " + qa406_question,
+            }],
+        })
+        qa406_recovered, qa406_audit = self._transcript_recovery(
+            qa406_payload,
+            gap_output([
+                gap_request("E1", "민법 제214조 소유권 침해 방해의 유형 및 범위"),
+                gap_request("E1", "민법 제2조 권리남용 금지 원칙 및 판단 기준"),
+            ]),
+        )
+        self.assertEqual(qa406_audit.dropped_request_ids, ["GRQ-R3-2"])
+        self.assertEqual(
+            [request["request_id"] for request in qa406_recovered["gap_retrieval_requests"]],
+            ["GRQ-R3-1"],
+        )
+
+        qa99_question = "을은 이 해고가 부당하다고 생각하여 자신의 권리를 찾고자 합니다. 을은 갑으로부터 부당해고를 당한 경우 어떤 조치를 취할 수 있는가?"
+        qa99_payload = gap_input()
+        qa99_payload.update({
+            "normalized_question": qa99_question,
+            "next_retrieval_round": 3,
+            "legal_issues": [{"issue_id": "I1"}, {"issue_id": "I2"}],
+            "required_evidence_items": [
+                qa99_payload["required_evidence_items"][0],
+                {
+                    "evidence_item_id": "E2",
+                    "issue_id": "I2",
+                    "evidence_type": "remedy",
+                    "description": "부당해고 구제결정의 법적 효과",
+                    "critical": True,
+                },
+            ],
+            "coverage_assessments": [
+                {"evidence_item_id": "E1", "status": "partially_covered"},
+                {"evidence_item_id": "E2", "status": "partially_covered"},
+            ],
+            "missing_evidence_items": [
+                {"evidence_item_id": "E1"},
+                {"evidence_item_id": "E2"},
+            ],
+            "remaining_request_budget": 4,
+            "query_history": [{
+                "request_id": "GRQ-R2-1",
+                "query_text": "근로기준법 부당해고 구제신청 기한 60일 관할 중앙노동위원회 [원문 맥락] " + qa99_question,
+            }],
+        })
+        qa99_recovered, qa99_audit = self._transcript_recovery(
+            qa99_payload,
+            gap_output([
+                gap_request(
+                    "E1",
+                    "근로기준법 제28조 제1항 부당해고 구제신청 기한 60일 관할 중앙노동위원회",
+                ),
+                gap_request(
+                    "E2",
+                    "근로기준법 제33조 부당해고 구제결정 확정 효력 이행 강제",
+                    issue_id="I2",
+                ),
+            ]),
+        )
+        self.assertEqual(qa99_audit.dropped_request_ids, ["GRQ-R3-1"])
+        self.assertEqual(
+            [request["request_id"] for request in qa99_recovered["gap_retrieval_requests"]],
+            ["GRQ-R3-2"],
+        )
 
     def test_question_anchor_placeholders_recover_only_from_requested_output_substrings(self):
         executor = LocalOllamaSkillExecutor(
