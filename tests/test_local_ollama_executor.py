@@ -281,6 +281,8 @@ class LocalOllamaExecutorTests(unittest.TestCase):
         }
 
     def test_s1_maps_plural_sparse_channel_and_frozen_top_k(self):
+        diagnostics = []
+        self.executor.diagnostic_sink = diagnostics.append
         result = self.executor.execute(
             "legal_issue_and_query_planning",
             "INITIAL_PLAN",
@@ -300,6 +302,11 @@ class LocalOllamaExecutorTests(unittest.TestCase):
             "손해배상 책임\n[원문 맥락]\n손해배상 책임은 무엇인가",
         )
         self.assertEqual(result["required_evidence_items"][0]["completion_criteria"], "책임의 근거 조문이 있다")
+        self.assertEqual(
+            [item["generation_kind"] for item in diagnostics],
+            ["primary_skill_attempt"],
+        )
+        self.assertEqual(diagnostics[0]["schema_version"], "1.2")
 
     def test_s1_context_anchor_keeps_only_the_last_fact_and_question(self):
         source = (
@@ -315,6 +322,8 @@ class LocalOllamaExecutorTests(unittest.TestCase):
         self.assertIn("상품이 인도된 날부터", contextual)
 
     def test_s2_and_s3_map_rich_skill_contracts_to_harness_contracts(self):
+        diagnostics = []
+        self.executor.diagnostic_sink = diagnostics.append
         evidence = {
             "evidence_item_id": "E1",
             "issue_id": "I1",
@@ -359,6 +368,11 @@ class LocalOllamaExecutorTests(unittest.TestCase):
         self.assertEqual(answer["claim_citations"][0]["claim_id"], "C1")
         self.assertEqual(answer["claim_citations"][0]["provision_id"], "P1")
         self.assertEqual(answer["claim_citations"][0]["answer_marker"], "[CT1]")
+        self.assertEqual(
+            [item["generation_kind"] for item in diagnostics],
+            ["primary_skill_attempt", "primary_skill_attempt"],
+        )
+        self.assertEqual([item["skill_id"] for item in diagnostics], ["S2", "S3"])
         self.assertEqual(answer["assumptions"], [])
 
     def test_s3_transport_normalizes_bad_markers_and_rebuilds_answer(self):
@@ -1347,6 +1361,10 @@ class LocalOllamaExecutorTests(unittest.TestCase):
             [item["outcome"] for item in diagnostics],
             ["truncated", "valid"],
         )
+        self.assertEqual(
+            [item["generation_kind"] for item in diagnostics],
+            ["primary_skill_attempt", "primary_skill_attempt"],
+        )
         self.assertEqual(diagnostics[0]["done_reason"], "length")
         self.assertEqual(diagnostics[0]["error_code"], "MODEL_OUTPUT_TRUNCATED")
         self.assertEqual(diagnostics[0]["eval_count"], 4096)
@@ -1389,6 +1407,9 @@ class LocalOllamaExecutorTests(unittest.TestCase):
         self.assertEqual(diagnostics[0]["outcome"], "invalid_json")
         self.assertEqual(diagnostics[0]["error_code"], "MODEL_OUTPUT_INVALID_JSON")
         self.assertEqual(diagnostics[0]["done_reason"], "stop")
+        self.assertEqual(
+            diagnostics[0]["generation_kind"], "primary_skill_attempt"
+        )
         self.assertEqual(diagnostics[0]["response_text"], '{"unfinished":')
         self.assertEqual(
             diagnostics[0]["response_characters"], len('{"unfinished":')

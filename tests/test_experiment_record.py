@@ -65,6 +65,7 @@ class ExperimentRecordTests(unittest.TestCase):
             record.record_skill_attempt(
                 {
                     "skill_id": "S1",
+                    "generation_kind": "primary_skill_attempt",
                     "attempt": 1,
                     "done_reason": "length",
                     "eval_count": 4096,
@@ -96,12 +97,20 @@ class ExperimentRecordTests(unittest.TestCase):
             self.assertTrue((record.directory / "events.jsonl").is_file())
             self.assertEqual(result["record_schema_version"], "1.4")
             diagnostics = result["skill_generation_diagnostics"]
-            self.assertEqual(diagnostics["schema_version"], "1.1")
+            self.assertEqual(diagnostics["schema_version"], "1.2")
             self.assertEqual(diagnostics["attempt_file"], "skill_attempts.jsonl")
             self.assertEqual(diagnostics["attempt_count"], 1)
             self.assertEqual(
                 diagnostics["response_retention"],
                 {
+                    "generation_kind": {
+                        "field": "generation_kind",
+                        "required": True,
+                        "allowed_values": [
+                            "primary_skill_attempt",
+                            "neutral_semantic_gap_replan",
+                        ],
+                    },
                     "response_text": {
                         "retention": "full",
                         "encoding": "utf-8",
@@ -118,6 +127,9 @@ class ExperimentRecordTests(unittest.TestCase):
             attempts = (record.directory / "skill_attempts.jsonl").read_text(encoding="utf-8")
             attempt = json.loads(attempts)
             self.assertEqual(attempt["done_reason"], "length")
+            self.assertEqual(
+                attempt["generation_kind"], "primary_skill_attempt"
+            )
             self.assertEqual(attempt["response_text"], response_text)
             self.assertEqual(attempt["response_characters"], len(response_text))
             self.assertEqual(attempt["response_utf8_bytes"], len(response_bytes))

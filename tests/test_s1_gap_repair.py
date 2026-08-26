@@ -387,7 +387,11 @@ class GapSpecificityRepairTests(unittest.TestCase):
         self.assertEqual(
             replan_diagnostic["generation_kind"], "neutral_semantic_gap_replan"
         )
+        self.assertEqual(replan_diagnostic["schema_version"], "1.2")
         self.assertEqual(replan_diagnostic["response_text"], expected_replan_response)
+        self.assertEqual(
+            diagnostics[-1]["generation_kind"], "primary_skill_attempt"
+        )
         self.assertEqual(
             replan_diagnostic["response_characters"], len(expected_replan_response)
         )

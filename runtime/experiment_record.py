@@ -19,7 +19,7 @@ from runtime.source_snapshot import source_dirty_paths_from_porcelain
 
 RECORD_SCHEMA_VERSION = "1.4"
 RETRIEVAL_PROVENANCE_SCHEMA_VERSION = "1.0"
-SKILL_GENERATION_DIAGNOSTIC_SCHEMA_VERSION = "1.1"
+SKILL_GENERATION_DIAGNOSTIC_SCHEMA_VERSION = "1.2"
 
 
 def _sha256(path: Path) -> str:
@@ -202,6 +202,14 @@ class ExperimentRecord:
                 ),
                 "attempt_count": self._skill_attempt_count,
                 "response_retention": {
+                    "generation_kind": {
+                        "field": "generation_kind",
+                        "required": True,
+                        "allowed_values": [
+                            "primary_skill_attempt",
+                            "neutral_semantic_gap_replan",
+                        ],
+                    },
                     "response_text": {
                         "retention": "full",
                         "encoding": "utf-8",

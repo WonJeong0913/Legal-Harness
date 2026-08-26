@@ -200,10 +200,11 @@ class LocalOllamaSkillExecutor:
         for attempt in range(1, self.max_attempts + 1):
             prompt = self._prompt(skill_name, entry_point, skill_input, repair_note)
             diagnostic: Dict[str, Any] = {
-                "schema_version": "1.1",
+                "schema_version": "1.2",
                 "run_id": skill_input.get("run_id"),
                 "skill_name": skill_name,
                 "skill_id": SKILL_IDS[skill_name],
+                "generation_kind": "primary_skill_attempt",
                 "entry_point": entry_point,
                 "attempt": attempt,
                 "requested_max_tokens": max_tokens,
@@ -1471,7 +1472,7 @@ class LocalOllamaSkillExecutor:
             if isinstance(request, Mapping)
         ]
         replan_diagnostic: Dict[str, Any] = {
-            "schema_version": "1.1",
+            "schema_version": "1.2",
             "run_id": skill_input.get("run_id"),
             "skill_name": "legal_issue_and_query_planning",
             "skill_id": SKILL_IDS["legal_issue_and_query_planning"],
