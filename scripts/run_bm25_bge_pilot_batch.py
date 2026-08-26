@@ -227,6 +227,9 @@ def build_run_command(
             "--article-family-expansion-max-siblings-per-request", str(
                 configuration.get("article_family_expansion_max_siblings_per_request", 8)
             ),
+            "--article-family-expansion-max-family-members-scored", str(
+                configuration.get("article_family_expansion_max_family_members_scored", 128)
+            ),
         ])
     return command
 

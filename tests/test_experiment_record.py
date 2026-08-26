@@ -8,6 +8,7 @@ from harness.contracts import (
     AnswerMode,
     CandidateAnswerStatus,
     CandidateAnswerBasis,
+    ArticleFamilyExpansionRecord,
     CandidateStageRecord,
     OutcomeStatus,
     TerminationReason,
@@ -58,7 +59,35 @@ class ExperimentRecordTests(unittest.TestCase):
                     first_stage_rank=1,
                     first_stage_score=2.5,
                     selection_reason="request_top_k",
-                )
+                ),
+                ArticleFamilyExpansionRecord(
+                    provision_id="P2",
+                    retrieval_round=1,
+                    candidate_stage="article_family_sibling_rerank",
+                    source_request_ids=["RQ1"],
+                    target_evidence_item_ids=["E1"],
+                    article_family_key="법 제1조",
+                    article_family_root_provision_id="P1",
+                    article_family_sibling_candidate_count=1,
+                    article_family_sibling_scored_count=1,
+                    article_family_sibling_selected_count=1,
+                    article_family_sibling_dropped_count=0,
+                    article_family_sibling_per_root_cap=4,
+                    article_family_sibling_per_request_cap=8,
+                    article_family_max_members_scored=128,
+                    article_family_sibling_selected=True,
+                    article_family_sibling_selection_rank=1,
+                    article_family_root_first_stage_rank=1,
+                    article_family_root_first_stage_score=2.5,
+                    article_family_root_fusion_rank=1,
+                    article_family_root_fusion_score=0.1,
+                    article_family_root_baseline_rerank_rank=1,
+                    article_family_root_baseline_rerank_score=0.9,
+                    rerank_rank=1,
+                    rerank_score=0.8,
+                    selection_reason="article_family_sibling_selected:score_order",
+                    alias_provision_ids=["P2"],
+                ),
             ]
             response_text = "첫 줄의 전체 응답🙂\n" + ("x" * 1024) + "\n마지막 줄"
             response_bytes = response_text.encode("utf-8")
@@ -141,9 +170,25 @@ class ExperimentRecordTests(unittest.TestCase):
             self.assertIsNone(result["candidate_answer"])
             self.assertIsNone(result["candidate_answer_status"])
             self.assertEqual(
-                result["retrieval_provenance"]["stage_record_counts"],
-                {"first_stage": 1},
+                result["retrieval_provenance"]["schema_version"], "1.2"
             )
+            self.assertEqual(
+                result["retrieval_provenance"]["stage_record_counts"],
+                {"article_family_sibling_rerank": 1, "first_stage": 1},
+            )
+            persisted_stages = [
+                json.loads(line)
+                for line in (record.directory / "retrieval_stages.jsonl").read_text(
+                    encoding="utf-8"
+                ).splitlines()
+            ]
+            persisted_sibling = persisted_stages[1]
+            self.assertEqual(persisted_sibling["article_family_sibling_scored_count"], 1)
+            self.assertTrue(persisted_sibling["article_family_sibling_selected"])
+            self.assertEqual(
+                persisted_sibling["article_family_root_provision_id"], "P1"
+            )
+            self.assertIsNone(persisted_sibling["first_stage_score"])
             self.assertNotIn("retrieval_stage_records", result["state"])
             self.assertTrue((record.directory / "retrieval_stages.jsonl").is_file())
 

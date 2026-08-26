@@ -6,7 +6,10 @@ from pathlib import Path
 from harness.contracts import QueryChannel, RetrievalRequest
 from harness.run_state import RunState
 from harness.state_update import register_retrieval_round
-from harness.validation import validate_retrieval_stage_records
+from harness.validation import (
+    validate_retrieval_candidates,
+    validate_retrieval_stage_records,
+)
 from retrieval.corpus import InMemoryProvisionCorpus, ProvisionDocument
 from retrieval.pipeline import RetrievalPipeline
 from retrieval.types import RetrievalHit
@@ -107,8 +110,10 @@ class ArticleFamilySiblingRerankExpansionTests(unittest.TestCase):
             ProvisionDocument("UNKNOWN", "법 제2조", "unknown family"),
         ]
         corpus = InMemoryProvisionCorpus(documents)
+        self.assertFalse(corpus.article_family_index_built)
 
         members = corpus.article_family_members("ROOT-B")
+        self.assertTrue(corpus.article_family_index_built)
 
         self.assertEqual([member.document.provision_id for member in members], ["ROOT-A", "SIBLING"])
         self.assertEqual(members[0].alias_provision_ids, ("ROOT-A", "ROOT-B"))
@@ -195,6 +200,24 @@ class ArticleFamilySiblingRerankExpansionTests(unittest.TestCase):
             for record in baseline.last_stage_records
         ))
 
+    def test_default_disabled_does_not_build_the_family_index(self):
+        documents = [
+            ProvisionDocument("ROOT", "법", "root", "family"),
+            ProvisionDocument("SIBLING", "법", "sibling", "family"),
+        ]
+        stage = ScriptedKureFamilyStage(documents, {"RQ": ["ROOT"]})
+        pipeline = RetrievalPipeline(
+            stage,
+            RecordingReranker({"q": {"ROOT": 10.0}}),
+            rerank_pool_k=1,
+            final_top_k=1,
+            rerank_query_mode="per_request",
+        )
+
+        self.assertFalse(stage.corpus.article_family_index_built)
+        pipeline.retrieve([request("RQ", "E1", "q")], retrieval_round=1)
+        self.assertFalse(stage.corpus.article_family_index_built)
+
     def test_enabled_fails_closed_without_kure_capability_or_per_request_rerank(self):
         with self.assertRaisesRegex(ValueError, "requires KURE corpus capability"):
             RetrievalPipeline(
@@ -253,6 +276,7 @@ class ArticleFamilySiblingRerankExpansionTests(unittest.TestCase):
         self.assertEqual(reranker.calls[0][1], ["#232721", "OTHER"])
         self.assertEqual(reranker.calls[1][1], ["#232732", "#232733"])
         self.assertIsNone(candidates[1].first_stage_rank)
+        self.assertIsNone(candidates[1].first_stage_score)
         first_stage_ids = {
             record.provision_id
             for record in pipeline.last_stage_records
@@ -305,10 +329,164 @@ class ArticleFamilySiblingRerankExpansionTests(unittest.TestCase):
         self.assertEqual(trigger.article_family_sibling_dropped_count, 1)
         self.assertEqual(trigger.article_family_sibling_per_root_cap, 2)
         self.assertEqual(trigger.article_family_sibling_per_request_cap, 2)
-        self.assertNotIn("C", [
-            record.provision_id for record in pipeline.last_stage_records
+        sibling_records = {
+            record.provision_id: record
+            for record in pipeline.last_stage_records
             if record.candidate_stage == "article_family_sibling_rerank"
-        ])
+        }
+        self.assertEqual(list(sibling_records), ["A", "B", "C"])
+        self.assertTrue(sibling_records["A"].article_family_sibling_selected)
+        self.assertTrue(sibling_records["B"].article_family_sibling_selected)
+        self.assertFalse(sibling_records["C"].article_family_sibling_selected)
+        self.assertEqual(
+            sibling_records["C"].article_family_sibling_dropped_reason,
+            "per_root_cap",
+        )
+
+    def test_qa125_sixteen_member_family_scores_semantic_sibling_before_cap(self):
+        family_key = "형사소송법 361조 5 항소이유"
+        documents = [
+            ProvisionDocument("#232721", "형사소송법 제361조의5", "root", family_key)
+        ] + [
+            ProvisionDocument(
+                "#%d" % provision_number,
+                "형사소송법 제361조의5",
+                "sibling %d" % provision_number,
+                family_key,
+            )
+            for provision_number in range(232722, 232737)
+        ]
+        query = "qa125-shaped semantic query"
+        scores = {"#232721": 10.0}
+        scores.update({
+            "#%d" % provision_number: -float(provision_number)
+            for provision_number in range(232722, 232737)
+        })
+        scores["#232732"] = 100.0
+        reranker = RecordingReranker({query: scores})
+        pipeline = RetrievalPipeline(
+            ScriptedKureFamilyStage(documents, {"RQ125": ["#232721"]}),
+            reranker,
+            rerank_pool_k=2,
+            final_top_k=2,
+            rerank_query_mode="per_request",
+            article_family_sibling_rerank_expansion=True,
+            article_family_expansion_trigger_top_k=1,
+            article_family_expansion_max_siblings_per_root=4,
+            article_family_expansion_max_siblings_per_request=4,
+            article_family_expansion_max_family_members_scored=128,
+        )
+        requests = [request("RQ125", "E125", query)]
+
+        candidates = pipeline.retrieve(requests, retrieval_round=1)
+
+        self.assertEqual(
+            [candidate.provision_id for candidate in candidates],
+            ["#232732", "#232721"],
+        )
+        self.assertEqual(len(reranker.calls), 2)
+        self.assertEqual(len(reranker.calls[1][1]), 15)
+        self.assertIn("#232732", reranker.calls[1][1])
+        relevant_candidate = candidates[0]
+        self.assertIsNone(relevant_candidate.first_stage_rank)
+        self.assertIsNone(relevant_candidate.first_stage_score)
+        self.assertEqual(relevant_candidate.rerank_score, 100.0)
+        sibling_records = {
+            record.provision_id: record
+            for record in pipeline.last_stage_records
+            if record.candidate_stage == "article_family_sibling_rerank"
+        }
+        self.assertEqual(len(sibling_records), 15)
+        relevant = sibling_records["#232732"]
+        self.assertTrue(relevant.article_family_sibling_selected)
+        self.assertEqual(relevant.article_family_sibling_selection_rank, 1)
+        self.assertEqual(relevant.rerank_score, 100.0)
+        self.assertIsNone(relevant.first_stage_rank)
+        self.assertIsNone(relevant.first_stage_score)
+        self.assertIsNone(relevant.fusion_rank)
+        self.assertIsNone(relevant.fusion_score)
+        self.assertIsNotNone(relevant.article_family_root_first_stage_score)
+        self.assertIsNotNone(relevant.article_family_root_fusion_score)
+        self.assertEqual(relevant.article_family_sibling_candidate_count, 15)
+        self.assertEqual(relevant.article_family_sibling_scored_count, 15)
+        self.assertEqual(relevant.article_family_sibling_selected_count, 4)
+        self.assertEqual(relevant.article_family_sibling_dropped_count, 11)
+        self.assertFalse(sibling_records["#232736"].article_family_sibling_selected)
+        self.assertEqual(
+            sibling_records["#232736"].article_family_sibling_dropped_reason,
+            "per_root_cap",
+        )
+        validate_retrieval_candidates(candidates, requests, 1)
+        validate_retrieval_stage_records(pipeline.last_stage_records, requests, 1)
+
+    def test_request_cap_uses_global_sibling_score_not_root_processing_order(self):
+        documents = [
+            ProvisionDocument("ROOT-A", "법 A", "root A", "family A"),
+            ProvisionDocument("SIBLING-A", "법 A", "sibling A", "family A"),
+            ProvisionDocument("ROOT-B", "법 B", "root B", "family B"),
+            ProvisionDocument("SIBLING-B", "법 B", "sibling B", "family B"),
+        ]
+        query = "global score query"
+        pipeline = RetrievalPipeline(
+            ScriptedKureFamilyStage(
+                documents, {"RQ": ["ROOT-A", "ROOT-B"]}
+            ),
+            RecordingReranker({query: {
+                "ROOT-A": 10.0,
+                "ROOT-B": 9.0,
+                "SIBLING-A": 1.0,
+                "SIBLING-B": 100.0,
+            }}),
+            rerank_pool_k=2,
+            final_top_k=2,
+            rerank_query_mode="per_request",
+            article_family_sibling_rerank_expansion=True,
+            article_family_expansion_trigger_top_k=2,
+            article_family_expansion_max_siblings_per_root=1,
+            article_family_expansion_max_siblings_per_request=1,
+        )
+
+        candidates = pipeline.retrieve([request("RQ", "E1", query)], retrieval_round=1)
+
+        self.assertEqual(candidates[0].provision_id, "SIBLING-B")
+        sibling_records = {
+            record.provision_id: record
+            for record in pipeline.last_stage_records
+            if record.candidate_stage == "article_family_sibling_rerank"
+        }
+        self.assertTrue(sibling_records["SIBLING-B"].article_family_sibling_selected)
+        self.assertFalse(sibling_records["SIBLING-A"].article_family_sibling_selected)
+        self.assertEqual(
+            sibling_records["SIBLING-A"].article_family_sibling_dropped_reason,
+            "per_request_cap",
+        )
+
+    def test_family_scoring_bound_is_positive_and_fails_closed_before_truncation(self):
+        documents = [
+            ProvisionDocument("ROOT", "법", "root", "family"),
+            ProvisionDocument("SIBLING-A", "법", "a", "family"),
+            ProvisionDocument("SIBLING-B", "법", "b", "family"),
+        ]
+        for invalid_maximum in (0, True):
+            with self.assertRaisesRegex(ValueError, "bounds must be positive"):
+                RetrievalPipeline(
+                    ScriptedKureFamilyStage(documents, {"RQ": ["ROOT"]}),
+                    RecordingReranker({"q": {"ROOT": 1.0}}),
+                    rerank_query_mode="per_request",
+                    article_family_expansion_max_family_members_scored=invalid_maximum,
+                )
+        pipeline = RetrievalPipeline(
+            ScriptedKureFamilyStage(documents, {"RQ": ["ROOT"]}),
+            RecordingReranker({"q": {"ROOT": 1.0}}),
+            rerank_pool_k=1,
+            final_top_k=1,
+            rerank_query_mode="per_request",
+            article_family_sibling_rerank_expansion=True,
+            article_family_expansion_max_family_members_scored=2,
+        )
+
+        with self.assertRaisesRegex(ValueError, "exceeds max_family_members_scored"):
+            pipeline.retrieve([request("RQ", "E1", "q")], retrieval_round=1)
 
     def test_multiple_requests_inherit_each_request_and_evidence_provenance(self):
         documents = [

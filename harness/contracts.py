@@ -222,7 +222,7 @@ class CandidateProvision:
     issue_id: str
     source_request_id: str
     retrieval_round: int
-    first_stage_score: float
+    first_stage_score: Optional[float]
     fusion_rank: int
     rerank_score: float
     source_request_ids: List[str] = field(default_factory=list)
@@ -267,10 +267,24 @@ class ArticleFamilyExpansionRecord:
     article_family_key: str
     article_family_root_provision_id: str
     article_family_sibling_candidate_count: int
+    article_family_sibling_scored_count: int
     article_family_sibling_selected_count: int
     article_family_sibling_dropped_count: int
     article_family_sibling_per_root_cap: int
     article_family_sibling_per_request_cap: int
+    article_family_max_members_scored: int
+    # These fields describe this sibling only. Generic first-stage/fusion fields
+    # remain None so no root provenance is presented as a sibling observation.
+    article_family_sibling_selected: Optional[bool] = None
+    article_family_sibling_selection_rank: Optional[int] = None
+    article_family_sibling_dropped_reason: str = ""
+    # Dedicated root provenance remains visible without contaminating the sibling.
+    article_family_root_first_stage_rank: Optional[int] = None
+    article_family_root_fusion_rank: Optional[int] = None
+    article_family_root_first_stage_score: Optional[float] = None
+    article_family_root_fusion_score: Optional[float] = None
+    article_family_root_baseline_rerank_rank: Optional[int] = None
+    article_family_root_baseline_rerank_score: Optional[float] = None
     first_stage_rank: Optional[int] = None
     fusion_rank: Optional[int] = None
     rerank_rank: Optional[int] = None

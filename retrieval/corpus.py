@@ -46,10 +46,24 @@ class InMemoryProvisionCorpus:
             if document.provision_id in self._documents:
                 raise ValueError("duplicate provision_id: %s" % document.provision_id)
             self._documents[document.provision_id] = document
-        self._article_family_members_by_id: Dict[str, ArticleFamilyMember] = {}
-        self._article_family_members_by_key: Dict[
-            str, Tuple[ArticleFamilyMember, ...]
-        ] = {}
+        # The default retrieval path never needs source-index families. Build
+        # this potentially large index only when the opt-in KURE expansion asks.
+        self._article_family_members_by_id: Optional[
+            Dict[str, ArticleFamilyMember]
+        ] = None
+        self._article_family_members_by_key: Optional[
+            Dict[str, Tuple[ArticleFamilyMember, ...]]
+        ] = None
+
+    @property
+    def article_family_index_built(self) -> bool:
+        return self._article_family_members_by_id is not None
+
+    def _ensure_article_family_index(self) -> None:
+        if self._article_family_members_by_id is not None:
+            return
+        members_by_id: Dict[str, ArticleFamilyMember] = {}
+        members_by_key: Dict[str, Tuple[ArticleFamilyMember, ...]] = {}
         aliases_by_family: Dict[
             str, Dict[Tuple[str, str], List[ProvisionDocument]]
         ] = {}
@@ -74,10 +88,12 @@ class InMemoryProvisionCorpus:
                 )
                 members.append(member)
                 for alias in ordered_aliases:
-                    self._article_family_members_by_id[alias.provision_id] = member
-            self._article_family_members_by_key[family_key] = tuple(
+                    members_by_id[alias.provision_id] = member
+            members_by_key[family_key] = tuple(
                 sorted(members, key=lambda item: item.document.provision_id)
             )
+        self._article_family_members_by_id = members_by_id
+        self._article_family_members_by_key = members_by_key
 
     def get(self, provision_id: str) -> Optional[ProvisionDocument]:
         return self._documents.get(provision_id)
@@ -89,6 +105,9 @@ class InMemoryProvisionCorpus:
         self, provision_id: str
     ) -> List[ArticleFamilyMember]:
         """Return source-index siblings with snapshot aliases already collapsed."""
+        self._ensure_article_family_index()
+        assert self._article_family_members_by_id is not None
+        assert self._article_family_members_by_key is not None
         member = self._article_family_members_by_id.get(provision_id)
         if member is None:
             return []

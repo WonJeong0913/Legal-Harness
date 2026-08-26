@@ -15,6 +15,7 @@ class RunLocalHarnessArgumentTests(unittest.TestCase):
         self.assertEqual(args.article_family_expansion_trigger_top_k, 3)
         self.assertEqual(args.article_family_expansion_max_siblings_per_root, 4)
         self.assertEqual(args.article_family_expansion_max_siblings_per_request, 8)
+        self.assertEqual(args.article_family_expansion_max_family_members_scored, 128)
 
     def test_article_family_expansion_is_explicitly_opt_in(self):
         with patch.object(
@@ -26,6 +27,7 @@ class RunLocalHarnessArgumentTests(unittest.TestCase):
                 "--article-family-expansion-trigger-top-k", "2",
                 "--article-family-expansion-max-siblings-per-root", "3",
                 "--article-family-expansion-max-siblings-per-request", "5",
+                "--article-family-expansion-max-family-members-scored", "64",
             ],
         ):
             args = parse_args()
@@ -34,6 +36,7 @@ class RunLocalHarnessArgumentTests(unittest.TestCase):
         self.assertEqual(args.article_family_expansion_trigger_top_k, 2)
         self.assertEqual(args.article_family_expansion_max_siblings_per_root, 3)
         self.assertEqual(args.article_family_expansion_max_siblings_per_request, 5)
+        self.assertEqual(args.article_family_expansion_max_family_members_scored, 64)
 
 
 if __name__ == "__main__":

@@ -109,6 +109,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--article-family-expansion-trigger-top-k", type=int, default=3)
     parser.add_argument("--article-family-expansion-max-siblings-per-root", type=int, default=4)
     parser.add_argument("--article-family-expansion-max-siblings-per-request", type=int, default=8)
+    parser.add_argument("--article-family-expansion-max-family-members-scored", type=int, default=128)
     parser.add_argument("--input-format", default="question_only")
     parser.add_argument("--record-dir", type=Path, default=PROJECT_ROOT / "records/runs")
     parser.add_argument(
@@ -162,6 +163,9 @@ def build_retriever(args: argparse.Namespace) -> RetrievalPipeline:
         ),
         article_family_expansion_max_siblings_per_request=getattr(
             args, "article_family_expansion_max_siblings_per_request", 8
+        ),
+        article_family_expansion_max_family_members_scored=getattr(
+            args, "article_family_expansion_max_family_members_scored", 128
         ),
     )
 
@@ -219,6 +223,9 @@ def build_frozen_run_args(
         ),
         article_family_expansion_max_siblings_per_request=configuration.get(
             "article_family_expansion_max_siblings_per_request", 8
+        ),
+        article_family_expansion_max_family_members_scored=configuration.get(
+            "article_family_expansion_max_family_members_scored", 128
         ),
         input_format=configuration.get("input_format", "koblex_background_plus_question"),
         record_dir=record_dir,
@@ -356,6 +363,9 @@ def run_question(
         ),
         "article_family_expansion_max_siblings_per_request": getattr(
             args, "article_family_expansion_max_siblings_per_request", 8
+        ),
+        "article_family_expansion_max_family_members_scored": getattr(
+            args, "article_family_expansion_max_family_members_scored", 128
         ),
         "conditional_generation": "answer_target_full_conditional_limited",
         "planning_contract": "answer_targets_required",

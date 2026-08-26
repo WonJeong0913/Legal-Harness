@@ -16,8 +16,9 @@ class RetrievalHit:
 @dataclass(frozen=True)
 class FusedHit:
     document: ProvisionDocument
-    rrf_score: float
-    first_stage_score: float
+    # Opt-in family siblings did not participate in first-stage/RRF retrieval.
+    rrf_score: Optional[float]
+    first_stage_score: Optional[float]
     source_request_ids: List[str] = field(default_factory=list)
     source_first_stage_ranks: Dict[str, int] = field(default_factory=dict)
     first_stage_rank: Optional[int] = None

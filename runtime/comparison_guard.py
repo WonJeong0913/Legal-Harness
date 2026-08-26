@@ -36,6 +36,7 @@ RUNTIME_CONFIGURATION_DEFAULTS = {
     "article_family_expansion_trigger_top_k": 3,
     "article_family_expansion_max_siblings_per_root": 4,
     "article_family_expansion_max_siblings_per_request": 8,
+    "article_family_expansion_max_family_members_scored": 128,
     "input_format": "koblex_background_plus_question",
     "s1_max_tokens": DEFAULT_SKILL_MAX_TOKENS["legal_issue_and_query_planning"],
     "s1_truncation_retry_max_tokens": DEFAULT_S1_TRUNCATION_RETRY_MAX_TOKENS,

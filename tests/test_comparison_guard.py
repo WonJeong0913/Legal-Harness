@@ -110,6 +110,7 @@ class RetrieverComparisonGuardTests(unittest.TestCase):
         self.assertEqual(resolved["article_family_expansion_trigger_top_k"], 3)
         self.assertEqual(resolved["article_family_expansion_max_siblings_per_root"], 4)
         self.assertEqual(resolved["article_family_expansion_max_siblings_per_request"], 8)
+        self.assertEqual(resolved["article_family_expansion_max_family_members_scored"], 128)
 
 
 if __name__ == "__main__":

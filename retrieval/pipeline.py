@@ -29,10 +29,8 @@ class _RequestRerankObservation:
 class _ArticleFamilyExpansion:
     hit: FusedHit
     root_hit: FusedHit
+    root_baseline_rerank_score: float
     family_key: str
-    sibling_candidate_count: int
-    sibling_selected_count: int
-    sibling_dropped_count: int
     baseline_rerank_rank: int
 
 
@@ -65,6 +63,7 @@ class RetrievalPipeline:
         article_family_expansion_trigger_top_k: int = 3,
         article_family_expansion_max_siblings_per_root: int = 4,
         article_family_expansion_max_siblings_per_request: int = 8,
+        article_family_expansion_max_family_members_scored: int = 128,
     ):
         if rrf_k < 1:
             raise ValueError("RRF k must be positive")
@@ -122,6 +121,7 @@ class RetrievalPipeline:
             article_family_expansion_trigger_top_k,
             article_family_expansion_max_siblings_per_root,
             article_family_expansion_max_siblings_per_request,
+            article_family_expansion_max_family_members_scored,
         )
         if any(
             isinstance(value, bool) or not isinstance(value, int) or value < 1
@@ -173,6 +173,9 @@ class RetrievalPipeline:
         )
         self.article_family_expansion_max_siblings_per_request = (
             article_family_expansion_max_siblings_per_request
+        )
+        self.article_family_expansion_max_family_members_scored = (
+            article_family_expansion_max_family_members_scored
         )
         self._article_family_provider = article_family_provider
         self._request_rerank_ranks_by_candidate: Dict[
@@ -244,8 +247,8 @@ class RetrievalPipeline:
                 (
                     replace(
                         representative,
-                        first_stage_score=max(
-                            hit.first_stage_score for hit, _ in aliases
+                        first_stage_score=self._maximum_first_stage_score(
+                            hit for hit, _ in aliases
                         ),
                         source_request_ids=source_request_ids,
                         source_first_stage_ranks=source_first_stage_ranks,
@@ -409,8 +412,17 @@ class RetrievalPipeline:
             merged.append(
                 replace(
                     representative,
-                    first_stage_score=max(
-                        candidate.first_stage_score for candidate in equivalents
+                    first_stage_score=(
+                        max(
+                            score
+                            for candidate in equivalents
+                            if (score := candidate.first_stage_score) is not None
+                        )
+                        if any(
+                            candidate.first_stage_score is not None
+                            for candidate in equivalents
+                        )
+                        else None
                     ),
                     source_request_ids=source_request_ids,
                     target_evidence_item_ids=target_evidence_item_ids,
@@ -747,6 +759,13 @@ class RetrievalPipeline:
         )
 
     @staticmethod
+    def _maximum_first_stage_score(
+        hits: Sequence[FusedHit],
+    ) -> Optional[float]:
+        scores = [hit.first_stage_score for hit in hits if hit.first_stage_score is not None]
+        return max(scores) if scores else None
+
+    @staticmethod
     def _minimum_first_stage_rank(
         observations: Sequence[_RequestRerankObservation],
     ) -> Optional[int]:
@@ -763,7 +782,7 @@ class RetrievalPipeline:
         baseline_reranked: Sequence[Tuple[FusedHit, float]],
         retrieval_round: int,
     ) -> List[Tuple[FusedHit, float]]:
-        """BGE-rerank bounded KURE source-index siblings after a baseline pass."""
+        """Score every bounded KURE family before applying selection caps."""
         if not self.article_family_sibling_rerank_expansion:
             return list(baseline_reranked)
         provider = self._article_family_provider
@@ -775,10 +794,11 @@ class RetrievalPipeline:
             for hit, _ in baseline_reranked
             for provision_id in self._alias_provision_ids(hit)
         }
-        remaining_request_capacity = self.article_family_expansion_max_siblings_per_request
         seen_family_keys: Set[str] = set()
-        expansions: List[_ArticleFamilyExpansion] = []
-        for baseline_rerank_rank, (root_hit, _) in enumerate(
+        root_contexts: List[Tuple[FusedHit, float, str, int]] = []
+        expansions_by_root: Dict[str, List[_ArticleFamilyExpansion]] = {}
+        all_expansions: List[_ArticleFamilyExpansion] = []
+        for baseline_rerank_rank, (root_hit, root_rerank_score) in enumerate(
             baseline_reranked[: self.article_family_expansion_trigger_top_k],
             start=1,
         ):
@@ -787,19 +807,26 @@ class RetrievalPipeline:
                 continue
             if not all(isinstance(member, ArticleFamilyMember) for member in members):
                 raise ValueError("KURE article-family members are invalid")
+            if len(members) > self.article_family_expansion_max_family_members_scored:
+                raise ValueError(
+                    "article-family member count exceeds max_family_members_scored"
+                )
             family_key = members[0].family_key
             if (
                 not isinstance(family_key, str)
                 or not family_key
-                or family_key in seen_family_keys
                 or any(member.family_key != family_key for member in members)
             ):
-                if family_key in seen_family_keys:
-                    continue
                 raise ValueError("KURE article-family key is invalid")
+            if family_key in seen_family_keys:
+                continue
             seen_family_keys.add(family_key)
-            siblings: List[ArticleFamilyMember] = []
-            for member in members:
+            root_id = root_hit.document.provision_id
+            root_contexts.append(
+                (root_hit, root_rerank_score, family_key, baseline_rerank_rank)
+            )
+            expansions_by_root[root_id] = []
+            for member in sorted(members, key=lambda item: item.document.provision_id):
                 alias_provision_ids = tuple(member.alias_provision_ids)
                 if (
                     not alias_provision_ids
@@ -809,102 +836,129 @@ class RetrievalPipeline:
                     raise ValueError("KURE article-family aliases are invalid")
                 if known_provision_ids.intersection(alias_provision_ids):
                     continue
-                siblings.append(member)
-            siblings.sort(key=lambda member: member.document.provision_id)
-            sibling_candidate_count = len(siblings)
-            selected_count = min(
-                sibling_candidate_count,
-                self.article_family_expansion_max_siblings_per_root,
-                remaining_request_capacity,
-            )
-            selected_siblings = siblings[:selected_count]
-            sibling_dropped_count = sibling_candidate_count - selected_count
+                expanded_hit = FusedHit(
+                    document=member.document,
+                    rrf_score=None,
+                    first_stage_score=None,
+                    source_request_ids=[request.request_id],
+                    source_first_stage_ranks={},
+                    first_stage_rank=None,
+                    fusion_rank=None,
+                    alias_provision_ids=list(alias_provision_ids),
+                )
+                expansion = _ArticleFamilyExpansion(
+                    hit=expanded_hit,
+                    root_hit=root_hit,
+                    root_baseline_rerank_score=root_rerank_score,
+                    family_key=family_key,
+                    baseline_rerank_rank=baseline_rerank_rank,
+                )
+                expansions_by_root[root_id].append(expansion)
+                all_expansions.append(expansion)
+
+        scored_expansions: List[Tuple[_ArticleFamilyExpansion, float, int]] = []
+        if all_expansions:
+            rerank_query = self._request_query_text(request, "rerank_query_text")
+            expansion_by_id = {
+                expansion.hit.document.provision_id: expansion
+                for expansion in all_expansions
+            }
+            for rerank_rank, (hit, rerank_score) in enumerate(
+                self._rerank(rerank_query, [expansion.hit for expansion in all_expansions]),
+                start=1,
+            ):
+                scored_expansions.append(
+                    (expansion_by_id[hit.document.provision_id], rerank_score, rerank_rank)
+                )
+
+        selected_by_id: Dict[str, int] = {}
+        dropped_reason_by_id: Dict[str, str] = {}
+        selected_per_root: Dict[str, int] = defaultdict(int)
+        selected_expansions: List[Tuple[_ArticleFamilyExpansion, float]] = []
+        for expansion, rerank_score, _ in scored_expansions:
+            provision_id = expansion.hit.document.provision_id
+            root_id = expansion.root_hit.document.provision_id
+            if (
+                selected_per_root[root_id]
+                >= self.article_family_expansion_max_siblings_per_root
+            ):
+                dropped_reason_by_id[provision_id] = "per_root_cap"
+                continue
+            if (
+                len(selected_expansions)
+                >= self.article_family_expansion_max_siblings_per_request
+            ):
+                dropped_reason_by_id[provision_id] = "per_request_cap"
+                continue
+            selected_per_root[root_id] += 1
+            selected_by_id[provision_id] = len(selected_expansions) + 1
+            selected_expansions.append((expansion, rerank_score))
+
+        for root_hit, root_rerank_score, family_key, baseline_rerank_rank in root_contexts:
+            root_id = root_hit.document.provision_id
+            root_expansions = expansions_by_root[root_id]
+            candidate_count = len(root_expansions)
+            selected_count = selected_per_root[root_id]
             self.last_stage_records.append(
                 ArticleFamilyExpansionRecord(
-                    provision_id=root_hit.document.provision_id,
+                    provision_id=root_id,
                     retrieval_round=retrieval_round,
                     candidate_stage="article_family_expansion_trigger",
                     source_request_ids=[request.request_id],
                     target_evidence_item_ids=[request.evidence_item_id],
                     article_family_key=family_key,
-                    article_family_root_provision_id=root_hit.document.provision_id,
-                    article_family_sibling_candidate_count=sibling_candidate_count,
+                    article_family_root_provision_id=root_id,
+                    article_family_sibling_candidate_count=candidate_count,
+                    article_family_sibling_scored_count=candidate_count,
                     article_family_sibling_selected_count=selected_count,
-                    article_family_sibling_dropped_count=sibling_dropped_count,
+                    article_family_sibling_dropped_count=(
+                        candidate_count - selected_count
+                    ),
                     article_family_sibling_per_root_cap=(
                         self.article_family_expansion_max_siblings_per_root
                     ),
                     article_family_sibling_per_request_cap=(
                         self.article_family_expansion_max_siblings_per_request
                     ),
-                    first_stage_rank=root_hit.first_stage_rank,
-                    fusion_rank=root_hit.fusion_rank,
-                    first_stage_score=root_hit.first_stage_score,
-                    fusion_score=root_hit.rrf_score,
+                    article_family_max_members_scored=(
+                        self.article_family_expansion_max_family_members_scored
+                    ),
+                    article_family_root_first_stage_rank=root_hit.first_stage_rank,
+                    article_family_root_fusion_rank=root_hit.fusion_rank,
+                    article_family_root_first_stage_score=root_hit.first_stage_score,
+                    article_family_root_fusion_score=root_hit.rrf_score,
+                    article_family_root_baseline_rerank_rank=baseline_rerank_rank,
+                    article_family_root_baseline_rerank_score=root_rerank_score,
                     selection_reason=(
-                        "article_family_sibling_rerank_trigger:baseline_rerank_rank=%d"
+                        "article_family_score_before_select_trigger:baseline_rerank_rank=%d"
                         % baseline_rerank_rank
                     ),
                     alias_provision_ids=self._alias_provision_ids(root_hit),
                 )
             )
-            for member in selected_siblings:
-                alias_provision_ids = list(member.alias_provision_ids)
-                expanded_hit = FusedHit(
-                    document=member.document,
-                    rrf_score=root_hit.rrf_score,
-                    first_stage_score=root_hit.first_stage_score,
-                    source_request_ids=[request.request_id],
-                    source_first_stage_ranks={},
-                    first_stage_rank=None,
-                    fusion_rank=root_hit.fusion_rank,
-                    alias_provision_ids=alias_provision_ids,
-                )
-                expansions.append(
-                    _ArticleFamilyExpansion(
-                        hit=expanded_hit,
-                        root_hit=root_hit,
-                        family_key=family_key,
-                        sibling_candidate_count=sibling_candidate_count,
-                        sibling_selected_count=selected_count,
-                        sibling_dropped_count=sibling_dropped_count,
-                        baseline_rerank_rank=baseline_rerank_rank,
-                    )
-                )
-                known_provision_ids.update(alias_provision_ids)
-            remaining_request_capacity -= selected_count
 
-        if not expansions:
-            return list(baseline_reranked)
-        rerank_query = self._request_query_text(request, "rerank_query_text")
-        expanded_reranked = self._rerank(
-            rerank_query,
-            [expansion.hit for expansion in expansions],
-        )
-        expansion_by_id = {
-            expansion.hit.document.provision_id: expansion for expansion in expansions
-        }
-        for rerank_rank, (hit, rerank_score) in enumerate(expanded_reranked, start=1):
-            expansion = expansion_by_id[hit.document.provision_id]
+        for expansion, rerank_score, rerank_rank in scored_expansions:
+            hit = expansion.hit
+            root_id = expansion.root_hit.document.provision_id
+            root_expansions = expansions_by_root[root_id]
+            selected_count = selected_per_root[root_id]
+            provision_id = hit.document.provision_id
+            selection_rank = selected_by_id.get(provision_id)
+            dropped_reason = dropped_reason_by_id.get(provision_id, "")
             self.last_stage_records.append(
                 ArticleFamilyExpansionRecord(
-                    provision_id=hit.document.provision_id,
+                    provision_id=provision_id,
                     retrieval_round=retrieval_round,
                     candidate_stage="article_family_sibling_rerank",
                     source_request_ids=[request.request_id],
                     target_evidence_item_ids=[request.evidence_item_id],
                     article_family_key=expansion.family_key,
-                    article_family_root_provision_id=(
-                        expansion.root_hit.document.provision_id
-                    ),
-                    article_family_sibling_candidate_count=(
-                        expansion.sibling_candidate_count
-                    ),
-                    article_family_sibling_selected_count=(
-                        expansion.sibling_selected_count
-                    ),
+                    article_family_root_provision_id=root_id,
+                    article_family_sibling_candidate_count=len(root_expansions),
+                    article_family_sibling_scored_count=len(root_expansions),
+                    article_family_sibling_selected_count=selected_count,
                     article_family_sibling_dropped_count=(
-                        expansion.sibling_dropped_count
+                        len(root_expansions) - selected_count
                     ),
                     article_family_sibling_per_root_cap=(
                         self.article_family_expansion_max_siblings_per_root
@@ -912,19 +966,39 @@ class RetrievalPipeline:
                     article_family_sibling_per_request_cap=(
                         self.article_family_expansion_max_siblings_per_request
                     ),
-                    fusion_rank=expansion.root_hit.fusion_rank,
+                    article_family_max_members_scored=(
+                        self.article_family_expansion_max_family_members_scored
+                    ),
+                    article_family_sibling_selected=selection_rank is not None,
+                    article_family_sibling_selection_rank=selection_rank,
+                    article_family_sibling_dropped_reason=dropped_reason,
+                    article_family_root_first_stage_rank=(
+                        expansion.root_hit.first_stage_rank
+                    ),
+                    article_family_root_fusion_rank=expansion.root_hit.fusion_rank,
+                    article_family_root_first_stage_score=(
+                        expansion.root_hit.first_stage_score
+                    ),
+                    article_family_root_fusion_score=expansion.root_hit.rrf_score,
+                    article_family_root_baseline_rerank_rank=(
+                        expansion.baseline_rerank_rank
+                    ),
+                    article_family_root_baseline_rerank_score=(
+                        expansion.root_baseline_rerank_score
+                    ),
                     rerank_rank=rerank_rank,
-                    fusion_score=expansion.root_hit.rrf_score,
                     rerank_score=rerank_score,
                     selection_reason=(
-                        "article_family_sibling_rerank:baseline_root_rank=%d"
-                        % expansion.baseline_rerank_rank
+                        "article_family_sibling_selected:score_order"
+                        if selection_rank is not None
+                        else "article_family_sibling_dropped:%s" % dropped_reason
                     ),
                     alias_provision_ids=self._alias_provision_ids(hit),
                 )
             )
+
         return sorted(
-            [*baseline_reranked, *expanded_reranked],
+            [*baseline_reranked, *( (hit.hit, score) for hit, score in selected_expansions)],
             key=lambda pair: (-pair[1], pair[0].document.provision_id),
         )
 

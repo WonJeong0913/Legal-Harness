@@ -1078,6 +1078,11 @@ def validate_retrieval_candidates(
             raise ValidationError("candidate provision_id and provision_text are required")
         if isinstance(candidate.fusion_rank, bool) or candidate.fusion_rank < 1:
             raise ValidationError("candidate fusion_rank must be positive")
+        if (
+            candidate.first_stage_score is not None
+            and not math.isfinite(candidate.first_stage_score)
+        ):
+            raise ValidationError("candidate first_stage_score must be finite when present")
         for label, rank in (
             ("first_stage_rank", candidate.first_stage_rank),
             ("rerank_rank", candidate.rerank_rank),
@@ -1101,7 +1106,7 @@ def validate_retrieval_stage_records(
     requests: Sequence[RetrievalRequest],
     retrieval_round: int,
 ) -> None:
-    """Validate the non-behavioral audit trail emitted by the retriever."""
+    """Validate non-behavioral audit provenance before persistence."""
     request_by_id = {request.request_id: request for request in requests}
     allowed_stages = {
         "first_stage", "rrf", "request_rerank", "bge_rerank", "selected",
@@ -1111,6 +1116,12 @@ def validate_retrieval_stage_records(
     expansion_stages = {
         "article_family_expansion_trigger", "article_family_sibling_rerank",
     }
+    expansion_children: Dict[
+        Tuple[Tuple[str, ...], str, str], List[ArticleFamilyExpansionRecord]
+    ] = {}
+    expansion_triggers: Dict[
+        Tuple[Tuple[str, ...], str, str], List[ArticleFamilyExpansionRecord]
+    ] = {}
     for record in records:
         if not isinstance(record, (CandidateStageRecord, ArticleFamilyExpansionRecord)):
             raise ValidationError("retrieval stage audit contains an unsupported record type")
@@ -1136,13 +1147,17 @@ def validate_retrieval_stage_records(
             ("rerank_rank", record.rerank_rank),
             ("selection_rank", record.selection_rank),
         ):
-            if rank is not None and (isinstance(rank, bool) or not isinstance(rank, int) or rank < 1):
+            if rank is not None and (
+                isinstance(rank, bool) or not isinstance(rank, int) or rank < 1
+            ):
                 raise ValidationError("retrieval stage %s must be a positive integer" % label)
         if record.candidate_stage == "first_stage" and record.first_stage_rank is None:
             raise ValidationError("first-stage audit requires first_stage_rank")
         if record.candidate_stage in {"rrf", "evidence_fusion"} and record.fusion_rank is None:
             raise ValidationError("fusion audit requires fusion_rank")
-        if record.candidate_stage in {"request_rerank", "bge_rerank", "article_family_sibling_rerank"} and record.rerank_rank is None:
+        if record.candidate_stage in {
+            "request_rerank", "bge_rerank", "article_family_sibling_rerank",
+        } and record.rerank_rank is None:
             raise ValidationError("rerank audit requires rerank_rank")
         if record.candidate_stage in expansion_stages:
             if not isinstance(record, ArticleFamilyExpansionRecord):
@@ -1151,11 +1166,20 @@ def validate_retrieval_stage_records(
                 raise ValidationError("article-family expansion audit requires family and root provenance")
             counts = (
                 record.article_family_sibling_candidate_count,
+                record.article_family_sibling_scored_count,
                 record.article_family_sibling_selected_count,
                 record.article_family_sibling_dropped_count,
             )
-            if any(isinstance(value, bool) or not isinstance(value, int) or value < 0 for value in counts):
+            if any(
+                isinstance(value, bool) or not isinstance(value, int) or value < 0
+                for value in counts
+            ):
                 raise ValidationError("article-family expansion counts must be non-negative integers")
+            if (
+                record.article_family_sibling_candidate_count
+                != record.article_family_sibling_scored_count
+            ):
+                raise ValidationError("article-family expansion must score every candidate")
             if record.article_family_sibling_candidate_count != (
                 record.article_family_sibling_selected_count
                 + record.article_family_sibling_dropped_count
@@ -1166,9 +1190,73 @@ def validate_retrieval_stage_records(
                 for value in (
                     record.article_family_sibling_per_root_cap,
                     record.article_family_sibling_per_request_cap,
+                    record.article_family_max_members_scored,
                 )
             ):
                 raise ValidationError("article-family expansion caps must be positive integers")
+            if any(
+                value is not None
+                for value in (
+                    record.first_stage_rank,
+                    record.fusion_rank,
+                    record.first_stage_score,
+                    record.fusion_score,
+                )
+            ):
+                raise ValidationError("article-family sibling audit cannot fabricate first-stage provenance")
+            for label, rank in (
+                ("article_family_root_first_stage_rank", record.article_family_root_first_stage_rank),
+                ("article_family_root_fusion_rank", record.article_family_root_fusion_rank),
+                ("article_family_root_baseline_rerank_rank", record.article_family_root_baseline_rerank_rank),
+            ):
+                if rank is not None and (
+                    isinstance(rank, bool) or not isinstance(rank, int) or rank < 1
+                ):
+                    raise ValidationError("article-family root %s must be a positive integer" % label)
+            for score in (
+                record.article_family_root_first_stage_score,
+                record.article_family_root_fusion_score,
+                record.article_family_root_baseline_rerank_score,
+            ):
+                if score is not None and not math.isfinite(score):
+                    raise ValidationError("article-family root scores must be finite")
+            if (
+                record.article_family_root_baseline_rerank_rank is None
+                or record.article_family_root_baseline_rerank_score is None
+            ):
+                raise ValidationError("article-family root baseline rerank provenance is required")
+            key = (
+                tuple(record.source_request_ids),
+                record.article_family_root_provision_id,
+                record.article_family_key,
+            )
+            if record.candidate_stage == "article_family_expansion_trigger":
+                if (
+                    record.article_family_sibling_selected is not None
+                    or record.article_family_sibling_selection_rank is not None
+                    or record.article_family_sibling_dropped_reason
+                ):
+                    raise ValidationError("article-family trigger cannot claim sibling selection")
+                expansion_triggers.setdefault(key, []).append(record)
+            else:
+                if not isinstance(record.article_family_sibling_selected, bool):
+                    raise ValidationError("article-family scored sibling requires selected status")
+                if record.article_family_sibling_selected:
+                    rank = record.article_family_sibling_selection_rank
+                    if (
+                        isinstance(rank, bool)
+                        or not isinstance(rank, int)
+                        or rank < 1
+                        or record.article_family_sibling_dropped_reason
+                    ):
+                        raise ValidationError("selected article-family sibling audit is invalid")
+                elif (
+                    record.article_family_sibling_selection_rank is not None
+                    or record.article_family_sibling_dropped_reason
+                    not in {"per_root_cap", "per_request_cap"}
+                ):
+                    raise ValidationError("dropped article-family sibling reason is invalid")
+                expansion_children.setdefault(key, []).append(record)
         if record.candidate_stage in {"selected", "round_selected"} and record.selection_rank is None:
             raise ValidationError("selection audit requires selection_rank")
         for score in (
@@ -1187,3 +1275,45 @@ def validate_retrieval_stage_records(
             raise ValidationError("retrieval stage alias_provision_ids must be a list of non-empty strings")
         if len(record.alias_provision_ids) != len(set(record.alias_provision_ids)):
             raise ValidationError("retrieval stage alias_provision_ids must be unique")
+
+    for key, triggers in expansion_triggers.items():
+        if len(triggers) != 1:
+            raise ValidationError("article-family expansion needs exactly one root trigger")
+        trigger = triggers[0]
+        siblings = expansion_children.get(key, [])
+        if len(siblings) != trigger.article_family_sibling_scored_count:
+            raise ValidationError("article-family scored sibling audit count does not reconcile")
+        if sum(record.article_family_sibling_selected for record in siblings) != (
+            trigger.article_family_sibling_selected_count
+        ):
+            raise ValidationError("article-family selected sibling audit count does not reconcile")
+        if sum(not record.article_family_sibling_selected for record in siblings) != (
+            trigger.article_family_sibling_dropped_count
+        ):
+            raise ValidationError("article-family dropped sibling audit count does not reconcile")
+        for sibling in siblings:
+            if (
+                sibling.article_family_sibling_candidate_count
+                != trigger.article_family_sibling_candidate_count
+                or sibling.article_family_sibling_scored_count
+                != trigger.article_family_sibling_scored_count
+                or sibling.article_family_sibling_selected_count
+                != trigger.article_family_sibling_selected_count
+                or sibling.article_family_sibling_dropped_count
+                != trigger.article_family_sibling_dropped_count
+            ):
+                raise ValidationError("article-family sibling audit summary does not match trigger")
+    if set(expansion_children) - set(expansion_triggers):
+        raise ValidationError("article-family sibling audit is missing its root trigger")
+
+    selected_ranks_by_request: Dict[Tuple[str, ...], List[int]] = {}
+    for key, siblings in expansion_children.items():
+        request_key = key[0]
+        selected_ranks_by_request.setdefault(request_key, []).extend(
+            record.article_family_sibling_selection_rank
+            for record in siblings
+            if record.article_family_sibling_selected
+        )
+    for ranks in selected_ranks_by_request.values():
+        if sorted(ranks) != list(range(1, len(ranks) + 1)):
+            raise ValidationError("article-family sibling selection ranks must be request-global")

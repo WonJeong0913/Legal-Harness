@@ -95,6 +95,7 @@ class BatchInputTests(unittest.TestCase):
                 "article_family_expansion_trigger_top_k": 2,
                 "article_family_expansion_max_siblings_per_root": 3,
                 "article_family_expansion_max_siblings_per_request": 5,
+                "article_family_expansion_max_family_members_scored": 64,
             },
             Path("/tmp/records"),
             snapshot,
@@ -112,6 +113,10 @@ class BatchInputTests(unittest.TestCase):
         self.assertEqual(
             command[command.index("--article-family-expansion-max-siblings-per-request") + 1],
             "5",
+        )
+        self.assertEqual(
+            command[command.index("--article-family-expansion-max-family-members-scored") + 1],
+            "64",
         )
 
     def test_relative_batch_log_root_is_project_absolute_and_log_relative_to_succeeds(self):
