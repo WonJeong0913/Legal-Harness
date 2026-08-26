@@ -607,13 +607,15 @@ class C06S2AxisCanonicalTests(unittest.TestCase):
         self.assertFalse(any(item.event == "S2_LEGACY_PROJECTION_DERIVED" for item in state.action_trace))
 
     def test_exact_three_skill_order_is_unchanged(self):
+        expected = [
+            "legal_issue_and_query_planning",
+            "provision_coverage_assessment",
+            "grounded_legal_answer_generation",
+        ]
+        self.assertEqual(list(SKILL_IDS), expected)
         self.assertEqual(
-            list(SKILL_IDS),
-            [
-                "legal_issue_and_query_planning",
-                "provision_coverage_assessment",
-                "grounded_legal_answer_generation",
-            ],
+            sorted(path.name for path in (ROOT / "skills").iterdir() if path.is_dir()),
+            sorted(expected),
         )
 
 
