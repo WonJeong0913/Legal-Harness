@@ -30,12 +30,14 @@ class CompactRawSchemaTests(unittest.TestCase):
         raw = {
             "schema_version": "1.0", "skill_id": "S2", "mode": "ASSESS_COVERAGE", "status": "ok",
             "evidence_links": [{"evidence_item_id": "E1", "provision_id": "C001", "relation": "supports", "rationale": "직접 근거"}],
-            "coverage_assessments": [{"evidence_item_id": "E1", "status": "covered", "rationale": "직접 근거", "legal_status": "covered", "applicability_status": "direct", "gap_type": "none", "criterion_results": [{"requirement_id": "E1-R1", "status": "satisfied", "linked_provision_ids": ["C001"], "rationale": "요건 충족", "direct_entailment": {"regulated_subject_or_act": "matched", "outcome_changing_qualifiers": "matched", "legal_effect": "matched", "procedure_or_remedy_path": "not_applicable", "rationale": "직접 근거"}}]}],
+            "coverage_assessments": [{"evidence_item_id": "E1", "rationale": "직접 근거", "legal_status": "covered", "applicability_status": "direct", "gap_type": "none", "criterion_results": [{"requirement_id": "E1-R1", "status": "satisfied", "linked_provision_ids": ["C001"], "rationale": "요건 충족", "direct_entailment": {"regulated_subject_or_act": "matched", "outcome_changing_qualifiers": "matched", "legal_effect": "matched", "procedure_or_remedy_path": "not_applicable", "rationale": "직접 근거"}}]}],
         }
         jsonschema.Draft202012Validator(self._schema("provision_coverage_assessment", "compact_output.schema.json")).validate(raw)
         prompt = self.executor._prompt("provision_coverage_assessment", "ASSESS_COVERAGE", skill_input, "")
         self.assertIn('"title": "S2 compact raw transport"', prompt)
         self.assertNotIn('"link_id"', self.executor._resources["provision_coverage_assessment"]["compact_output_schema"])
+        self.assertNotIn('"partial_kind"', self.executor._resources["provision_coverage_assessment"]["compact_output_schema"])
+        self.assertNotIn('"governing_legal_regime"', self.executor._resources["provision_coverage_assessment"]["compact_output_schema"])
         normalized = self.executor._normalize_harness_owned_fields("provision_coverage_assessment", "ASSESS_COVERAGE", skill_input, raw)
         jsonschema.Draft202012Validator(self._schema("provision_coverage_assessment", "output.schema.json")).validate(normalized)
         self.assertEqual(self.executor._validators["provision_coverage_assessment"](normalized, skill_input), [])

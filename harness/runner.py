@@ -17,6 +17,7 @@ from .contracts import (
     Phase,
     PolicyAction,
     PolicyDecision,
+    S2LegacyProjectionDiagnostic,
     TerminationReason,
 )
 from .interfaces import CitationIntegrityValidator, ProvisionRetriever, SkillExecutor
@@ -357,12 +358,164 @@ class HarnessRunner:
     def _assess_coverage(self, state: RunState) -> Optional[HarnessOutcome]:
         try:
             raw = self._execute(S2, "ASSESS_COVERAGE", self._coverage_payload(state))
-            links, assessments, conflicts = validate_coverage_assessment(raw, state)
+            canonical_raw = dict(raw)
+            encoded_diagnostics = canonical_raw.pop(
+                "_harness_s2_projection_diagnostics", None
+            )
+            links, assessments, conflicts = validate_coverage_assessment(
+                canonical_raw, state
+            )
+            projection_diagnostics = self._validated_s2_projection_diagnostics(
+                encoded_diagnostics, assessments
+            )
+            for diagnostic in projection_diagnostics:
+                details = {
+                    "evidence_item_id": diagnostic.evidence_item_id,
+                    "legal_status": diagnostic.legal_status,
+                    "applicability_status": diagnostic.applicability_status,
+                    "gap_type": diagnostic.gap_type,
+                    "derived_status": diagnostic.derived_status,
+                    "derived_partial_kind": diagnostic.derived_partial_kind,
+                    "derived_governing_legal_regime": diagnostic.derived_governing_legal_regime,
+                    "raw_projection_disposition": dict(
+                        diagnostic.raw_projection_disposition
+                    ),
+                }
+                self._trace("S2_LEGACY_PROJECTION_DERIVED", state, **details)
             apply_coverage_assessment(state, links, assessments, conflicts)
             self._trace("COVERAGE_ASSESSMENT_VALIDATED", state)
             return None
         except (ValidationError, StateInvariantError, RuntimeError) as exc:
             return self._failure(state, TerminationReason.INVALID_SKILL_OUTPUT, exc)
+
+    @staticmethod
+    def _validated_s2_projection_diagnostics(
+        encoded: Any,
+        assessments: Sequence,
+    ) -> List[S2LegacyProjectionDiagnostic]:
+        """Accept only the executor's bounded, complete S2 projection audit."""
+        if encoded is None:
+            # Non-local legacy executors have no c06 private transport field.
+            return []
+        if not isinstance(encoded, list):
+            raise ValidationError("S2 projection diagnostics must be a list")
+        expected = {
+            assessment.evidence_item_id: assessment for assessment in assessments
+        }
+        if len(encoded) != len(expected):
+            raise ValidationError("S2 projection diagnostics must cover each assessment once")
+        diagnostics = []
+        seen = set()
+        for raw in encoded:
+            if not isinstance(raw, Mapping):
+                raise ValidationError("S2 projection diagnostic must be an object")
+            evidence_item_id = raw.get("evidence_item_id")
+            if not isinstance(evidence_item_id, str) or evidence_item_id not in expected:
+                raise ValidationError("S2 projection diagnostic references unknown evidence")
+            if evidence_item_id in seen:
+                raise ValidationError("S2 projection diagnostic repeats evidence")
+            seen.add(evidence_item_id)
+            assessment = expected[evidence_item_id]
+            expected_values = {
+                "legal_status": assessment.legal_status.value,
+                "applicability_status": assessment.applicability_status.value,
+                "gap_type": assessment.gap_type.value,
+                "derived_status": assessment.status.value,
+                "derived_partial_kind": assessment.partial_kind,
+                "derived_governing_legal_regime": assessment.governing_legal_regime.value,
+            }
+            if any(raw.get(key) != value for key, value in expected_values.items()):
+                raise ValidationError("S2 projection diagnostic conflicts with canonical assessment")
+            disposition = raw.get("raw_projection_disposition")
+            if not isinstance(disposition, Mapping):
+                raise ValidationError("S2 projection diagnostic disposition must be an object")
+            if set(disposition) != {
+                "disposition",
+                "status",
+                "partial_kind",
+                "governing_legal_regime",
+                "missing_evidence_items",
+                "evidence_conflicts",
+            }:
+                raise ValidationError("S2 projection diagnostic disposition fields are invalid")
+            if disposition.get("disposition") not in {"omitted", "suppressed"}:
+                raise ValidationError("S2 projection diagnostic disposition is invalid")
+            HarnessRunner._validate_s2_projection_value(
+                disposition.get("status"),
+                {"status", "evidence_status", "both", "omitted"},
+                {"covered", "partially_covered", "uncovered", "conflicting"},
+            )
+            HarnessRunner._validate_s2_projection_value(
+                disposition.get("partial_kind"),
+                {"partial_kind", "omitted"},
+                {"not_applicable", "factual_condition", "legal_support_gap"},
+            )
+            HarnessRunner._validate_s2_projection_value(
+                disposition.get("governing_legal_regime"),
+                {"governing_legal_regime", "omitted"},
+                {"direct_entailment", "not_direct_entailment", "not_assessed"},
+            )
+            for key in ("missing_evidence_items", "evidence_conflicts"):
+                ledger = disposition.get(key)
+                if not isinstance(ledger, Mapping) or set(ledger) != {
+                    "present",
+                    "count",
+                    "shape",
+                }:
+                    raise ValidationError("S2 projection diagnostic ledger disposition is invalid")
+                count = ledger.get("count")
+                if (
+                    isinstance(count, bool)
+                    or not isinstance(count, int)
+                    or count < 0
+                    or count > len(expected) + 1
+                ):
+                    raise ValidationError("S2 projection diagnostic ledger count is invalid")
+                if not isinstance(ledger.get("present"), bool) or ledger.get("shape") not in {
+                    "list",
+                    "invalid",
+                    "omitted",
+                }:
+                    raise ValidationError("S2 projection diagnostic ledger shape is invalid")
+            diagnostics.append(
+                S2LegacyProjectionDiagnostic(
+                    evidence_item_id=evidence_item_id,
+                    legal_status=expected_values["legal_status"],
+                    applicability_status=expected_values["applicability_status"],
+                    gap_type=expected_values["gap_type"],
+                    derived_status=expected_values["derived_status"],
+                    derived_partial_kind=expected_values["derived_partial_kind"],
+                    derived_governing_legal_regime=expected_values[
+                        "derived_governing_legal_regime"
+                    ],
+                    raw_projection_disposition=dict(disposition),
+                )
+            )
+        if seen != set(expected):
+            raise ValidationError("S2 projection diagnostics omit an assessment")
+        return diagnostics
+
+    @staticmethod
+    def _validate_s2_projection_value(
+        value: Any,
+        allowed_sources: set,
+        allowed_values: set,
+    ) -> None:
+        if not isinstance(value, Mapping) or set(value) != {
+            "present",
+            "source",
+            "value",
+        }:
+            raise ValidationError("S2 projection diagnostic value disposition is invalid")
+        present = value.get("present")
+        source = value.get("source")
+        raw_value = value.get("value")
+        if not isinstance(present, bool) or source not in allowed_sources:
+            raise ValidationError("S2 projection diagnostic value metadata is invalid")
+        if not present and (source != "omitted" or raw_value is not None):
+            raise ValidationError("S2 omitted projection diagnostic is inconsistent")
+        if present and (source == "omitted" or raw_value not in allowed_values | {"invalid"}):
+            raise ValidationError("S2 projection diagnostic value is invalid")
 
     def _generate_and_validate(self, state: RunState) -> HarnessOutcome:
         try:

@@ -27,9 +27,12 @@ requirements and candidate provisions.
 4. Apply the contract's coverage mapping. Question facts need no statutory
    citation: when the legal rule is complete and only a supplied fact selects an
    application branch, use `covered` + `conditional` + `missing_fact`.
-5. Put only supplied requirement IDs in aspect fields and explanations in
-   `rationale`. Preserve a prior supported finding when its provision remains,
-   unless new evidence creates a real conflict.
+5. In compact transport author the complete atomic axes and criterion/link/role
+   judgments only. The harness deterministically derives legacy `status`,
+   `partial_kind`, `governing_legal_regime`, aspect arrays, and missing/conflict
+   ledgers after the axes boundary; do not emit those projection fields.
+   Preserve a prior supported finding when its provision remains, unless new
+   evidence creates a real conflict.
 6. Return JSON only.
 
 ## Deterministic scope guards
@@ -53,7 +56,7 @@ legal requirement for the harness's bounded gap policy instead.
 ## Evidence-role boundary
 
 Only an accepted `CORE` link may appear in `linked_provision_ids`, satisfy a
-criterion, or establish `governing_legal_regime: direct_entailment`. A
+criterion, or support the harness's `direct_entailment` projection. A
 `SUPPLEMENTAL`, `QUALIFYING`, or `ALTERNATIVE` link is authorized audit context:
 it may be retained with its condition and rationale, but cannot make an item
 covered, partially covered, directly applicable, or criterion-satisfied. A

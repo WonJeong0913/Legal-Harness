@@ -123,6 +123,26 @@ class GapPlanRecovery:
     remaining_request_count: int
 
 
+@dataclass(frozen=True)
+class S2LegacyProjectionDiagnostic:
+    """Bounded harness-owned audit of an S2 legacy projection.
+
+    This record is created only after the raw atomic axes have passed the
+    compact transport boundary.  It deliberately contains enum values, IDs,
+    and bounded ledger counts only: no question, statute, source, or gold text
+    may cross this diagnostic boundary.
+    """
+
+    evidence_item_id: str
+    legal_status: str
+    applicability_status: str
+    gap_type: str
+    derived_status: str
+    derived_partial_kind: str
+    derived_governing_legal_regime: str
+    raw_projection_disposition: Dict[str, Any]
+
+
 class AbstentionReason(str, Enum):
     INSUFFICIENT_CRITICAL_EVIDENCE = "INSUFFICIENT_CRITICAL_EVIDENCE"
     UNRESOLVED_EVIDENCE_CONFLICT = "UNRESOLVED_EVIDENCE_CONFLICT"

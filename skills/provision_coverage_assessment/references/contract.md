@@ -21,11 +21,14 @@ Use only supplied evidence, requirement, and short candidate IDs. After normaliz
 | Some legal requirements unsupported | `partially_covered` | `not_assessed` | `missing_statute` | `partially_covered` / `legal_support_gap` |
 | No legal requirement supported | `uncovered` | `not_assessed` | `missing_statute` | `uncovered` |
 | Incompatible rules for established facts | `conflicting` | `not_assessed` | `conflict` | `conflicting` |
+| Supplied non-critical context outside the answer | `uncovered` | `not_assessed` | `scope_excess` | `uncovered` |
 
 Alternative rules selected only by a missing fact are conditional, not
 conflicting. Reserve `scope_excess` for supplied non-critical context outside the
 requested answer; never use it to excuse unsupported critical legal evidence or
-to downgrade an otherwise supported requested proposition.
+to downgrade an otherwise supported requested proposition. It is allowed only
+when the input evidence item has `critical: false`; every other
+`scope_excess` tuple is invalid.
 
 For `covered` + `conditional` + `missing_fact`, cite the provisions that fully
 establish the legal rule, put only the affected supplied requirement IDs in
@@ -67,13 +70,12 @@ legacy link is interpreted as `CORE`.
 
 `CORE` is the only role allowed in assessment-level or criterion-level
 `linked_provision_ids`. Only accepted core support may satisfy a criterion or
-make the governing legal regime directly entailed. Auxiliary roles remain in
+support the harness's direct-entailment projection. Auxiliary roles remain in
 the authorized evidence audit with their conditions and rationales, but never
-clear a coverage gap. `governing_legal_regime` is the explicit axis
-`direct_entailment`, `not_direct_entailment`, or `not_assessed`; a covered
-legal status requires `direct_entailment`, and direct entailment requires a
-covered legal status. The harness derives the authorized union and every role
-projection; S2 must not emit those derived ID lists.
+clear a coverage gap. The complete atomic axes are model-authored; the harness
+derives `status`, `partial_kind`, `governing_legal_regime`, the authorized
+union, every role projection, and missing/conflict ledgers. S2 must not emit
+those derived fields in compact transport.
 
 ## Deterministic applicability scope
 
@@ -101,4 +103,11 @@ from outside the supplied target and completion requirement.
 
 ## Compact audit transport
 
-Keep every legal/status decision, criterion requirement ID, criterion linked candidate IDs, chosen support/conflict relation, and one concise rationale for each evidence link, coverage assessment, and criterion result. Omit link IDs, `[FULL_TEXT]`, assessment-level duplicate link/aspect arrays, and duplicate missing/conflict arrays; the harness reconstructs only those deterministic fields before unchanged validation.
+Keep the complete `legal_status`/`applicability_status`/`gap_type` tuple,
+criterion requirement ID and status, criterion linked candidate IDs, chosen
+support/conflict relation and role, and one concise rationale for each evidence
+link, coverage assessment, and criterion result. Omit link IDs, `[FULL_TEXT]`,
+assessment-level duplicate link/aspect arrays, legacy `status`, `partial_kind`,
+`governing_legal_regime`, and missing/conflict ledgers. The harness validates
+the complete allowed tuple before deriving only those presentation fields, then
+runs unchanged full semantic validation.

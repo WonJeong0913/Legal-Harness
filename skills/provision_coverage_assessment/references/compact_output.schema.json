@@ -112,7 +112,6 @@
       "additionalProperties": false,
       "required": [
         "evidence_item_id",
-        "status",
         "rationale",
         "legal_status",
         "applicability_status",
@@ -123,20 +122,6 @@
         "evidence_item_id": {
           "type": "string",
           "minLength": 1
-        },
-        "status": {
-          "enum": [
-            "covered",
-            "partially_covered",
-            "uncovered",
-            "conflicting"
-          ]
-        },
-        "partial_kind": {
-          "enum": [
-            "factual_condition",
-            "legal_support_gap"
-          ]
         },
         "rationale": {
           "type": "string",
@@ -164,13 +149,6 @@
             "missing_fact",
             "scope_excess",
             "conflict"
-          ]
-        },
-        "governing_legal_regime": {
-          "enum": [
-            "direct_entailment",
-            "not_direct_entailment",
-            "not_assessed"
           ]
         },
         "criterion_results": {

@@ -102,15 +102,25 @@ class LocalOllamaExecutorTests(unittest.TestCase):
                     "coverage_assessments": [
                         {
                             "evidence_item_id": "E1",
-                            "status": "covered",
-                            "linked_provision_ids": ["C001"],
                             "rationale": "책임 규정이 있다",
-                            "satisfied_aspects": ["책임"],
-                            "missing_aspects": [],
+                            "legal_status": "covered",
+                            "applicability_status": "direct",
+                            "gap_type": "none",
+                            "criterion_results": [{
+                                "requirement_id": "E1-R1",
+                                "status": "satisfied",
+                                "linked_provision_ids": ["C001"],
+                                "rationale": "책임 규정이 있다",
+                                "direct_entailment": {
+                                    "regulated_subject_or_act": "matched",
+                                    "outcome_changing_qualifiers": "matched",
+                                    "legal_effect": "matched",
+                                    "procedure_or_remedy_path": "not_applicable",
+                                    "rationale": "공급된 요건을 직접 충족한다",
+                                },
+                            }],
                         }
                     ],
-                    "missing_evidence_items": [],
-                    "evidence_conflicts": [],
                 },
                 ensure_ascii=False,
             )
@@ -311,6 +321,9 @@ class LocalOllamaExecutorTests(unittest.TestCase):
             "description": "손해배상 규정",
             "critical": True,
             "completion_criteria": "책임의 근거 조문이 있다",
+            "completion_requirements": [
+                {"requirement_id": "E1-R1", "text": "책임의 근거 조문"}
+            ],
         }
         coverage = self.executor.execute(
             "provision_coverage_assessment",
@@ -809,7 +822,7 @@ class LocalOllamaExecutorTests(unittest.TestCase):
         self.assertEqual(result["claims"], [])
         self.assertEqual(result["claim_citations"], [])
 
-    def test_s2_deduplicates_repeated_evidence_assessments(self):
+    def test_s2_rejects_repeated_evidence_assessments_without_repairing_ids(self):
         raw = {
             "schema_version": "1.0",
             "skill_id": "S2",
@@ -837,23 +850,21 @@ class LocalOllamaExecutorTests(unittest.TestCase):
             "coverage_assessments": [
                 {
                     "evidence_item_id": "E1",
-                    "status": "covered",
-                    "linked_provision_ids": ["C001"],
                     "rationale": "충족",
-                    "satisfied_aspects": ["책임"],
-                    "missing_aspects": [],
+                    "legal_status": "covered",
+                    "applicability_status": "direct",
+                    "gap_type": "none",
+                    "criterion_results": [],
                 },
                 {
                     "evidence_item_id": "E1",
-                    "status": "covered",
-                    "linked_provision_ids": ["C001"],
                     "rationale": "중복",
-                    "satisfied_aspects": ["책임"],
-                    "missing_aspects": [],
+                    "legal_status": "covered",
+                    "applicability_status": "direct",
+                    "gap_type": "none",
+                    "criterion_results": [],
                 },
             ],
-            "missing_evidence_items": [],
-            "evidence_conflicts": [],
         }
         executor = LocalOllamaSkillExecutor(
             skills_root=PROJECT_ROOT / "skills",
@@ -869,20 +880,18 @@ class LocalOllamaExecutorTests(unittest.TestCase):
             "completion_criteria": "책임의 근거 조문이 있다",
         }
 
-        result = executor.execute(
-            "provision_coverage_assessment",
-            "ASSESS_COVERAGE",
-            {
-                "run_id": "run-1",
-                "normalized_question": "손해배상 책임은 무엇인가",
-                "legal_issues": [{"issue_id": "I1", "description": "손해배상"}],
-                "required_evidence_items": [evidence],
-                "candidate_provisions": [self._candidate()],
-            },
-        )
-
-        self.assertEqual(len(result["evidence_links"]), 1)
-        self.assertEqual(len(result["coverage_assessments"]), 1)
+        with self.assertRaises(SkillExecutionError):
+            executor.execute(
+                "provision_coverage_assessment",
+                "ASSESS_COVERAGE",
+                {
+                    "run_id": "run-1",
+                    "normalized_question": "손해배상 책임은 무엇인가",
+                    "legal_issues": [{"issue_id": "I1", "description": "손해배상"}],
+                    "required_evidence_items": [evidence],
+                    "candidate_provisions": [self._candidate()],
+                },
+            )
 
     def test_s2_derives_aspect_ids_from_complete_criterion_results(self):
         skill_input = {
@@ -912,9 +921,10 @@ class LocalOllamaExecutorTests(unittest.TestCase):
             "coverage_assessments": [
                 {
                     "evidence_item_id": "E1",
-                    "status": "partially_covered",
-                    "satisfied_aspects": ["책임 근거는 확인됨"],
-                    "missing_aspects": ["적용 요건이 부족함"],
+                    "rationale": "일부 요건이 부족함",
+                    "legal_status": "partially_covered",
+                    "applicability_status": "not_assessed",
+                    "gap_type": "missing_statute",
                     "criterion_results": [
                         {"requirement_id": "E1-R2", "status": "unsatisfied"},
                         {"requirement_id": "E1-R1", "status": "satisfied"},
@@ -1056,7 +1066,8 @@ class LocalOllamaExecutorTests(unittest.TestCase):
         )
 
         self.assertIn("closed-requirement coverage mapping", invariants)
-        self.assertIn("never invent IDs or missing aspects", invariants)
+        self.assertIn("never invent IDs", invariants)
+        self.assertIn("Omit legacy status", invariants)
 
     def test_s1_normalizes_initial_and_gap_queries(self):
         initial = self.executor._normalize_harness_owned_fields(

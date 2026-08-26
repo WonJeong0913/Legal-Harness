@@ -21,7 +21,11 @@ import urllib.request
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence, Tuple
 
-from harness.contracts import GapPlanRecovery, GapPlanRecoveryDisposition
+from harness.contracts import (
+    GapPlanRecovery,
+    GapPlanRecoveryDisposition,
+    S2LegacyProjectionDiagnostic,
+)
 from harness.interfaces import SkillExecutionError
 
 
@@ -55,10 +59,54 @@ S3_COMPACT_TRANSPORT_INVARIANT = (
 )
 S2_COMPACT_AUDIT_INVARIANT = (
     "For raw S2 transport omit link_id, [FULL_TEXT], assessment-level linked "
-    "IDs, satisfied_aspects, missing_aspects, and missing/conflict arrays when "
-    "derivable; retain each evidence-link role, condition, and rationale; retain each legal status, governing_legal_regime, criterion requirement_id/status, "
-    "criterion linked candidate IDs, direct-entailment component statuses for direct satisfied requirements, relation/conflict choice, and one concise rationale for each evidence link, coverage assessment, and criterion result."
+    "IDs, satisfied_aspects, missing_aspects, legacy status, partial_kind, "
+    "governing_legal_regime, and missing/conflict arrays. Retain the complete "
+    "legal_status/applicability_status/gap_type tuple, each evidence-link role, "
+    "condition, and rationale, criterion requirement_id/status, criterion linked "
+    "candidate IDs, direct-entailment component statuses for direct satisfied "
+    "requirements, relation/conflict choice, and one concise rationale for each "
+    "evidence link, coverage assessment, and criterion result."
 )
+
+S2_AXIS_PROJECTIONS = {
+    ("covered", "direct", "none"): (
+        "covered",
+        "not_applicable",
+        "direct_entailment",
+    ),
+    ("covered", "conditional", "missing_fact"): (
+        "partially_covered",
+        "factual_condition",
+        "direct_entailment",
+    ),
+    ("partially_covered", "not_assessed", "missing_statute"): (
+        "partially_covered",
+        "legal_support_gap",
+        "not_direct_entailment",
+    ),
+    ("uncovered", "not_assessed", "missing_statute"): (
+        "uncovered",
+        "not_applicable",
+        "not_direct_entailment",
+    ),
+    ("conflicting", "not_assessed", "conflict"): (
+        "conflicting",
+        "not_applicable",
+        "not_direct_entailment",
+    ),
+}
+S2_SCOPE_EXCESS_TUPLE = ("uncovered", "not_assessed", "scope_excess")
+S2_STATUS_VALUES = {"covered", "partially_covered", "uncovered", "conflicting"}
+S2_PARTIAL_KIND_VALUES = {
+    "not_applicable",
+    "factual_condition",
+    "legal_support_gap",
+}
+S2_GOVERNING_REGIME_VALUES = {
+    "direct_entailment",
+    "not_direct_entailment",
+    "not_assessed",
+}
 
 @dataclass(frozen=True)
 class GenerationResult:
@@ -73,6 +121,18 @@ class ModelOutputTruncatedError(ValueError):
 
 class ModelOutputInvalidJsonError(ValueError):
     """The model stopped normally but returned syntactically invalid JSON."""
+
+
+class NormalizedS2Output(dict):
+    """A canonical S2 mapping with per-call, non-serialized audit metadata."""
+
+    def __init__(
+        self,
+        value: Mapping[str, Any],
+        projection_diagnostics: Sequence[S2LegacyProjectionDiagnostic],
+    ):
+        super().__init__(value)
+        self.projection_diagnostics = tuple(projection_diagnostics)
 
 
 class LocalOllamaSkillExecutor:
@@ -354,7 +414,16 @@ class LocalOllamaSkillExecutor:
                         "remaining_request_count": gap_plan_recovery.remaining_request_count,
                     }
                 diagnostic["outcome"] = "valid"
-                return self._adapt_output(skill_name, entry_point, skill_output, skill_input)
+                adapted_output = self._adapt_output(
+                    skill_name, entry_point, skill_output, skill_input
+                )
+                if skill_name == "provision_coverage_assessment":
+                    adapted_output = dict(adapted_output)
+                    adapted_output["_harness_s2_projection_diagnostics"] = [
+                        self._s2_projection_diagnostic_payload(item)
+                        for item in getattr(skill_output, "projection_diagnostics", ())
+                    ]
+                return adapted_output
             except ModelOutputTruncatedError as exc:
                 errors = [str(exc)]
                 repair_note = (
@@ -771,12 +840,73 @@ class LocalOllamaSkillExecutor:
             return None
         return answer
 
+    @staticmethod
+    def _bounded_s2_projection_value(
+        raw: Mapping[str, Any],
+        keys: Sequence[str],
+        allowed_values: Sequence[str],
+    ) -> Dict[str, Any]:
+        present_keys = [key for key in keys if key in raw]
+        value = raw.get(present_keys[0]) if present_keys else None
+        return {
+            "present": bool(present_keys),
+            "source": "both" if len(present_keys) > 1 else (present_keys[0] if present_keys else "omitted"),
+            "value": value if value in allowed_values else ("invalid" if present_keys else None),
+        }
+
+    @staticmethod
+    def _bounded_s2_ledger_disposition(
+        output: Mapping[str, Any], key: str, evidence_count: int
+    ) -> Dict[str, Any]:
+        value = output.get(key)
+        return {
+            "present": key in output,
+            "count": min(len(value), evidence_count + 1) if isinstance(value, list) else 0,
+            "shape": "list" if isinstance(value, list) else ("invalid" if key in output else "omitted"),
+        }
+
+    @staticmethod
+    def _s2_axis_projection(
+        assessment: Mapping[str, Any], evidence: Mapping[str, Any]
+    ) -> Tuple[str, str, str]:
+        axis_fields = ("legal_status", "applicability_status", "gap_type")
+        if not all(isinstance(assessment.get(field), str) for field in axis_fields):
+            raise SkillExecutionError(
+                "S2 coverage axes must be supplied together as frozen strings"
+            )
+        axis_tuple = tuple(assessment[field] for field in axis_fields)
+        projection = S2_AXIS_PROJECTIONS.get(axis_tuple)
+        if projection is not None:
+            return projection
+        if axis_tuple == S2_SCOPE_EXCESS_TUPLE and evidence.get("critical") is False:
+            return "uncovered", "not_applicable", "not_direct_entailment"
+        raise SkillExecutionError(
+            "S2 coverage axes are not an allowed tuple for this evidence item"
+        )
+
+    @staticmethod
+    def _s2_projection_diagnostic_payload(
+        diagnostic: S2LegacyProjectionDiagnostic,
+    ) -> Dict[str, Any]:
+        return {
+            "evidence_item_id": diagnostic.evidence_item_id,
+            "legal_status": diagnostic.legal_status,
+            "applicability_status": diagnostic.applicability_status,
+            "gap_type": diagnostic.gap_type,
+            "derived_status": diagnostic.derived_status,
+            "derived_partial_kind": diagnostic.derived_partial_kind,
+            "derived_governing_legal_regime": diagnostic.derived_governing_legal_regime,
+            "raw_projection_disposition": dict(
+                diagnostic.raw_projection_disposition
+            ),
+        }
+
     def _normalize_s2_output(
         self,
         output: Dict[str, Any],
         skill_input: Mapping[str, Any],
     ) -> Dict[str, Any]:
-        """Canonicalize S2 transport structure without making legal judgments."""
+        """Project complete S2 axes without repairing semantic model decisions."""
         if output.get("status") != "ok":
             return output
         evidence = [
@@ -829,120 +959,166 @@ class LocalOllamaSkillExecutor:
                     links_by_evidence.setdefault(evidence_id, []).append(provision_id)
 
         first_assessment: Dict[str, Dict[str, Any]] = {}
+        normalized_assessments = []
+        projection_diagnostics: List[S2LegacyProjectionDiagnostic] = []
         for raw in self._list(output, "coverage_assessments", required=False):
             if not isinstance(raw, Mapping):
+                normalized_assessments.append(raw)
                 continue
             evidence_id = raw.get("evidence_item_id")
-            if evidence_id in evidence_by_id and evidence_id not in first_assessment:
-                assessment = dict(raw)
-                status = assessment.get("status", assessment.get("evidence_status"))
-                if isinstance(status, str) and "status" not in assessment:
-                    assessment["status"] = status
-                if not isinstance(status, str) and isinstance(
-                    assessment.get("legal_status"), str
-                ):
-                    status = (
-                        "partially_covered"
-                        if assessment.get("legal_status") == "covered"
-                        and assessment.get("applicability_status") == "conditional"
-                        else assessment.get("legal_status")
-                    )
-                    assessment["status"] = status
-                if status == "partially_covered":
-                    if assessment.get("partial_kind") not in {
-                        "factual_condition",
-                        "legal_support_gap",
-                    }:
-                        assessment["partial_kind"] = "legal_support_gap"
-                else:
-                    assessment["partial_kind"] = "not_applicable"
-                assessment["linked_provision_ids"] = list(
-                    dict.fromkeys(links_by_evidence.get(evidence_id, []))
-                )
-                requirement_ids = [
-                    requirement.get("requirement_id")
-                    for requirement in evidence_by_id[evidence_id].get(
-                        "completion_requirements", []
-                    )
-                    if isinstance(requirement, Mapping)
-                    and isinstance(requirement.get("requirement_id"), str)
-                ]
-                criterion_results = assessment.get("criterion_results")
-                if requirement_ids and isinstance(criterion_results, list):
-                    results_by_id = {
-                        result.get("requirement_id"): result
-                        for result in criterion_results
-                        if isinstance(result, Mapping)
-                        and isinstance(result.get("requirement_id"), str)
-                    }
-                    if (
-                        len(criterion_results) == len(requirement_ids)
-                        and set(results_by_id) == set(requirement_ids)
-                    ):
-                        assessment["criterion_results"] = [
-                            dict(results_by_id[requirement_id])
-                            for requirement_id in requirement_ids
-                        ]
-                        assessment["satisfied_aspects"] = [
-                            requirement_id
-                            for requirement_id in requirement_ids
-                            if results_by_id[requirement_id].get("status")
-                            == "satisfied"
-                        ]
-                        assessment["missing_aspects"] = [
-                            requirement_id
-                            for requirement_id in requirement_ids
-                            if results_by_id[requirement_id].get("status")
-                            != "satisfied"
-                        ]
-                first_assessment[evidence_id] = assessment
-        output["coverage_assessments"] = [
-            first_assessment[evidence_id]
-            for evidence_id in evidence_by_id
-            if evidence_id in first_assessment
-        ]
-
-        prior_missing = {
-            item.get("evidence_item_id"): item
-            for item in self._list(output, "missing_evidence_items", required=False)
-            if isinstance(item, Mapping)
-        }
-        missing = []
-        for evidence_id, assessment in first_assessment.items():
-            if assessment.get("status") == "covered":
+            ledger = evidence_by_id.get(evidence_id)
+            if not isinstance(evidence_id, str) or ledger is None:
+                # Unknown or malformed IDs remain for the full semantic validator.
+                normalized_assessments.append(dict(raw))
                 continue
-            source = dict(prior_missing.get(evidence_id, {}))
-            ledger = evidence_by_id[evidence_id]
+
+            derived_status, derived_partial_kind, derived_governing = (
+                self._s2_axis_projection(raw, ledger)
+            )
+            assessment = dict(raw)
+            assessment.pop("evidence_status", None)
+            assessment["status"] = derived_status
+            assessment["partial_kind"] = derived_partial_kind
+            assessment["governing_legal_regime"] = derived_governing
+            assessment["linked_provision_ids"] = list(
+                dict.fromkeys(links_by_evidence.get(evidence_id, []))
+            )
+
+            requirement_ids = [
+                requirement.get("requirement_id")
+                for requirement in ledger.get("completion_requirements", [])
+                if isinstance(requirement, Mapping)
+                and isinstance(requirement.get("requirement_id"), str)
+            ]
+            criterion_results = assessment.get("criterion_results")
+            results_by_id = {}
+            if isinstance(criterion_results, list):
+                results_by_id = {
+                    result.get("requirement_id"): result
+                    for result in criterion_results
+                    if isinstance(result, Mapping)
+                    and isinstance(result.get("requirement_id"), str)
+                }
+            if (
+                requirement_ids
+                and isinstance(criterion_results, list)
+                and len(criterion_results) == len(requirement_ids)
+                and set(results_by_id) == set(requirement_ids)
+            ):
+                assessment["criterion_results"] = [
+                    dict(results_by_id[requirement_id])
+                    for requirement_id in requirement_ids
+                ]
+                assessment["satisfied_aspects"] = [
+                    requirement_id
+                    for requirement_id in requirement_ids
+                    if results_by_id[requirement_id].get("status") == "satisfied"
+                ]
+                assessment["missing_aspects"] = [
+                    requirement_id
+                    for requirement_id in requirement_ids
+                    if results_by_id[requirement_id].get("status") != "satisfied"
+                ]
+            else:
+                assessment["satisfied_aspects"] = []
+                assessment["missing_aspects"] = (
+                    []
+                    if derived_status == "covered"
+                    else [
+                        assessment.get("rationale")
+                        or ledger.get("completion_criteria")
+                        or "canonical coverage gap"
+                    ]
+                )
+
+            normalized_assessments.append(assessment)
+            first_assessment.setdefault(evidence_id, assessment)
+            projection_diagnostics.append(
+                S2LegacyProjectionDiagnostic(
+                    evidence_item_id=evidence_id,
+                    legal_status=raw["legal_status"],
+                    applicability_status=raw["applicability_status"],
+                    gap_type=raw["gap_type"],
+                    derived_status=derived_status,
+                    derived_partial_kind=derived_partial_kind,
+                    derived_governing_legal_regime=derived_governing,
+                    raw_projection_disposition={
+                        "disposition": "suppressed"
+                        if any(
+                            key in raw
+                            for key in (
+                                "status",
+                                "evidence_status",
+                                "partial_kind",
+                                "governing_legal_regime",
+                            )
+                        )
+                        or "missing_evidence_items" in output
+                        or "evidence_conflicts" in output
+                        else "omitted",
+                        "status": self._bounded_s2_projection_value(
+                            raw,
+                            ("status", "evidence_status"),
+                            S2_STATUS_VALUES,
+                        ),
+                        "partial_kind": self._bounded_s2_projection_value(
+                            raw,
+                            ("partial_kind",),
+                            S2_PARTIAL_KIND_VALUES,
+                        ),
+                        "governing_legal_regime": self._bounded_s2_projection_value(
+                            raw,
+                            ("governing_legal_regime",),
+                            S2_GOVERNING_REGIME_VALUES,
+                        ),
+                        "missing_evidence_items": self._bounded_s2_ledger_disposition(
+                            output,
+                            "missing_evidence_items",
+                            len(evidence),
+                        ),
+                        "evidence_conflicts": self._bounded_s2_ledger_disposition(
+                            output,
+                            "evidence_conflicts",
+                            len(evidence),
+                        ),
+                    },
+                )
+            )
+        output["coverage_assessments"] = normalized_assessments
+
+        missing = []
+        for evidence_id, ledger in evidence_by_id.items():
+            assessment = first_assessment.get(evidence_id)
+            if assessment is None or assessment.get("status") == "covered":
+                continue
             aspects = assessment.get("missing_aspects")
             if not isinstance(aspects, list) or not aspects:
                 aspects = [
-                    assessment.get("rationale") or ledger.get("completion_criteria")
+                    assessment.get("rationale")
+                    or ledger.get("completion_criteria")
+                    or "canonical coverage gap"
                 ]
-            source.update(
+            missing.append(
                 {
                     "evidence_item_id": evidence_id,
                     "issue_id": ledger.get("issue_id"),
                     "critical": ledger.get("critical"),
-                    "missing_description": source.get("missing_description")
-                    or "; ".join(str(item) for item in aspects),
-                    "search_focus": source.get("search_focus")
-                    or [str(item) for item in aspects if str(item).strip()],
+                    "missing_description": "; ".join(
+                        str(item) for item in aspects
+                    ),
+                    "search_focus": [
+                        str(item) for item in aspects if str(item).strip()
+                    ],
                 }
             )
-            missing.append(source)
         output["missing_evidence_items"] = missing
 
-        prior_conflicts = {
-            item.get("evidence_item_id"): item
-            for item in self._list(output, "evidence_conflicts", required=False)
-            if isinstance(item, Mapping)
-        }
         conflicts = []
-        for evidence_id, assessment in first_assessment.items():
-            if assessment.get("status") != "conflicting":
+        for evidence_id, ledger in evidence_by_id.items():
+            assessment = first_assessment.get(evidence_id)
+            if assessment is None or assessment.get("status") != "conflicting":
                 continue
-            source = dict(prior_conflicts.get(evidence_id, {}))
-            source.update(
+            conflicts.append(
                 {
                     "conflict_id": "CF%d" % (len(conflicts) + 1),
                     "evidence_item_id": evidence_id,
@@ -954,16 +1130,13 @@ class LocalOllamaSkillExecutor:
                             )
                         )
                     ),
-                    "description": source.get("description")
-                    or assessment.get("rationale")
+                    "description": assessment.get("rationale")
                     or "후보 조문 간 적용 충돌",
-                    "unresolved_question": source.get("unresolved_question")
-                    or "어느 조문이 질문의 사실관계에 적용되는가",
+                    "unresolved_question": "어느 조문이 질문의 사실관계에 적용되는가",
                 }
             )
-            conflicts.append(source)
         output["evidence_conflicts"] = conflicts
-        return output
+        return NormalizedS2Output(output, projection_diagnostics)
 
     @staticmethod
     def _deduplicate_query_terms(values: Any) -> Any:
@@ -1861,8 +2034,8 @@ FINAL OUTPUT INVARIANTS:
         ]
         return (
             "Use only evidence IDs %s and candidate IDs %s. Assess each ledger item exactly once: %s. "
-            "Classify every evidence link as CORE, SUPPLEMENTAL, QUALIFYING, or ALTERNATIVE with its condition and rationale. Only accepted CORE links may appear in coverage_assessment linked_provision_ids or criterion linked_provision_ids, satisfy a criterion, or establish governing_legal_regime=direct_entailment; auxiliary roles are audit-only and cannot clear coverage. "
-            "For raw compact transport omit link IDs and quoted text; retain one criterion result per supplied requirement, its linked candidate IDs, and every legal decision; never invent IDs or missing aspects. Follow the contract's closed-requirement coverage mapping."
+            "Classify every evidence link as CORE, SUPPLEMENTAL, QUALIFYING, or ALTERNATIVE with its condition and rationale. Only accepted CORE links may appear in coverage_assessment linked_provision_ids or criterion linked_provision_ids, satisfy a criterion, or support the harness's direct-entailment projection; auxiliary roles are audit-only and cannot clear coverage. "
+            "For raw compact transport emit the complete legal_status/applicability_status/gap_type tuple and one criterion result per supplied requirement with its linked candidate IDs. Omit legacy status, partial_kind, governing_legal_regime, link IDs, quoted text, aspect arrays, and missing/conflict ledgers; never invent IDs. Follow the contract's closed-requirement coverage mapping."
             % (
                 json.dumps([item["evidence_item_id"] for item in evidence_ledger]),
                 json.dumps(candidate_ids),

@@ -339,6 +339,58 @@ def _coverage_status_from_axes(
     return CoverageStatus.CONFLICTING, "not_applicable"
 
 
+_ALLOWED_COVERAGE_AXIS_TUPLES = {
+    (
+        LegalStatus.COVERED,
+        ApplicabilityStatus.DIRECT,
+        GapType.NONE,
+    ),
+    (
+        LegalStatus.COVERED,
+        ApplicabilityStatus.CONDITIONAL,
+        GapType.MISSING_FACT,
+    ),
+    (
+        LegalStatus.PARTIALLY_COVERED,
+        ApplicabilityStatus.NOT_ASSESSED,
+        GapType.MISSING_STATUTE,
+    ),
+    (
+        LegalStatus.UNCOVERED,
+        ApplicabilityStatus.NOT_ASSESSED,
+        GapType.MISSING_STATUTE,
+    ),
+    (
+        LegalStatus.CONFLICTING,
+        ApplicabilityStatus.NOT_ASSESSED,
+        GapType.CONFLICT,
+    ),
+}
+
+
+def _validate_coverage_axis_tuple(
+    item: RequiredEvidenceItem,
+    legal_status: LegalStatus,
+    applicability_status: ApplicabilityStatus,
+    gap_type: GapType,
+) -> None:
+    """Reject non-canonical S2 axes before deriving legacy projections."""
+    axis_tuple = (legal_status, applicability_status, gap_type)
+    if axis_tuple in _ALLOWED_COVERAGE_AXIS_TUPLES:
+        return
+    if (
+        axis_tuple
+        == (
+            LegalStatus.UNCOVERED,
+            ApplicabilityStatus.NOT_ASSESSED,
+            GapType.SCOPE_EXCESS,
+        )
+        and item.critical is False
+    ):
+        return
+    raise ValidationError("coverage axes are not an allowed tuple for this evidence item")
+
+
 def _criterion_status_for_legacy(status: CoverageStatus) -> CriterionStatus:
     return {
         CoverageStatus.COVERED: CriterionStatus.SATISFIED,
@@ -525,6 +577,12 @@ def validate_coverage_assessment(
                 gap_type = GapType(_string(raw, "gap_type"))
             except ValueError as exc:
                 raise ValidationError("coverage axes are not frozen allowed values") from exc
+            _validate_coverage_axis_tuple(
+                item,
+                legal_status,
+                applicability_status,
+                gap_type,
+            )
             status, derived_partial_kind = _coverage_status_from_axes(
                 legal_status, applicability_status
             )

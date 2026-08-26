@@ -23,7 +23,17 @@ def unique(items, key, pattern, errors):
     return seen
 
 
-def effective_status(assessment, errors):
+AXIS_PROJECTIONS = {
+    ("covered", "direct", "none"): "covered",
+    ("covered", "conditional", "missing_fact"): "partially_covered",
+    ("partially_covered", "not_assessed", "missing_statute"): "partially_covered",
+    ("uncovered", "not_assessed", "missing_statute"): "uncovered",
+    ("conflicting", "not_assessed", "conflict"): "conflicting",
+}
+SCOPE_EXCESS_TUPLE = ("uncovered", "not_assessed", "scope_excess")
+
+
+def effective_status(assessment, evidence, errors):
     legacy = assessment.get("status", assessment.get("evidence_status"))
     axes = ("legal_status", "applicability_status", "gap_type")
     has_axes = any(key in assessment for key in axes)
@@ -41,11 +51,14 @@ def effective_status(assessment, errors):
         errors.append("invalid applicability_status")
     if gap_type not in {"none", "missing_statute", "missing_fact", "scope_excess", "conflict"}:
         errors.append("invalid gap_type")
-    derived = (
-        "partially_covered"
-        if legal == "covered" and applicability == "conditional"
-        else legal
-    )
+    axis_tuple = (legal, applicability, gap_type)
+    derived = AXIS_PROJECTIONS.get(axis_tuple)
+    if derived is None:
+        if axis_tuple == SCOPE_EXCESS_TUPLE and evidence.get("critical") is False:
+            derived = "uncovered"
+        else:
+            errors.append("coverage axes are not an allowed tuple for this evidence item")
+            derived = legal
     if legacy is not None and legacy != derived:
         errors.append("legacy status conflicts with coverage axes")
     return derived
@@ -372,8 +385,14 @@ def validate(output, input_data):
 
     conflict_id_set = set(conflict_evidence_ids)
     assessment_by_id = {x.get("evidence_item_id"): x for x in assessments}
+    effective_status_by_id = {}
     for evidence_id, assessment in assessment_by_id.items():
-        status = effective_status(assessment, errors)
+        status = effective_status(
+            assessment,
+            evidence_by_id.get(evidence_id, {}),
+            errors,
+        )
+        effective_status_by_id[evidence_id] = status
         linked = assessment.get("linked_provision_ids", [])
         actual_linked = accepted_core_by_evidence.get(evidence_id, set())
         if len(linked) != len(set(linked)):
@@ -482,13 +501,13 @@ def validate(output, input_data):
 
     expected_missing = {
         eid for eid, assessment in assessment_by_id.items()
-        if effective_status(assessment, errors) != "covered"
+        if effective_status_by_id.get(eid) != "covered"
     }
     if missing_ids != expected_missing:
         errors.append("missing_evidence_items must equal all non-covered assessments")
     expected_conflicts = {
         eid for eid, assessment in assessment_by_id.items()
-        if effective_status(assessment, errors) == "conflicting"
+        if effective_status_by_id.get(eid) == "conflicting"
     }
     if conflict_id_set != expected_conflicts:
         errors.append("evidence_conflicts must equal all conflicting assessments")
