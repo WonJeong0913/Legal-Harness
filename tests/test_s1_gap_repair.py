@@ -12,7 +12,7 @@ from harness.contracts import (
 )
 from harness.interfaces import SkillExecutionError
 from harness.run_state import RunState
-from harness.validation import validate_gap_plan
+from harness.validation import ValidationError, validate_gap_plan
 from runtime.local_ollama_executor import LocalOllamaSkillExecutor
 
 
@@ -194,6 +194,54 @@ class GapSpecificityRepairTests(unittest.TestCase):
         validated = validate_gap_plan({"gap_retrieval_requests": repaired}, state)
         self.assertEqual(validated[0].statute_hints, ["소득세법"])
         self.assertEqual(validated[0].query_terms, ["중간예납추계액", "소득세법"])
+
+    def test_raw_duplicates_survive_mixed_article_neutralization(self):
+        cases = (
+            ("statute_hints", ["소득세법", "소득세법", "소득세법 제65조"]),
+            ("query_terms", ["소득세법 제65조", "소득세법", "소득세법"]),
+        )
+        for field, values in cases:
+            with self.subTest(field=field):
+                request = {
+                    "request_id": "GRQ-R2-1",
+                    "issue_id": "I1",
+                    "evidence_item_id": "E1",
+                    "query_channel": "statute_aware",
+                    "query_text": "소득세법 제65조 중간예납추계액 미신고 처리",
+                    "top_k": 100,
+                    "query_terms": values if field == "query_terms" else ["중간예납추계액"],
+                    "statute_hints": values if field == "statute_hints" else [],
+                    "rationale": "미확인 법정 근거를 검색한다.",
+                    "gap_reason": "중간예납추계액신고서 미제출의 처리 근거가 미확인이다.",
+                    "source_assessment_status": "uncovered",
+                }
+                repaired, repairs = S1_VALIDATOR.neutralize_ungrounded_article_specificity(
+                    [request], gap_input()
+                )
+                repaired_request = repaired[0]
+                self.assertEqual(repaired_request[field], ["소득세법", "소득세법"])
+                dedupe_repairs = [
+                    repair
+                    for repair in repairs
+                    if repair["kind"] == "deduplicated_repair_induced_list_values"
+                    and repair["field"] == field
+                ]
+                self.assertEqual(len(dedupe_repairs), 1)
+                self.assertEqual(dedupe_repairs[0]["before"], ["소득세법"] * 3)
+                self.assertEqual(dedupe_repairs[0]["after"], ["소득세법"] * 2)
+                state = RunState(
+                    question="중간예납추계액 미신고 처리",
+                    normalized_question="중간예납추계액 미신고 처리",
+                    run_id="mixed-raw-duplicates-" + field,
+                )
+                state.legal_issues = [LegalIssue("I1", "중간예납추계액 처리")]
+                state.required_evidence_items = [RequiredEvidenceItem(
+                    "E1", "I1", "rule", "관련 법정 근거와 적용 요건", True,
+                )]
+                with self.assertRaisesRegex(
+                    ValidationError, field + " must not contain duplicates"
+                ):
+                    validate_gap_plan({"gap_retrieval_requests": repaired}, state)
 
     def test_anchored_cross_reference_is_not_neutralized(self):
         source = "형법 제333조 적용"

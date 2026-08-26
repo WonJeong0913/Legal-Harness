@@ -337,14 +337,17 @@ def neutralize_ungrounded_article_specificity(requests, inp):
             if not isinstance(values, list):
                 continue
             repaired_values = []
+            original_repaired_pairs = []
             for value in values:
                 if not isinstance(value, str):
                     repaired_values.append(value)
+                    original_repaired_pairs.append((value, value))
                     continue
                 temporary = {"query_text": value}
                 repaired_value = neutralize_ungrounded_article_specificity([temporary], inp)[0][0].get("query_text", value)
                 if repaired_value:
                     repaired_values.append(repaired_value)
+                    original_repaired_pairs.append((value, repaired_value))
             if repaired_values != values:
                 request[field] = repaired_values
                 repairs.append({
@@ -354,21 +357,26 @@ def neutralize_ungrounded_article_specificity(requests, inp):
                     "before": values,
                     "after": repaired_values,
                 })
-                # The executor already normalizes raw S1 list fields before
-                # transport repair. Neutralizing a later item can nevertheless
-                # collapse it onto an earlier broad statute/term. Keep the
-                # first occurrence and remove only that repair-induced
-                # redundancy; raw duplicate output remains for the harness to
-                # reject at its normal validation boundary.
+                # Neutralizing a later item can collapse it onto an earlier
+                # broad statute/term. Drop only that new collision: a raw
+                # duplicate must remain visible to the final harness validator.
                 unique_values = []
-                seen_values = set()
-                for value in repaired_values:
-                    if isinstance(value, str):
-                        normalized_value = norm(value)
-                        if normalized_value in seen_values:
-                            continue
-                        seen_values.add(normalized_value)
-                    unique_values.append(value)
+                prior_original_norms = set()
+                kept_repaired_norms = set()
+                for original_value, repaired_value in original_repaired_pairs:
+                    original_norm = norm(original_value) if isinstance(original_value, str) else None
+                    repaired_norm = norm(repaired_value) if isinstance(repaired_value, str) else None
+                    repair_induced_collision = (
+                        repaired_norm is not None
+                        and repaired_norm in kept_repaired_norms
+                        and original_norm not in prior_original_norms
+                    )
+                    if not repair_induced_collision:
+                        unique_values.append(repaired_value)
+                        if repaired_norm is not None:
+                            kept_repaired_norms.add(repaired_norm)
+                    if original_norm is not None:
+                        prior_original_norms.add(original_norm)
                 if unique_values != repaired_values:
                     request[field] = unique_values
                     repairs.append({
