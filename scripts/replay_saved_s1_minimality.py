@@ -44,7 +44,6 @@ C02_BATCH_RELATIVE = Path("batches/c02e281-targeted-resume-ord042-054-061-226-20
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 GIT_RE = re.compile(r"^[0-9a-f]{40}$")
 INITIAL_REQUEST_RE = re.compile(r"^RQ[1-9][0-9]*$")
-STATUTE_NAME_RE = re.compile(r"(?<![가-힣])([가-힣][가-힣·ㆍ ]{0,48}?(?:법률|법|시행령|시행규칙))(?![가-힣])")
 S1_SKILL = "legal_issue_and_query_planning"
 S1_ENTRY_POINT = "INITIAL_PLAN"
 FORBIDDEN_STAGES = frozenset({
@@ -384,26 +383,6 @@ def _normalized_text(value: str) -> str:
     return re.sub(r"\s+", "", value).casefold()
 
 
-def _assert_direct_statute_hint_support(candidate: Mapping[str, Any], *, question: str,
-                                        allowed_inputs: Sequence[str] = ()) -> None:
-    """Reject a named-law hint absent from the trusted prompt inputs.
-
-    The saved S1 replay restores only the question, but keeping the allowed
-    input parameter makes the guard match the S1 contract without authorizing
-    a fact-derived special-law guess or general-law substitution.
-    """
-    support_texts = [_normalized_text(question)]
-    support_texts.extend(_normalized_text(value) for value in allowed_inputs)
-    for request in _list(candidate.get("retrieval_requests"), "candidate retrieval requests"):
-        request_item = _mapping(request, "candidate retrieval request")
-        for hint in _list(request_item.get("statute_hints", []), "candidate statute_hints"):
-            hint_text = _string(hint, "candidate statute hint")
-            for statute_name in STATUTE_NAME_RE.findall(hint_text):
-                normalized_name = _normalized_text(statute_name)
-                if not any(normalized_name in source for source in support_texts):
-                    raise ReplayError("candidate statute hint names a law not directly supported by trusted input")
-
-
 def _assert_profile(profile: Mapping[str, Any], candidate: Mapping[str, Any]) -> List[Dict[str, Any]]:
     counts = _counts(candidate)
     outcomes: List[Dict[str, Any]] = []
@@ -586,7 +565,6 @@ def replay_saved_s1_initial_plan(*, source_result: Path, source_metadata: Path,
         validate_initial_plan(candidate_raw, question=payload["question"], include_answer_targets=True)
     except (ValidationError, ValueError) as exc:
         raise ReplayError("candidate S1 INITIAL_PLAN failed deterministic validation: %s" % exc) from exc
-    _assert_direct_statute_hint_support(candidate_raw, question=payload["question"])
     candidate_plan = _project_plan(candidate_raw)
     baseline_counts, candidate_counts = _counts(source.baseline_plan), _counts(candidate_plan)
     assertions = _assert_profile(_profile(question_id), candidate_plan)

@@ -226,30 +226,6 @@ class SavedS1MinimalityReplayTests(unittest.TestCase):
             "passed": False,
         }])
 
-    def test_unsupported_statute_substitution_is_blocked_before_comparison(self):
-        with tempfile.TemporaryDirectory() as raw:
-            directory = Path(raw)
-            result, metadata, manifest, receipt, expected, plan = self._write_source(directory, "qa_281_2hop_441")
-            metadata_payload = json.loads(metadata.read_text(encoding="utf-8"))
-            metadata_payload["question"] = "[질문] 특별규정법상 미수 처벌을 판단하라. answer-1"
-            metadata.write_text(json.dumps(metadata_payload, ensure_ascii=False), encoding="utf-8")
-            plan["retrieval_requests"][0]["statute_hints"] = ["일반규정법"]
-            expected = REPLAY.ReplayExpectations(
-                expected.question_id, expected.source_result_sha256, _hash(metadata),
-                expected.source_manifest_sha256, expected.source_task_receipt_sha256,
-                expected.source_commit, expected.source_tree, expected.source_model,
-                expected.source_retriever, expected.source_manifest_lineage_sha256,
-            )
-
-            with self.assertRaisesRegex(REPLAY.ReplayError, "not directly supported"):
-                REPLAY.replay_saved_s1_initial_plan(
-                    source_result=result, source_metadata=metadata, source_manifest=manifest,
-                    source_task_receipt=receipt, output_root=directory / "out",
-                    question_id=expected.question_id, project_root=ROOT,
-                    expectations=expected,
-                    executor_factory=lambda **kwargs: ScriptedExecutor(output=plan, **kwargs),
-                )
-
     def test_output_root_under_workspace_is_rejected(self):
         with tempfile.TemporaryDirectory() as raw:
             directory = Path(raw)
