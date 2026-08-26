@@ -22,11 +22,17 @@
   "frozen_configuration": {
     "candidate_budget_scope": "per_round",
     "candidate_selection": "evidence_balanced",
-        "condition": "V2-KURE-c03-combined-s1-neutral-single-issue-fusion-top10-offline-smoke3-Qwen3.8-Q8_0",
+        "condition": "V2-KURE-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-smoke3-Qwen3.8-Q8_0",
     "conditional_generation": "answer_target_full_conditional_limited",
     "contextual_query_dedup": "after_source_context_attachment",
     "coverage_contract": "legal_applicability_criterion_results",
-    "dedup_mode": "legal_text_alias",
+        "dedup_mode": "legal_text_alias",
+        "evidence_role_capabilities": {
+            "accepted_provision_ids": "authorized_union",
+            "direct_entailment_coverage_gate": "accepted_core_only",
+            "official_provision_scoring": "core_only"
+        },
+        "evidence_role_contract": "c04_core_auxiliary_roles_v1",
     "factual_branch_classification": "missing_selector_is_partial_not_legal_conflict",
     "final_top_k": 10,
     "input_format": "koblex_background_plus_question",
@@ -104,8 +110,8 @@
     "total_retrieval_rounds": 3
   },
   "manifest_schema_version": "1.0",
-    "name": "v2-kure-c03-combined-s1-neutral-single-issue-fusion-top10-qwen38-q8-offline-smoke3-20260826",
-  "purpose": "V2 offline KURE orchestration. BM25 is read-only configuration comparison metadata; BM25 search/index execution, ParSeR, and LF-Eval are prohibited.",
+    "name": "v2-kure-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-qwen38-q8-offline-smoke3-20260826",
+    "purpose": "V2 c04 offline KURE candidate with core/auxiliary evidence roles. BM25 is read-only comparison metadata and must never be executed; BM25 search/index execution, ParSeR, and LF-Eval are prohibited.",
   "selection": {
     "configuration_basis": "records/launch/kure-c5-conclusion-first-qwen38-q8-20260822/kure_c5_seeded_direct_entailment_smoke8_20260824.json",
     "entry_count": 3,
