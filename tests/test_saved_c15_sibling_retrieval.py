@@ -90,19 +90,23 @@ def factory_for(documents, ranked_ids, scores):
 
 
 class SavedC15SiblingRetrievalTests(unittest.TestCase):
-    def qa125_fixture(self):
+    def qa125_fixture(self, *, composite_ids=False):
+        """Bare IDs exercise static suffix bindings; composite IDs mirror KURE."""
         family = "형사소송법 361조 5 항소심의 판결"
-        documents = [ProvisionDocument("KOBLEX-232721", "형사소송법", "root", family)]
+        def provision_id(number):
+            suffix = "KOBLEX-%d" % number
+            return "형사소송법 361조 5 항소이유#" + suffix if composite_ids else suffix
+        documents = [ProvisionDocument(provision_id(232721), "형사소송법", "root", family)]
         documents.extend(
-            ProvisionDocument("KOBLEX-%d" % provision_id, "형사소송법", "sibling-%d" % provision_id, family)
-            for provision_id in range(232722, 232737)
+            ProvisionDocument(provision_id(number), "형사소송법", "sibling-%d" % number, family)
+            for number in range(232722, 232737)
         )
         documents.append(ProvisionDocument("OTHER", "다른 법", "other", "다른 법 제1조"))
         scores = {"질의": {document.provision_id: 1.0 for document in documents}}
-        scores["질의"]["KOBLEX-232721"] = 10.0
-        scores["질의"]["KOBLEX-232732"] = 9.5
+        scores["질의"][provision_id(232721)] = 10.0
+        scores["질의"][provision_id(232732)] = 9.5
         scores["질의"]["OTHER"] = 9.0
-        return documents, {"RQ1": ["KOBLEX-232721", "OTHER"]}, scores
+        return documents, {"RQ1": [provision_id(232721), "OTHER"]}, scores
 
     def test_static_allowlist_is_exact_and_excludes_wrong_qa125(self):
         self.assertEqual(set(probe.SOURCE_PROFILES), {
@@ -116,7 +120,7 @@ class SavedC15SiblingRetrievalTests(unittest.TestCase):
             "KOBLEX-%d" % item for item in range(232722, 232737)
         ))
 
-    def test_qa125_pair_preserves_request_query_bytes_and_audits_every_sibling(self):
+    def test_qa125_bare_suffix_fixture_preserves_request_query_bytes_and_audits_every_sibling(self):
         source = bundle_for(probe.SOURCE_PROFILES["qa_125_2hop_226"])
         documents, ranked_ids, scores = self.qa125_fixture()
         result = probe.run_retrieval_only_probe(
@@ -134,6 +138,30 @@ class SavedC15SiblingRetrievalTests(unittest.TestCase):
         ))
         self.assertEqual(audit["hard_family_member_bound"], 128)
         self.assertEqual(result["candidate_code"], {"commit": probe.C15_1_COMMIT, "tree": probe.C15_1_TREE})
+
+    def test_qa125_composite_kure_ids_match_the_static_suffix_audit(self):
+        source = bundle_for(probe.SOURCE_PROFILES["qa_125_2hop_226"])
+        documents, ranked_ids, scores = self.qa125_fixture(composite_ids=True)
+        result = probe.run_retrieval_only_probe(
+            source, factory_for(documents, ranked_ids, scores), {"fixture": "composite-hash"}
+        )
+        root = "형사소송법 361조 5 항소이유#KOBLEX-232721"
+        available = "형사소송법 361조 5 항소이유#KOBLEX-232732"
+        self.assertEqual(result["baseline_feature_disabled"]["candidates"][0]["provision_id"], root)
+        audit = result["enabled_c15_1"]["sibling_audit"]
+        self.assertIn(available, [item["provision_id"] for item in audit["sibling_records"]])
+        self.assertEqual({item["provision_id"].rsplit("#", 1)[-1] for item in audit["sibling_records"]}, set(
+            "KOBLEX-%d" % item for item in range(232722, 232737)
+        ))
+
+    def test_qa125_ambiguous_composite_suffix_fails_closed(self):
+        profile = probe.SOURCE_PROFILES["qa_125_2hop_226"]
+        stages = [
+            {"candidate_stage": "article_family_expansion_trigger", "provision_id": "법 A#KOBLEX-232721", "article_family_sibling_candidate_count": 1},
+            {"candidate_stage": "article_family_expansion_trigger", "provision_id": "법 B#KOBLEX-232721", "article_family_sibling_candidate_count": 1},
+        ]
+        with self.assertRaisesRegex(probe.ProbeSafetyError, "ambiguous canonical KOBLEX identifier"):
+            probe.audit_siblings(profile, stages, enabled=True)
 
     def test_qa68_and_qa435_use_the_generic_family_audit(self):
         docs = [

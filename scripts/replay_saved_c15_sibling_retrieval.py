@@ -13,11 +13,14 @@ import hashlib
 import json
 import re
 import subprocess
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Dict, Mapping, Sequence
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 DEFAULT_SOURCE_ROOT = Path(
     "/workspace/Legal-Harness/records/"
     "v2-kure-qwen38-offline-full226-c02e281-targeted-resume168-20260826"
@@ -36,6 +39,7 @@ KURE_MODEL_WEIGHTS_SHA256 = "c18156e80caf8ff45eb84a24a853130c3bca03087ccb41b051f
 BGE_MODEL_WEIGHTS_SHA256 = "aba51b69d97bfff4cd2c1d8eb6c57764e350231850f712b75ae426270f265a43"
 CORPUS_OBSERVED_MAX_FAMILY_MEMBERS = 111
 FAMILY_MEMBER_BOUND = 128
+KOBLEX_SUFFIX_RE = re.compile(r"(?:.*#)?(KOBLEX-[0-9]+)\Z")
 
 
 @dataclass(frozen=True)
@@ -54,7 +58,8 @@ class SourceProfile:
     expected_available_provision_id: str | None = None
 
 
-# Static by design. qa_125_1hop_225 is intentionally excluded.
+# Static by design. qa_125_1hop_225 is intentionally excluded. The qa125
+# expectations are canonical terminal KOBLEX suffixes, not full corpus IDs.
 SOURCE_PROFILES: Dict[str, SourceProfile] = {
     "qa_125_2hop_226": SourceProfile(
         "qa_125_2hop_226", 48, 106, 2, "ce09d435-580f-4b0e-8f2d-fc08a5a3a9d6",
@@ -106,6 +111,38 @@ def canonical_sha256(value: Any) -> str:
     return hashlib.sha256(json.dumps(
         value, ensure_ascii=False, sort_keys=True, separators=(",", ":")
     ).encode("utf-8")).hexdigest()
+
+
+def canonical_koblex_suffix(provision_id: Any, label: str) -> str:
+    """Accept only an exact bare or terminal composite KOBLEX identifier."""
+    if not isinstance(provision_id, str):
+        raise ProbeSafetyError("%s must be a string provision id" % label)
+    match = KOBLEX_SUFFIX_RE.fullmatch(provision_id)
+    if not match:
+        raise ProbeSafetyError("%s has no exact terminal KOBLEX identifier" % label)
+    return match.group(1)
+
+
+def _canonical_expected_ids(provision_ids: Sequence[str], label: str) -> set[str]:
+    output: Dict[str, str] = {}
+    for provision_id in provision_ids:
+        canonical = canonical_koblex_suffix(provision_id, label)
+        if canonical in output:
+            raise ProbeSafetyError("duplicate canonical KOBLEX expectation: %s" % canonical)
+        output[canonical] = provision_id
+    return set(output)
+
+
+def _canonical_stage_ids(records: Sequence[Mapping[str, Any]], field: str, label: str) -> Dict[str, str]:
+    """Map suffix to raw ID, rejecting distinct raw IDs with one suffix."""
+    output: Dict[str, str] = {}
+    for record in records:
+        raw = record.get(field)
+        canonical = canonical_koblex_suffix(raw, "%s.%s" % (label, field))
+        previous = output.setdefault(canonical, raw)
+        if previous != raw:
+            raise ProbeSafetyError("ambiguous canonical KOBLEX identifier: %s" % canonical)
+    return output
 
 
 def read_json(path: Path) -> Any:
@@ -376,13 +413,22 @@ def audit_siblings(profile: SourceProfile, stages: Sequence[Mapping[str, Any]], 
     if observed > FAMILY_MEMBER_BOUND:
         raise ProbeSafetyError("article family exceeded hard scoring bound")
     if enabled and profile.expected_root_provision_id:
-        if not any(record["provision_id"] == profile.expected_root_provision_id for record in triggers):
+        expected_root = canonical_koblex_suffix(profile.expected_root_provision_id, "expected root")
+        expected_siblings = _canonical_expected_ids(profile.expected_scored_sibling_ids, "expected sibling")
+        if expected_root in expected_siblings:
+            raise ProbeSafetyError("expected root is also an expected sibling")
+        trigger_ids = _canonical_stage_ids(triggers, "provision_id", "family trigger")
+        if expected_root not in trigger_ids:
             raise ProbeSafetyError("qa125 root family was not audited")
-        scored = {record["provision_id"] for record in siblings
-                  if record["article_family_root_provision_id"] == profile.expected_root_provision_id}
-        missing = sorted(set(profile.expected_scored_sibling_ids) - scored)
+        _canonical_stage_ids(siblings, "article_family_root_provision_id", "sibling root")
+        scored_records = [record for record in siblings if canonical_koblex_suffix(
+            record.get("article_family_root_provision_id"), "sibling root.article_family_root_provision_id"
+        ) == expected_root]
+        scored = _canonical_stage_ids(scored_records, "provision_id", "scored sibling")
+        missing = sorted(expected_siblings - set(scored))
         if missing: raise ProbeSafetyError("qa125 siblings not all BGE-scored: %s" % ", ".join(missing))
-        if profile.expected_available_provision_id not in scored:
+        expected_available = canonical_koblex_suffix(profile.expected_available_provision_id, "expected available provision")
+        if expected_available not in scored:
             raise ProbeSafetyError("qa125 #232732 availability is absent")
     return {"trigger_records": triggers, "sibling_records": siblings,
         "max_observed_family_members": observed, "hard_family_member_bound": FAMILY_MEMBER_BOUND,
