@@ -354,6 +354,30 @@ def neutralize_ungrounded_article_specificity(requests, inp):
                     "before": values,
                     "after": repaired_values,
                 })
+                # The executor already normalizes raw S1 list fields before
+                # transport repair. Neutralizing a later item can nevertheless
+                # collapse it onto an earlier broad statute/term. Keep the
+                # first occurrence and remove only that repair-induced
+                # redundancy; raw duplicate output remains for the harness to
+                # reject at its normal validation boundary.
+                unique_values = []
+                seen_values = set()
+                for value in repaired_values:
+                    if isinstance(value, str):
+                        normalized_value = norm(value)
+                        if normalized_value in seen_values:
+                            continue
+                        seen_values.add(normalized_value)
+                    unique_values.append(value)
+                if unique_values != repaired_values:
+                    request[field] = unique_values
+                    repairs.append({
+                        "kind": "deduplicated_repair_induced_list_values",
+                        "request_id": request.get("request_id"),
+                        "field": field,
+                        "before": repaired_values,
+                        "after": unique_values,
+                    })
         repaired_requests.append(request)
     return repaired_requests, repairs
 
