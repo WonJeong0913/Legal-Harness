@@ -33,15 +33,19 @@ if str(PROJECT_ROOT) not in sys.path:
 DIAGNOSTIC21_MODE = "diagnostic21"
 DIAGNOSTIC21_ENTRY_COUNT = 21
 DIAGNOSTIC21_CHUNKS = ((1, 20), (21, 21))
-DIAGNOSTIC21_PRIMARY_FROZEN_NAME = "v2-kure-qwen38-q8-offline-diagnostic21-20260827"
-DIAGNOSTIC21_REFERENCE_FROZEN_NAME = "v2-bm25-reference-qwen38-q8-offline-diagnostic21-20260827"
+DIAGNOSTIC21_PRIMARY_FROZEN_NAME = "v2-kure-qwen38-q8-offline-diagnostic21-c29-20260827"
+DIAGNOSTIC21_REFERENCE_FROZEN_NAME = "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c29-20260827"
 DIAGNOSTIC21_SOURCE_PRIMARY_SHA256 = "b0b2eb06992ed2034956c2aa129c89b3cfadadf9009ea891c9533b7513479ef9"
 DIAGNOSTIC21_SOURCE_REFERENCE_SHA256 = "f17c42e5b806a5bd7950010039ee9d3d0795377c6c86cd108cce0a5ecdea0aef"
-DIAGNOSTIC21_IMPLEMENTATION_PARENT_COMMIT = "04ec6ada68d32985c8426d7fd5fb02560568f45d"
+DIAGNOSTIC21_IMPLEMENTATION_PARENT_COMMIT = "54d94d9f6c87a06a25d58cf162bc2f30c20f6a6f"
 DIAGNOSTIC21_FLOAT_TOLERANCE = 1e-12
 DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE = "single_issue_fusion_top_k"
 DIAGNOSTIC21_C02_ROUND_MERGE_MODE = "request_rank_top1_guarded_swap"
-DIAGNOSTIC21_CANDIDATE_ID = "C28-integrated-c25-c26-c27"
+DIAGNOSTIC21_C29_CONDITION_SUFFIX = "+C29-provenance-control-plane-overlay"
+DIAGNOSTIC21_CANDIDATE_ID = (
+    "C29a-S2-retry-only-scope+C29b-S1-effect-neutrality+"
+    "C29c-narrow-composite-application-conditional-exception-public-contract"
+)
 DIAGNOSTIC21_C22_CAPABILITY = {
     "capability": "standalone ungrounded paragraph gap recovery",
     "audit_kind": "neutralized_ungrounded_standalone_paragraph",
@@ -62,6 +66,43 @@ DIAGNOSTIC21_C28_CAPABILITIES = {
         "scope": "S2_PROMPT_AND_RETRY_GUIDANCE_ONLY",
         "runtime_coverage_mutation": "NONE",
         "validator_boundary": "UNCHANGED_FAIL_CLOSED",
+    },
+}
+DIAGNOSTIC21_C29_CAPABILITIES = {
+    "c29a_s2_retry_only_scope": {
+        "initial_s2_global_partial_core_injection": "REMOVED",
+        "retry_scope": "CONSISTENCY_FAILURE_ONLY",
+        "runtime_coverage_mutation": "NONE",
+    },
+    "c29b_s1_effect_neutrality": {
+        "initial_plan": "TRUSTED_QUESTION_EFFECT_NEUTRALITY",
+        "model_retry": "ONE_BOUNDED_MODEL_RETRY",
+        "deterministic_plan_or_query_rewrite": "NONE",
+    },
+    "c29c_narrow_composite_application_conditional_exception_public_contract": {
+        "application_gate": {
+            "predicate": "ALL",
+            "gold_free": True,
+            "clauses": [
+                {"field": "mode", "equals": "GENERATE_ANSWER"},
+                {"field": "public_contract", "equals": "REQUIRED"},
+                {"field": "answered_targets", "count_equals": 1},
+                {"field": "answered_targets[0].answer_type", "equals": "legal_conclusion"},
+                {"field": "critical_evidence_items", "target_linked_count_equals": 1},
+                {
+                    "field": "public_conclusion.claims",
+                    "claim_type": "legal_rule",
+                    "count_at_least": 2,
+                },
+                {
+                    "field": "public_conclusion.cited_provision_ids",
+                    "distinct_count_at_least": 2,
+                },
+                {"field": "public_conclusion.cited_application_count", "equals": 0},
+            ],
+        },
+        "answered_target_conditional_exception": "PUBLIC_CONCLUSION",
+        "deterministic_claim_text_type_role_or_citation_rewrite": "NONE",
     },
 }
 DIAGNOSTIC21_SEMANTIC_AUTHORITY = (
@@ -117,13 +158,22 @@ DIAGNOSTIC21_CONDITION_LINEAGE = {
     "C23_static_candidate_replay_analysis_only": [
         "04ec6ada68d32985c8426d7fd5fb02560568f45d"
     ],
+    "C25_C29_full_commit_lineage": [
+        "782e042eb986db88e37e35f0ba10556dfcfe7efe",
+        "82ddba012d29ac8f497af2fa1e34f0c6241dc3ef",
+        "64b3a11f1edb65a512f2c0487ebb3bf60aaa540e",
+        "54d94d9f6c87a06a25d58cf162bc2f30c20f6a6f",
+        "55d6a808eecf147372fec5f769d103497a608b13",
+        "e6dfff14342b57b6cda4c3f1a37a333e6546b68f",
+        "a604967a35649a6a5f5ccbbb59750f3ca594ec0b",
+    ],
 }
 DIAGNOSTIC21_SKILL_FILES = {
     "S1": {
         "skill_path": "skills/legal_issue_and_query_planning/SKILL.md",
         "skill_sha256": "273d61cd4c042da3eba5d65e7e746ee132a7c1a166bc99f5f51416c58e0d762a",
         "validator_path": "skills/legal_issue_and_query_planning/scripts/validate_output.py",
-        "validator_sha256": "b613d96c58fd09e8ec8719490f078c0e7e299810bb82c8f06379c149b70c04cc",
+        "validator_sha256": "6e8ce23ad31a60b6403cc585c88896734466b5bcac53ebfc5864884c57d5599d",
     },
     "S2": {
         "skill_path": "skills/provision_coverage_assessment/SKILL.md",
@@ -133,9 +183,9 @@ DIAGNOSTIC21_SKILL_FILES = {
     },
     "S3": {
         "skill_path": "skills/grounded_legal_answer_generation/SKILL.md",
-        "skill_sha256": "490455e725952e72a9585c51a57f4b629457558ef575cba57b2f21320b68a6c1",
+        "skill_sha256": "44bc84ae5b2213c016ca47a2afc2d133b618f003cdae51c1b1ad2793b8282090",
         "validator_path": "skills/grounded_legal_answer_generation/scripts/validate_output.py",
-        "validator_sha256": "6497bbfb3e69b3c53480d23bc1f0c790d567860bc651c9ba1af3fd5488433361",
+        "validator_sha256": "cbd4d0022cd30a2c23ee19ba30dc88e7302bd0f5b1cc1959081cc4a5f208e597",
     },
 }
 DIAGNOSTIC21_RERANKER_PROVENANCE = {
@@ -572,7 +622,11 @@ def _diagnostic21_selection(
     ]
     return {
         "candidate_id": DIAGNOSTIC21_CANDIDATE_ID,
-        "method": "C28 integrated runtime candidate on the C24 fixed roster reindexed from immutable C02 source ordinals",
+        "method": (
+            "C29a S2 retry-only scope + C29b S1 effect neutrality + C29c narrow composite "
+            "application/conditional exception public contract on the C24 fixed roster "
+            "reindexed from immutable C02 source ordinals"
+        ),
         "source_frozen_conditions": {
             "primary": primary_source_condition,
             "reference": reference_source_condition,
@@ -599,6 +653,7 @@ def _diagnostic21_selection(
         },
         "c22_capability": deepcopy(DIAGNOSTIC21_C22_CAPABILITY),
         "c28_capabilities": deepcopy(DIAGNOSTIC21_C28_CAPABILITIES),
+        "c29_capabilities": deepcopy(DIAGNOSTIC21_C29_CAPABILITIES),
         "semantic_authority": DIAGNOSTIC21_SEMANTIC_AUTHORITY,
         "runtime_artifact_path_provenance": {
             "repo_relative_required": ["source_dataset.path", "kure paths", "bge reranker path"],
@@ -636,6 +691,7 @@ def build_diagnostic21_manifests(
     for label, configuration in (("primary", primary_configuration), ("reference", reference_configuration)):
         if configuration.get("round_merge_mode") != DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE:
             raise OrchestrationError("diagnostic21 %s source round_merge_mode mismatch" % label)
+        configuration["condition"] = configuration["condition"] + DIAGNOSTIC21_C29_CONDITION_SUFFIX
         configuration["reranker_provenance"] = deepcopy(DIAGNOSTIC21_RERANKER_PROVENANCE)
     assert_kure_only(primary_configuration)
     if reference_configuration.get("retriever") != "bm25":
@@ -644,8 +700,8 @@ def build_diagnostic21_manifests(
         entries,
         primary_source_sha256,
         reference_source_sha256,
-        primary_source_condition,
-        reference_source_condition,
+        primary_configuration["condition"],
+        reference_configuration["condition"],
     )
     primary = _copy_manifest(
         primary_source,
@@ -656,7 +712,8 @@ def build_diagnostic21_manifests(
     )
     primary["selection"] = selection
     primary["purpose"] = (
-        "C28 diagnostic21 evaluates the integrated C25/C26/C27 runtime on the fixed "
+        "C29a S2 retry-only scope + C29b S1 effect neutrality + C29c narrow composite "
+        "application/conditional exception public contract are evaluated on the fixed "
         "failure-and-coverage roster. KURE is the only "
         "executable retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, "
         "or LF-Eval execution is permitted."
@@ -764,6 +821,8 @@ def assert_diagnostic21_manifest_integrity(
         raise OrchestrationError("diagnostic21 C22 capability mismatch")
     if selection.get("c28_capabilities") != DIAGNOSTIC21_C28_CAPABILITIES:
         raise OrchestrationError("diagnostic21 C28 capability mismatch")
+    if selection.get("c29_capabilities") != DIAGNOSTIC21_C29_CAPABILITIES:
+        raise OrchestrationError("diagnostic21 C29 capability mismatch")
     if selection.get("semantic_authority") != DIAGNOSTIC21_SEMANTIC_AUTHORITY:
         raise OrchestrationError("diagnostic21 semantic authority mismatch")
     if selection.get("runtime_artifact_path_provenance") != {
@@ -779,6 +838,9 @@ def assert_diagnostic21_manifest_integrity(
     }:
         raise OrchestrationError("diagnostic21 source condition lineage mismatch")
     for label, configuration in (("primary", primary_configuration), ("reference", reference_configuration)):
+        condition = configuration.get("condition")
+        if not isinstance(condition, str) or not condition.endswith(DIAGNOSTIC21_C29_CONDITION_SUFFIX):
+            raise OrchestrationError("diagnostic21 %s C29 source condition overlay mismatch" % label)
         if configuration.get("round_merge_mode") != DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE:
             raise OrchestrationError("diagnostic21 %s round_merge_mode mismatch" % label)
     _assert_diagnostic21_repo_relative_artifact_paths(primary, reference)
@@ -870,6 +932,7 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
             "skill_files": deepcopy(DIAGNOSTIC21_SKILL_FILES),
             "reranker_provenance": deepcopy(DIAGNOSTIC21_RERANKER_PROVENANCE),
             "round_merge_provenance": deepcopy(manifests["diagnostic21"]["selection"]["round_merge_provenance"]),
+            "c29_capabilities": deepcopy(DIAGNOSTIC21_C29_CAPABILITIES),
         }
     write_json_new(frozen_root / "source_metadata.json", source_metadata)
     assert_reference_is_read_only(manifests["full"], manifests["reference"], paths["full"], paths["reference"])

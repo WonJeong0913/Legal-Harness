@@ -120,13 +120,52 @@ class Diagnostic21ManifestTests(unittest.TestCase):
             orchestration.canonical_sha256({"roster": primary["selection"]["roster"]}),
         )
         self.assertEqual(primary["selection"]["condition_lineage"], orchestration.DIAGNOSTIC21_CONDITION_LINEAGE)
+        self.assertEqual(
+            primary["selection"]["condition_lineage"]["C25_C29_full_commit_lineage"],
+            [
+                "782e042eb986db88e37e35f0ba10556dfcfe7efe",
+                "82ddba012d29ac8f497af2fa1e34f0c6241dc3ef",
+                "64b3a11f1edb65a512f2c0487ebb3bf60aaa540e",
+                "54d94d9f6c87a06a25d58cf162bc2f30c20f6a6f",
+                "55d6a808eecf147372fec5f769d103497a608b13",
+                "e6dfff14342b57b6cda4c3f1a37a333e6546b68f",
+                "a604967a35649a6a5f5ccbbb59750f3ca594ec0b",
+            ],
+        )
         self.assertEqual(primary["selection"]["skill_files"], orchestration.DIAGNOSTIC21_SKILL_FILES)
+        self.assertEqual(
+            primary["selection"]["skill_files"],
+            {
+                "S1": {
+                    "skill_path": "skills/legal_issue_and_query_planning/SKILL.md",
+                    "skill_sha256": "273d61cd4c042da3eba5d65e7e746ee132a7c1a166bc99f5f51416c58e0d762a",
+                    "validator_path": "skills/legal_issue_and_query_planning/scripts/validate_output.py",
+                    "validator_sha256": "6e8ce23ad31a60b6403cc585c88896734466b5bcac53ebfc5864884c57d5599d",
+                },
+                "S2": {
+                    "skill_path": "skills/provision_coverage_assessment/SKILL.md",
+                    "skill_sha256": "a1d0ede5f6d049e975b356e7325d4a6aef1122db33d023a34cf6f59c45d96e95",
+                    "validator_path": "skills/provision_coverage_assessment/scripts/validate_output.py",
+                    "validator_sha256": "2d63bd38df2b7b5eb57009b6c056908339aeee4f5f9eee4ad987405841c3b619",
+                },
+                "S3": {
+                    "skill_path": "skills/grounded_legal_answer_generation/SKILL.md",
+                    "skill_sha256": "44bc84ae5b2213c016ca47a2afc2d133b618f003cdae51c1b1ad2793b8282090",
+                    "validator_path": "skills/grounded_legal_answer_generation/scripts/validate_output.py",
+                    "validator_sha256": "cbd4d0022cd30a2c23ee19ba30dc88e7302bd0f5b1cc1959081cc4a5f208e597",
+                },
+            },
+        )
         self.assertEqual(primary["selection"]["reranker_provenance"], orchestration.DIAGNOSTIC21_RERANKER_PROVENANCE)
         self.assertEqual(primary["selection"]["candidate_id"], orchestration.DIAGNOSTIC21_CANDIDATE_ID)
         self.assertEqual(primary["selection"]["c22_capability"], orchestration.DIAGNOSTIC21_C22_CAPABILITY)
         self.assertEqual(
             primary["selection"]["c28_capabilities"],
             orchestration.DIAGNOSTIC21_C28_CAPABILITIES,
+        )
+        self.assertEqual(
+            primary["selection"]["c29_capabilities"],
+            orchestration.DIAGNOSTIC21_C29_CAPABILITIES,
         )
         self.assertEqual(primary["selection"]["semantic_authority"], orchestration.DIAGNOSTIC21_SEMANTIC_AUTHORITY)
         self.assertEqual(
@@ -135,8 +174,29 @@ class Diagnostic21ManifestTests(unittest.TestCase):
         )
         self.assertFalse(primary["selection"]["round_merge_provenance"]["equivalence_claimed"])
         self.assertEqual(primary["selection"]["round_merge_provenance"]["c02_saved_stage_round_merge_mode"], "request_rank_top1_guarded_swap")
-        self.assertEqual(primary["frozen_configuration"]["condition"], "fixture-kure")
-        self.assertEqual(reference["frozen_configuration"]["condition"], "fixture-bm25")
+        self.assertEqual(primary["name"], "v2-kure-qwen38-q8-offline-diagnostic21-c29-20260827")
+        self.assertEqual(reference["name"], "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c29-20260827")
+        self.assertEqual(
+            primary["frozen_configuration"]["condition"],
+            "fixture-kure" + orchestration.DIAGNOSTIC21_C29_CONDITION_SUFFIX,
+        )
+        self.assertEqual(
+            reference["frozen_configuration"]["condition"],
+            "fixture-bm25" + orchestration.DIAGNOSTIC21_C29_CONDITION_SUFFIX,
+        )
+        self.assertEqual(
+            primary["selection"]["source_frozen_conditions"],
+            {
+                "primary": "fixture-kure" + orchestration.DIAGNOSTIC21_C29_CONDITION_SUFFIX,
+                "reference": "fixture-bm25" + orchestration.DIAGNOSTIC21_C29_CONDITION_SUFFIX,
+            },
+        )
+        self.assertEqual(
+            primary["selection"]["implementation_parent_commit"],
+            "54d94d9f6c87a06a25d58cf162bc2f30c20f6a6f",
+        )
+        self.assertIn("C29a S2 retry-only scope", primary["selection"]["method"])
+        self.assertIn("C29c narrow composite application/conditional exception public contract", primary["purpose"])
         self.assertEqual(primary["frozen_configuration"]["reranker_provenance"], orchestration.DIAGNOSTIC21_RERANKER_PROVENANCE)
         self.assertEqual(reference["frozen_configuration"]["reranker_provenance"], orchestration.DIAGNOSTIC21_RERANKER_PROVENANCE)
         self.assertEqual(primary["frozen_configuration"]["retriever"], "kure")
@@ -160,7 +220,20 @@ class Diagnostic21ManifestTests(unittest.TestCase):
         with self.assertRaisesRegex(orchestration.OrchestrationError, "entries differ"):
             orchestration.assert_diagnostic21_manifest_integrity(primary, reference)
 
-    def test_tracked_manifests_match_exact_sources_and_have_no_workspace_paths(self):
+        primary = json.loads(json.dumps(manifests["diagnostic21"]))
+        reference = json.loads(json.dumps(manifests["diagnostic21_reference"]))
+        primary["selection"]["c29_capabilities"]["c29a_s2_retry_only_scope"]["retry_scope"] = "GLOBAL"
+        with self.assertRaisesRegex(orchestration.OrchestrationError, "C29 capability"):
+            orchestration.assert_diagnostic21_manifest_integrity(primary, reference)
+
+        primary = json.loads(json.dumps(manifests["diagnostic21"]))
+        reference = json.loads(json.dumps(manifests["diagnostic21_reference"]))
+        primary["frozen_configuration"]["condition"] = "fixture-kure"
+        primary["selection"]["source_frozen_conditions"]["primary"] = "fixture-kure"
+        with self.assertRaisesRegex(orchestration.OrchestrationError, "C29 source condition overlay"):
+            orchestration.assert_diagnostic21_manifest_integrity(primary, reference)
+
+    def test_generated_manifests_match_tracked_frozen_manifests_and_record_c29_provenance(self):
         primary_source = orchestration.read_json(PROJECT_ROOT / "frozen_manifests/v2_kure_full226.json")
         reference_source = orchestration.read_json(PROJECT_ROOT / "frozen_manifests/v2_bm25_reference_full226.json")
         generated = orchestration.build_diagnostic21_manifests(
@@ -169,11 +242,30 @@ class Diagnostic21ManifestTests(unittest.TestCase):
             orchestration.sha256(PROJECT_ROOT / "frozen_manifests/v2_kure_full226.json"),
             orchestration.sha256(PROJECT_ROOT / "frozen_manifests/v2_bm25_reference_full226.json"),
         )
-        for filename, key in (("v2_kure_diagnostic21.json", "diagnostic21"), ("v2_bm25_reference_diagnostic21.json", "diagnostic21_reference")):
-            tracked = orchestration.read_json(PROJECT_ROOT / "frozen_manifests" / filename)
-            self.assertEqual(tracked, generated[key])
-            orchestration.assert_diagnostic21_manifest_integrity(generated["diagnostic21"], generated["diagnostic21_reference"])
-            self.assertNotIn("/workspace", json.dumps(tracked, ensure_ascii=False))
+        orchestration.assert_diagnostic21_manifest_integrity(generated["diagnostic21"], generated["diagnostic21_reference"])
+        self.assertNotIn("/workspace", json.dumps(generated, ensure_ascii=False))
+        tracked_primary = orchestration.read_json(
+            PROJECT_ROOT / "frozen_manifests/v2_kure_diagnostic21.json"
+        )
+        tracked_reference = orchestration.read_json(
+            PROJECT_ROOT / "frozen_manifests/v2_bm25_reference_diagnostic21.json"
+        )
+        self.assertEqual(generated["diagnostic21"], tracked_primary)
+        self.assertEqual(generated["diagnostic21_reference"], tracked_reference)
+        self.assertNotIn("/workspace", json.dumps(tracked_primary, ensure_ascii=False))
+        self.assertNotIn("/workspace", json.dumps(tracked_reference, ensure_ascii=False))
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            orchestration.write_v2_manifests(
+                root,
+                PROJECT_ROOT / "frozen_manifests/v2_kure_full226.json",
+                PROJECT_ROOT / "frozen_manifests/v2_bm25_reference_full226.json",
+            )
+            source_metadata = orchestration.read_json(root / "frozen_manifests/source_metadata.json")
+        self.assertEqual(
+            source_metadata["diagnostic21"]["c29_capabilities"],
+            orchestration.DIAGNOSTIC21_C29_CAPABILITIES,
+        )
 
     def test_generic_build_does_not_inject_diagnostic_bge_metadata(self):
         primary, reference = diagnostic_sources()

@@ -151,7 +151,7 @@
   "frozen_configuration": {
     "candidate_budget_scope": "per_round",
     "candidate_selection": "evidence_balanced",
-    "condition": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0",
+    "condition": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0+C29-provenance-control-plane-overlay",
     "conditional_generation": "answer_target_full_conditional_limited",
     "contextual_query_dedup": "same_output_after_context_history_duplicate_invalid",
     "coverage_contract": "legal_applicability_criterion_results",
@@ -341,8 +341,8 @@
     "total_retrieval_rounds": 3
   },
   "manifest_schema_version": "1.0",
-  "name": "v2-kure-qwen38-q8-offline-diagnostic21-20260827",
-  "purpose": "C28 diagnostic21 evaluates the integrated C25/C26/C27 runtime on the fixed failure-and-coverage roster. KURE is the only executable retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, or LF-Eval execution is permitted.",
+  "name": "v2-kure-qwen38-q8-offline-diagnostic21-c29-20260827",
+  "purpose": "C29a S2 retry-only scope + C29b S1 effect neutrality + C29c narrow composite application/conditional exception public contract are evaluated on the fixed failure-and-coverage roster. KURE is the only executable retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, or LF-Eval execution is permitted.",
   "selection": {
     "baseline": {
       "accepted_complete_evidence_count": 7,
@@ -403,7 +403,62 @@
         "validator_boundary": "UNCHANGED_FAIL_CLOSED"
       }
     },
-    "candidate_id": "C28-integrated-c25-c26-c27",
+    "c29_capabilities": {
+      "c29a_s2_retry_only_scope": {
+        "initial_s2_global_partial_core_injection": "REMOVED",
+        "retry_scope": "CONSISTENCY_FAILURE_ONLY",
+        "runtime_coverage_mutation": "NONE"
+      },
+      "c29b_s1_effect_neutrality": {
+        "deterministic_plan_or_query_rewrite": "NONE",
+        "initial_plan": "TRUSTED_QUESTION_EFFECT_NEUTRALITY",
+        "model_retry": "ONE_BOUNDED_MODEL_RETRY"
+      },
+      "c29c_narrow_composite_application_conditional_exception_public_contract": {
+        "answered_target_conditional_exception": "PUBLIC_CONCLUSION",
+        "application_gate": {
+          "clauses": [
+            {
+              "equals": "GENERATE_ANSWER",
+              "field": "mode"
+            },
+            {
+              "equals": "REQUIRED",
+              "field": "public_contract"
+            },
+            {
+              "count_equals": 1,
+              "field": "answered_targets"
+            },
+            {
+              "equals": "legal_conclusion",
+              "field": "answered_targets[0].answer_type"
+            },
+            {
+              "field": "critical_evidence_items",
+              "target_linked_count_equals": 1
+            },
+            {
+              "claim_type": "legal_rule",
+              "count_at_least": 2,
+              "field": "public_conclusion.claims"
+            },
+            {
+              "distinct_count_at_least": 2,
+              "field": "public_conclusion.cited_provision_ids"
+            },
+            {
+              "equals": 0,
+              "field": "public_conclusion.cited_application_count"
+            }
+          ],
+          "gold_free": true,
+          "predicate": "ALL"
+        },
+        "deterministic_claim_text_type_role_or_citation_rewrite": "NONE"
+      }
+    },
+    "candidate_id": "C29a-S2-retry-only-scope+C29b-S1-effect-neutrality+C29c-narrow-composite-application-conditional-exception-public-contract",
     "cohort_counts": {
       "accepted_abstain": 7,
       "execution_failure": 8,
@@ -442,13 +497,22 @@
       ],
       "C23_static_candidate_replay_analysis_only": [
         "04ec6ada68d32985c8426d7fd5fb02560568f45d"
+      ],
+      "C25_C29_full_commit_lineage": [
+        "782e042eb986db88e37e35f0ba10556dfcfe7efe",
+        "82ddba012d29ac8f497af2fa1e34f0c6241dc3ef",
+        "64b3a11f1edb65a512f2c0487ebb3bf60aaa540e",
+        "54d94d9f6c87a06a25d58cf162bc2f30c20f6a6f",
+        "55d6a808eecf147372fec5f769d103497a608b13",
+        "e6dfff14342b57b6cda4c3f1a37a333e6546b68f",
+        "a604967a35649a6a5f5ccbbb59750f3ca594ec0b"
       ]
     },
     "entry_count": 21,
     "execution_role": "PRIMARY_KURE_DIAGNOSTIC_EXECUTION",
-    "implementation_parent_commit": "04ec6ada68d32985c8426d7fd5fb02560568f45d",
+    "implementation_parent_commit": "54d94d9f6c87a06a25d58cf162bc2f30c20f6a6f",
     "lf_eval": "excluded; no LF-Eval invocation or score injection",
-    "method": "C28 integrated runtime candidate on the C24 fixed roster reindexed from immutable C02 source ordinals",
+    "method": "C29a S2 retry-only scope + C29b S1 effect neutrality + C29c narrow composite application/conditional exception public contract on the C24 fixed roster reindexed from immutable C02 source ordinals",
     "nonregression_minimums": {
       "complete_evidence_count": 7,
       "provision_exact_match_count": 2,
@@ -633,7 +697,7 @@
         "skill_path": "skills/legal_issue_and_query_planning/SKILL.md",
         "skill_sha256": "273d61cd4c042da3eba5d65e7e746ee132a7c1a166bc99f5f51416c58e0d762a",
         "validator_path": "skills/legal_issue_and_query_planning/scripts/validate_output.py",
-        "validator_sha256": "b613d96c58fd09e8ec8719490f078c0e7e299810bb82c8f06379c149b70c04cc"
+        "validator_sha256": "6e8ce23ad31a60b6403cc585c88896734466b5bcac53ebfc5864884c57d5599d"
       },
       "S2": {
         "skill_path": "skills/provision_coverage_assessment/SKILL.md",
@@ -643,15 +707,15 @@
       },
       "S3": {
         "skill_path": "skills/grounded_legal_answer_generation/SKILL.md",
-        "skill_sha256": "490455e725952e72a9585c51a57f4b629457558ef575cba57b2f21320b68a6c1",
+        "skill_sha256": "44bc84ae5b2213c016ca47a2afc2d133b618f003cdae51c1b1ad2793b8282090",
         "validator_path": "skills/grounded_legal_answer_generation/scripts/validate_output.py",
-        "validator_sha256": "6497bbfb3e69b3c53480d23bc1f0c790d567860bc651c9ba1af3fd5488433361"
+        "validator_sha256": "cbd4d0022cd30a2c23ee19ba30dc88e7302bd0f5b1cc1959081cc4a5f208e597"
       }
     },
     "skill_sha256_recording": "ExperimentRecord automatically persists all runtime skill_sha256 values.",
     "source_frozen_conditions": {
-      "primary": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0",
-      "reference": "V2-BM25-reference-only-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-full226-Qwen3.8-Q8_0"
+      "primary": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0+C29-provenance-control-plane-overlay",
+      "reference": "V2-BM25-reference-only-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-full226-Qwen3.8-Q8_0+C29-provenance-control-plane-overlay"
     },
     "source_primary_manifest_sha256": "b0b2eb06992ed2034956c2aa129c89b3cfadadf9009ea891c9533b7513479ef9",
     "source_reference_manifest_sha256": "f17c42e5b806a5bd7950010039ee9d3d0795377c6c86cd108cce0a5ecdea0aef"
