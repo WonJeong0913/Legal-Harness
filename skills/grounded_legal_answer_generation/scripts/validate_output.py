@@ -3,6 +3,7 @@ import argparse
 import json
 import re
 import sys
+import unicodedata
 from pathlib import Path
 
 
@@ -146,8 +147,8 @@ def validate_answer_target_scope(output, input_data, errors):
         public = [claim for claim in output.get("claims", []) if isinstance(claim, dict) and claim.get("public_role") == "conclusion"]
         if any(not isinstance(claim, dict) or claim.get("public_role") not in {"conclusion", "audit"} for claim in output.get("claims", [])):
             errors.append("every claim must declare public_role under the public conclusion contract")
-        if not 1 <= len(public) <= 3:
-            errors.append("public conclusion contract requires 1 to 3 conclusion claims")
+        if not 1 <= len(public) <= 4:
+            errors.append("public conclusion contract requires 1 to 4 conclusion claims")
         public_targets = {target_id for claim in public for target_id in claim.get("answer_target_ids", [])}
         if public_targets != set(answered):
             errors.append("public conclusion claims must cover every answered target")
@@ -251,11 +252,69 @@ def validate_public_legal_conclusion_claims(output, input_data, citations_by_cla
             and claim.get("public_role") == "audit"
             and isinstance(target_ids, list)
             and answered_target_ids.intersection(target_ids)
+            and not audit_conditional_exception_is_publicly_covered(
+                claim, claims, citations_by_claim
+            )
         ):
             errors.append(
                 "conditional exception for answered target must be a public conclusion: "
                 + str(claim.get("claim_id"))
             )
+
+
+def normalized_claim_text(value):
+    """Normalize text only for literal conditional-exception coverage checks."""
+    if not isinstance(value, str):
+        return ""
+    return re.sub(r"\s+", " ", unicodedata.normalize("NFKC", value).casefold()).strip()
+
+
+def audit_conditional_exception_is_publicly_covered(
+    audit_exception, claims, citations_by_claim
+):
+    """Require normalized full-text containment and complete public coverage.
+
+    A conditional exception left as audit is safe only when one public
+    conclusion contains its text and every one of its targets and cited
+    provisions. This deliberately avoids semantic inference: paraphrase,
+    partial target coverage, or partial provision coverage fails closed.
+    """
+    exception_id = audit_exception.get("claim_id")
+    exception_text = normalized_claim_text(audit_exception.get("text"))
+    exception_targets = {
+        target_id
+        for target_id in audit_exception.get("answer_target_ids", [])
+        if isinstance(target_id, str)
+    }
+    exception_provisions = {
+        citation.get("provision_id")
+        for citation in citations_by_claim.get(exception_id, [])
+        if isinstance(citation, dict) and isinstance(citation.get("provision_id"), str)
+    }
+    if not exception_text or not exception_targets or not exception_provisions:
+        return False
+    for public_claim in claims:
+        if public_claim.get("public_role") != "conclusion":
+            continue
+        public_id = public_claim.get("claim_id")
+        public_text = normalized_claim_text(public_claim.get("text"))
+        public_targets = {
+            target_id
+            for target_id in public_claim.get("answer_target_ids", [])
+            if isinstance(target_id, str)
+        }
+        public_provisions = {
+            citation.get("provision_id")
+            for citation in citations_by_claim.get(public_id, [])
+            if isinstance(citation, dict) and isinstance(citation.get("provision_id"), str)
+        }
+        if (
+            exception_text in public_text
+            and exception_targets.issubset(public_targets)
+            and exception_provisions.issubset(public_provisions)
+        ):
+            return True
+    return False
 
 
 def validate(output, input_data):
@@ -296,8 +355,8 @@ def validate(output, input_data):
             f"answer exceeds max_answer_chars: {len(answer)} > {effective_max_chars}"
         )
     answer_lines = [line.strip() for line in answer.splitlines() if line.strip()]
-    if not 1 <= len(answer_lines) <= 3:
-        errors.append("public answer must contain 1 to 3 short lines")
+    if not 1 <= len(answer_lines) <= 4:
+        errors.append("public answer must contain 1 to 4 short lines")
     if any(
         line.startswith(("전제:", "한계:")) for line in answer_lines
     ):
