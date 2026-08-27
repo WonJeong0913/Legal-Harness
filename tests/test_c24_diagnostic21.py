@@ -176,9 +176,9 @@ class Diagnostic21ManifestTests(unittest.TestCase):
                 },
                 "S3": {
                     "skill_path": "skills/grounded_legal_answer_generation/SKILL.md",
-                    "skill_sha256": "44bc84ae5b2213c016ca47a2afc2d133b618f003cdae51c1b1ad2793b8282090",
+                    "skill_sha256": "6910e4fb7d1e53a8fd7b4b10eba9deb0e9db98a01514b86fbe9dc0cfc3601a10",
                     "validator_path": "skills/grounded_legal_answer_generation/scripts/validate_output.py",
-                    "validator_sha256": "cbd4d0022cd30a2c23ee19ba30dc88e7302bd0f5b1cc1959081cc4a5f208e597",
+                    "validator_sha256": "7080fb377d038cfd81aee1da1486ee6df9208bc6e9b2e4ae9a1b2a365c50de5e",
                 },
             },
         )
