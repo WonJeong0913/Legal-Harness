@@ -872,6 +872,73 @@ class GapSpecificityRepairTests(unittest.TestCase):
         self.assertEqual(repaired["answer_targets"][0]["question_anchor"], question_body)
         self.assertEqual(audit[0]["guards"]["trusted_question_body_source"], "normalized_question")
 
+    def test_qa116_non_substring_anchor_variants_derive_marker_question_body(self):
+        question_body = (
+            "갑이 의뢰인 을에게 헌법재판소가 사건을 접수한 후 종국결정의 "
+            "선고는 몇 일 이내에 이루어져야 한다고 설명해야 하는가?"
+        )
+        original_question = (
+            "[배경 시나리오]\n"
+            "갑은 대한민국의 변호사로서, 그의 의뢰인 을이 헌법 소원을 제기하여 "
+            "헌법재판소에 사건을 접수하였다.\n\n[질문]\n"
+            + question_body
+        )
+        anchors = (
+            "헌법재판소가 사건을 접수한 후 종국결정의 선고는 몇 일 이내에 이루어져야 하는가",
+            "종국결정의 선고는 몇 일 이내에 이루어져야 하는가",
+        )
+        for anchor in anchors:
+            with self.subTest(anchor=anchor):
+                output = self._single_initial_anchor_output(
+                    question_anchor=anchor,
+                    requested_output=(
+                        "The statutory maximum number of days within which the "
+                        "Constitutional Court must pronounce a final decision after "
+                        "accepting a constitutional complaint."
+                    ),
+                )
+                before = copy.deepcopy(output)
+                repaired, audit = self._repair_initial_anchor(
+                    output,
+                    {
+                        "original_question": original_question,
+                        "normalized_question": question_body,
+                    },
+                )
+
+                expected = copy.deepcopy(before)
+                expected["answer_targets"][0]["question_anchor"] = question_body
+                self.assertEqual(repaired, expected)
+                self.assertEqual(len(audit), 1)
+                self.assertEqual(
+                    audit[0]["kind"],
+                    "single_target_non_substring_anchor_fallback",
+                )
+                self.assertEqual(audit[0]["before"], anchor)
+                self.assertEqual(audit[0]["after"], question_body)
+                self.assertEqual(
+                    audit[0]["reason"],
+                    "single_target_non_substring_anchor_transport",
+                )
+                self.assertTrue(all(audit[0]["guards"].values()), audit)
+                self.assertTrue(
+                    audit[0]["guards"]
+                    ["trusted_question_body_from_original_question_marker"]
+                )
+
+    def test_valid_single_target_anchor_never_uses_non_substring_fallback(self):
+        question_body = "계약 해제의 요건은 무엇인가?"
+        output = self._single_initial_anchor_output(
+            question_anchor="계약 해제의 요건",
+        )
+        before = copy.deepcopy(output)
+        repaired, audit = self._repair_initial_anchor(
+            output,
+            {"original_question": "[질문] " + question_body},
+        )
+        self.assertEqual(repaired, before)
+        self.assertEqual(audit, [])
+
     def test_validator_trusted_question_source_matches_anchor_repair_contract(self):
         cases = [
             (
@@ -907,9 +974,7 @@ class GapSpecificityRepairTests(unittest.TestCase):
                     expected,
                 )
 
-    def test_single_target_placeholder_anchor_fails_closed_outside_guards(self):
-        cases = []
-
+    def test_single_target_anchor_fallback_fails_closed_outside_guards(self):
         multiple_targets = self._single_initial_anchor_output()
         multiple_targets["answer_targets"].append({
             "answer_target_id": "T2",
@@ -917,20 +982,46 @@ class GapSpecificityRepairTests(unittest.TestCase):
             "requested_output": "추가 결과",
             "answer_type": "requested_conclusion",
         })
-        cases.append((
-            "multiple_targets",
-            multiple_targets,
-            {"original_question": "[질문] T1이 포함된 하나의 질문 본문"},
-        ))
-        cases.extend([
+        incomplete_evidence_target_linkage = self._single_initial_anchor_output(
+            question_anchor="질문에 없는 앵커",
+        )
+        incomplete_evidence_target_linkage["required_evidence_items"][0][
+            "answer_target_ids"
+        ] = ["T2"]
+        target_id_mismatch = self._single_initial_anchor_output(question_anchor="T2")
+        target_id_mismatch["retrieval_requests"][0]["evidence_item_id"] = "E2"
+        missing_evidence_id = self._single_initial_anchor_output(
+            question_anchor="질문에 없는 앵커",
+        )
+        missing_evidence_id["required_evidence_items"][0]["evidence_item_id"] = ""
+        missing_request_id = self._single_initial_anchor_output(
+            question_anchor="질문에 없는 앵커",
+        )
+        missing_request_id["retrieval_requests"][0]["request_id"] = ""
+        cases = [
             (
-                "non_placeholder_anchor",
-                self._single_initial_anchor_output(question_anchor="질문에 없는 앵커"),
+                "multiple_targets",
+                multiple_targets,
+                {"original_question": "[질문] T1이 포함된 하나의 질문 본문"},
+            ),
+            (
+                "incomplete_evidence_target_linkage",
+                incomplete_evidence_target_linkage,
                 {"original_question": "[질문] T1이 포함된 하나의 질문 본문"},
             ),
             (
                 "target_id_mismatch",
-                self._single_initial_anchor_output(question_anchor="T2"),
+                target_id_mismatch,
+                {"original_question": "[질문] 하나의 질문 본문"},
+            ),
+            (
+                "missing_evidence_id",
+                missing_evidence_id,
+                {"original_question": "[질문] 하나의 질문 본문"},
+            ),
+            (
+                "missing_request_id",
+                missing_request_id,
                 {"original_question": "[질문] 하나의 질문 본문"},
             ),
             (
@@ -961,7 +1052,15 @@ class GapSpecificityRepairTests(unittest.TestCase):
                 self._single_initial_anchor_output(),
                 {"original_question": "질문 표식이 없는 배경 설명", "normalized_question": " "},
             ),
-        ])
+            (
+                "markerless_non_placeholder_anchor",
+                self._single_initial_anchor_output(question_anchor="질문에 없는 앵커"),
+                {
+                    "original_question": "질문 표식이 없는 배경 설명",
+                    "normalized_question": "하나의 질문 본문",
+                },
+            ),
+        ]
 
         for name, output, skill_input in cases:
             with self.subTest(name=name):

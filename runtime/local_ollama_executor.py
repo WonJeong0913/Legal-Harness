@@ -1266,6 +1266,102 @@ class LocalOllamaSkillExecutor:
         return None, None
 
     @staticmethod
+    def _single_target_non_substring_anchor_guards(
+        output: Mapping[str, Any],
+        targets: Sequence[Any],
+        target: Mapping[str, Any],
+        question_body: Optional[str],
+        question_source: Optional[str],
+    ) -> Dict[str, bool]:
+        """Return structural guards for the C25 anchor transport fallback.
+
+        This establishes one complete T1 -> I1 -> E1 -> RQ1 shape before
+        deriving an anchor from the supplied [질문] body. It does not inspect
+        statute text, retrieve anything, or infer legal scope.
+        """
+        answer_target_id = target.get("answer_target_id")
+        anchor = target.get("question_anchor")
+        requested_output = target.get("requested_output")
+        issues = output.get("legal_issues")
+        evidence_items = output.get("required_evidence_items")
+        requests = output.get("retrieval_requests")
+
+        single_issue = (
+            isinstance(issues, list)
+            and len(issues) == 1
+            and isinstance(issues[0], Mapping)
+        )
+        single_critical_evidence = (
+            isinstance(evidence_items, list)
+            and len(evidence_items) == 1
+            and isinstance(evidence_items[0], Mapping)
+            and evidence_items[0].get("critical") is True
+        )
+        single_request = (
+            isinstance(requests, list)
+            and len(requests) == 1
+            and isinstance(requests[0], Mapping)
+        )
+        issue_id = issues[0].get("issue_id") if single_issue else None
+        evidence = evidence_items[0] if single_critical_evidence else {}
+        request = requests[0] if single_request else {}
+        normalized_question = LocalOllamaSkillExecutor._normalized_query(
+            question_body or ""
+        )
+        normalized_anchor = LocalOllamaSkillExecutor._normalized_query(
+            anchor if isinstance(anchor, str) else ""
+        )
+
+        return {
+            "entry_point_is_initial_plan": True,
+            "single_answer_target": len(targets) == 1,
+            "answer_target_id_nonempty_string": (
+                isinstance(answer_target_id, str) and bool(answer_target_id.strip())
+            ),
+            "question_anchor_nonempty_string": (
+                isinstance(anchor, str) and bool(anchor.strip())
+            ),
+            "question_anchor_not_question_substring": bool(normalized_anchor)
+            and normalized_anchor not in normalized_question,
+            "requested_output_nonempty_string": (
+                isinstance(requested_output, str) and bool(requested_output.strip())
+            ),
+            "requested_output_substring_repair_not_applied": True,
+            "trusted_question_body_nonempty": (
+                isinstance(question_body, str) and bool(question_body.strip())
+            ),
+            "trusted_question_body_from_original_question_marker": (
+                question_source == "original_question_marker"
+            ),
+            "single_legal_issue": single_issue,
+            "single_critical_evidence_item": single_critical_evidence,
+            "single_retrieval_request": single_request,
+            "issue_id_nonempty_string": (
+                isinstance(issue_id, str) and bool(issue_id.strip())
+            ),
+            "critical_evidence_id_nonempty_string": (
+                isinstance(evidence.get("evidence_item_id"), str)
+                and bool(evidence.get("evidence_item_id").strip())
+            ),
+            "retrieval_request_id_nonempty_string": (
+                isinstance(request.get("request_id"), str)
+                and bool(request.get("request_id").strip())
+            ),
+            "critical_evidence_links_issue": (
+                bool(single_critical_evidence)
+                and evidence.get("issue_id") == issue_id
+            ),
+            "critical_evidence_links_target": (
+                bool(single_critical_evidence)
+                and evidence.get("answer_target_ids") == [answer_target_id]
+            ),
+            "request_links_issue": bool(single_request)
+            and request.get("issue_id") == issue_id,
+            "request_links_critical_evidence": bool(single_request)
+            and request.get("evidence_item_id") == evidence.get("evidence_item_id"),
+        }
+
+    @staticmethod
     def _source_context_excerpt(source: str) -> str:
         parts = [
             part.strip()
@@ -1393,9 +1489,9 @@ class LocalOllamaSkillExecutor:
         """Apply narrow transport-only S1 repairs without legal decisions.
 
         The skill raw output remains the retry artifact. Repairs only remove
-        unsupported retrieval pinpoint text or replace a guarded, single-target
-        ID-placeholder question anchor with the trusted question body. They
-        never change legal/evidence decisions, provenance, or retrieval intent.
+        unsupported retrieval pinpoint text or derive a guarded, single-target
+        question anchor from the trusted question body. They never change
+        legal/evidence decisions, provenance, or retrieval intent.
         """
         if skill_name != "legal_issue_and_query_planning":
             return output, []
@@ -1465,6 +1561,24 @@ class LocalOllamaSkillExecutor:
                             "trusted_question_body_source": question_source,
                         },
                     })
+                else:
+                    guards = self._single_target_non_substring_anchor_guards(
+                        repaired,
+                        targets,
+                        target,
+                        question_body,
+                        question_source,
+                    )
+                    if all(guards.values()):
+                        target["question_anchor"] = question_body
+                        audit.append({
+                            "kind": "single_target_non_substring_anchor_fallback",
+                            "answer_target_id": answer_target_id,
+                            "before": anchor,
+                            "after": question_body,
+                            "reason": "single_target_non_substring_anchor_transport",
+                            "guards": guards,
+                        })
             return repaired, audit
         if entry_point != "GAP_QUERY_PLAN":
             return repaired, audit
