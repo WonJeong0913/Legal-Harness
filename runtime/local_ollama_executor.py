@@ -67,6 +67,14 @@ S2_COMPACT_AUDIT_INVARIANT = (
     "requirements, relation/conflict choice, and one concise rationale for each "
     "evidence link, coverage assessment, and criterion result."
 )
+S2_PARTIAL_CORE_LINK_INVARIANT = (
+    "For every CORE partially_supports link, at least one criterion for that "
+    "same evidence item must be partially_satisfied and include the same "
+    "candidate ID in linked_provision_ids. If no such partial criterion is "
+    "justified by the supplied text, omit that CORE link and emit the evidence "
+    "item as uncovered/not_assessed/missing_statute; never pair a partial CORE "
+    "link with an unsatisfied criterion or no linked candidate IDs."
+)
 
 S2_AXIS_PROJECTIONS = {
     ("covered", "direct", "none"): (
@@ -374,6 +382,9 @@ class LocalOllamaSkillExecutor:
                             "rebuild linked_provision_ids from evidence_links."
                         )
                     )
+                    repair_instruction += self._s2_partial_core_retry_instruction(
+                        skill_name, validation_errors
+                    )
                     public_role_diagnostic = self._s3_public_role_diagnostic(
                         skill_name,
                         skill_output,
@@ -563,6 +574,22 @@ class LocalOllamaSkillExecutor:
             "drop a claim, citation, assumption, limitation, or answered target."
             % serialized
         )
+
+    @staticmethod
+    def _s2_partial_core_retry_instruction(
+        skill_name: str,
+        validation_errors: Sequence[str],
+    ) -> str:
+        """Return retry-only guidance for a rejected partial CORE transport."""
+        if (
+            skill_name != "provision_coverage_assessment"
+            or not any(
+                error.startswith("partially_covered consistency failure:")
+                for error in validation_errors
+            )
+        ):
+            return ""
+        return " PARTIAL-CORE LINK RETRY CONTRACT: " + S2_PARTIAL_CORE_LINK_INVARIANT
 
     def _normalize_harness_owned_fields(
         self,
@@ -2551,6 +2578,8 @@ FINAL OUTPUT INVARIANTS:
             )
             + " "
             + S2_COMPACT_AUDIT_INVARIANT
+            + " "
+            + S2_PARTIAL_CORE_LINK_INVARIANT
         )
     def _s1_output_invariants(self, skill_input: Mapping[str, Any]) -> str:
         if skill_input.get("mode") != "GAP_QUERY_PLAN":
