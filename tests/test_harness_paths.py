@@ -9,6 +9,7 @@ from harness.contracts import (
     TerminationReason,
 )
 from harness.runner import HarnessConfig, HarnessRunner
+from harness.validation import ValidationError
 from retrieval.corpus import InMemoryProvisionCorpus, ProvisionDocument
 from tools.validate_citation_integrity import CitationIntegrityChecker
 
@@ -144,9 +145,14 @@ def gap_plan(query="예외 규정"):
     }
 
 
-def repair_collision_recovery(*, dropped_ids, remaining_count):
+def repair_collision_recovery(
+    *,
+    dropped_ids,
+    remaining_count,
+    disposition=GapPlanRecoveryDisposition.REPAIR_INDUCED_HISTORY_COLLISION,
+):
     return GapPlanRecovery(
-        disposition=GapPlanRecoveryDisposition.REPAIR_INDUCED_HISTORY_COLLISION,
+        disposition=disposition,
         dropped_request_ids=list(dropped_ids),
         repaired_query_sha256=["a" * 64 for _ in dropped_ids],
         dropped_request_count=len(dropped_ids),
@@ -359,6 +365,86 @@ class HarnessPathTests(unittest.TestCase):
         )
         self.assertEqual(recovery_event.details["dropped_request_count"], 1)
         self.assertEqual(recovery_event.details["remaining_request_count"], 1)
+
+    def test_sibling_collision_recovery_is_audited_and_dispatches_sibling(self):
+        sibling = {
+            "request_id": "GRQ-R2-1",
+            "issue_id": "I1",
+            "evidence_item_id": "E1",
+            "query_channel": "statute_aware",
+            "query_text": "형사소송법 항소이유 판단의 이유 불기재",
+            "top_k": 100,
+        }
+        runner, _, retriever = self.make_runner(
+            {
+                (S1, "INITIAL_PLAN"): [initial_plan()],
+                (S1, "GAP_QUERY_PLAN"): [{
+                    "gap_retrieval_requests": [sibling],
+                    "harness_gap_plan_recovery": repair_collision_recovery(
+                        dropped_ids=["GRQ-R2-2"],
+                        remaining_count=1,
+                        disposition=(
+                            GapPlanRecoveryDisposition.REPAIR_INDUCED_SIBLING_COLLISION
+                        ),
+                    ),
+                }],
+                (S2, "ASSESS_COVERAGE"): [
+                    coverage("uncovered"),
+                    coverage("covered", "P2"),
+                ],
+                (S3, "GENERATE_ANSWER"): [answer("P2")],
+            },
+            {1: [("P1", "초기 조문")], 2: [("P2", "보충 조문")]},
+            [
+                ProvisionDocument("P1", "테스트법", "초기 조문"),
+                ProvisionDocument("P2", "테스트법", "보충 조문"),
+            ],
+        )
+
+        outcome = runner.run("질문", run_id="sibling-collision")
+
+        self.assertEqual(outcome.status, OutcomeStatus.ANSWER)
+        self.assertEqual(len(retriever.calls), 2)
+        self.assertEqual(
+            [request.query_text for request in retriever.calls[1][0]],
+            [sibling["query_text"]],
+        )
+        recovery_event = next(
+            event
+            for event in outcome.state.action_trace
+            if event.event == "GAP_PLAN_REPAIR_COLLISION_RECOVERED"
+        )
+        self.assertEqual(
+            recovery_event.details["disposition"],
+            GapPlanRecoveryDisposition.REPAIR_INDUCED_SIBLING_COLLISION.value,
+        )
+        self.assertEqual(
+            recovery_event.details["dropped_request_ids"], ["GRQ-R2-2"]
+        )
+        self.assertEqual(recovery_event.details["remaining_request_count"], 1)
+
+    def test_sibling_collision_recovery_rejects_impossible_audit_counts(self):
+        cases = (
+            (["GRQ-R2-2", "GRQ-R2-3"], 1, 1),
+            (["GRQ-R2-2"], 0, 0),
+        )
+        for dropped_ids, remaining_count, request_count in cases:
+            with self.subTest(
+                dropped_ids=dropped_ids, remaining_count=remaining_count
+            ):
+                recovery = repair_collision_recovery(
+                    dropped_ids=dropped_ids,
+                    remaining_count=remaining_count,
+                    disposition=(
+                        GapPlanRecoveryDisposition.REPAIR_INDUCED_SIBLING_COLLISION
+                    ),
+                )
+                with self.assertRaisesRegex(
+                    ValidationError, "gap-plan recovery audit is invalid"
+                ):
+                    HarnessRunner._validated_gap_plan_recovery(
+                        {"harness_gap_plan_recovery": recovery}, request_count
+                    )
 
     def test_benchmark_candidate_failure_does_not_reclassify_abstention(self):
         runner, _, _ = self.make_runner(

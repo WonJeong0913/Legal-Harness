@@ -169,6 +169,420 @@ class GapSpecificityRepairTests(unittest.TestCase):
             errors,
         )
 
+    def _qa125_sibling_collision_fixture(self):
+        question = (
+            "갑은 1심 판결에 대해 항소를 제기하려고 합니다. "
+            "항소 이유로 주장할 수 있는 사유 중 하나는 무엇인가?"
+        )
+        payload = gap_input()
+        payload["normalized_question"] = question
+        sibling = gap_request(
+            "E1",
+            "형사소송법 항소이유 판단의 이유의 불기재",
+            request_id="GRQ-R1-1",
+        )
+        sibling.update({
+            "query_channel": "sparse_keywords",
+            "query_terms": ["항소이유", "판단의 이유", "불기재", "형사소송법"],
+            "statute_hints": ["형사소송법"],
+        })
+        repaired_candidate = gap_request(
+            "E1",
+            "형사소송법 제361조 항소이유 판단의 이유의 불기재",
+            request_id="GRQ-R1-2",
+        )
+        repaired_candidate.update({
+            "query_channel": "statute_aware",
+            "query_terms": ["제361조", "항소이유", "판단의 이유", "불기재"],
+            "statute_hints": ["형사소송법 제361조"],
+        })
+        raw = gap_output([sibling, repaired_candidate])
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills", "fixture-model", generator=lambda _prompt: "{}"
+        )
+        skill_input = executor._build_skill_input(
+            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
+        )
+        unrepaired = executor._normalize_harness_owned_fields(
+            "legal_issue_and_query_planning",
+            "GAP_QUERY_PLAN",
+            skill_input,
+            copy.deepcopy(raw),
+        )
+        repaired, repairs = executor._repair_s1_transport(
+            "legal_issue_and_query_planning",
+            "GAP_QUERY_PLAN",
+            unrepaired,
+            skill_input,
+        )
+        errors = executor._validators["legal_issue_and_query_planning"](
+            repaired, skill_input
+        )
+        return {
+            "executor": executor,
+            "payload": payload,
+            "raw": raw,
+            "skill_input": skill_input,
+            "unrepaired": unrepaired,
+            "repaired": repaired,
+            "repairs": repairs,
+            "errors": errors,
+        }
+
+    def test_c24_qa125_article_repair_drops_only_duplicate_critical_sibling(self):
+        fixture = self._qa125_sibling_collision_fixture()
+        executor = fixture["executor"]
+        unrepaired = fixture["unrepaired"]
+        repaired = fixture["repaired"]
+        repairs = fixture["repairs"]
+        errors = fixture["errors"]
+        question = fixture["payload"]["normalized_question"]
+        sibling_query = (
+            "형사소송법 항소이유 판단의 이유의 불기재\n[원문 맥락]\n"
+            + question
+        )
+        repaired_duplicate_query = (
+            "형사소송법 항소이유 판단의 이유의 불기재 [원문 맥락] "
+            + question
+        )
+        article_query = (
+            "형사소송법 제361조 항소이유 판단의 이유의 불기재"
+            "\n[원문 맥락]\n"
+            + question
+        )
+
+        self.assertEqual(
+            [item["query_text"] for item in unrepaired["gap_retrieval_requests"]],
+            [
+                sibling_query,
+                article_query,
+            ],
+        )
+        self.assertEqual(
+            [item["query_text"] for item in repaired["gap_retrieval_requests"]],
+            [sibling_query, repaired_duplicate_query],
+        )
+        self.assertEqual(
+            executor._normalized_query(sibling_query),
+            executor._normalized_query(repaired_duplicate_query),
+        )
+        self.assertNotEqual(
+            executor._normalized_query(
+                unrepaired["gap_retrieval_requests"][0]["query_text"]
+            ),
+            executor._normalized_query(
+                unrepaired["gap_retrieval_requests"][1]["query_text"]
+            ),
+        )
+        self.assertEqual(
+            errors,
+            [
+                "duplicate normalized query in output: %s"
+                % repaired_duplicate_query
+            ],
+        )
+        self.assertEqual(
+            [
+                item["request_id"]
+                for item in repairs
+                if item.get("field") == "query_text"
+            ],
+            ["GRQ-R2-2"],
+        )
+        self.assertEqual(
+            [item["evidence_item_id"] for item in repaired["gap_retrieval_requests"]],
+            ["E1", "E1"],
+        )
+        self.assertEqual(
+            [item["query_terms"] for item in unrepaired["gap_retrieval_requests"]],
+            [
+                ["항소이유", "판단의 이유", "불기재", "형사소송법"],
+                ["제361조", "항소이유", "판단의 이유", "불기재"],
+            ],
+        )
+        self.assertEqual(
+            [item["statute_hints"] for item in unrepaired["gap_retrieval_requests"]],
+            [["형사소송법"], ["형사소송법 제361조"]],
+        )
+        self.assertEqual(
+            [item["query_terms"] for item in repaired["gap_retrieval_requests"]],
+            [
+                ["항소이유", "판단의 이유", "불기재", "형사소송법"],
+                ["항소이유", "판단의 이유", "불기재"],
+            ],
+        )
+        self.assertEqual(
+            [item["statute_hints"] for item in repaired["gap_retrieval_requests"]],
+            [["형사소송법"], ["형사소송법"]],
+        )
+        self.assertEqual(
+            repairs,
+            [
+                {
+                    "kind": "neutralized_ungrounded_article_specificity",
+                    "request_id": "GRQ-R2-2",
+                    "field": "query_text",
+                    "before": article_query,
+                    "after": repaired_duplicate_query,
+                },
+                {
+                    "kind": "neutralized_ungrounded_article_specificity",
+                    "request_id": "GRQ-R2-2",
+                    "field": "query_terms",
+                    "before": ["제361조", "항소이유", "판단의 이유", "불기재"],
+                    "after": ["항소이유", "판단의 이유", "불기재"],
+                },
+                {
+                    "kind": "neutralized_ungrounded_article_specificity",
+                    "request_id": "GRQ-R2-2",
+                    "field": "statute_hints",
+                    "before": ["형사소송법 제361조"],
+                    "after": ["형사소송법"],
+                },
+            ],
+        )
+
+        recovered, recovery = executor._repair_induced_sibling_collision_recovery(
+            "legal_issue_and_query_planning",
+            "GAP_QUERY_PLAN",
+            unrepaired,
+            repaired,
+            fixture["skill_input"],
+            repairs,
+            errors,
+        )
+
+        self.assertEqual(
+            recovery.disposition,
+            GapPlanRecoveryDisposition.REPAIR_INDUCED_SIBLING_COLLISION,
+        )
+        self.assertEqual(recovery.dropped_request_ids, ["GRQ-R2-2"])
+        self.assertEqual(recovery.remaining_request_count, 1)
+        self.assertEqual(
+            recovered["gap_retrieval_requests"],
+            [repaired["gap_retrieval_requests"][0]],
+        )
+        self.assertEqual(recovered["target_evidence_item_ids"], ["E1"])
+        self.assertEqual(
+            executor._validators["legal_issue_and_query_planning"](
+                recovered, fixture["skill_input"]
+            ),
+            [],
+        )
+
+    def test_qa125_execute_uses_typed_fallback_when_neutral_replan_fails(self):
+        fixture = self._qa125_sibling_collision_fixture()
+        prompts = []
+        diagnostics = []
+        responses = iter([
+            json.dumps(fixture["raw"], ensure_ascii=False),
+            "not json",
+        ])
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills",
+            "fixture-model",
+            generator=lambda prompt: prompts.append(prompt) or next(responses),
+            diagnostic_sink=diagnostics.append,
+        )
+
+        output = executor.execute(
+            "legal_issue_and_query_planning",
+            "GAP_QUERY_PLAN",
+            fixture["payload"],
+        )
+
+        self.assertEqual(len(prompts), 2)
+        self.assertIn("NEUTRAL_SEMANTIC_GAP_REPLAN", prompts[1])
+        self.assertEqual(
+            [item["request_id"] for item in output["gap_retrieval_requests"]],
+            ["GRQ-R2-1"],
+        )
+        recovery = output["harness_gap_plan_recovery"]
+        self.assertEqual(
+            recovery.disposition,
+            GapPlanRecoveryDisposition.REPAIR_INDUCED_SIBLING_COLLISION,
+        )
+        self.assertEqual(recovery.dropped_request_ids, ["GRQ-R2-2"])
+        self.assertEqual(recovery.remaining_request_count, 1)
+        outer = diagnostics[-1]
+        self.assertEqual(outer["outcome"], "valid")
+        self.assertEqual(
+            outer["semantic_replan_events"][0]["reason"],
+            GapPlanRecoveryDisposition.REPAIR_INDUCED_SIBLING_COLLISION.value,
+        )
+        self.assertEqual(
+            outer["semantic_replan_events"][-1]["kind"],
+            "neutral_semantic_gap_replan_fallback",
+        )
+
+    def test_qa125_execute_adopts_single_target_neutral_replan(self):
+        fixture = self._qa125_sibling_collision_fixture()
+        clean_replan = gap_output([
+            gap_request(
+                "E1",
+                "형사소송법 판결 이유 불기재 항소이유 법정 근거",
+                request_id="model-replan",
+            )
+        ])
+        prompts = []
+        diagnostics = []
+        responses = iter([
+            json.dumps(fixture["raw"], ensure_ascii=False),
+            json.dumps(clean_replan, ensure_ascii=False),
+        ])
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills",
+            "fixture-model",
+            generator=lambda prompt: prompts.append(prompt) or next(responses),
+            diagnostic_sink=diagnostics.append,
+        )
+
+        output = executor.execute(
+            "legal_issue_and_query_planning",
+            "GAP_QUERY_PLAN",
+            fixture["payload"],
+        )
+
+        self.assertEqual(len(prompts), 2)
+        self.assertEqual(
+            [item["request_id"] for item in output["gap_retrieval_requests"]],
+            ["GRQ-R2-1"],
+        )
+        self.assertEqual(
+            [
+                item["evidence_item_id"]
+                for item in output["gap_retrieval_requests"]
+            ],
+            ["E1"],
+        )
+        self.assertIn(
+            "형사소송법 판결 이유 불기재 항소이유 법정 근거",
+            output["gap_retrieval_requests"][0]["query_text"],
+        )
+        self.assertNotIn("harness_gap_plan_recovery", output)
+        outer = diagnostics[-1]
+        self.assertEqual(
+            [event["kind"] for event in outer["semantic_replan_events"]],
+            [
+                "neutral_semantic_gap_replan_attempted",
+                "neutral_semantic_gap_replan_adopted",
+            ],
+        )
+
+    def test_sibling_collision_recovery_fails_closed_outside_exact_guards(self):
+        fixture = self._qa125_sibling_collision_fixture()
+        executor = fixture["executor"]
+        base = (
+            fixture["unrepaired"],
+            fixture["repaired"],
+            fixture["skill_input"],
+            fixture["repairs"],
+            fixture["errors"],
+        )
+        cases = []
+
+        raw_duplicate = copy.deepcopy(base[0])
+        raw_duplicate["gap_retrieval_requests"][1]["query_text"] = (
+            raw_duplicate["gap_retrieval_requests"][0]["query_text"]
+        )
+        cases.append(("raw_duplicate", raw_duplicate, *base[1:]))
+
+        different_evidence_raw = copy.deepcopy(base[0])
+        different_evidence_repaired = copy.deepcopy(base[1])
+        different_evidence_raw["gap_retrieval_requests"][0][
+            "evidence_item_id"
+        ] = "E2"
+        different_evidence_repaired["gap_retrieval_requests"][0][
+            "evidence_item_id"
+        ] = "E2"
+        cases.append((
+            "different_evidence",
+            different_evidence_raw,
+            different_evidence_repaired,
+            base[2],
+            base[3],
+            base[4],
+        ))
+
+        noncritical_input = copy.deepcopy(base[2])
+        noncritical_input["required_evidence_items"][0]["critical"] = False
+        cases.append((
+            "noncritical_evidence",
+            base[0],
+            base[1],
+            noncritical_input,
+            base[3],
+            base[4],
+        ))
+
+        both_repaired = copy.deepcopy(base[3])
+        both_repaired.append({
+            "kind": "neutralized_ungrounded_article_specificity",
+            "request_id": "GRQ-R2-1",
+            "field": "query_text",
+            "before": base[0]["gap_retrieval_requests"][0]["query_text"],
+            "after": base[1]["gap_retrieval_requests"][0]["query_text"],
+        })
+        cases.append((
+            "both_siblings_repaired",
+            base[0],
+            base[1],
+            base[2],
+            both_repaired,
+            base[4],
+        ))
+
+        mismatched_raw_id = copy.deepcopy(base[0])
+        mismatched_raw_id["gap_retrieval_requests"][1]["request_id"] = "other"
+        cases.append((
+            "raw_repaired_request_id_mismatch",
+            mismatched_raw_id,
+            base[1],
+            base[2],
+            base[3],
+            base[4],
+        ))
+
+        distinct_scoring_raw = copy.deepcopy(base[0])
+        distinct_scoring_repaired = copy.deepcopy(base[1])
+        for output in (distinct_scoring_raw, distinct_scoring_repaired):
+            request = output["gap_retrieval_requests"][1]
+            request["first_stage_query_text"] = "별도의 1단계 검색"
+            request["rerank_query_text"] = "별도의 재정렬 검색"
+        cases.append((
+            "distinct_scoring_queries",
+            distinct_scoring_raw,
+            distinct_scoring_repaired,
+            base[2],
+            base[3],
+            base[4],
+        ))
+
+        cases.append((
+            "additional_validator_error",
+            base[0],
+            base[1],
+            base[2],
+            base[3],
+            list(base[4]) + ["unrelated validation error"],
+        ))
+
+        for name, unrepaired, repaired, skill_input, repairs, errors in cases:
+            with self.subTest(name=name):
+                recovered, recovery = (
+                    executor._repair_induced_sibling_collision_recovery(
+                        "legal_issue_and_query_planning",
+                        "GAP_QUERY_PLAN",
+                        unrepaired,
+                        repaired,
+                        skill_input,
+                        repairs,
+                        errors,
+                    )
+                )
+                self.assertIsNone(recovered)
+                self.assertIsNone(recovery)
+
     def test_persisted_failure_shapes_neutralize_unguarded_article_specificity(self):
         # These are retrieval traces only: statute/semantic text, no gold answer.
         for source in (

@@ -110,6 +110,9 @@ class GapPlanRecoveryDisposition(str, Enum):
     """A harness-only disposition for a repaired S1 gap-plan collision."""
 
     REPAIR_INDUCED_HISTORY_COLLISION = "repair_induced_history_collision"
+    REPAIR_INDUCED_SIBLING_COLLISION = (
+        "repair_induced_intra_output_sibling_collision"
+    )
 
 
 @dataclass(frozen=True)
