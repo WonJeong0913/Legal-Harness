@@ -75,6 +75,9 @@ S2_PARTIAL_CORE_LINK_INVARIANT = (
     "item as uncovered/not_assessed/missing_statute; never pair a partial CORE "
     "link with an unsatisfied criterion or no linked candidate IDs."
 )
+INITIAL_PLAN_EFFECT_NEUTRALITY_ERROR_PREFIX = (
+    "INITIAL_PLAN presupposes specific legal effect absent from question: "
+)
 
 S2_AXIS_PROJECTIONS = {
     ("covered", "direct", "none"): (
@@ -205,6 +208,7 @@ class LocalOllamaSkillExecutor:
         repair_note = ""
         max_tokens = self._max_tokens(skill_name)
         previous_invalid_s3_public_role_hash: Optional[str] = None
+        initial_plan_effect_neutrality_retry_used = False
         for attempt in range(1, self.max_attempts + 1):
             prompt = self._prompt(skill_name, entry_point, skill_input, repair_note)
             diagnostic: Dict[str, Any] = {
@@ -385,6 +389,16 @@ class LocalOllamaSkillExecutor:
                     repair_instruction += self._s2_partial_core_retry_instruction(
                         skill_name, validation_errors
                     )
+                    effect_neutrality_retry_instruction = ""
+                    if not initial_plan_effect_neutrality_retry_used:
+                        effect_neutrality_retry_instruction = (
+                            self._s1_initial_plan_effect_neutrality_retry_instruction(
+                                skill_name, entry_point, validation_errors
+                            )
+                        )
+                    if effect_neutrality_retry_instruction:
+                        repair_instruction += effect_neutrality_retry_instruction
+                        initial_plan_effect_neutrality_retry_used = True
                     public_role_diagnostic = self._s3_public_role_diagnostic(
                         skill_name,
                         skill_output,
@@ -420,7 +434,13 @@ class LocalOllamaSkillExecutor:
                         + " Previous JSON: "
                         + json.dumps(
                             self._redact_run_ids_for_prompt(
-                                raw_skill_output if (compact_transport or deterministic_repairs) else skill_output
+                                raw_skill_output
+                                if (
+                                    effect_neutrality_retry_instruction
+                                    or compact_transport
+                                    or deterministic_repairs
+                                )
+                                else skill_output
                             ),
                             ensure_ascii=False,
                             separators=(",", ":"),
@@ -590,6 +610,29 @@ class LocalOllamaSkillExecutor:
         ):
             return ""
         return " PARTIAL-CORE LINK RETRY CONTRACT: " + S2_PARTIAL_CORE_LINK_INVARIANT
+
+    @staticmethod
+    def _s1_initial_plan_effect_neutrality_retry_instruction(
+        skill_name: str,
+        entry_point: str,
+        validation_errors: Sequence[str],
+    ) -> str:
+        """Return the one narrow retry for an unanchored INITIAL_PLAN effect."""
+        if (
+            skill_name != "legal_issue_and_query_planning"
+            or entry_point != "INITIAL_PLAN"
+            or not any(
+                error.startswith(INITIAL_PLAN_EFFECT_NEUTRALITY_ERROR_PREFIX)
+                for error in validation_errors
+            )
+        ):
+            return ""
+        return (
+            " INITIAL-PLAN EFFECT-NEUTRALITY RETRY: Replace only each unsupported "
+            "specific legal effect term with a neutral request for the applicable "
+            "statutory legal effect. Do not substitute another outcome, expand "
+            "scope, add a conclusion, or otherwise materially rewrite the plan."
+        )
 
     def _normalize_harness_owned_fields(
         self,
@@ -2583,7 +2626,7 @@ FINAL OUTPUT INVARIANTS:
         if skill_input.get("mode") != "GAP_QUERY_PLAN":
             return (
                 "Copy run_id. Keep one target per requested conclusion, but preserve separate critical evidence for distinct rules, exceptions, cross-references, or legal effects. Give every critical item a request. Follow the supplied query-field contract without assuming a retriever-specific override."
-                " Completion requirements distinguish statutory evidence obligations from retrieval hypotheses. Do not state a legal answer, article, condition, or threshold absent from the question as established fact; preserve genuinely independent rules, exceptions, cross-references, and legal effects."
+                " Completion requirements distinguish statutory evidence obligations from retrieval hypotheses. Do not state a legal answer, article, condition, or threshold absent from the question as established fact; preserve genuinely independent rules, exceptions, cross-references, and legal effects. In INITIAL_PLAN, unless the trusted question segment itself contains voidable, void, invalid, cancellation, rescission, 무효, or 취소, do not use that specific effect in an issue, required-evidence, or retrieval field; request the applicable statutory legal effect neutrally instead (validity, legal validity, and 법적 효력 are neutral)."
             )
         prior_queries = []
         for item in self._list(skill_input, "query_history"):

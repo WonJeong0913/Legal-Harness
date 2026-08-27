@@ -35,6 +35,86 @@ def trusted_answer_question_segment(inp):
     return norm(normalized_question) if isinstance(normalized_question, str) else ""
 
 
+SPECIFIC_LEGAL_EFFECT_LABELS = (
+    "voidable",
+    "void",
+    "invalid",
+    "cancellation",
+    "rescission",
+    "무효",
+    "취소",
+)
+ENGLISH_SPECIFIC_LEGAL_EFFECT_LABELS = frozenset(
+    label for label in SPECIFIC_LEGAL_EFFECT_LABELS if label.isascii()
+)
+
+
+def specific_legal_effect_labels(text):
+    """Return listed effect terms without treating neutral validity wording as one."""
+    if not isinstance(text, str):
+        return set()
+    normalized = norm(text)
+    return {
+        label
+        for label in SPECIFIC_LEGAL_EFFECT_LABELS
+        if (
+            re.search(r"(?<![a-z])%s(?![a-z])" % re.escape(label), normalized)
+            if label in ENGLISH_SPECIFIC_LEGAL_EFFECT_LABELS
+            else label in normalized
+        )
+    }
+
+
+def initial_plan_effect_neutrality_texts(out):
+    """Yield only INITIAL_PLAN fields that can presuppose a legal effect."""
+    issues = out.get("legal_issues", [])
+    if isinstance(issues, list):
+        for issue in issues:
+            if isinstance(issue, dict):
+                yield issue.get("issue_statement")
+                yield issue.get("decision_question")
+    evidence_items = out.get("required_evidence_items", [])
+    if isinstance(evidence_items, list):
+        for item in evidence_items:
+            if not isinstance(item, dict):
+                continue
+            yield item.get("description")
+            yield item.get("completion_criteria")
+            yield item.get("necessity_reason")
+            requirements = item.get("completion_requirements", [])
+            if isinstance(requirements, list):
+                for requirement in requirements:
+                    if isinstance(requirement, dict):
+                        yield requirement.get("text")
+    requests = out.get("retrieval_requests", [])
+    if isinstance(requests, list):
+        for request in requests:
+            if not isinstance(request, dict):
+                continue
+            yield request.get("query_text")
+            yield request.get("rationale")
+            for field in ("query_terms", "statute_hints"):
+                values = request.get(field, [])
+                if isinstance(values, list):
+                    yield from values
+
+
+def validate_initial_plan_effect_neutrality(out, inp, errors):
+    """Reject effect-specific INITIAL_PLAN text not anchored in the question body."""
+    question_effects = specific_legal_effect_labels(
+        trusted_answer_question_segment(inp)
+    )
+    presupposed_effects = set()
+    for text in initial_plan_effect_neutrality_texts(out):
+        presupposed_effects.update(specific_legal_effect_labels(text) - question_effects)
+    for label in SPECIFIC_LEGAL_EFFECT_LABELS:
+        if label in presupposed_effects:
+            errors.append(
+                "INITIAL_PLAN presupposes specific legal effect absent from question: %s"
+                % label
+            )
+
+
 def history_queries(data):
     values = set()
     for item in (data or {}).get("query_history", []):
@@ -678,6 +758,7 @@ def validate(out, inp):
                 errors.append("every answer target must have critical evidence")
         validate_requests(requests, issue_ids, evidence, prior, allowed, max_per_issue, errors)
         validate_article_grounding(requests, inp, errors)
+        validate_initial_plan_effect_neutrality(out, inp, errors)
         targeted = {r.get("evidence_item_id") for r in requests}
         for item in evidence:
             if item.get("critical") is True and item.get("evidence_item_id") not in targeted:
