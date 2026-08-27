@@ -342,6 +342,72 @@ class LocalOllamaExecutorTests(unittest.TestCase):
             "original_question_marker",
         )
 
+    def test_qa116_non_substring_anchor_variants_repair_in_one_attempt(self):
+        question_body = (
+            "갑이 의뢰인 을에게 헌법재판소가 사건을 접수한 후 종국결정의 "
+            "선고는 몇 일 이내에 이루어져야 한다고 설명해야 하는가?"
+        )
+        original_question = (
+            "[배경 시나리오]\n"
+            "갑은 대한민국의 변호사로서, 그의 의뢰인 을이 헌법 소원을 제기하여 "
+            "헌법재판소에 사건을 접수하였다.\n\n[질문]\n"
+            + question_body
+        )
+        anchors = (
+            "헌법재판소가 사건을 접수한 후 종국결정의 선고는 몇 일 이내에 이루어져야 하는가",
+            "종국결정의 선고는 몇 일 이내에 이루어져야 하는가",
+        )
+        for anchor in anchors:
+            with self.subTest(anchor=anchor):
+                raw = json.loads(self._generate("ENTRY POINT: INITIAL_PLAN"))
+                raw["answer_targets"][0]["question_anchor"] = anchor
+                raw["answer_targets"][0]["requested_output"] = (
+                    "The statutory maximum number of days within which the "
+                    "Constitutional Court must pronounce a final decision after "
+                    "accepting a constitutional complaint."
+                )
+                raw_response = json.dumps(raw, ensure_ascii=False)
+                prompts = []
+                diagnostics = []
+                executor = LocalOllamaSkillExecutor(
+                    skills_root=PROJECT_ROOT / "skills",
+                    model="test-model",
+                    generator=lambda prompt: prompts.append(prompt) or raw_response,
+                    diagnostic_sink=diagnostics.append,
+                )
+
+                result = executor.execute(
+                    "legal_issue_and_query_planning",
+                    "INITIAL_PLAN",
+                    {
+                        "run_id": "qa_116_1hop_207",
+                        "question": original_question,
+                        "normalized_question": question_body,
+                        "query_history": [],
+                    },
+                )
+
+                self.assertEqual(len(prompts), 1)
+                self.assertEqual(
+                    result["answer_targets"][0]["question_anchor"], question_body
+                )
+                self.assertEqual(diagnostics[0]["response_text"], raw_response)
+                self.assertEqual(
+                    diagnostics[0]["deterministic_repairs"][0]["kind"],
+                    "single_target_non_substring_anchor_fallback",
+                )
+                self.assertEqual(
+                    diagnostics[0]["deterministic_repairs"][0]["before"], anchor
+                )
+                self.assertEqual(
+                    diagnostics[0]["deterministic_repairs"][0]["after"], question_body
+                )
+                self.assertTrue(
+                    all(
+                        diagnostics[0]["deterministic_repairs"][0]["guards"].values()
+                    )
+                )
+
     def test_s1_markerless_original_uses_normalized_question_for_placeholder_repair_and_validation(self):
         raw = json.loads(self._generate("ENTRY POINT: INITIAL_PLAN"))
         raw["answer_targets"][0]["question_anchor"] = "T1"
