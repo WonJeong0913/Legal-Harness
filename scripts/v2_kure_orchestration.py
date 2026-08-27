@@ -31,21 +31,30 @@ from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
+from public_answer_contract import (
+    PUBLIC_ANSWER_FORMAT,
+    PUBLIC_ANSWER_MAX_CHARACTERS,
+    PUBLIC_ANSWER_MAX_CLAIMS,
+)
+
 DIAGNOSTIC21_MODE = "diagnostic21"
 DIAGNOSTIC21_ENTRY_COUNT = 21
 DIAGNOSTIC21_CHUNKS = ((1, 20), (21, 21))
-DIAGNOSTIC21_PRIMARY_FROZEN_NAME = "v2-kure-qwen38-q8-offline-diagnostic21-c30-20260827"
-DIAGNOSTIC21_REFERENCE_FROZEN_NAME = "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c30-20260827"
-DIAGNOSTIC21_SOURCE_PRIMARY_SHA256 = "b0b2eb06992ed2034956c2aa129c89b3cfadadf9009ea891c9533b7513479ef9"
-DIAGNOSTIC21_SOURCE_REFERENCE_SHA256 = "f17c42e5b806a5bd7950010039ee9d3d0795377c6c86cd108cce0a5ecdea0aef"
+DIAGNOSTIC21_PRIMARY_FROZEN_NAME = "v2-kure-qwen38-q8-offline-diagnostic21-c31-20260827"
+DIAGNOSTIC21_REFERENCE_FROZEN_NAME = "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c31-20260827"
+DIAGNOSTIC21_SOURCE_PRIMARY_SHA256 = "d2e6b9187b70078faece61b880319366d3c4c76c5131bc629c16e986b861de2a"
+DIAGNOSTIC21_SOURCE_REFERENCE_SHA256 = "bbe0dfef32c7ae41cdec3cd61a6566203cf47105e08e2c411ebac2c3eb81cf7a"
 DIAGNOSTIC21_IMPLEMENTATION_PARENT_COMMIT = "cac3951420ee56486cc9e4a6cd37f77a81d68b0c"
 DIAGNOSTIC21_FLOAT_TOLERANCE = 1e-12
+DIAGNOSTIC21_C31_CONDITION_SUFFIX = "+C31-shared-public-answer-contract"
+DIAGNOSTIC21_C31_RELEASE = "C31-shared-public-answer-contract-alignment"
 DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE = "single_issue_fusion_top_k"
 DIAGNOSTIC21_C02_ROUND_MERGE_MODE = "request_rank_top1_guarded_swap"
 DIAGNOSTIC21_C30_CONDITION_SUFFIX = "+C30-paired-C02-gate-S3-carry-forward-overlay"
 DIAGNOSTIC21_CANDIDATE_ID = (
     "C29-preserved-S1-S2-S3-contract+"
-    "C30-paired-C02-answer-cohort-gate+S3-carry-forward"
+    "C30-paired-C02-answer-cohort-gate+S3-carry-forward+"
+    "C31-shared-public-answer-contract"
 )
 DIAGNOSTIC21_C22_CAPABILITY = {
     "capability": "standalone ungrounded paragraph gap recovery",
@@ -136,6 +145,21 @@ DIAGNOSTIC21_C30_SOURCE_PROVENANCE = {
     "base_source_tree": "97dd989d06bab5baa70164e1b2209dc3ab87f382",
     "paired_c02_gate_commit": "390ae000d21dda4487562273e5b08a798efe0047",
     "s3_carry_forward_commit": "cc559855ca0e268b06b00ebb0fbf21740df9893d",
+}
+DIAGNOSTIC21_C31_CAPABILITIES = {
+    "shared_public_answer_contract": {
+        "max_characters": PUBLIC_ANSWER_MAX_CHARACTERS,
+        "max_conclusion_claims": PUBLIC_ANSWER_MAX_CLAIMS,
+        "format": PUBLIC_ANSWER_FORMAT,
+        "authority": "CYCLE_FREE_SHARED_CONSTANTS",
+        "stale_paired_manifest_mismatch": "FAIL_CLOSED_PREFLIGHT",
+    },
+}
+DIAGNOSTIC21_C31_SOURCE_PROVENANCE = {
+    "base_source_commit": "f228408bd4f393bca7b5b03f19aae3fd845d5f37",
+    "base_source_tree": "3846f41fd25c976cbca5d812848d5be339202438",
+    "release": DIAGNOSTIC21_C31_RELEASE,
+    "runtime_contract_module": "public_answer_contract.py",
 }
 DIAGNOSTIC21_SEMANTIC_AUTHORITY = (
     "Execution semantic authority is the committed clean source snapshot plus frozen S1/S2/S3 skill hashes."
@@ -317,10 +341,50 @@ EXPECTED_RUNTIME = {
     "num_ctx": 32768,
     "num_parallel": 1,
 }
-PRIMARY_FROZEN_NAME = "v2-kure-qwen38-q8-offline-full226-20260825"
-REFERENCE_FROZEN_NAME = "v2-bm25-reference-qwen38-q8-offline-full226-20260825"
-SMOKE_FROZEN_NAME = "v2-kure-qwen38-q8-offline-smoke3-20260825"
-SMOKE_REFERENCE_FROZEN_NAME = "v2-bm25-reference-qwen38-q8-offline-smoke3-20260825"
+PRIMARY_FROZEN_NAME = "v2-kure-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-qwen38-q8-offline-full226-c31-20260827"
+REFERENCE_FROZEN_NAME = "v2-bm25-reference-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-qwen38-q8-offline-full226-c31-20260827"
+SMOKE_FROZEN_NAME = "v2-kure-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-qwen38-q8-offline-smoke3-c31-20260827"
+SMOKE_REFERENCE_FROZEN_NAME = "v2-bm25-reference-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-qwen38-q8-offline-smoke3-c31-20260827"
+PUBLIC_ANSWER_FROZEN_CONFIGURATION = {
+    "s3_public_answer_max_characters": PUBLIC_ANSWER_MAX_CHARACTERS,
+    "s3_public_answer_max_claims": PUBLIC_ANSWER_MAX_CLAIMS,
+    "s3_public_answer_format": PUBLIC_ANSWER_FORMAT,
+}
+V2_SOURCE_METADATA_CARRY_FORWARD = {
+    "lineage": {
+        "c04_evidence_role_contract": "c04_core_auxiliary_roles_v1",
+        "c05_source_commit": "b27024cd15bf2692345670865c754608784ed7c4",
+        "c05_source_tree": "797897a99ec9e3da622aa313ce4bb3616c179423",
+        "c06_axis_canonical_projection_contract": "c06_s2_axis_canonical_projection_v1",
+        "c06_implementation_commit": "3569f8d44dc57ddb49c4fbb9e43f540e308cd17c",
+        "c06_protocol_commit": "3ab2388881322d9f08dc001e9a3764472cc89343",
+        "c08_candidate_commit": "6ae1f3c13aafbd1c23ba7106f8f9d9d96aab04db",
+        "c08_candidate_tree": "bb102d7728512b803973c02769b171d78975b273",
+    },
+    "repair_collision_contract": {
+        "all_dropped": "existing_limited_or_abstain_no_state_mutation",
+        "bounded_neutral_replan": 1,
+        "mixed": "novel_only_dispatch",
+        "raw_history_duplicate": "invalid",
+        "repair_induced_history_collision": "typed_recovery",
+    },
+    "repair_induced_retrieval_list_dedupe_contract": {
+        "contract": "c08_repair_induced_retrieval_list_dedupe_v1",
+        "audit_kind": "deduplicated_repair_induced_list_values",
+        "drop_scope": "only_collisions_newly_induced_by_article_neutralization",
+        "fields": ["query_terms", "statute_hints"],
+        "order": "stable_first",
+        "raw_duplicates": "preserved_for_final_validator",
+    },
+    "s2_axis_canonical_projection_contract": {
+        "contract": "c06_s2_axis_canonical_projection_v1",
+        "audit_event": "S2_LEGACY_PROJECTION_DERIVED",
+        "invalid_partial_unsupported_or_semantic_tuple": "fail_closed",
+        "legacy_derived_by_harness": ["status", "partial_kind", "governing_legal_regime", "missing_evidence_items", "evidence_conflicts"],
+        "no_runtime_state_or_role_union_mutation": True,
+        "scope_excess": "noncritical_only",
+    },
+}
 NORMAL_STATUSES = {"ANSWER", "ABSTAIN"}
 DEFAULT_GPU_IDLE_UTILIZATION_MAX = 10
 DEFAULT_GPU_IDLE_USED_MIB_MAX = 2048
@@ -687,10 +751,33 @@ def _copy_manifest(source: Mapping[str, Any], name: str, configuration: Mapping[
     })
     output["selection"] = selection
     output["purpose"] = (
-        "V2 offline KURE orchestration. BM25 is read-only configuration comparison metadata; "
-        "BM25 search/index execution, ParSeR, and LF-Eval are prohibited."
+        "C31 shared public-answer contract alignment preserves the V2 c08 offline KURE "
+        "candidate with c04 core/auxiliary evidence roles, c05 repair-collision recovery, "
+        "c06 S2 axis-canonical projection, and c08 S1 repair-induced retrieval-list dedupe. "
+        "BM25 is reference-only metadata and must never be executed; BM25 search/index "
+        "execution, ParSeR, and LF-Eval are prohibited."
     )
     return output
+
+
+def _with_c31_condition(condition: str) -> str:
+    if not isinstance(condition, str) or not condition:
+        raise OrchestrationError("C31 condition must be non-empty")
+    return condition if condition.endswith(DIAGNOSTIC21_C31_CONDITION_SUFFIX) else condition + DIAGNOSTIC21_C31_CONDITION_SUFFIX
+
+
+def _full_to_smoke_c31_condition(condition: str) -> str:
+    """Derive smoke from exactly one frozen full226 token, preserving all lineage."""
+    base = condition[:-len(DIAGNOSTIC21_C31_CONDITION_SUFFIX)] if condition.endswith(DIAGNOSTIC21_C31_CONDITION_SUFFIX) else condition
+    if base.count("full226") != 1:
+        raise OrchestrationError("C31 smoke condition requires exactly one full226 token")
+    return _with_c31_condition(base.replace("full226", "smoke3"))
+
+
+def _apply_c31_public_answer_contract(configuration: Dict[str, Any]) -> None:
+    """Freeze the runtime/harness/paired-manifest public answer contract together."""
+    configuration.update(PUBLIC_ANSWER_FROZEN_CONFIGURATION)
+    configuration["condition"] = _with_c31_condition(str(configuration.get("condition") or ""))
 
 
 def build_v2_manifests(primary_source: Mapping[str, Any], reference_source: Mapping[str, Any]) -> Dict[str, Dict[str, Any]]:
@@ -704,8 +791,13 @@ def build_v2_manifests(primary_source: Mapping[str, Any], reference_source: Mapp
 
     primary_configuration = deepcopy(dict(primary_source.get("frozen_configuration") or {}))
     reference_configuration = deepcopy(dict(reference_source.get("frozen_configuration") or {}))
+    primary_source_condition = primary_configuration.get("condition")
+    reference_source_condition = reference_configuration.get("condition")
+    if not isinstance(primary_source_condition, str) or not primary_source_condition:
+        raise OrchestrationError("primary frozen full condition is missing")
+    if not isinstance(reference_source_condition, str) or not reference_source_condition:
+        raise OrchestrationError("reference frozen full condition is missing")
     primary_configuration.update({
-        "condition": "V2-KURE-offline-full226-Qwen3.8-Q8_0",
         "retriever": "kure",
         "model": EXPECTED_RUNTIME["model"],
         "seed": 0,
@@ -716,12 +808,14 @@ def build_v2_manifests(primary_source: Mapping[str, Any], reference_source: Mapp
     runtime.update({"num_parallel": 1, "seed_forwarding": "ollama_options_seed"})
     primary_configuration["runtime_determinism"] = runtime
     primary_configuration["model_provenance"] = deepcopy(QWEN_MODEL_PROVENANCE)
+    _apply_c31_public_answer_contract(primary_configuration)
     assert_kure_only(primary_configuration)
 
     reference_configuration = deepcopy(primary_configuration)
-    reference_configuration["condition"] = "V2-BM25-reference-only-full226-Qwen3.8-Q8_0"
+    reference_configuration["condition"] = reference_source_condition
     reference_configuration["retriever"] = "bm25"
     reference_configuration.pop("retriever_provenance", None)
+    _apply_c31_public_answer_contract(reference_configuration)
     full = _copy_manifest(primary_source, PRIMARY_FROZEN_NAME, primary_configuration, source_entries, "PRIMARY_KURE_EXECUTION")
     reference = _copy_manifest(reference_source, REFERENCE_FROZEN_NAME, reference_configuration, source_entries, "COMPARISON_REFERENCE_ONLY_MUST_NEVER_BE_EXECUTED")
 
@@ -742,9 +836,9 @@ def build_v2_manifests(primary_source: Mapping[str, Any], reference_source: Mapp
         for index, entry in enumerate(smoke_entries, start=1)
     ]
     smoke_configuration = deepcopy(primary_configuration)
-    smoke_configuration["condition"] = "V2-KURE-offline-smoke3-Qwen3.8-Q8_0"
+    smoke_configuration["condition"] = _full_to_smoke_c31_condition(str(primary_configuration["condition"]))
     smoke_reference_configuration = deepcopy(reference_configuration)
-    smoke_reference_configuration["condition"] = "V2-BM25-reference-only-smoke3-Qwen3.8-Q8_0"
+    smoke_reference_configuration["condition"] = _full_to_smoke_c31_condition(str(reference_configuration["condition"]))
     return {
         "full": full,
         "reference": reference,
@@ -809,7 +903,9 @@ def _diagnostic21_selection(
     return {
         "candidate_id": DIAGNOSTIC21_CANDIDATE_ID,
         "method": (
-            "C30 preserves the C29 retry/public-contract controls and adds the fixed "
+            "C31 preserves the C30 paired C02 gate and S3 carry-forward controls, then "
+            "aligns the cycle-free runtime, harness, and paired-manifest public-answer "
+            "contract at one to four short sentences. C30 adds the fixed "
             "four-item C02 ANSWER paired evaluation gate plus S3 bounded public "
             "conclusion recovery and first-invalid conditional-exception carry-forward "
             "on the C24 fixed roster reindexed from immutable C02 source ordinals"
@@ -846,6 +942,8 @@ def _diagnostic21_selection(
         "c29_capabilities": deepcopy(DIAGNOSTIC21_C29_CAPABILITIES),
         "c30_capabilities": deepcopy(DIAGNOSTIC21_C30_CAPABILITIES),
         "c30_source_provenance": deepcopy(DIAGNOSTIC21_C30_SOURCE_PROVENANCE),
+        "c31_capabilities": deepcopy(DIAGNOSTIC21_C31_CAPABILITIES),
+        "c31_source_provenance": deepcopy(DIAGNOSTIC21_C31_SOURCE_PROVENANCE),
         "semantic_authority": DIAGNOSTIC21_SEMANTIC_AUTHORITY,
         "runtime_artifact_path_provenance": {
             "repo_relative_required": ["source_dataset.path", "kure paths", "bge reranker path"],
@@ -883,7 +981,13 @@ def build_diagnostic21_manifests(
     for label, configuration in (("primary", primary_configuration), ("reference", reference_configuration)):
         if configuration.get("round_merge_mode") != DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE:
             raise OrchestrationError("diagnostic21 %s source round_merge_mode mismatch" % label)
-        configuration["condition"] = configuration["condition"] + DIAGNOSTIC21_C30_CONDITION_SUFFIX
+        base_condition = configuration["condition"]
+        if base_condition.endswith(DIAGNOSTIC21_C31_CONDITION_SUFFIX):
+            base_condition = base_condition[:-len(DIAGNOSTIC21_C31_CONDITION_SUFFIX)]
+        configuration["condition"] = (
+            base_condition + DIAGNOSTIC21_C30_CONDITION_SUFFIX + DIAGNOSTIC21_C31_CONDITION_SUFFIX
+        )
+        _apply_c31_public_answer_contract(configuration)
         configuration["reranker_provenance"] = deepcopy(DIAGNOSTIC21_RERANKER_PROVENANCE)
     assert_kure_only(primary_configuration)
     if reference_configuration.get("retriever") != "bm25":
@@ -904,7 +1008,8 @@ def build_diagnostic21_manifests(
     )
     primary["selection"] = selection
     primary["purpose"] = (
-        "C30 preserves C29 S1/S2/S3 fail-closed controls and adds the fixed four-item "
+        "C31 preserves the C30 paired C02 gate and S3 carry-forward controls while "
+        "aligning the shared one-to-four-sentence public-answer contract. C30 adds the fixed four-item "
         "C02 ANSWER paired evaluation gate plus S3 2-to-4 public-conclusion recovery "
         "with complete target/provision coverage and first-invalid conditional-exception "
         "carry-forward on the failure-and-coverage roster. KURE is the only executable "
@@ -1026,6 +1131,10 @@ def assert_diagnostic21_manifest_integrity(
         raise OrchestrationError("diagnostic21 C30 capability mismatch")
     if selection.get("c30_source_provenance") != DIAGNOSTIC21_C30_SOURCE_PROVENANCE:
         raise OrchestrationError("diagnostic21 C30 source provenance mismatch")
+    if selection.get("c31_capabilities") != DIAGNOSTIC21_C31_CAPABILITIES:
+        raise OrchestrationError("diagnostic21 C31 capability mismatch")
+    if selection.get("c31_source_provenance") != DIAGNOSTIC21_C31_SOURCE_PROVENANCE:
+        raise OrchestrationError("diagnostic21 C31 source provenance mismatch")
     if selection.get("semantic_authority") != DIAGNOSTIC21_SEMANTIC_AUTHORITY:
         raise OrchestrationError("diagnostic21 semantic authority mismatch")
     if selection.get("runtime_artifact_path_provenance") != {
@@ -1042,8 +1151,10 @@ def assert_diagnostic21_manifest_integrity(
         raise OrchestrationError("diagnostic21 source condition lineage mismatch")
     for label, configuration in (("primary", primary_configuration), ("reference", reference_configuration)):
         condition = configuration.get("condition")
-        if not isinstance(condition, str) or not condition.endswith(DIAGNOSTIC21_C30_CONDITION_SUFFIX):
-            raise OrchestrationError("diagnostic21 %s C30 source condition overlay mismatch" % label)
+        if not isinstance(condition, str) or not condition.endswith(DIAGNOSTIC21_C31_CONDITION_SUFFIX) or DIAGNOSTIC21_C30_CONDITION_SUFFIX not in condition:
+            raise OrchestrationError("diagnostic21 %s C30/C31 source condition overlay mismatch" % label)
+        if any(configuration.get(key) != value for key, value in PUBLIC_ANSWER_FROZEN_CONFIGURATION.items()):
+            raise OrchestrationError("diagnostic21 %s C31 public-answer contract mismatch" % label)
         if configuration.get("round_merge_mode") != DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE:
             raise OrchestrationError("diagnostic21 %s round_merge_mode mismatch" % label)
     _assert_diagnostic21_repo_relative_artifact_paths(primary, reference)
@@ -1111,11 +1222,14 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
     for key, path in paths.items():
         write_json_new(path, manifests[key])
     source_metadata = {
+        **deepcopy(V2_SOURCE_METADATA_CARRY_FORWARD),
         "created_at_utc": utc_now(),
         "primary_source_manifest": str(primary_source.resolve()),
         "primary_source_manifest_sha256": primary_source_sha256,
         "reference_source_manifest": str(reference_source.resolve()),
         "reference_source_manifest_sha256": reference_source_sha256,
+        "control_plane_release": DIAGNOSTIC21_C31_RELEASE,
+        "public_answer_contract": dict(PUBLIC_ANSWER_FROZEN_CONFIGURATION),
         "generated": {key: {"path": str(path.relative_to(exec_root)), "sha256": sha256(path)} for key, path in paths.items()},
         "smoke_entries": [
             {"ordinal": int(entry["ordinal"]), "source_ordinal": int(entry.get("source_ordinal", entry["ordinal"])), "question_id": str(entry["question_id"]), "n_hops": int(entry["n_hops"])}
@@ -1127,10 +1241,19 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
             "parser_execution": "FORBIDDEN",
             "lf_eval_score_injection": "FORBIDDEN",
             "network": "OFFLINE_ONLY",
+            "repair_collision_failsafe": "REQUIRED",
+            "repair_induced_list_dedupe": "REQUIRED",
+            "s2_axis_canonical_projection": "REQUIRED",
         },
     }
     if diagnostic21_available:
         source_metadata["diagnostic21"] = {
+            "name": DIAGNOSTIC21_PRIMARY_FROZEN_NAME,
+            "primary_retriever": "kure",
+            "bm25_execution": "FORBIDDEN",
+            "reference_execution": "METADATA_ONLY_MUST_NEVER_BE_EXECUTED",
+            "generated_primary_manifest_sha256": sha256(paths["diagnostic21"]),
+            "generated_reference_manifest_sha256": sha256(paths["diagnostic21_reference"]),
             "primary_source_manifest_sha256": DIAGNOSTIC21_SOURCE_PRIMARY_SHA256,
             "reference_source_manifest_sha256": DIAGNOSTIC21_SOURCE_REFERENCE_SHA256,
             "roster_sha256": manifests["diagnostic21"]["selection"]["roster_sha256"],
@@ -1145,6 +1268,8 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
             "c29_capabilities": deepcopy(DIAGNOSTIC21_C29_CAPABILITIES),
             "c30_capabilities": deepcopy(DIAGNOSTIC21_C30_CAPABILITIES),
             "c30_source_provenance": deepcopy(DIAGNOSTIC21_C30_SOURCE_PROVENANCE),
+            "c31_capabilities": deepcopy(DIAGNOSTIC21_C31_CAPABILITIES),
+            "c31_source_provenance": deepcopy(DIAGNOSTIC21_C31_SOURCE_PROVENANCE),
         }
     write_json_new(frozen_root / "source_metadata.json", source_metadata)
     assert_reference_is_read_only(manifests["full"], manifests["reference"], paths["full"], paths["reference"])

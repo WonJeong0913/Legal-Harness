@@ -24,7 +24,7 @@ launcher = load_module("launch_v2_kure_tmux_test", "scripts/launch_v2_kure_tmux.
 
 def fixture_configuration(retriever="kure"):
     config = {
-        "condition": "fixture-%s" % retriever,
+        "condition": "fixture-%s-full226" % retriever,
         "retriever": retriever,
         "model": "legal-harness-qwen38-q8",
         "seed": 0,
@@ -86,6 +86,16 @@ class PartitionAndPolicyTests(unittest.TestCase):
         self.assertEqual(output["full"]["frozen_configuration"]["retriever"], "kure")
         self.assertEqual(output["full"]["frozen_configuration"]["model_provenance"], orchestration.QWEN_MODEL_PROVENANCE)
         self.assertEqual(output["reference"]["frozen_configuration"]["retriever"], "bm25")
+
+    def test_c31_smoke_condition_requires_one_full226_token(self):
+        self.assertEqual(
+            orchestration._full_to_smoke_c31_condition("fixture-full226"),
+            "fixture-smoke3" + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX,
+        )
+        with self.assertRaisesRegex(orchestration.OrchestrationError, "exactly one full226"):
+            orchestration._full_to_smoke_c31_condition("fixture")
+        with self.assertRaisesRegex(orchestration.OrchestrationError, "exactly one full226"):
+            orchestration._full_to_smoke_c31_condition("fixture-full226-full226")
 
     def test_kure_only_and_external_score_guards_fail_closed(self):
         with self.assertRaisesRegex(orchestration.OrchestrationError, "only the KURE"):

@@ -7,11 +7,14 @@ import json
 from pathlib import Path
 from typing import Any, Dict, Mapping, Sequence
 
+from public_answer_contract import (
+    PUBLIC_ANSWER_FORMAT,
+    PUBLIC_ANSWER_MAX_CHARACTERS,
+    PUBLIC_ANSWER_MAX_CLAIMS,
+)
 from runtime.local_ollama_executor import (
     DEFAULT_S1_TRUNCATION_RETRY_MAX_TOKENS,
     DEFAULT_SKILL_MAX_TOKENS,
-    PUBLIC_ANSWER_MAX_CHARACTERS,
-    PUBLIC_ANSWER_MAX_CLAIMS,
 )
 
 
@@ -38,7 +41,7 @@ RUNTIME_CONFIGURATION_DEFAULTS = {
     "skill_max_tokens": dict(DEFAULT_SKILL_MAX_TOKENS),
     "s3_public_answer_max_characters": PUBLIC_ANSWER_MAX_CHARACTERS,
     "s3_public_answer_max_claims": PUBLIC_ANSWER_MAX_CLAIMS,
-    "s3_public_answer_format": "conclusion_first_1_to_3_short_sentences",
+    "s3_public_answer_format": PUBLIC_ANSWER_FORMAT,
     "s3_audit_fields": [
         "assumptions",
         "limitations",
@@ -47,6 +50,20 @@ RUNTIME_CONFIGURATION_DEFAULTS = {
     ],
     "retrieval_stage_provenance_required_for_evaluation": True,
 }
+
+
+def assert_public_answer_contract(configuration: Mapping[str, Any]) -> None:
+    """Reject paired manifests that agree on a stale S3 presentation contract."""
+    expected = {
+        "s3_public_answer_max_characters": PUBLIC_ANSWER_MAX_CHARACTERS,
+        "s3_public_answer_max_claims": PUBLIC_ANSWER_MAX_CLAIMS,
+        "s3_public_answer_format": PUBLIC_ANSWER_FORMAT,
+    }
+    for key, value in expected.items():
+        if configuration.get(key) != value:
+            raise RuntimeError(
+                "frozen public-answer contract mismatch: %s must be %r" % (key, value)
+            )
 
 
 def resolve_frozen_configuration(configuration: Mapping[str, Any]) -> Dict[str, Any]:
@@ -58,6 +75,7 @@ def resolve_frozen_configuration(configuration: Mapping[str, Any]) -> Dict[str, 
             resolved[key] = list(value) if isinstance(value, list) else (
                 dict(value) if isinstance(value, dict) else value
             )
+    assert_public_answer_contract(resolved)
     return resolved
 
 

@@ -26,6 +26,11 @@ from harness.contracts import (
     GapPlanRecoveryDisposition,
     S2LegacyProjectionDiagnostic,
 )
+from public_answer_contract import (
+    PUBLIC_ANSWER_FORMAT,
+    PUBLIC_ANSWER_MAX_CHARACTERS,
+    PUBLIC_ANSWER_MAX_CLAIMS,
+)
 from harness.interfaces import SkillExecutionError
 
 
@@ -47,13 +52,6 @@ DEFAULT_SKILL_MAX_TOKENS = {
 }
 DEFAULT_S1_TRUNCATION_RETRY_MAX_TOKENS = 8192
 RESPONSE_TAIL_CHARACTERS = 512
-PUBLIC_ANSWER_MAX_CHARACTERS = 800
-# This is a bounded presentation budget, not a fallback authorization to
-# expose every audit claim. The approved public-answer shape permits up to
-# four concise conclusion claims/sentences while the model retains the full
-# cited audit record separately.
-PUBLIC_ANSWER_MAX_CLAIMS = 4
-
 PROMPT_RUN_ID_PLACEHOLDER = "__HARNESS_RUN_ID__"
 
 S3_COMPACT_TRANSPORT_INVARIANT = (
@@ -2790,6 +2788,7 @@ class LocalOllamaSkillExecutor:
                 "generation_constraints": {
                     "language": "ko",
                     "max_answer_chars": PUBLIC_ANSWER_MAX_CHARACTERS,
+                    "public_answer_format": PUBLIC_ANSWER_FORMAT,
                     "citation_marker_style": "citation_id",
                     "public_conclusion_contract": "required",
                 },

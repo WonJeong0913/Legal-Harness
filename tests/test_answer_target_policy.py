@@ -307,6 +307,31 @@ class AnswerTargetPolicyTests(unittest.TestCase):
         with self.assertRaisesRegex(ValidationError, "must not append audit"):
             validate_answer_draft(payload, state)
 
+    def test_public_answer_allows_four_short_lines_and_rejects_five(self):
+        state = target_state()
+        state.answered_target_ids = ["T1"]
+        state.deferred_target_ids = ["T2"]
+        state.accepted_provision_ids = {"P1"}
+        payload = {
+            "claims": [
+                {"claim_id": "C1", "text": "대위권이 인정됩니다.", "answer_target_ids": ["T1"]}
+            ],
+            "claim_citations": [{"claim_id": "C1", "provision_ids": ["P1"]}],
+            "answer": "\n".join([
+                "대위권이 인정됩니다.",
+                "보험금 지급이 전제됩니다.",
+                "법정 요건을 확인해야 합니다.",
+                "구체적 사실관계에 따라 달라질 수 있습니다.",
+            ]),
+            "assumptions": [],
+            "limitations": [],
+        }
+
+        self.assertEqual(validate_answer_draft(payload, state).answer, payload["answer"])
+        payload["answer"] += "\n추가 문장입니다."
+        with self.assertRaisesRegex(ValidationError, "public answer must contain 1 to 4 short lines"):
+            validate_answer_draft(payload, state)
+
     def test_new_candidate_alone_is_not_progress(self):
         state = RunState(question="q", normalized_question="q", run_id="progress")
         state.required_evidence_items = [

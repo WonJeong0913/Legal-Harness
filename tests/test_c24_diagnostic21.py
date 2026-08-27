@@ -28,7 +28,7 @@ launcher = load_module("c24_launch_v2_kure_tmux", "scripts/launch_v2_kure_tmux.p
 
 def configuration(retriever="kure"):
     value = {
-        "condition": "fixture-%s" % retriever,
+        "condition": "fixture-%s-full226" % retriever,
         "retriever": retriever,
         "model": orchestration.EXPECTED_RUNTIME["model"],
         "seed": 0,
@@ -203,34 +203,44 @@ class Diagnostic21ManifestTests(unittest.TestCase):
         )
         self.assertEqual(primary["selection"]["semantic_authority"], orchestration.DIAGNOSTIC21_SEMANTIC_AUTHORITY)
         self.assertEqual(
+            primary["selection"]["c31_capabilities"],
+            orchestration.DIAGNOSTIC21_C31_CAPABILITIES,
+        )
+        self.assertEqual(
+            primary["selection"]["c31_source_provenance"],
+            orchestration.DIAGNOSTIC21_C31_SOURCE_PROVENANCE,
+        )
+        self.assertEqual(
             primary["selection"]["runtime_artifact_path_provenance"]["qwen_ollama_blob_exact_local_runtime_exception"],
             orchestration.QWEN_MODEL_PROVENANCE["ollama_model_blob"],
         )
         self.assertFalse(primary["selection"]["round_merge_provenance"]["equivalence_claimed"])
         self.assertEqual(primary["selection"]["round_merge_provenance"]["c02_saved_stage_round_merge_mode"], "request_rank_top1_guarded_swap")
-        self.assertEqual(primary["name"], "v2-kure-qwen38-q8-offline-diagnostic21-c30-20260827")
-        self.assertEqual(reference["name"], "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c30-20260827")
+        self.assertEqual(primary["name"], "v2-kure-qwen38-q8-offline-diagnostic21-c31-20260827")
+        self.assertEqual(reference["name"], "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c31-20260827")
         self.assertEqual(
             primary["frozen_configuration"]["condition"],
-            "fixture-kure" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX,
+            "fixture-kure-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX,
         )
         self.assertEqual(
             reference["frozen_configuration"]["condition"],
-            "fixture-bm25" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX,
+            "fixture-bm25-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX,
         )
         self.assertEqual(
             primary["selection"]["source_frozen_conditions"],
             {
-                "primary": "fixture-kure" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX,
-                "reference": "fixture-bm25" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX,
+                "primary": "fixture-kure-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX,
+                "reference": "fixture-bm25-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX,
             },
         )
         self.assertEqual(
             primary["selection"]["implementation_parent_commit"],
             "cac3951420ee56486cc9e4a6cd37f77a81d68b0c",
         )
-        self.assertIn("C30 preserves the C29", primary["selection"]["method"])
-        self.assertIn("C30 preserves C29", primary["purpose"])
+        self.assertIn("C31 preserves the C30", primary["selection"]["method"])
+        self.assertIn("C31 preserves the C30", primary["purpose"])
+        self.assertEqual(primary["frozen_configuration"].get("s3_public_answer_max_claims"), 4)
+        self.assertEqual(primary["frozen_configuration"].get("s3_public_answer_format"), "conclusion_first_1_to_4_short_sentences")
         self.assertEqual(primary["frozen_configuration"]["reranker_provenance"], orchestration.DIAGNOSTIC21_RERANKER_PROVENANCE)
         self.assertEqual(reference["frozen_configuration"]["reranker_provenance"], orchestration.DIAGNOSTIC21_RERANKER_PROVENANCE)
         self.assertEqual(primary["frozen_configuration"]["retriever"], "kure")
@@ -264,7 +274,7 @@ class Diagnostic21ManifestTests(unittest.TestCase):
         reference = json.loads(json.dumps(manifests["diagnostic21_reference"]))
         primary["frozen_configuration"]["condition"] = "fixture-kure"
         primary["selection"]["source_frozen_conditions"]["primary"] = "fixture-kure"
-        with self.assertRaisesRegex(orchestration.OrchestrationError, "C30 source condition overlay"):
+        with self.assertRaisesRegex(orchestration.OrchestrationError, "C30/C31 source condition overlay"):
             orchestration.assert_diagnostic21_manifest_integrity(primary, reference)
 
     def test_generated_manifests_match_tracked_frozen_manifests_and_record_c30_provenance(self):
@@ -392,6 +402,24 @@ class Diagnostic21ManifestTests(unittest.TestCase):
         self.assertEqual(plan["execution_policy"]["lf_eval_score_injection"], "FORBIDDEN")
 
 
+    def test_cpu_preflight_rejects_a_matching_stale_public_answer_pair_before_artifact_checks(self):
+        primary, reference = diagnostic_sources()
+        for manifest in (primary, reference):
+            manifest["frozen_configuration"].update({
+                "s3_public_answer_max_characters": 800,
+                "s3_public_answer_max_claims": 3,
+                "s3_public_answer_format": "conclusion_first_1_to_3_short_sentences",
+            })
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            frozen = root / "frozen_manifests"
+            frozen.mkdir()
+            orchestration.write_json_new(frozen / "v2_kure_full226.json", primary)
+            orchestration.write_json_new(frozen / "v2_bm25_reference_full226.json", reference)
+            with self.assertRaisesRegex(
+                RuntimeError, "frozen public-answer contract mismatch"
+            ):
+                orchestration.preflight(root, "full226", Path(sys.executable))
 class Diagnostic21ControlPlaneTests(unittest.TestCase):
     def test_resume_accepts_the_fixed_twenty_then_one_checkpoint_boundary(self):
         with tempfile.TemporaryDirectory() as temporary:

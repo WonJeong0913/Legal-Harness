@@ -103,10 +103,26 @@ class RetrieverComparisonGuardTests(unittest.TestCase):
             resolved["skill_max_tokens"]["grounded_legal_answer_generation"], 3072
         )
         self.assertEqual(resolved["s3_public_answer_max_characters"], 800)
+        self.assertEqual(resolved["s3_public_answer_max_claims"], 4)
+        self.assertEqual(resolved["s3_public_answer_format"], "conclusion_first_1_to_4_short_sentences")
         self.assertTrue(
             resolved["retrieval_stage_provenance_required_for_evaluation"]
         )
 
 
+    def test_matching_stale_public_answer_contracts_fail_closed_before_execution(self):
+        primary = self._manifest("kure")
+        reference = self._manifest("bm25")
+        for manifest in (primary, reference):
+            manifest["frozen_configuration"].update({
+                "s3_public_answer_max_characters": 800,
+                "s3_public_answer_max_claims": 3,
+                "s3_public_answer_format": "conclusion_first_1_to_3_short_sentences",
+            })
+
+        with self.assertRaisesRegex(RuntimeError, "frozen public-answer contract mismatch"):
+            validate_retriever_comparison(
+                primary, reference, Path("kure.json"), Path("bm25.json")
+            )
 if __name__ == "__main__":
     unittest.main()
