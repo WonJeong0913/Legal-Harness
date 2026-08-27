@@ -344,6 +344,7 @@
   "name": "v2-kure-qwen38-q8-offline-diagnostic21-c29-20260827",
   "purpose": "C29a S2 retry-only scope + C29b S1 effect neutrality + C29c narrow composite application/conditional exception public contract are evaluated on the fixed failure-and-coverage roster. KURE is the only executable retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, or LF-Eval execution is permitted.",
   "selection": {
+    "answer_yield_minimum": 4,
     "baseline": {
       "accepted_complete_evidence_count": 7,
       "candidate_token_f1": {
@@ -380,6 +381,56 @@
       "token_f1_end_to_end": 0.0807217786048895
     },
     "baseline_sha256": "d920e8a185839b0e8ab77ac08538f7804fa70c7eb643d6d3f5d1f852d88b9788",
+    "paired_c02_answer_cohort": {
+      "baseline_mean_token_f1_at_800": 0.42378933767566984,
+      "cohort_count": 4,
+      "derivation": {
+        "evaluation_only": true,
+        "method": "Filter the immutable C02 published per_question.csv to the fixed diagnostic21 roster, then retain only rows whose published status is ANSWER. This artifact is a predeclared evaluation cohort and is not runtime retrieval, answer, abstention, or gold-aware policy.",
+        "score_column": "token_f1_at_800",
+        "status_equals": "ANSWER"
+      },
+      "provenance": {
+        "evaluated_source_commit": "c02e2818ad54e9d5a1a9bd02b604e987192bb244",
+        "evaluated_source_tree": "9fcb0ebceb0b3d96955f1626f2c952a457be930f",
+        "per_question_csv_path": "records/evaluations/kure-c02-qwen38-q8-full226-20260826/per_question.csv",
+        "published_per_question_csv_sha256": "b0828c0d194aac9d59d3ad5894aae6220b8eaabc2c21959feabd76b5ac43e3f6",
+        "published_result_commit": "b43c613ad9c5498627f2cb2a25915c80f9f08374",
+        "published_result_tree": "d8296a2cacde164074688eba5068a5709534c0b5"
+      },
+      "rows": [
+        {
+          "n_hops": 3,
+          "question_id": "qa_86_3hop_140",
+          "source_ordinal": 17,
+          "status": "ANSWER",
+          "token_f1_at_800": 0.3170731707317073
+        },
+        {
+          "n_hops": 2,
+          "question_id": "qa_401_2hop_619",
+          "source_ordinal": 25,
+          "status": "ANSWER",
+          "token_f1_at_800": 0.4999999999999999
+        },
+        {
+          "n_hops": 3,
+          "question_id": "qa_430_3hop_669",
+          "source_ordinal": 51,
+          "status": "ANSWER",
+          "token_f1_at_800": 0.339622641509434
+        },
+        {
+          "n_hops": 1,
+          "question_id": "qa_25_1hop_37",
+          "source_ordinal": 52,
+          "status": "ANSWER",
+          "token_f1_at_800": 0.5384615384615384
+        }
+      ],
+      "schema_version": "c02_diagnostic21_answer_cohort_v1"
+    },
+    "paired_c02_answer_cohort_sha256": "046b04e37437100a51769f40cf12e45e969169ecd15644188ef7c4cebf9b1b60",
     "c22_capability": {
       "audit_kind": "neutralized_ungrounded_standalone_paragraph",
       "capability": "standalone ungrounded paragraph gap recovery",
@@ -517,7 +568,6 @@
       "complete_evidence_count": 7,
       "provision_exact_match_count": 2,
       "provision_macro_f1": 0.4862433862433862,
-      "token_f1_answered_only": 0.42378933767566984,
       "token_f1_candidate": 0.19949510741048834,
       "token_f1_end_to_end": 0.0807217786048895
     },
