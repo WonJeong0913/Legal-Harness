@@ -19,6 +19,103 @@ def _load_validator():
 
 
 class S3OutputValidatorTest(unittest.TestCase):
+    @staticmethod
+    def _c32_input():
+        provisions = {
+            "P1": "핵심 규정입니다.",
+            "Q1": "가족 예외 규정입니다.",
+            "Q2": "관련 없는 다른 예외 규정입니다.",
+            "S1": "보조 규정입니다.",
+            "A1": "대안 규정입니다.",
+        }
+        accepted = [
+            {"provision_id": provision_id, "text": text}
+            for provision_id, text in provisions.items()
+        ]
+        return {
+            "run_id": "c32-validator-fixture",
+            "mode": "GENERATE_ANSWER",
+            "authorization": {
+                "action": "GENERATE",
+                "authorized_by": "PROVISION_COVERAGE_POLICY",
+            },
+            "generation_purpose": "published_answer",
+            "publishable": True,
+            "candidate_answer_basis": "published_answer",
+            "required_evidence_items": [],
+            "coverage_assessments": [],
+            "answer_targets": [],
+            "answered_target_ids": [],
+            "deferred_target_ids": [],
+            "answer_mode": "full",
+            "accepted_provisions": accepted,
+            "core_accepted_provisions": [accepted[0]],
+            "qualifying_provisions": [accepted[1], accepted[2]],
+            "supplemental_provisions": [accepted[3]],
+            "alternative_provisions": [accepted[4]],
+            "generation_constraints": {
+                "public_conclusion_contract": "required",
+            },
+        }
+
+    @staticmethod
+    def _c32_output(
+        provision_id="Q1",
+        text="가족 예외가 적용되는 경우입니다.",
+        target_ids=None,
+    ):
+        target_ids = ["T1"] if target_ids is None else target_ids
+        quoted_text = {
+            "Q1": "가족 예외 규정입니다.",
+            "Q2": "관련 없는 다른 예외 규정입니다.",
+            "S1": "보조 규정입니다.",
+            "A1": "대안 규정입니다.",
+            "X1": "승인되지 않은 규정입니다.",
+        }[provision_id]
+        return {
+            "schema_version": "1.0",
+            "skill_id": "S3",
+            "mode": "GENERATE_ANSWER",
+            "status": "ok",
+            "run_id": "c32-validator-fixture",
+            "answer": text + "[CT1]",
+            "claims": [
+                {
+                    "claim_id": "C1",
+                    "text": text,
+                    "claim_type": "exception",
+                    "applicability": "conditional",
+                    "answer_target_ids": target_ids,
+                    "citation_required": True,
+                    "public_role": "conclusion",
+                }
+            ],
+            "claim_citations": [
+                {
+                    "citation_id": "CT1",
+                    "claim_id": "C1",
+                    "provision_id": provision_id,
+                    "quoted_text": quoted_text,
+                    "answer_marker": "[CT1]",
+                }
+            ],
+            "assumptions": [],
+            "limitations": [],
+        }
+
+    @staticmethod
+    def _c32_obligation(
+        text="가족 예외가 적용되는 경우입니다.",
+        target_ids=None,
+        provision_ids=None,
+    ):
+        return {
+            "source_claim_id": "C5",
+            "normalized_text": text,
+            "answer_target_ids": ["T1"] if target_ids is None else target_ids,
+            "provision_ids": ["Q1"] if provision_ids is None else provision_ids,
+        }
+
     def test_success_without_input_reports_contract_error_instead_of_raising(self):
         validator = _load_validator()
 
@@ -54,6 +151,69 @@ class S3OutputValidatorTest(unittest.TestCase):
                 "success validation requires --input",
             ],
         )
+
+    def test_c32_accepts_only_the_exact_frozen_qualifying_citation(self):
+        validator = _load_validator()
+        input_data = self._c32_input()
+        input_data[
+            "_harness_c32_conditional_exception_carry_forward_obligations"
+        ] = [self._c32_obligation()]
+
+        self.assertEqual(validator.validate(self._c32_output(), input_data), [])
+
+    def test_c32_fails_closed_without_exact_obligation_coverage(self):
+        validator = _load_validator()
+        context_key = "_harness_c32_conditional_exception_carry_forward_obligations"
+        cases = [
+            ("no obligation", self._c32_output(), None),
+            (
+                "wrong normalized text",
+                self._c32_output(text="전혀 다른 조건입니다."),
+                self._c32_obligation(),
+            ),
+            (
+                "wrong target",
+                self._c32_output(target_ids=["T2"]),
+                self._c32_obligation(),
+            ),
+            (
+                "partial target and provision coverage",
+                self._c32_output(),
+                self._c32_obligation(target_ids=["T1", "T2"], provision_ids=["P1", "Q1"]),
+            ),
+            (
+                "unrelated qualifying provision",
+                self._c32_output(provision_id="Q2"),
+                self._c32_obligation(),
+            ),
+            (
+                "supplemental provision",
+                self._c32_output(provision_id="S1"),
+                self._c32_obligation(),
+            ),
+            (
+                "alternative provision",
+                self._c32_output(provision_id="A1"),
+                self._c32_obligation(),
+            ),
+            (
+                "unaccepted provision",
+                self._c32_output(provision_id="X1"),
+                self._c32_obligation(),
+            ),
+        ]
+        for name, output, obligation in cases:
+            with self.subTest(name=name):
+                input_data = self._c32_input()
+                if obligation is not None:
+                    input_data[context_key] = [obligation]
+                errors = validator.validate(output, input_data)
+                self.assertIn(
+                    "public conclusion may cite only core accepted provision: CT1",
+                    errors,
+                )
+                if name == "unaccepted provision":
+                    self.assertIn("citation uses non-accepted provision: CT1", errors)
 
 
 if __name__ == "__main__":

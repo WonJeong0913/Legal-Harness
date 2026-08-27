@@ -206,6 +206,26 @@ def qa430_hidden_family_exception_output():
     return output
 
 
+def qa430_qualifying_family_exception_output():
+    output = qa430_hidden_family_exception_output()
+    output["claim_citations"][-1]["provision_id"] = "Q1"
+    return output
+
+
+def qa430_qualifying_payload():
+    result = multi_target_payload()
+    qualifying = {
+        "provision_id": "Q1",
+        "statute_name": "예시법 단서",
+        "provision_text": "가족 예외가 적용되는 경우를 정한다.",
+        "supported_evidence_item_ids": ["E1"],
+    }
+    result["accepted_provisions"].append(qualifying)
+    result["core_accepted_provisions"] = result["accepted_provisions"][:2]
+    result["qualifying_provisions"] = [qualifying]
+    return result
+
+
 class S3PublicRoleRetryTests(unittest.TestCase):
     def test_composite_single_target_multi_rule_retries_as_application(self):
         invalid = composite_invalid_output()
@@ -614,6 +634,62 @@ class S3PublicRoleRetryTests(unittest.TestCase):
             len([claim for claim in result["claims"] if claim["public_role"] == "conclusion"]),
             4,
         )
+
+    def test_qa430_retry_allows_only_frozen_qualifying_exception_citation(self):
+        initial_invalid = qa430_qualifying_family_exception_output()
+        consolidated = copy.deepcopy(initial_invalid)
+        consolidated["claims"][0]["text"] += " " + consolidated["claims"][4]["text"]
+        consolidated["claims"] = consolidated["claims"][:4]
+        qualifying_citation = copy.deepcopy(consolidated["claim_citations"][4])
+        qualifying_citation["claim_id"] = "draft-1"
+        consolidated["claim_citations"] = (
+            consolidated["claim_citations"][:4] + [qualifying_citation]
+        )
+        prompts, diagnostics = [], []
+
+        def generator(prompt):
+            prompts.append(prompt)
+            return json.dumps(
+                initial_invalid if len(prompts) == 1 else consolidated,
+                ensure_ascii=False,
+            )
+
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture-model", max_attempts=2,
+            generator=generator, diagnostic_sink=diagnostics.append,
+        )
+
+        result = executor.execute(
+            "grounded_legal_answer_generation",
+            "GENERATE_ANSWER",
+            qa430_qualifying_payload(),
+        )
+
+        self.assertEqual(len(prompts), 2)
+        self.assertIn("CONDITIONAL-EXCEPTION CARRY-FORWARD", prompts[1])
+        self.assertNotIn(
+            "_harness_c32_conditional_exception_carry_forward_obligations",
+            prompts[1],
+        )
+        self.assertNotIn(
+            "_harness_c32_conditional_exception_carry_forward_obligations",
+            json.dumps(diagnostics, ensure_ascii=False),
+        )
+        self.assertEqual(
+            diagnostics[0]["s3_conditional_exception_carry_forward_obligations"],
+            [
+                {
+                    "source_claim_id": "C5",
+                    "normalized_text": "공개 결론에 없는 별도 가족 예외입니다.",
+                    "answer_target_ids": ["T1"],
+                    "provision_ids": ["Q1"],
+                }
+            ],
+        )
+        self.assertNotIn(
+            "s3_conditional_exception_carry_forward_failures", diagnostics[1]
+        )
+        self.assertIn("Q1", [citation["provision_id"] for citation in result["claim_citations"]])
 
     def test_qa430_hidden_audit_exception_remains_invalid(self):
         invalid = raw_output(

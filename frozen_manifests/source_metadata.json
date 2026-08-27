@@ -1,6 +1,6 @@
 {
-  "control_plane_release": "C31-shared-public-answer-contract-alignment",
-  "created_at_utc": "2026-08-27T22:03:02.353163+00:00",
+  "control_plane_release": "C32-retry-only-qualifying-carry-forward",
+  "created_at_utc": "2026-08-27T22:55:11.407577+00:00",
   "diagnostic21": {
     "baseline_sha256": "d920e8a185839b0e8ab77ac08538f7804fa70c7eb643d6d3f5d1f852d88b9788",
     "bm25_execution": "FORBIDDEN",
@@ -105,6 +105,21 @@
       "release": "C31-shared-public-answer-contract-alignment",
       "runtime_contract_module": "public_answer_contract.py"
     },
+    "c32_capabilities": {
+      "retry_only_qualifying_carry_forward": {
+        "all_other_noncore_roles": "AUDIT_ONLY_FAIL_CLOSED",
+        "authorization": "FROZEN_FIRST_INVALID_OBLIGATION_ONLY",
+        "citation": "EXACT_ACCEPTED_QUALIFYING_PROVISION_ONLY",
+        "coverage": "NORMALIZED_TEXT_AND_COMPLETE_TARGET_AND_PROVISION_SETS",
+        "private_validator_context_in_model_prompt": "FORBIDDEN"
+      }
+    },
+    "c32_source_provenance": {
+      "base_source_commit": "567f70fee12c1e45a9ecf186adca5e16fb1bd524",
+      "base_source_tree": "eecca53b77a2693484838361512cc2c3e330600f",
+      "release": "C32-retry-only-qualifying-carry-forward",
+      "s3_validator_context": "LOCAL_EXECUTOR_ONLY"
+    },
     "condition_lineage": {
       "C04_evidence_roles": [
         "083813102b284052d546d1dacbd2c13829d9cafe",
@@ -154,9 +169,9 @@
         "cc559855ca0e268b06b00ebb0fbf21740df9893d"
       ]
     },
-    "generated_primary_manifest_sha256": "1c55be2d0b05f0e24131c0c5d1d24b6074c7e33bb8f7ca59a9ff1f067c9c8cb3",
-    "generated_reference_manifest_sha256": "aef98f509939c75f71452fd1cf23a8905136edf14f588ce7d554b81a9f06db41",
-    "name": "v2-kure-qwen38-q8-offline-diagnostic21-c31-20260827",
+    "generated_primary_manifest_sha256": "75694f8ce6dec78a1bb4c047535ea9b83073151e89d1f79ec17b47b163f19dbf",
+    "generated_reference_manifest_sha256": "bf4397505e839fa8dbd59bccaa9a637093aedf6462d24b23b4bb7e03e972672b",
+    "name": "v2-kure-qwen38-q8-offline-diagnostic21-c32-20260827",
     "paired_c02_answer_cohort_denominator": 4,
     "paired_c02_answer_cohort_provenance": {
       "evaluated_source_commit": "c02e2818ad54e9d5a1a9bd02b604e987192bb244",
@@ -168,9 +183,9 @@
     },
     "paired_c02_answer_cohort_sha256": "046b04e37437100a51769f40cf12e45e969169ecd15644188ef7c4cebf9b1b60",
     "primary_retriever": "kure",
-    "primary_source_manifest_sha256": "d2e6b9187b70078faece61b880319366d3c4c76c5131bc629c16e986b861de2a",
+    "primary_source_manifest_sha256": "dc9a63780d5bbd58b035b3151cba257c6eb58403138b52ad6053a4384a069b39",
     "reference_execution": "METADATA_ONLY_MUST_NEVER_BE_EXECUTED",
-    "reference_source_manifest_sha256": "bbe0dfef32c7ae41cdec3cd61a6566203cf47105e08e2c411ebac2c3eb81cf7a",
+    "reference_source_manifest_sha256": "e340469f16778c98b90506da60d7571cd2795d3460b0aafcde7c1a7764320a51",
     "reranker_provenance": {
       "device": "cuda",
       "model_id": "dragonkue/bge-reranker-v2-m3-ko",
@@ -199,9 +214,9 @@
       },
       "S3": {
         "skill_path": "skills/grounded_legal_answer_generation/SKILL.md",
-        "skill_sha256": "6910e4fb7d1e53a8fd7b4b10eba9deb0e9db98a01514b86fbe9dc0cfc3601a10",
+        "skill_sha256": "a146c3c7a0910c43d3d0f84a7f347e747a193a5ba88dcf7af50a800379735eac",
         "validator_path": "skills/grounded_legal_answer_generation/scripts/validate_output.py",
-        "validator_sha256": "7080fb377d038cfd81aee1da1486ee6df9208bc6e9b2e4ae9a1b2a365c50de5e"
+        "validator_sha256": "2fde6286ce2f6dd57088b4dbeee70423665397c7b525d7785aa258e202b3af8f"
       }
     }
   },
@@ -218,27 +233,27 @@
   "generated": {
     "diagnostic21": {
       "path": "frozen_manifests/v2_kure_diagnostic21.json",
-      "sha256": "1c55be2d0b05f0e24131c0c5d1d24b6074c7e33bb8f7ca59a9ff1f067c9c8cb3"
+      "sha256": "75694f8ce6dec78a1bb4c047535ea9b83073151e89d1f79ec17b47b163f19dbf"
     },
     "diagnostic21_reference": {
       "path": "frozen_manifests/v2_bm25_reference_diagnostic21.json",
-      "sha256": "aef98f509939c75f71452fd1cf23a8905136edf14f588ce7d554b81a9f06db41"
+      "sha256": "bf4397505e839fa8dbd59bccaa9a637093aedf6462d24b23b4bb7e03e972672b"
     },
     "full": {
       "path": "frozen_manifests/v2_kure_full226.json",
-      "sha256": "d2e6b9187b70078faece61b880319366d3c4c76c5131bc629c16e986b861de2a"
+      "sha256": "dc9a63780d5bbd58b035b3151cba257c6eb58403138b52ad6053a4384a069b39"
     },
     "reference": {
       "path": "frozen_manifests/v2_bm25_reference_full226.json",
-      "sha256": "bbe0dfef32c7ae41cdec3cd61a6566203cf47105e08e2c411ebac2c3eb81cf7a"
+      "sha256": "e340469f16778c98b90506da60d7571cd2795d3460b0aafcde7c1a7764320a51"
     },
     "smoke": {
       "path": "frozen_manifests/v2_kure_smoke3.json",
-      "sha256": "548a1a27cefa6fe866c6459878542c085d27cf24a1c0d235fd056f42ad32f63b"
+      "sha256": "6fe7f46918ac88bee9486c9f8111294ed66d4661bc4a33cd35ec1ef2fc693386"
     },
     "smoke_reference": {
       "path": "frozen_manifests/v2_bm25_reference_smoke3.json",
-      "sha256": "843d785fc93e345ad52b776fa34c0176b7aa0009781ba34c5b1b502937d5c9db"
+      "sha256": "0625c4a9ecfcef45d03384b835a54b7443c6fdcd87eb1fed8025960862048647"
     }
   },
   "lineage": {
@@ -251,15 +266,15 @@
     "c08_candidate_commit": "6ae1f3c13aafbd1c23ba7106f8f9d9d96aab04db",
     "c08_candidate_tree": "bb102d7728512b803973c02769b171d78975b273"
   },
-  "primary_source_manifest": "/root/worktrees/legal-harness-c30-integrated-20260827/frozen_manifests/v2_kure_full226.json",
-  "primary_source_manifest_sha256": "d2e6b9187b70078faece61b880319366d3c4c76c5131bc629c16e986b861de2a",
+  "primary_source_manifest": "/tmp/legal-harness-c32-frozen-source-20260827/v2_kure_full226.json",
+  "primary_source_manifest_sha256": "dc9a63780d5bbd58b035b3151cba257c6eb58403138b52ad6053a4384a069b39",
   "public_answer_contract": {
     "s3_public_answer_format": "conclusion_first_1_to_4_short_sentences",
     "s3_public_answer_max_characters": 800,
     "s3_public_answer_max_claims": 4
   },
-  "reference_source_manifest": "/root/worktrees/legal-harness-c30-integrated-20260827/frozen_manifests/v2_bm25_reference_full226.json",
-  "reference_source_manifest_sha256": "bbe0dfef32c7ae41cdec3cd61a6566203cf47105e08e2c411ebac2c3eb81cf7a",
+  "reference_source_manifest": "/tmp/legal-harness-c32-frozen-source-20260827/v2_bm25_reference_full226.json",
+  "reference_source_manifest_sha256": "e340469f16778c98b90506da60d7571cd2795d3460b0aafcde7c1a7764320a51",
   "repair_collision_contract": {
     "all_dropped": "existing_limited_or_abstain_no_state_mutation",
     "bounded_neutral_replan": 1,

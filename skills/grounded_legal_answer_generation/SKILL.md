@@ -14,10 +14,13 @@ authorization and answer scope.
 1. Answer in Korean unless the input constraint explicitly selects another language. Put the legal conclusion first and normally keep the eventual public answer to 2--4 short sentences, never more than 800 characters and preferably about 80--250 characters. Include only the outcome-changing condition and the minimum statutory basis needed to understand the conclusion.
 2. Separate statutory rules from conditional application to the facts. Do not invent missing facts, case law, administrative guidance, or provision text.
 3. `accepted_provisions[]` is the authorized union. Use
-   `core_accepted_provisions[]` for every `public_role: "conclusion"` citation.
-   `supplemental_provisions[]`, `qualifying_provisions[]`, and
-   `alternative_provisions[]` may be cited only by `public_role: "audit"`
-   claims. Preserve each selected claim-to-provision connection and its support
+   `core_accepted_provisions[]` for every `public_role: "conclusion"` citation,
+   except on a retry with an explicit harness `CONDITIONAL-EXCEPTION
+   CARRY-FORWARD` instruction. Then, only the listed `QUALIFYING` provision may
+   be cited by the one conclusion that visibly contains that exact condition
+   and all of its target and provision IDs. `supplemental_provisions[]`, every
+   other `qualifying_provisions[]`, and `alternative_provisions[]` may be cited
+   only by `public_role: "audit"` claims. Preserve each selected claim-to-provision connection and its support
    description; the harness replaces `quoted_text` with the immutable full
    provision snapshot.
 4. Put only substantive legal claims in `claims[]`, set `citation_required: true`, attach at least one citation, and identify its `answer_target_ids`. Mark one to four claims `public_role: "conclusion"` so they cover every answered target; mark all remaining claims `audit`. For `GENERATE_ANSWER` with the required public conclusion contract, require a citation-supported, target-level `claim_type: "application"` conclusion claim only when exactly one answered target is a `legal_conclusion`, exactly one linked `required_evidence_items[]` item is critical, at least two of that target's public conclusion claims are `legal_rule` claims citing at least two different `provision_id` values, and no cited public application claim exists for it; do not merely relabel an abstract `legal_rule`. A conditional `exception` claim attached to an answered target must also be a citation-supported public conclusion, unless it is an audit duplicate whose normalized full text is visibly contained in one public conclusion whose target and cited-provision sets contain all of the exception target IDs and provision IDs. On a repair retry, you may consolidate prior claim objects, but every initially hidden conditional exception must remain visibly contained in one public conclusion with all of its targets and cited provisions, even if the original audit object is removed. The harness then deterministically orders and renders only the model-designated conclusion claims with harness-owned IDs, markers, and full provision text.

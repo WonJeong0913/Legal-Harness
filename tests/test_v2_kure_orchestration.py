@@ -87,15 +87,17 @@ class PartitionAndPolicyTests(unittest.TestCase):
         self.assertEqual(output["full"]["frozen_configuration"]["model_provenance"], orchestration.QWEN_MODEL_PROVENANCE)
         self.assertEqual(output["reference"]["frozen_configuration"]["retriever"], "bm25")
 
-    def test_c31_smoke_condition_requires_one_full226_token(self):
+    def test_c32_smoke_condition_requires_one_full226_token(self):
         self.assertEqual(
-            orchestration._full_to_smoke_c31_condition("fixture-full226"),
-            "fixture-smoke3" + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX,
+            orchestration._full_to_smoke_c32_condition("fixture-full226"),
+            "fixture-smoke3"
+            + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX
+            + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX,
         )
         with self.assertRaisesRegex(orchestration.OrchestrationError, "exactly one full226"):
-            orchestration._full_to_smoke_c31_condition("fixture")
+            orchestration._full_to_smoke_c32_condition("fixture")
         with self.assertRaisesRegex(orchestration.OrchestrationError, "exactly one full226"):
-            orchestration._full_to_smoke_c31_condition("fixture-full226-full226")
+            orchestration._full_to_smoke_c32_condition("fixture-full226-full226")
 
     def test_kure_only_and_external_score_guards_fail_closed(self):
         with self.assertRaisesRegex(orchestration.OrchestrationError, "only the KURE"):

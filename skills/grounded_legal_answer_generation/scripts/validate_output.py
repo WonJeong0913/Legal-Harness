@@ -317,6 +317,67 @@ def audit_conditional_exception_is_publicly_covered(
     return False
 
 
+_C32_CARRY_FORWARD_CONTEXT_KEY = "_harness_c32_conditional_exception_carry_forward_obligations"
+
+
+def qualifying_carry_forward_citation_is_authorized(
+    claim, provision_id, input_data, citations_by_claim
+):
+    """Allow one qualifying citation only for a frozen retry obligation.
+
+    This is deliberately a structural, literal check. The context is added
+    only by the local executor after its first rejected S3 attempt; ordinary
+    and standalone validation therefore retain the core-only boundary.
+    """
+    obligations = input_data.get(_C32_CARRY_FORWARD_CONTEXT_KEY)
+    qualifying_ids = {
+        item.get("provision_id")
+        for item in input_data.get("qualifying_provisions", [])
+        if isinstance(item, dict) and isinstance(item.get("provision_id"), str)
+    }
+    if not isinstance(obligations, list) or provision_id not in qualifying_ids:
+        return False
+    if not isinstance(claim, dict) or claim.get("public_role") != "conclusion":
+        return False
+    public_text = normalized_claim_text(claim.get("text"))
+    public_targets = {
+        target_id for target_id in claim.get("answer_target_ids", [])
+        if isinstance(target_id, str)
+    }
+    public_provisions = {
+        citation.get("provision_id")
+        for citation in citations_by_claim.get(claim.get("claim_id"), [])
+        if isinstance(citation, dict) and isinstance(citation.get("provision_id"), str)
+    }
+    for obligation in obligations:
+        if not isinstance(obligation, dict):
+            continue
+        normalized_text = obligation.get("normalized_text")
+        target_ids = obligation.get("answer_target_ids")
+        provision_ids = obligation.get("provision_ids")
+        if (
+            not isinstance(normalized_text, str)
+            or not normalized_text
+            or not isinstance(target_ids, list)
+            or not target_ids
+            or not isinstance(provision_ids, list)
+            or not provision_ids
+            or not all(isinstance(value, str) and value for value in target_ids)
+            or not all(isinstance(value, str) and value for value in provision_ids)
+        ):
+            continue
+        required_targets = set(target_ids)
+        required_provisions = set(provision_ids)
+        if (
+            provision_id in required_provisions
+            and normalized_text in public_text
+            and required_targets.issubset(public_targets)
+            and required_provisions.issubset(public_provisions)
+        ):
+            return True
+    return False
+
+
 def validate(output, input_data):
     errors = []
     if output.get("schema_version") != "1.0" or output.get("skill_id") != "S3":
@@ -392,10 +453,11 @@ def validate(output, input_data):
 
     citations_by_claim = {}
     for citation in citations:
+        citations_by_claim.setdefault(citation.get("claim_id"), []).append(citation)
+    for citation in citations:
         citation_id = citation.get("citation_id")
         claim_id = citation.get("claim_id")
         provision_id = citation.get("provision_id")
-        citations_by_claim.setdefault(claim_id, []).append(citation)
         if claim_id not in claim_ids:
             errors.append(f"citation references unknown claim: {citation_id}")
         provision = accepted_by_id.get(provision_id)
@@ -415,6 +477,9 @@ def validate(output, input_data):
             and isinstance(claim, dict)
             and claim.get("public_role", "conclusion") == "conclusion"
             and provision_id not in core_ids
+            and not qualifying_carry_forward_citation_is_authorized(
+                claim, provision_id, input_data, citations_by_claim
+            )
         ):
             errors.append(
                 f"public conclusion may cite only core accepted provision: {citation_id}"

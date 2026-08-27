@@ -151,7 +151,7 @@
   "frozen_configuration": {
     "candidate_budget_scope": "per_round",
     "candidate_selection": "evidence_balanced",
-    "condition": "V2-BM25-reference-only-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract",
+    "condition": "V2-BM25-reference-only-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward",
     "conditional_generation": "answer_target_full_conditional_limited",
     "contextual_query_dedup": "same_output_after_context_history_duplicate_invalid",
     "coverage_contract": "legal_applicability_criterion_results",
@@ -326,8 +326,8 @@
     "total_retrieval_rounds": 3
   },
   "manifest_schema_version": "1.0",
-  "name": "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c31-20260827",
-  "purpose": "C31 preserves the C30 paired C02 gate and S3 carry-forward controls while aligning the shared one-to-four-sentence public-answer contract. C30 adds the fixed four-item C02 ANSWER paired evaluation gate plus S3 2-to-4 public-conclusion recovery with complete target/provision coverage and first-invalid conditional-exception carry-forward on the failure-and-coverage roster. KURE is the only executable retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, or LF-Eval execution is permitted.",
+  "name": "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c32-20260827",
+  "purpose": "C32 preserves the C30 paired C02 gate and C31 shared one-to-four-sentence public-answer contract while permitting only exact frozen qualifying carry-forward citations in validator-only retry context. C30 adds the fixed four-item C02 ANSWER paired evaluation gate plus S3 2-to-4 public-conclusion recovery with complete target/provision coverage and first-invalid conditional-exception carry-forward on the failure-and-coverage roster. KURE is the only executable retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, or LF-Eval execution is permitted.",
   "selection": {
     "answer_yield_minimum": 4,
     "baseline": {
@@ -490,7 +490,22 @@
       "release": "C31-shared-public-answer-contract-alignment",
       "runtime_contract_module": "public_answer_contract.py"
     },
-    "candidate_id": "C29-preserved-S1-S2-S3-contract+C30-paired-C02-answer-cohort-gate+S3-carry-forward+C31-shared-public-answer-contract",
+    "c32_capabilities": {
+      "retry_only_qualifying_carry_forward": {
+        "all_other_noncore_roles": "AUDIT_ONLY_FAIL_CLOSED",
+        "authorization": "FROZEN_FIRST_INVALID_OBLIGATION_ONLY",
+        "citation": "EXACT_ACCEPTED_QUALIFYING_PROVISION_ONLY",
+        "coverage": "NORMALIZED_TEXT_AND_COMPLETE_TARGET_AND_PROVISION_SETS",
+        "private_validator_context_in_model_prompt": "FORBIDDEN"
+      }
+    },
+    "c32_source_provenance": {
+      "base_source_commit": "567f70fee12c1e45a9ecf186adca5e16fb1bd524",
+      "base_source_tree": "eecca53b77a2693484838361512cc2c3e330600f",
+      "release": "C32-retry-only-qualifying-carry-forward",
+      "s3_validator_context": "LOCAL_EXECUTOR_ONLY"
+    },
+    "candidate_id": "C29-preserved-S1-S2-S3-contract+C30-paired-C02-answer-cohort-gate+S3-carry-forward+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward",
     "cohort_counts": {
       "accepted_abstain": 7,
       "execution_failure": 8,
@@ -547,9 +562,9 @@
     },
     "entry_count": 21,
     "execution_role": "COMPARISON_REFERENCE_ONLY_MUST_NEVER_BE_EXECUTED",
-    "implementation_parent_commit": "cac3951420ee56486cc9e4a6cd37f77a81d68b0c",
+    "implementation_parent_commit": "567f70fee12c1e45a9ecf186adca5e16fb1bd524",
     "lf_eval": "excluded; no LF-Eval invocation or score injection",
-    "method": "C31 preserves the C30 paired C02 gate and S3 carry-forward controls, then aligns the cycle-free runtime, harness, and paired-manifest public-answer contract at one to four short sentences. C30 adds the fixed four-item C02 ANSWER paired evaluation gate plus S3 bounded public conclusion recovery and first-invalid conditional-exception carry-forward on the C24 fixed roster reindexed from immutable C02 source ordinals",
+    "method": "C32 preserves the C30 paired C02 gate and C31 shared public-answer contract, then permits only an exact frozen qualifying carry-forward citation in validator-only retry context. C30 adds the fixed four-item C02 ANSWER paired evaluation gate plus S3 bounded public conclusion recovery and first-invalid conditional-exception carry-forward on the C24 fixed roster reindexed from immutable C02 source ordinals",
     "nonregression_minimums": {
       "complete_evidence_count": 7,
       "provision_exact_match_count": 2,
@@ -793,18 +808,18 @@
       },
       "S3": {
         "skill_path": "skills/grounded_legal_answer_generation/SKILL.md",
-        "skill_sha256": "6910e4fb7d1e53a8fd7b4b10eba9deb0e9db98a01514b86fbe9dc0cfc3601a10",
+        "skill_sha256": "a146c3c7a0910c43d3d0f84a7f347e747a193a5ba88dcf7af50a800379735eac",
         "validator_path": "skills/grounded_legal_answer_generation/scripts/validate_output.py",
-        "validator_sha256": "7080fb377d038cfd81aee1da1486ee6df9208bc6e9b2e4ae9a1b2a365c50de5e"
+        "validator_sha256": "2fde6286ce2f6dd57088b4dbeee70423665397c7b525d7785aa258e202b3af8f"
       }
     },
     "skill_sha256_recording": "ExperimentRecord automatically persists all runtime skill_sha256 values.",
     "source_frozen_conditions": {
-      "primary": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract",
-      "reference": "V2-BM25-reference-only-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract"
+      "primary": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward",
+      "reference": "V2-BM25-reference-only-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward"
     },
-    "source_primary_manifest_sha256": "d2e6b9187b70078faece61b880319366d3c4c76c5131bc629c16e986b861de2a",
-    "source_reference_manifest_sha256": "bbe0dfef32c7ae41cdec3cd61a6566203cf47105e08e2c411ebac2c3eb81cf7a"
+    "source_primary_manifest_sha256": "dc9a63780d5bbd58b035b3151cba257c6eb58403138b52ad6053a4384a069b39",
+    "source_reference_manifest_sha256": "e340469f16778c98b90506da60d7571cd2795d3460b0aafcde7c1a7764320a51"
   },
   "source_dataset": {
     "path": "data/koblex/qa/test-00000-of-00001.parquet",

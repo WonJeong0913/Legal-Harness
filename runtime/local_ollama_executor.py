@@ -53,6 +53,7 @@ DEFAULT_SKILL_MAX_TOKENS = {
 DEFAULT_S1_TRUNCATION_RETRY_MAX_TOKENS = 8192
 RESPONSE_TAIL_CHARACTERS = 512
 PROMPT_RUN_ID_PLACEHOLDER = "__HARNESS_RUN_ID__"
+S3_CARRY_FORWARD_VALIDATOR_CONTEXT_KEY = "_harness_c32_conditional_exception_carry_forward_obligations"
 
 S3_COMPACT_TRANSPORT_INVARIANT = (
     "For claim-bearing compact raw transport, omit answer, citation_id, "
@@ -263,7 +264,12 @@ class LocalOllamaSkillExecutor:
                 )
                 if deterministic_repairs:
                     diagnostic["deterministic_repairs"] = deterministic_repairs
-                validation_errors = self._validators[skill_name](skill_output, skill_input)
+                validation_input = self._s3_validator_input(
+                    skill_name, skill_input, s3_carry_forward_obligations
+                )
+                validation_errors = self._validators[skill_name](
+                    skill_output, validation_input
+                )
                 s3_carry_forward_failures = self._s3_carry_forward_failures(
                     skill_name, skill_output, skill_input, s3_carry_forward_obligations
                 )
@@ -884,6 +890,25 @@ class LocalOllamaSkillExecutor:
             if obligation is not None:
                 obligations.append(obligation)
         return obligations
+
+    @staticmethod
+    def _s3_validator_input(
+        skill_name: str,
+        skill_input: Mapping[str, Any],
+        obligations: Sequence[Mapping[str, Any]],
+    ) -> Mapping[str, Any]:
+        """Attach frozen retry evidence only to the local validator call."""
+        if (
+            skill_name != "grounded_legal_answer_generation"
+            or skill_input.get("mode") != "GENERATE_ANSWER"
+            or not obligations
+        ):
+            return skill_input
+        validator_input = dict(skill_input)
+        validator_input[S3_CARRY_FORWARD_VALIDATOR_CONTEXT_KEY] = copy.deepcopy(
+            list(obligations)
+        )
+        return validator_input
 
     @staticmethod
     def _s3_carry_forward_failures(
