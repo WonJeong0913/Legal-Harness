@@ -140,6 +140,7 @@ class C27S2PartialCoreRetryTests(unittest.TestCase):
         self.assertEqual(
             result["coverage_assessments"][0]["status"], "partially_covered"
         )
+        self.assertNotIn("For every CORE partially_supports link", prompts[0])
         self.assertIn("partially_covered consistency failure: E1", prompts[1])
         self.assertIn("PARTIAL-CORE LINK RETRY CONTRACT", prompts[1])
         self.assertIn("partially_satisfied", prompts[1])

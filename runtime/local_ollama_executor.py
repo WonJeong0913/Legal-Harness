@@ -2578,8 +2578,6 @@ FINAL OUTPUT INVARIANTS:
             )
             + " "
             + S2_COMPACT_AUDIT_INVARIANT
-            + " "
-            + S2_PARTIAL_CORE_LINK_INVARIANT
         )
     def _s1_output_invariants(self, skill_input: Mapping[str, Any]) -> str:
         if skill_input.get("mode") != "GAP_QUERY_PLAN":
