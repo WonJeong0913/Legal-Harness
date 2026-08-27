@@ -155,6 +155,109 @@ def validate_answer_target_scope(output, input_data, errors):
         errors.append("limited generation requires an explicit limitation")
 
 
+def composite_single_target_application_target_id(input_data, claims, citations_by_claim):
+    """Return the sole target that satisfies the public-application predicate."""
+    if (
+        input_data.get("mode") != "GENERATE_ANSWER"
+        or input_data.get("generation_constraints", {}).get(
+            "public_conclusion_contract"
+        )
+        != "required"
+    ):
+        return None
+    answered_target_ids = input_data.get("answered_target_ids", [])
+    if (
+        not isinstance(answered_target_ids, list)
+        or len(answered_target_ids) != 1
+        or not isinstance(answered_target_ids[0], str)
+    ):
+        return None
+    target_id = answered_target_ids[0]
+    if not any(
+        isinstance(target, dict)
+        and target.get("answer_target_id") == target_id
+        and target.get("answer_type") == "legal_conclusion"
+        for target in input_data.get("answer_targets", [])
+    ):
+        return None
+    critical_items = [
+        item
+        for item in input_data.get("required_evidence_items", [])
+        if isinstance(item, dict)
+        and item.get("critical") is True
+        and isinstance(item.get("answer_target_ids"), list)
+        and target_id in item["answer_target_ids"]
+    ]
+    if len(critical_items) != 1:
+        return None
+    public_legal_rules = [
+        claim
+        for claim in claims
+        if claim.get("public_role") == "conclusion"
+        and claim.get("claim_type") == "legal_rule"
+        and isinstance(claim.get("answer_target_ids"), list)
+        and target_id in claim["answer_target_ids"]
+    ]
+    if len(public_legal_rules) < 2:
+        return None
+    cited_rule_provision_ids = {
+        citation.get("provision_id")
+        for claim in public_legal_rules
+        for citation in citations_by_claim.get(claim.get("claim_id"), [])
+        if isinstance(citation.get("provision_id"), str)
+    }
+    if len(cited_rule_provision_ids) < 2:
+        return None
+    has_cited_public_application = any(
+        claim.get("public_role") == "conclusion"
+        and claim.get("claim_type") == "application"
+        and isinstance(claim.get("answer_target_ids"), list)
+        and target_id in claim["answer_target_ids"]
+        and citations_by_claim.get(claim.get("claim_id"))
+        for claim in claims
+    )
+    return None if has_cited_public_application else target_id
+
+
+def validate_public_legal_conclusion_claims(output, input_data, citations_by_claim, errors):
+    """Enforce the composite public-application and conditional-exception roles."""
+    if (
+        input_data.get("mode") != "GENERATE_ANSWER"
+        or input_data.get("generation_constraints", {}).get(
+            "public_conclusion_contract"
+        )
+        != "required"
+    ):
+        return
+    claims = [claim for claim in output.get("claims", []) if isinstance(claim, dict)]
+    missing_application_target_id = composite_single_target_application_target_id(
+        input_data, claims, citations_by_claim
+    )
+    if missing_application_target_id is not None:
+        errors.append(
+            "legal-conclusion answer target lacks a public application claim: "
+            + missing_application_target_id
+        )
+    answered_target_ids = {
+        target_id
+        for target_id in input_data.get("answered_target_ids", [])
+        if isinstance(target_id, str)
+    }
+    for claim in claims:
+        target_ids = claim.get("answer_target_ids", [])
+        if (
+            claim.get("claim_type") == "exception"
+            and claim.get("applicability") == "conditional"
+            and claim.get("public_role") == "audit"
+            and isinstance(target_ids, list)
+            and answered_target_ids.intersection(target_ids)
+        ):
+            errors.append(
+                "conditional exception for answered target must be a public conclusion: "
+                + str(claim.get("claim_id"))
+            )
+
+
 def validate(output, input_data):
     errors = []
     if output.get("schema_version") != "1.0" or output.get("skill_id") != "S3":
@@ -266,6 +369,10 @@ def validate(output, input_data):
     for claim_id in citations_by_claim:
         if claim_id not in claim_by_id:
             errors.append(f"citations contain unknown claim: {claim_id}")
+
+    validate_public_legal_conclusion_claims(
+        output, input_data, citations_by_claim, errors
+    )
 
     if not benchmark_question_only:
         expected_lines = [

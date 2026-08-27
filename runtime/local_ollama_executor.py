@@ -57,6 +57,19 @@ S3_COMPACT_TRANSPORT_INVARIANT = (
     "quoted_text, and answer_marker; retain every claim plus claim_id, "
     "provision_id, answer_target_ids, and short support_description for each citation. Mark each claim public_role as conclusion or audit; conclusion claims are the only public text."
 )
+S3_PUBLIC_LEGAL_CONCLUSION_INVARIANT = (
+    "Under the required public_conclusion_contract, require a citation-supported, "
+    "target-level claim_type=application with public_role=conclusion only for "
+    "this composite single-target case: GENERATE_ANSWER has exactly one answered "
+    "legal_conclusion target, exactly one critical required_evidence_item linked "
+    "to it, at least two public conclusion legal_rule claims for it cite at least "
+    "two different provision_id values, and it has no cited public application "
+    "claim. Do not satisfy that case by merely relabeling an abstract legal_rule "
+    "as application. "
+    "Any claim for an answered target with claim_type=exception and "
+    "applicability=conditional must be a citation-supported "
+    "public_role=conclusion claim, not audit-only."
+)
 S2_COMPACT_AUDIT_INVARIANT = (
     "For raw S2 transport omit link_id, [FULL_TEXT], assessment-level linked "
     "IDs, satisfied_aspects, missing_aspects, legacy status, partial_kind, "
@@ -525,6 +538,12 @@ class LocalOllamaSkillExecutor:
             or not any(
                 "public conclusion contract" in error
                 or "public answer must contain 1 to 3 short lines" in error
+                or error.startswith(
+                    "legal-conclusion answer target lacks a public application claim:"
+                )
+                or error.startswith(
+                    "conditional exception for answered target must be a public conclusion:"
+                )
                 for error in validation_errors
             )
         ):
@@ -568,7 +587,7 @@ class LocalOllamaSkillExecutor:
             and claim.get("public_role") not in {"conclusion", "audit"}
             and isinstance(claim.get("claim_id"), str)
         ]
-        return {
+        diagnostic = {
             "public_conclusion_count": len(public_claims),
             "public_line_count": len(answer_lines),
             "answered_target_ids": answered_target_ids,
@@ -578,11 +597,124 @@ class LocalOllamaSkillExecutor:
             ],
             "claims_missing_valid_public_role": missing_role_claim_ids,
         }
+        if skill_input.get("mode") == "GENERATE_ANSWER":
+            missing_application_target_id = (
+                LocalOllamaSkillExecutor._s3_composite_single_target_application_target_id(
+                    skill_input, claims, output.get("claim_citations", [])
+                )
+            )
+            if missing_application_target_id is not None:
+                diagnostic["missing_application_target_ids"] = [
+                    missing_application_target_id
+                ]
+            diagnostic["audit_only_conditional_exception_claim_ids"] = [
+                claim.get("claim_id")
+                for claim in claims
+                if isinstance(claim, Mapping)
+                and claim.get("claim_type") == "exception"
+                and claim.get("applicability") == "conditional"
+                and claim.get("public_role") == "audit"
+                and any(target_id in answered_target_ids for target_id in claim_target_ids(claim))
+                and isinstance(claim.get("claim_id"), str)
+            ]
+        return diagnostic
+
+    @staticmethod
+    def _s3_composite_single_target_application_target_id(
+        skill_input: Mapping[str, Any],
+        claims: Sequence[Any],
+        citations: Any,
+    ) -> Optional[str]:
+        """Return the sole target that satisfies the application retry predicate."""
+        if (
+            skill_input.get("mode") != "GENERATE_ANSWER"
+            or skill_input.get("generation_constraints", {}).get(
+                "public_conclusion_contract"
+            )
+            != "required"
+        ):
+            return None
+        answered_target_ids = skill_input.get("answered_target_ids", [])
+        if (
+            not isinstance(answered_target_ids, list)
+            or len(answered_target_ids) != 1
+            or not isinstance(answered_target_ids[0], str)
+        ):
+            return None
+        target_id = answered_target_ids[0]
+        targets = skill_input.get("answer_targets", [])
+        if not any(
+            isinstance(target, Mapping)
+            and target.get("answer_target_id") == target_id
+            and target.get("answer_type") == "legal_conclusion"
+            for target in targets
+        ):
+            return None
+        critical_items = [
+            item
+            for item in skill_input.get("required_evidence_items", [])
+            if isinstance(item, Mapping)
+            and item.get("critical") is True
+            and isinstance(item.get("answer_target_ids"), list)
+            and target_id in item["answer_target_ids"]
+        ]
+        if len(critical_items) != 1:
+            return None
+        public_legal_rules = [
+            claim
+            for claim in claims
+            if isinstance(claim, Mapping)
+            and claim.get("public_role") == "conclusion"
+            and claim.get("claim_type") == "legal_rule"
+            and isinstance(claim.get("answer_target_ids"), list)
+            and target_id in claim["answer_target_ids"]
+        ]
+        if len(public_legal_rules) < 2:
+            return None
+        citations_by_claim: Dict[str, List[Mapping[str, Any]]] = {}
+        if isinstance(citations, list):
+            for citation in citations:
+                if not isinstance(citation, Mapping):
+                    continue
+                claim_id = citation.get("claim_id")
+                if isinstance(claim_id, str):
+                    citations_by_claim.setdefault(claim_id, []).append(citation)
+        cited_rule_provision_ids = {
+            citation.get("provision_id")
+            for claim in public_legal_rules
+            for citation in citations_by_claim.get(claim.get("claim_id"), [])
+            if isinstance(citation.get("provision_id"), str)
+        }
+        if len(cited_rule_provision_ids) < 2:
+            return None
+        has_cited_public_application = any(
+            isinstance(claim, Mapping)
+            and claim.get("public_role") == "conclusion"
+            and claim.get("claim_type") == "application"
+            and isinstance(claim.get("answer_target_ids"), list)
+            and target_id in claim["answer_target_ids"]
+            and citations_by_claim.get(claim.get("claim_id"))
+            for claim in claims
+        )
+        return None if has_cited_public_application else target_id
 
     @staticmethod
     def _s3_public_role_repair_instruction(diagnostic: Mapping[str, Any]) -> str:
         """Return field-level retry instructions for the required public contract."""
         serialized = json.dumps(diagnostic, ensure_ascii=False, separators=(",", ":"))
+        role_repairs = ""
+        if diagnostic.get("missing_application_target_ids"):
+            role_repairs += (
+                " For every missing_application_target_ids entry, write a "
+                "citation-supported, target-level application conclusion; do not "
+                "merely relabel an abstract legal_rule as application."
+            )
+        if diagnostic.get("audit_only_conditional_exception_claim_ids"):
+            role_repairs += (
+                " For every audit_only_conditional_exception_claim_ids entry, "
+                "retain its citation and make the conditional exception a public "
+                "conclusion."
+            )
         return (
             " PUBLIC-CONCLUSION ROLE REPAIR (harness-measured, not an output "
             "field): %s. Every claims[] item must declare public_role. Set "
@@ -590,9 +722,9 @@ class LocalOllamaSkillExecutor:
             "every answered_target_id; set every remaining claim's public_role "
             "to audit. If multiple supported facts are needed for one target, "
             "write one concise conclusion claim for that target with all needed "
-            "claim_citations and retain supporting detail as audit claims. Do not "
+            "claim_citations and retain supporting detail as audit claims.%s Do not "
             "drop a claim, citation, assumption, limitation, or answered target."
-            % serialized
+            % (serialized, role_repairs)
         )
 
     @staticmethod
@@ -2589,6 +2721,8 @@ FINAL OUTPUT INVARIANTS:
                     )
                     + " "
                     + S3_COMPACT_TRANSPORT_INVARIANT
+                    + " "
+                    + S3_PUBLIC_LEGAL_CONCLUSION_INVARIANT
                 )
             return (
                 "Use only accepted provision IDs supplied in INPUT. Conclusion claims may cite only core_accepted_provisions; supplemental, qualifying, and alternative provisions may be cited only by public_role=audit claims. Answer mode is %s; substantive claims may name only answered target IDs %s and must not name deferred target IDs %s. Every claims[] item must set citation_required true and have at least one claim_citation; keep uncited factual or limitation prose in assumptions[] or limitations[]. "
@@ -2596,6 +2730,8 @@ FINAL OUTPUT INVARIANTS:
                 % (answer_mode, json.dumps(answered_target_ids), json.dumps(deferred_target_ids))
                 + " "
                 + S3_COMPACT_TRANSPORT_INVARIANT
+                + " "
+                + S3_PUBLIC_LEGAL_CONCLUSION_INVARIANT
             )
         if skill_name != "provision_coverage_assessment":
             return "Use only the identifiers and fields supplied in INPUT."
