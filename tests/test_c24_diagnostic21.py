@@ -193,6 +193,14 @@ class Diagnostic21ManifestTests(unittest.TestCase):
             primary["selection"]["c29_capabilities"],
             orchestration.DIAGNOSTIC21_C29_CAPABILITIES,
         )
+        self.assertEqual(
+            primary["selection"]["c30_capabilities"],
+            orchestration.DIAGNOSTIC21_C30_CAPABILITIES,
+        )
+        self.assertEqual(
+            primary["selection"]["c30_source_provenance"],
+            orchestration.DIAGNOSTIC21_C30_SOURCE_PROVENANCE,
+        )
         self.assertEqual(primary["selection"]["semantic_authority"], orchestration.DIAGNOSTIC21_SEMANTIC_AUTHORITY)
         self.assertEqual(
             primary["selection"]["runtime_artifact_path_provenance"]["qwen_ollama_blob_exact_local_runtime_exception"],
@@ -200,29 +208,29 @@ class Diagnostic21ManifestTests(unittest.TestCase):
         )
         self.assertFalse(primary["selection"]["round_merge_provenance"]["equivalence_claimed"])
         self.assertEqual(primary["selection"]["round_merge_provenance"]["c02_saved_stage_round_merge_mode"], "request_rank_top1_guarded_swap")
-        self.assertEqual(primary["name"], "v2-kure-qwen38-q8-offline-diagnostic21-c29-20260827")
-        self.assertEqual(reference["name"], "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c29-20260827")
+        self.assertEqual(primary["name"], "v2-kure-qwen38-q8-offline-diagnostic21-c30-20260827")
+        self.assertEqual(reference["name"], "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c30-20260827")
         self.assertEqual(
             primary["frozen_configuration"]["condition"],
-            "fixture-kure" + orchestration.DIAGNOSTIC21_C29_CONDITION_SUFFIX,
+            "fixture-kure" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX,
         )
         self.assertEqual(
             reference["frozen_configuration"]["condition"],
-            "fixture-bm25" + orchestration.DIAGNOSTIC21_C29_CONDITION_SUFFIX,
+            "fixture-bm25" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX,
         )
         self.assertEqual(
             primary["selection"]["source_frozen_conditions"],
             {
-                "primary": "fixture-kure" + orchestration.DIAGNOSTIC21_C29_CONDITION_SUFFIX,
-                "reference": "fixture-bm25" + orchestration.DIAGNOSTIC21_C29_CONDITION_SUFFIX,
+                "primary": "fixture-kure" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX,
+                "reference": "fixture-bm25" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX,
             },
         )
         self.assertEqual(
             primary["selection"]["implementation_parent_commit"],
-            "54d94d9f6c87a06a25d58cf162bc2f30c20f6a6f",
+            "cac3951420ee56486cc9e4a6cd37f77a81d68b0c",
         )
-        self.assertIn("C29a S2 retry-only scope", primary["selection"]["method"])
-        self.assertIn("C29c narrow composite application/conditional exception public contract", primary["purpose"])
+        self.assertIn("C30 preserves the C29", primary["selection"]["method"])
+        self.assertIn("C30 preserves C29", primary["purpose"])
         self.assertEqual(primary["frozen_configuration"]["reranker_provenance"], orchestration.DIAGNOSTIC21_RERANKER_PROVENANCE)
         self.assertEqual(reference["frozen_configuration"]["reranker_provenance"], orchestration.DIAGNOSTIC21_RERANKER_PROVENANCE)
         self.assertEqual(primary["frozen_configuration"]["retriever"], "kure")
@@ -248,18 +256,18 @@ class Diagnostic21ManifestTests(unittest.TestCase):
 
         primary = json.loads(json.dumps(manifests["diagnostic21"]))
         reference = json.loads(json.dumps(manifests["diagnostic21_reference"]))
-        primary["selection"]["c29_capabilities"]["c29a_s2_retry_only_scope"]["retry_scope"] = "GLOBAL"
-        with self.assertRaisesRegex(orchestration.OrchestrationError, "C29 capability"):
+        primary["selection"]["c30_capabilities"]["c30_paired_c02_answer_cohort_gate"]["cohort_count"] = 5
+        with self.assertRaisesRegex(orchestration.OrchestrationError, "C30 capability"):
             orchestration.assert_diagnostic21_manifest_integrity(primary, reference)
 
         primary = json.loads(json.dumps(manifests["diagnostic21"]))
         reference = json.loads(json.dumps(manifests["diagnostic21_reference"]))
         primary["frozen_configuration"]["condition"] = "fixture-kure"
         primary["selection"]["source_frozen_conditions"]["primary"] = "fixture-kure"
-        with self.assertRaisesRegex(orchestration.OrchestrationError, "C29 source condition overlay"):
+        with self.assertRaisesRegex(orchestration.OrchestrationError, "C30 source condition overlay"):
             orchestration.assert_diagnostic21_manifest_integrity(primary, reference)
 
-    def test_generated_manifests_match_tracked_frozen_manifests_and_record_c29_provenance(self):
+    def test_generated_manifests_match_tracked_frozen_manifests_and_record_c30_provenance(self):
         primary_source = orchestration.read_json(PROJECT_ROOT / "frozen_manifests/v2_kure_full226.json")
         reference_source = orchestration.read_json(PROJECT_ROOT / "frozen_manifests/v2_bm25_reference_full226.json")
         generated = orchestration.build_diagnostic21_manifests(
@@ -295,8 +303,27 @@ class Diagnostic21ManifestTests(unittest.TestCase):
                 orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT_SHA256,
             )
         self.assertEqual(
-            source_metadata["diagnostic21"]["c29_capabilities"],
-            orchestration.DIAGNOSTIC21_C29_CAPABILITIES,
+            source_metadata["diagnostic21"]["c30_capabilities"],
+            orchestration.DIAGNOSTIC21_C30_CAPABILITIES,
+        )
+        self.assertEqual(
+            source_metadata["diagnostic21"]["c30_source_provenance"],
+            orchestration.DIAGNOSTIC21_C30_SOURCE_PROVENANCE,
+        )
+        tracked_source_metadata = orchestration.read_json(
+            PROJECT_ROOT / "frozen_manifests/source_metadata.json"
+        )
+        self.assertEqual(
+            tracked_source_metadata["diagnostic21"]["c30_source_provenance"],
+            orchestration.DIAGNOSTIC21_C30_SOURCE_PROVENANCE,
+        )
+        self.assertEqual(
+            tracked_source_metadata["diagnostic21"]["generated_primary_manifest_sha256"],
+            orchestration.sha256(PROJECT_ROOT / "frozen_manifests/v2_kure_diagnostic21.json"),
+        )
+        self.assertEqual(
+            tracked_source_metadata["diagnostic21"]["generated_reference_manifest_sha256"],
+            orchestration.sha256(PROJECT_ROOT / "frozen_manifests/v2_bm25_reference_diagnostic21.json"),
         )
 
     def test_direct_cli_bootstrap_initializes_cohort_before_main_and_refuses_overwrite(self):

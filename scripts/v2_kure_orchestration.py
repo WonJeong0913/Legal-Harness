@@ -34,18 +34,18 @@ if str(PROJECT_ROOT) not in sys.path:
 DIAGNOSTIC21_MODE = "diagnostic21"
 DIAGNOSTIC21_ENTRY_COUNT = 21
 DIAGNOSTIC21_CHUNKS = ((1, 20), (21, 21))
-DIAGNOSTIC21_PRIMARY_FROZEN_NAME = "v2-kure-qwen38-q8-offline-diagnostic21-c29-20260827"
-DIAGNOSTIC21_REFERENCE_FROZEN_NAME = "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c29-20260827"
+DIAGNOSTIC21_PRIMARY_FROZEN_NAME = "v2-kure-qwen38-q8-offline-diagnostic21-c30-20260827"
+DIAGNOSTIC21_REFERENCE_FROZEN_NAME = "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c30-20260827"
 DIAGNOSTIC21_SOURCE_PRIMARY_SHA256 = "b0b2eb06992ed2034956c2aa129c89b3cfadadf9009ea891c9533b7513479ef9"
 DIAGNOSTIC21_SOURCE_REFERENCE_SHA256 = "f17c42e5b806a5bd7950010039ee9d3d0795377c6c86cd108cce0a5ecdea0aef"
-DIAGNOSTIC21_IMPLEMENTATION_PARENT_COMMIT = "54d94d9f6c87a06a25d58cf162bc2f30c20f6a6f"
+DIAGNOSTIC21_IMPLEMENTATION_PARENT_COMMIT = "cac3951420ee56486cc9e4a6cd37f77a81d68b0c"
 DIAGNOSTIC21_FLOAT_TOLERANCE = 1e-12
 DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE = "single_issue_fusion_top_k"
 DIAGNOSTIC21_C02_ROUND_MERGE_MODE = "request_rank_top1_guarded_swap"
-DIAGNOSTIC21_C29_CONDITION_SUFFIX = "+C29-provenance-control-plane-overlay"
+DIAGNOSTIC21_C30_CONDITION_SUFFIX = "+C30-paired-C02-gate-S3-carry-forward-overlay"
 DIAGNOSTIC21_CANDIDATE_ID = (
-    "C29a-S2-retry-only-scope+C29b-S1-effect-neutrality+"
-    "C29c-narrow-composite-application-conditional-exception-public-contract"
+    "C29-preserved-S1-S2-S3-contract+"
+    "C30-paired-C02-answer-cohort-gate+S3-carry-forward"
 )
 DIAGNOSTIC21_C22_CAPABILITY = {
     "capability": "standalone ungrounded paragraph gap recovery",
@@ -105,6 +105,37 @@ DIAGNOSTIC21_C29_CAPABILITIES = {
         "answered_target_conditional_exception": "PUBLIC_CONCLUSION",
         "deterministic_claim_text_type_role_or_citation_rewrite": "NONE",
     },
+}
+DIAGNOSTIC21_C30_CAPABILITIES = {
+    "c30_paired_c02_answer_cohort_gate": {
+        "cohort": "FIXED_C02_PUBLISHED_ANSWER_INTERSECTION_OF_DIAGNOSTIC21",
+        "cohort_count": 4,
+        "metric": "MEAN_TOKEN_F1_AT_800",
+        "evaluation_only": True,
+        "runtime_retrieval_or_answer_policy_mutation": "NONE",
+        "threshold_lowering": "FORBIDDEN",
+    },
+    "c30_s3_public_conclusion_contract_recovery": {
+        "public_presentation": "NORMALLY_2_TO_4_SENTENCES_MAX_800_CHARS",
+        "public_conclusion_claim_bounds": {"minimum": 1, "maximum": 4},
+        "audit_conditional_exception_duplicate": (
+            "NORMALIZED_FULL_TEXT_IN_ONE_PUBLIC_CONCLUSION_WITH_COMPLETE_"
+            "TARGET_AND_PROVISION_SETS"
+        ),
+        "first_invalid_retry_carry_forward": {
+            "capture": "HIDDEN_AUDIT_CONDITIONAL_EXCEPTIONS",
+            "obligation": "NORMALIZED_FULL_TEXT_ALL_TARGET_IDS_ALL_PROVISION_IDS_IN_ONE_PUBLIC_CONCLUSION",
+            "claim_id_requirement": "NONE",
+            "deterministic_legal_claim_status_or_citation_rewrite": "NONE",
+            "silent_omission": "FAIL_CLOSED",
+        },
+    },
+}
+DIAGNOSTIC21_C30_SOURCE_PROVENANCE = {
+    "base_source_commit": "cac3951420ee56486cc9e4a6cd37f77a81d68b0c",
+    "base_source_tree": "97dd989d06bab5baa70164e1b2209dc3ab87f382",
+    "paired_c02_gate_commit": "390ae000d21dda4487562273e5b08a798efe0047",
+    "s3_carry_forward_commit": "cc559855ca0e268b06b00ebb0fbf21740df9893d",
 }
 DIAGNOSTIC21_SEMANTIC_AUTHORITY = (
     "Execution semantic authority is the committed clean source snapshot plus frozen S1/S2/S3 skill hashes."
@@ -167,6 +198,11 @@ DIAGNOSTIC21_CONDITION_LINEAGE = {
         "55d6a808eecf147372fec5f769d103497a608b13",
         "e6dfff14342b57b6cda4c3f1a37a333e6546b68f",
         "a604967a35649a6a5f5ccbbb59750f3ca594ec0b",
+    ],
+    "C30_integration_inputs": [
+        "cac3951420ee56486cc9e4a6cd37f77a81d68b0c",
+        "390ae000d21dda4487562273e5b08a798efe0047",
+        "cc559855ca0e268b06b00ebb0fbf21740df9893d",
     ],
 }
 DIAGNOSTIC21_SKILL_FILES = {
@@ -773,9 +809,10 @@ def _diagnostic21_selection(
     return {
         "candidate_id": DIAGNOSTIC21_CANDIDATE_ID,
         "method": (
-            "C29a S2 retry-only scope + C29b S1 effect neutrality + C29c narrow composite "
-            "application/conditional exception public contract on the C24 fixed roster "
-            "reindexed from immutable C02 source ordinals"
+            "C30 preserves the C29 retry/public-contract controls and adds the fixed "
+            "four-item C02 ANSWER paired evaluation gate plus S3 bounded public "
+            "conclusion recovery and first-invalid conditional-exception carry-forward "
+            "on the C24 fixed roster reindexed from immutable C02 source ordinals"
         ),
         "source_frozen_conditions": {
             "primary": primary_source_condition,
@@ -807,6 +844,8 @@ def _diagnostic21_selection(
         "c22_capability": deepcopy(DIAGNOSTIC21_C22_CAPABILITY),
         "c28_capabilities": deepcopy(DIAGNOSTIC21_C28_CAPABILITIES),
         "c29_capabilities": deepcopy(DIAGNOSTIC21_C29_CAPABILITIES),
+        "c30_capabilities": deepcopy(DIAGNOSTIC21_C30_CAPABILITIES),
+        "c30_source_provenance": deepcopy(DIAGNOSTIC21_C30_SOURCE_PROVENANCE),
         "semantic_authority": DIAGNOSTIC21_SEMANTIC_AUTHORITY,
         "runtime_artifact_path_provenance": {
             "repo_relative_required": ["source_dataset.path", "kure paths", "bge reranker path"],
@@ -844,7 +883,7 @@ def build_diagnostic21_manifests(
     for label, configuration in (("primary", primary_configuration), ("reference", reference_configuration)):
         if configuration.get("round_merge_mode") != DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE:
             raise OrchestrationError("diagnostic21 %s source round_merge_mode mismatch" % label)
-        configuration["condition"] = configuration["condition"] + DIAGNOSTIC21_C29_CONDITION_SUFFIX
+        configuration["condition"] = configuration["condition"] + DIAGNOSTIC21_C30_CONDITION_SUFFIX
         configuration["reranker_provenance"] = deepcopy(DIAGNOSTIC21_RERANKER_PROVENANCE)
     assert_kure_only(primary_configuration)
     if reference_configuration.get("retriever") != "bm25":
@@ -865,11 +904,12 @@ def build_diagnostic21_manifests(
     )
     primary["selection"] = selection
     primary["purpose"] = (
-        "C29a S2 retry-only scope + C29b S1 effect neutrality + C29c narrow composite "
-        "application/conditional exception public contract are evaluated on the fixed "
-        "failure-and-coverage roster. KURE is the only "
-        "executable retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, "
-        "or LF-Eval execution is permitted."
+        "C30 preserves C29 S1/S2/S3 fail-closed controls and adds the fixed four-item "
+        "C02 ANSWER paired evaluation gate plus S3 2-to-4 public-conclusion recovery "
+        "with complete target/provision coverage and first-invalid conditional-exception "
+        "carry-forward on the failure-and-coverage roster. KURE is the only executable "
+        "retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, or LF-Eval "
+        "execution is permitted."
     )
     reference = _copy_manifest(
         reference_source,
@@ -982,6 +1022,10 @@ def assert_diagnostic21_manifest_integrity(
         raise OrchestrationError("diagnostic21 C28 capability mismatch")
     if selection.get("c29_capabilities") != DIAGNOSTIC21_C29_CAPABILITIES:
         raise OrchestrationError("diagnostic21 C29 capability mismatch")
+    if selection.get("c30_capabilities") != DIAGNOSTIC21_C30_CAPABILITIES:
+        raise OrchestrationError("diagnostic21 C30 capability mismatch")
+    if selection.get("c30_source_provenance") != DIAGNOSTIC21_C30_SOURCE_PROVENANCE:
+        raise OrchestrationError("diagnostic21 C30 source provenance mismatch")
     if selection.get("semantic_authority") != DIAGNOSTIC21_SEMANTIC_AUTHORITY:
         raise OrchestrationError("diagnostic21 semantic authority mismatch")
     if selection.get("runtime_artifact_path_provenance") != {
@@ -998,8 +1042,8 @@ def assert_diagnostic21_manifest_integrity(
         raise OrchestrationError("diagnostic21 source condition lineage mismatch")
     for label, configuration in (("primary", primary_configuration), ("reference", reference_configuration)):
         condition = configuration.get("condition")
-        if not isinstance(condition, str) or not condition.endswith(DIAGNOSTIC21_C29_CONDITION_SUFFIX):
-            raise OrchestrationError("diagnostic21 %s C29 source condition overlay mismatch" % label)
+        if not isinstance(condition, str) or not condition.endswith(DIAGNOSTIC21_C30_CONDITION_SUFFIX):
+            raise OrchestrationError("diagnostic21 %s C30 source condition overlay mismatch" % label)
         if configuration.get("round_merge_mode") != DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE:
             raise OrchestrationError("diagnostic21 %s round_merge_mode mismatch" % label)
     _assert_diagnostic21_repo_relative_artifact_paths(primary, reference)
@@ -1099,6 +1143,8 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
             "reranker_provenance": deepcopy(DIAGNOSTIC21_RERANKER_PROVENANCE),
             "round_merge_provenance": deepcopy(manifests["diagnostic21"]["selection"]["round_merge_provenance"]),
             "c29_capabilities": deepcopy(DIAGNOSTIC21_C29_CAPABILITIES),
+            "c30_capabilities": deepcopy(DIAGNOSTIC21_C30_CAPABILITIES),
+            "c30_source_provenance": deepcopy(DIAGNOSTIC21_C30_SOURCE_PROVENANCE),
         }
     write_json_new(frozen_root / "source_metadata.json", source_metadata)
     assert_reference_is_read_only(manifests["full"], manifests["reference"], paths["full"], paths["reference"])

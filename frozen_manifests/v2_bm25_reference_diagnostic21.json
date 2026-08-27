@@ -151,7 +151,7 @@
   "frozen_configuration": {
     "candidate_budget_scope": "per_round",
     "candidate_selection": "evidence_balanced",
-    "condition": "V2-BM25-reference-only-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-full226-Qwen3.8-Q8_0+C29-provenance-control-plane-overlay",
+    "condition": "V2-BM25-reference-only-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay",
     "conditional_generation": "answer_target_full_conditional_limited",
     "contextual_query_dedup": "same_output_after_context_history_duplicate_invalid",
     "coverage_contract": "legal_applicability_criterion_results",
@@ -326,8 +326,8 @@
     "total_retrieval_rounds": 3
   },
   "manifest_schema_version": "1.0",
-  "name": "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c29-20260827",
-  "purpose": "C29a S2 retry-only scope + C29b S1 effect neutrality + C29c narrow composite application/conditional exception public contract are evaluated on the fixed failure-and-coverage roster. KURE is the only executable retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, or LF-Eval execution is permitted.",
+  "name": "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c30-20260827",
+  "purpose": "C30 preserves C29 S1/S2/S3 fail-closed controls and adds the fixed four-item C02 ANSWER paired evaluation gate plus S3 2-to-4 public-conclusion recovery with complete target/provision coverage and first-invalid conditional-exception carry-forward on the failure-and-coverage roster. KURE is the only executable retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, or LF-Eval execution is permitted.",
   "selection": {
     "answer_yield_minimum": 4,
     "baseline": {
@@ -366,56 +366,6 @@
       "token_f1_end_to_end": 0.0807217786048895
     },
     "baseline_sha256": "d920e8a185839b0e8ab77ac08538f7804fa70c7eb643d6d3f5d1f852d88b9788",
-    "paired_c02_answer_cohort": {
-      "baseline_mean_token_f1_at_800": 0.42378933767566984,
-      "cohort_count": 4,
-      "derivation": {
-        "evaluation_only": true,
-        "method": "Filter the immutable C02 published per_question.csv to the fixed diagnostic21 roster, then retain only rows whose published status is ANSWER. This artifact is a predeclared evaluation cohort and is not runtime retrieval, answer, abstention, or gold-aware policy.",
-        "score_column": "token_f1_at_800",
-        "status_equals": "ANSWER"
-      },
-      "provenance": {
-        "evaluated_source_commit": "c02e2818ad54e9d5a1a9bd02b604e987192bb244",
-        "evaluated_source_tree": "9fcb0ebceb0b3d96955f1626f2c952a457be930f",
-        "per_question_csv_path": "records/evaluations/kure-c02-qwen38-q8-full226-20260826/per_question.csv",
-        "published_per_question_csv_sha256": "b0828c0d194aac9d59d3ad5894aae6220b8eaabc2c21959feabd76b5ac43e3f6",
-        "published_result_commit": "b43c613ad9c5498627f2cb2a25915c80f9f08374",
-        "published_result_tree": "d8296a2cacde164074688eba5068a5709534c0b5"
-      },
-      "rows": [
-        {
-          "n_hops": 3,
-          "question_id": "qa_86_3hop_140",
-          "source_ordinal": 17,
-          "status": "ANSWER",
-          "token_f1_at_800": 0.3170731707317073
-        },
-        {
-          "n_hops": 2,
-          "question_id": "qa_401_2hop_619",
-          "source_ordinal": 25,
-          "status": "ANSWER",
-          "token_f1_at_800": 0.4999999999999999
-        },
-        {
-          "n_hops": 3,
-          "question_id": "qa_430_3hop_669",
-          "source_ordinal": 51,
-          "status": "ANSWER",
-          "token_f1_at_800": 0.339622641509434
-        },
-        {
-          "n_hops": 1,
-          "question_id": "qa_25_1hop_37",
-          "source_ordinal": 52,
-          "status": "ANSWER",
-          "token_f1_at_800": 0.5384615384615384
-        }
-      ],
-      "schema_version": "c02_diagnostic21_answer_cohort_v1"
-    },
-    "paired_c02_answer_cohort_sha256": "046b04e37437100a51769f40cf12e45e969169ecd15644188ef7c4cebf9b1b60",
     "c22_capability": {
       "audit_kind": "neutralized_ungrounded_standalone_paragraph",
       "capability": "standalone ungrounded paragraph gap recovery",
@@ -494,7 +444,38 @@
         "deterministic_claim_text_type_role_or_citation_rewrite": "NONE"
       }
     },
-    "candidate_id": "C29a-S2-retry-only-scope+C29b-S1-effect-neutrality+C29c-narrow-composite-application-conditional-exception-public-contract",
+    "c30_capabilities": {
+      "c30_paired_c02_answer_cohort_gate": {
+        "cohort": "FIXED_C02_PUBLISHED_ANSWER_INTERSECTION_OF_DIAGNOSTIC21",
+        "cohort_count": 4,
+        "evaluation_only": true,
+        "metric": "MEAN_TOKEN_F1_AT_800",
+        "runtime_retrieval_or_answer_policy_mutation": "NONE",
+        "threshold_lowering": "FORBIDDEN"
+      },
+      "c30_s3_public_conclusion_contract_recovery": {
+        "audit_conditional_exception_duplicate": "NORMALIZED_FULL_TEXT_IN_ONE_PUBLIC_CONCLUSION_WITH_COMPLETE_TARGET_AND_PROVISION_SETS",
+        "first_invalid_retry_carry_forward": {
+          "capture": "HIDDEN_AUDIT_CONDITIONAL_EXCEPTIONS",
+          "claim_id_requirement": "NONE",
+          "deterministic_legal_claim_status_or_citation_rewrite": "NONE",
+          "obligation": "NORMALIZED_FULL_TEXT_ALL_TARGET_IDS_ALL_PROVISION_IDS_IN_ONE_PUBLIC_CONCLUSION",
+          "silent_omission": "FAIL_CLOSED"
+        },
+        "public_conclusion_claim_bounds": {
+          "maximum": 4,
+          "minimum": 1
+        },
+        "public_presentation": "NORMALLY_2_TO_4_SENTENCES_MAX_800_CHARS"
+      }
+    },
+    "c30_source_provenance": {
+      "base_source_commit": "cac3951420ee56486cc9e4a6cd37f77a81d68b0c",
+      "base_source_tree": "97dd989d06bab5baa70164e1b2209dc3ab87f382",
+      "paired_c02_gate_commit": "390ae000d21dda4487562273e5b08a798efe0047",
+      "s3_carry_forward_commit": "cc559855ca0e268b06b00ebb0fbf21740df9893d"
+    },
+    "candidate_id": "C29-preserved-S1-S2-S3-contract+C30-paired-C02-answer-cohort-gate+S3-carry-forward",
     "cohort_counts": {
       "accepted_abstain": 7,
       "execution_failure": 8,
@@ -542,13 +523,18 @@
         "55d6a808eecf147372fec5f769d103497a608b13",
         "e6dfff14342b57b6cda4c3f1a37a333e6546b68f",
         "a604967a35649a6a5f5ccbbb59750f3ca594ec0b"
+      ],
+      "C30_integration_inputs": [
+        "cac3951420ee56486cc9e4a6cd37f77a81d68b0c",
+        "390ae000d21dda4487562273e5b08a798efe0047",
+        "cc559855ca0e268b06b00ebb0fbf21740df9893d"
       ]
     },
     "entry_count": 21,
     "execution_role": "COMPARISON_REFERENCE_ONLY_MUST_NEVER_BE_EXECUTED",
-    "implementation_parent_commit": "54d94d9f6c87a06a25d58cf162bc2f30c20f6a6f",
+    "implementation_parent_commit": "cac3951420ee56486cc9e4a6cd37f77a81d68b0c",
     "lf_eval": "excluded; no LF-Eval invocation or score injection",
-    "method": "C29a S2 retry-only scope + C29b S1 effect neutrality + C29c narrow composite application/conditional exception public contract on the C24 fixed roster reindexed from immutable C02 source ordinals",
+    "method": "C30 preserves the C29 retry/public-contract controls and adds the fixed four-item C02 ANSWER paired evaluation gate plus S3 bounded public conclusion recovery and first-invalid conditional-exception carry-forward on the C24 fixed roster reindexed from immutable C02 source ordinals",
     "nonregression_minimums": {
       "complete_evidence_count": 7,
       "provision_exact_match_count": 2,
@@ -556,6 +542,56 @@
       "token_f1_candidate": 0.19949510741048834,
       "token_f1_end_to_end": 0.0807217786048895
     },
+    "paired_c02_answer_cohort": {
+      "baseline_mean_token_f1_at_800": 0.42378933767566984,
+      "cohort_count": 4,
+      "derivation": {
+        "evaluation_only": true,
+        "method": "Filter the immutable C02 published per_question.csv to the fixed diagnostic21 roster, then retain only rows whose published status is ANSWER. This artifact is a predeclared evaluation cohort and is not runtime retrieval, answer, abstention, or gold-aware policy.",
+        "score_column": "token_f1_at_800",
+        "status_equals": "ANSWER"
+      },
+      "provenance": {
+        "evaluated_source_commit": "c02e2818ad54e9d5a1a9bd02b604e987192bb244",
+        "evaluated_source_tree": "9fcb0ebceb0b3d96955f1626f2c952a457be930f",
+        "per_question_csv_path": "records/evaluations/kure-c02-qwen38-q8-full226-20260826/per_question.csv",
+        "published_per_question_csv_sha256": "b0828c0d194aac9d59d3ad5894aae6220b8eaabc2c21959feabd76b5ac43e3f6",
+        "published_result_commit": "b43c613ad9c5498627f2cb2a25915c80f9f08374",
+        "published_result_tree": "d8296a2cacde164074688eba5068a5709534c0b5"
+      },
+      "rows": [
+        {
+          "n_hops": 3,
+          "question_id": "qa_86_3hop_140",
+          "source_ordinal": 17,
+          "status": "ANSWER",
+          "token_f1_at_800": 0.3170731707317073
+        },
+        {
+          "n_hops": 2,
+          "question_id": "qa_401_2hop_619",
+          "source_ordinal": 25,
+          "status": "ANSWER",
+          "token_f1_at_800": 0.4999999999999999
+        },
+        {
+          "n_hops": 3,
+          "question_id": "qa_430_3hop_669",
+          "source_ordinal": 51,
+          "status": "ANSWER",
+          "token_f1_at_800": 0.339622641509434
+        },
+        {
+          "n_hops": 1,
+          "question_id": "qa_25_1hop_37",
+          "source_ordinal": 52,
+          "status": "ANSWER",
+          "token_f1_at_800": 0.5384615384615384
+        }
+      ],
+      "schema_version": "c02_diagnostic21_answer_cohort_v1"
+    },
+    "paired_c02_answer_cohort_sha256": "046b04e37437100a51769f40cf12e45e969169ecd15644188ef7c4cebf9b1b60",
     "reranker_provenance": {
       "device": "cuda",
       "model_id": "dragonkue/bge-reranker-v2-m3-ko",
@@ -749,8 +785,8 @@
     },
     "skill_sha256_recording": "ExperimentRecord automatically persists all runtime skill_sha256 values.",
     "source_frozen_conditions": {
-      "primary": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0+C29-provenance-control-plane-overlay",
-      "reference": "V2-BM25-reference-only-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-full226-Qwen3.8-Q8_0+C29-provenance-control-plane-overlay"
+      "primary": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay",
+      "reference": "V2-BM25-reference-only-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay"
     },
     "source_primary_manifest_sha256": "b0b2eb06992ed2034956c2aa129c89b3cfadadf9009ea891c9533b7513479ef9",
     "source_reference_manifest_sha256": "f17c42e5b806a5bd7950010039ee9d3d0795377c6c86cd108cce0a5ecdea0aef"
