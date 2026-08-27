@@ -41,11 +41,28 @@ DIAGNOSTIC21_IMPLEMENTATION_PARENT_COMMIT = "04ec6ada68d32985c8426d7fd5fb0256056
 DIAGNOSTIC21_FLOAT_TOLERANCE = 1e-12
 DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE = "single_issue_fusion_top_k"
 DIAGNOSTIC21_C02_ROUND_MERGE_MODE = "request_rank_top1_guarded_swap"
-DIAGNOSTIC21_CANDIDATE_ID = "C24-diagnostic21-observability-only"
+DIAGNOSTIC21_CANDIDATE_ID = "C28-integrated-c25-c26-c27"
 DIAGNOSTIC21_C22_CAPABILITY = {
     "capability": "standalone ungrounded paragraph gap recovery",
     "audit_kind": "neutralized_ungrounded_standalone_paragraph",
     "semantic_inference": "FAIL_CLOSED_NO_STATUTE_OR_PROVISION_SEMANTIC_INFERENCE",
+}
+DIAGNOSTIC21_C28_CAPABILITIES = {
+    "c25_single_target_anchor_transport": {
+        "audit_kind": "single_target_non_substring_anchor_fallback",
+        "scope": "FULLY_LINKED_SINGLE_TARGET_ORIGINAL_QUESTION_MARKER_ONLY",
+        "legal_decision_mutation": "NONE",
+    },
+    "c26_repair_induced_sibling_collision": {
+        "disposition": "repair_induced_intra_output_sibling_collision",
+        "scope": "ONE_REPAIRED_QUERY_ONE_UNTOUCHED_SAME_CRITICAL_EVIDENCE_SIBLING",
+        "query_synthesis": "NONE",
+    },
+    "c27_partial_core_retry_contract": {
+        "scope": "S2_PROMPT_AND_RETRY_GUIDANCE_ONLY",
+        "runtime_coverage_mutation": "NONE",
+        "validator_boundary": "UNCHANGED_FAIL_CLOSED",
+    },
 }
 DIAGNOSTIC21_SEMANTIC_AUTHORITY = (
     "Execution semantic authority is the committed clean source snapshot plus frozen S1/S2/S3 skill hashes."
@@ -555,7 +572,7 @@ def _diagnostic21_selection(
     ]
     return {
         "candidate_id": DIAGNOSTIC21_CANDIDATE_ID,
-        "method": "C24 fixed diagnostic roster reindexed from immutable C02 source ordinals",
+        "method": "C28 integrated runtime candidate on the C24 fixed roster reindexed from immutable C02 source ordinals",
         "source_frozen_conditions": {
             "primary": primary_source_condition,
             "reference": reference_source_condition,
@@ -581,6 +598,7 @@ def _diagnostic21_selection(
             "c23_candidate_replay": "STATIC_ANALYSIS_ONLY; no candidate replay rule is enabled at runtime.",
         },
         "c22_capability": deepcopy(DIAGNOSTIC21_C22_CAPABILITY),
+        "c28_capabilities": deepcopy(DIAGNOSTIC21_C28_CAPABILITIES),
         "semantic_authority": DIAGNOSTIC21_SEMANTIC_AUTHORITY,
         "runtime_artifact_path_provenance": {
             "repo_relative_required": ["source_dataset.path", "kure paths", "bge reranker path"],
@@ -638,7 +656,8 @@ def build_diagnostic21_manifests(
     )
     primary["selection"] = selection
     primary["purpose"] = (
-        "C24 diagnostic21 is a fixed, failure-and-coverage diagnostic. KURE is the only "
+        "C28 diagnostic21 evaluates the integrated C25/C26/C27 runtime on the fixed "
+        "failure-and-coverage roster. KURE is the only "
         "executable retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, "
         "or LF-Eval execution is permitted."
     )
@@ -743,6 +762,8 @@ def assert_diagnostic21_manifest_integrity(
         raise OrchestrationError("diagnostic21 round-merge provenance mismatch")
     if selection.get("c22_capability") != DIAGNOSTIC21_C22_CAPABILITY:
         raise OrchestrationError("diagnostic21 C22 capability mismatch")
+    if selection.get("c28_capabilities") != DIAGNOSTIC21_C28_CAPABILITIES:
+        raise OrchestrationError("diagnostic21 C28 capability mismatch")
     if selection.get("semantic_authority") != DIAGNOSTIC21_SEMANTIC_AUTHORITY:
         raise OrchestrationError("diagnostic21 semantic authority mismatch")
     if selection.get("runtime_artifact_path_provenance") != {

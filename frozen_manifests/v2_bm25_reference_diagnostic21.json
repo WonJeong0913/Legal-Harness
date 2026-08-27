@@ -327,7 +327,7 @@
   },
   "manifest_schema_version": "1.0",
   "name": "v2-bm25-reference-qwen38-q8-offline-diagnostic21-20260827",
-  "purpose": "C24 diagnostic21 is a fixed, failure-and-coverage diagnostic. KURE is the only executable retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, or LF-Eval execution is permitted.",
+  "purpose": "C28 diagnostic21 evaluates the integrated C25/C26/C27 runtime on the fixed failure-and-coverage roster. KURE is the only executable retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, or LF-Eval execution is permitted.",
   "selection": {
     "baseline": {
       "accepted_complete_evidence_count": 7,
@@ -371,7 +371,24 @@
       "semantic_inference": "FAIL_CLOSED_NO_STATUTE_OR_PROVISION_SEMANTIC_INFERENCE"
     },
     "c23_note": "C23 is static analysis only and changes no runtime behavior.",
-    "candidate_id": "C24-diagnostic21-observability-only",
+    "c28_capabilities": {
+      "c25_single_target_anchor_transport": {
+        "audit_kind": "single_target_non_substring_anchor_fallback",
+        "legal_decision_mutation": "NONE",
+        "scope": "FULLY_LINKED_SINGLE_TARGET_ORIGINAL_QUESTION_MARKER_ONLY"
+      },
+      "c26_repair_induced_sibling_collision": {
+        "disposition": "repair_induced_intra_output_sibling_collision",
+        "query_synthesis": "NONE",
+        "scope": "ONE_REPAIRED_QUERY_ONE_UNTOUCHED_SAME_CRITICAL_EVIDENCE_SIBLING"
+      },
+      "c27_partial_core_retry_contract": {
+        "runtime_coverage_mutation": "NONE",
+        "scope": "S2_PROMPT_AND_RETRY_GUIDANCE_ONLY",
+        "validator_boundary": "UNCHANGED_FAIL_CLOSED"
+      }
+    },
+    "candidate_id": "C28-integrated-c25-c26-c27",
     "cohort_counts": {
       "accepted_abstain": 7,
       "execution_failure": 8,
@@ -416,7 +433,7 @@
     "execution_role": "COMPARISON_REFERENCE_ONLY_MUST_NEVER_BE_EXECUTED",
     "implementation_parent_commit": "04ec6ada68d32985c8426d7fd5fb02560568f45d",
     "lf_eval": "excluded; no LF-Eval invocation or score injection",
-    "method": "C24 fixed diagnostic roster reindexed from immutable C02 source ordinals",
+    "method": "C28 integrated runtime candidate on the C24 fixed roster reindexed from immutable C02 source ordinals",
     "nonregression_minimums": {
       "complete_evidence_count": 7,
       "provision_exact_match_count": 2,

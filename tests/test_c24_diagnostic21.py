@@ -124,6 +124,10 @@ class Diagnostic21ManifestTests(unittest.TestCase):
         self.assertEqual(primary["selection"]["reranker_provenance"], orchestration.DIAGNOSTIC21_RERANKER_PROVENANCE)
         self.assertEqual(primary["selection"]["candidate_id"], orchestration.DIAGNOSTIC21_CANDIDATE_ID)
         self.assertEqual(primary["selection"]["c22_capability"], orchestration.DIAGNOSTIC21_C22_CAPABILITY)
+        self.assertEqual(
+            primary["selection"]["c28_capabilities"],
+            orchestration.DIAGNOSTIC21_C28_CAPABILITIES,
+        )
         self.assertEqual(primary["selection"]["semantic_authority"], orchestration.DIAGNOSTIC21_SEMANTIC_AUTHORITY)
         self.assertEqual(
             primary["selection"]["runtime_artifact_path_provenance"]["qwen_ollama_blob_exact_local_runtime_exception"],
