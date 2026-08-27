@@ -768,6 +768,36 @@ class GapSpecificityRepairTests(unittest.TestCase):
             [request["request_id"] for request in qa99_recovered["gap_retrieval_requests"]],
             ["GRQ-R3-2"],
         )
+        # The other two C02 history collisions had the same normalizer-induced
+        # shape but different statutes and semantic retrieval anchors.
+        for question_id, raw_query, prior_query in (
+            (
+                "qa_460_3hop_730",
+                "민사조정법 제29조 이의신청 기한 경과 시 조정결정 확정 효력",
+                "민사조정법 이의신청 기한 경과 시 조정결정 확정 효력",
+            ),
+            (
+                "qa_273_2hop_431",
+                "민법 제103조 궁박한 상태의 이용 취소",
+                "민법 궁박한 상태의 이용 취소",
+            ),
+        ):
+            with self.subTest(question_id=question_id):
+                payload = gap_input()
+                payload.update({
+                    "next_retrieval_round": 3,
+                    "query_history": [{
+                        "request_id": "GRQ-R2-1",
+                        "query_text": prior_query + " [원문 맥락] " + payload["normalized_question"],
+                    }],
+                })
+                recovered, recovery = self._transcript_recovery(
+                    payload,
+                    gap_output([gap_request("E1", raw_query)]),
+                )
+                self.assertEqual(recovery.dropped_request_ids, ["GRQ-R3-1"])
+                self.assertEqual(recovered["gap_retrieval_requests"], [])
+
 
     def test_question_anchor_placeholders_recover_only_from_requested_output_substrings(self):
         executor = LocalOllamaSkillExecutor(
@@ -963,6 +993,201 @@ class GapSpecificityRepairTests(unittest.TestCase):
 
         self.assertEqual(repaired["answer_targets"][0]["question_anchor"], requested_output)
         self.assertEqual([item["kind"] for item in audit], ["normalized_question_anchor"])
+
+    def test_c02_qa102_replay_removes_only_unanchored_standalone_paragraph(self):
+        payload = gap_input()
+        payload["normalized_question"] = (
+            "대기오염경보 발령 시 자동차 정비소 조치와 대상 오염물질을 판단하라."
+        )
+        request = {
+            "request_id": "GRQ-R2-1",
+            "query_text": (
+                "대기환경보전법 제8조제4항 대기오염경보 발령 시 "
+                "사업장 조치 의무"
+            ),
+            "query_terms": ["대기오염경보", "제4항", "자동차 정비소", "조치"],
+            "statute_hints": ["대기환경보전법"],
+        }
+
+        repaired, audit = S1_VALIDATOR.neutralize_ungrounded_article_specificity(
+            [request], payload
+        )
+
+        self.assertEqual(
+            repaired[0]["query_terms"], ["대기오염경보", "자동차 정비소", "조치"]
+        )
+        self.assertNotRegex(
+            repaired[0]["query_text"], r"제8조|제4항"
+        )
+        self.assertIn("대기환경보전법", repaired[0]["query_text"])
+        self.assertTrue(any(
+            repair == {
+                "kind": "neutralized_ungrounded_standalone_paragraph",
+                "request_id": "GRQ-R2-1",
+                "field": "query_terms",
+                "before": ["대기오염경보", "제4항", "자동차 정비소", "조치"],
+                "after": ["대기오염경보", "자동차 정비소", "조치"],
+                "reason": "standalone_paragraph_lacks_request_scoped_grounded_article",
+            }
+            for repair in audit
+        ))
+        errors = []
+        S1_VALIDATOR.validate_article_grounding(repaired, payload, errors)
+        self.assertEqual(errors, [])
+
+    def test_grounded_standalone_paragraph_is_preserved(self):
+        payload = gap_input()
+        payload["normalized_question"] = "대기환경보전법 제8조제4항의 내용은 무엇인가?"
+        request = {
+            "request_id": "GRQ-R2-1",
+            "query_text": "대기환경보전법 제8조제4항 대기오염경보",
+            "query_terms": ["제4항", "대기오염경보"],
+            "statute_hints": ["대기환경보전법 제8조제4항"],
+        }
+        original = copy.deepcopy(request)
+
+        repaired, audit = S1_VALIDATOR.neutralize_ungrounded_article_specificity(
+            [request], payload
+        )
+
+        self.assertEqual(repaired, [original])
+        self.assertEqual(request, original)
+        self.assertFalse(any(
+            repair["kind"] == "neutralized_ungrounded_standalone_paragraph"
+            for repair in audit
+        ))
+
+    def test_standalone_paragraph_cleanup_fails_closed_without_anchor(self):
+        request = {
+            "request_id": "GRQ-R2-1",
+            "query_text": "제4항",
+            "query_terms": ["제4항"],
+            "statute_hints": [],
+        }
+
+        repaired, audit = S1_VALIDATOR.neutralize_ungrounded_article_specificity(
+            [request], gap_input()
+        )
+
+        self.assertEqual(repaired, [request])
+        self.assertFalse(any(
+            repair["kind"] == "neutralized_ungrounded_standalone_paragraph"
+            for repair in audit
+        ))
+        errors = []
+        S1_VALIDATOR.validate_article_grounding(repaired, gap_input(), errors)
+        self.assertIn(
+            "standalone paragraph lacks request-scoped grounded article provenance: 제4항",
+            errors,
+        )
+
+    def test_standalone_paragraph_cleanup_fails_closed_for_connector_fragments(self):
+        for fragment in ("제4항에 따른", "제4항 관련"):
+            with self.subTest(fragment=fragment):
+                request = {
+                    "request_id": "GRQ-R2-1",
+                    "query_text": fragment,
+                    "query_terms": [fragment],
+                    "statute_hints": [],
+                }
+                original = copy.deepcopy(request)
+
+                repaired, audit = S1_VALIDATOR.neutralize_ungrounded_article_specificity(
+                    [request], gap_input()
+                )
+
+                self.assertEqual(repaired, [original])
+                self.assertEqual(request, original)
+                self.assertFalse(any(
+                    repair["kind"] == "neutralized_ungrounded_standalone_paragraph"
+                    for repair in audit
+                ))
+                errors = []
+                S1_VALIDATOR.validate_article_grounding(repaired, gap_input(), errors)
+                self.assertIn(
+                    "standalone paragraph lacks request-scoped grounded article provenance: 제4항",
+                    errors,
+                )
+
+    def test_standalone_paragraph_repair_deduplicates_only_new_list_collision(self):
+        request = {
+            "request_id": "GRQ-R2-1",
+            "query_text": "대기오염경보 사업장 조치",
+            "query_terms": ["대기오염경보", "제4항 대기오염경보"],
+            "statute_hints": [],
+        }
+
+        repaired, audit = S1_VALIDATOR.neutralize_ungrounded_article_specificity(
+            [request], gap_input()
+        )
+
+        self.assertEqual(repaired[0]["query_terms"], ["대기오염경보"])
+        self.assertTrue(any(
+            repair == {
+                "kind": "neutralized_ungrounded_standalone_paragraph",
+                "request_id": "GRQ-R2-1",
+                "field": "query_terms",
+                "before": ["대기오염경보", "제4항 대기오염경보"],
+                "after": ["대기오염경보"],
+                "reason": "standalone_paragraph_lacks_request_scoped_grounded_article",
+            }
+            for repair in audit
+        ))
+        errors = []
+        S1_VALIDATOR.validate_article_grounding(repaired, gap_input(), errors)
+        self.assertEqual(errors, [])
+
+    def test_standalone_paragraph_repair_preserves_raw_list_duplicates(self):
+        request = {
+            "request_id": "GRQ-R2-1",
+            "query_text": "대기오염경보 사업장 조치",
+            "query_terms": [
+                "대기오염경보",
+                "대기오염경보",
+                "제4항 대기오염경보",
+            ],
+            "statute_hints": [],
+        }
+
+        repaired, _audit = S1_VALIDATOR.neutralize_ungrounded_article_specificity(
+            [request], gap_input()
+        )
+
+        self.assertEqual(
+            repaired[0]["query_terms"], ["대기오염경보", "대기오염경보"]
+        )
+
+    def test_standalone_paragraph_repair_is_recorded_by_executor(self):
+        payload = gap_input()
+        payload["normalized_question"] = "대기오염경보 발령 시 사업장 조치를 판단하라."
+        raw = gap_output([gap_request(
+            "E1", "대기환경보전법 제8조제4항 대기오염경보 사업장 조치"
+        )])
+        raw_request = raw["gap_retrieval_requests"][0]
+        raw_request["query_terms"] = ["대기오염경보", "제4항", "사업장 조치"]
+        raw_request["statute_hints"] = ["대기환경보전법"]
+        diagnostics = []
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills",
+            "fixture-model",
+            generator=lambda _prompt: json.dumps(raw, ensure_ascii=False),
+            diagnostic_sink=diagnostics.append,
+        )
+
+        output = executor.execute(
+            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
+        )
+
+        self.assertNotIn("제4항", output["gap_retrieval_requests"][0]["query_terms"])
+        self.assertTrue(any(
+            repair["kind"] == "neutralized_ungrounded_standalone_paragraph"
+            and repair["field"] == "query_terms"
+            and repair["before"] == ["대기오염경보", "제4항", "사업장 조치"]
+            and repair["after"] == ["대기오염경보", "사업장 조치"]
+            and repair["reason"]
+            == "standalone_paragraph_lacks_request_scoped_grounded_article"
+            for repair in diagnostics[-1]["deterministic_repairs"]
+        ))
 
 
 if __name__ == "__main__":

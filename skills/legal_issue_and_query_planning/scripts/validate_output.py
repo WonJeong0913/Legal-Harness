@@ -282,7 +282,72 @@ def _article_span(match, value):
     return start, match.end()
 
 
-def neutralize_ungrounded_article_specificity(requests, inp):
+def _ungrounded_standalone_paragraphs(request, allowed):
+    """Return only paragraph anchors invalid in this request's final fields."""
+    values = [request.get(field) for field in RETRIEVAL_TEXT_FIELDS]
+    for field in RETRIEVAL_LIST_FIELDS:
+        items = request.get(field)
+        if isinstance(items, list):
+            values.extend(items)
+    explicit = set()
+    standalone = []
+    known_statutes = {pair[0] for pair in allowed}
+    for value in values:
+        pairs, _qualified_spans, _unresolved = _qualified_pairs(value, known_statutes)
+        explicit.update(pairs)
+        article_spans = [
+            match.span() for match in ARTICLE_ONLY_PATTERN.finditer(value)
+        ] if isinstance(value, str) else []
+        standalone.extend(_standalone_paragraphs(value, article_spans))
+    grounded_explicit = {
+        pair for pair in explicit if _pair_is_allowed(pair, allowed)
+    }
+    invalid = set()
+    for paragraph in standalone:
+        bindings = {
+            allowed_pair
+            for allowed_pair in allowed
+            if allowed_pair[2] == paragraph
+            and any(
+                explicit_pair[0] == allowed_pair[0]
+                and explicit_pair[1] == allowed_pair[1]
+                for explicit_pair in grounded_explicit
+            )
+        }
+        if len(bindings) != 1:
+            invalid.add(paragraph)
+    return invalid
+
+
+def _neutralize_ungrounded_standalone_paragraphs(value, paragraphs):
+    if not isinstance(value, str) or not paragraphs:
+        return value
+    article_spans = [match.span() for match in ARTICLE_ONLY_PATTERN.finditer(value)]
+    spans = [
+        match.span()
+        for match in STANDALONE_PARAGRAPH_PATTERN.finditer(value)
+        if _paragraph_name(match.group(1)) in paragraphs
+        and not any(
+            match.start() < end and start < match.end()
+            for start, end in article_spans
+        )
+    ]
+    return _replace_spans(value, spans) if spans else value
+
+
+def _has_retrieval_anchor(value):
+    """Reject a cleanup that would leave only a legal-reference fragment."""
+    if not isinstance(value, str):
+        return True
+    without_article = ARTICLE_ONLY_PATTERN.sub("", value)
+    without_paragraph = STANDALONE_PARAGRAPH_PATTERN.sub("", without_article)
+    compact_fragment = re.sub(r"[\s,;:/()\[\]{}]+", "", without_paragraph)
+    if compact_fragment in {"에따른", "관련"}:
+        return False
+    return bool(re.search(r"[0-9A-Za-z가-힣]", without_paragraph))
+
+
+def neutralize_ungrounded_article_specificity(requests, inp, *, _repair_standalone_paragraphs=True):
     """Remove only article/paragraph specificity that S1 provenance cannot authorize.
 
     This is a deterministic transport repair for retrieval text, not a legal
@@ -357,7 +422,9 @@ def neutralize_ungrounded_article_specificity(requests, inp):
                     original_repaired_pairs.append((value, value))
                     continue
                 temporary = {"query_text": value}
-                repaired_value = neutralize_ungrounded_article_specificity([temporary], inp)[0][0].get("query_text", value)
+                repaired_value = neutralize_ungrounded_article_specificity(
+                    [temporary], inp, _repair_standalone_paragraphs=False
+                )[0][0].get("query_text", value)
                 if repaired_value:
                     repaired_values.append(repaired_value)
                     original_repaired_pairs.append((value, repaired_value))
@@ -398,6 +465,73 @@ def neutralize_ungrounded_article_specificity(requests, inp):
                         "field": field,
                         "before": repaired_values,
                         "after": unique_values,
+                    })
+        if _repair_standalone_paragraphs:
+            ungrounded_paragraphs = _ungrounded_standalone_paragraphs(request, allowed)
+            for field in RETRIEVAL_TEXT_FIELDS:
+                value = request.get(field)
+                repaired = _neutralize_ungrounded_standalone_paragraphs(
+                    value, ungrounded_paragraphs
+                )
+                if repaired != value and _has_retrieval_anchor(repaired):
+                    request[field] = repaired
+                    repairs.append({
+                        "kind": "neutralized_ungrounded_standalone_paragraph",
+                        "request_id": request.get("request_id"),
+                        "field": field,
+                        "before": value,
+                        "after": repaired,
+                        "reason": "standalone_paragraph_lacks_request_scoped_grounded_article",
+                    })
+            for field in RETRIEVAL_LIST_FIELDS:
+                values = request.get(field)
+                if not isinstance(values, list):
+                    continue
+                repaired_pairs = []
+                changed = False
+                for value in values:
+                    repaired = _neutralize_ungrounded_standalone_paragraphs(
+                        value, ungrounded_paragraphs
+                    )
+                    changed = changed or repaired != value
+                    if not isinstance(value, str) or (
+                        repaired and _has_retrieval_anchor(repaired)
+                    ):
+                        repaired_pairs.append((value, repaired))
+                repaired_values = []
+                prior_original_norms = set()
+                retained_repaired_norms = set()
+                for original_value, repaired_value in repaired_pairs:
+                    original_norm = (
+                        norm(original_value) if isinstance(original_value, str) else None
+                    )
+                    repaired_norm = (
+                        norm(repaired_value) if isinstance(repaired_value, str) else None
+                    )
+                    repair_induced_collision = (
+                        repaired_norm is not None
+                        and repaired_norm in retained_repaired_norms
+                        and original_norm not in prior_original_norms
+                    )
+                    if not repair_induced_collision:
+                        repaired_values.append(repaired_value)
+                        if repaired_norm is not None:
+                            retained_repaired_norms.add(repaired_norm)
+                    if original_norm is not None:
+                        prior_original_norms.add(original_norm)
+                if (
+                    changed
+                    and repaired_values
+                    and all(_has_retrieval_anchor(value) for value in repaired_values)
+                ):
+                    request[field] = repaired_values
+                    repairs.append({
+                        "kind": "neutralized_ungrounded_standalone_paragraph",
+                        "request_id": request.get("request_id"),
+                        "field": field,
+                        "before": values,
+                        "after": repaired_values,
+                        "reason": "standalone_paragraph_lacks_request_scoped_grounded_article",
                     })
         repaired_requests.append(request)
     return repaired_requests, repairs
