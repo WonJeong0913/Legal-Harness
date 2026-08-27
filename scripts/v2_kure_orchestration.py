@@ -13,6 +13,7 @@ from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import statistics
@@ -29,6 +30,128 @@ from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
+DIAGNOSTIC21_MODE = "diagnostic21"
+DIAGNOSTIC21_ENTRY_COUNT = 21
+DIAGNOSTIC21_CHUNKS = ((1, 20), (21, 21))
+DIAGNOSTIC21_PRIMARY_FROZEN_NAME = "v2-kure-qwen38-q8-offline-diagnostic21-20260827"
+DIAGNOSTIC21_REFERENCE_FROZEN_NAME = "v2-bm25-reference-qwen38-q8-offline-diagnostic21-20260827"
+DIAGNOSTIC21_SOURCE_PRIMARY_SHA256 = "b0b2eb06992ed2034956c2aa129c89b3cfadadf9009ea891c9533b7513479ef9"
+DIAGNOSTIC21_SOURCE_REFERENCE_SHA256 = "f17c42e5b806a5bd7950010039ee9d3d0795377c6c86cd108cce0a5ecdea0aef"
+DIAGNOSTIC21_IMPLEMENTATION_PARENT_COMMIT = "04ec6ada68d32985c8426d7fd5fb02560568f45d"
+DIAGNOSTIC21_FLOAT_TOLERANCE = 1e-12
+DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE = "single_issue_fusion_top_k"
+DIAGNOSTIC21_C02_ROUND_MERGE_MODE = "request_rank_top1_guarded_swap"
+DIAGNOSTIC21_CANDIDATE_ID = "C24-diagnostic21-observability-only"
+DIAGNOSTIC21_C22_CAPABILITY = {
+    "capability": "standalone ungrounded paragraph gap recovery",
+    "audit_kind": "neutralized_ungrounded_standalone_paragraph",
+    "semantic_inference": "FAIL_CLOSED_NO_STATUTE_OR_PROVISION_SEMANTIC_INFERENCE",
+}
+DIAGNOSTIC21_SEMANTIC_AUTHORITY = (
+    "Execution semantic authority is the committed clean source snapshot plus frozen S1/S2/S3 skill hashes."
+)
+DIAGNOSTIC21_ROSTER = (
+    (17, "qa_86_3hop_140"), (25, "qa_401_2hop_619"), (42, "qa_406_2hop_622"),
+    (51, "qa_430_3hop_669"), (52, "qa_25_1hop_37"), (54, "qa_99_1hop_167"),
+    (58, "qa_332_2hop_531"), (65, "qa_286_2hop_1091_rand"), (83, "qa_460_3hop_730"),
+    (84, "qa_68_1hop_100"), (99, "qa_168_3hop_301"), (120, "qa_116_1hop_207"),
+    (131, "qa_209_3hop_360"), (133, "qa_2_1hop_4"), (140, "qa_435_2hop_678"),
+    (149, "qa_125_1hop_225"), (152, "qa_273_2hop_431"), (202, "qa_102_2hop_400_rand"),
+    (208, "qa_0_1hop_0"), (211, "qa_110_1hop_193"), (213, "qa_22_2hop_33"),
+)
+DIAGNOSTIC21_COHORT_BY_SOURCE_ORDINAL = {
+    42: "execution_failure", 54: "execution_failure", 65: "execution_failure",
+    83: "execution_failure", 99: "execution_failure", 120: "execution_failure",
+    152: "execution_failure", 202: "execution_failure",
+    58: "accepted_abstain", 84: "accepted_abstain", 131: "accepted_abstain",
+    133: "accepted_abstain", 140: "accepted_abstain", 208: "accepted_abstain",
+    211: "accepted_abstain",
+    17: "s2_loss", 25: "s2_loss", 51: "s2_loss", 52: "s2_loss",
+    149: "s2_loss", 213: "s2_loss",
+}
+DIAGNOSTIC21_COHORT_COUNTS = {
+    "execution_failure": 8,
+    "accepted_abstain": 7,
+    "s2_loss": 6,
+}
+DIAGNOSTIC21_CONDITION_LINEAGE = {
+    "C04_evidence_roles": [
+        "083813102b284052d546d1dacbd2c13829d9cafe",
+        "e530a696f344b86ffe2a4ec047da522e45a4f409",
+        "55e788e31618f3efa5233c01b6f2943c5dc484f9",
+    ],
+    "C05_collision_recovery": [
+        "764eabdf412fa2c89170aaaf6fa9439729361a5e",
+        "bed22c285793465b53a32bdac945d7f0461c9603",
+    ],
+    "C06_axis_projection": [
+        "3569f8d44dc57ddb49c4fbb9e43f540e308cd17c",
+        "f1282fcaa753f96b12c65b6958384d012dba7c5b",
+    ],
+    "C09_C08_list_dedupe_and_raw_duplicate_preservation": [
+        "ec7fd5bbcdc588dc05a7c104f81309c2c6c09358",
+        "6ae1f3c13aafbd1c23ba7106f8f9d9d96aab04db",
+        "22482dac6ac7168979ecda174a73260d1f454874",
+    ],
+    "C10_trusted_anchor": ["bf51c7173d7137e226b82fbc5ff0532e77e3ee2e"],
+    "C18_compact_s2_core_boundary": ["62fc37d7eda2946cc90bce9dbdd875d6852a4dda"],
+    "C19_execution_path_safety": ["4db5a642f33816c9d1646222c2f56747ad299994"],
+    "C22_standalone_paragraph_repair": ["17869b51c44a289f235c535f2f3e5f6eb2ed905a"],
+    "C23_static_candidate_replay_analysis_only": [
+        "04ec6ada68d32985c8426d7fd5fb02560568f45d"
+    ],
+}
+DIAGNOSTIC21_SKILL_FILES = {
+    "S1": {
+        "skill_path": "skills/legal_issue_and_query_planning/SKILL.md",
+        "skill_sha256": "273d61cd4c042da3eba5d65e7e746ee132a7c1a166bc99f5f51416c58e0d762a",
+        "validator_path": "skills/legal_issue_and_query_planning/scripts/validate_output.py",
+        "validator_sha256": "b613d96c58fd09e8ec8719490f078c0e7e299810bb82c8f06379c149b70c04cc",
+    },
+    "S2": {
+        "skill_path": "skills/provision_coverage_assessment/SKILL.md",
+        "skill_sha256": "a1d0ede5f6d049e975b356e7325d4a6aef1122db33d023a34cf6f59c45d96e95",
+        "validator_path": "skills/provision_coverage_assessment/scripts/validate_output.py",
+        "validator_sha256": "2d63bd38df2b7b5eb57009b6c056908339aeee4f5f9eee4ad987405841c3b619",
+    },
+    "S3": {
+        "skill_path": "skills/grounded_legal_answer_generation/SKILL.md",
+        "skill_sha256": "490455e725952e72a9585c51a57f4b629457558ef575cba57b2f21320b68a6c1",
+        "validator_path": "skills/grounded_legal_answer_generation/scripts/validate_output.py",
+        "validator_sha256": "6497bbfb3e69b3c53480d23bc1f0c790d567860bc651c9ba1af3fd5488433361",
+    },
+}
+DIAGNOSTIC21_RERANKER_PROVENANCE = {
+    "model_id": "dragonkue/bge-reranker-v2-m3-ko",
+    "model_path": "models/huggingface/dragonkue--bge-reranker-v2-m3-ko",
+    "model_weights_sha256": "aba51b69d97bfff4cd2c1d8eb6c57764e350231850f712b75ae426270f265a43",
+    "device": "cuda",
+}
+DIAGNOSTIC21_BASELINE = {
+    "status_counts": {"ANSWER": 4, "ABSTAIN": 9, "EXECUTION_FAILURE": 8},
+    "provision_macro": {"precision": 0.5294784580498866, "recall": 0.5317460317460317, "f1": 0.4862433862433862},
+    "provision_exact_match_count": 2,
+    "accepted_complete_evidence_count": 7,
+    "token_f1_end_to_end": 0.0807217786048895,
+    "token_f1_answered_only": 0.42378933767566984,
+    "candidate_token_f1": {"all_outcomes": 0.19949510741048834, "normal_outcomes": 0.32226132735540425, "abstain": 0.277137767213064, "available": 13, "missing_or_failure": 8},
+    "citation_integrity": {"attempted": 4, "passed": 4, "pass_rate": 1.0},
+    "provenance": {
+        "published_per_question_csv_sha256": "b0828c0d194aac9d59d3ad5894aae6220b8eaabc2c21959feabd76b5ac43e3f6",
+        "evaluated_source_commit": "c02e2818ad54e9d5a1a9bd02b604e987192bb244",
+        "evaluated_source_tree": "9fcb0ebceb0b3d96955f1626f2c952a457be930f",
+        "published_result_commit": "b43c613ad9c5498627f2cb2a25915c80f9f08374",
+        "published_result_tree": "d8296a2cacde164074688eba5068a5709534c0b5",
+    },
+}
+DIAGNOSTIC21_NONREGRESSION_MINIMUMS = {
+    "provision_macro_f1": DIAGNOSTIC21_BASELINE["provision_macro"]["f1"],
+    "provision_exact_match_count": DIAGNOSTIC21_BASELINE["provision_exact_match_count"],
+    "complete_evidence_count": DIAGNOSTIC21_BASELINE["accepted_complete_evidence_count"],
+    "token_f1_end_to_end": DIAGNOSTIC21_BASELINE["token_f1_end_to_end"],
+    "token_f1_answered_only": DIAGNOSTIC21_BASELINE["token_f1_answered_only"],
+    "token_f1_candidate": DIAGNOSTIC21_BASELINE["candidate_token_f1"]["all_outcomes"],
+}
 TOTAL_FULL226 = 226
 CHUNK_SIZE = 20
 OFFLINE_ENVIRONMENT = {
@@ -377,12 +500,305 @@ def build_v2_manifests(primary_source: Mapping[str, Any], reference_source: Mapp
     }
 
 
+
+def _diagnostic21_entries(source_entries: Sequence[Mapping[str, Any]]) -> List[Dict[str, Any]]:
+    """Reindex the approved C02 diagnostic roster without reordering it."""
+    if len(source_entries) != TOTAL_FULL226:
+        raise OrchestrationError("diagnostic21 requires the exact 226-entry source manifest")
+    by_ordinal = {int(entry.get("ordinal", 0)): dict(entry) for entry in source_entries}
+    if sorted(by_ordinal) != list(range(1, TOTAL_FULL226 + 1)):
+        raise OrchestrationError("diagnostic21 source ordinals must be contiguous 1..226")
+    selected: List[Dict[str, Any]] = []
+    for ordinal, (source_ordinal, question_id) in enumerate(DIAGNOSTIC21_ROSTER, start=1):
+        source = by_ordinal.get(source_ordinal)
+        if source is None or str(source.get("question_id")) != question_id:
+            raise OrchestrationError(
+                "diagnostic21 source roster mismatch at source ordinal %d" % source_ordinal
+            )
+        cohort = DIAGNOSTIC21_COHORT_BY_SOURCE_ORDINAL.get(source_ordinal)
+        if cohort is None:
+            raise OrchestrationError("diagnostic21 source ordinal lacks a cohort: %d" % source_ordinal)
+        selected.append({
+            **source,
+            "ordinal": ordinal,
+            "source_ordinal": source_ordinal,
+            "diagnostic_cohort": cohort,
+        })
+    if len(selected) != DIAGNOSTIC21_ENTRY_COUNT:
+        raise OrchestrationError("diagnostic21 roster must contain exactly 21 entries")
+    if len({entry["source_ordinal"] for entry in selected}) != DIAGNOSTIC21_ENTRY_COUNT:
+        raise OrchestrationError("diagnostic21 source ordinals must be unique")
+    if len({entry["question_id"] for entry in selected}) != DIAGNOSTIC21_ENTRY_COUNT:
+        raise OrchestrationError("diagnostic21 question IDs must be unique")
+    observed = {name: sum(entry["diagnostic_cohort"] == name for entry in selected) for name in DIAGNOSTIC21_COHORT_COUNTS}
+    if observed != DIAGNOSTIC21_COHORT_COUNTS:
+        raise OrchestrationError("diagnostic21 cohorts are not the approved 8/7/6 partition")
+    return selected
+
+
+def _diagnostic21_selection(
+    entries: Sequence[Mapping[str, Any]],
+    primary_source_sha256: str,
+    reference_source_sha256: str,
+    primary_source_condition: str,
+    reference_source_condition: str,
+) -> Dict[str, Any]:
+    roster = [
+        {
+            "ordinal": int(entry["ordinal"]),
+            "source_ordinal": int(entry["source_ordinal"]),
+            "question_id": str(entry["question_id"]),
+            "n_hops": int(entry["n_hops"]),
+            "diagnostic_cohort": str(entry["diagnostic_cohort"]),
+        }
+        for entry in entries
+    ]
+    return {
+        "candidate_id": DIAGNOSTIC21_CANDIDATE_ID,
+        "method": "C24 fixed diagnostic roster reindexed from immutable C02 source ordinals",
+        "source_frozen_conditions": {
+            "primary": primary_source_condition,
+            "reference": reference_source_condition,
+        },
+        "entry_count": DIAGNOSTIC21_ENTRY_COUNT,
+        "source_primary_manifest_sha256": primary_source_sha256,
+        "source_reference_manifest_sha256": reference_source_sha256,
+        "roster": roster,
+        "roster_sha256": canonical_sha256({"roster": roster}),
+        "cohort_counts": dict(DIAGNOSTIC21_COHORT_COUNTS),
+        "baseline": deepcopy(DIAGNOSTIC21_BASELINE),
+        "baseline_sha256": canonical_sha256(DIAGNOSTIC21_BASELINE),
+        "nonregression_minimums": dict(DIAGNOSTIC21_NONREGRESSION_MINIMUMS),
+        "condition_lineage": deepcopy(DIAGNOSTIC21_CONDITION_LINEAGE),
+        "implementation_parent_commit": DIAGNOSTIC21_IMPLEMENTATION_PARENT_COMMIT,
+        "c23_note": "C23 is static analysis only and changes no runtime behavior.",
+        "skill_files": deepcopy(DIAGNOSTIC21_SKILL_FILES),
+        "reranker_provenance": deepcopy(DIAGNOSTIC21_RERANKER_PROVENANCE),
+        "round_merge_provenance": {
+            "runtime_round_merge_mode": DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE,
+            "c02_saved_stage_round_merge_mode": DIAGNOSTIC21_C02_ROUND_MERGE_MODE,
+            "equivalence_claimed": False,
+            "c23_candidate_replay": "STATIC_ANALYSIS_ONLY; no candidate replay rule is enabled at runtime.",
+        },
+        "c22_capability": deepcopy(DIAGNOSTIC21_C22_CAPABILITY),
+        "semantic_authority": DIAGNOSTIC21_SEMANTIC_AUTHORITY,
+        "runtime_artifact_path_provenance": {
+            "repo_relative_required": ["source_dataset.path", "kure paths", "bge reranker path"],
+            "qwen_ollama_blob_exact_local_runtime_exception": QWEN_MODEL_PROVENANCE["ollama_model_blob"],
+        },
+        "skill_sha256_recording": "ExperimentRecord automatically persists all runtime skill_sha256 values.",
+        "execution_role": "PRIMARY_KURE_DIAGNOSTIC_EXECUTION",
+        "lf_eval": "excluded; no LF-Eval invocation or score injection",
+    }
+
+
+def build_diagnostic21_manifests(
+    primary_source: Mapping[str, Any],
+    reference_source: Mapping[str, Any],
+    primary_source_sha256: str,
+    reference_source_sha256: str,
+) -> Dict[str, Dict[str, Any]]:
+    """Create the fixed 21-row KURE primary and metadata-only BM25 manifests."""
+    if primary_source_sha256 != DIAGNOSTIC21_SOURCE_PRIMARY_SHA256:
+        raise OrchestrationError("diagnostic21 primary source manifest hash mismatch")
+    if reference_source_sha256 != DIAGNOSTIC21_SOURCE_REFERENCE_SHA256:
+        raise OrchestrationError("diagnostic21 reference source manifest hash mismatch")
+    source_entries = list(primary_source.get("entries") or [])
+    if _entry_signature(source_entries) != _entry_signature(reference_source.get("entries")):
+        raise OrchestrationError("diagnostic21 source KURE/BM25 manifest order differs")
+    entries = _diagnostic21_entries(source_entries)
+    primary_configuration = deepcopy(dict(primary_source.get("frozen_configuration") or {}))
+    reference_configuration = deepcopy(dict(reference_source.get("frozen_configuration") or {}))
+    primary_source_condition = primary_configuration.get("condition")
+    reference_source_condition = reference_configuration.get("condition")
+    if not isinstance(primary_source_condition, str) or not primary_source_condition:
+        raise OrchestrationError("diagnostic21 primary source condition is missing")
+    if not isinstance(reference_source_condition, str) or not reference_source_condition:
+        raise OrchestrationError("diagnostic21 reference source condition is missing")
+    for label, configuration in (("primary", primary_configuration), ("reference", reference_configuration)):
+        if configuration.get("round_merge_mode") != DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE:
+            raise OrchestrationError("diagnostic21 %s source round_merge_mode mismatch" % label)
+        configuration["reranker_provenance"] = deepcopy(DIAGNOSTIC21_RERANKER_PROVENANCE)
+    assert_kure_only(primary_configuration)
+    if reference_configuration.get("retriever") != "bm25":
+        raise OrchestrationError("diagnostic21 reference source must remain BM25 metadata")
+    selection = _diagnostic21_selection(
+        entries,
+        primary_source_sha256,
+        reference_source_sha256,
+        primary_source_condition,
+        reference_source_condition,
+    )
+    primary = _copy_manifest(
+        primary_source,
+        DIAGNOSTIC21_PRIMARY_FROZEN_NAME,
+        primary_configuration,
+        entries,
+        "PRIMARY_KURE_DIAGNOSTIC_EXECUTION",
+    )
+    primary["selection"] = selection
+    primary["purpose"] = (
+        "C24 diagnostic21 is a fixed, failure-and-coverage diagnostic. KURE is the only "
+        "executable retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, "
+        "or LF-Eval execution is permitted."
+    )
+    reference = _copy_manifest(
+        reference_source,
+        DIAGNOSTIC21_REFERENCE_FROZEN_NAME,
+        reference_configuration,
+        entries,
+        "COMPARISON_REFERENCE_ONLY_MUST_NEVER_BE_EXECUTED",
+    )
+    reference_selection = deepcopy(selection)
+    reference_selection["execution_role"] = "COMPARISON_REFERENCE_ONLY_MUST_NEVER_BE_EXECUTED"
+    reference["selection"] = reference_selection
+    reference["purpose"] = primary["purpose"]
+    assert_diagnostic21_manifest_integrity(primary, reference)
+    return {"diagnostic21": primary, "diagnostic21_reference": reference}
+
+
+def _diagnostic21_entry_signature(entries: Sequence[Mapping[str, Any]]) -> Tuple[Tuple[int, int, str, int, str], ...]:
+    try:
+        return tuple(
+            (
+                int(entry["ordinal"]),
+                int(entry["source_ordinal"]),
+                str(entry["question_id"]),
+                int(entry["n_hops"]),
+                str(entry["diagnostic_cohort"]),
+            )
+            for entry in entries
+        )
+    except (KeyError, TypeError, ValueError) as exc:
+        raise OrchestrationError("diagnostic21 entry lacks ordinal/source_ordinal/cohort fields") from exc
+
+
+def assert_diagnostic21_manifest_integrity(
+    primary: Mapping[str, Any], reference: Mapping[str, Any]
+) -> None:
+    """Fail closed on the exact roster, immutable baseline, and no-BM25 contract."""
+    primary_entries = list(primary.get("entries") or [])
+    reference_entries = list(reference.get("entries") or [])
+    if _diagnostic21_entry_signature(primary_entries) != _diagnostic21_entry_signature(reference_entries):
+        raise OrchestrationError("diagnostic21 primary/reference entries differ")
+    if [int(entry.get("ordinal", 0)) for entry in primary_entries] != list(range(1, DIAGNOSTIC21_ENTRY_COUNT + 1)):
+        raise OrchestrationError("diagnostic21 execution ordinals must be 1..21")
+    expected = list(DIAGNOSTIC21_ROSTER)
+    actual = [(int(entry.get("source_ordinal", 0)), str(entry.get("question_id") or "")) for entry in primary_entries]
+    if actual != expected:
+        raise OrchestrationError("diagnostic21 source roster differs from the approved exact roster")
+    cohorts = {str(entry.get("diagnostic_cohort") or ""): 0 for entry in primary_entries}
+    for entry in primary_entries:
+        cohort = str(entry.get("diagnostic_cohort") or "")
+        cohorts[cohort] = cohorts.get(cohort, 0) + 1
+    if cohorts != DIAGNOSTIC21_COHORT_COUNTS:
+        raise OrchestrationError("diagnostic21 cohort partition differs from 8 failures/7 accepted ABSTAINS/6 S2 losses")
+    primary_configuration = dict(primary.get("frozen_configuration") or {})
+    assert_kure_only(primary_configuration)
+    if primary_configuration.get("reranker_provenance") != DIAGNOSTIC21_RERANKER_PROVENANCE:
+        raise OrchestrationError("diagnostic21 primary reranker provenance mismatch")
+    reference_configuration = reference.get("frozen_configuration")
+    if not isinstance(reference_configuration, Mapping) or reference_configuration.get("retriever") != "bm25":
+        raise OrchestrationError("diagnostic21 reference must be metadata-only BM25")
+    if reference_configuration.get("reranker_provenance") != DIAGNOSTIC21_RERANKER_PROVENANCE:
+        raise OrchestrationError("diagnostic21 reference reranker provenance mismatch")
+    selection = primary.get("selection")
+    if not isinstance(selection, Mapping):
+        raise OrchestrationError("diagnostic21 selection metadata is missing")
+    if selection.get("source_primary_manifest_sha256") != DIAGNOSTIC21_SOURCE_PRIMARY_SHA256:
+        raise OrchestrationError("diagnostic21 recorded primary source hash mismatch")
+    if selection.get("source_reference_manifest_sha256") != DIAGNOSTIC21_SOURCE_REFERENCE_SHA256:
+        raise OrchestrationError("diagnostic21 recorded reference source hash mismatch")
+    roster = [
+        {
+            "ordinal": int(entry["ordinal"]),
+            "source_ordinal": int(entry["source_ordinal"]),
+            "question_id": str(entry["question_id"]),
+            "n_hops": int(entry["n_hops"]),
+            "diagnostic_cohort": str(entry["diagnostic_cohort"]),
+        }
+        for entry in primary_entries
+    ]
+    if selection.get("roster") != roster or selection.get("roster_sha256") != canonical_sha256({"roster": roster}):
+        raise OrchestrationError("diagnostic21 roster hash mismatch")
+    if selection.get("baseline") != DIAGNOSTIC21_BASELINE or selection.get("baseline_sha256") != canonical_sha256(DIAGNOSTIC21_BASELINE):
+        raise OrchestrationError("diagnostic21 baseline mismatch")
+    if selection.get("cohort_counts") != DIAGNOSTIC21_COHORT_COUNTS:
+        raise OrchestrationError("diagnostic21 cohort count metadata mismatch")
+    if selection.get("nonregression_minimums") != DIAGNOSTIC21_NONREGRESSION_MINIMUMS:
+        raise OrchestrationError("diagnostic21 numeric baseline gates mismatch")
+    if selection.get("condition_lineage") != DIAGNOSTIC21_CONDITION_LINEAGE:
+        raise OrchestrationError("diagnostic21 condition lineage mismatch")
+    if selection.get("skill_files") != DIAGNOSTIC21_SKILL_FILES:
+        raise OrchestrationError("diagnostic21 skill hash manifest mismatch")
+    if selection.get("reranker_provenance") != DIAGNOSTIC21_RERANKER_PROVENANCE:
+        raise OrchestrationError("diagnostic21 reranker selection provenance mismatch")
+    expected_round_merge = {
+        "runtime_round_merge_mode": DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE,
+        "c02_saved_stage_round_merge_mode": DIAGNOSTIC21_C02_ROUND_MERGE_MODE,
+        "equivalence_claimed": False,
+        "c23_candidate_replay": "STATIC_ANALYSIS_ONLY; no candidate replay rule is enabled at runtime.",
+    }
+    if selection.get("round_merge_provenance") != expected_round_merge:
+        raise OrchestrationError("diagnostic21 round-merge provenance mismatch")
+    if selection.get("c22_capability") != DIAGNOSTIC21_C22_CAPABILITY:
+        raise OrchestrationError("diagnostic21 C22 capability mismatch")
+    if selection.get("semantic_authority") != DIAGNOSTIC21_SEMANTIC_AUTHORITY:
+        raise OrchestrationError("diagnostic21 semantic authority mismatch")
+    if selection.get("runtime_artifact_path_provenance") != {
+        "repo_relative_required": ["source_dataset.path", "kure paths", "bge reranker path"],
+        "qwen_ollama_blob_exact_local_runtime_exception": QWEN_MODEL_PROVENANCE["ollama_model_blob"],
+    }:
+        raise OrchestrationError("diagnostic21 runtime artifact path provenance mismatch")
+    if selection.get("candidate_id") != DIAGNOSTIC21_CANDIDATE_ID:
+        raise OrchestrationError("diagnostic21 candidate identifier mismatch")
+    if selection.get("source_frozen_conditions") != {
+        "primary": primary_configuration.get("condition"),
+        "reference": reference_configuration.get("condition"),
+    }:
+        raise OrchestrationError("diagnostic21 source condition lineage mismatch")
+    for label, configuration in (("primary", primary_configuration), ("reference", reference_configuration)):
+        if configuration.get("round_merge_mode") != DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE:
+            raise OrchestrationError("diagnostic21 %s round_merge_mode mismatch" % label)
+    _assert_diagnostic21_repo_relative_artifact_paths(primary, reference)
+
+
+def _diagnostic21_is_repo_relative_path(value: Any) -> bool:
+    path = Path(value) if isinstance(value, str) and value else None
+    return path is not None and not path.is_absolute() and ".." not in path.parts
+
+
+def _assert_diagnostic21_repo_relative_artifact_paths(primary: Mapping[str, Any], reference: Mapping[str, Any]) -> None:
+    """Require repo-relative dataset, KURE, and BGE paths; Qwen's fixed local blob is separately recorded."""
+    for label, manifest in (("primary", primary), ("reference", reference)):
+        dataset = manifest.get("source_dataset")
+        if not isinstance(dataset, Mapping) or not _diagnostic21_is_repo_relative_path(dataset.get("path")):
+            raise OrchestrationError("diagnostic21 %s source dataset path is not repo-relative" % label)
+        configuration = manifest.get("frozen_configuration")
+        if not isinstance(configuration, Mapping):
+            raise OrchestrationError("diagnostic21 %s frozen configuration is missing" % label)
+        reranker = configuration.get("reranker_provenance")
+        if not isinstance(reranker, Mapping) or not _diagnostic21_is_repo_relative_path(reranker.get("model_path")):
+            raise OrchestrationError("diagnostic21 %s reranker path is not repo-relative" % label)
+    primary_configuration = primary.get("frozen_configuration")
+    if not isinstance(primary_configuration, Mapping):
+        raise OrchestrationError("diagnostic21 primary frozen configuration is missing")
+    kure = primary_configuration.get("retriever_provenance")
+    if not isinstance(kure, Mapping):
+        raise OrchestrationError("diagnostic21 KURE provenance is missing")
+    for key in ("normalized_corpus_path", "vectors_path", "provision_ids_path", "model_path"):
+        if not _diagnostic21_is_repo_relative_path(kure.get(key)):
+            raise OrchestrationError("diagnostic21 KURE %s is not repo-relative" % key)
+
+
 def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: Path) -> Dict[str, Path]:
     frozen_root = exec_root / "frozen_manifests"
     if frozen_root.exists() or frozen_root.is_symlink():
         raise OrchestrationError("refusing to overwrite existing frozen_manifests")
     primary = read_json(primary_source)
     reference = read_json(reference_source)
+    primary_source_sha256 = sha256(primary_source)
+    reference_source_sha256 = sha256(reference_source)
     manifests = build_v2_manifests(primary, reference)
     paths = {
         "full": frozen_root / "v2_kure_full226.json",
@@ -390,14 +806,26 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
         "smoke": frozen_root / "v2_kure_smoke3.json",
         "smoke_reference": frozen_root / "v2_bm25_reference_smoke3.json",
     }
+    diagnostic21_available = (
+        primary_source_sha256 == DIAGNOSTIC21_SOURCE_PRIMARY_SHA256
+        and reference_source_sha256 == DIAGNOSTIC21_SOURCE_REFERENCE_SHA256
+    )
+    if diagnostic21_available:
+        manifests.update(build_diagnostic21_manifests(
+            primary, reference, primary_source_sha256, reference_source_sha256
+        ))
+        paths.update({
+            "diagnostic21": frozen_root / "v2_kure_diagnostic21.json",
+            "diagnostic21_reference": frozen_root / "v2_bm25_reference_diagnostic21.json",
+        })
     for key, path in paths.items():
         write_json_new(path, manifests[key])
     source_metadata = {
         "created_at_utc": utc_now(),
         "primary_source_manifest": str(primary_source.resolve()),
-        "primary_source_manifest_sha256": sha256(primary_source),
+        "primary_source_manifest_sha256": primary_source_sha256,
         "reference_source_manifest": str(reference_source.resolve()),
-        "reference_source_manifest_sha256": sha256(reference_source),
+        "reference_source_manifest_sha256": reference_source_sha256,
         "generated": {key: {"path": str(path.relative_to(exec_root)), "sha256": sha256(path)} for key, path in paths.items()},
         "smoke_entries": [
             {"ordinal": int(entry["ordinal"]), "source_ordinal": int(entry.get("source_ordinal", entry["ordinal"])), "question_id": str(entry["question_id"]), "n_hops": int(entry["n_hops"])}
@@ -411,9 +839,23 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
             "network": "OFFLINE_ONLY",
         },
     }
+    if diagnostic21_available:
+        source_metadata["diagnostic21"] = {
+            "primary_source_manifest_sha256": DIAGNOSTIC21_SOURCE_PRIMARY_SHA256,
+            "reference_source_manifest_sha256": DIAGNOSTIC21_SOURCE_REFERENCE_SHA256,
+            "roster_sha256": manifests["diagnostic21"]["selection"]["roster_sha256"],
+            "baseline_sha256": canonical_sha256(DIAGNOSTIC21_BASELINE),
+            "condition_lineage": deepcopy(DIAGNOSTIC21_CONDITION_LINEAGE),
+            "skill_files": deepcopy(DIAGNOSTIC21_SKILL_FILES),
+            "reranker_provenance": deepcopy(DIAGNOSTIC21_RERANKER_PROVENANCE),
+            "round_merge_provenance": deepcopy(manifests["diagnostic21"]["selection"]["round_merge_provenance"]),
+        }
     write_json_new(frozen_root / "source_metadata.json", source_metadata)
     assert_reference_is_read_only(manifests["full"], manifests["reference"], paths["full"], paths["reference"])
     assert_reference_is_read_only(manifests["smoke"], manifests["smoke_reference"], paths["smoke"], paths["smoke_reference"])
+    if diagnostic21_available:
+        assert_reference_is_read_only(manifests["diagnostic21"], manifests["diagnostic21_reference"], paths["diagnostic21"], paths["diagnostic21_reference"])
+        assert_diagnostic21_manifest_integrity(manifests["diagnostic21"], manifests["diagnostic21_reference"])
     return paths
 
 
@@ -504,6 +946,8 @@ def manifest_paths(exec_root: Path, mode: str) -> Tuple[Path, Path]:
         return frozen / "v2_kure_smoke3.json", frozen / "v2_bm25_reference_smoke3.json"
     if mode == "full226":
         return frozen / "v2_kure_full226.json", frozen / "v2_bm25_reference_full226.json"
+    if mode == DIAGNOSTIC21_MODE:
+        return frozen / "v2_kure_diagnostic21.json", frozen / "v2_bm25_reference_diagnostic21.json"
     raise OrchestrationError("unknown mode: %s" % mode)
 
 
@@ -522,11 +966,16 @@ def make_plan(exec_root: Path, output_root: Path, mode: str) -> Dict[str, Any]:
             raise OrchestrationError("full226 plan has wrong number of entries")
         chunks = chunks_for_entries()
         assert_full226_chunks(chunks)
+    elif mode == DIAGNOSTIC21_MODE:
+        assert_diagnostic21_manifest_integrity(primary, reference)
+        if len(entries) != DIAGNOSTIC21_ENTRY_COUNT:
+            raise OrchestrationError("diagnostic21 plan must contain exactly 21 entries")
+        chunks = DIAGNOSTIC21_CHUNKS
     else:
         if len(entries) != 3 or {int(entry["n_hops"]) for entry in entries} != {1, 2, 3}:
             raise OrchestrationError("smoke plan must be exactly one frozen 1/2/3-hop trio")
         chunks = ((1, 3),)
-    return {
+    plan = {
         "orchestration_schema_version": "v2.0",
         "created_at_utc": utc_now(),
         "mode": mode,
@@ -552,6 +1001,12 @@ def make_plan(exec_root: Path, output_root: Path, mode: str) -> Dict[str, Any]:
         },
         "smoke_score_not_benchmark_evidence": mode == "smoke",
     }
+    if mode == DIAGNOSTIC21_MODE:
+        plan["diagnostic21"] = {
+            "enabled": True,
+            "numeric_baseline_gates": dict(DIAGNOSTIC21_NONREGRESSION_MINIMUMS),
+        }
+    return plan
 
 
 def _jsonl_rows(path: Path) -> List[Dict[str, Any]]:
@@ -626,6 +1081,15 @@ def assert_resume_state(paths: Mapping[str, Path], plan: Mapping[str, Any], resu
     expected = [int(item["end_ordinal"]) for item in plan["chunks"]]
     if completed != tuple(expected[:len(completed)]):
         raise OrchestrationError("resume is permitted only after contiguous completed chunk boundaries")
+    if plan.get("mode") == DIAGNOSTIC21_MODE:
+        if completed == ():
+            raise OrchestrationError("diagnostic21 resume requires a PASS checkpoint-020")
+        if completed not in ((20,), (20, 21)):
+            raise OrchestrationError("diagnostic21 resume permits only PASS checkpoint-020 or final-gate recovery")
+        for item in plan["chunks"][:len(completed)]:
+            start, end = int(item["start_ordinal"]), int(item["end_ordinal"])
+            if completed_attempt_for(paths, start, end) is None:
+                raise OrchestrationError("diagnostic21 PASS checkpoint lacks its completed attempt: %03d-%03d" % (start, end))
     # Incomplete attempts are immutable evidence of an interruption. They are
     # intentionally retained and a new attempt is created after the last PASS.
     for item in plan["chunks"]:
@@ -833,7 +1297,19 @@ def evaluate_checkpoint(exec_root: Path, paths: Mapping[str, Path], plan: Mappin
     attempt_id = uuid.uuid4().hex
     checkpoint_batch = paths["checkpoints"] / ("batch-%03d-attempt-%s" % (completed, attempt_id))
     evaluation_dir = paths["evaluations"] / ("checkpoint-%03d-attempt-%s" % (completed, attempt_id))
-    materialize_cumulative_batch(chunk_dirs, checkpoint_batch, name="%s-checkpoint-%03d" % (PRIMARY_FROZEN_NAME, completed), through_ordinal=completed)
+    primary_manifest_path = plan.get("primary_manifest")
+    primary_manifest_name = PRIMARY_FROZEN_NAME
+    if isinstance(primary_manifest_path, str) and primary_manifest_path:
+        manifest_payload = read_json(Path(primary_manifest_path))
+        manifest_name = manifest_payload.get("name")
+        if isinstance(manifest_name, str) and manifest_name:
+            primary_manifest_name = manifest_name
+    materialize_cumulative_batch(
+        chunk_dirs,
+        checkpoint_batch,
+        name="%s-checkpoint-%03d" % (primary_manifest_name, completed),
+        through_ordinal=completed,
+    )
     command = [str(runtime_python), str(exec_root / "scripts/evaluate_dev_runs.py"), "--batch-dir", str(checkpoint_batch), "--output-dir", str(evaluation_dir), "--require-stage-provenance"]
     assert_no_external_score_injection(command)
     started = time.monotonic()
@@ -843,6 +1319,33 @@ def evaluate_checkpoint(exec_root: Path, paths: Mapping[str, Path], plan: Mappin
     aggregate_path = evaluation_dir / "aggregate.json"
     aggregate = read_json(aggregate_path) if aggregate_path.is_file() else {}
     rows = _jsonl_rows(checkpoint_batch / "summary.jsonl")
+    diagnostic21 = plan["mode"] == DIAGNOSTIC21_MODE
+    public_abstain_leak_question_ids: List[str] = []
+    public_abstain_missing_result_question_ids: List[str] = []
+    public_abstain_invalid_result_question_ids: List[str] = []
+    if diagnostic21:
+        for row in rows:
+            if row.get("status") != "ABSTAIN":
+                continue
+            question_id = str(row.get("question_id") or "")
+            record_directory = row.get("record_directory")
+            if not isinstance(record_directory, str) or not record_directory:
+                public_abstain_missing_result_question_ids.append(question_id)
+                continue
+            result_path = Path(record_directory) / "result.json"
+            if not result_path.is_file():
+                public_abstain_missing_result_question_ids.append(question_id)
+                continue
+            try:
+                result_payload = read_json(result_path)
+            except (OSError, ValueError, OrchestrationError):
+                public_abstain_invalid_result_question_ids.append(question_id)
+                continue
+            if not isinstance(result_payload, Mapping):
+                public_abstain_invalid_result_question_ids.append(question_id)
+                continue
+            if result_payload.get("answer") is not None or result_payload.get("final_answer") is not None:
+                public_abstain_leak_question_ids.append(question_id)
     abnormal = [str(row.get("question_id")) for row in rows if row.get("status") not in NORMAL_STATUSES]
     unexpected_exit = [
         str(row.get("question_id")) for row in rows
@@ -868,11 +1371,25 @@ def evaluate_checkpoint(exec_root: Path, paths: Mapping[str, Path], plan: Mappin
         errors.append("citation_integrity=%s" % citation.get("pass_rate"))
     if provenance_missing:
         errors.append("stage_provenance_missing=" + ",".join(provenance_missing))
+    if public_abstain_missing_result_question_ids:
+        errors.append("public_abstain_result_missing=" + ",".join(public_abstain_missing_result_question_ids))
+    if public_abstain_invalid_result_question_ids:
+        errors.append("public_abstain_result_invalid=" + ",".join(public_abstain_invalid_result_question_ids))
+    if public_abstain_leak_question_ids:
+        errors.append("public_abstain_leak=" + ",".join(public_abstain_leak_question_ids))
     projection = _metric_projection(aggregate)
-    mean_latency_ms = projection.get("mean_latency_ms")
-    remaining_ms = (TOTAL_FULL226 - completed) * float(mean_latency_ms) if isinstance(mean_latency_ms, (int, float)) and plan["mode"] == "full226" else None
+    if diagnostic21:
+        projection = {
+            key: value for key, value in projection.items()
+            if key not in {"mean_latency_ms", "median_latency_ms", "p95_latency_ms"}
+        }
     event = {
-        "event": "FULL226_COMPLETED" if plan["mode"] == "full226" and completed == TOTAL_FULL226 else "CHECKPOINT_COMPLETED",
+        "event": (
+            "FULL226_COMPLETED" if plan["mode"] == "full226" and completed == TOTAL_FULL226
+            else "DIAGNOSTIC21_CHECKPOINT20_COMPLETED" if diagnostic21 and completed == 20
+            else "DIAGNOSTIC21_COMPLETED" if diagnostic21 and completed == DIAGNOSTIC21_ENTRY_COUNT
+            else "CHECKPOINT_COMPLETED"
+        ),
         "checkpoint_status": "PASS" if not errors else "ERRORS_FOUND",
         "completed_questions": completed,
         "total_questions": int(plan["entry_count"]),
@@ -884,20 +1401,136 @@ def evaluate_checkpoint(exec_root: Path, paths: Mapping[str, Path], plan: Mappin
         "stage_provenance_missing": provenance_missing,
         "metrics": projection,
         "evaluator_command": command,
-        "evaluator_elapsed_seconds": time.monotonic() - started,
         "batch_directory": str(checkpoint_batch),
         "evaluation_directory": str(evaluation_dir),
-        "remaining_eta_ms": remaining_ms,
-        "remaining_eta_seconds": remaining_ms / 1000.0 if remaining_ms is not None else None,
-        "remaining_eta_utc": (datetime.now(timezone.utc) + timedelta(seconds=remaining_ms / 1000.0)).isoformat() if remaining_ms is not None else None,
         "bm25_execution": "FORBIDDEN",
         "lf_eval_score_injection": "FORBIDDEN",
     }
+    if diagnostic21:
+        event.update({
+            "diagnostic21_checkpoint_role": (
+                "FIRST_CHUNK_COVERAGE_CHECKPOINT_NOT_A_FINAL_GATE" if completed == 20
+                else "FINAL_GATE_CANDIDATE" if completed == DIAGNOSTIC21_ENTRY_COUNT
+                else None
+            ),
+            "public_abstain_leak_question_ids": public_abstain_leak_question_ids,
+            "public_abstain_missing_result_question_ids": public_abstain_missing_result_question_ids,
+            "public_abstain_invalid_result_question_ids": public_abstain_invalid_result_question_ids,
+        })
+    else:
+        mean_latency_ms = projection.get("mean_latency_ms")
+        remaining_ms = (
+            (TOTAL_FULL226 - completed) * float(mean_latency_ms)
+            if isinstance(mean_latency_ms, (int, float)) and plan["mode"] == "full226"
+            else None
+        )
+        event.update({
+            "evaluator_elapsed_seconds": time.monotonic() - started,
+            "remaining_eta_ms": remaining_ms,
+            "remaining_eta_seconds": remaining_ms / 1000.0 if remaining_ms is not None else None,
+            "remaining_eta_utc": (
+                datetime.now(timezone.utc) + timedelta(seconds=remaining_ms / 1000.0)
+            ).isoformat() if remaining_ms is not None else None,
+        })
     if errors:
         write_json_new(paths["checkpoints"] / ("checkpoint-%03d-attempt-%s.json" % (completed, attempt_id)), event)
     else:
         write_json_new(final_checkpoint, event)
     return event
+
+
+
+def diagnostic21_gate(event: Mapping[str, Any]) -> Dict[str, Any]:
+    """Fail closed on the fixed 21-row diagnostic’s integrity and score gates."""
+    metrics_value = event.get("metrics")
+    metrics = dict(metrics_value) if isinstance(metrics_value, Mapping) else {}
+    reasons: List[str] = []
+    validation_errors = event.get("validation_errors")
+    if not isinstance(validation_errors, list):
+        reasons.append("validation_errors_missing_or_nonlist")
+    elif validation_errors:
+        reasons.extend("validation_error:%s" % value for value in validation_errors)
+    if type(event.get("completed_questions")) is not int or event.get("completed_questions") != DIAGNOSTIC21_ENTRY_COUNT:
+        reasons.append("completed_questions_not_21")
+    if event.get("checkpoint_status") != "PASS":
+        reasons.append("checkpoint_status_not_pass")
+    normal_counts: Dict[str, int] = {}
+    for metric_name in ("execution_failure_count", "answer_count", "abstain_count"):
+        observed = metrics.get(metric_name)
+        if type(observed) is not int:
+            reasons.append("normal_outcome_metric_missing_or_noninteger:%s" % metric_name)
+        else:
+            normal_counts[metric_name] = observed
+    if len(normal_counts) == 3:
+        if normal_counts["execution_failure_count"] != 0:
+            reasons.append("execution_failure_count")
+        if normal_counts["answer_count"] + normal_counts["abstain_count"] != DIAGNOSTIC21_ENTRY_COUNT:
+            reasons.append("normal_outcome_count")
+    for field_name, reason in (
+        ("stage_provenance_missing", "stage_provenance"),
+        ("public_abstain_missing_result_question_ids", "public_abstain_result_missing"),
+        ("public_abstain_invalid_result_question_ids", "public_abstain_result_invalid"),
+        ("public_abstain_leak_question_ids", "public_abstain_leak"),
+    ):
+        values = event.get(field_name)
+        if not isinstance(values, list):
+            reasons.append("%s_missing_or_nonlist" % reason)
+        elif values:
+            reasons.append(reason)
+    citation = metrics.get("citation_integrity")
+    if not isinstance(citation, Mapping):
+        reasons.append("citation_integrity")
+    else:
+        attempted, passed, pass_rate = citation.get("attempted"), citation.get("passed"), citation.get("pass_rate")
+        if type(attempted) is not int or type(passed) is not int or attempted < 0 or passed < 0:
+            reasons.append("citation_integrity")
+        elif attempted == 0:
+            if passed != 0 or pass_rate not in (None, 1.0):
+                reasons.append("citation_integrity")
+        elif (
+            type(pass_rate) not in (int, float)
+            or not math.isfinite(float(pass_rate))
+            or passed != attempted
+            or float(pass_rate) != 1.0
+        ):
+            reasons.append("citation_integrity")
+    for metric_name, minimum in DIAGNOSTIC21_NONREGRESSION_MINIMUMS.items():
+        observed = metrics.get(metric_name)
+        if (
+            type(observed) not in (int, float)
+            or not math.isfinite(float(observed))
+            or float(observed) + DIAGNOSTIC21_FLOAT_TOLERANCE < float(minimum)
+        ):
+            reasons.append("numeric_regression:%s" % metric_name)
+    return {
+        "stage": "diagnostic21",
+        "status": "PASS" if not reasons else "FAIL",
+        "required_checks": [
+            "zero_execution_failures",
+            "normal_outcomes_without_abstain_answer_leakage",
+            "abstain_result_json_present_and_public_answer_free",
+            "citation_integrity_100_percent",
+            "stage_provenance",
+            "fixed_numeric_baseline_nonregression",
+            "evaluator_success",
+        ],
+        "baseline": deepcopy(DIAGNOSTIC21_BASELINE),
+        "nonregression_minimums": dict(DIAGNOSTIC21_NONREGRESSION_MINIMUMS),
+        "reasons": sorted(set(reasons)),
+        "source_checkpoint": dict(event),
+    }
+
+
+def _finished_diagnostic21_gate(paths: Mapping[str, Path], completed: int) -> Optional[int]:
+    if completed != DIAGNOSTIC21_ENTRY_COUNT:
+        return None
+    if paths["gate"].is_file():
+        return 0 if read_json(paths["gate"]).get("status") == "PASS" else 1
+    checkpoint = read_json(paths["checkpoints"] / "checkpoint-021.json")
+    gate = diagnostic21_gate(checkpoint)
+    write_json_new(paths["gate"], gate)
+    append_progress(paths, {"event": "DIAGNOSTIC21_GATE_RECOVERED", **gate})
+    return 0 if gate["status"] == "PASS" else 1
 
 
 def smoke_gate(event: Mapping[str, Any]) -> Dict[str, Any]:
@@ -961,6 +1594,8 @@ def execute_plan(
     gpu_stable_interval_seconds: int = DEFAULT_GPU_IDLE_STABLE_INTERVAL_SECONDS,
     warm_state: Optional[Dict[str, Any]] = None,
 ) -> int:
+    if mode == DIAGNOSTIC21_MODE and skip_gpu_idle_gate:
+        raise OrchestrationError("diagnostic21 does not accept --skip-gpu-idle-gate")
     if not os.environ.get("TMUX"):
         raise OrchestrationError("execution requires a detached tmux session")
     enforce_offline_environment()
@@ -979,6 +1614,10 @@ def execute_plan(
             return finished
     if mode == "full226":
         finished = _finished_full_gate(paths, completed_before)
+        if finished is not None:
+            return finished
+    if mode == DIAGNOSTIC21_MODE:
+        finished = _finished_diagnostic21_gate(paths, completed_before)
         if finished is not None:
             return finished
     append_progress(paths, {"event": "RUN_STARTED" if not completed_before else "RUN_RESUMED", "completed_questions": completed_before, "source_snapshot": plan["source_snapshot"], "offline_environment": OFFLINE_ENVIRONMENT})
@@ -1037,6 +1676,11 @@ def execute_plan(
         write_json_new(paths["gate"], gate)
         append_progress(paths, {"event": "SMOKE_GATE", **gate})
         return 0 if gate["status"] == "PASS" else 1
+    if mode == DIAGNOSTIC21_MODE:
+        gate = diagnostic21_gate(final_checkpoint)
+        write_json_new(paths["gate"], gate)
+        append_progress(paths, {"event": "DIAGNOSTIC21_GATE", **gate})
+        return 0 if gate["status"] == "PASS" else 1
     gate = {"stage": "full226", "status": "PASS" if final_checkpoint.get("checkpoint_status") == "PASS" else "FAIL", "completed_questions": TOTAL_FULL226, "bm25_execution": "FORBIDDEN", "parser_execution": "FORBIDDEN", "lf_eval_score_injection": "FORBIDDEN", "final_checkpoint": final_checkpoint}
     write_json_new(paths["gate"], gate)
     append_progress(paths, {"event": "RUN_COMPLETED", **gate})
@@ -1058,6 +1702,62 @@ def execute_smoke_then_full(
     return execute_plan(exec_root, output_root, "full226", runtime_python, resume=resume if full_exists else False, warm_state=warm_state)
 
 
+
+def verify_diagnostic21_reranker_artifact(configuration: Mapping[str, Any], exec_root: Path) -> Dict[str, str]:
+    """CPU-only hash check for the frozen BGE reranker weights; never load the model."""
+    provenance = configuration.get("reranker_provenance")
+    if provenance != DIAGNOSTIC21_RERANKER_PROVENANCE:
+        raise OrchestrationError("diagnostic21 BGE reranker provenance mismatch")
+    model_root = _safe_relative_artifact(exec_root, provenance.get("model_path"), "reranker model_path")
+    model_weights = model_root / "model.safetensors"
+    if not model_weights.is_file():
+        raise OrchestrationError("diagnostic21 BGE model.safetensors is missing: %s" % model_weights)
+    expected = str(provenance.get("model_weights_sha256") or "")
+    if sha256(model_weights) != expected:
+        raise OrchestrationError("diagnostic21 BGE model.safetensors hash mismatch")
+    return {
+        "model_id": str(provenance["model_id"]),
+        "model_path": str(provenance["model_path"]),
+        "model_weights_sha256": expected,
+        "device": str(provenance["device"]),
+    }
+
+
+def verify_diagnostic21_skill_files(exec_root: Path) -> Dict[str, Dict[str, str]]:
+    """Hash the frozen S1/S2/S3 instructions and validators before a diagnostic run."""
+    verified: Dict[str, Dict[str, str]] = {}
+    for skill_id, expected in DIAGNOSTIC21_SKILL_FILES.items():
+        item: Dict[str, str] = {}
+        for path_key, hash_key in (("skill_path", "skill_sha256"), ("validator_path", "validator_sha256")):
+            relative = Path(str(expected[path_key]))
+            if relative.is_absolute() or ".." in relative.parts:
+                raise OrchestrationError("diagnostic21 skill artifact path is unsafe: %s" % relative)
+            artifact = exec_root / relative
+            if not artifact.is_file():
+                raise OrchestrationError("diagnostic21 skill artifact is missing: %s" % artifact)
+            observed = sha256(artifact)
+            if observed != expected[hash_key]:
+                raise OrchestrationError("diagnostic21 skill artifact hash mismatch: %s" % relative)
+            item[hash_key] = observed
+        verified[skill_id] = item
+    return verified
+
+
+def diagnostic21_preflight_details(
+    clean_source_snapshot: Mapping[str, str],
+    skill_file_hashes: Mapping[str, Mapping[str, str]],
+    reranker_provenance: Mapping[str, str],
+) -> Dict[str, Any]:
+    """Diagnostic-only preflight facts, intentionally with no idle/ETA fields."""
+    return {
+        "clean_source_snapshot": dict(clean_source_snapshot),
+        "skill_file_hashes": {key: dict(value) for key, value in skill_file_hashes.items()},
+        "reranker_provenance": dict(reranker_provenance),
+        "semantic_authority": DIAGNOSTIC21_SEMANTIC_AUTHORITY,
+        "bm25_execution": "FORBIDDEN",
+    }
+
+
 def preflight(exec_root: Path, mode: str, runtime_python: Path) -> Dict[str, Any]:
     """CPU-only file/hash preflight. It never contacts Ollama or loads KURE."""
     if not runtime_python.is_file():
@@ -1065,6 +1765,16 @@ def preflight(exec_root: Path, mode: str, runtime_python: Path) -> Dict[str, Any
     primary_path, reference_path = manifest_paths(exec_root, mode)
     primary, reference = read_json(primary_path), read_json(reference_path)
     comparison = assert_reference_is_read_only(primary, reference, primary_path, reference_path)
+    diagnostic21 = mode == DIAGNOSTIC21_MODE
+    if diagnostic21:
+        assert_diagnostic21_manifest_integrity(primary, reference)
+        skill_files = verify_diagnostic21_skill_files(exec_root)
+        reranker = verify_diagnostic21_reranker_artifact(primary["frozen_configuration"], exec_root)
+        clean_snapshot = source_snapshot_dict(exec_root)
+    else:
+        skill_files = None
+        reranker = None
+        clean_snapshot = None
     verify_kure_artifacts(primary["frozen_configuration"], exec_root)
     model = primary["frozen_configuration"].get("model_provenance")
     if not isinstance(model, Mapping):
@@ -1078,7 +1788,10 @@ def preflight(exec_root: Path, mode: str, runtime_python: Path) -> Dict[str, Any
     expected = str(model.get("sha256") or "")
     if len(expected) != 64 or sha256(blob) != expected:
         raise OrchestrationError("offline Qwen model blob hash mismatch")
-    return {"status": "PASS", "mode": mode, "runtime_python": str(runtime_python), "comparison": comparison, "offline_environment": OFFLINE_ENVIRONMENT, "model_blob": str(blob), "model_blob_sha256": expected}
+    result = {"status": "PASS", "mode": mode, "runtime_python": str(runtime_python), "comparison": comparison, "offline_environment": OFFLINE_ENVIRONMENT, "model_blob": str(blob), "model_blob_sha256": expected}
+    if diagnostic21:
+        result["diagnostic21"] = diagnostic21_preflight_details(clean_snapshot, skill_files, reranker)
+    return result
 
 
 def parse_args() -> argparse.Namespace:
@@ -1086,7 +1799,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("command", choices=("bootstrap", "run", "preflight"))
     parser.add_argument("--exec-root", type=Path, default=PROJECT_ROOT)
     parser.add_argument("--output-root", type=Path)
-    parser.add_argument("--mode", choices=("smoke", "full226", "all"), default="smoke")
+    parser.add_argument("--mode", choices=("smoke", "full226", DIAGNOSTIC21_MODE, "all"), default="smoke")
     parser.add_argument("--primary-source-manifest", type=Path)
     parser.add_argument("--reference-source-manifest", type=Path)
     parser.add_argument("--runtime-python", type=Path)
@@ -1112,15 +1825,20 @@ def main() -> int:
         return 0
     if args.output_root is None:
         raise OrchestrationError("run/preflight require --output-root")
+    if args.mode == DIAGNOSTIC21_MODE and args.skip_gpu_idle_gate:
+        raise OrchestrationError("diagnostic21 does not accept --skip-gpu-idle-gate")
     output_root = args.output_root.resolve()
     if args.command == "preflight":
         if args.mode == "all":
-            raise OrchestrationError("preflight requires smoke or full226 mode")
+            raise OrchestrationError("preflight requires smoke, full226, or diagnostic21 mode")
         print(json.dumps(preflight(exec_root, args.mode, runtime_python), ensure_ascii=False, indent=2, sort_keys=True))
         return 0
     plans = [make_plan(exec_root, output_root, name) for name in (("smoke", "full226") if args.mode == "all" else (args.mode,))]
     if args.dry_run:
-        print(json.dumps({"status": "DRY_RUN", "plans": plans, "runtime_python": str(runtime_python), "would_require_tmux": True, "gpu_idle_gate": {"smoke_only": True, "bypass_requested": args.skip_gpu_idle_gate, "utilization_max": args.gpu_utilization_max, "used_memory_mib_max": args.gpu_used_memory_mib_max, "poll_seconds": args.gpu_poll_seconds, "stable_interval_seconds": args.gpu_stable_interval_seconds, "required_stable_samples": DEFAULT_GPU_IDLE_REQUIRED_STABLE_SAMPLES}}, ensure_ascii=False, indent=2, sort_keys=True))
+        payload = {"status": "DRY_RUN", "plans": plans, "runtime_python": str(runtime_python), "would_require_tmux": True}
+        if args.mode != DIAGNOSTIC21_MODE:
+            payload["gpu_idle_gate"] = {"smoke_only": True, "bypass_requested": args.skip_gpu_idle_gate, "utilization_max": args.gpu_utilization_max, "used_memory_mib_max": args.gpu_used_memory_mib_max, "poll_seconds": args.gpu_poll_seconds, "stable_interval_seconds": args.gpu_stable_interval_seconds, "required_stable_samples": DEFAULT_GPU_IDLE_REQUIRED_STABLE_SAMPLES}
+        print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
         return 0
     if args.mode == "all":
         return execute_smoke_then_full(exec_root, output_root, runtime_python, resume=args.resume, skip_gpu_idle_gate=args.skip_gpu_idle_gate, gpu_utilization_max=args.gpu_utilization_max, gpu_used_memory_mib_max=args.gpu_used_memory_mib_max, gpu_poll_seconds=args.gpu_poll_seconds, gpu_stable_interval_seconds=args.gpu_stable_interval_seconds)

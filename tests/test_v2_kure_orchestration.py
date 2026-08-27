@@ -402,6 +402,10 @@ class NewV2RunnerSafetyTests(unittest.TestCase):
                 event = orchestration.evaluate_checkpoint(root, paths, plan, [attempt], 20, Path("/runtime/python"))
             self.assertEqual(event["checkpoint_status"], "PASS")
             self.assertEqual(event["remaining_eta_seconds"], 206.0)
+            self.assertNotIn("diagnostic21_checkpoint_role", event)
+            self.assertNotIn("public_abstain_leak_question_ids", event)
+            self.assertNotIn("public_abstain_missing_result_question_ids", event)
+            self.assertNotIn("public_abstain_invalid_result_question_ids", event)
             self.assertTrue((paths["checkpoints"] / "checkpoint-020.json").is_file())
 
 

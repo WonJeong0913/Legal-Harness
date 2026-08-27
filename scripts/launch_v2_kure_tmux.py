@@ -28,7 +28,13 @@ def log_path(output_root: Path, mode: str) -> Path:
     return output_root.parent / "tmux" / (session_name(output_root, mode) + ".log")
 
 
+def assert_mode_flags(mode: str, skip_gpu_idle_gate: bool) -> None:
+    if mode == "diagnostic21" and skip_gpu_idle_gate:
+        raise LaunchError("diagnostic21 does not accept --skip-gpu-idle-gate")
+
+
 def build_tmux_command(exec_root: Path, output_root: Path, mode: str, resume: bool, skip_gpu_idle_gate: bool = False) -> List[str]:
+    assert_mode_flags(mode, skip_gpu_idle_gate)
     session = session_name(output_root, mode)
     runtime_python = exec_root / ".venv/bin/python"
     runner = exec_root / "scripts/v2_kure_orchestration.py"
@@ -71,7 +77,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--exec-root", type=Path, required=True)
     parser.add_argument("--output-root", type=Path, required=True)
-    parser.add_argument("--mode", choices=("smoke", "full226", "all"), required=True)
+    parser.add_argument("--mode", choices=("smoke", "full226", "diagnostic21", "all"), required=True)
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--skip-gpu-idle-gate", action="store_true", help="explicitly bypass only the initial smoke GPU idle gate")
@@ -80,6 +86,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    assert_mode_flags(args.mode, args.skip_gpu_idle_gate)
     exec_root, output_root = args.exec_root.resolve(), args.output_root.resolve()
     assert_launchable(exec_root, output_root, args.mode, args.resume)
     command = build_tmux_command(exec_root, output_root, args.mode, args.resume, args.skip_gpu_idle_gate)
