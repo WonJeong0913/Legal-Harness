@@ -48,7 +48,11 @@ DEFAULT_SKILL_MAX_TOKENS = {
 DEFAULT_S1_TRUNCATION_RETRY_MAX_TOKENS = 8192
 RESPONSE_TAIL_CHARACTERS = 512
 PUBLIC_ANSWER_MAX_CHARACTERS = 800
-PUBLIC_ANSWER_MAX_CLAIMS = 3
+# This is a bounded presentation budget, not a fallback authorization to
+# expose every audit claim. The approved public-answer shape permits up to
+# four concise conclusion claims/sentences while the model retains the full
+# cited audit record separately.
+PUBLIC_ANSWER_MAX_CLAIMS = 4
 
 PROMPT_RUN_ID_PLACEHOLDER = "__HARNESS_RUN_ID__"
 
@@ -68,7 +72,10 @@ S3_PUBLIC_LEGAL_CONCLUSION_INVARIANT = (
     "as application. "
     "Any claim for an answered target with claim_type=exception and "
     "applicability=conditional must be a citation-supported "
-    "public_role=conclusion claim, not audit-only."
+    "public_role=conclusion claim, not audit-only, unless it is a duplicate "
+    "whose normalized full text appears in one public conclusion whose target "
+    "and cited-provision sets contain all of the exception target IDs and "
+    "provision IDs."
 )
 S2_COMPACT_AUDIT_INVARIANT = (
     "For raw S2 transport omit link_id, [FULL_TEXT], assessment-level linked "
@@ -221,6 +228,8 @@ class LocalOllamaSkillExecutor:
         repair_note = ""
         max_tokens = self._max_tokens(skill_name)
         previous_invalid_s3_public_role_hash: Optional[str] = None
+        s3_carry_forward_obligations: List[Dict[str, Any]] = []
+        s3_carry_forward_obligations_initialized = False
         initial_plan_effect_neutrality_retry_used = False
         for attempt in range(1, self.max_attempts + 1):
             prompt = self._prompt(skill_name, entry_point, skill_input, repair_note)
@@ -257,6 +266,18 @@ class LocalOllamaSkillExecutor:
                 if deterministic_repairs:
                     diagnostic["deterministic_repairs"] = deterministic_repairs
                 validation_errors = self._validators[skill_name](skill_output, skill_input)
+                s3_carry_forward_failures = self._s3_carry_forward_failures(
+                    skill_name, skill_output, skill_input, s3_carry_forward_obligations
+                )
+                if s3_carry_forward_failures:
+                    validation_errors += [
+                        "conditional exception carry-forward obligation is not publicly covered: %d"
+                        % (index + 1)
+                        for index in range(len(s3_carry_forward_failures))
+                    ]
+                    diagnostic["s3_conditional_exception_carry_forward_failures"] = (
+                        s3_carry_forward_failures
+                    )
                 scope_mismatches = self._semantic_scope_mismatches(
                     skill_name, skill_output, skill_input
                 )
@@ -420,8 +441,22 @@ class LocalOllamaSkillExecutor:
                     )
                     if public_role_diagnostic is not None:
                         diagnostic["s3_public_role_contract"] = public_role_diagnostic
+                        if not s3_carry_forward_obligations_initialized:
+                            s3_carry_forward_obligations = (
+                                self._s3_initial_audit_conditional_exception_obligations(
+                                    skill_output, skill_input
+                                )
+                            )
+                            s3_carry_forward_obligations_initialized = True
+                        if s3_carry_forward_obligations:
+                            diagnostic[
+                                "s3_conditional_exception_carry_forward_obligations"
+                            ] = copy.deepcopy(s3_carry_forward_obligations)
                         repair_instruction += self._s3_public_role_repair_instruction(
                             public_role_diagnostic
+                        )
+                        repair_instruction += self._s3_carry_forward_repair_instruction(
+                            s3_carry_forward_obligations
                         )
                         response_hash = diagnostic.get("response_sha256")
                         if (
@@ -537,12 +572,15 @@ class LocalOllamaSkillExecutor:
             != "required"
             or not any(
                 "public conclusion contract" in error
-                or "public answer must contain 1 to 3 short lines" in error
+                or error.startswith("public answer must contain")
                 or error.startswith(
                     "legal-conclusion answer target lacks a public application claim:"
                 )
                 or error.startswith(
                     "conditional exception for answered target must be a public conclusion:"
+                )
+                or error.startswith(
+                    "conditional exception carry-forward obligation is not publicly covered:"
                 )
                 for error in validation_errors
             )
@@ -598,6 +636,15 @@ class LocalOllamaSkillExecutor:
             "claims_missing_valid_public_role": missing_role_claim_ids,
         }
         if skill_input.get("mode") == "GENERATE_ANSWER":
+            citations_by_claim: Dict[str, List[Mapping[str, Any]]] = {}
+            raw_citations = output.get("claim_citations", [])
+            if isinstance(raw_citations, list):
+                for citation in raw_citations:
+                    if not isinstance(citation, Mapping):
+                        continue
+                    claim_id = citation.get("claim_id")
+                    if isinstance(claim_id, str):
+                        citations_by_claim.setdefault(claim_id, []).append(citation)
             missing_application_target_id = (
                 LocalOllamaSkillExecutor._s3_composite_single_target_application_target_id(
                     skill_input, claims, output.get("claim_citations", [])
@@ -607,8 +654,8 @@ class LocalOllamaSkillExecutor:
                 diagnostic["missing_application_target_ids"] = [
                     missing_application_target_id
                 ]
-            diagnostic["audit_only_conditional_exception_claim_ids"] = [
-                claim.get("claim_id")
+            audit_conditional_exception_claims = [
+                claim
                 for claim in claims
                 if isinstance(claim, Mapping)
                 and claim.get("claim_type") == "exception"
@@ -617,7 +664,265 @@ class LocalOllamaSkillExecutor:
                 and any(target_id in answered_target_ids for target_id in claim_target_ids(claim))
                 and isinstance(claim.get("claim_id"), str)
             ]
+            diagnostic["audit_only_conditional_exception_claim_ids"] = [
+                claim.get("claim_id")
+                for claim in audit_conditional_exception_claims
+                if not LocalOllamaSkillExecutor._s3_audit_conditional_exception_is_publicly_covered(
+                    claim, public_claims, citations_by_claim
+                )
+            ]
+            diagnostic[
+                "publicly_covered_audit_conditional_exception_claim_ids"
+            ] = [
+                claim.get("claim_id")
+                for claim in audit_conditional_exception_claims
+                if LocalOllamaSkillExecutor._s3_audit_conditional_exception_is_publicly_covered(
+                    claim, public_claims, citations_by_claim
+                )
+            ]
         return diagnostic
+
+    @staticmethod
+    def _s3_normalized_claim_text(value: Any) -> str:
+        """Normalize text only for literal public-coverage comparison."""
+        if not isinstance(value, str):
+            return ""
+        return re.sub(r"\s+", " ", unicodedata.normalize("NFKC", value).casefold()).strip()
+
+    @staticmethod
+    def _s3_audit_conditional_exception_is_publicly_covered(
+        audit_exception: Mapping[str, Any],
+        public_claims: Sequence[Mapping[str, Any]],
+        citations_by_claim: Mapping[str, Sequence[Mapping[str, Any]]],
+    ) -> bool:
+        """Allow only a literal duplicate with complete target and provision coverage.
+
+        An audit-role conditional exception is normally unsafe because it is
+        omitted from the public answer. This narrow equivalence accepts it
+        only when one public conclusion visibly contains the exact legal
+        condition and includes every exception target and cited provision.
+        It does not infer semantic equivalence or synthesize legal content.
+        """
+        exception_id = audit_exception.get("claim_id")
+        exception_text = LocalOllamaSkillExecutor._s3_normalized_claim_text(
+            audit_exception.get("text")
+        )
+        exception_targets = {
+            target_id
+            for target_id in audit_exception.get("answer_target_ids", [])
+            if isinstance(target_id, str)
+        }
+        exception_provisions = {
+            citation.get("provision_id")
+            for citation in citations_by_claim.get(exception_id, [])
+            if isinstance(citation, Mapping)
+            and isinstance(citation.get("provision_id"), str)
+        }
+        if not exception_text or not exception_targets or not exception_provisions:
+            return False
+        for public_claim in public_claims:
+            public_id = public_claim.get("claim_id")
+            public_text = LocalOllamaSkillExecutor._s3_normalized_claim_text(
+                public_claim.get("text")
+            )
+            public_targets = {
+                target_id
+                for target_id in public_claim.get("answer_target_ids", [])
+                if isinstance(target_id, str)
+            }
+            public_provisions = {
+                citation.get("provision_id")
+                for citation in citations_by_claim.get(public_id, [])
+                if isinstance(citation, Mapping)
+                and isinstance(citation.get("provision_id"), str)
+            }
+            if (
+                exception_text in public_text
+                and exception_targets.issubset(public_targets)
+                and exception_provisions.issubset(public_provisions)
+            ):
+                return True
+        return False
+
+    @staticmethod
+    def _s3_citations_by_claim(citations: Any) -> Dict[str, List[Mapping[str, Any]]]:
+        citations_by_claim: Dict[str, List[Mapping[str, Any]]] = {}
+        if not isinstance(citations, list):
+            return citations_by_claim
+        for citation in citations:
+            if not isinstance(citation, Mapping):
+                continue
+            claim_id = citation.get("claim_id")
+            if isinstance(claim_id, str):
+                citations_by_claim.setdefault(claim_id, []).append(citation)
+        return citations_by_claim
+
+    @staticmethod
+    def _s3_conditional_exception_obligation(
+        claim: Mapping[str, Any],
+        citations_by_claim: Mapping[str, Sequence[Mapping[str, Any]]],
+    ) -> Optional[Dict[str, Any]]:
+        """Snapshot one hidden exception as harness-owned retry evidence."""
+        claim_id = claim.get("claim_id")
+        normalized_text = LocalOllamaSkillExecutor._s3_normalized_claim_text(
+            claim.get("text")
+        )
+        target_ids = sorted(
+            {
+                target_id
+                for target_id in claim.get("answer_target_ids", [])
+                if isinstance(target_id, str)
+            }
+        )
+        provision_ids = sorted(
+            {
+                citation.get("provision_id")
+                for citation in citations_by_claim.get(claim_id, [])
+                if isinstance(citation, Mapping)
+                and isinstance(citation.get("provision_id"), str)
+            }
+        )
+        if not normalized_text or not target_ids or not provision_ids:
+            return None
+        return {
+            "source_claim_id": claim_id if isinstance(claim_id, str) else None,
+            "normalized_text": normalized_text,
+            "answer_target_ids": target_ids,
+            "provision_ids": provision_ids,
+        }
+
+    @staticmethod
+    def _s3_public_conclusion_covers_obligation(
+        obligation: Mapping[str, Any],
+        public_claims: Sequence[Mapping[str, Any]],
+        citations_by_claim: Mapping[str, Sequence[Mapping[str, Any]]],
+    ) -> bool:
+        """Require one visible conclusion to satisfy every obligation field."""
+        normalized_text = obligation.get("normalized_text")
+        target_ids = obligation.get("answer_target_ids")
+        provision_ids = obligation.get("provision_ids")
+        if (
+            not isinstance(normalized_text, str)
+            or not normalized_text
+            or not isinstance(target_ids, list)
+            or not target_ids
+            or not isinstance(provision_ids, list)
+            or not provision_ids
+            or not all(isinstance(value, str) and value for value in target_ids)
+            or not all(isinstance(value, str) and value for value in provision_ids)
+        ):
+            return False
+        required_targets = set(target_ids)
+        required_provisions = set(provision_ids)
+        for public_claim in public_claims:
+            public_id = public_claim.get("claim_id")
+            public_text = LocalOllamaSkillExecutor._s3_normalized_claim_text(
+                public_claim.get("text")
+            )
+            public_targets = {
+                target_id
+                for target_id in public_claim.get("answer_target_ids", [])
+                if isinstance(target_id, str)
+            }
+            public_provisions = {
+                citation.get("provision_id")
+                for citation in citations_by_claim.get(public_id, [])
+                if isinstance(citation, Mapping)
+                and isinstance(citation.get("provision_id"), str)
+            }
+            if (
+                normalized_text in public_text
+                and required_targets.issubset(public_targets)
+                and required_provisions.issubset(public_provisions)
+            ):
+                return True
+        return False
+
+    @staticmethod
+    def _s3_initial_audit_conditional_exception_obligations(
+        output: Mapping[str, Any], skill_input: Mapping[str, Any]
+    ) -> List[Dict[str, Any]]:
+        """Collect initially hidden, conditional audit exceptions for retries."""
+        claims = output.get("claims")
+        if not isinstance(claims, list):
+            return []
+        answered_target_ids = {
+            target_id
+            for target_id in skill_input.get("answered_target_ids", [])
+            if isinstance(target_id, str)
+        }
+        citations_by_claim = LocalOllamaSkillExecutor._s3_citations_by_claim(
+            output.get("claim_citations", [])
+        )
+        public_claims = [
+            claim
+            for claim in claims
+            if isinstance(claim, Mapping)
+            and claim.get("public_role") == "conclusion"
+        ]
+        obligations = []
+        for claim in claims:
+            if (
+                not isinstance(claim, Mapping)
+                or claim.get("claim_type") != "exception"
+                or claim.get("applicability") != "conditional"
+                or claim.get("public_role") != "audit"
+                or not answered_target_ids.intersection(
+                    {
+                        target_id
+                        for target_id in claim.get("answer_target_ids", [])
+                        if isinstance(target_id, str)
+                    }
+                )
+            ):
+                continue
+            if LocalOllamaSkillExecutor._s3_audit_conditional_exception_is_publicly_covered(
+                claim, public_claims, citations_by_claim
+            ):
+                continue
+            obligation = LocalOllamaSkillExecutor._s3_conditional_exception_obligation(
+                claim, citations_by_claim
+            )
+            if obligation is not None:
+                obligations.append(obligation)
+        return obligations
+
+    @staticmethod
+    def _s3_carry_forward_failures(
+        skill_name: str,
+        output: Mapping[str, Any],
+        skill_input: Mapping[str, Any],
+        obligations: Sequence[Mapping[str, Any]],
+    ) -> List[Dict[str, Any]]:
+        """Fail closed when a retry omits an initially hidden exception."""
+        if (
+            skill_name != "grounded_legal_answer_generation"
+            or skill_input.get("mode") != "GENERATE_ANSWER"
+            or skill_input.get("generation_constraints", {}).get(
+                "public_conclusion_contract"
+            )
+            != "required"
+            or not obligations
+        ):
+            return []
+        claims = output.get("claims")
+        claims = claims if isinstance(claims, list) else []
+        public_claims = [
+            claim
+            for claim in claims
+            if isinstance(claim, Mapping)
+            and claim.get("public_role") == "conclusion"
+        ]
+        citations_by_claim = LocalOllamaSkillExecutor._s3_citations_by_claim(
+            output.get("claim_citations", [])
+        )
+        return [
+            dict(obligation)
+            for obligation in obligations
+            if not LocalOllamaSkillExecutor._s3_public_conclusion_covers_obligation(
+                obligation, public_claims, citations_by_claim
+            )
+        ]
 
     @staticmethod
     def _s3_composite_single_target_application_target_id(
@@ -712,19 +1017,46 @@ class LocalOllamaSkillExecutor:
         if diagnostic.get("audit_only_conditional_exception_claim_ids"):
             role_repairs += (
                 " For every audit_only_conditional_exception_claim_ids entry, "
-                "retain its citation and make the conditional exception a public "
-                "conclusion."
+                "make its condition visible in a citation-supported public "
+                "conclusion with all of its targets and cited provisions; otherwise make "
+                "the conditional exception itself a public conclusion."
             )
         return (
             " PUBLIC-CONCLUSION ROLE REPAIR (harness-measured, not an output "
             "field): %s. Every claims[] item must declare public_role. Set "
-            "public_role=conclusion on exactly 1 to 3 claims whose union covers "
+            "public_role=conclusion on 1 to 4 claims whose union covers "
             "every answered_target_id; set every remaining claim's public_role "
-            "to audit. If multiple supported facts are needed for one target, "
-            "write one concise conclusion claim for that target with all needed "
-            "claim_citations and retain supporting detail as audit claims.%s Do not "
-            "drop a claim, citation, assumption, limitation, or answered target."
+            "to audit. The prior JSON is source material, not an immutable "
+            "claim-object template: when the public budget would otherwise be "
+            "exceeded, consolidate related same-target rules, applications, and "
+            "conditions into a concise citation-supported replacement conclusion. "
+            "The replacement must retain every material legal outcome, conditional "
+            "exception, and provision support; never hide a condition by merely "
+            "moving it to audit. Use the 2 to 4 sentence public presentation "
+            "budget across no more than four conclusion claims.%s Preserve all "
+            "assumptions, limitations, and answered targets."
             % (serialized, role_repairs)
+        )
+
+    @staticmethod
+    def _s3_carry_forward_repair_instruction(
+        obligations: Sequence[Mapping[str, Any]],
+    ) -> str:
+        """Return a non-rewriting retry obligation for prior hidden exceptions."""
+        if not obligations:
+            return ""
+        serialized = json.dumps(
+            list(obligations), ensure_ascii=False, separators=(",", ":")
+        )
+        return (
+            " CONDITIONAL-EXCEPTION CARRY-FORWARD (harness-measured, not an "
+            "output field): %s. For every listed obligation, one "
+            "public_role=conclusion claim must visibly contain the complete "
+            "condition text and include all listed answer_target_ids and cited "
+            "provision_ids. You may consolidate or remove the prior audit claim "
+            "object, but must not omit, weaken, or split this condition across "
+            "different public conclusions; do not rely on its original claim ID."
+            % serialized
         )
 
     @staticmethod
@@ -737,6 +1069,9 @@ class LocalOllamaSkillExecutor:
             skill_name != "provision_coverage_assessment"
             or not any(
                 error.startswith("partially_covered consistency failure:")
+                or error.startswith(
+                    "conditional exception carry-forward obligation is not publicly covered:"
+                )
                 for error in validation_errors
             )
         ):
@@ -755,6 +1090,9 @@ class LocalOllamaSkillExecutor:
             or entry_point != "INITIAL_PLAN"
             or not any(
                 error.startswith(INITIAL_PLAN_EFFECT_NEUTRALITY_ERROR_PREFIX)
+                or error.startswith(
+                    "conditional exception carry-forward obligation is not publicly covered:"
+                )
                 for error in validation_errors
             )
         ):
@@ -2678,13 +3016,13 @@ FINAL OUTPUT INVARIANTS:
                 if skill_input.get("candidate_answer_basis") == "question_only":
                     return (
                         "This is a non-publishable question-only benchmark candidate because retrieval returned no candidate provisions. "
-                        "The harness policy remains ABSTAIN. Return a conclusion-first benchmark answer in 1 to 3 short sentences and no more than 800 characters. "
+                        "The harness policy remains ABSTAIN. Return a conclusion-first benchmark answer in 2 to 4 short sentences and no more than 800 characters. "
                         "Do not add abstention or audit boilerplate, claims, citations, or citation markers; do not present it as authorized, supported, or publishable."
                     )
                 return (
                     "This is a non-publishable benchmark candidate. The harness policy remains ABSTAIN. "
                     "Use only candidate provision IDs supplied in INPUT; they are retrieved evidence, not accepted evidence. "
-                    "Give a conclusion-first benchmark answer in 1 to 3 short sentences and no more than 800 characters, with no abstention or audit boilerplate. "
+                    "Give a conclusion-first benchmark answer in 2 to 4 short sentences and no more than 800 characters, with no abstention or audit boilerplate. "
                     "Answer every supplied target, cite every substantive claim, preserve all audit arrays, and do not state that the candidate is authorized or publishable."
                     + " "
                     + S3_COMPACT_TRANSPORT_INVARIANT
@@ -2712,7 +3050,7 @@ FINAL OUTPUT INVARIANTS:
                     "limitations array that states each unresolved condition. Every claims[] item must set citation_required "
                     "true and have at least one claim_citation. Keep uncited missing-fact and limitation prose out of claims[]; "
                     "put it in assumptions[] or limitations[]. Preserve all audit claims, citations, assumptions, and limitations, but do not append them all to the public answer. "
-                    "The public answer must put the conclusion first, use 1 to 3 short sentences and no more than 800 characters, and repeat only an outcome-changing unresolved condition with the minimum statutory basis."
+                    "The public answer must put the conclusion first, normally use 2 to 4 short sentences and no more than 800 characters, and repeat only an outcome-changing unresolved condition with the minimum statutory basis."
                     % (
                         answer_mode,
                         json.dumps(answered_target_ids),
@@ -2726,7 +3064,7 @@ FINAL OUTPUT INVARIANTS:
                 )
             return (
                 "Use only accepted provision IDs supplied in INPUT. Conclusion claims may cite only core_accepted_provisions; supplemental, qualifying, and alternative provisions may be cited only by public_role=audit claims. Answer mode is %s; substantive claims may name only answered target IDs %s and must not name deferred target IDs %s. Every claims[] item must set citation_required true and have at least one claim_citation; keep uncited factual or limitation prose in assumptions[] or limitations[]. "
-                "Preserve every audit field, but make the public answer conclusion-first, 1 to 3 short sentences, no more than 800 characters, and include only an outcome-changing condition and the minimum statutory basis; do not append all audit claims or notes."
+                "Preserve every audit field, but make the public answer conclusion-first, normally 2 to 4 short sentences, no more than 800 characters, and include only an outcome-changing condition and the minimum statutory basis; do not append all audit claims or notes."
                 % (answer_mode, json.dumps(answered_target_ids), json.dumps(deferred_target_ids))
                 + " "
                 + S3_COMPACT_TRANSPORT_INVARIANT

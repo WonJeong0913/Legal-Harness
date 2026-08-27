@@ -179,6 +179,33 @@ def multi_target_application_output(roles):
     )
 
 
+def five_public_qa460_shape(roles):
+    return raw_output(
+        [
+            ("T1", "첫 대상의 절차 규칙입니다.", roles[0], "legal_rule", "P1"),
+            ("T1", "첫 대상의 일반 효력 규칙입니다.", roles[1], "legal_rule", "P1"),
+            ("T1", "첫 대상에는 위 효력이 적용됩니다.", roles[2], "application", "P1"),
+            ("T2", "둘째 대상의 추인 규칙입니다.", roles[3], "legal_rule", "P2"),
+            ("T2", "둘째 대상에는 소급효가 적용됩니다.", roles[4], "application", "P2"),
+        ]
+    )
+
+
+def qa430_hidden_family_exception_output():
+    output = raw_output(
+        [
+            ("T1", "첫 대상의 직접 결론입니다.", "conclusion", "legal_rule", "P1"),
+            ("T1", "첫 대상의 공개 조건입니다.", "conclusion", "exception", "P1"),
+            ("T2", "둘째 대상의 직접 결론입니다.", "conclusion", "legal_rule", "P2"),
+            ("T2", "둘째 대상의 공개 조건입니다.", "conclusion", "exception", "P2"),
+            ("T1", "공개 결론에 없는 별도 가족 예외입니다.", "audit", "exception", "P1"),
+        ]
+    )
+    for index in (1, 3, 4):
+        output["claims"][index]["applicability"] = "conditional"
+    return output
+
+
 class S3PublicRoleRetryTests(unittest.TestCase):
     def test_composite_single_target_multi_rule_retries_as_application(self):
         invalid = composite_invalid_output()
@@ -252,10 +279,35 @@ class S3PublicRoleRetryTests(unittest.TestCase):
             str(raised.exception),
         )
 
-    def test_field_level_public_role_diagnostic_is_injected_into_retry(self):
-        invalid = multi_target_application_output(["conclusion"] * 4)
-        corrected = multi_target_application_output(
-            ["conclusion", "audit", "conclusion", "audit"]
+    def test_four_public_conclusions_are_valid_under_bounded_contract(self):
+        valid = multi_target_application_output(["conclusion"] * 4)
+        prompts, diagnostics = [], []
+
+        def generator(prompt):
+            prompts.append(prompt)
+            return json.dumps(valid, ensure_ascii=False)
+
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture-model", max_attempts=2,
+            generator=generator, diagnostic_sink=diagnostics.append,
+        )
+
+        result = executor.execute(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", multi_target_payload()
+        )
+
+        self.assertEqual(len(prompts), 1)
+        self.assertNotIn("s3_public_role_contract", diagnostics[0])
+        self.assertEqual(
+            len([claim for claim in result["claims"] if claim["public_role"] == "conclusion"]),
+            4,
+        )
+        self.assertEqual(result["answer"].count("\n"), 3)
+
+    def test_qa460_five_public_conclusions_retry_to_four(self):
+        invalid = five_public_qa460_shape(["conclusion"] * 5)
+        corrected = five_public_qa460_shape(
+            ["conclusion", "audit", "conclusion", "conclusion", "conclusion"]
         )
         prompts, diagnostics = [], []
 
@@ -276,21 +328,19 @@ class S3PublicRoleRetryTests(unittest.TestCase):
 
         self.assertEqual(len(prompts), 2)
         self.assertIn("PUBLIC-CONCLUSION ROLE REPAIR", prompts[1])
-        self.assertIn('"public_conclusion_count":4', prompts[1])
-        self.assertIn('"public_line_count":4', prompts[1])
-        self.assertIn('"T1":["C1","C2"]', prompts[1])
-        self.assertIn('"T2":["C3","C4"]', prompts[1])
-        self.assertNotIn("missing_application_target_ids", prompts[1])
+        self.assertIn("public_conclusion_count", prompts[1])
+        self.assertIn("1 to 4 claims", prompts[1])
         self.assertEqual(
-            diagnostics[0]["s3_public_role_contract"]["public_conclusion_count"], 4
+            diagnostics[0]["s3_public_role_contract"]["public_conclusion_count"], 5
         )
         self.assertEqual(
-            diagnostics[0]["s3_public_role_contract"]["public_line_count"], 4
+            len([claim for claim in result["claims"] if claim["public_role"] == "conclusion"]),
+            4,
         )
-        self.assertEqual(result["answer"].count("\n"), 1)
+        self.assertEqual(result["answer"].count("\n"), 3)
 
     def test_identical_invalid_public_role_hash_stops_before_extra_attempt(self):
-        invalid = multi_target_application_output(["conclusion"] * 4)
+        invalid = five_public_qa460_shape(["conclusion"] * 5)
         prompts, diagnostics = [], []
 
         def generator(prompt):
@@ -371,6 +421,237 @@ class S3PublicRoleRetryTests(unittest.TestCase):
         self.assertNotIn("s3_public_role_contract", diagnostics[0])
         self.assertEqual(result["claims"][0]["claim_type"], "legal_rule")
 
+    def test_qa435_duplicate_audit_exception_is_accepted_only_when_visible(self):
+        output = raw_output(
+            [
+                ("T1", "기본 결론입니다. 조건부 예외입니다.", "conclusion", "legal_rule", "P1"),
+                ("T1", "조건부 예외입니다.", "audit", "exception", "P1"),
+                ("T2", "둘째 대상의 법적 기준입니다.", "conclusion", "legal_rule", "P2"),
+                ("T2", "둘째 대상의 보조 근거입니다.", "audit", "legal_rule", "P2"),
+            ]
+        )
+        output["claims"][1]["applicability"] = "conditional"
+        prompts, diagnostics = [], []
+
+        def generator(prompt):
+            prompts.append(prompt)
+            return json.dumps(output, ensure_ascii=False)
+
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture-model", max_attempts=2,
+            generator=generator, diagnostic_sink=diagnostics.append,
+        )
+
+        result = executor.execute(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", multi_target_payload()
+        )
+
+        self.assertEqual(len(prompts), 1)
+        self.assertNotIn("s3_public_role_contract", diagnostics[0])
+        self.assertEqual(result["claims"][1]["public_role"], "audit")
+        self.assertIn("조건부 예외입니다.", result["answer"])
+
+    def test_audit_exception_with_partial_public_target_coverage_fails_closed(self):
+        output = raw_output(
+            [
+                ("T1", "기본 결론입니다. 공동 조건부 예외입니다.", "conclusion", "legal_rule", "P1"),
+                ("T1", "공동 조건부 예외입니다.", "audit", "exception", "P1"),
+                ("T2", "둘째 대상의 법적 기준입니다.", "conclusion", "legal_rule", "P2"),
+            ]
+        )
+        output["claims"][1]["applicability"] = "conditional"
+        output["claims"][1]["answer_target_ids"] = ["T1", "T2"]
+        prompts, diagnostics = [], []
+
+        def generator(prompt):
+            prompts.append(prompt)
+            return json.dumps(output, ensure_ascii=False)
+
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture-model", max_attempts=2,
+            generator=generator, diagnostic_sink=diagnostics.append,
+        )
+
+        with self.assertRaises(SkillExecutionError) as raised:
+            executor.execute(
+                "grounded_legal_answer_generation", "GENERATE_ANSWER", multi_target_payload()
+            )
+
+        self.assertEqual(len(prompts), 2)
+        self.assertEqual(
+            diagnostics[0]["s3_public_role_contract"][
+                "audit_only_conditional_exception_claim_ids"
+            ],
+            ["C2"],
+        )
+        self.assertIn(
+            "conditional exception for answered target must be a public conclusion: C2",
+            str(raised.exception),
+        )
+
+    def test_audit_exception_with_partial_public_provision_coverage_fails_closed(self):
+        output = raw_output(
+            [
+                ("T1", "기본 결론입니다. 복수 근거 조건부 예외입니다.", "conclusion", "legal_rule", "P1"),
+                ("T1", "복수 근거 조건부 예외입니다.", "audit", "exception", "P1"),
+                ("T2", "둘째 대상의 법적 기준입니다.", "conclusion", "legal_rule", "P2"),
+            ]
+        )
+        output["claims"][1]["applicability"] = "conditional"
+        output["claim_citations"].append(
+            {
+                "claim_id": "draft-2",
+                "provision_id": "P2",
+                "support_description": "추가 공급 법적 근거",
+            }
+        )
+        prompts, diagnostics = [], []
+
+        def generator(prompt):
+            prompts.append(prompt)
+            return json.dumps(output, ensure_ascii=False)
+
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture-model", max_attempts=2,
+            generator=generator, diagnostic_sink=diagnostics.append,
+        )
+
+        with self.assertRaises(SkillExecutionError) as raised:
+            executor.execute(
+                "grounded_legal_answer_generation", "GENERATE_ANSWER", multi_target_payload()
+            )
+
+        self.assertEqual(len(prompts), 2)
+        self.assertEqual(
+            diagnostics[0]["s3_public_role_contract"][
+                "audit_only_conditional_exception_claim_ids"
+            ],
+            ["C2"],
+        )
+        self.assertIn(
+            "conditional exception for answered target must be a public conclusion: C2",
+            str(raised.exception),
+        )
+
+    def test_retry_cannot_silently_drop_first_invalid_audit_exception(self):
+        initial_invalid = qa430_hidden_family_exception_output()
+        silently_dropped = copy.deepcopy(initial_invalid)
+        silently_dropped["claims"] = silently_dropped["claims"][:4]
+        silently_dropped["claim_citations"] = silently_dropped["claim_citations"][:4]
+        prompts, diagnostics = [], []
+
+        def generator(prompt):
+            prompts.append(prompt)
+            return json.dumps(
+                initial_invalid if len(prompts) == 1 else silently_dropped,
+                ensure_ascii=False,
+            )
+
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture-model", max_attempts=2,
+            generator=generator, diagnostic_sink=diagnostics.append,
+        )
+
+        with self.assertRaises(SkillExecutionError) as raised:
+            executor.execute(
+                "grounded_legal_answer_generation", "GENERATE_ANSWER", multi_target_payload()
+            )
+
+        expected_obligation = {
+            "source_claim_id": "C5",
+            "normalized_text": "공개 결론에 없는 별도 가족 예외입니다.",
+            "answer_target_ids": ["T1"],
+            "provision_ids": ["P1"],
+        }
+        self.assertEqual(len(prompts), 2)
+        self.assertEqual(
+            diagnostics[0]["s3_conditional_exception_carry_forward_obligations"],
+            [expected_obligation],
+        )
+        self.assertEqual(
+            diagnostics[1]["s3_conditional_exception_carry_forward_failures"],
+            [expected_obligation],
+        )
+        self.assertIn("CONDITIONAL-EXCEPTION CARRY-FORWARD", prompts[1])
+        self.assertIn(
+            "conditional exception carry-forward obligation is not publicly covered",
+            str(raised.exception),
+        )
+
+    def test_retry_accepts_consolidated_first_invalid_audit_exception(self):
+        initial_invalid = qa430_hidden_family_exception_output()
+        consolidated = copy.deepcopy(initial_invalid)
+        consolidated["claims"][0]["text"] += " " + consolidated["claims"][4]["text"]
+        consolidated["claims"] = consolidated["claims"][:4]
+        consolidated["claim_citations"] = consolidated["claim_citations"][:4]
+        prompts, diagnostics = [], []
+
+        def generator(prompt):
+            prompts.append(prompt)
+            return json.dumps(
+                initial_invalid if len(prompts) == 1 else consolidated,
+                ensure_ascii=False,
+            )
+
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture-model", max_attempts=2,
+            generator=generator, diagnostic_sink=diagnostics.append,
+        )
+
+        result = executor.execute(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", multi_target_payload()
+        )
+
+        self.assertEqual(len(prompts), 2)
+        self.assertIn(
+            "s3_conditional_exception_carry_forward_obligations", diagnostics[0]
+        )
+        self.assertNotIn(
+            "s3_conditional_exception_carry_forward_failures", diagnostics[1]
+        )
+        self.assertIn("공개 결론에 없는 별도 가족 예외입니다.", result["answer"])
+        self.assertEqual(
+            len([claim for claim in result["claims"] if claim["public_role"] == "conclusion"]),
+            4,
+        )
+
+    def test_qa430_hidden_audit_exception_remains_invalid(self):
+        invalid = raw_output(
+            [
+                ("T1", "첫 대상의 직접 결론입니다.", "conclusion", "legal_rule", "P1"),
+                ("T1", "첫 대상의 공개 조건입니다.", "conclusion", "exception", "P1"),
+                ("T2", "둘째 대상의 직접 결론입니다.", "conclusion", "legal_rule", "P2"),
+                ("T2", "둘째 대상의 공개 조건입니다.", "conclusion", "exception", "P2"),
+                ("T1", "공개 결론에 없는 별도 가족 예외입니다.", "audit", "exception", "P1"),
+            ]
+        )
+        for index in (1, 3, 4):
+            invalid["claims"][index]["applicability"] = "conditional"
+        prompts, diagnostics = [], []
+
+        def generator(prompt):
+            prompts.append(prompt)
+            return json.dumps(invalid, ensure_ascii=False)
+
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture-model", max_attempts=3,
+            generator=generator, diagnostic_sink=diagnostics.append,
+        )
+
+        with self.assertRaises(SkillExecutionError):
+            executor.execute(
+                "grounded_legal_answer_generation", "GENERATE_ANSWER", multi_target_payload()
+            )
+
+        self.assertEqual(len(prompts), 2)
+        self.assertEqual(
+            diagnostics[0]["s3_public_role_contract"][
+                "audit_only_conditional_exception_claim_ids"
+            ],
+            ["C5"],
+        )
+        self.assertIn("not an immutable claim-object template", prompts[1])
+
     def test_conditional_exception_audit_retries_as_public_conclusion(self):
         invalid = raw_output(
             [
@@ -378,6 +659,7 @@ class S3PublicRoleRetryTests(unittest.TestCase):
                 ("T1", "조건부 예외입니다.", "audit", "exception", "P2"),
             ]
         )
+        invalid["claims"][0]["text"] = "적용 결론입니다. 조건부 예외입니다."
         invalid["claims"][1]["applicability"] = "conditional"
         corrected = copy.deepcopy(invalid)
         corrected["claims"][1]["public_role"] = "conclusion"
@@ -402,7 +684,7 @@ class S3PublicRoleRetryTests(unittest.TestCase):
         self.assertIn(
             '"audit_only_conditional_exception_claim_ids":["C2"]', prompts[1]
         )
-        self.assertIn("make the conditional exception a public conclusion", prompts[1])
+        self.assertIn("make its condition visible", prompts[1])
         self.assertNotIn("missing_application_target_ids", prompts[1])
         self.assertEqual(
             diagnostics[0]["s3_public_role_contract"][
