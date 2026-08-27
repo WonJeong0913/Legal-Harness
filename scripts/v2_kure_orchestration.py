@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 from copy import deepcopy
+import csv
 from datetime import datetime, timedelta, timezone
 import hashlib
 import json
@@ -211,13 +212,55 @@ DIAGNOSTIC21_BASELINE = {
         "published_result_tree": "d8296a2cacde164074688eba5068a5709534c0b5",
     },
 }
+DIAGNOSTIC21_C02_ANSWER_COHORT_FILE = "frozen_manifests/c02_diagnostic21_answer_cohort.json"
+DIAGNOSTIC21_C02_ANSWER_COHORT_SHA256 = "046b04e37437100a51769f40cf12e45e969169ecd15644188ef7c4cebf9b1b60"
+DIAGNOSTIC21_C02_ANSWER_COHORT_PROVENANCE = {
+    **DIAGNOSTIC21_BASELINE["provenance"],
+    "per_question_csv_path": "records/evaluations/kure-c02-qwen38-q8-full226-20260826/per_question.csv",
+}
+DIAGNOSTIC21_C02_ANSWER_COHORT_ROWS = (
+    {"source_ordinal": 17, "question_id": "qa_86_3hop_140", "n_hops": 3, "status": "ANSWER", "token_f1_at_800": 0.3170731707317073},
+    {"source_ordinal": 25, "question_id": "qa_401_2hop_619", "n_hops": 2, "status": "ANSWER", "token_f1_at_800": 0.4999999999999999},
+    {"source_ordinal": 51, "question_id": "qa_430_3hop_669", "n_hops": 3, "status": "ANSWER", "token_f1_at_800": 0.339622641509434},
+    {"source_ordinal": 52, "question_id": "qa_25_1hop_37", "n_hops": 1, "status": "ANSWER", "token_f1_at_800": 0.5384615384615384},
+)
+DIAGNOSTIC21_C02_ANSWER_COHORT = {
+    "schema_version": "c02_diagnostic21_answer_cohort_v1",
+    "baseline_mean_token_f1_at_800": DIAGNOSTIC21_BASELINE["token_f1_answered_only"],
+    "cohort_count": 4,
+    "derivation": {
+        "evaluation_only": True,
+        "method": "Filter the immutable C02 published per_question.csv to the fixed diagnostic21 roster, then retain only rows whose published status is ANSWER. This artifact is a predeclared evaluation cohort and is not runtime retrieval, answer, abstention, or gold-aware policy.",
+        "score_column": "token_f1_at_800",
+        "status_equals": "ANSWER",
+    },
+    "provenance": DIAGNOSTIC21_C02_ANSWER_COHORT_PROVENANCE,
+    "rows": [dict(row) for row in DIAGNOSTIC21_C02_ANSWER_COHORT_ROWS],
+}
+DIAGNOSTIC21_C02_ANSWER_COHORT_SOURCE_ORDINALS = tuple(
+    int(row["source_ordinal"]) for row in DIAGNOSTIC21_C02_ANSWER_COHORT_ROWS
+)
+DIAGNOSTIC21_C02_ANSWER_COHORT_QUESTION_IDS = tuple(
+    str(row["question_id"]) for row in DIAGNOSTIC21_C02_ANSWER_COHORT_ROWS
+)
+DIAGNOSTIC21_ANSWER_YIELD_MINIMUM = int(DIAGNOSTIC21_C02_ANSWER_COHORT["cohort_count"])
 DIAGNOSTIC21_NONREGRESSION_MINIMUMS = {
     "provision_macro_f1": DIAGNOSTIC21_BASELINE["provision_macro"]["f1"],
     "provision_exact_match_count": DIAGNOSTIC21_BASELINE["provision_exact_match_count"],
     "complete_evidence_count": DIAGNOSTIC21_BASELINE["accepted_complete_evidence_count"],
     "token_f1_end_to_end": DIAGNOSTIC21_BASELINE["token_f1_end_to_end"],
-    "token_f1_answered_only": DIAGNOSTIC21_BASELINE["token_f1_answered_only"],
     "token_f1_candidate": DIAGNOSTIC21_BASELINE["candidate_token_f1"]["all_outcomes"],
+}
+FULL226_C02_NONREGRESSION_MINIMUMS = {
+    "token_f1_answered_only": 0.388839104735601,
+    "token_f1_candidate": 0.34864352525272263,
+}
+FULL226_C02_BASELINE_PROVENANCE = {
+    "published_aggregate_json_path": "records/evaluations/kure-c02-qwen38-q8-full226-20260826/aggregate.json",
+    "published_aggregate_json_sha256": "02903d26253ef8a54238d19529a9d30308c5ca4341d9c178c28deefc663469bb",
+    "published_per_question_csv_sha256": DIAGNOSTIC21_BASELINE["provenance"]["published_per_question_csv_sha256"],
+    "published_result_commit": DIAGNOSTIC21_BASELINE["provenance"]["published_result_commit"],
+    "published_result_tree": DIAGNOSTIC21_BASELINE["provenance"]["published_result_tree"],
 }
 TOTAL_FULL226 = 226
 CHUNK_SIZE = 20
@@ -296,6 +339,113 @@ def read_json(path: Path) -> Dict[str, Any]:
     if not isinstance(payload, dict):
         raise OrchestrationError("JSON root must be an object: %s" % path)
     return dict(payload)
+
+
+def _c02_answer_cohort_signature(rows: Any) -> Tuple[Tuple[int, str, int, str, float], ...]:
+    if not isinstance(rows, list):
+        raise OrchestrationError("C02 paired answer cohort rows must be an array")
+    try:
+        signature = tuple(
+            (
+                int(row["source_ordinal"]),
+                str(row["question_id"]),
+                int(row["n_hops"]),
+                str(row["status"]),
+                float(row["token_f1_at_800"]),
+            )
+            for row in rows
+            if isinstance(row, Mapping)
+        )
+    except (KeyError, TypeError, ValueError) as exc:
+        raise OrchestrationError("C02 paired answer cohort row is malformed") from exc
+    if len(signature) != len(rows):
+        raise OrchestrationError("C02 paired answer cohort row must be an object")
+    return signature
+
+
+def assert_frozen_c02_answer_cohort(payload: Mapping[str, Any]) -> None:
+    """Validate the predeclared C02 evaluation cohort without affecting runtime policy."""
+    if dict(payload) != DIAGNOSTIC21_C02_ANSWER_COHORT:
+        raise OrchestrationError("C02 paired answer cohort payload mismatch")
+    rows = _c02_answer_cohort_signature(payload.get("rows"))
+    expected = _c02_answer_cohort_signature(DIAGNOSTIC21_C02_ANSWER_COHORT["rows"])
+    if rows != expected:
+        raise OrchestrationError("C02 paired answer cohort row provenance mismatch")
+    if len(rows) != DIAGNOSTIC21_ANSWER_YIELD_MINIMUM:
+        raise OrchestrationError("C02 paired answer cohort denominator mismatch")
+    if any(status != "ANSWER" for _, _, _, status, _ in rows):
+        raise OrchestrationError("C02 paired answer cohort contains a non-ANSWER baseline row")
+    roster = dict(DIAGNOSTIC21_ROSTER)
+    if any(roster.get(source_ordinal) != question_id for source_ordinal, question_id, _, _, _ in rows):
+        raise OrchestrationError("C02 paired answer cohort is outside the frozen diagnostic roster")
+    values = [score for _, _, _, _, score in rows]
+    if any(not math.isfinite(score) for score in values):
+        raise OrchestrationError("C02 paired answer cohort has a non-finite baseline score")
+    if abs(statistics.mean(values) - DIAGNOSTIC21_BASELINE["token_f1_answered_only"]) > DIAGNOSTIC21_FLOAT_TOLERANCE:
+        raise OrchestrationError("C02 paired answer cohort baseline mean mismatch")
+
+
+def load_frozen_c02_answer_cohort(exec_root: Path) -> Dict[str, Any]:
+    """Load and hash-check the evaluation-only C02 cohort from the clean source snapshot."""
+    path = exec_root / DIAGNOSTIC21_C02_ANSWER_COHORT_FILE
+    if not path.is_file():
+        raise OrchestrationError("C02 paired answer cohort artifact is missing: %s" % path)
+    if sha256(path) != DIAGNOSTIC21_C02_ANSWER_COHORT_SHA256:
+        raise OrchestrationError("C02 paired answer cohort artifact hash mismatch")
+    payload = read_json(path)
+    assert_frozen_c02_answer_cohort(payload)
+    return payload
+
+
+def paired_c02_answer_cohort_score(per_question_path: Path, exec_root: Path) -> Dict[str, Any]:
+    """Score exactly the frozen C02 ANSWER cohort from evaluator output, never from runtime policy."""
+    cohort = load_frozen_c02_answer_cohort(exec_root)
+    if not per_question_path.is_file():
+        raise OrchestrationError("paired C02 score requires evaluator per_question.csv")
+    try:
+        with per_question_path.open("r", encoding="utf-8", newline="") as handle:
+            reader = csv.DictReader(handle)
+            if not reader.fieldnames or not {"question_id", "status", "token_f1_at_800"}.issubset(reader.fieldnames):
+                raise OrchestrationError("paired C02 score requires question_id/status/token_f1_at_800")
+            by_question = {}
+            for row in reader:
+                question_id = str(row.get("question_id") or "")
+                if question_id in DIAGNOSTIC21_C02_ANSWER_COHORT_QUESTION_IDS:
+                    if question_id in by_question:
+                        raise OrchestrationError("paired C02 score has duplicate cohort row: %s" % question_id)
+                    by_question[question_id] = row
+    except (OSError, csv.Error) as exc:
+        raise OrchestrationError("paired C02 evaluator CSV is unreadable") from exc
+    observed_rows = []
+    for baseline in cohort["rows"]:
+        question_id = str(baseline["question_id"])
+        row = by_question.get(question_id)
+        if row is None:
+            raise OrchestrationError("paired C02 score is missing cohort row: %s" % question_id)
+        status = row.get("status")
+        if status == "EXECUTION_FAILURE":
+            raise OrchestrationError("paired C02 score cohort execution failure: %s" % question_id)
+        if status != "ANSWER":
+            raise OrchestrationError("paired C02 score cohort row is not ANSWER: %s" % question_id)
+        raw_score = row.get("token_f1_at_800")
+        try:
+            score = float(raw_score)
+        except (TypeError, ValueError) as exc:
+            raise OrchestrationError("paired C02 score is missing or invalid: %s" % question_id) from exc
+        if not math.isfinite(score):
+            raise OrchestrationError("paired C02 score is non-finite: %s" % question_id)
+        observed_rows.append({"question_id": question_id, "status": status, "token_f1_at_800": score})
+    if len(observed_rows) != DIAGNOSTIC21_ANSWER_YIELD_MINIMUM:
+        raise OrchestrationError("paired C02 score denominator mismatch")
+    return {
+        "definition": "mean current token_f1_at_800 over the predeclared C02 ANSWER cohort",
+        "denominator": len(observed_rows),
+        "frozen_cohort_file": DIAGNOSTIC21_C02_ANSWER_COHORT_FILE,
+        "frozen_cohort_sha256": DIAGNOSTIC21_C02_ANSWER_COHORT_SHA256,
+        "provenance": deepcopy(DIAGNOSTIC21_C02_ANSWER_COHORT_PROVENANCE),
+        "rows": observed_rows,
+        "token_f1_at_800": statistics.mean(row["token_f1_at_800"] for row in observed_rows),
+    }
 
 
 def write_json_new(path: Path, payload: Mapping[str, Any]) -> None:
@@ -639,7 +789,10 @@ def _diagnostic21_selection(
         "cohort_counts": dict(DIAGNOSTIC21_COHORT_COUNTS),
         "baseline": deepcopy(DIAGNOSTIC21_BASELINE),
         "baseline_sha256": canonical_sha256(DIAGNOSTIC21_BASELINE),
+        "paired_c02_answer_cohort": deepcopy(DIAGNOSTIC21_C02_ANSWER_COHORT),
+        "paired_c02_answer_cohort_sha256": DIAGNOSTIC21_C02_ANSWER_COHORT_SHA256,
         "nonregression_minimums": dict(DIAGNOSTIC21_NONREGRESSION_MINIMUMS),
+        "answer_yield_minimum": DIAGNOSTIC21_ANSWER_YIELD_MINIMUM,
         "condition_lineage": deepcopy(DIAGNOSTIC21_CONDITION_LINEAGE),
         "implementation_parent_commit": DIAGNOSTIC21_IMPLEMENTATION_PARENT_COMMIT,
         "c23_note": "C23 is static analysis only and changes no runtime behavior.",
@@ -799,6 +952,12 @@ def assert_diagnostic21_manifest_integrity(
         raise OrchestrationError("diagnostic21 roster hash mismatch")
     if selection.get("baseline") != DIAGNOSTIC21_BASELINE or selection.get("baseline_sha256") != canonical_sha256(DIAGNOSTIC21_BASELINE):
         raise OrchestrationError("diagnostic21 baseline mismatch")
+    if selection.get("paired_c02_answer_cohort") != DIAGNOSTIC21_C02_ANSWER_COHORT:
+        raise OrchestrationError("diagnostic21 paired C02 answer cohort mismatch")
+    if selection.get("paired_c02_answer_cohort_sha256") != DIAGNOSTIC21_C02_ANSWER_COHORT_SHA256:
+        raise OrchestrationError("diagnostic21 paired C02 answer cohort hash mismatch")
+    if selection.get("answer_yield_minimum") != DIAGNOSTIC21_ANSWER_YIELD_MINIMUM:
+        raise OrchestrationError("diagnostic21 answer yield minimum mismatch")
     if selection.get("cohort_counts") != DIAGNOSTIC21_COHORT_COUNTS:
         raise OrchestrationError("diagnostic21 cohort count metadata mismatch")
     if selection.get("nonregression_minimums") != DIAGNOSTIC21_NONREGRESSION_MINIMUMS:
@@ -901,6 +1060,10 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
             "diagnostic21": frozen_root / "v2_kure_diagnostic21.json",
             "diagnostic21_reference": frozen_root / "v2_bm25_reference_diagnostic21.json",
         })
+        write_json_new(
+            frozen_root / Path(DIAGNOSTIC21_C02_ANSWER_COHORT_FILE).name,
+            DIAGNOSTIC21_C02_ANSWER_COHORT,
+        )
     for key, path in paths.items():
         write_json_new(path, manifests[key])
     source_metadata = {
@@ -928,6 +1091,9 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
             "reference_source_manifest_sha256": DIAGNOSTIC21_SOURCE_REFERENCE_SHA256,
             "roster_sha256": manifests["diagnostic21"]["selection"]["roster_sha256"],
             "baseline_sha256": canonical_sha256(DIAGNOSTIC21_BASELINE),
+            "paired_c02_answer_cohort_sha256": DIAGNOSTIC21_C02_ANSWER_COHORT_SHA256,
+            "paired_c02_answer_cohort_denominator": DIAGNOSTIC21_ANSWER_YIELD_MINIMUM,
+            "paired_c02_answer_cohort_provenance": deepcopy(DIAGNOSTIC21_C02_ANSWER_COHORT_PROVENANCE),
             "condition_lineage": deepcopy(DIAGNOSTIC21_CONDITION_LINEAGE),
             "skill_files": deepcopy(DIAGNOSTIC21_SKILL_FILES),
             "reranker_provenance": deepcopy(DIAGNOSTIC21_RERANKER_PROVENANCE),
@@ -1089,6 +1255,9 @@ def make_plan(exec_root: Path, output_root: Path, mode: str) -> Dict[str, Any]:
         plan["diagnostic21"] = {
             "enabled": True,
             "numeric_baseline_gates": dict(DIAGNOSTIC21_NONREGRESSION_MINIMUMS),
+            "paired_c02_answer_cohort_sha256": DIAGNOSTIC21_C02_ANSWER_COHORT_SHA256,
+            "paired_c02_answer_cohort_denominator": DIAGNOSTIC21_ANSWER_YIELD_MINIMUM,
+            "evaluation_only": True,
         }
     return plan
 
@@ -1463,6 +1632,13 @@ def evaluate_checkpoint(exec_root: Path, paths: Mapping[str, Path], plan: Mappin
         errors.append("public_abstain_leak=" + ",".join(public_abstain_leak_question_ids))
     projection = _metric_projection(aggregate)
     if diagnostic21:
+        try:
+            projection["paired_c02_answer_cohort"] = paired_c02_answer_cohort_score(
+                evaluation_dir / "per_question.csv", exec_root
+            )
+        except OrchestrationError as exc:
+            projection["paired_c02_answer_cohort"] = None
+            errors.append("paired_c02_answer_cohort=%s" % exc)
         projection = {
             key: value for key, value in projection.items()
             if key not in {"mean_latency_ms", "median_latency_ms", "p95_latency_ms"}
@@ -1538,6 +1714,10 @@ def diagnostic21_gate(event: Mapping[str, Any]) -> Dict[str, Any]:
         reasons.append("completed_questions_not_21")
     if event.get("checkpoint_status") != "PASS":
         reasons.append("checkpoint_status_not_pass")
+    if event.get("bm25_execution") != "FORBIDDEN":
+        reasons.append("bm25_execution_not_forbidden")
+    if event.get("lf_eval_score_injection") != "FORBIDDEN":
+        reasons.append("lf_eval_score_injection_not_forbidden")
     normal_counts: Dict[str, int] = {}
     for metric_name in ("execution_failure_count", "answer_count", "abstain_count"):
         observed = metrics.get(metric_name)
@@ -1550,6 +1730,8 @@ def diagnostic21_gate(event: Mapping[str, Any]) -> Dict[str, Any]:
             reasons.append("execution_failure_count")
         if normal_counts["answer_count"] + normal_counts["abstain_count"] != DIAGNOSTIC21_ENTRY_COUNT:
             reasons.append("normal_outcome_count")
+        if normal_counts["answer_count"] < DIAGNOSTIC21_ANSWER_YIELD_MINIMUM:
+            reasons.append("answer_yield_below_c02_cohort_denominator")
     for field_name, reason in (
         ("stage_provenance_missing", "stage_provenance"),
         ("public_abstain_missing_result_question_ids", "public_abstain_result_missing"),
@@ -1568,16 +1750,38 @@ def diagnostic21_gate(event: Mapping[str, Any]) -> Dict[str, Any]:
         attempted, passed, pass_rate = citation.get("attempted"), citation.get("passed"), citation.get("pass_rate")
         if type(attempted) is not int or type(passed) is not int or attempted < 0 or passed < 0:
             reasons.append("citation_integrity")
-        elif attempted == 0:
-            if passed != 0 or pass_rate not in (None, 1.0):
-                reasons.append("citation_integrity")
-        elif (
+        elif attempted == 0 or (
             type(pass_rate) not in (int, float)
             or not math.isfinite(float(pass_rate))
             or passed != attempted
             or float(pass_rate) != 1.0
         ):
             reasons.append("citation_integrity")
+    paired = metrics.get("paired_c02_answer_cohort")
+    if not isinstance(paired, Mapping):
+        reasons.append("paired_c02_answer_cohort_missing")
+    elif (
+        paired.get("denominator") != DIAGNOSTIC21_ANSWER_YIELD_MINIMUM
+        or paired.get("frozen_cohort_file") != DIAGNOSTIC21_C02_ANSWER_COHORT_FILE
+        or paired.get("frozen_cohort_sha256") != DIAGNOSTIC21_C02_ANSWER_COHORT_SHA256
+        or paired.get("provenance") != DIAGNOSTIC21_C02_ANSWER_COHORT_PROVENANCE
+    ):
+        reasons.append("paired_c02_answer_cohort_provenance_or_denominator")
+    else:
+        paired_rows = paired.get("rows")
+        if not isinstance(paired_rows, list) or tuple(
+            str(row.get("question_id") or "") for row in paired_rows if isinstance(row, Mapping)
+        ) != DIAGNOSTIC21_C02_ANSWER_COHORT_QUESTION_IDS or any(
+            row.get("status") != "ANSWER" for row in paired_rows if isinstance(row, Mapping)
+        ):
+            reasons.append("paired_c02_answer_cohort_rows")
+        paired_score = paired.get("token_f1_at_800")
+        if (
+            type(paired_score) not in (int, float)
+            or not math.isfinite(float(paired_score))
+            or float(paired_score) < DIAGNOSTIC21_BASELINE["token_f1_answered_only"]
+        ):
+            reasons.append("paired_c02_answer_cohort_token_f1_at_800")
     for metric_name, minimum in DIAGNOSTIC21_NONREGRESSION_MINIMUMS.items():
         observed = metrics.get(metric_name)
         if (
@@ -1594,12 +1798,19 @@ def diagnostic21_gate(event: Mapping[str, Any]) -> Dict[str, Any]:
             "normal_outcomes_without_abstain_answer_leakage",
             "abstain_result_json_present_and_public_answer_free",
             "citation_integrity_100_percent",
+            "c02_answer_yield_nonregression",
+            "paired_c02_answer_cohort_token_f1_at_800",
             "stage_provenance",
             "fixed_numeric_baseline_nonregression",
+            "bm25_execution_forbidden",
+            "lf_eval_score_injection_forbidden",
             "evaluator_success",
         ],
         "baseline": deepcopy(DIAGNOSTIC21_BASELINE),
         "nonregression_minimums": dict(DIAGNOSTIC21_NONREGRESSION_MINIMUMS),
+        "paired_c02_answer_cohort": deepcopy(DIAGNOSTIC21_C02_ANSWER_COHORT),
+        "paired_c02_answer_cohort_sha256": DIAGNOSTIC21_C02_ANSWER_COHORT_SHA256,
+        "answer_yield_minimum": DIAGNOSTIC21_ANSWER_YIELD_MINIMUM,
         "reasons": sorted(set(reasons)),
         "source_checkpoint": dict(event),
     }
@@ -1651,21 +1862,78 @@ def _finished_smoke_gate(paths: Mapping[str, Path], completed: int) -> Optional[
     return 0 if gate["status"] == "PASS" else 1
 
 
+def full226_gate(event: Mapping[str, Any]) -> Dict[str, Any]:
+    """Require the approved C02 public-answer/candidate proof thresholds on all 226 rows."""
+    metrics_value = event.get("metrics")
+    metrics = dict(metrics_value) if isinstance(metrics_value, Mapping) else {}
+    reasons: List[str] = []
+    validation_errors = event.get("validation_errors")
+    if not isinstance(validation_errors, list):
+        reasons.append("validation_errors_missing_or_nonlist")
+    elif validation_errors:
+        reasons.extend("validation_error:%s" % value for value in validation_errors)
+    if event.get("checkpoint_status") != "PASS":
+        reasons.append("checkpoint_status_not_pass")
+    if type(event.get("completed_questions")) is not int or event.get("completed_questions") != TOTAL_FULL226:
+        reasons.append("completed_questions_not_226")
+    if event.get("bm25_execution") != "FORBIDDEN":
+        reasons.append("bm25_execution_not_forbidden")
+    if event.get("lf_eval_score_injection") != "FORBIDDEN":
+        reasons.append("lf_eval_score_injection_not_forbidden")
+    provenance_missing = event.get("stage_provenance_missing")
+    if not isinstance(provenance_missing, list):
+        reasons.append("stage_provenance_missing_or_nonlist")
+    elif provenance_missing:
+        reasons.append("stage_provenance")
+    citation = metrics.get("citation_integrity")
+    if not isinstance(citation, Mapping):
+        reasons.append("citation_integrity")
+    else:
+        attempted, passed, pass_rate = citation.get("attempted"), citation.get("passed"), citation.get("pass_rate")
+        if (
+            type(attempted) is not int
+            or type(passed) is not int
+            or attempted <= 0
+            or passed != attempted
+            or type(pass_rate) not in (int, float)
+            or not math.isfinite(float(pass_rate))
+            or float(pass_rate) != 1.0
+        ):
+            reasons.append("citation_integrity")
+    for metric_name, minimum in FULL226_C02_NONREGRESSION_MINIMUMS.items():
+        observed = metrics.get(metric_name)
+        if (
+            type(observed) not in (int, float)
+            or not math.isfinite(float(observed))
+            or float(observed) < float(minimum)
+        ):
+            reasons.append("numeric_regression:%s" % metric_name)
+    return {
+        "stage": "full226",
+        "status": "PASS" if not reasons else "FAIL",
+        "required_checks": [
+            "public_answered_only_token_f1_at_800_c02_nonregression",
+            "candidate_integrated_token_f1_at_800_c02_nonregression",
+            "citation_integrity_100_percent",
+            "stage_provenance",
+            "bm25_execution_forbidden",
+            "lf_eval_score_injection_forbidden",
+            "evaluator_success",
+        ],
+        "nonregression_minimums": dict(FULL226_C02_NONREGRESSION_MINIMUMS),
+        "baseline_provenance": deepcopy(FULL226_C02_BASELINE_PROVENANCE),
+        "reasons": sorted(set(reasons)),
+        "final_checkpoint": dict(event),
+    }
+
+
 def _finished_full_gate(paths: Mapping[str, Path], completed: int) -> Optional[int]:
     if completed != TOTAL_FULL226:
         return None
     if paths["gate"].is_file():
         return 0 if read_json(paths["gate"]).get("status") == "PASS" else 1
     checkpoint = read_json(paths["checkpoints"] / "checkpoint-%03d.json" % TOTAL_FULL226)
-    gate = {
-        "stage": "full226",
-        "status": "PASS" if checkpoint.get("checkpoint_status") == "PASS" else "FAIL",
-        "completed_questions": TOTAL_FULL226,
-        "bm25_execution": "FORBIDDEN",
-        "parser_execution": "FORBIDDEN",
-        "lf_eval_score_injection": "FORBIDDEN",
-        "final_checkpoint": checkpoint,
-    }
+    gate = full226_gate(checkpoint)
     write_json_new(paths["gate"], gate)
     append_progress(paths, {"event": "FULL_GATE_RECOVERED", **gate})
     return 0 if gate["status"] == "PASS" else 1
@@ -1765,7 +2033,7 @@ def execute_plan(
         write_json_new(paths["gate"], gate)
         append_progress(paths, {"event": "DIAGNOSTIC21_GATE", **gate})
         return 0 if gate["status"] == "PASS" else 1
-    gate = {"stage": "full226", "status": "PASS" if final_checkpoint.get("checkpoint_status") == "PASS" else "FAIL", "completed_questions": TOTAL_FULL226, "bm25_execution": "FORBIDDEN", "parser_execution": "FORBIDDEN", "lf_eval_score_injection": "FORBIDDEN", "final_checkpoint": final_checkpoint}
+    gate = full226_gate(final_checkpoint)
     write_json_new(paths["gate"], gate)
     append_progress(paths, {"event": "RUN_COMPLETED", **gate})
     return 0 if gate["status"] == "PASS" else 1
@@ -1839,6 +2107,12 @@ def diagnostic21_preflight_details(
         "reranker_provenance": dict(reranker_provenance),
         "semantic_authority": DIAGNOSTIC21_SEMANTIC_AUTHORITY,
         "bm25_execution": "FORBIDDEN",
+        "paired_c02_answer_cohort": {
+            "file": DIAGNOSTIC21_C02_ANSWER_COHORT_FILE,
+            "sha256": DIAGNOSTIC21_C02_ANSWER_COHORT_SHA256,
+            "denominator": DIAGNOSTIC21_ANSWER_YIELD_MINIMUM,
+            "evaluation_only": True,
+        },
     }
 
 
@@ -1854,6 +2128,7 @@ def preflight(exec_root: Path, mode: str, runtime_python: Path) -> Dict[str, Any
         assert_diagnostic21_manifest_integrity(primary, reference)
         skill_files = verify_diagnostic21_skill_files(exec_root)
         reranker = verify_diagnostic21_reranker_artifact(primary["frozen_configuration"], exec_root)
+        load_frozen_c02_answer_cohort(exec_root)
         clean_snapshot = source_snapshot_dict(exec_root)
     else:
         skill_files = None

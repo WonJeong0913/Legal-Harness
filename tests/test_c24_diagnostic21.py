@@ -1,7 +1,11 @@
+import csv
+import hashlib
 import importlib.util
+import io
 import json
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -79,12 +83,32 @@ def diagnostic_manifests():
     )
 
 
+def paired_c02_answer_cohort_metric(score=None):
+    score = (
+        orchestration.DIAGNOSTIC21_BASELINE["token_f1_answered_only"]
+        if score is None else score
+    )
+    return {
+        "definition": "mean current token_f1_at_800 over the predeclared C02 ANSWER cohort",
+        "denominator": orchestration.DIAGNOSTIC21_ANSWER_YIELD_MINIMUM,
+        "frozen_cohort_file": orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT_FILE,
+        "frozen_cohort_sha256": orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT_SHA256,
+        "provenance": dict(orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT_PROVENANCE),
+        "rows": [
+            {"question_id": row["question_id"], "status": "ANSWER", "token_f1_at_800": score}
+            for row in orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT_ROWS
+        ],
+        "token_f1_at_800": score,
+    }
+
+
 def passing_metrics():
     return {
         "execution_failure_count": 0,
         "answer_count": 4,
         "abstain_count": 17,
         "citation_integrity": {"attempted": 4, "passed": 4, "pass_rate": 1.0},
+        "paired_c02_answer_cohort": paired_c02_answer_cohort_metric(),
         **orchestration.DIAGNOSTIC21_NONREGRESSION_MINIMUMS,
     }
 
@@ -98,6 +122,8 @@ def passing_event():
         "public_abstain_missing_result_question_ids": [],
         "public_abstain_invalid_result_question_ids": [],
         "public_abstain_leak_question_ids": [],
+        "bm25_execution": "FORBIDDEN",
+        "lf_eval_score_injection": "FORBIDDEN",
         "metrics": passing_metrics(),
     }
 
@@ -262,10 +288,41 @@ class Diagnostic21ManifestTests(unittest.TestCase):
                 PROJECT_ROOT / "frozen_manifests/v2_bm25_reference_full226.json",
             )
             source_metadata = orchestration.read_json(root / "frozen_manifests/source_metadata.json")
+            emitted_cohort = orchestration.load_frozen_c02_answer_cohort(root)
+            self.assertEqual(emitted_cohort, orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT)
+            self.assertEqual(
+                orchestration.sha256(root / orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT_FILE),
+                orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT_SHA256,
+            )
         self.assertEqual(
             source_metadata["diagnostic21"]["c29_capabilities"],
             orchestration.DIAGNOSTIC21_C29_CAPABILITIES,
         )
+
+    def test_direct_cli_bootstrap_initializes_cohort_before_main_and_refuses_overwrite(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / "bootstrap-root"
+            command = [
+                sys.executable,
+                str(PROJECT_ROOT / "scripts/v2_kure_orchestration.py"),
+                "bootstrap",
+                "--exec-root", str(root),
+                "--primary-source-manifest", str(PROJECT_ROOT / "frozen_manifests/v2_kure_full226.json"),
+                "--reference-source-manifest", str(PROJECT_ROOT / "frozen_manifests/v2_bm25_reference_full226.json"),
+            ]
+            first = subprocess.run(command, cwd=PROJECT_ROOT, text=True, capture_output=True, check=False)
+            self.assertEqual(first.returncode, 0, first.stderr)
+            self.assertEqual(
+                orchestration.sha256(root / orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT_FILE),
+                orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT_SHA256,
+            )
+            second = subprocess.run(command, cwd=PROJECT_ROOT, text=True, capture_output=True, check=False)
+            self.assertEqual(second.returncode, 2)
+            self.assertIn("refusing to overwrite existing frozen_manifests", second.stderr)
+            self.assertEqual(
+                orchestration.sha256(root / orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT_FILE),
+                orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT_SHA256,
+            )
 
     def test_generic_build_does_not_inject_diagnostic_bge_metadata(self):
         primary, reference = diagnostic_sources()
@@ -386,7 +443,9 @@ class Diagnostic21ControlPlaneTests(unittest.TestCase):
         self.assertEqual(orchestration.diagnostic21_gate(passing_event())["status"], "PASS")
         zero_citation = passing_event()
         zero_citation["metrics"]["citation_integrity"] = {"attempted": 0, "passed": 0, "pass_rate": None}
-        self.assertEqual(orchestration.diagnostic21_gate(zero_citation)["status"], "PASS")
+        zero_citation_gate = orchestration.diagnostic21_gate(zero_citation)
+        self.assertEqual(zero_citation_gate["status"], "FAIL")
+        self.assertIn("citation_integrity", zero_citation_gate["reasons"])
         cases = (
             ("completed_questions", 20, "completed_questions_not_21"),
             ("checkpoint_status", "ERRORS_FOUND", "checkpoint_status_not_pass"),
@@ -413,6 +472,179 @@ class Diagnostic21ControlPlaneTests(unittest.TestCase):
             event = passing_event()
             event["metrics"]["provision_macro_f1"] = value
             self.assertEqual(orchestration.diagnostic21_gate(event)["status"], "FAIL")
+
+    def test_paired_c02_cohort_is_hash_bound_predeclared_and_fixed_denominator(self):
+        cohort = orchestration.load_frozen_c02_answer_cohort(PROJECT_ROOT)
+        orchestration.assert_frozen_c02_answer_cohort(cohort)
+        self.assertEqual(
+            cohort["provenance"]["published_per_question_csv_sha256"],
+            "b0828c0d194aac9d59d3ad5894aae6220b8eaabc2c21959feabd76b5ac43e3f6",
+        )
+        self.assertEqual(
+            cohort["provenance"]["per_question_csv_path"],
+            "records/evaluations/kure-c02-qwen38-q8-full226-20260826/per_question.csv",
+        )
+        self.assertEqual(
+            tuple(row["source_ordinal"] for row in cohort["rows"]), (17, 25, 51, 52)
+        )
+        self.assertEqual(
+            tuple(row["question_id"] for row in cohort["rows"]),
+            orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT_QUESTION_IDS,
+        )
+        self.assertTrue(cohort["derivation"]["evaluation_only"])
+        self.assertEqual(cohort["cohort_count"], 4)
+        self.assertEqual(
+            cohort["baseline_mean_token_f1_at_800"],
+            orchestration.DIAGNOSTIC21_BASELINE["token_f1_answered_only"],
+        )
+
+    def test_frozen_cohort_is_the_answer_filter_of_the_published_c02_per_question_artifact(self):
+        cohort = orchestration.load_frozen_c02_answer_cohort(PROJECT_ROOT)
+        provenance = cohort["provenance"]
+        source = subprocess.run(
+            [
+                "git", "show",
+                "%s:%s" % (provenance["published_result_commit"], provenance["per_question_csv_path"]),
+            ],
+            cwd=PROJECT_ROOT, capture_output=True, check=False,
+        )
+        self.assertEqual(source.returncode, 0, source.stderr.decode("utf-8"))
+        self.assertEqual(
+            hashlib.sha256(source.stdout).hexdigest(),
+            provenance["published_per_question_csv_sha256"],
+        )
+        diagnostic_ids = {question_id for _, question_id in orchestration.DIAGNOSTIC21_ROSTER}
+        rows = [
+            row for row in csv.DictReader(io.StringIO(source.stdout.decode("utf-8")))
+            if row["question_id"] in diagnostic_ids and row["status"] == "ANSWER"
+        ]
+        observed = [
+            {
+                "source_ordinal": int(row["ordinal"]),
+                "question_id": row["question_id"],
+                "n_hops": int(row["n_hops"]),
+                "status": row["status"],
+                "token_f1_at_800": float(row["token_f1_at_800"]),
+            }
+            for row in rows
+        ]
+        self.assertEqual(observed, cohort["rows"])
+
+    def test_paired_c02_score_refuses_missing_rows_scores_and_execution_failures(self):
+        baseline_score = orchestration.DIAGNOSTIC21_BASELINE["token_f1_answered_only"]
+        with tempfile.TemporaryDirectory() as temporary:
+            csv_path = Path(temporary) / "per_question.csv"
+
+            def write_rows(rows):
+                csv_path.write_text(
+                    "question_id,status,token_f1_at_800\n" + "\n".join(
+                        "%s,%s,%s" % (row["question_id"], row["status"], row["token_f1_at_800"])
+                        for row in rows
+                    ) + "\n",
+                    encoding="utf-8",
+                )
+
+            rows = [
+                {"question_id": question_id, "status": "ANSWER", "token_f1_at_800": baseline_score}
+                for question_id in orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT_QUESTION_IDS
+            ]
+            rows.append({"question_id": "out_of_cohort", "status": "ANSWER", "token_f1_at_800": 1.0})
+            write_rows(rows)
+            paired = orchestration.paired_c02_answer_cohort_score(csv_path, PROJECT_ROOT)
+            self.assertEqual(paired["denominator"], 4)
+            self.assertEqual(paired["token_f1_at_800"], baseline_score)
+            self.assertEqual(len(paired["rows"]), 4)
+
+            write_rows(rows[:-2])
+            with self.assertRaisesRegex(orchestration.OrchestrationError, "missing cohort row"):
+                orchestration.paired_c02_answer_cohort_score(csv_path, PROJECT_ROOT)
+
+            invalid = [dict(row) for row in rows[:-1]]
+            invalid[0]["token_f1_at_800"] = ""
+            write_rows(invalid)
+            with self.assertRaisesRegex(orchestration.OrchestrationError, "missing or invalid"):
+                orchestration.paired_c02_answer_cohort_score(csv_path, PROJECT_ROOT)
+
+            failed = [dict(row) for row in rows[:-1]]
+            failed[0]["status"] = "EXECUTION_FAILURE"
+            write_rows(failed)
+            with self.assertRaisesRegex(orchestration.OrchestrationError, "cohort execution failure"):
+                orchestration.paired_c02_answer_cohort_score(csv_path, PROJECT_ROOT)
+
+    def test_paired_gate_rejects_composition_substitution_and_non_kure_policy(self):
+        event = passing_event()
+        event["metrics"]["token_f1_answered_only"] = 1.0
+        event["metrics"]["paired_c02_answer_cohort"] = paired_c02_answer_cohort_metric(0.0)
+        gate = orchestration.diagnostic21_gate(event)
+        self.assertEqual(gate["status"], "FAIL")
+        self.assertIn("paired_c02_answer_cohort_token_f1_at_800", gate["reasons"])
+
+        event = passing_event()
+        event["bm25_execution"] = "EXECUTED"
+        gate = orchestration.diagnostic21_gate(event)
+        self.assertEqual(gate["status"], "FAIL")
+        self.assertIn("bm25_execution_not_forbidden", gate["reasons"])
+
+    def test_no_c02_threshold_is_lowered_and_full226_requires_final_proof(self):
+        self.assertNotIn("token_f1_answered_only", orchestration.DIAGNOSTIC21_NONREGRESSION_MINIMUMS)
+        self.assertEqual(
+            orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT["baseline_mean_token_f1_at_800"],
+            0.42378933767566984,
+        )
+        self.assertEqual(
+            orchestration.FULL226_C02_NONREGRESSION_MINIMUMS,
+            {"token_f1_answered_only": 0.388839104735601, "token_f1_candidate": 0.34864352525272263},
+        )
+        full_provenance = orchestration.FULL226_C02_BASELINE_PROVENANCE
+        strict_paired_event = passing_event()
+        strict_paired_event["metrics"]["paired_c02_answer_cohort"] = paired_c02_answer_cohort_metric(
+            orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT["baseline_mean_token_f1_at_800"] - 1e-15
+        )
+        self.assertEqual(orchestration.diagnostic21_gate(strict_paired_event)["status"], "FAIL")
+
+        aggregate_source = subprocess.run(
+            [
+                "git", "show",
+                "%s:%s" % (full_provenance["published_result_commit"], full_provenance["published_aggregate_json_path"]),
+            ],
+            cwd=PROJECT_ROOT, capture_output=True, check=False,
+        )
+        self.assertEqual(aggregate_source.returncode, 0, aggregate_source.stderr.decode("utf-8"))
+        self.assertEqual(
+            hashlib.sha256(aggregate_source.stdout).hexdigest(),
+            full_provenance["published_aggregate_json_sha256"],
+        )
+        published_metrics = json.loads(aggregate_source.stdout.decode("utf-8"))
+        self.assertEqual(
+            published_metrics["answer_quality"]["token_f1_at_800"]["answered_only"],
+            orchestration.FULL226_C02_NONREGRESSION_MINIMUMS["token_f1_answered_only"],
+        )
+        self.assertEqual(
+            published_metrics["answer_quality"]["candidate_token_f1_at_800"]["all_outcomes"],
+            orchestration.FULL226_C02_NONREGRESSION_MINIMUMS["token_f1_candidate"],
+        )
+        full_event = {
+            "checkpoint_status": "PASS",
+            "completed_questions": 226,
+            "validation_errors": [],
+            "stage_provenance_missing": [],
+            "bm25_execution": "FORBIDDEN",
+            "lf_eval_score_injection": "FORBIDDEN",
+            "metrics": {
+                **orchestration.FULL226_C02_NONREGRESSION_MINIMUMS,
+                "citation_integrity": {"attempted": 1, "passed": 1, "pass_rate": 1.0},
+            },
+        }
+        self.assertEqual(orchestration.full226_gate(full_event)["status"], "PASS")
+        full_event["metrics"]["token_f1_candidate"] = orchestration.FULL226_C02_NONREGRESSION_MINIMUMS["token_f1_candidate"] - 1e-15
+        self.assertEqual(orchestration.full226_gate(full_event)["status"], "FAIL")
+        full_event = dict(full_event)
+        full_event["metrics"] = dict(full_event["metrics"])
+        full_event["metrics"]["token_f1_candidate"] = orchestration.FULL226_C02_NONREGRESSION_MINIMUMS["token_f1_candidate"]
+        full_event["bm25_execution"] = "EXECUTED"
+        full_gate = orchestration.full226_gate(full_event)
+        self.assertEqual(full_gate["status"], "FAIL")
+        self.assertIn("bm25_execution_not_forbidden", full_gate["reasons"])
 
     def test_checkpoint_audits_abstain_result_json_and_omits_speed_eta_fields(self):
         with tempfile.TemporaryDirectory() as temporary:
