@@ -248,9 +248,27 @@ class LocalOllamaSkillExecutor:
                         validation_errors,
                     )
                 )
+                if gap_plan_recovery is None:
+                    recovery_output, gap_plan_recovery = (
+                        self._repair_induced_sibling_collision_recovery(
+                            skill_name,
+                            entry_point,
+                            unrepaired_skill_output,
+                            skill_output,
+                            skill_input,
+                            deterministic_repairs,
+                            validation_errors,
+                        )
+                    )
                 if gap_plan_recovery is not None:
                     replan_events = []
                     replan = None
+                    replan_fallback = (
+                        recovery_output
+                        if gap_plan_recovery.disposition
+                        is GapPlanRecoveryDisposition.REPAIR_INDUCED_SIBLING_COLLISION
+                        else skill_output
+                    )
                     if self._needs_neutral_s1_gap_replan(
                         skill_name,
                         entry_point,
@@ -262,11 +280,15 @@ class LocalOllamaSkillExecutor:
                         replan_events.append(
                             {
                                 "kind": "neutral_semantic_gap_replan_attempted",
-                                "reason": "repair_induced_history_collision",
+                                "reason": gap_plan_recovery.disposition.value,
                             }
                         )
                         replan, replan_failure = self._neutral_s1_gap_replan(
-                            entry_point, skill_input, skill_output, max_tokens, attempt
+                            entry_point,
+                            skill_input,
+                            replan_fallback,
+                            max_tokens,
+                            attempt,
                         )
                     if replan is not None:
                         skill_output = replan
@@ -1715,6 +1737,196 @@ class LocalOllamaSkillExecutor:
             dropped_request_ids=dropped_ids,
             repaired_query_sha256=dropped_hashes,
             dropped_request_count=len(dropped_ids),
+            remaining_request_count=len(remaining_requests),
+        )
+
+    def _repair_induced_sibling_collision_recovery(
+        self,
+        skill_name: str,
+        entry_point: str,
+        unrepaired: Mapping[str, Any],
+        repaired: Mapping[str, Any],
+        skill_input: Mapping[str, Any],
+        repairs: Sequence[Mapping[str, Any]],
+        validation_errors: Sequence[str],
+    ) -> Tuple[Optional[Dict[str, Any]], Optional[GapPlanRecovery]]:
+        """Drop one repair-created duplicate while preserving its sibling.
+
+        Raw queries must all be distinct. Exactly one article-neutralized
+        request may collide with exactly one untouched request for the same
+        critical evidence item, and the duplicate must be the sole validation
+        error. No query text is synthesized here.
+        """
+        if (
+            skill_name != "legal_issue_and_query_planning"
+            or entry_point != "GAP_QUERY_PLAN"
+            or not validation_errors
+        ):
+            return None, None
+        raw_requests = unrepaired.get("gap_retrieval_requests")
+        repaired_requests = repaired.get("gap_retrieval_requests")
+        if (
+            not isinstance(raw_requests, list)
+            or not isinstance(repaired_requests, list)
+            or len(raw_requests) != len(repaired_requests)
+            or not all(isinstance(item, Mapping) for item in raw_requests)
+            or not all(isinstance(item, Mapping) for item in repaired_requests)
+        ):
+            return None, None
+
+        paired = list(zip(raw_requests, repaired_requests))
+        request_ids = [item.get("request_id") for _raw, item in paired]
+        raw_queries = [item.get("query_text") for item, _repaired in paired]
+        repaired_queries = [item.get("query_text") for _raw, item in paired]
+        if (
+            not all(isinstance(item, str) and item for item in request_ids)
+            or len(request_ids) != len(set(request_ids))
+            or not all(
+                raw.get("request_id") == repaired_request_id
+                for (raw, _repaired), repaired_request_id in zip(
+                    paired, request_ids
+                )
+            )
+            or not all(
+                isinstance(item, str) and item.strip() for item in raw_queries
+            )
+            or not all(
+                isinstance(item, str) and item.strip() for item in repaired_queries
+            )
+        ):
+            return None, None
+        raw_normalized = [self._normalized_query(item) for item in raw_queries]
+        repaired_normalized = [
+            self._normalized_query(item) for item in repaired_queries
+        ]
+        raw_scoring = [
+            tuple(
+                self._normalized_query(query)
+                for query in self._s1_scoring_query_fields(request)
+            )
+            for request in raw_requests
+        ]
+        repaired_scoring = [
+            tuple(
+                self._normalized_query(query)
+                for query in self._s1_scoring_query_fields(request)
+            )
+            for request in repaired_requests
+        ]
+        if (
+            len(raw_normalized) != len(set(raw_normalized))
+            or len(raw_scoring) != len(set(raw_scoring))
+        ):
+            return None, None
+
+        query_text_repairs: Dict[str, List[Mapping[str, Any]]] = {}
+        for repair in repairs:
+            if (
+                isinstance(repair, Mapping)
+                and repair.get("kind")
+                == "neutralized_ungrounded_article_specificity"
+                and repair.get("field") == "query_text"
+                and isinstance(repair.get("request_id"), str)
+            ):
+                query_text_repairs.setdefault(
+                    repair["request_id"], []
+                ).append(repair)
+        if not query_text_repairs:
+            return None, None
+
+        critical_evidence_ids = {
+            item.get("evidence_item_id")
+            for item in self._list(skill_input, "required_evidence_items")
+            if isinstance(item, Mapping) and item.get("critical") is True
+        }
+        candidate_indexes: List[int] = []
+        for index, ((raw_request, repaired_request), request_id) in enumerate(
+            zip(paired, request_ids)
+        ):
+            request_repairs = query_text_repairs.get(request_id, [])
+            if len(request_repairs) != 1:
+                continue
+            if (
+                raw_normalized[index] == repaired_normalized[index]
+                or raw_scoring[index] == repaired_scoring[index]
+            ):
+                continue
+            if (
+                request_repairs[0].get("before") != raw_queries[index]
+                or request_repairs[0].get("after") != repaired_queries[index]
+            ):
+                continue
+            sibling_indexes = [
+                sibling_index
+                for sibling_index, sibling_id in enumerate(request_ids)
+                if sibling_index != index
+                and repaired_normalized[sibling_index]
+                == repaired_normalized[index]
+                and sibling_id not in query_text_repairs
+                and raw_normalized[sibling_index]
+                == repaired_normalized[sibling_index]
+                and repaired_scoring[sibling_index] == repaired_scoring[index]
+                and raw_scoring[sibling_index] == repaired_scoring[sibling_index]
+            ]
+            if len(sibling_indexes) != 1:
+                continue
+            sibling_index = sibling_indexes[0]
+            evidence_id = repaired_request.get("evidence_item_id")
+            if (
+                not isinstance(evidence_id, str)
+                or evidence_id not in critical_evidence_ids
+                or raw_request.get("evidence_item_id") != evidence_id
+                or raw_requests[sibling_index].get("evidence_item_id")
+                != evidence_id
+                or repaired_requests[sibling_index].get("evidence_item_id")
+                != evidence_id
+            ):
+                continue
+            candidate_indexes.append(index)
+        if (
+            len(candidate_indexes) != 1
+            or set(query_text_repairs)
+            != {request_ids[candidate_indexes[0]]}
+        ):
+            return None, None
+
+        expected_errors: List[str] = []
+        seen_queries = set()
+        for query, normalized in zip(repaired_queries, repaired_normalized):
+            if normalized in seen_queries:
+                expected_errors.append(
+                    "duplicate normalized query in output: %s" % query
+                )
+            seen_queries.add(normalized)
+        if len(expected_errors) != 1 or list(validation_errors) != expected_errors:
+            return None, None
+
+        dropped_index = candidate_indexes[0]
+        dropped_request = repaired_requests[dropped_index]
+        dropped_query = repaired_queries[dropped_index]
+        remaining_requests = [
+            dict(request)
+            for index, request in enumerate(repaired_requests)
+            if index != dropped_index
+        ]
+        recovered = copy.deepcopy(dict(repaired))
+        recovered["gap_retrieval_requests"] = remaining_requests
+        recovered["target_evidence_item_ids"] = list(
+            dict.fromkeys(
+                request.get("evidence_item_id")
+                for request in remaining_requests
+                if isinstance(request.get("evidence_item_id"), str)
+            )
+        )
+        return recovered, GapPlanRecovery(
+            disposition=(
+                GapPlanRecoveryDisposition.REPAIR_INDUCED_SIBLING_COLLISION
+            ),
+            dropped_request_ids=[dropped_request["request_id"]],
+            repaired_query_sha256=[
+                hashlib.sha256(dropped_query.encode("utf-8")).hexdigest()
+            ],
+            dropped_request_count=1,
             remaining_request_count=len(remaining_requests),
         )
 

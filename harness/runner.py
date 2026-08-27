@@ -709,7 +709,10 @@ class HarnessRunner:
             return None
         if not isinstance(recovery, GapPlanRecovery):
             raise ValidationError("gap-plan recovery must be harness-owned")
-        if recovery.disposition is not GapPlanRecoveryDisposition.REPAIR_INDUCED_HISTORY_COLLISION:
+        if recovery.disposition not in {
+            GapPlanRecoveryDisposition.REPAIR_INDUCED_HISTORY_COLLISION,
+            GapPlanRecoveryDisposition.REPAIR_INDUCED_SIBLING_COLLISION,
+        }:
             raise ValidationError("gap-plan recovery disposition is invalid")
         if (
             isinstance(recovery.dropped_request_count, bool)
@@ -729,6 +732,14 @@ class HarnessRunner:
                 isinstance(query_hash, str)
                 and re.fullmatch(r"[0-9a-f]{64}", query_hash)
                 for query_hash in recovery.repaired_query_sha256
+            )
+            or (
+                recovery.disposition
+                is GapPlanRecoveryDisposition.REPAIR_INDUCED_SIBLING_COLLISION
+                and (
+                    recovery.dropped_request_count != 1
+                    or recovery.remaining_request_count < 1
+                )
             )
         ):
             raise ValidationError("gap-plan recovery audit is invalid")
