@@ -276,6 +276,9 @@ _CASE_FACT_ANCHOR_PARTICLE_SUFFIXES = (
 _CASE_FACT_ANCHOR_CONTEXT_HEADS = frozenset({
     "기관", "법원", "회사", "사업장", "근로자", "사람", "당사자", "절차",
 })
+_CASE_FACT_ANCHOR_OUTPUT_DESCRIPTOR_HEADS = frozenset({
+    "종류", "유형", "명칭", "내용", "여부",
+})
 _KOREAN_DESCRIPTIVE_MODIFIER_SUFFIXES = (
     "하는", "되는", "받은", "발생한", "입은", "따른", "있는", "없는", "한",
 )
@@ -306,6 +309,7 @@ def _korean_case_fact_anchor_phrases(value):
                 for word in normalized_words
             )
             and normalized_words[1] not in _CASE_FACT_ANCHOR_CONTEXT_HEADS
+            and normalized_words[1] not in _CASE_FACT_ANCHOR_OUTPUT_DESCRIPTOR_HEADS
             and not normalized_words[0].endswith(
                 _KOREAN_DESCRIPTIVE_MODIFIER_SUFFIXES
             )

@@ -350,21 +350,27 @@ class S1EpistemicNeutralityFixtures(unittest.TestCase):
             S1_VALIDATOR._trusted_gap_anchor_phrases(evidence_item),
             {"추가 상해"},
         )
-        missing_errors = []
+        split_term_errors = []
         S1_VALIDATOR.validate_gap_query_terms_anchor_coverage(
             [{
                 "evidence_item_id": "E1",
                 "query_terms": ["요양 중", "의료사고", "추가", "상해", "업무상 재해"],
             }],
-            [evidence_item], {"E1"}, missing_errors,
+            [evidence_item], {"E1"}, split_term_errors,
         )
-        self.assertEqual(
-            missing_errors,
+        self.assertEqual(split_term_errors, [])
+        boundary_errors = []
+        S1_VALIDATOR.validate_gap_query_terms_anchor_coverage(
             [
-                "GAP_QUERY_PLAN query_terms omit trusted Korean fact/effect anchors: "
-                "evidence_item_id=E1; missing_anchors=추가 상해"
+                {"evidence_item_id": "E1", "query_terms": ["추가"]},
+                {"evidence_item_id": "E1", "query_terms": ["상해"]},
             ],
+            [evidence_item], {"E1"}, boundary_errors,
         )
+        self.assertEqual(boundary_errors, [
+            "GAP_QUERY_PLAN query_terms omit trusted Korean fact/effect anchors: "
+            "evidence_item_id=E1; missing_anchors=추가 상해"
+        ])
         covered_errors = []
         S1_VALIDATOR.validate_gap_query_terms_anchor_coverage(
             [{
@@ -455,6 +461,43 @@ class S1EpistemicNeutralityFixtures(unittest.TestCase):
         self.assertEqual(len(prompts), 2)
         self.assertIn("missing_anchors=추가 상해", prompts[1])
         self.assertEqual(result["gap_retrieval_requests"][0]["query_terms"], corrected["gap_retrieval_requests"][0]["query_terms"])
+
+    def test_gap_anchor_split_terms_need_no_retry_with_actual_morphology(self):
+        text = "몰수·추징의 시효 기간에 관한 규정"
+        evidence_item = {
+            "evidence_item_id": "E3", "issue_id": "I3", "evidence_type": "limitation",
+            "description": text, "critical": True, "answer_target_ids": ["T3"],
+            "completion_requirements": [{"requirement_id": "E3-R1", "text": text}],
+        }
+        self.assertEqual(S1_VALIDATOR._trusted_gap_anchor_phrases(evidence_item), {"시효 기간"})
+        payload = {
+            "run_id": "s1-gap-anchor-split", "normalized_question": "시효를 설명하라.",
+            "next_retrieval_round": 1, "legal_issues": [{"issue_id": "I3"}],
+            "answer_targets": [{"answer_target_id": "T3"}],
+            "required_evidence_items": [evidence_item], "coverage_assessments": [],
+            "missing_evidence_items": [{"evidence_item_id": "E3"}],
+            "evidence_conflicts": [], "query_history": [],
+            "candidate_cross_references": [], "seen_provision_ids": [],
+            "remaining_request_budget": 2,
+        }
+        response = {
+            "schema_version": "1.0", "skill_id": "S1", "mode": "GAP_QUERY_PLAN",
+            "status": "ok", "target_evidence_item_ids": ["E3"],
+            "gap_retrieval_requests": [{
+                "request_id": "GRQ-R1-1", "issue_id": "I3", "evidence_item_id": "E3",
+                "query_channel": "sparse_keywords", "query_text": "몰수 추징 시효 기간",
+                "query_terms": ["몰수", "추징", "시효", "기간"], "statute_hints": [],
+                "source_assessment_status": "uncovered",
+            }],
+        }
+        prompts = []
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills", "test-model", max_attempts=2,
+            generator=lambda prompt: prompts.append(prompt) or json.dumps(response, ensure_ascii=False),
+        )
+        result = executor.execute("legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload)
+        self.assertEqual(len(prompts), 1)
+        self.assertEqual(result["gap_retrieval_requests"][0]["query_terms"], response["gap_retrieval_requests"][0]["query_terms"])
 
 if __name__ == "__main__":
     unittest.main()

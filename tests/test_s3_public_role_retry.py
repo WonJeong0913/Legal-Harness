@@ -1,4 +1,5 @@
 import copy
+import importlib.util
 import json
 import unittest
 from pathlib import Path
@@ -8,6 +9,11 @@ from runtime.local_ollama_executor import LocalOllamaSkillExecutor
 
 
 ROOT = Path(__file__).resolve().parents[1]
+S3_VALIDATOR_SPEC = importlib.util.spec_from_file_location(
+    "s3_validator", ROOT / "skills/grounded_legal_answer_generation/scripts/validate_output.py"
+)
+S3_VALIDATOR = importlib.util.module_from_spec(S3_VALIDATOR_SPEC)
+S3_VALIDATOR_SPEC.loader.exec_module(S3_VALIDATOR)
 
 
 def payload(answer_targets, required_evidence_items, accepted_provisions):
@@ -265,6 +271,15 @@ def qa86_case_anchor_output(application_text):
             ("T1", application_text, "conclusion", "application", "P1"),
         ]
     )
+
+
+def qa0_output_descriptor_payload():
+    result = single_target_payload()
+    result["answer_targets"][0]["question_anchor"] = "보험사의 조치"
+    result["answer_targets"][0]["requested_output"] = (
+        "보험사가 보험료 미납 시 취할 수 있는 법적 조치의 종류와 요건"
+    )
+    return result
 
 
 class S3PublicRoleRetryTests(unittest.TestCase):
@@ -993,6 +1008,41 @@ class S3PublicRoleRetryTests(unittest.TestCase):
         self.assertEqual(len(prompts), 2)
         self.assertEqual(
             diagnostics[-1]["retry_aborted"], "duplicate_invalid_s3_public_role_response"
+        )
+
+    def test_output_descriptor_head_does_not_block_c33_rule_demotion(self):
+        output = raw_output([
+            ("T1", "보험료 미납에는 최고 후 해지 규칙이 적용됩니다.", "conclusion", "legal_rule", "P1"),
+            ("T1", "보험사는 최고 후 보험계약을 해지할 수 있습니다.", "conclusion", "application", "P1"),
+        ])
+        prompts = []
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture-model", max_attempts=2,
+            generator=lambda prompt: prompts.append(prompt) or json.dumps(output, ensure_ascii=False),
+        )
+        result = executor.execute(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", qa0_output_descriptor_payload()
+        )
+        self.assertEqual(len(prompts), 1)
+        self.assertEqual([claim["public_role"] for claim in result["claims"]], ["audit", "conclusion"])
+        self.assertEqual(result["answer"], "보험사는 최고 후 보험계약을 해지할 수 있습니다.[CT2]")
+
+    def test_case_fact_anchor_keeps_concrete_facts_and_excludes_output_descriptors(self):
+        self.assertEqual(
+            S3_VALIDATOR._korean_case_fact_anchor_phrases(
+                "보험사가 보험료 미납 시 취할 수 있는 법적 조치의 종류와 요건"
+            ),
+            set(),
+        )
+        self.assertEqual(
+            S3_VALIDATOR._korean_case_fact_anchor_phrases(
+                "의료사고로 인한 추가 상해의 업무상 재해 인정 여부"
+            ),
+            {"추가 상해"},
+        )
+        self.assertEqual(
+            S3_VALIDATOR._korean_case_fact_anchor_phrases("개별 매각의 적법 여부"),
+            {"개별 매각"},
         )
 
     def test_qa460_multiple_redundant_rules_are_demoted_and_answer_rebuilt(self):

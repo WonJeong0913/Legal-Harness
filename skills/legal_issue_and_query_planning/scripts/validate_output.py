@@ -775,17 +775,25 @@ def validate_gap_query_terms_anchor_coverage(requests, evidence, unresolved, err
         anchors = _trusted_gap_anchor_phrases(item)
         if not anchors:
             continue
-        explicit_terms = []
+        request_term_views = []
         for request in requests:
             if request.get("evidence_item_id") != item.get("evidence_item_id"):
                 continue
             values = request.get("query_terms", [])
             if isinstance(values, list):
-                explicit_terms.extend(value for value in values if isinstance(value, str))
-        normalized_terms = [norm(value) for value in explicit_terms]
+                normalized_terms = [
+                    norm(value) for value in values if isinstance(value, str) and norm(value)
+                ]
+                request_term_views.append((
+                    normalized_terms, " ".join(normalized_terms),
+                ))
         missing = sorted(
             anchor for anchor in anchors
-            if not any(anchor in query_term for query_term in normalized_terms)
+            if not any(
+                any(anchor in query_term for query_term in terms)
+                or anchor in joined_terms
+                for terms, joined_terms in request_term_views
+            )
         )
         if missing:
             errors.append(
