@@ -1,6 +1,6 @@
 {
-  "control_plane_release": "C35-output-descriptor-request-local-gap-anchors",
-  "created_at_utc": "2026-08-28T03:03:20.136811+00:00",
+  "control_plane_release": "C36-prompt-stable-validator-only-C35",
+  "created_at_utc": "2026-08-28T04:32:46.784652+00:00",
   "diagnostic21": {
     "baseline_sha256": "d920e8a185839b0e8ab77ac08538f7804fa70c7eb643d6d3f5d1f852d88b9788",
     "bm25_execution": "FORBIDDEN",
@@ -194,6 +194,26 @@
       "implementation_layer": "S1_AND_S3_VALIDATOR_NARROW_ANCHOR_REFINEMENT",
       "release": "C35-output-descriptor-request-local-gap-anchors"
     },
+    "c36_capabilities": {
+      "c36_prompt_stable_validator_only_c35": {
+        "diagnostic_fingerprints": "REDACTED_PROMPT_AND_CANONICAL_REDACTED_SKILL_INPUT_SHA256",
+        "model_prompt_payload_seed_and_output": "UNCHANGED",
+        "primary_and_neutral_replan_attempts": "RECORDED_ONLY",
+        "prompt_resources": {
+          "S1_SKILL.md": "6fc4008c72afd0a7e7d58f9214dee1eaa8af56de9c3ade5c920fb73d74f84094",
+          "S1_contract.md": "59bcda8231e581eb51c96535c8193ac23b9573ce3242741c3f228fccf701f115",
+          "S3_SKILL.md": "a146c3c7a0910c43d3d0f84a7f347e747a193a5ba88dcf7af50a800379735eac"
+        },
+        "runtime_gold_or_benchmark_logic": "NONE",
+        "validator_policy": "C35_VALIDATORS_RETAINED"
+      }
+    },
+    "c36_source_provenance": {
+      "base_source_commit": "94f80373a9fe5b21fcd9748ea7b5a26026a6f072",
+      "base_source_tree": "d2122c4397b213c876c3db26081565c1e9d40968",
+      "implementation_layer": "PROMPT_RESOURCE_STABILIZATION_PLUS_EXECUTOR_DIAGNOSTIC_FINGERPRINTS",
+      "release": "C36-prompt-stable-validator-only-C35"
+    },
     "condition_lineage": {
       "C04_evidence_roles": [
         "083813102b284052d546d1dacbd2c13829d9cafe",
@@ -250,11 +270,14 @@
       ],
       "C35_anchor_refinement_parent": [
         "033f384e14db277638376742ac11173b934d7af1"
+      ],
+      "C36_prompt_stable_validator_only_parent": [
+        "94f80373a9fe5b21fcd9748ea7b5a26026a6f072"
       ]
     },
-    "generated_primary_manifest_sha256": "810c4f15f77ee629ecc37931d92ad0014152b496ce9363a0362769f73c7a2578",
-    "generated_reference_manifest_sha256": "d1e3ad861601ec93d9736d706951e2dde291317b737fb1e78d2adff817650bc8",
-    "name": "v2-kure-qwen38-q8-offline-diagnostic21-c35-20260828",
+    "generated_primary_manifest_sha256": "ae9f962d543f699c083c922ed23613ef1d7788ec5b7e100ecb20f89d6e448f70",
+    "generated_reference_manifest_sha256": "0c06a65003c6f8aad195c0e6762c7eec01e5e7232a93d9d72f5c0294acbca24b",
+    "name": "v2-kure-qwen38-q8-offline-diagnostic21-c36-20260828",
     "paired_c02_answer_cohort_denominator": 4,
     "paired_c02_answer_cohort_provenance": {
       "evaluated_source_commit": "c02e2818ad54e9d5a1a9bd02b604e987192bb244",
@@ -266,9 +289,9 @@
     },
     "paired_c02_answer_cohort_sha256": "046b04e37437100a51769f40cf12e45e969169ecd15644188ef7c4cebf9b1b60",
     "primary_retriever": "kure",
-    "primary_source_manifest_sha256": "a33137a0ec6eb8d47528b9e3f242d293c891b479cbab435fc7e577be12f389af",
+    "primary_source_manifest_sha256": "857b6db8336e875e22aa8f07909a472a8d10de049fc4ca8c8a40572712f118f3",
     "reference_execution": "METADATA_ONLY_MUST_NEVER_BE_EXECUTED",
-    "reference_source_manifest_sha256": "c1bbc42b32ada52f9c5542ee09b3efa820bb4fedd26c0efdad95b938f27ed160",
+    "reference_source_manifest_sha256": "d45be26aca0ce46a37ca16011666bfcc7cb817b4849da75aab25d2ab6862217f",
     "reranker_provenance": {
       "device": "cuda",
       "model_id": "dragonkue/bge-reranker-v2-m3-ko",
@@ -285,7 +308,7 @@
     "skill_files": {
       "S1": {
         "skill_path": "skills/legal_issue_and_query_planning/SKILL.md",
-        "skill_sha256": "cb0c1ba16ffbb0c7d21bd470adcb8f341a99599907a2a872eca1ab883ae96263",
+        "skill_sha256": "6fc4008c72afd0a7e7d58f9214dee1eaa8af56de9c3ade5c920fb73d74f84094",
         "validator_path": "skills/legal_issue_and_query_planning/scripts/validate_output.py",
         "validator_sha256": "26cfdd84ab1d94fb3f346f4567eb7994a6d58f2c1835ed04a8c263da1bd53103"
       },
@@ -297,7 +320,7 @@
       },
       "S3": {
         "skill_path": "skills/grounded_legal_answer_generation/SKILL.md",
-        "skill_sha256": "c8f50f4c801a1a1aa0324cf31614a7946c7ed533fd45bdbfb6c55086fcf0ebff",
+        "skill_sha256": "a146c3c7a0910c43d3d0f84a7f347e747a193a5ba88dcf7af50a800379735eac",
         "validator_path": "skills/grounded_legal_answer_generation/scripts/validate_output.py",
         "validator_sha256": "7324f7475e88573ae5647441f2a8ed8a5f65a3c9b7a465b06a1145421dd64bbf"
       }
@@ -316,27 +339,27 @@
   "generated": {
     "diagnostic21": {
       "path": "frozen_manifests/v2_kure_diagnostic21.json",
-      "sha256": "810c4f15f77ee629ecc37931d92ad0014152b496ce9363a0362769f73c7a2578"
+      "sha256": "ae9f962d543f699c083c922ed23613ef1d7788ec5b7e100ecb20f89d6e448f70"
     },
     "diagnostic21_reference": {
       "path": "frozen_manifests/v2_bm25_reference_diagnostic21.json",
-      "sha256": "d1e3ad861601ec93d9736d706951e2dde291317b737fb1e78d2adff817650bc8"
+      "sha256": "0c06a65003c6f8aad195c0e6762c7eec01e5e7232a93d9d72f5c0294acbca24b"
     },
     "full": {
       "path": "frozen_manifests/v2_kure_full226.json",
-      "sha256": "a33137a0ec6eb8d47528b9e3f242d293c891b479cbab435fc7e577be12f389af"
+      "sha256": "857b6db8336e875e22aa8f07909a472a8d10de049fc4ca8c8a40572712f118f3"
     },
     "reference": {
       "path": "frozen_manifests/v2_bm25_reference_full226.json",
-      "sha256": "c1bbc42b32ada52f9c5542ee09b3efa820bb4fedd26c0efdad95b938f27ed160"
+      "sha256": "d45be26aca0ce46a37ca16011666bfcc7cb817b4849da75aab25d2ab6862217f"
     },
     "smoke": {
       "path": "frozen_manifests/v2_kure_smoke3.json",
-      "sha256": "a066d43e3910d272ac7b48918b8d0e7e912ca6d93e448c009fc27b18010553f5"
+      "sha256": "6fe8c9d90e3b842e041eed1eba397c9bc9d3774ef8eab24f82b5de790584d361"
     },
     "smoke_reference": {
       "path": "frozen_manifests/v2_bm25_reference_smoke3.json",
-      "sha256": "43559553ac8801f0ac21a53bf6ace6b6320209ff5801a5f0a5eb05bdd285f840"
+      "sha256": "6f8a24fc98288a7ecff5537df6c40f926b24b46ff9675772a83cb6f20079c915"
     }
   },
   "lineage": {
@@ -349,15 +372,15 @@
     "c08_candidate_commit": "6ae1f3c13aafbd1c23ba7106f8f9d9d96aab04db",
     "c08_candidate_tree": "bb102d7728512b803973c02769b171d78975b273"
   },
-  "primary_source_manifest": "/tmp/c35-builder-second.B85rB6/frozen_manifests/v2_kure_full226.json",
-  "primary_source_manifest_sha256": "a33137a0ec6eb8d47528b9e3f242d293c891b479cbab435fc7e577be12f389af",
+  "primary_source_manifest": "/root/worktrees/legal-harness-c30-integrated-20260827/frozen_manifests/v2_kure_full226.json",
+  "primary_source_manifest_sha256": "857b6db8336e875e22aa8f07909a472a8d10de049fc4ca8c8a40572712f118f3",
   "public_answer_contract": {
     "s3_public_answer_format": "conclusion_first_1_to_4_short_sentences",
     "s3_public_answer_max_characters": 800,
     "s3_public_answer_max_claims": 4
   },
-  "reference_source_manifest": "/tmp/c35-builder-second.B85rB6/frozen_manifests/v2_bm25_reference_full226.json",
-  "reference_source_manifest_sha256": "c1bbc42b32ada52f9c5542ee09b3efa820bb4fedd26c0efdad95b938f27ed160",
+  "reference_source_manifest": "/root/worktrees/legal-harness-c30-integrated-20260827/frozen_manifests/v2_bm25_reference_full226.json",
+  "reference_source_manifest_sha256": "d45be26aca0ce46a37ca16011666bfcc7cb817b4849da75aab25d2ab6862217f",
   "repair_collision_contract": {
     "all_dropped": "existing_limited_or_abstain_no_state_mutation",
     "bounded_neutral_replan": 1,
