@@ -1,6 +1,6 @@
 {
-  "control_plane_release": "C32-retry-only-qualifying-carry-forward",
-  "created_at_utc": "2026-08-27T22:55:11.407577+00:00",
+  "control_plane_release": "C33-redundant-public-rule-demotion",
+  "created_at_utc": "2026-08-28T00:04:34.268365+00:00",
   "diagnostic21": {
     "baseline_sha256": "d920e8a185839b0e8ab77ac08538f7804fa70c7eb643d6d3f5d1f852d88b9788",
     "bm25_execution": "FORBIDDEN",
@@ -120,6 +120,29 @@
       "release": "C32-retry-only-qualifying-carry-forward",
       "s3_validator_context": "LOCAL_EXECUTOR_ONLY"
     },
+    "c33_capabilities": {
+      "c33_redundant_public_legal_rule_projection": {
+        "action": "DEMOTE_MATCHED_LEGAL_RULE_PUBLIC_ROLE_TO_AUDIT_ONLY",
+        "claim_text_targets_and_citations": "PRESERVED",
+        "gold_benchmark_or_score_input": "FORBIDDEN",
+        "nonmatches": "FAIL_CLOSED_NO_MUTATION",
+        "phase": "POST_S1_PRE_VALIDATION_DETERMINISTIC_PUBLIC_PRESENTATION_REPAIR",
+        "predicate": {
+          "application": "public_role=conclusion,claim_type=application",
+          "legal_rule": "public_role=conclusion,claim_type=legal_rule,applicability=direct",
+          "matching": "EXACT_NONEMPTY_TARGET_ID_SET_AND_CORE_PROVISION_ID_SET",
+          "mode": "GENERATE_ANSWER",
+          "public_conclusion_contract": "required"
+        },
+        "public_answer": "REBUILT_FROM_REMAINING_PUBLIC_CLAIMS"
+      }
+    },
+    "c33_source_provenance": {
+      "base_source_commit": "a5969bc0631bc5ed54f99677b7740094303f3da0",
+      "base_source_tree": "6456ca2d89bdc3313d153b3cbbdf2762c86f2b0f",
+      "implementation_layer": "LOCAL_EXECUTOR_POST_S1_PRE_VALIDATION_PUBLIC_PROJECTION",
+      "release": "C33-redundant-public-rule-demotion"
+    },
     "condition_lineage": {
       "C04_evidence_roles": [
         "083813102b284052d546d1dacbd2c13829d9cafe",
@@ -167,11 +190,14 @@
         "cac3951420ee56486cc9e4a6cd37f77a81d68b0c",
         "390ae000d21dda4487562273e5b08a798efe0047",
         "cc559855ca0e268b06b00ebb0fbf21740df9893d"
+      ],
+      "C33_presentation_repair_parent": [
+        "a5969bc0631bc5ed54f99677b7740094303f3da0"
       ]
     },
-    "generated_primary_manifest_sha256": "75694f8ce6dec78a1bb4c047535ea9b83073151e89d1f79ec17b47b163f19dbf",
-    "generated_reference_manifest_sha256": "bf4397505e839fa8dbd59bccaa9a637093aedf6462d24b23b4bb7e03e972672b",
-    "name": "v2-kure-qwen38-q8-offline-diagnostic21-c32-20260827",
+    "generated_primary_manifest_sha256": "8a8e23f1649af372ca70b7d8a8e1e28b5eae028360c08d7fc79efd3e4c4f5944",
+    "generated_reference_manifest_sha256": "39435a56a2de1258ae48f4c0ef19c136af4cc92a99e0e3340ef9ab5d028905cf",
+    "name": "v2-kure-qwen38-q8-offline-diagnostic21-c33-20260828",
     "paired_c02_answer_cohort_denominator": 4,
     "paired_c02_answer_cohort_provenance": {
       "evaluated_source_commit": "c02e2818ad54e9d5a1a9bd02b604e987192bb244",
@@ -183,9 +209,9 @@
     },
     "paired_c02_answer_cohort_sha256": "046b04e37437100a51769f40cf12e45e969169ecd15644188ef7c4cebf9b1b60",
     "primary_retriever": "kure",
-    "primary_source_manifest_sha256": "dc9a63780d5bbd58b035b3151cba257c6eb58403138b52ad6053a4384a069b39",
+    "primary_source_manifest_sha256": "6d782c9da88d8a22c7d8df316e3444e38e4f2851682c20c1977151f88cfe0258",
     "reference_execution": "METADATA_ONLY_MUST_NEVER_BE_EXECUTED",
-    "reference_source_manifest_sha256": "e340469f16778c98b90506da60d7571cd2795d3460b0aafcde7c1a7764320a51",
+    "reference_source_manifest_sha256": "d3fbac4e5eddde35414ec7cee267c032fff95960f6b39da748912eb06af111e0",
     "reranker_provenance": {
       "device": "cuda",
       "model_id": "dragonkue/bge-reranker-v2-m3-ko",
@@ -202,7 +228,7 @@
     "skill_files": {
       "S1": {
         "skill_path": "skills/legal_issue_and_query_planning/SKILL.md",
-        "skill_sha256": "273d61cd4c042da3eba5d65e7e746ee132a7c1a166bc99f5f51416c58e0d762a",
+        "skill_sha256": "98fe1cc6cab3c29cc880a208ee5ce805c258707e9a5de58dc3aab9501da0802f",
         "validator_path": "skills/legal_issue_and_query_planning/scripts/validate_output.py",
         "validator_sha256": "6e8ce23ad31a60b6403cc585c88896734466b5bcac53ebfc5864884c57d5599d"
       },
@@ -233,27 +259,27 @@
   "generated": {
     "diagnostic21": {
       "path": "frozen_manifests/v2_kure_diagnostic21.json",
-      "sha256": "75694f8ce6dec78a1bb4c047535ea9b83073151e89d1f79ec17b47b163f19dbf"
+      "sha256": "8a8e23f1649af372ca70b7d8a8e1e28b5eae028360c08d7fc79efd3e4c4f5944"
     },
     "diagnostic21_reference": {
       "path": "frozen_manifests/v2_bm25_reference_diagnostic21.json",
-      "sha256": "bf4397505e839fa8dbd59bccaa9a637093aedf6462d24b23b4bb7e03e972672b"
+      "sha256": "39435a56a2de1258ae48f4c0ef19c136af4cc92a99e0e3340ef9ab5d028905cf"
     },
     "full": {
       "path": "frozen_manifests/v2_kure_full226.json",
-      "sha256": "dc9a63780d5bbd58b035b3151cba257c6eb58403138b52ad6053a4384a069b39"
+      "sha256": "6d782c9da88d8a22c7d8df316e3444e38e4f2851682c20c1977151f88cfe0258"
     },
     "reference": {
       "path": "frozen_manifests/v2_bm25_reference_full226.json",
-      "sha256": "e340469f16778c98b90506da60d7571cd2795d3460b0aafcde7c1a7764320a51"
+      "sha256": "d3fbac4e5eddde35414ec7cee267c032fff95960f6b39da748912eb06af111e0"
     },
     "smoke": {
       "path": "frozen_manifests/v2_kure_smoke3.json",
-      "sha256": "6fe7f46918ac88bee9486c9f8111294ed66d4661bc4a33cd35ec1ef2fc693386"
+      "sha256": "7f8f057527f14faeb81d4ee54edb21dc38928154cd6a21710b913596efb3ac8b"
     },
     "smoke_reference": {
       "path": "frozen_manifests/v2_bm25_reference_smoke3.json",
-      "sha256": "0625c4a9ecfcef45d03384b835a54b7443c6fdcd87eb1fed8025960862048647"
+      "sha256": "c5fd8cc36272084ba52649600293077017be4bb643d6ac8f753d83545cf301cc"
     }
   },
   "lineage": {
@@ -266,15 +292,15 @@
     "c08_candidate_commit": "6ae1f3c13aafbd1c23ba7106f8f9d9d96aab04db",
     "c08_candidate_tree": "bb102d7728512b803973c02769b171d78975b273"
   },
-  "primary_source_manifest": "/tmp/legal-harness-c32-frozen-source-20260827/v2_kure_full226.json",
-  "primary_source_manifest_sha256": "dc9a63780d5bbd58b035b3151cba257c6eb58403138b52ad6053a4384a069b39",
+  "primary_source_manifest": "/root/worktrees/legal-harness-c30-integrated-20260827/frozen_manifests/v2_kure_full226.json",
+  "primary_source_manifest_sha256": "6d782c9da88d8a22c7d8df316e3444e38e4f2851682c20c1977151f88cfe0258",
   "public_answer_contract": {
     "s3_public_answer_format": "conclusion_first_1_to_4_short_sentences",
     "s3_public_answer_max_characters": 800,
     "s3_public_answer_max_claims": 4
   },
-  "reference_source_manifest": "/tmp/legal-harness-c32-frozen-source-20260827/v2_bm25_reference_full226.json",
-  "reference_source_manifest_sha256": "e340469f16778c98b90506da60d7571cd2795d3460b0aafcde7c1a7764320a51",
+  "reference_source_manifest": "/root/worktrees/legal-harness-c30-integrated-20260827/frozen_manifests/v2_bm25_reference_full226.json",
+  "reference_source_manifest_sha256": "d3fbac4e5eddde35414ec7cee267c032fff95960f6b39da748912eb06af111e0",
   "repair_collision_contract": {
     "all_dropped": "existing_limited_or_abstain_no_state_mutation",
     "bounded_neutral_replan": 1,

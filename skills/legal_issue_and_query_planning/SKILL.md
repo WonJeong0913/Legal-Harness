@@ -45,7 +45,11 @@ output schema.
    request. Add another request only for a genuinely different statutory route,
    exception, or cross-reference, within the supplied limit. Follow the
    contract's retrieval query-field rules and do not restate the whole question
-   in each field.
+   in each field. A generic request for conditions or requirements does not by
+   itself authorize a blanket "exception provision" completion requirement or
+   query term. Add an exception or alternative only when the question expressly
+   asks for it or a stated concrete fact activates it; name that fact or
+   condition, never a generic exception provision.
 6. In `GAP_QUERY_PLAN`, target only supplied unresolved statute evidence. Do not
    search for `missing_fact` or `scope_excess`. Center each request on one
    unsatisfied atomic completion requirement, and vary a material legal relation

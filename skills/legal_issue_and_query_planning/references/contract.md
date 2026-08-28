@@ -44,7 +44,11 @@ requirement may need several provisions. Keep distinct outcome-determinative
 rules, exceptions, cross-references, and legal effects searchable. Definitions,
 background, procedure, and generic completeness are `supporting_context` unless
 explicitly requested or outcome-changing. Every critical item needs at least one
-retrieval request.
+retrieval request. A generic request for conditions or requirements does not by
+itself authorize a blanket "exception provision" completion requirement or
+query term. Add an exception or alternative only when the question expressly
+asks for it or a stated concrete fact activates it; name that fact or condition,
+never a generic exception provision.
 
 ## `GAP_QUERY_PLAN`
 

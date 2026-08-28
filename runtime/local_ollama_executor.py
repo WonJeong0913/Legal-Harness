@@ -262,6 +262,12 @@ class LocalOllamaSkillExecutor:
                 skill_output, deterministic_repairs = self._repair_s1_transport(
                     skill_name, entry_point, skill_output, skill_input
                 )
+                skill_output, s3_presentation_repairs = (
+                    self._repair_s3_redundant_public_rule_application_projection(
+                        skill_name, entry_point, skill_output, skill_input
+                    )
+                )
+                deterministic_repairs.extend(s3_presentation_repairs)
                 if deterministic_repairs:
                     diagnostic["deterministic_repairs"] = deterministic_repairs
                 validation_input = self._s3_validator_input(
@@ -2203,6 +2209,140 @@ class LocalOllamaSkillExecutor:
                 "after": request["query_text"],
             })
         return repaired, audit
+
+    def _repair_s3_redundant_public_rule_application_projection(
+        self,
+        skill_name: str,
+        entry_point: str,
+        output: Dict[str, Any],
+        skill_input: Mapping[str, Any],
+    ) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
+        """Demote only an exactly duplicated public S3 legal-rule projection."""
+        if (
+            skill_name != "grounded_legal_answer_generation"
+            or entry_point != "GENERATE_ANSWER"
+            or skill_input.get("mode") != "GENERATE_ANSWER"
+            or skill_input.get("generation_constraints", {}).get(
+                "public_conclusion_contract"
+            )
+            != "required"
+        ):
+            return output, []
+        claims = output.get("claims")
+        citations = output.get("claim_citations")
+        if (
+            not isinstance(claims, list)
+            or not isinstance(citations, list)
+            or not all(isinstance(claim, Mapping) for claim in claims)
+            or not all(isinstance(citation, Mapping) for citation in citations)
+        ):
+            return output, []
+        core_provision_ids = {
+            provision.get("provision_id")
+            for provision in self._list(skill_input, "core_accepted_provisions")
+            if isinstance(provision, Mapping)
+            and isinstance(provision.get("provision_id"), str)
+            and provision["provision_id"]
+        }
+        if not core_provision_ids:
+            return output, []
+        citations_by_claim = self._s3_citations_by_claim(citations)
+
+        def string_set(value: Any) -> set:
+            return {
+                item
+                for item in value
+                if isinstance(item, str) and item
+            } if isinstance(value, list) else set()
+
+        def provision_ids(claim: Mapping[str, Any]) -> set:
+            claim_id = claim.get("claim_id")
+            return {
+                citation.get("provision_id")
+                for citation in citations_by_claim.get(claim_id, [])
+                if isinstance(citation.get("provision_id"), str)
+                and citation["provision_id"]
+            } if isinstance(claim_id, str) else set()
+
+        public_applications = [
+            claim
+            for claim in claims
+            if claim.get("public_role") == "conclusion"
+            and claim.get("claim_type") == "application"
+        ]
+        matches: List[Tuple[str, str, set, set]] = []
+        for rule in claims:
+            if (
+                rule.get("public_role") != "conclusion"
+                or rule.get("claim_type") != "legal_rule"
+                or rule.get("applicability") != "direct"
+                or not isinstance(rule.get("claim_id"), str)
+            ):
+                continue
+            target_ids = string_set(rule.get("answer_target_ids"))
+            cited_provision_ids = provision_ids(rule)
+            if (
+                not target_ids
+                or not cited_provision_ids
+                or not cited_provision_ids <= core_provision_ids
+            ):
+                continue
+            for application in public_applications:
+                application_id = application.get("claim_id")
+                if (
+                    not isinstance(application_id, str)
+                    or string_set(application.get("answer_target_ids")) != target_ids
+                    or provision_ids(application) != cited_provision_ids
+                ):
+                    continue
+                matches.append(
+                    (rule["claim_id"], application_id, target_ids, cited_provision_ids)
+                )
+                break
+        if not matches:
+            return output, []
+
+        repaired = copy.deepcopy(output)
+        demoted_rule_ids = {rule_id for rule_id, _, _, _ in matches}
+        for claim in repaired["claims"]:
+            if claim.get("claim_id") in demoted_rule_ids:
+                claim["public_role"] = "audit"
+        markers_by_claim: Dict[str, List[str]] = {}
+        for citation in repaired["claim_citations"]:
+            claim_id = citation.get("claim_id")
+            marker = citation.get("answer_marker")
+            if isinstance(claim_id, str) and isinstance(marker, str):
+                markers_by_claim.setdefault(claim_id, []).append(marker)
+        answer = "\n".join(
+            "%s%s" % (
+                claim.get("text"),
+                "".join(markers_by_claim.get(claim["claim_id"], [])),
+            )
+            for claim in self._public_s3_claims(
+                repaired["claims"], self._list(skill_input, "answered_target_ids")
+            )
+        )
+        max_answer_chars = skill_input.get("generation_constraints", {}).get(
+            "max_answer_chars"
+        )
+        effective_max_chars = (
+            min(max_answer_chars, PUBLIC_ANSWER_MAX_CHARACTERS)
+            if isinstance(max_answer_chars, int)
+            else PUBLIC_ANSWER_MAX_CHARACTERS
+        )
+        if not answer or len(answer) > effective_max_chars:
+            return output, []
+        repaired["answer"] = answer
+        return repaired, [
+            {
+                "kind": "s3_redundant_public_legal_rule_demoted",
+                "claim_id": rule_id,
+                "matched_application_claim_id": application_id,
+                "answer_target_ids": sorted(target_ids),
+                "provision_ids": sorted(cited_provision_ids),
+            }
+            for rule_id, application_id, target_ids, cited_provision_ids in matches
+        ]
 
     def _repair_induced_history_collision_recovery(
         self,

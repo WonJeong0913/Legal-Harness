@@ -151,7 +151,7 @@
   "frozen_configuration": {
     "candidate_budget_scope": "per_round",
     "candidate_selection": "evidence_balanced",
-    "condition": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward",
+    "condition": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward+C33-redundant-public-rule-demotion",
     "conditional_generation": "answer_target_full_conditional_limited",
     "contextual_query_dedup": "same_output_after_context_history_duplicate_invalid",
     "coverage_contract": "legal_applicability_criterion_results",
@@ -341,8 +341,8 @@
     "total_retrieval_rounds": 3
   },
   "manifest_schema_version": "1.0",
-  "name": "v2-kure-qwen38-q8-offline-diagnostic21-c32-20260827",
-  "purpose": "C32 preserves the C30 paired C02 gate and C31 shared one-to-four-sentence public-answer contract while permitting only exact frozen qualifying carry-forward citations in validator-only retry context. C30 adds the fixed four-item C02 ANSWER paired evaluation gate plus S3 2-to-4 public-conclusion recovery with complete target/provision coverage and first-invalid conditional-exception carry-forward on the failure-and-coverage roster. KURE is the only executable retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, or LF-Eval execution is permitted.",
+  "name": "v2-kure-qwen38-q8-offline-diagnostic21-c33-20260828",
+  "purpose": "C33 preserves the C30 paired C02 gate, C31 shared one-to-four-sentence public-answer contract, and C32 exact qualifying carry-forward citations in validator-only retry context, then demotes only exact redundant public direct legal rules with matching public applications. C30 adds the fixed four-item C02 ANSWER paired evaluation gate plus S3 2-to-4 public-conclusion recovery with complete target/provision coverage and first-invalid conditional-exception carry-forward on the failure-and-coverage roster. KURE is the only executable retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, or LF-Eval execution is permitted.",
   "selection": {
     "answer_yield_minimum": 4,
     "baseline": {
@@ -520,7 +520,30 @@
       "release": "C32-retry-only-qualifying-carry-forward",
       "s3_validator_context": "LOCAL_EXECUTOR_ONLY"
     },
-    "candidate_id": "C29-preserved-S1-S2-S3-contract+C30-paired-C02-answer-cohort-gate+S3-carry-forward+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward",
+    "c33_capabilities": {
+      "c33_redundant_public_legal_rule_projection": {
+        "action": "DEMOTE_MATCHED_LEGAL_RULE_PUBLIC_ROLE_TO_AUDIT_ONLY",
+        "claim_text_targets_and_citations": "PRESERVED",
+        "gold_benchmark_or_score_input": "FORBIDDEN",
+        "nonmatches": "FAIL_CLOSED_NO_MUTATION",
+        "phase": "POST_S1_PRE_VALIDATION_DETERMINISTIC_PUBLIC_PRESENTATION_REPAIR",
+        "predicate": {
+          "application": "public_role=conclusion,claim_type=application",
+          "legal_rule": "public_role=conclusion,claim_type=legal_rule,applicability=direct",
+          "matching": "EXACT_NONEMPTY_TARGET_ID_SET_AND_CORE_PROVISION_ID_SET",
+          "mode": "GENERATE_ANSWER",
+          "public_conclusion_contract": "required"
+        },
+        "public_answer": "REBUILT_FROM_REMAINING_PUBLIC_CLAIMS"
+      }
+    },
+    "c33_source_provenance": {
+      "base_source_commit": "a5969bc0631bc5ed54f99677b7740094303f3da0",
+      "base_source_tree": "6456ca2d89bdc3313d153b3cbbdf2762c86f2b0f",
+      "implementation_layer": "LOCAL_EXECUTOR_POST_S1_PRE_VALIDATION_PUBLIC_PROJECTION",
+      "release": "C33-redundant-public-rule-demotion"
+    },
+    "candidate_id": "C29-preserved-S1-S2-S3-contract+C30-paired-C02-answer-cohort-gate+S3-carry-forward+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward+C33-redundant-public-rule-demotion",
     "cohort_counts": {
       "accepted_abstain": 7,
       "execution_failure": 8,
@@ -573,13 +596,16 @@
         "cac3951420ee56486cc9e4a6cd37f77a81d68b0c",
         "390ae000d21dda4487562273e5b08a798efe0047",
         "cc559855ca0e268b06b00ebb0fbf21740df9893d"
+      ],
+      "C33_presentation_repair_parent": [
+        "a5969bc0631bc5ed54f99677b7740094303f3da0"
       ]
     },
     "entry_count": 21,
     "execution_role": "PRIMARY_KURE_DIAGNOSTIC_EXECUTION",
-    "implementation_parent_commit": "567f70fee12c1e45a9ecf186adca5e16fb1bd524",
+    "implementation_parent_commit": "a5969bc0631bc5ed54f99677b7740094303f3da0",
     "lf_eval": "excluded; no LF-Eval invocation or score injection",
-    "method": "C32 preserves the C30 paired C02 gate and C31 shared public-answer contract, then permits only an exact frozen qualifying carry-forward citation in validator-only retry context. C30 adds the fixed four-item C02 ANSWER paired evaluation gate plus S3 bounded public conclusion recovery and first-invalid conditional-exception carry-forward on the C24 fixed roster reindexed from immutable C02 source ordinals",
+    "method": "C33 preserves the C30 paired C02 gate, C31 shared public-answer contract, and C32 validator-only qualifying carry-forward, then deterministically demotes only an exact redundant public direct legal-rule projection when a public application has identical nonempty targets and core citations. C30 adds the fixed four-item C02 ANSWER paired evaluation gate plus S3 bounded public conclusion recovery and first-invalid conditional-exception carry-forward on the C24 fixed roster reindexed from immutable C02 source ordinals",
     "nonregression_minimums": {
       "complete_evidence_count": 7,
       "provision_exact_match_count": 2,
@@ -811,7 +837,7 @@
     "skill_files": {
       "S1": {
         "skill_path": "skills/legal_issue_and_query_planning/SKILL.md",
-        "skill_sha256": "273d61cd4c042da3eba5d65e7e746ee132a7c1a166bc99f5f51416c58e0d762a",
+        "skill_sha256": "98fe1cc6cab3c29cc880a208ee5ce805c258707e9a5de58dc3aab9501da0802f",
         "validator_path": "skills/legal_issue_and_query_planning/scripts/validate_output.py",
         "validator_sha256": "6e8ce23ad31a60b6403cc585c88896734466b5bcac53ebfc5864884c57d5599d"
       },
@@ -830,11 +856,11 @@
     },
     "skill_sha256_recording": "ExperimentRecord automatically persists all runtime skill_sha256 values.",
     "source_frozen_conditions": {
-      "primary": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward",
-      "reference": "V2-BM25-reference-only-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward"
+      "primary": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward+C33-redundant-public-rule-demotion",
+      "reference": "V2-BM25-reference-only-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward+C33-redundant-public-rule-demotion"
     },
-    "source_primary_manifest_sha256": "dc9a63780d5bbd58b035b3151cba257c6eb58403138b52ad6053a4384a069b39",
-    "source_reference_manifest_sha256": "e340469f16778c98b90506da60d7571cd2795d3460b0aafcde7c1a7764320a51"
+    "source_primary_manifest_sha256": "6d782c9da88d8a22c7d8df316e3444e38e4f2851682c20c1977151f88cfe0258",
+    "source_reference_manifest_sha256": "d3fbac4e5eddde35414ec7cee267c032fff95960f6b39da748912eb06af111e0"
   },
   "source_dataset": {
     "path": "data/koblex/qa/test-00000-of-00001.parquet",

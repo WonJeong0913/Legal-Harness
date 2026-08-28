@@ -226,6 +226,15 @@ def qa430_qualifying_payload():
     return result
 
 
+def qa401_redundant_rule_application_output():
+    return raw_output(
+        [
+            ("T1", "제1조는 이 사안의 법률상 기준을 정합니다.", "conclusion", "legal_rule", "P1"),
+            ("T1", "따라서 이 사안에는 제1조의 효과가 직접 적용됩니다.", "conclusion", "application", "P1"),
+        ]
+    )
+
+
 class S3PublicRoleRetryTests(unittest.TestCase):
     def test_composite_single_target_multi_rule_retries_as_application(self):
         invalid = composite_invalid_output()
@@ -324,18 +333,13 @@ class S3PublicRoleRetryTests(unittest.TestCase):
         )
         self.assertEqual(result["answer"].count("\n"), 3)
 
-    def test_qa460_five_public_conclusions_retry_to_four(self):
+    def test_qa460_five_public_conclusions_demote_redundant_rules(self):
         invalid = five_public_qa460_shape(["conclusion"] * 5)
-        corrected = five_public_qa460_shape(
-            ["conclusion", "audit", "conclusion", "conclusion", "conclusion"]
-        )
         prompts, diagnostics = [], []
 
         def generator(prompt):
             prompts.append(prompt)
-            return json.dumps(
-                invalid if len(prompts) == 1 else corrected, ensure_ascii=False
-            )
+            return json.dumps(invalid, ensure_ascii=False)
 
         executor = LocalOllamaSkillExecutor(
             ROOT / "skills", "fixture-model", max_attempts=2,
@@ -346,21 +350,21 @@ class S3PublicRoleRetryTests(unittest.TestCase):
             "grounded_legal_answer_generation", "GENERATE_ANSWER", multi_target_payload()
         )
 
-        self.assertEqual(len(prompts), 2)
-        self.assertIn("PUBLIC-CONCLUSION ROLE REPAIR", prompts[1])
-        self.assertIn("public_conclusion_count", prompts[1])
-        self.assertIn("1 to 4 claims", prompts[1])
+        self.assertEqual(len(prompts), 1)
         self.assertEqual(
-            diagnostics[0]["s3_public_role_contract"]["public_conclusion_count"], 5
+            [claim["public_role"] for claim in result["claims"]],
+            ["audit", "audit", "conclusion", "audit", "conclusion"],
         )
+        self.assertEqual(result["answer"].count("\n"), 1)
         self.assertEqual(
-            len([claim for claim in result["claims"] if claim["public_role"] == "conclusion"]),
-            4,
+            [repair["claim_id"] for repair in diagnostics[0]["deterministic_repairs"]],
+            ["C1", "C2", "C4"],
         )
-        self.assertEqual(result["answer"].count("\n"), 3)
 
     def test_identical_invalid_public_role_hash_stops_before_extra_attempt(self):
         invalid = five_public_qa460_shape(["conclusion"] * 5)
+        for index in (0, 1, 3):
+            invalid["claims"][index]["claim_type"] = "procedure"
         prompts, diagnostics = [], []
 
         def generator(prompt):
@@ -769,6 +773,133 @@ class S3PublicRoleRetryTests(unittest.TestCase):
             ["C2"],
         )
         self.assertEqual(result["claims"][1]["public_role"], "conclusion")
+
+    def test_qa401_redundant_public_rule_is_demoted_without_retry(self):
+        output = qa401_redundant_rule_application_output()
+        prompts, diagnostics = [], []
+
+        def generator(prompt):
+            prompts.append(prompt)
+            return json.dumps(output, ensure_ascii=False)
+
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture-model", max_attempts=2,
+            generator=generator, diagnostic_sink=diagnostics.append,
+        )
+
+        result = executor.execute(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", single_target_payload()
+        )
+
+        self.assertEqual(len(prompts), 1)
+        self.assertEqual(
+            [claim["public_role"] for claim in result["claims"]],
+            ["audit", "conclusion"],
+        )
+        self.assertEqual(
+            result["answer"], "따라서 이 사안에는 제1조의 효과가 직접 적용됩니다.[CT2]"
+        )
+        self.assertEqual(
+            [citation["provision_id"] for citation in result["claim_citations"] if citation["claim_id"] == "C1"],
+            ["P1"],
+        )
+        self.assertEqual(
+            diagnostics[0]["deterministic_repairs"],
+            [
+                {
+                    "kind": "s3_redundant_public_legal_rule_demoted",
+                    "claim_id": "C1",
+                    "matched_application_claim_id": "C2",
+                    "answer_target_ids": ["T1"],
+                    "provision_ids": ["P1"],
+                }
+            ],
+        )
+
+    def test_qa460_multiple_redundant_rules_are_demoted_and_answer_rebuilt(self):
+        output = five_public_qa460_shape(["conclusion"] * 5)
+        prompts, diagnostics = [], []
+
+        def generator(prompt):
+            prompts.append(prompt)
+            return json.dumps(output, ensure_ascii=False)
+
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture-model", max_attempts=2,
+            generator=generator, diagnostic_sink=diagnostics.append,
+        )
+
+        result = executor.execute(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", multi_target_payload()
+        )
+
+        self.assertEqual(len(prompts), 1)
+        self.assertEqual(
+            [claim["public_role"] for claim in result["claims"]],
+            ["audit", "audit", "conclusion", "audit", "conclusion"],
+        )
+        self.assertEqual(
+            result["answer"],
+            "첫 대상에는 위 효력이 적용됩니다.[CT3]\n둘째 대상에는 소급효가 적용됩니다.[CT5]",
+        )
+        self.assertEqual(
+            [repair["claim_id"] for repair in diagnostics[0]["deterministic_repairs"]],
+            ["C1", "C2", "C4"],
+        )
+
+    def test_redundant_rule_projection_fails_closed_outside_exact_core_match(self):
+        executor = LocalOllamaSkillExecutor(ROOT / "skills", "fixture-model")
+        input_data = executor._build_skill_input(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", multi_target_payload()
+        )
+        mismatched_targets = raw_output(
+            [
+                ("T1", "첫 대상 규칙입니다.", "conclusion", "legal_rule", "P1"),
+                ("T2", "둘째 대상 적용입니다.", "conclusion", "application", "P1"),
+            ]
+        )
+        mismatched_provisions = raw_output(
+            [
+                ("T1", "첫 대상 규칙입니다.", "conclusion", "legal_rule", "P1"),
+                ("T1", "첫 대상 적용입니다.", "conclusion", "application", "P2"),
+            ]
+        )
+        empty_citations = qa401_redundant_rule_application_output()
+        empty_citations["claim_citations"] = []
+        non_core = qa401_redundant_rule_application_output()
+        for citation in non_core["claim_citations"]:
+            citation["provision_id"] = "Q1"
+        exception = qa401_redundant_rule_application_output()
+        exception["claims"][0]["claim_type"] = "exception"
+        qualifying_input = executor._build_skill_input(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", qa430_qualifying_payload()
+        )
+        candidate_input = copy.deepcopy(input_data)
+        candidate_input["mode"] = "GENERATE_BENCHMARK_CANDIDATE"
+        legacy_input = copy.deepcopy(input_data)
+        legacy_input["generation_constraints"]["public_conclusion_contract"] = "legacy"
+        cases = [
+            (mismatched_targets, "GENERATE_ANSWER", input_data),
+            (mismatched_provisions, "GENERATE_ANSWER", input_data),
+            (empty_citations, "GENERATE_ANSWER", input_data),
+            (non_core, "GENERATE_ANSWER", qualifying_input),
+            (exception, "GENERATE_ANSWER", input_data),
+            (qa401_redundant_rule_application_output(), "GENERATE_BENCHMARK_CANDIDATE", candidate_input),
+            (qa401_redundant_rule_application_output(), "GENERATE_ANSWER", legacy_input),
+        ]
+
+        for output, entry_point, skill_input in cases:
+            with self.subTest(entry_point=entry_point, output=output):
+                repaired, repairs = (
+                    executor._repair_s3_redundant_public_rule_application_projection(
+                        "grounded_legal_answer_generation", entry_point, output, skill_input
+                    )
+                )
+                self.assertIs(repaired, output)
+                self.assertEqual(repairs, [])
+                self.assertEqual(
+                    output["claims"][0]["public_role"], "conclusion"
+                )
 
 
 if __name__ == "__main__":

@@ -30,6 +30,31 @@ class S1EpistemicNeutralityFixtures(unittest.TestCase):
         contract = (PROJECT_ROOT / "skills/legal_issue_and_query_planning/references/contract.md").read_text(encoding="utf-8")
         self.assertIn("retrieval hypotheses", contract)
 
+    def test_generic_conditions_question_does_not_authorize_a_blanket_exception_query(self):
+        prompt = self.executor._prompt(
+            "legal_issue_and_query_planning",
+            "INITIAL_PLAN",
+            {
+                "run_id": "s1-generic-conditions",
+                "mode": "INITIAL_PLAN",
+                "normalized_question": "청구의 조건과 요건은 무엇인가?",
+            },
+            "",
+        )
+        self.assertIn(
+            "generic request for conditions or requirements does not by itself authorize a blanket \"exception provision\"",
+            " ".join(prompt.split()),
+        )
+        self.assertIn("a stated concrete fact activates it", prompt)
+        for relative in (
+            "skills/legal_issue_and_query_planning/SKILL.md",
+            "skills/legal_issue_and_query_planning/references/contract.md",
+        ):
+            self.assertIn(
+                "never a generic exception provision",
+                (PROJECT_ROOT / relative).read_text(encoding="utf-8"),
+            )
+
     def test_single_explicit_output_does_not_invite_an_unrelated_contract_theory(self):
         fixture_question = "이 통지가 효력이 있는지 판단하라."
         prompt = self.executor._output_invariants(
