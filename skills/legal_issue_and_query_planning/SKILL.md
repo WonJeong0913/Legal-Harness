@@ -53,7 +53,10 @@ output schema.
 6. In `GAP_QUERY_PLAN`, target only supplied unresolved statute evidence. Do not
    search for `missing_fact` or `scope_excess`. Center each request on one
    unsatisfied atomic completion requirement, and vary a material legal relation
-   rather than paraphrasing a prior query. Stay within the supplied budget.
+   rather than paraphrasing a prior query. When an unresolved critical item's
+   Korean description and completion requirement repeat a distinctive factual or
+   effect phrase, preserve one such literal phrase in its explicit `query_terms`;
+   do not rely on copied question context. Stay within the supplied budget.
 7. Compact descriptive prose, not the structural evidence coverage. Use one
    short sentence per descriptive field, avoid repeated rationale, close the
    JSON object, and return JSON only.

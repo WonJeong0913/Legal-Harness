@@ -677,6 +677,123 @@ def validate_article_grounding(requests, inp, errors):
             if len(statutes) != 1:
                 errors.append("unqualified statute/article lacks unique provenance: %s" % article)
 
+
+_GAP_ANCHOR_STOPWORDS = frozenset({
+    "관련", "관한", "대한", "위한", "해당", "경우", "여부", "필요", "필요한",
+    "기준", "요건", "조건", "법적", "법률", "규정", "조항", "적용", "판단",
+    "인정", "확인", "검토", "효과", "사안", "사실", "인한", "따른", "있는",
+    "없는", "그리고", "또는", "등", "수", "것", "중", "내", "및", "와", "과",
+})
+_KOREAN_PARTICLE_SUFFIXES = (
+    "으로", "에서", "에게", "까지", "부터", "처럼", "보다", "으로서",
+    "으로써", "에게서", "이라면", "이라도", "이라서", "은", "는", "이",
+    "가", "을", "를", "의", "에", "로", "도", "만", "와", "과",
+)
+_GAP_ANCHOR_CONTEXT_HEADS = frozenset({
+    "기관", "법원", "회사", "사업장", "근로자", "사람", "당사자", "절차",
+})
+_KOREAN_DESCRIPTIVE_MODIFIER_SUFFIXES = (
+    "하는", "되는", "받은", "발생한", "입은", "따른", "있는", "없는", "한",
+)
+
+
+def _korean_gap_anchor_phrases(value):
+    """Return only literal Korean two-word fact/effect anchors.
+
+    This deliberately skips English and mixed source text. It keeps only a
+    distinctive modifier/head pair whose head bears a normalized Korean
+    particle, avoiding arbitrary bigrams from a long evidence sentence.
+    """
+    if not isinstance(value, str) or re.search(r"[A-Za-z0-9]", value):
+        return set()
+    source_words = re.findall(r"[가-힣]+", unicodedata.normalize("NFKC", value))
+    phrases = set()
+    for left, right in zip(source_words, source_words[1:]):
+        normalized_words = []
+        right_had_particle = False
+        for index, word in enumerate((left, right)):
+            normalized = word
+            for suffix in _KOREAN_PARTICLE_SUFFIXES:
+                if normalized.endswith(suffix) and len(normalized) - len(suffix) >= 2:
+                    normalized = normalized[:-len(suffix)]
+                    if index == 1:
+                        right_had_particle = True
+                    break
+            normalized_words.append(normalized)
+        if (
+            right_had_particle
+            and all(
+            word not in _GAP_ANCHOR_STOPWORDS and len(word) >= 2
+            for word in normalized_words
+            )
+            and normalized_words[1] not in _GAP_ANCHOR_CONTEXT_HEADS
+            and not normalized_words[0].endswith(
+                _KOREAN_DESCRIPTIVE_MODIFIER_SUFFIXES
+            )
+        ):
+            phrases.add(" ".join(normalized_words))
+    return phrases
+
+
+def _trusted_gap_anchor_phrases(evidence_item):
+    """Activate one most-specific anchor repeated by Korean source fields."""
+    if not isinstance(evidence_item, dict):
+        return set()
+    description_phrases = _korean_gap_anchor_phrases(
+        evidence_item.get("description")
+    )
+    requirement_phrases = set()
+    for requirement in evidence_item.get("completion_requirements", []):
+        if isinstance(requirement, dict):
+            requirement_phrases.update(
+                _korean_gap_anchor_phrases(requirement.get("text"))
+            )
+    shared = description_phrases.intersection(requirement_phrases)
+    if not shared:
+        return set()
+    # Query terms are intentionally bounded to 2--6 values.  Requiring every
+    # bigram from a long evidence sentence would turn this narrow integrity
+    # check into a competing query planner. The candidate extractor has already
+    # excluded general context heads and descriptive-verb modifiers, so retain
+    # one stable literal result-object/effect anchor.
+    return {sorted(shared)[-1]}
+
+
+def validate_gap_query_terms_anchor_coverage(requests, evidence, unresolved, errors):
+    """Keep repeated Korean fact/effect anchors in explicit gap query_terms.
+
+    The predicate is intentionally mechanical: it neither creates a query nor
+    chooses a law, and query_text/original-question context cannot satisfy it.
+    """
+    for item in evidence:
+        if (
+            not isinstance(item, dict)
+            or item.get("critical") is not True
+            or item.get("evidence_item_id") not in unresolved
+        ):
+            continue
+        anchors = _trusted_gap_anchor_phrases(item)
+        if not anchors:
+            continue
+        explicit_terms = []
+        for request in requests:
+            if request.get("evidence_item_id") != item.get("evidence_item_id"):
+                continue
+            values = request.get("query_terms", [])
+            if isinstance(values, list):
+                explicit_terms.extend(value for value in values if isinstance(value, str))
+        normalized_terms = [norm(value) for value in explicit_terms]
+        missing = sorted(
+            anchor for anchor in anchors
+            if not any(anchor in query_term for query_term in normalized_terms)
+        )
+        if missing:
+            errors.append(
+                "GAP_QUERY_PLAN query_terms omit trusted Korean fact/effect anchors: "
+                "evidence_item_id=%s; missing_anchors=%s"
+                % (item.get("evidence_item_id"), ", ".join(missing))
+            )
+
 def validate(out, inp):
     errors = []
     validate_common(out, inp, errors)
@@ -787,6 +904,7 @@ def validate(out, inp):
             errors.append("gap requests exceed remaining_request_budget")
         validate_requests(requests, issues, evidence, prior, allowed, max_per_issue, errors, gap=True)
         validate_article_grounding(requests, inp, errors)
+        validate_gap_query_terms_anchor_coverage(requests, evidence, unresolved, errors)
     return errors
 
 

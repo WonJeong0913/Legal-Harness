@@ -164,9 +164,9 @@ class Diagnostic21ManifestTests(unittest.TestCase):
             {
                 "S1": {
                     "skill_path": "skills/legal_issue_and_query_planning/SKILL.md",
-                    "skill_sha256": "98fe1cc6cab3c29cc880a208ee5ce805c258707e9a5de58dc3aab9501da0802f",
+                    "skill_sha256": "6fc4008c72afd0a7e7d58f9214dee1eaa8af56de9c3ade5c920fb73d74f84094",
                     "validator_path": "skills/legal_issue_and_query_planning/scripts/validate_output.py",
-                    "validator_sha256": "6e8ce23ad31a60b6403cc585c88896734466b5bcac53ebfc5864884c57d5599d",
+                    "validator_sha256": "84c1ab1ff20a053c67dbe245457c9bd55d91271407078f3b355cfadc38d80422",
                 },
                 "S2": {
                     "skill_path": "skills/provision_coverage_assessment/SKILL.md",
@@ -178,7 +178,7 @@ class Diagnostic21ManifestTests(unittest.TestCase):
                     "skill_path": "skills/grounded_legal_answer_generation/SKILL.md",
                     "skill_sha256": "a146c3c7a0910c43d3d0f84a7f347e747a193a5ba88dcf7af50a800379735eac",
                     "validator_path": "skills/grounded_legal_answer_generation/scripts/validate_output.py",
-                    "validator_sha256": "2fde6286ce2f6dd57088b4dbeee70423665397c7b525d7785aa258e202b3af8f",
+                    "validator_sha256": "e150774086822f2b00d3337555645cd4468f30aa3239c236daf1d0a2fd89b6f4",
                 },
             },
         )
@@ -214,35 +214,37 @@ class Diagnostic21ManifestTests(unittest.TestCase):
         self.assertEqual(primary["selection"]["c32_source_provenance"], orchestration.DIAGNOSTIC21_C32_SOURCE_PROVENANCE)
         self.assertEqual(primary["selection"]["c33_capabilities"], orchestration.DIAGNOSTIC21_C33_CAPABILITIES)
         self.assertEqual(primary["selection"]["c33_source_provenance"], orchestration.DIAGNOSTIC21_C33_SOURCE_PROVENANCE)
+        self.assertEqual(primary["selection"]["c34_capabilities"], orchestration.DIAGNOSTIC21_C34_CAPABILITIES)
+        self.assertEqual(primary["selection"]["c34_source_provenance"], orchestration.DIAGNOSTIC21_C34_SOURCE_PROVENANCE)
         self.assertEqual(
             primary["selection"]["runtime_artifact_path_provenance"]["qwen_ollama_blob_exact_local_runtime_exception"],
             orchestration.QWEN_MODEL_PROVENANCE["ollama_model_blob"],
         )
         self.assertFalse(primary["selection"]["round_merge_provenance"]["equivalence_claimed"])
         self.assertEqual(primary["selection"]["round_merge_provenance"]["c02_saved_stage_round_merge_mode"], "request_rank_top1_guarded_swap")
-        self.assertEqual(primary["name"], "v2-kure-qwen38-q8-offline-diagnostic21-c33-20260828")
-        self.assertEqual(reference["name"], "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c33-20260828")
+        self.assertEqual(primary["name"], "v2-kure-qwen38-q8-offline-diagnostic21-c34-20260828")
+        self.assertEqual(reference["name"], "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c34-20260828")
         self.assertEqual(
             primary["frozen_configuration"]["condition"],
-            "fixture-kure-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C33_CONDITION_SUFFIX,
+            "fixture-kure-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C33_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C34_CONDITION_SUFFIX,
         )
         self.assertEqual(
             reference["frozen_configuration"]["condition"],
-            "fixture-bm25-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C33_CONDITION_SUFFIX,
+            "fixture-bm25-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C33_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C34_CONDITION_SUFFIX,
         )
         self.assertEqual(
             primary["selection"]["source_frozen_conditions"],
             {
-                "primary": "fixture-kure-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C33_CONDITION_SUFFIX,
-                "reference": "fixture-bm25-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C33_CONDITION_SUFFIX,
+                "primary": "fixture-kure-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C33_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C34_CONDITION_SUFFIX,
+                "reference": "fixture-bm25-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C33_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C34_CONDITION_SUFFIX,
             },
         )
         self.assertEqual(
             primary["selection"]["implementation_parent_commit"],
-            "a5969bc0631bc5ed54f99677b7740094303f3da0",
+            "8e26c44c1353961a1e9b492e9c9144b23b833281",
         )
-        self.assertIn("C33 preserves the C30", primary["selection"]["method"])
-        self.assertIn("C33 preserves the C30", primary["purpose"])
+        self.assertIn("C34 preserves the C30", primary["selection"]["method"])
+        self.assertIn("C34 preserves the C30", primary["purpose"])
         self.assertEqual(primary["frozen_configuration"].get("s3_public_answer_max_claims"), 4)
         self.assertEqual(primary["frozen_configuration"].get("s3_public_answer_format"), "conclusion_first_1_to_4_short_sentences")
         self.assertEqual(primary["frozen_configuration"]["reranker_provenance"], orchestration.DIAGNOSTIC21_RERANKER_PROVENANCE)

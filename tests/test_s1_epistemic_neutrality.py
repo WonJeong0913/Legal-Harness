@@ -1,4 +1,5 @@
 import unittest
+import json
 from pathlib import Path
 import importlib.util
 
@@ -328,6 +329,132 @@ class S1EpistemicNeutralityFixtures(unittest.TestCase):
             anchor, wrong_law_errors,
         )
         self.assertTrue(any("statute/article pair lacks" in error for error in wrong_law_errors))
+
+    def test_gap_anchor_coverage_requires_actual_korean_result_phrase_in_query_terms(self):
+        evidence_item = {
+            "evidence_item_id": "E1",
+            "critical": True,
+            "description": (
+                "산재 요양 중 산재보험 의료기관에서 발생한 의료사고로 인한 "
+                "추가 상해의 업무상 재해 인정 기준"
+            ),
+            "completion_requirements": [{
+                "requirement_id": "E1-R1",
+                "text": (
+                    "산재 요양 중 산재보험 의료기관에서 발생한 의료사고로 인한 "
+                    "추가 상해의 업무상 재해 인정 기준"
+                ),
+            }],
+        }
+        self.assertEqual(
+            S1_VALIDATOR._trusted_gap_anchor_phrases(evidence_item),
+            {"추가 상해"},
+        )
+        missing_errors = []
+        S1_VALIDATOR.validate_gap_query_terms_anchor_coverage(
+            [{
+                "evidence_item_id": "E1",
+                "query_terms": ["요양 중", "의료사고", "추가", "상해", "업무상 재해"],
+            }],
+            [evidence_item], {"E1"}, missing_errors,
+        )
+        self.assertEqual(
+            missing_errors,
+            [
+                "GAP_QUERY_PLAN query_terms omit trusted Korean fact/effect anchors: "
+                "evidence_item_id=E1; missing_anchors=추가 상해"
+            ],
+        )
+        covered_errors = []
+        S1_VALIDATOR.validate_gap_query_terms_anchor_coverage(
+            [{
+                "evidence_item_id": "E1",
+                "query_terms": ["요양 중", "의료사고", "추가 상해", "업무상 재해"],
+            }],
+            [evidence_item], {"E1"}, covered_errors,
+        )
+        self.assertEqual(covered_errors, [])
+
+    def test_gap_anchor_coverage_skips_mixed_language_evidence(self):
+        evidence_item = {
+            "evidence_item_id": "E1",
+            "critical": True,
+            "description": "additional injury 추가 상해의 인정 기준",
+            "completion_requirements": [{
+                "requirement_id": "E1-R1",
+                "text": "additional injury 추가 상해의 인정 기준",
+            }],
+        }
+        self.assertEqual(S1_VALIDATOR._trusted_gap_anchor_phrases(evidence_item), set())
+
+    def test_gap_anchor_error_retries_with_literal_query_term(self):
+        payload = {
+            "run_id": "s1-gap-anchor-retry",
+            "normalized_question": "추가 상해의 인정 여부를 판단하라.",
+            "next_retrieval_round": 1,
+            "legal_issues": [{"issue_id": "I1"}],
+            "answer_targets": [{"answer_target_id": "T1"}],
+            "required_evidence_items": [{
+                "evidence_item_id": "E1",
+                "issue_id": "I1",
+                "evidence_type": "rule",
+                "description": (
+                    "산재 요양 중 산재보험 의료기관에서 발생한 의료사고로 인한 "
+                    "추가 상해의 업무상 재해 인정 기준"
+                ),
+                "critical": True,
+                "answer_target_ids": ["T1"],
+                "completion_requirements": [{
+                    "requirement_id": "E1-R1",
+                    "text": (
+                        "산재 요양 중 산재보험 의료기관에서 발생한 의료사고로 인한 "
+                        "추가 상해의 업무상 재해 인정 기준"
+                    ),
+                }],
+            }],
+            "coverage_assessments": [],
+            "missing_evidence_items": [{"evidence_item_id": "E1"}],
+            "evidence_conflicts": [],
+            "query_history": [],
+            "candidate_cross_references": [],
+            "seen_provision_ids": [],
+            "remaining_request_budget": 2,
+        }
+
+        def output(query_terms):
+            return {
+                "schema_version": "1.0",
+                "skill_id": "S1",
+                "mode": "GAP_QUERY_PLAN",
+                "status": "ok",
+                "target_evidence_item_ids": ["E1"],
+                "gap_retrieval_requests": [{
+                    "request_id": "GRQ-R1-1",
+                    "issue_id": "I1",
+                    "evidence_item_id": "E1",
+                    "query_channel": "sparse_keywords",
+                    "query_text": "의료사고 업무상 재해",
+                    "query_terms": query_terms,
+                    "statute_hints": [],
+                    "source_assessment_status": "uncovered",
+                }],
+            }
+
+        invalid = output(["의료사고", "업무상 재해"])
+        corrected = output(["의료사고", "추가 상해", "업무상 재해"])
+        prompts = []
+
+        def generator(prompt):
+            prompts.append(prompt)
+            return json.dumps(invalid if len(prompts) == 1 else corrected, ensure_ascii=False)
+
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills", "test-model", max_attempts=2, generator=generator
+        )
+        result = executor.execute("legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload)
+        self.assertEqual(len(prompts), 2)
+        self.assertIn("missing_anchors=추가 상해", prompts[1])
+        self.assertEqual(result["gap_retrieval_requests"][0]["query_terms"], corrected["gap_retrieval_requests"][0]["query_terms"])
 
 if __name__ == "__main__":
     unittest.main()

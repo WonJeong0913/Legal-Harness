@@ -56,7 +56,11 @@ Return only new requests for supplied unresolved statute evidence. Preserve the
 evidence item's answer-target scope, center each request on an unsatisfied atomic
 completion requirement, vary a material legal relation rather than paraphrasing
 `query_history`, and respect `remaining_request_budget`. A missing question fact
-is not a search target.
+is not a search target. When a critical item's Korean-only description and
+completion requirement repeat a distinctive adjacent factual or effect phrase,
+preserve one such literal phrase in the linked request's explicit `query_terms`.
+Do not treat copied question context or another query field as a substitute, and
+do not manufacture a statute, article, or legal conclusion from the phrase.
 
 ## Retrieval query fields
 
