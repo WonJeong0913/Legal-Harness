@@ -443,6 +443,19 @@ class LocalOllamaSkillExecutor:
                     if effect_neutrality_retry_instruction:
                         repair_instruction += effect_neutrality_retry_instruction
                         initial_plan_effect_neutrality_retry_used = True
+                    if any(
+                        error.startswith(
+                            "public application lacks requested-output case-fact anchors "
+                            "before redundant-rule demotion:"
+                        )
+                        for error in validation_errors
+                    ):
+                        repair_instruction += (
+                            " CASE-FACT APPLICATION ANCHOR RETRY: preserve each literal "
+                            "missing_anchors phrase named in the validation error in its "
+                            "cited public application claim. Do not invent facts, legal "
+                            "effects, provisions, or an answer sentence."
+                        )
                     public_role_diagnostic = self._s3_public_role_diagnostic(
                         skill_name,
                         skill_output,
@@ -591,6 +604,10 @@ class LocalOllamaSkillExecutor:
                 )
                 or error.startswith(
                     "conditional exception carry-forward obligation is not publicly covered:"
+                )
+                or error.startswith(
+                    "public application lacks requested-output case-fact anchors "
+                    "before redundant-rule demotion:"
                 )
                 for error in validation_errors
             )
@@ -2217,7 +2234,7 @@ class LocalOllamaSkillExecutor:
         output: Dict[str, Any],
         skill_input: Mapping[str, Any],
     ) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
-        """Demote only an exactly duplicated public S3 legal-rule projection."""
+        """Repair only an exactly duplicated public S3 rule/application projection."""
         if (
             skill_name != "grounded_legal_answer_generation"
             or entry_point != "GENERATE_ANSWER"
@@ -2247,6 +2264,27 @@ class LocalOllamaSkillExecutor:
         if not core_provision_ids:
             return output, []
         citations_by_claim = self._s3_citations_by_claim(citations)
+        case_fact_failures = getattr(
+            self._validator_modules[skill_name],
+            "redundant_public_rule_application_case_fact_anchor_failures",
+            None,
+        )
+        guarded_rule_ids = {
+            failure.get("legal_rule_claim_id")
+            for failure in (
+                case_fact_failures(output, skill_input, citations_by_claim)
+                if callable(case_fact_failures)
+                else []
+            )
+            if isinstance(failure, Mapping)
+            and isinstance(failure.get("legal_rule_claim_id"), str)
+        }
+        answer_target_types = {
+            target.get("answer_target_id"): target.get("answer_type")
+            for target in self._list(skill_input, "answer_targets")
+            if isinstance(target, Mapping)
+            and isinstance(target.get("answer_target_id"), str)
+        }
 
         def string_set(value: Any) -> set:
             return {
@@ -2277,6 +2315,7 @@ class LocalOllamaSkillExecutor:
                 or rule.get("claim_type") != "legal_rule"
                 or rule.get("applicability") != "direct"
                 or not isinstance(rule.get("claim_id"), str)
+                or rule["claim_id"] in guarded_rule_ids
             ):
                 continue
             target_ids = string_set(rule.get("answer_target_ids"))
@@ -2303,9 +2342,26 @@ class LocalOllamaSkillExecutor:
             return output, []
 
         repaired = copy.deepcopy(output)
-        demoted_rule_ids = {rule_id for rule_id, _, _, _ in matches}
+        demoted_rule_ids = {
+            rule_id
+            for rule_id, _, target_ids, _ in matches
+            if not all(
+                answer_target_types.get(target_id) == "legal_conditions"
+                for target_id in target_ids
+            )
+        }
+        demoted_application_ids = {
+            application_id
+            for _, application_id, target_ids, _ in matches
+            if all(
+                answer_target_types.get(target_id) == "legal_conditions"
+                for target_id in target_ids
+            )
+        }
         for claim in repaired["claims"]:
             if claim.get("claim_id") in demoted_rule_ids:
+                claim["public_role"] = "audit"
+            elif claim.get("claim_id") in demoted_application_ids:
                 claim["public_role"] = "audit"
         markers_by_claim: Dict[str, List[str]] = {}
         for citation in repaired["claim_citations"]:
@@ -2333,16 +2389,29 @@ class LocalOllamaSkillExecutor:
         if not answer or len(answer) > effective_max_chars:
             return output, []
         repaired["answer"] = answer
-        return repaired, [
-            {
-                "kind": "s3_redundant_public_legal_rule_demoted",
-                "claim_id": rule_id,
-                "matched_application_claim_id": application_id,
+        repairs = []
+        for rule_id, application_id, target_ids, cited_provision_ids in matches:
+            legal_conditions_only = all(
+                answer_target_types.get(target_id) == "legal_conditions"
+                for target_id in target_ids
+            )
+            repair = {
+                "kind": (
+                    "s3_redundant_public_application_demoted_for_legal_conditions"
+                    if legal_conditions_only
+                    else "s3_redundant_public_legal_rule_demoted"
+                ),
+                "claim_id": application_id if legal_conditions_only else rule_id,
                 "answer_target_ids": sorted(target_ids),
                 "provision_ids": sorted(cited_provision_ids),
             }
-            for rule_id, application_id, target_ids, cited_provision_ids in matches
-        ]
+            repair[
+                "matched_legal_rule_claim_id"
+                if legal_conditions_only
+                else "matched_application_claim_id"
+            ] = rule_id if legal_conditions_only else application_id
+            repairs.append(repair)
+        return repaired, repairs
 
     def _repair_induced_history_collision_recovery(
         self,

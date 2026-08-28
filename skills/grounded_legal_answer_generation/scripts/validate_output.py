@@ -262,6 +262,150 @@ def validate_public_legal_conclusion_claims(output, input_data, citations_by_cla
             )
 
 
+_CASE_FACT_ANCHOR_STOPWORDS = frozenset({
+    "관련", "관한", "대한", "위한", "해당", "경우", "여부", "필요", "기준",
+    "요건", "조건", "법적", "법률", "규정", "조항", "적용", "판단", "인정",
+    "확인", "검토", "효과", "사안", "사실", "인한", "따른", "있는", "없는",
+    "그리고", "또는", "등", "수", "것", "중", "내", "및", "와", "과",
+})
+_CASE_FACT_ANCHOR_PARTICLE_SUFFIXES = (
+    "으로", "에서", "에게", "까지", "부터", "처럼", "보다", "으로서",
+    "으로써", "에게서", "이라면", "이라도", "이라서", "은", "는", "이",
+    "가", "을", "를", "의", "에", "로", "도", "만", "와", "과",
+)
+_CASE_FACT_ANCHOR_CONTEXT_HEADS = frozenset({
+    "기관", "법원", "회사", "사업장", "근로자", "사람", "당사자", "절차",
+})
+_KOREAN_DESCRIPTIVE_MODIFIER_SUFFIXES = (
+    "하는", "되는", "받은", "발생한", "입은", "따른", "있는", "없는", "한",
+)
+
+
+def _korean_case_fact_anchor_phrases(value):
+    """Return one conservative particle-normalized Korean case-fact anchor."""
+    if not isinstance(value, str) or re.search(r"[A-Za-z0-9]", value):
+        return set()
+    words = re.findall(r"[가-힣]+", unicodedata.normalize("NFKC", value))
+    candidates = set()
+    for left, right in zip(words, words[1:]):
+        normalized_words = []
+        right_had_particle = False
+        for index, word in enumerate((left, right)):
+            normalized = word
+            for suffix in _CASE_FACT_ANCHOR_PARTICLE_SUFFIXES:
+                if normalized.endswith(suffix) and len(normalized) - len(suffix) >= 2:
+                    normalized = normalized[:-len(suffix)]
+                    if index == 1:
+                        right_had_particle = True
+                    break
+            normalized_words.append(normalized)
+        if (
+            right_had_particle
+            and all(
+                word not in _CASE_FACT_ANCHOR_STOPWORDS and len(word) >= 2
+                for word in normalized_words
+            )
+            and normalized_words[1] not in _CASE_FACT_ANCHOR_CONTEXT_HEADS
+            and not normalized_words[0].endswith(
+                _KOREAN_DESCRIPTIVE_MODIFIER_SUFFIXES
+            )
+        ):
+            candidates.add(" ".join(normalized_words))
+    return {sorted(candidates)[-1]} if candidates else set()
+
+
+def redundant_public_rule_application_case_fact_anchor_failures(
+    output, input_data, citations_by_claim
+):
+    """Find the narrow pre-demotion case-fact preservation failures.
+
+    Only the C33 exact public rule/application projection can reach this
+    predicate. It exposes literal requested-output phrases for a retry but
+    never invents their legal treatment or changes a claim.
+    """
+    if (
+        input_data.get("mode") != "GENERATE_ANSWER"
+        or input_data.get("generation_constraints", {}).get(
+            "public_conclusion_contract"
+        ) != "required"
+    ):
+        return []
+    answered_target_ids = [
+        target_id for target_id in input_data.get("answered_target_ids", [])
+        if isinstance(target_id, str)
+    ]
+    if len(answered_target_ids) != 1:
+        return []
+    target_id = answered_target_ids[0]
+    target = next(
+        (
+            item for item in input_data.get("answer_targets", [])
+            if isinstance(item, dict) and item.get("answer_target_id") == target_id
+        ),
+        None,
+    )
+    if not isinstance(target, dict) or target.get("answer_type") != "legal_conclusion":
+        return []
+    anchors = _korean_case_fact_anchor_phrases(target.get("requested_output"))
+    if not anchors:
+        return []
+    core_ids = {
+        item.get("provision_id")
+        for item in input_data.get("core_accepted_provisions", [])
+        if isinstance(item, dict) and isinstance(item.get("provision_id"), str)
+    }
+    if not core_ids:
+        return []
+    claims = [claim for claim in output.get("claims", []) if isinstance(claim, dict)]
+
+    def target_ids(claim):
+        values = claim.get("answer_target_ids")
+        return {value for value in values if isinstance(value, str)} if isinstance(values, list) else set()
+
+    def provision_ids(claim):
+        return {
+            citation.get("provision_id")
+            for citation in citations_by_claim.get(claim.get("claim_id"), [])
+            if isinstance(citation, dict) and isinstance(citation.get("provision_id"), str)
+        }
+
+    applications = [
+        claim for claim in claims
+        if claim.get("public_role") == "conclusion"
+        and claim.get("claim_type") == "application"
+        and target_ids(claim) == {target_id}
+    ]
+    failures = []
+    for rule in claims:
+        rule_provisions = provision_ids(rule)
+        if (
+            rule.get("public_role") != "conclusion"
+            or rule.get("claim_type") != "legal_rule"
+            or rule.get("applicability") != "direct"
+            or target_ids(rule) != {target_id}
+            or not rule_provisions
+            or not rule_provisions.issubset(core_ids)
+        ):
+            continue
+        for application in applications:
+            if provision_ids(application) != rule_provisions:
+                continue
+            rule_text = normalized_claim_text(rule.get("text"))
+            application_text = normalized_claim_text(application.get("text"))
+            missing = sorted(
+                anchor for anchor in anchors
+                if anchor not in rule_text and anchor not in application_text
+            )
+            if missing:
+                failures.append({
+                    "answer_target_id": target_id,
+                    "legal_rule_claim_id": rule.get("claim_id"),
+                    "application_claim_id": application.get("claim_id"),
+                    "missing_anchors": missing,
+                })
+    return failures
+
+
 def normalized_claim_text(value):
     """Normalize text only for literal conditional-exception coverage checks."""
     if not isinstance(value, str):
@@ -497,6 +641,19 @@ def validate(output, input_data):
     validate_public_legal_conclusion_claims(
         output, input_data, citations_by_claim, errors
     )
+    for failure in redundant_public_rule_application_case_fact_anchor_failures(
+        output, input_data, citations_by_claim
+    ):
+        errors.append(
+            "public application lacks requested-output case-fact anchors before "
+            "redundant-rule demotion: answer_target_id=%s; "
+            "application_claim_id=%s; missing_anchors=%s"
+            % (
+                failure["answer_target_id"],
+                failure["application_claim_id"],
+                ", ".join(failure["missing_anchors"]),
+            )
+        )
 
     if not benchmark_question_only:
         expected_lines = [

@@ -235,6 +235,38 @@ def qa401_redundant_rule_application_output():
     )
 
 
+def legal_conditions_payload():
+    result = single_target_payload()
+    result["answer_targets"][0]["answer_type"] = "legal_conditions"
+    result["answer_targets"][0]["requested_output"] = "적법한 절차와 방식 및 공판기일 인정 요건"
+    return result
+
+
+def qa86_case_anchor_payload():
+    result = single_target_payload()
+    result["answer_targets"][0]["question_anchor"] = "업무상 재해 인정 여부"
+    result["answer_targets"][0]["requested_output"] = (
+        "산재 요양 중 산재보험 의료기관 내 의료사고로 인한 추가 상해의 "
+        "업무상 재해 인정 여부"
+    )
+    return result
+
+
+def qa86_case_anchor_output(application_text):
+    return raw_output(
+        [
+            (
+                "T1",
+                "요양 관련 사고는 업무상 사고로 본다는 법률 규칙입니다.",
+                "conclusion",
+                "legal_rule",
+                "P1",
+            ),
+            ("T1", application_text, "conclusion", "application", "P1"),
+        ]
+    )
+
+
 class S3PublicRoleRetryTests(unittest.TestCase):
     def test_composite_single_target_multi_rule_retries_as_application(self):
         invalid = composite_invalid_output()
@@ -814,6 +846,153 @@ class S3PublicRoleRetryTests(unittest.TestCase):
                     "provision_ids": ["P1"],
                 }
             ],
+        )
+
+    def test_legal_conditions_demote_application_and_rebuild_answer(self):
+        output = qa401_redundant_rule_application_output()
+        prompts, diagnostics = [], []
+
+        def generator(prompt):
+            prompts.append(prompt)
+            return json.dumps(output, ensure_ascii=False)
+
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture-model", max_attempts=2,
+            generator=generator, diagnostic_sink=diagnostics.append,
+        )
+        result = executor.execute(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", legal_conditions_payload()
+        )
+
+        self.assertEqual(len(prompts), 1)
+        self.assertEqual(
+            [claim["public_role"] for claim in result["claims"]],
+            ["conclusion", "audit"],
+        )
+        self.assertEqual(result["answer"], "제1조는 이 사안의 법률상 기준을 정합니다.[CT1]")
+        self.assertEqual(
+            diagnostics[0]["deterministic_repairs"],
+            [{
+                "kind": "s3_redundant_public_application_demoted_for_legal_conditions",
+                "claim_id": "C2",
+                "matched_legal_rule_claim_id": "C1",
+                "answer_target_ids": ["T1"],
+                "provision_ids": ["P1"],
+            }],
+        )
+        repeated, repairs = executor._repair_s3_redundant_public_rule_application_projection(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", result,
+            executor._build_skill_input(
+                "grounded_legal_answer_generation", "GENERATE_ANSWER", legal_conditions_payload()
+            ),
+        )
+        self.assertIs(repeated, result)
+        self.assertEqual(repairs, [])
+
+    def test_legal_conditions_multiple_pairs_demote_only_applications(self):
+        output = raw_output([
+            ("T1", "첫째 요건 규칙입니다.", "conclusion", "legal_rule", "P1"),
+            ("T1", "첫째 요건 적용입니다.", "conclusion", "application", "P1"),
+            ("T2", "둘째 요건 규칙입니다.", "conclusion", "legal_rule", "P2"),
+            ("T2", "둘째 요건 적용입니다.", "conclusion", "application", "P2"),
+        ])
+        data = multi_target_payload()
+        for target in data["answer_targets"]:
+            target["answer_type"] = "legal_conditions"
+        executor = LocalOllamaSkillExecutor(ROOT / "skills", "fixture-model")
+        skill_input = executor._build_skill_input(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", data
+        )
+        repaired, repairs = executor._repair_s3_redundant_public_rule_application_projection(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", output, skill_input
+        )
+        self.assertEqual(
+            [claim["public_role"] for claim in repaired["claims"]],
+            ["conclusion", "audit", "conclusion", "audit"],
+        )
+        self.assertEqual([repair["claim_id"] for repair in repairs], ["draft-2", "draft-4"])
+
+    def test_unknown_or_mixed_answer_types_keep_c33_rule_demotion(self):
+        executor = LocalOllamaSkillExecutor(ROOT / "skills", "fixture-model")
+        unknown = legal_conditions_payload()
+        unknown["answer_targets"][0]["answer_type"] = "unknown"
+        mixed = multi_target_payload()
+        mixed["answer_targets"][0]["answer_type"] = "legal_conditions"
+        outputs = [qa401_redundant_rule_application_output(), qa401_redundant_rule_application_output()]
+        for claim in outputs[1]["claims"]:
+            claim["answer_target_ids"] = ["T1", "T2"]
+        for data, output in zip((unknown, mixed), outputs):
+            with self.subTest(answer_types=[target["answer_type"] for target in data["answer_targets"]]):
+                skill_input = executor._build_skill_input(
+                    "grounded_legal_answer_generation", "GENERATE_ANSWER", data
+                )
+                repaired, repairs = executor._repair_s3_redundant_public_rule_application_projection(
+                    "grounded_legal_answer_generation", "GENERATE_ANSWER", output, skill_input
+                )
+                self.assertEqual(
+                    [claim["public_role"] for claim in repaired["claims"]],
+                    ["audit", "conclusion"],
+                )
+                self.assertEqual(repairs[0]["kind"], "s3_redundant_public_legal_rule_demoted")
+
+    def test_case_anchor_retry_preserves_requested_fact_before_rule_demotion(self):
+        invalid = qa86_case_anchor_output("이 사안에는 위 법적 효과가 직접 적용됩니다.")
+        corrected = qa86_case_anchor_output(
+            "이 의료사고로 인한 추가 상해에는 위 법적 효과가 직접 적용됩니다."
+        )
+        prompts, diagnostics = [], []
+
+        def generator(prompt):
+            prompts.append(prompt)
+            return json.dumps(invalid if len(prompts) == 1 else corrected, ensure_ascii=False)
+
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture-model", max_attempts=3,
+            generator=generator, diagnostic_sink=diagnostics.append,
+        )
+        result = executor.execute(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", qa86_case_anchor_payload()
+        )
+
+        self.assertEqual(len(prompts), 2)
+        self.assertIn(
+            "public application lacks requested-output case-fact anchors before redundant-rule demotion",
+            prompts[1],
+        )
+        self.assertIn("missing_anchors=추가 상해", prompts[1])
+        self.assertIn("CASE-FACT APPLICATION ANCHOR RETRY", prompts[1])
+        self.assertNotIn(
+            "_harness_c32_conditional_exception_carry_forward_obligations", prompts[1]
+        )
+        self.assertIn("s3_public_role_contract", diagnostics[0])
+        self.assertEqual(
+            [claim["public_role"] for claim in result["claims"]],
+            ["audit", "conclusion"],
+        )
+        self.assertEqual(
+            result["answer"],
+            "이 의료사고로 인한 추가 상해에는 위 법적 효과가 직접 적용됩니다.[CT2]",
+        )
+
+    def test_duplicate_case_anchor_failure_stops_with_existing_guard(self):
+        invalid = qa86_case_anchor_output("이 사안에는 위 법적 효과가 직접 적용됩니다.")
+        prompts, diagnostics = [], []
+
+        def generator(prompt):
+            prompts.append(prompt)
+            return json.dumps(invalid, ensure_ascii=False)
+
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture-model", max_attempts=3,
+            generator=generator, diagnostic_sink=diagnostics.append,
+        )
+        with self.assertRaises(SkillExecutionError):
+            executor.execute(
+                "grounded_legal_answer_generation", "GENERATE_ANSWER", qa86_case_anchor_payload()
+            )
+        self.assertEqual(len(prompts), 2)
+        self.assertEqual(
+            diagnostics[-1]["retry_aborted"], "duplicate_invalid_s3_public_role_response"
         )
 
     def test_qa460_multiple_redundant_rules_are_demoted_and_answer_rebuilt(self):
