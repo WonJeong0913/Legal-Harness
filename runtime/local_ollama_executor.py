@@ -242,6 +242,7 @@ class LocalOllamaSkillExecutor:
                 "attempt": attempt,
                 "requested_max_tokens": max_tokens,
             }
+            diagnostic.update(self._prompt_fingerprints(prompt, skill_input))
             try:
                 generation = self._generate(prompt, max_tokens)
                 diagnostic.update(self._generation_diagnostic(generation))
@@ -2750,13 +2751,17 @@ class LocalOllamaSkillExecutor:
             return None, reason
 
         try:
+            replan_prompt = self._prompt(
+                "legal_issue_and_query_planning",
+                entry_point,
+                skill_input,
+                replan_note,
+            )
+            replan_diagnostic.update(
+                self._prompt_fingerprints(replan_prompt, skill_input)
+            )
             generation = self._generate(
-                self._prompt(
-                    "legal_issue_and_query_planning",
-                    entry_point,
-                    skill_input,
-                    replan_note,
-                ),
+                replan_prompt,
                 max_tokens,
             )
             replan_diagnostic.update(self._generation_diagnostic(generation))
@@ -3233,6 +3238,24 @@ FINAL OUTPUT INVARIANTS:
         if isinstance(value, tuple):
             return tuple(cls._redact_run_ids_for_prompt(item) for item in value)
         return value
+
+    @classmethod
+    def _prompt_fingerprints(
+        cls, prompt: str, skill_input: Mapping[str, Any]
+    ) -> Dict[str, str]:
+        """Fingerprint the already-redacted prompt and canonical prompt input."""
+        canonical_input = json.dumps(
+            cls._redact_run_ids_for_prompt(skill_input),
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        )
+        return {
+            "prompt_sha256": hashlib.sha256(prompt.encode("utf-8")).hexdigest(),
+            "redacted_skill_input_sha256": hashlib.sha256(
+                canonical_input.encode("utf-8")
+            ).hexdigest(),
+        }
 
     @staticmethod
     def _redact_run_id_text(text: str, run_id: Any) -> str:

@@ -164,7 +164,7 @@ class Diagnostic21ManifestTests(unittest.TestCase):
             {
                 "S1": {
                     "skill_path": "skills/legal_issue_and_query_planning/SKILL.md",
-                    "skill_sha256": "cb0c1ba16ffbb0c7d21bd470adcb8f341a99599907a2a872eca1ab883ae96263",
+                    "skill_sha256": "6fc4008c72afd0a7e7d58f9214dee1eaa8af56de9c3ade5c920fb73d74f84094",
                     "validator_path": "skills/legal_issue_and_query_planning/scripts/validate_output.py",
                     "validator_sha256": "26cfdd84ab1d94fb3f346f4567eb7994a6d58f2c1835ed04a8c263da1bd53103",
                 },
@@ -176,7 +176,7 @@ class Diagnostic21ManifestTests(unittest.TestCase):
                 },
                 "S3": {
                     "skill_path": "skills/grounded_legal_answer_generation/SKILL.md",
-                    "skill_sha256": "c8f50f4c801a1a1aa0324cf31614a7946c7ed533fd45bdbfb6c55086fcf0ebff",
+                    "skill_sha256": "a146c3c7a0910c43d3d0f84a7f347e747a193a5ba88dcf7af50a800379735eac",
                     "validator_path": "skills/grounded_legal_answer_generation/scripts/validate_output.py",
                     "validator_sha256": "7324f7475e88573ae5647441f2a8ed8a5f65a3c9b7a465b06a1145421dd64bbf",
                 },
@@ -218,35 +218,37 @@ class Diagnostic21ManifestTests(unittest.TestCase):
         self.assertEqual(primary["selection"]["c34_source_provenance"], orchestration.DIAGNOSTIC21_C34_SOURCE_PROVENANCE)
         self.assertEqual(primary["selection"]["c35_capabilities"], orchestration.DIAGNOSTIC21_C35_CAPABILITIES)
         self.assertEqual(primary["selection"]["c35_source_provenance"], orchestration.DIAGNOSTIC21_C35_SOURCE_PROVENANCE)
+        self.assertEqual(primary["selection"]["c36_capabilities"], orchestration.DIAGNOSTIC21_C36_CAPABILITIES)
+        self.assertEqual(primary["selection"]["c36_source_provenance"], orchestration.DIAGNOSTIC21_C36_SOURCE_PROVENANCE)
         self.assertEqual(
             primary["selection"]["runtime_artifact_path_provenance"]["qwen_ollama_blob_exact_local_runtime_exception"],
             orchestration.QWEN_MODEL_PROVENANCE["ollama_model_blob"],
         )
         self.assertFalse(primary["selection"]["round_merge_provenance"]["equivalence_claimed"])
         self.assertEqual(primary["selection"]["round_merge_provenance"]["c02_saved_stage_round_merge_mode"], "request_rank_top1_guarded_swap")
-        self.assertEqual(primary["name"], "v2-kure-qwen38-q8-offline-diagnostic21-c35-20260828")
-        self.assertEqual(reference["name"], "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c35-20260828")
+        self.assertEqual(primary["name"], "v2-kure-qwen38-q8-offline-diagnostic21-c36-20260828")
+        self.assertEqual(reference["name"], "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c36-20260828")
         self.assertEqual(
             primary["frozen_configuration"]["condition"],
-            "fixture-kure-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C33_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C34_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C35_CONDITION_SUFFIX,
+            "fixture-kure-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C33_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C34_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C35_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C36_CONDITION_SUFFIX,
         )
         self.assertEqual(
             reference["frozen_configuration"]["condition"],
-            "fixture-bm25-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C33_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C34_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C35_CONDITION_SUFFIX,
+            "fixture-bm25-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C33_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C34_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C35_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C36_CONDITION_SUFFIX,
         )
         self.assertEqual(
             primary["selection"]["source_frozen_conditions"],
             {
-                "primary": "fixture-kure-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C33_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C34_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C35_CONDITION_SUFFIX,
-                "reference": "fixture-bm25-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C33_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C34_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C35_CONDITION_SUFFIX,
+                "primary": "fixture-kure-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C33_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C34_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C35_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C36_CONDITION_SUFFIX,
+                "reference": "fixture-bm25-full226" + orchestration.DIAGNOSTIC21_C30_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C33_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C34_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C35_CONDITION_SUFFIX + orchestration.DIAGNOSTIC21_C36_CONDITION_SUFFIX,
             },
         )
         self.assertEqual(
             primary["selection"]["implementation_parent_commit"],
-            "033f384e14db277638376742ac11173b934d7af1",
+            "94f80373a9fe5b21fcd9748ea7b5a26026a6f072",
         )
-        self.assertIn("C35 preserves the C30", primary["selection"]["method"])
-        self.assertIn("C35 preserves the C30", primary["purpose"])
+        self.assertIn("C36 restores C34", primary["selection"]["method"])
+        self.assertIn("C36 restores C34", primary["purpose"])
         self.assertEqual(primary["frozen_configuration"].get("s3_public_answer_max_claims"), 4)
         self.assertEqual(primary["frozen_configuration"].get("s3_public_answer_format"), "conclusion_first_1_to_4_short_sentences")
         self.assertEqual(primary["frozen_configuration"]["reranker_provenance"], orchestration.DIAGNOSTIC21_RERANKER_PROVENANCE)
@@ -282,7 +284,7 @@ class Diagnostic21ManifestTests(unittest.TestCase):
         reference = json.loads(json.dumps(manifests["diagnostic21_reference"]))
         primary["frozen_configuration"]["condition"] = "fixture-kure"
         primary["selection"]["source_frozen_conditions"]["primary"] = "fixture-kure"
-        with self.assertRaisesRegex(orchestration.OrchestrationError, "C30/C31/C32/C33/C34 source condition overlay"):
+        with self.assertRaisesRegex(orchestration.OrchestrationError, "C30/C31/C32/C33/C34/C35 source condition overlay"):
             orchestration.assert_diagnostic21_manifest_integrity(primary, reference)
 
     def test_generated_manifests_match_tracked_frozen_manifests_and_record_c30_provenance(self):
@@ -367,6 +369,25 @@ class Diagnostic21ManifestTests(unittest.TestCase):
             self.assertEqual(
                 orchestration.sha256(root / orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT_FILE),
                 orchestration.DIAGNOSTIC21_C02_ANSWER_COHORT_SHA256,
+            )
+
+    def test_c36_bootstrap_is_idempotent_from_its_own_full_sources(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            first_root, second_root = root / "first", root / "second"
+            first = orchestration.write_v2_manifests(
+                first_root,
+                PROJECT_ROOT / "frozen_manifests/v2_kure_full226.json",
+                PROJECT_ROOT / "frozen_manifests/v2_bm25_reference_full226.json",
+            )
+            second = orchestration.write_v2_manifests(
+                second_root, first["full"], first["reference"]
+            )
+            for key in ("full", "reference", "smoke", "smoke_reference", "diagnostic21", "diagnostic21_reference"):
+                self.assertEqual(orchestration.read_json(first[key]), orchestration.read_json(second[key]))
+            self.assertEqual(
+                orchestration.read_json(second_root / "frozen_manifests/source_metadata.json")["control_plane_release"],
+                orchestration.DIAGNOSTIC21_C36_RELEASE,
             )
 
     def test_generic_build_does_not_inject_diagnostic_bge_metadata(self):

@@ -55,10 +55,8 @@ output schema.
    unsatisfied atomic completion requirement, and vary a material legal relation
    rather than paraphrasing a prior query. When an unresolved critical item's
    Korean description and completion requirement repeat a distinctive factual or
-   effect phrase, preserve one such literal phrase in its explicit `query_terms`.
-   A phrase may span adjacent ordered terms in one linked request, but never
-   across requests; do not rely on copied question context. Stay within the
-   supplied budget.
+   effect phrase, preserve one such literal phrase in its explicit `query_terms`;
+   do not rely on copied question context. Stay within the supplied budget.
 7. Compact descriptive prose, not the structural evidence coverage. Use one
    short sentence per descriptive field, avoid repeated rationale, close the
    JSON object, and return JSON only.

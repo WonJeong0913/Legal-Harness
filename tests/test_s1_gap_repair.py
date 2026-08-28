@@ -858,6 +858,11 @@ class GapSpecificityRepairTests(unittest.TestCase):
             replan_diagnostic["generation_kind"], "neutral_semantic_gap_replan"
         )
         self.assertEqual(replan_diagnostic["schema_version"], "1.2")
+        self.assertEqual(
+            replan_diagnostic["prompt_sha256"],
+            hashlib.sha256(prompts[1].encode("utf-8")).hexdigest(),
+        )
+        self.assertEqual(len(replan_diagnostic["redacted_skill_input_sha256"]), 64)
         self.assertEqual(replan_diagnostic["response_text"], expected_replan_response)
         self.assertEqual(
             diagnostics[-1]["generation_kind"], "primary_skill_attempt"

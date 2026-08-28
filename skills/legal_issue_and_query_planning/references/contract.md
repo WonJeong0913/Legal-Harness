@@ -59,10 +59,8 @@ completion requirement, vary a material legal relation rather than paraphrasing
 is not a search target. When a critical item's Korean-only description and
 completion requirement repeat a distinctive adjacent factual or effect phrase,
 preserve one such literal phrase in the linked request's explicit `query_terms`.
-It may span adjacent ordered terms within that one request, never terms from
-different requests. Do not treat copied question context or another query field
-as a substitute, and do not manufacture a statute, article, or legal conclusion
-from the phrase.
+Do not treat copied question context or another query field as a substitute, and
+do not manufacture a statute, article, or legal conclusion from the phrase.
 
 ## Retrieval query fields
 
