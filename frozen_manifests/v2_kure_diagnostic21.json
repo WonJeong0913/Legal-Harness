@@ -151,7 +151,7 @@
   "frozen_configuration": {
     "candidate_budget_scope": "per_round",
     "candidate_selection": "evidence_balanced",
-    "condition": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward+C33-redundant-public-rule-demotion+C34-type-aware-public-projection-gap-anchors+C35-output-descriptor-request-local-gap-anchors+C36-prompt-stable-validator-only-C35+C37-two-attempt-all-history-collision-failsafe",
+    "condition": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward+C33-redundant-public-rule-demotion+C34-type-aware-public-projection-gap-anchors+C35-output-descriptor-request-local-gap-anchors+C36-prompt-stable-validator-only-C35+C37-two-attempt-all-history-collision-failsafe+C38-target-linked-qualifying-public-exception",
     "conditional_generation": "answer_target_full_conditional_limited",
     "contextual_query_dedup": "same_output_after_context_history_duplicate_invalid",
     "coverage_contract": "legal_applicability_criterion_results",
@@ -341,8 +341,8 @@
     "total_retrieval_rounds": 3
   },
   "manifest_schema_version": "1.0",
-  "name": "v2-kure-qwen38-q8-offline-diagnostic21-c37-20260830",
-  "purpose": "C37 adds a two-primary-attempt all-history-collision fail-safe: one existing neutral semantic replan, then only a trusted completion-criterion fallback if that replan fails. It preserves C36's byte-identical S1/S3 prompt resources and C35 validators, and records redacted prompt/input fingerprints without changing generation. It preserves the C30 paired C02 gate, C31 shared one-to-four-sentence public-answer contract, and C32 exact qualifying carry-forward citations in validator-only retry context, then preserves repeated Korean gap result-object anchors in explicit query terms and applies only the exact type-aware redundant public projection with a bounded case-fact retry, excluding generic output descriptors and allowing adjacent explicit terms in one request. C30 adds the fixed four-item C02 ANSWER paired evaluation gate plus S3 2-to-4 public-conclusion recovery with complete target/provision coverage and first-invalid conditional-exception carry-forward on the failure-and-coverage roster. KURE is the only executable retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, or LF-Eval execution is permitted.",
+  "name": "v2-kure-qwen38-q8-offline-diagnostic21-c38-20260830",
+  "purpose": "C38 permits only a target-linked accepted QUALIFYING citation for a public conditional exception, while retaining CORE-only public rules/applications and C32 carry-forward. It preserves C37's two-primary-attempt all-history-collision fail-safe, C36 prompt stabilization, and C35 validators, and records redacted prompt/input fingerprints without changing generation. It preserves the C30 paired C02 gate, C31 shared one-to-four-sentence public-answer contract, and C32 exact qualifying carry-forward citations in validator-only retry context, then preserves repeated Korean gap result-object anchors in explicit query terms and applies only the exact type-aware redundant public projection with a bounded case-fact retry, excluding generic output descriptors and allowing adjacent explicit terms in one request. C30 adds the fixed four-item C02 ANSWER paired evaluation gate plus S3 2-to-4 public-conclusion recovery with complete target/provision coverage and first-invalid conditional-exception carry-forward on the failure-and-coverage roster. KURE is the only executable retriever; BM25 remains paired read-only metadata. No BM25, ParSeR, or LF-Eval execution is permitted.",
   "selection": {
     "answer_yield_minimum": 4,
     "baseline": {
@@ -631,7 +631,23 @@
       "implementation_layer": "LOCAL_EXECUTOR_S1_GAP_TWO_ATTEMPT_NEUTRAL_REPLAN_FAIL_SAFE",
       "release": "C37-two-attempt-all-history-collision-failsafe"
     },
-    "candidate_id": "C29-preserved-S1-S2-S3-contract+C30-paired-C02-answer-cohort-gate+S3-carry-forward+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward+C33-redundant-public-rule-demotion+C34-type-aware-public-projection-gap-anchors+C35-output-descriptor-request-local-gap-anchors+C36-prompt-stable-validator-only-C35+C37-two-attempt-all-history-collision-failsafe",
+    "c38_capabilities": {
+      "c38_target_linked_qualifying_public_exception": {
+        "authorization": "ACCEPTED_QUALIFYING_PROVISION_EXACT_EVIDENCE_LINK_AND_ANSWERED_TARGET_COVERAGE",
+        "c32_retry_carry_forward": "PRESERVED_AS_SEPARATE_FROZEN_OBLIGATION_EXCEPTION",
+        "core_rule_application_and_other_public_claims": "CORE_ONLY",
+        "runtime_question_gold_provision_or_answer_synthesis": "NONE",
+        "scope": "S3_PUBLIC_CONCLUSION_CLAIM_TYPE_EXCEPTION_APPLICABILITY_CONDITIONAL_ONLY",
+        "supplemental_alternative_unknown_or_unlinked": "FAIL_CLOSED_AUDIT_ONLY"
+      }
+    },
+    "c38_source_provenance": {
+      "base_source_commit": "26dc9f7bbca89b30936508ab644f052713a2dd36",
+      "base_source_tree": "c41593a2c0b650c69eda932140e9ff90702353b3",
+      "implementation_layer": "SHARED_S3_QUALIFYING_EXCEPTION_CITATION_AUTHORIZATION",
+      "release": "C38-target-linked-qualifying-public-exception"
+    },
+    "candidate_id": "C29-preserved-S1-S2-S3-contract+C30-paired-C02-answer-cohort-gate+S3-carry-forward+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward+C33-redundant-public-rule-demotion+C34-type-aware-public-projection-gap-anchors+C35-output-descriptor-request-local-gap-anchors+C36-prompt-stable-validator-only-C35+C37-two-attempt-all-history-collision-failsafe+C38-target-linked-qualifying-public-exception",
     "cohort_counts": {
       "accepted_abstain": 7,
       "execution_failure": 8,
@@ -699,13 +715,16 @@
       ],
       "C37_all_history_collision_fail_safe_parent": [
         "c4b6adc261150e95e0b49b547ef44ced2280b145"
+      ],
+      "C38_target_linked_qualifying_public_exception_parent": [
+        "26dc9f7bbca89b30936508ab644f052713a2dd36"
       ]
     },
     "entry_count": 21,
     "execution_role": "PRIMARY_KURE_DIAGNOSTIC_EXECUTION",
-    "implementation_parent_commit": "c4b6adc261150e95e0b49b547ef44ced2280b145",
+    "implementation_parent_commit": "26dc9f7bbca89b30936508ab644f052713a2dd36",
     "lf_eval": "excluded; no LF-Eval invocation or score injection",
-    "method": "C37 adds a two-primary-attempt all-history-collision fail-safe: one existing neutral semantic replan, then only a trusted completion-criterion fallback if that replan fails. It preserves C36's byte-identical S1/S3 prompt resources and C35 validators, and records redacted prompt/input fingerprints without changing generation. It preserves the C30 paired C02 gate, C31 shared public-answer contract, and C32 validator-only qualifying carry-forward. It preserves repeated Korean gap result-object anchors in explicit query terms and deterministically chooses the redundant public projection role only for exact nonempty target/core-citation matches, with a bounded case-fact retry before legal-rule demotion. C35 excludes generic output descriptors from that retry and permits an anchor split across ordered terms in one request. C30 adds the fixed four-item C02 ANSWER paired evaluation gate plus S3 bounded public conclusion recovery and first-invalid conditional-exception carry-forward on the C24 fixed roster reindexed from immutable C02 source ordinals",
+    "method": "C38 permits only a target-linked accepted QUALIFYING citation for a public conditional exception, while retaining CORE-only public rules/applications and C32 carry-forward. It preserves C37's two-primary-attempt all-history-collision fail-safe, C36 prompt stabilization, and C35 validators, and records redacted prompt/input fingerprints without changing generation. It preserves the C30 paired C02 gate, C31 shared public-answer contract, and C32 validator-only qualifying carry-forward. It preserves repeated Korean gap result-object anchors in explicit query terms and deterministically chooses the redundant public projection role only for exact nonempty target/core-citation matches, with a bounded case-fact retry before legal-rule demotion. C35 excludes generic output descriptors from that retry and permits an anchor split across ordered terms in one request. C30 adds the fixed four-item C02 ANSWER paired evaluation gate plus S3 bounded public conclusion recovery and first-invalid conditional-exception carry-forward on the C24 fixed roster reindexed from immutable C02 source ordinals",
     "nonregression_minimums": {
       "complete_evidence_count": 7,
       "provision_exact_match_count": 2,
@@ -948,19 +967,23 @@
         "validator_sha256": "2d63bd38df2b7b5eb57009b6c056908339aeee4f5f9eee4ad987405841c3b619"
       },
       "S3": {
+        "contract_path": "skills/grounded_legal_answer_generation/references/contract.md",
+        "contract_sha256": "e68489d2970b72a9e3c4bf6efe56492c2ecee24e3863c51397c37a855664f1ff",
+        "input_schema_path": "skills/grounded_legal_answer_generation/references/input.schema.json",
+        "input_schema_sha256": "930d72388d4b993d4391be0038313c01d59abedf1dbaa10a96c24f90eed453de",
         "skill_path": "skills/grounded_legal_answer_generation/SKILL.md",
-        "skill_sha256": "a146c3c7a0910c43d3d0f84a7f347e747a193a5ba88dcf7af50a800379735eac",
+        "skill_sha256": "c7f4f65a9817373a56a2d28803ecf4724ec4bc0a50bf2c9d8398d1f7aa2bddf8",
         "validator_path": "skills/grounded_legal_answer_generation/scripts/validate_output.py",
-        "validator_sha256": "7324f7475e88573ae5647441f2a8ed8a5f65a3c9b7a465b06a1145421dd64bbf"
+        "validator_sha256": "04637785f2e08fe09b5e047ca760fc34660fba124dcb1b7f2587a5f4b1cceb28"
       }
     },
     "skill_sha256_recording": "ExperimentRecord automatically persists all runtime skill_sha256 values.",
     "source_frozen_conditions": {
-      "primary": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward+C33-redundant-public-rule-demotion+C34-type-aware-public-projection-gap-anchors+C35-output-descriptor-request-local-gap-anchors+C36-prompt-stable-validator-only-C35+C37-two-attempt-all-history-collision-failsafe",
-      "reference": "V2-BM25-reference-only-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward+C33-redundant-public-rule-demotion+C34-type-aware-public-projection-gap-anchors+C35-output-descriptor-request-local-gap-anchors+C36-prompt-stable-validator-only-C35+C37-two-attempt-all-history-collision-failsafe"
+      "primary": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward+C33-redundant-public-rule-demotion+C34-type-aware-public-projection-gap-anchors+C35-output-descriptor-request-local-gap-anchors+C36-prompt-stable-validator-only-C35+C37-two-attempt-all-history-collision-failsafe+C38-target-linked-qualifying-public-exception",
+      "reference": "V2-BM25-reference-only-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward+C33-redundant-public-rule-demotion+C34-type-aware-public-projection-gap-anchors+C35-output-descriptor-request-local-gap-anchors+C36-prompt-stable-validator-only-C35+C37-two-attempt-all-history-collision-failsafe+C38-target-linked-qualifying-public-exception"
     },
-    "source_primary_manifest_sha256": "bd31e27f36372d18d99e897b683765bfa886b4ad33f91997a8347b5987cedf7a",
-    "source_reference_manifest_sha256": "62a8cb3e7753ebc10e13368abd53619e5c1910b4c8f2b0b623236b8242d9c2f9"
+    "source_primary_manifest_sha256": "de31b50460ebe4b380920fe378c0a70762283dfef1ed601ac29ba8b92a87d561",
+    "source_reference_manifest_sha256": "0de4a1df791ee98e2f2c065df10ea7ccba4ffa4ba8ea84f39c8c83054bc2c7ae"
   },
   "source_dataset": {
     "path": "data/koblex/qa/test-00000-of-00001.parquet",
