@@ -288,12 +288,19 @@ _CASE_FACT_ANCHOR_OUTPUT_DESCRIPTOR_HEADS = frozenset({
     "종류", "유형", "명칭", "내용", "여부",
 })
 _KOREAN_DESCRIPTIVE_MODIFIER_SUFFIXES = (
-    "하는", "되는", "받은", "발생한", "입은", "따른", "있는", "없는", "한",
+    "하는", "되는", "받은", "발생한", "입은", "따른", "있는", "없는", "치는", "한",
 )
 
 
+def _is_korean_descriptive_modifier(value):
+    """Keep verbal attributives out of literal Korean case-fact anchors."""
+    return isinstance(value, str) and value.endswith(
+        _KOREAN_DESCRIPTIVE_MODIFIER_SUFFIXES
+    )
+
+
 def _korean_case_fact_anchor_phrases(value):
-    """Return one conservative particle-normalized Korean case-fact anchor."""
+    """Return conservative particle-normalized Korean case-fact anchors."""
     if not isinstance(value, str) or re.search(r"[A-Za-z0-9]", value):
         return set()
     words = re.findall(r"[가-힣]+", unicodedata.normalize("NFKC", value))
@@ -313,17 +320,24 @@ def _korean_case_fact_anchor_phrases(value):
         if (
             right_had_particle
             and all(
-                word not in _CASE_FACT_ANCHOR_STOPWORDS and len(word) >= 2
-                for word in normalized_words
+                len(word) >= 2
+                and (
+                    word not in _CASE_FACT_ANCHOR_STOPWORDS
+                    # A concrete modifier plus 조항 is a case fact; a bare
+                    # generic 조항 remains excluded by the left-hand guard.
+                    or (index == 1 and word == "조항")
+                )
+                for index, word in enumerate(normalized_words)
             )
             and normalized_words[1] not in _CASE_FACT_ANCHOR_CONTEXT_HEADS
             and normalized_words[1] not in _CASE_FACT_ANCHOR_OUTPUT_DESCRIPTOR_HEADS
-            and not normalized_words[0].endswith(
-                _KOREAN_DESCRIPTIVE_MODIFIER_SUFFIXES
-            )
+            # A final 는 may be a particle or a verbal attributive.  The latter
+            # is not a case-fact head (e.g. 효력에 미치는 -> 효력 미치).
+            and not _is_korean_descriptive_modifier(left)
+            and not _is_korean_descriptive_modifier(right)
         ):
             candidates.add(" ".join(normalized_words))
-    return {sorted(candidates)[-1]} if candidates else set()
+    return candidates
 
 
 def redundant_public_rule_application_case_fact_anchor_failures(
@@ -404,16 +418,16 @@ def redundant_public_rule_application_case_fact_anchor_failures(
                 continue
             rule_text = normalized_claim_text(rule.get("text"))
             application_text = normalized_claim_text(application.get("text"))
-            missing = sorted(
-                anchor for anchor in anchors
-                if anchor not in rule_text and anchor not in application_text
-            )
-            if missing:
+            # A requested output can contain several literal case facts.  This
+            # guard only requires the application to preserve one conservative
+            # fact anchor before C33 projects the matching legal rule to audit;
+            # it must not choose an arbitrary lexicographic effect descriptor.
+            if not any(anchor in application_text for anchor in anchors):
                 failures.append({
                     "answer_target_id": target_id,
                     "legal_rule_claim_id": rule.get("claim_id"),
                     "application_claim_id": application.get("claim_id"),
-                    "missing_anchors": missing,
+                    "missing_anchors": sorted(anchors),
                 })
     return failures
 

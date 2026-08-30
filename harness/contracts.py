@@ -113,6 +113,7 @@ class GapPlanRecoveryDisposition(str, Enum):
     REPAIR_INDUCED_SIBLING_COLLISION = (
         "repair_induced_intra_output_sibling_collision"
     )
+    MODEL_MIXED_HISTORY_COLLISION = "model_mixed_history_collision_projection"
 
 
 @dataclass(frozen=True)

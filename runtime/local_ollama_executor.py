@@ -334,6 +334,18 @@ class LocalOllamaSkillExecutor:
                         )
                     )
                 if gap_plan_recovery is None:
+                    recovery_output, gap_plan_recovery = (
+                        self._project_mixed_history_collision_recovery(
+                            skill_name,
+                            entry_point,
+                            unrepaired_skill_output,
+                            skill_output,
+                            skill_input,
+                            deterministic_repairs,
+                            validation_errors,
+                        )
+                    )
+                if gap_plan_recovery is None:
                     recovery_output, collision_fallback_audit = (
                         self._trusted_all_history_collision_fallback(
                             skill_name,
@@ -3206,6 +3218,130 @@ class LocalOllamaSkillExecutor:
             ],
             dropped_request_count=1,
             remaining_request_count=len(remaining_requests),
+        )
+
+    def _project_mixed_history_collision_recovery(
+        self,
+        skill_name: str,
+        entry_point: str,
+        unrepaired: Mapping[str, Any],
+        repaired: Mapping[str, Any],
+        skill_input: Mapping[str, Any],
+        repairs: Sequence[Mapping[str, Any]],
+        validation_errors: Sequence[str],
+    ) -> Tuple[Optional[Dict[str, Any]], Optional[GapPlanRecovery]]:
+        """Retain only a model's independently valid novel gap request.
+
+        This is a fail-closed projection, not a query synthesis: it is available
+        only when the sole errors are historical duplicates, each removed
+        request has a surviving request for the same unresolved critical item,
+        and that surviving plan validates unchanged against the S1 contract.
+        """
+        if (
+            skill_name != "legal_issue_and_query_planning"
+            or entry_point != "GAP_QUERY_PLAN"
+            or repairs
+            or not validation_errors
+        ):
+            return None, None
+        raw_requests = unrepaired.get("gap_retrieval_requests")
+        repaired_requests = repaired.get("gap_retrieval_requests")
+        history = skill_input.get("query_history")
+        if (
+            not isinstance(raw_requests, list)
+            or not raw_requests
+            or raw_requests != repaired_requests
+            or not isinstance(history, list)
+            or not all(isinstance(item, Mapping) for item in raw_requests)
+        ):
+            return None, None
+        prior_queries = {
+            self._normalized_query(item.get("query_text") or item.get("normalized_query"))
+            for item in history
+            if isinstance(item, Mapping)
+            and isinstance(item.get("query_text") or item.get("normalized_query"), str)
+        }
+        if not prior_queries:
+            return None, None
+        unresolved_ids = {
+            item.get("evidence_item_id")
+            for key in ("missing_evidence_items", "evidence_conflicts")
+            for item in self._list(skill_input, key)
+            if isinstance(item, Mapping)
+        }
+        required_by_id = {
+            item.get("evidence_item_id"): item
+            for item in self._list(skill_input, "required_evidence_items")
+            if isinstance(item, Mapping)
+        }
+        kept_requests, dropped_ids, dropped_hashes, expected_errors = [], [], [], []
+        dropped_evidence_ids, kept_evidence_ids = set(), set()
+        for request in raw_requests:
+            request_id = request.get("request_id")
+            evidence_id = request.get("evidence_item_id")
+            query = request.get("query_text")
+            if (
+                not isinstance(request_id, str)
+                or not request_id
+                or not isinstance(evidence_id, str)
+                or not isinstance(query, str)
+                or not query.strip()
+                or any(
+                    isinstance(request.get(field), str) and request[field].strip()
+                    for field in ("first_stage_query_text", "rerank_query_text")
+                )
+            ):
+                return None, None
+            if self._normalized_query(query) in prior_queries:
+                dropped_ids.append(request_id)
+                dropped_evidence_ids.add(evidence_id)
+                dropped_hashes.append(hashlib.sha256(query.encode("utf-8")).hexdigest())
+                expected_errors.append("query repeats query_history: %s" % query)
+            else:
+                kept_requests.append(dict(request))
+                kept_evidence_ids.add(evidence_id)
+        if (
+            not dropped_ids
+            or not kept_requests
+            or list(validation_errors) != expected_errors
+            or not dropped_evidence_ids.issubset(kept_evidence_ids)
+        ):
+            return None, None
+        for evidence_id in kept_evidence_ids:
+            evidence = required_by_id.get(evidence_id)
+            requirements = (
+                evidence.get("completion_requirements")
+                if isinstance(evidence, Mapping)
+                else None
+            )
+            if (
+                evidence_id not in unresolved_ids
+                or not isinstance(evidence, Mapping)
+                or evidence.get("critical") is not True
+                or not isinstance(evidence.get("completion_criteria"), str)
+                or not evidence["completion_criteria"].strip()
+                or not isinstance(requirements, list)
+                or not any(
+                    isinstance(item, Mapping)
+                    and isinstance(item.get("text"), str)
+                    and item["text"].strip()
+                    for item in requirements
+                )
+            ):
+                return None, None
+        recovered = copy.deepcopy(dict(repaired))
+        recovered["gap_retrieval_requests"] = kept_requests
+        recovered["target_evidence_item_ids"] = list(dict.fromkeys(
+            request["evidence_item_id"] for request in kept_requests
+        ))
+        if self._validators[skill_name](recovered, skill_input):
+            return None, None
+        return recovered, GapPlanRecovery(
+            disposition=GapPlanRecoveryDisposition.MODEL_MIXED_HISTORY_COLLISION,
+            dropped_request_ids=dropped_ids,
+            repaired_query_sha256=dropped_hashes,
+            dropped_request_count=len(dropped_ids),
+            remaining_request_count=len(kept_requests),
         )
 
     def _neutral_s1_gap_replan(

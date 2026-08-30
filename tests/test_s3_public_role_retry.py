@@ -310,6 +310,31 @@ def qa0_output_descriptor_payload():
     return result
 
 
+def qa141_case_fact_payload():
+    result = single_target_payload()
+    result["answer_targets"][0].update({
+        "question_anchor": "전체 계약이 무효가 되는가",
+        "requested_output": (
+            "건축 금지 조항의 법적 효력 결여가 전체 매매계약의 효력에 "
+            "미치는 영향을 판단하는 법적 결론"
+        ),
+    })
+    return result
+
+
+def qa141_case_fact_output(application_text):
+    output = raw_output(
+        [
+            ("T1", "법률행위의 일부분이 무효인 때에는 그 전부를 무효로 한다.", "conclusion", "legal_rule", "P1"),
+            ("T1", "무효부분이 없더라도 법률행위를 하였을 것이라고 인정될 때에는 나머지 부분은 무효가 되지 아니한다.", "conclusion", "exception", "P1"),
+            ("T1", application_text, "conclusion", "application", "P1"),
+        ]
+    )
+    output["claims"][1]["applicability"] = "conditional"
+    output["claims"][2]["applicability"] = "conditional"
+    return output
+
+
 class S3PublicRoleRetryTests(unittest.TestCase):
     def test_composite_single_target_multi_rule_retries_as_application(self):
         invalid = composite_invalid_output()
@@ -1212,6 +1237,48 @@ class S3PublicRoleRetryTests(unittest.TestCase):
             S3_VALIDATOR._korean_case_fact_anchor_phrases("개별 매각의 적법 여부"),
             {"개별 매각"},
         )
+        anchors = S3_VALIDATOR._korean_case_fact_anchor_phrases(
+            "건축 금지 조항의 법적 효력 결여가 전체 매매계약의 효력에 "
+            "미치는 영향을 판단하는 법적 결론"
+        )
+        self.assertIn("금지 조항", anchors)
+        self.assertNotIn("효력 미치", anchors)
+        self.assertEqual(
+            S3_VALIDATOR._korean_case_fact_anchor_phrases("mixed English legal effect"),
+            set(),
+        )
+
+    def test_case_fact_preserves_concrete_clause_without_verbal_effect_false_retry(self):
+        output = qa141_case_fact_output(
+            "건축 금지 조항이 무효인 경우, 나머지 매매계약이 유효로 유지되려면 "
+            "무효부분이 없더라도 매매계약을 체결하였을 것이라고 인정되어야 한다."
+        )
+        prompts = []
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture-model", max_attempts=2,
+            generator=lambda prompt: prompts.append(prompt) or json.dumps(output, ensure_ascii=False),
+        )
+        result = executor.execute(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", qa141_case_fact_payload()
+        )
+        self.assertEqual(len(prompts), 1)
+        self.assertEqual([claim["public_role"] for claim in result["claims"]], ["audit", "conclusion", "conclusion"])
+        self.assertNotIn("효력 미치", result["answer"])
+
+    def test_case_fact_still_rejects_generic_application_for_concrete_clause(self):
+        invalid = qa141_case_fact_output("이 사안에는 위 규정이 적용됩니다.")
+        prompts, diagnostics = [], []
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture-model", max_attempts=2,
+            generator=lambda prompt: prompts.append(prompt) or json.dumps(invalid, ensure_ascii=False),
+            diagnostic_sink=diagnostics.append,
+        )
+        with self.assertRaisesRegex(SkillExecutionError, "missing_anchors=.*금지 조항"):
+            executor.execute(
+                "grounded_legal_answer_generation", "GENERATE_ANSWER", qa141_case_fact_payload()
+            )
+        self.assertEqual(len(prompts), 2)
+        self.assertEqual(diagnostics[-1]["retry_aborted"], "duplicate_invalid_s3_public_role_response")
 
     def test_qa460_multiple_redundant_rules_are_demoted_and_answer_rebuilt(self):
         output = five_public_qa460_shape(["conclusion"] * 5)

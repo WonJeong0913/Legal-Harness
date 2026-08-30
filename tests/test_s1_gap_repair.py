@@ -1113,6 +1113,120 @@ class GapSpecificityRepairTests(unittest.TestCase):
             ["query repeats query_history: %s" % raw_query] * 2,
         )
 
+    def test_mixed_history_collision_projects_only_same_evidence_novel_request(self):
+        payload = gap_input()
+        payload["normalized_question"] = "위임 종료 후 수임자의 긴급조치 의무를 판단하라."
+        evidence = payload["required_evidence_items"][0]
+        evidence.update({
+            "description": "emergency mandate evidence",
+            "completion_criteria": "emergency scope legal basis",
+            "completion_requirements": [{
+                "requirement_id": "E1-R1",
+                "text": "emergency scope legal basis",
+            }],
+        })
+        historic = (
+            "위임 종료 후 수임자의 긴급조치 의무\n[원문 맥락]\n"
+            + payload["normalized_question"]
+        )
+        payload["query_history"] = [{"request_id": "RQ1", "query_text": historic}]
+        duplicate = gap_request("E1", "위임 종료 후 수임자의 긴급조치 의무", request_id="GRQ-R1-1")
+        novel = gap_request("E1", "위임 종료 후 긴급한 경우 수임자의 조치 범위", request_id="GRQ-R1-2")
+        novel.update({
+            "query_channel": "sparse_keywords",
+            "query_terms": ["위임 종료", "긴급한 경우", "조치 범위", "한계"],
+            "statute_hints": ["민법"],
+        })
+        raw = gap_output([duplicate, novel])
+        prompts, diagnostics = [], []
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills", "fixture-model", max_attempts=2,
+            generator=lambda prompt: prompts.append(prompt) or json.dumps(raw, ensure_ascii=False),
+            diagnostic_sink=diagnostics.append,
+        )
+        output = executor.execute(
+            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
+        )
+        self.assertEqual(len(prompts), 1)
+        self.assertEqual(
+            [item["request_id"] for item in output["gap_retrieval_requests"]],
+            ["GRQ-R2-2"],
+        )
+        recovery = diagnostics[0]["harness_gap_plan_recovery"]
+        self.assertEqual(recovery["disposition"], "model_mixed_history_collision_projection")
+        self.assertEqual(recovery["dropped_request_ids"], ["GRQ-R2-1"])
+        self.assertEqual(recovery["remaining_request_count"], 1)
+
+    def test_mixed_history_collision_rejects_scoring_override_or_lost_evidence(self):
+        for variant in ("scoring_override", "different_evidence"):
+            with self.subTest(variant=variant):
+                payload = gap_input()
+                payload["normalized_question"] = "위임 종료 후 수임자의 긴급조치 의무를 판단하라."
+                evidence = payload["required_evidence_items"][0]
+                evidence.update({
+                    "description": "emergency mandate evidence",
+                    "completion_criteria": "emergency scope legal basis",
+                    "completion_requirements": [{"requirement_id": "E1-R1", "text": "emergency scope legal basis"}],
+                })
+                historic = "위임 종료 후 수임자의 긴급조치 의무\n[원문 맥락]\n" + payload["normalized_question"]
+                payload["query_history"] = [{"request_id": "RQ1", "query_text": historic}]
+                duplicate = gap_request("E1", "위임 종료 후 수임자의 긴급조치 의무", request_id="GRQ-R1-1")
+                novel = gap_request("E1", "위임 종료 후 긴급한 경우 수임자의 조치 범위", request_id="GRQ-R1-2")
+                if variant == "scoring_override":
+                    novel["first_stage_query_text"] = novel["query_text"]
+                else:
+                    payload["required_evidence_items"].append({
+                        "evidence_item_id": "E2", "issue_id": "I1", "evidence_type": "rule",
+                        "description": "other evidence", "critical": True,
+                        "completion_criteria": "other legal basis",
+                        "completion_requirements": [{"requirement_id": "E2-R1", "text": "other legal basis"}],
+                    })
+                    payload["missing_evidence_items"].append({"evidence_item_id": "E2"})
+                    novel["evidence_item_id"] = "E2"
+                raw = gap_output([duplicate, novel])
+                executor = LocalOllamaSkillExecutor(
+                    PROJECT_ROOT / "skills", "fixture-model", max_attempts=2,
+                    generator=lambda _prompt: json.dumps(raw, ensure_ascii=False),
+                )
+                with self.assertRaisesRegex(SkillExecutionError, "query repeats query_history"):
+                    executor.execute(
+                        "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
+                    )
+
+    def test_gap_anchor_excludes_verbal_attributive_fragment(self):
+        evidence = {
+            "evidence_item_id": "E1",
+            "critical": True,
+            "description": "대통령 선거 및 국회의원 선거 후보자의 선거운동 개시 시점을 규정하는 조항",
+            "completion_requirements": [
+                {"text": "대통령 선거 후보자의 선거운동 개시 시점을 규정하는 조항"},
+                {"text": "국회의원 선거 후보자의 선거운동 개시 시점을 규정하는 조항"},
+            ],
+        }
+        anchors = S1_VALIDATOR._trusted_gap_anchor_phrases(evidence)
+        self.assertNotIn("시점 규정하", anchors)
+        self.assertEqual(
+            S1_VALIDATOR._trusted_gap_anchor_phrases({
+                "description": "mixed English timing requirement",
+                "completion_requirements": [{"text": "mixed English timing requirement"}],
+            }),
+            set(),
+        )
+        errors = []
+        S1_VALIDATOR.validate_gap_query_terms_anchor_coverage(
+            [{
+                "evidence_item_id": "E1",
+                "query_terms": ["대통령 선거", "후보자", "선거운동", "시점 규정"],
+            }],
+            [evidence], {"E1"}, errors,
+        )
+        self.assertEqual(errors, [])
+        S1_VALIDATOR.validate_gap_query_terms_anchor_coverage(
+            [{"evidence_item_id": "E1", "query_terms": ["대통령", "선거운동", "시점", "규정"]}],
+            [evidence], {"E1"}, errors,
+        )
+        self.assertEqual(len(errors), 1)
+
     def test_all_history_collision_replans_then_uses_trusted_completion_fallback(self):
         payload = gap_input()
         payload["normalized_question"] = "법인 구성원이 갖추어야 할 자격 요건을 설명하라."
