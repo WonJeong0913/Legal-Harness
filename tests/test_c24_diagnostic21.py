@@ -166,7 +166,7 @@ class Diagnostic21ManifestTests(unittest.TestCase):
                     "skill_path": "skills/legal_issue_and_query_planning/SKILL.md",
                     "skill_sha256": "6fc4008c72afd0a7e7d58f9214dee1eaa8af56de9c3ade5c920fb73d74f84094",
                     "validator_path": "skills/legal_issue_and_query_planning/scripts/validate_output.py",
-                    "validator_sha256": "33c1d1e91c77614fb4c89e6c5b3acbf5c14964d54a123a298fd4218462051a1f",
+                    "validator_sha256": "fec026024392539395ab5bf4709ee3b76b4928976e9b004aa94ad38bdd1710d8",
                 },
                 "S2": {
                     "skill_path": "skills/provision_coverage_assessment/SKILL.md",
