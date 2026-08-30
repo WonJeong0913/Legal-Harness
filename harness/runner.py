@@ -713,6 +713,7 @@ class HarnessRunner:
         if recovery.disposition not in {
             GapPlanRecoveryDisposition.REPAIR_INDUCED_HISTORY_COLLISION,
             GapPlanRecoveryDisposition.REPAIR_INDUCED_SIBLING_COLLISION,
+            GapPlanRecoveryDisposition.MODEL_MIXED_HISTORY_COLLISION,
         }:
             raise ValidationError("gap-plan recovery disposition is invalid")
         if (
@@ -735,8 +736,10 @@ class HarnessRunner:
                 for query_hash in recovery.repaired_query_sha256
             )
             or (
-                recovery.disposition
-                is GapPlanRecoveryDisposition.REPAIR_INDUCED_SIBLING_COLLISION
+                recovery.disposition in {
+                    GapPlanRecoveryDisposition.REPAIR_INDUCED_SIBLING_COLLISION,
+                    GapPlanRecoveryDisposition.MODEL_MIXED_HISTORY_COLLISION,
+                }
                 and (
                     recovery.dropped_request_count != 1
                     or recovery.remaining_request_count < 1

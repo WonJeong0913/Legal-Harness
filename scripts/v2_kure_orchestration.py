@@ -40,10 +40,12 @@ from public_answer_contract import (
 DIAGNOSTIC21_MODE = "diagnostic21"
 DIAGNOSTIC21_ENTRY_COUNT = 21
 DIAGNOSTIC21_CHUNKS = ((1, 20), (21, 21))
-DIAGNOSTIC21_PRIMARY_FROZEN_NAME = "v2-kure-qwen38-q8-offline-diagnostic21-c44-20260830"
-DIAGNOSTIC21_REFERENCE_FROZEN_NAME = "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c44-20260830"
-DIAGNOSTIC21_SOURCE_PRIMARY_SHA256 = "8fb502b13650b096165f051309e126b3af0f0ac1b857f503694ff83a2a6b558e"
-DIAGNOSTIC21_SOURCE_REFERENCE_SHA256 = "26eff93e221428073637b218f9c52d38733178169140ae2653e33444c182b0a9"
+DIAGNOSTIC21_PRIMARY_FROZEN_NAME = "v2-kure-qwen38-q8-offline-diagnostic21-c45-20260830"
+DIAGNOSTIC21_REFERENCE_FROZEN_NAME = "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c45-20260830"
+DIAGNOSTIC21_SOURCE_PRIMARY_SHA256 = "f3aff13a9eda40e54ffd06765115dcfb6fb2b75be1654541975ef68ed2b02c4e"
+DIAGNOSTIC21_SOURCE_REFERENCE_SHA256 = "fc09769107bd658783382ebbc8c50aaa740e68a047bb7f4dda5a4e6cbb4ac95e"
+DIAGNOSTIC21_C44_BOOTSTRAP_SOURCE_PRIMARY_SHA256 = "8fb502b13650b096165f051309e126b3af0f0ac1b857f503694ff83a2a6b558e"
+DIAGNOSTIC21_C44_BOOTSTRAP_SOURCE_REFERENCE_SHA256 = "26eff93e221428073637b218f9c52d38733178169140ae2653e33444c182b0a9"
 DIAGNOSTIC21_C43_BOOTSTRAP_SOURCE_PRIMARY_SHA256 = "e80cb2fef4ed144bbc1867a78fcf7c8f461b5946e463273eab77823dd4f6abb5"
 DIAGNOSTIC21_C43_BOOTSTRAP_SOURCE_REFERENCE_SHA256 = "444a5d2d396a657e66e87cb175586e0790443ead96d8863c49d9f428d38ba8dd"
 DIAGNOSTIC21_C42_BOOTSTRAP_SOURCE_PRIMARY_SHA256 = "eba5eafb7a79242138f13fbbadfb2840432a2634bb818ab6f547fbdc0e306adb"
@@ -56,7 +58,7 @@ DIAGNOSTIC21_PRIOR_LEGACY_BOOTSTRAP_SOURCE_PRIMARY_SHA256 = "118ad3530ecb9b10dfe
 DIAGNOSTIC21_PRIOR_LEGACY_BOOTSTRAP_SOURCE_REFERENCE_SHA256 = "dd338d874d231d24ddb4c5f7b4f1833a527b0939138c5b854ecb88bdd0ac69ca"
 DIAGNOSTIC21_EARLIEST_LEGACY_BOOTSTRAP_SOURCE_PRIMARY_SHA256 = "de31b50460ebe4b380920fe378c0a70762283dfef1ed601ac29ba8b92a87d561"
 DIAGNOSTIC21_EARLIEST_LEGACY_BOOTSTRAP_SOURCE_REFERENCE_SHA256 = "0de4a1df791ee98e2f2c065df10ea7ccba4ffa4ba8ea84f39c8c83054bc2c7ae"
-DIAGNOSTIC21_IMPLEMENTATION_PARENT_COMMIT = "40d841f6f3484698b8fb4384a265130f05668e94"
+DIAGNOSTIC21_IMPLEMENTATION_PARENT_COMMIT = "6f7162d22390975f7c2e4b63d6ff4151cc8a32da"
 DIAGNOSTIC21_FLOAT_TOLERANCE = 1e-12
 DIAGNOSTIC21_C31_CONDITION_SUFFIX = "+C31-shared-public-answer-contract"
 DIAGNOSTIC21_C31_RELEASE = "C31-shared-public-answer-contract-alignment"
@@ -86,6 +88,8 @@ DIAGNOSTIC21_C43_CONDITION_SUFFIX = "+C43-bounded-gap-collision-and-anchor-morph
 DIAGNOSTIC21_C43_RELEASE = "C43-bounded-gap-collision-and-anchor-morphology-repair"
 DIAGNOSTIC21_C44_CONDITION_SUFFIX = "+C44-contextual-mixed-gap-projection"
 DIAGNOSTIC21_C44_RELEASE = "C44-contextual-mixed-gap-projection"
+DIAGNOSTIC21_C45_CONDITION_SUFFIX = "+C45-mixed-gap-recovery-runner-authorization"
+DIAGNOSTIC21_C45_RELEASE = "C45-mixed-gap-recovery-runner-authorization"
 DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE = "single_issue_fusion_top_k"
 DIAGNOSTIC21_C02_ROUND_MERGE_MODE = "request_rank_top1_guarded_swap"
 DIAGNOSTIC21_C30_CONDITION_SUFFIX = "+C30-paired-C02-gate-S3-carry-forward-overlay"
@@ -105,7 +109,8 @@ DIAGNOSTIC21_CANDIDATE_ID = (
     "C41-gap-anchor-novelty-trusted-completion-fallback+"
     "C42-penalty-decisive-payload-projection-guard+"
     "C43-bounded-gap-collision-and-anchor-morphology-repair+"
-    "C44-contextual-mixed-gap-projection"
+    "C44-contextual-mixed-gap-projection+"
+    "C45-mixed-gap-recovery-runner-authorization"
 )
 DIAGNOSTIC21_C22_CAPABILITY = {
     "capability": "standalone ungrounded paragraph gap recovery",
@@ -472,6 +477,23 @@ DIAGNOSTIC21_C44_SOURCE_PROVENANCE = {
     "base_source_tree": "013e3bace539aacc56ae4b16d193629e06b52ebb",
     "release": DIAGNOSTIC21_C44_RELEASE,
     "implementation_layer": "S1_VALIDATOR_ATOMIC_GAP_ANCHOR_ROUTING_AND_LOCAL_EXECUTOR_CONTEXTUAL_MIXED_COLLISION_PROJECTION",
+}
+DIAGNOSTIC21_C45_CAPABILITIES = {
+    "c45_runner_mixed_gap_recovery_authorization": {
+        "scope": "HARNESS_OWNED_GAP_PLAN_RECOVERY_AUDIT_ONLY",
+        "accepted_disposition": "MODEL_MIXED_HISTORY_COLLISION",
+        "required_audit": "EXACTLY_ONE_DROPPED_REQUEST_AND_AT_LEAST_ONE_SURVIVING_REQUEST",
+        "all_other_dispositions_or_invalid_counts": "FAIL_CLOSED",
+        "query_or_legal_semantic_mutation": "NONE",
+    },
+    "visible_skill_resources": "UNCHANGED",
+    "runtime_question_gold_provision_or_answer_synthesis": "NONE",
+}
+DIAGNOSTIC21_C45_SOURCE_PROVENANCE = {
+    "base_source_commit": "6f7162d22390975f7c2e4b63d6ff4151cc8a32da",
+    "base_source_tree": "5280040b441b7e38a3c1c640f085cff65e3f384f",
+    "release": DIAGNOSTIC21_C45_RELEASE,
+    "implementation_layer": "HARNESS_RUNNER_TYPED_MIXED_GAP_RECOVERY_AUDIT_ALLOWLIST",
 }
 DIAGNOSTIC21_SEMANTIC_AUTHORITY = (
     "Execution semantic authority is the committed clean source snapshot plus frozen S1/S2/S3 skill hashes."
@@ -1100,7 +1122,7 @@ def _copy_manifest(source: Mapping[str, Any], name: str, configuration: Mapping[
     })
     output["selection"] = selection
     output["purpose"] = (
-        "C44 projects only a validator-facing historical duplicate from a mixed same-critical-evidence GAP plan, retains the independently valid novel sibling unchanged, and accepts only an exact harness source-context transport decoration; any article neutralization, semantic query rewrite, scoring override, unknown requirement, or post-projection validation error remains fail-closed. C44 routes an exact named atomic completion requirement to its own literal explicit-term anchor without reading query_text or original context. It records typed repair hashes, synthesizes no query or answer, and changes no public skill resource. C43 retains only a separately valid novel GAP request when the same target also has a raw historical duplicate, excludes Korean verbal-attributive anchor fragments, and requires one concrete application case fact; it records typed audit hashes, synthesizes no query or answer, and changes no public skill resource. C42 refines C33 redundant public projection only for explicit Korean penalty targets: it retains both public claims when a legal-rule numeric/range or categorical sanction payload is missing or not fully carried by the matching application, and otherwise preserves C33 demotion; no skill resource or model prompt changes. C41 adds a two-primary-attempt-only S1 GAP anchor-novelty retry and trusted completion-contract fallback after a literal Korean anchor omission is followed by an all-history collision; it preserves duplicate-history protection and changes no public skill resource. C40 adds a validator-only, one-bounded-retry S1 atomic completion-requirement scope-minimality guard for exact Korean generic output descriptors, without deterministic deletion or visible prompt-resource changes. C39 restores byte-identical C37 S3 prompt resources and keeps C38 target-linked QUALIFYING conditional-exception authorization private to validation, while retaining CORE-only "
+        "C45 authorizes the C44 typed mixed-history recovery audit only at the harness runner and only for exactly one dropped request with a surviving request; all other audits fail closed, and no semantic or prompt-resource mutation occurs. C44 projects only a validator-facing historical duplicate from a mixed same-critical-evidence GAP plan, retains the independently valid novel sibling unchanged, and accepts only an exact harness source-context transport decoration; any article neutralization, semantic query rewrite, scoring override, unknown requirement, or post-projection validation error remains fail-closed. C44 routes an exact named atomic completion requirement to its own literal explicit-term anchor without reading query_text or original context. It records typed repair hashes, synthesizes no query or answer, and changes no public skill resource. C43 retains only a separately valid novel GAP request when the same target also has a raw historical duplicate, excludes Korean verbal-attributive anchor fragments, and requires one concrete application case fact; it records typed audit hashes, synthesizes no query or answer, and changes no public skill resource. C42 refines C33 redundant public projection only for explicit Korean penalty targets: it retains both public claims when a legal-rule numeric/range or categorical sanction payload is missing or not fully carried by the matching application, and otherwise preserves C33 demotion; no skill resource or model prompt changes. C41 adds a two-primary-attempt-only S1 GAP anchor-novelty retry and trusted completion-contract fallback after a literal Korean anchor omission is followed by an all-history collision; it preserves duplicate-history protection and changes no public skill resource. C40 adds a validator-only, one-bounded-retry S1 atomic completion-requirement scope-minimality guard for exact Korean generic output descriptors, without deterministic deletion or visible prompt-resource changes. C39 restores byte-identical C37 S3 prompt resources and keeps C38 target-linked QUALIFYING conditional-exception authorization private to validation, while retaining CORE-only "
         "public rules/applications and C32 carry-forward. It preserves C37's two-primary-attempt all-history-collision fail-safe, C36 prompt stabilization, and C35 validators, while "
         "records redacted prompt/input fingerprints without changing generation. It preserves the C34 type-aware "
         "redundant public projection and the C32 retry-only "
@@ -1537,6 +1559,37 @@ def _apply_c44_public_answer_contract(configuration: Dict[str, Any]) -> None:
     )
 
 
+def _with_c45_condition(condition: str) -> str:
+    if not isinstance(condition, str) or not condition:
+        raise OrchestrationError("C45 condition must be non-empty")
+    base = (
+        condition[:-len(DIAGNOSTIC21_C45_CONDITION_SUFFIX)]
+        if condition.endswith(DIAGNOSTIC21_C45_CONDITION_SUFFIX)
+        else condition
+    )
+    return _with_c44_condition(base) + DIAGNOSTIC21_C45_CONDITION_SUFFIX
+
+
+def _full_to_smoke_c45_condition(condition: str) -> str:
+    """Derive smoke from exactly one C45 full226 condition token."""
+    base = (
+        condition[:-len(DIAGNOSTIC21_C45_CONDITION_SUFFIX)]
+        if condition.endswith(DIAGNOSTIC21_C45_CONDITION_SUFFIX)
+        else condition
+    )
+    return _with_c45_condition(_full_to_smoke_c44_condition(base))
+
+
+def _apply_c45_public_answer_contract(configuration: Dict[str, Any]) -> None:
+    condition = str(configuration.get("condition") or "")
+    if condition.endswith(DIAGNOSTIC21_C45_CONDITION_SUFFIX):
+        configuration["condition"] = condition[:-len(DIAGNOSTIC21_C45_CONDITION_SUFFIX)]
+    _apply_c44_public_answer_contract(configuration)
+    configuration["condition"] = _with_c45_condition(
+        str(configuration.get("condition") or "")
+    )
+
+
 def build_v2_manifests(primary_source: Mapping[str, Any], reference_source: Mapping[str, Any]) -> Dict[str, Dict[str, Any]]:
     source_entries = list(primary_source.get("entries") or [])
     if _entry_signature(source_entries) != _entry_signature(reference_source.get("entries")):
@@ -1565,14 +1618,14 @@ def build_v2_manifests(primary_source: Mapping[str, Any], reference_source: Mapp
     runtime.update({"num_parallel": 1, "seed_forwarding": "ollama_options_seed"})
     primary_configuration["runtime_determinism"] = runtime
     primary_configuration["model_provenance"] = deepcopy(QWEN_MODEL_PROVENANCE)
-    _apply_c44_public_answer_contract(primary_configuration)
+    _apply_c45_public_answer_contract(primary_configuration)
     assert_kure_only(primary_configuration)
 
     reference_configuration = deepcopy(primary_configuration)
     reference_configuration["condition"] = reference_source_condition
     reference_configuration["retriever"] = "bm25"
     reference_configuration.pop("retriever_provenance", None)
-    _apply_c44_public_answer_contract(reference_configuration)
+    _apply_c45_public_answer_contract(reference_configuration)
     full = _copy_manifest(primary_source, PRIMARY_FROZEN_NAME, primary_configuration, source_entries, "PRIMARY_KURE_EXECUTION")
     reference = _copy_manifest(reference_source, REFERENCE_FROZEN_NAME, reference_configuration, source_entries, "COMPARISON_REFERENCE_ONLY_MUST_NEVER_BE_EXECUTED")
 
@@ -1593,9 +1646,9 @@ def build_v2_manifests(primary_source: Mapping[str, Any], reference_source: Mapp
         for index, entry in enumerate(smoke_entries, start=1)
     ]
     smoke_configuration = deepcopy(primary_configuration)
-    smoke_configuration["condition"] = _full_to_smoke_c44_condition(str(primary_configuration["condition"]))
+    smoke_configuration["condition"] = _full_to_smoke_c45_condition(str(primary_configuration["condition"]))
     smoke_reference_configuration = deepcopy(reference_configuration)
-    smoke_reference_configuration["condition"] = _full_to_smoke_c44_condition(str(reference_configuration["condition"]))
+    smoke_reference_configuration["condition"] = _full_to_smoke_c45_condition(str(reference_configuration["condition"]))
     return {
         "full": full,
         "reference": reference,
@@ -1660,7 +1713,7 @@ def _diagnostic21_selection(
     return {
         "candidate_id": DIAGNOSTIC21_CANDIDATE_ID,
         "method": (
-            "C44 projects only a validator-facing historical duplicate from a mixed same-critical-evidence GAP plan, retains the independently valid novel sibling unchanged, and accepts only an exact harness source-context transport decoration; all semantic rewrites, scoring overrides, unknown requirements, and post-projection validation errors remain fail-closed. It routes an exact named atomic completion requirement to its own literal explicit-term anchor without reading query_text or original context, synthesizes no query or answer, and changes no public skill resource. C43 retains only a separately valid novel GAP request when the same target also has a raw historical duplicate, excludes Korean verbal-attributive anchor fragments, and requires one concrete application case fact; it records typed audit hashes, synthesizes no query or answer, and changes no public skill resource. C42 refines C33 redundant public projection only for explicit Korean penalty targets: it retains both public claims when a legal-rule numeric/range or categorical sanction payload is missing or not fully carried by the matching application, and otherwise preserves C33 demotion; no skill resource or model prompt changes. C41 adds a two-primary-attempt-only S1 GAP anchor-novelty retry and trusted completion-contract fallback after a literal Korean anchor omission is followed by an all-history collision; it preserves duplicate-history protection and changes no public skill resource. C40 adds a validator-only, one-bounded-retry S1 atomic completion-requirement scope-minimality guard for exact Korean generic output descriptors, without deterministic deletion or visible prompt-resource changes. C39 restores byte-identical C37 S3 prompt resources and keeps C38's target-linked accepted QUALIFYING conditional-exception authorization validator-only/private, while retaining CORE-only "
+            "C45 authorizes the already-typed C44 MODEL_MIXED_HISTORY_COLLISION recovery audit at the harness runner only when exactly one request was dropped and at least one survives; every other disposition or count remains fail-closed and no query, legal semantic, or public skill resource changes. C44 projects only a validator-facing historical duplicate from a mixed same-critical-evidence GAP plan, retains the independently valid novel sibling unchanged, and accepts only an exact harness source-context transport decoration; all semantic rewrites, scoring overrides, unknown requirements, and post-projection validation errors remain fail-closed. It routes an exact named atomic completion requirement to its own literal explicit-term anchor without reading query_text or original context, synthesizes no query or answer, and changes no public skill resource. C43 retains only a separately valid novel GAP request when the same target also has a raw historical duplicate, excludes Korean verbal-attributive anchor fragments, and requires one concrete application case fact; it records typed audit hashes, synthesizes no query or answer, and changes no public skill resource. C42 refines C33 redundant public projection only for explicit Korean penalty targets: it retains both public claims when a legal-rule numeric/range or categorical sanction payload is missing or not fully carried by the matching application, and otherwise preserves C33 demotion; no skill resource or model prompt changes. C41 adds a two-primary-attempt-only S1 GAP anchor-novelty retry and trusted completion-contract fallback after a literal Korean anchor omission is followed by an all-history collision; it preserves duplicate-history protection and changes no public skill resource. C40 adds a validator-only, one-bounded-retry S1 atomic completion-requirement scope-minimality guard for exact Korean generic output descriptors, without deterministic deletion or visible prompt-resource changes. C39 restores byte-identical C37 S3 prompt resources and keeps C38's target-linked accepted QUALIFYING conditional-exception authorization validator-only/private, while retaining CORE-only "
             "public rules/applications and C32 carry-forward. It preserves C37's two-primary-attempt all-history-collision fail-safe, C36 prompt stabilization, and C35 validators, and records "
             "redacted prompt/input fingerprints without changing generation. It preserves the C30 paired C02 gate, C31 shared public-answer contract, "
             "and C32 validator-only qualifying carry-forward. It preserves repeated Korean "
@@ -1732,6 +1785,8 @@ def _diagnostic21_selection(
         "c43_source_provenance": deepcopy(DIAGNOSTIC21_C43_SOURCE_PROVENANCE),
         "c44_capabilities": deepcopy(DIAGNOSTIC21_C44_CAPABILITIES),
         "c44_source_provenance": deepcopy(DIAGNOSTIC21_C44_SOURCE_PROVENANCE),
+        "c45_capabilities": deepcopy(DIAGNOSTIC21_C45_CAPABILITIES),
+        "c45_source_provenance": deepcopy(DIAGNOSTIC21_C45_SOURCE_PROVENANCE),
         "semantic_authority": DIAGNOSTIC21_SEMANTIC_AUTHORITY,
         "runtime_artifact_path_provenance": {
             "repo_relative_required": ["source_dataset.path", "kure paths", "bge reranker path"],
@@ -1770,6 +1825,8 @@ def build_diagnostic21_manifests(
         if configuration.get("round_merge_mode") != DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE:
             raise OrchestrationError("diagnostic21 %s source round_merge_mode mismatch" % label)
         base_condition = configuration["condition"]
+        if base_condition.endswith(DIAGNOSTIC21_C45_CONDITION_SUFFIX):
+            base_condition = base_condition[:-len(DIAGNOSTIC21_C45_CONDITION_SUFFIX)]
         if base_condition.endswith(DIAGNOSTIC21_C44_CONDITION_SUFFIX):
             base_condition = base_condition[:-len(DIAGNOSTIC21_C44_CONDITION_SUFFIX)]
         if base_condition.endswith(DIAGNOSTIC21_C43_CONDITION_SUFFIX):
@@ -1801,7 +1858,7 @@ def build_diagnostic21_manifests(
         configuration["condition"] = (
             base_condition + DIAGNOSTIC21_C30_CONDITION_SUFFIX + DIAGNOSTIC21_C31_CONDITION_SUFFIX
         )
-        _apply_c44_public_answer_contract(configuration)
+        _apply_c45_public_answer_contract(configuration)
         configuration["reranker_provenance"] = deepcopy(DIAGNOSTIC21_RERANKER_PROVENANCE)
     assert_kure_only(primary_configuration)
     if reference_configuration.get("retriever") != "bm25":
@@ -1822,7 +1879,7 @@ def build_diagnostic21_manifests(
     )
     primary["selection"] = selection
     primary["purpose"] = (
-        "C44 projects only a validator-facing historical duplicate from a mixed same-critical-evidence GAP plan, retains the independently valid novel sibling unchanged, and accepts only an exact harness source-context transport decoration; all semantic rewrites, scoring overrides, unknown requirements, and post-projection validation errors remain fail-closed. It routes an exact named atomic completion requirement to its own literal explicit-term anchor without reading query_text or original context, synthesizes no query or answer, and changes no public skill resource. C43 retains only a separately valid novel GAP request when the same target also has a raw historical duplicate, excludes Korean verbal-attributive anchor fragments, and requires one concrete application case fact; it records typed audit hashes, synthesizes no query or answer, and changes no public skill resource. C42 refines C33 redundant public projection only for explicit Korean penalty targets: it retains both public claims when a legal-rule numeric/range or categorical sanction payload is missing or not fully carried by the matching application, and otherwise preserves C33 demotion; no skill resource or model prompt changes. C41 adds a two-primary-attempt-only S1 GAP anchor-novelty retry and trusted completion-contract fallback after a literal Korean anchor omission is followed by an all-history collision; it preserves duplicate-history protection and changes no public skill resource. C40 adds a validator-only, one-bounded-retry S1 atomic completion-requirement scope-minimality guard for exact Korean generic output descriptors, without deterministic deletion or visible prompt-resource changes. C39 restores byte-identical C37 S3 prompt resources and keeps C38 target-linked QUALIFYING conditional-exception authorization private to validation, while retaining CORE-only "
+        "C45 authorizes the C44 typed mixed-history recovery audit only at the harness runner and only for exactly one dropped request with a surviving request; all other audits fail closed, and no semantic or prompt-resource mutation occurs. C44 projects only a validator-facing historical duplicate from a mixed same-critical-evidence GAP plan, retains the independently valid novel sibling unchanged, and accepts only an exact harness source-context transport decoration; all semantic rewrites, scoring overrides, unknown requirements, and post-projection validation errors remain fail-closed. It routes an exact named atomic completion requirement to its own literal explicit-term anchor without reading query_text or original context, synthesizes no query or answer, and changes no public skill resource. C43 retains only a separately valid novel GAP request when the same target also has a raw historical duplicate, excludes Korean verbal-attributive anchor fragments, and requires one concrete application case fact; it records typed audit hashes, synthesizes no query or answer, and changes no public skill resource. C42 refines C33 redundant public projection only for explicit Korean penalty targets: it retains both public claims when a legal-rule numeric/range or categorical sanction payload is missing or not fully carried by the matching application, and otherwise preserves C33 demotion; no skill resource or model prompt changes. C41 adds a two-primary-attempt-only S1 GAP anchor-novelty retry and trusted completion-contract fallback after a literal Korean anchor omission is followed by an all-history collision; it preserves duplicate-history protection and changes no public skill resource. C40 adds a validator-only, one-bounded-retry S1 atomic completion-requirement scope-minimality guard for exact Korean generic output descriptors, without deterministic deletion or visible prompt-resource changes. C39 restores byte-identical C37 S3 prompt resources and keeps C38 target-linked QUALIFYING conditional-exception authorization private to validation, while retaining CORE-only "
         "public rules/applications and C32 carry-forward. It preserves C37's two-primary-attempt all-history-collision fail-safe, C36 prompt stabilization, and C35 validators, and records "
         "redacted prompt/input fingerprints without changing generation. It preserves the C30 paired C02 gate, C31 shared one-to-four-sentence public-answer "
         "contract, and C32 exact qualifying carry-forward citations in validator-only retry context, "
@@ -2007,6 +2064,10 @@ def assert_diagnostic21_manifest_integrity(
         raise OrchestrationError("diagnostic21 C44 capability mismatch")
     if selection.get("c44_source_provenance") != DIAGNOSTIC21_C44_SOURCE_PROVENANCE:
         raise OrchestrationError("diagnostic21 C44 source provenance mismatch")
+    if selection.get("c45_capabilities") != DIAGNOSTIC21_C45_CAPABILITIES:
+        raise OrchestrationError("diagnostic21 C45 capability mismatch")
+    if selection.get("c45_source_provenance") != DIAGNOSTIC21_C45_SOURCE_PROVENANCE:
+        raise OrchestrationError("diagnostic21 C45 source provenance mismatch")
     if selection.get("semantic_authority") != DIAGNOSTIC21_SEMANTIC_AUTHORITY:
         raise OrchestrationError("diagnostic21 semantic authority mismatch")
     if selection.get("runtime_artifact_path_provenance") != {
@@ -2023,8 +2084,8 @@ def assert_diagnostic21_manifest_integrity(
         raise OrchestrationError("diagnostic21 source condition lineage mismatch")
     for label, configuration in (("primary", primary_configuration), ("reference", reference_configuration)):
         condition = configuration.get("condition")
-        if not isinstance(condition, str) or not condition.endswith(DIAGNOSTIC21_C44_CONDITION_SUFFIX) or DIAGNOSTIC21_C30_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C31_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C32_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C33_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C34_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C35_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C36_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C37_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C38_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C39_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C40_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C41_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C42_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C43_CONDITION_SUFFIX not in condition:
-            raise OrchestrationError("diagnostic21 C30/C31/C32/C33/C34/C35/C36/C37/C38/C39/C40/C41/C42/C43 source condition overlay mismatch: C44 required for %s" % label)
+        if not isinstance(condition, str) or not condition.endswith(DIAGNOSTIC21_C45_CONDITION_SUFFIX) or DIAGNOSTIC21_C30_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C31_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C32_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C33_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C34_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C35_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C36_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C37_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C38_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C39_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C40_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C41_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C42_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C43_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C44_CONDITION_SUFFIX not in condition:
+            raise OrchestrationError("diagnostic21 C30/C31/C32/C33/C34/C35/C36/C37/C38/C39/C40/C41/C42/C43/C44 source condition overlay mismatch: C45 required for %s" % label)
         if any(configuration.get(key) != value for key, value in PUBLIC_ANSWER_FROZEN_CONFIGURATION.items()):
             raise OrchestrationError("diagnostic21 %s C31 public-answer contract mismatch" % label)
         if configuration.get("round_merge_mode") != DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE:
@@ -2079,6 +2140,10 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
         (
             primary_source_sha256 == DIAGNOSTIC21_SOURCE_PRIMARY_SHA256
             and reference_source_sha256 == DIAGNOSTIC21_SOURCE_REFERENCE_SHA256
+        )
+        or (
+            primary_source_sha256 == DIAGNOSTIC21_C44_BOOTSTRAP_SOURCE_PRIMARY_SHA256
+            and reference_source_sha256 == DIAGNOSTIC21_C44_BOOTSTRAP_SOURCE_REFERENCE_SHA256
         )
         or (
             primary_source_sha256 == DIAGNOSTIC21_C43_BOOTSTRAP_SOURCE_PRIMARY_SHA256
@@ -2137,7 +2202,7 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
         "primary_source_manifest_sha256": primary_source_sha256,
         "reference_source_manifest": str(reference_source.resolve()),
         "reference_source_manifest_sha256": reference_source_sha256,
-        "control_plane_release": DIAGNOSTIC21_C44_RELEASE,
+        "control_plane_release": DIAGNOSTIC21_C45_RELEASE,
         "public_answer_contract": dict(PUBLIC_ANSWER_FROZEN_CONFIGURATION),
         "generated": {key: {"path": str(path.relative_to(exec_root)), "sha256": sha256(path)} for key, path in paths.items()},
         "smoke_entries": [
@@ -2205,6 +2270,8 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
             "c43_source_provenance": deepcopy(DIAGNOSTIC21_C43_SOURCE_PROVENANCE),
             "c44_capabilities": deepcopy(DIAGNOSTIC21_C44_CAPABILITIES),
             "c44_source_provenance": deepcopy(DIAGNOSTIC21_C44_SOURCE_PROVENANCE),
+            "c45_capabilities": deepcopy(DIAGNOSTIC21_C45_CAPABILITIES),
+            "c45_source_provenance": deepcopy(DIAGNOSTIC21_C45_SOURCE_PROVENANCE),
         }
     write_json_new(frozen_root / "source_metadata.json", source_metadata)
     assert_reference_is_read_only(manifests["full"], manifests["reference"], paths["full"], paths["reference"])

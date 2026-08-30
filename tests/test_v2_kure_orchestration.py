@@ -99,9 +99,9 @@ class PartitionAndPolicyTests(unittest.TestCase):
         with self.assertRaisesRegex(orchestration.OrchestrationError, "exactly one full226"):
             orchestration._full_to_smoke_c32_condition("fixture-full226-full226")
 
-    def test_c44_condition_overlay_is_idempotent_for_all_manifest_roles(self):
+    def test_c45_condition_overlay_is_idempotent_for_all_manifest_roles(self):
         self.assertEqual(
-            orchestration._full_to_smoke_c44_condition("fixture-full226"),
+            orchestration._full_to_smoke_c45_condition("fixture-full226"),
             "fixture-smoke3"
             + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX
             + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX
@@ -116,7 +116,8 @@ class PartitionAndPolicyTests(unittest.TestCase):
             + orchestration.DIAGNOSTIC21_C41_CONDITION_SUFFIX
             + orchestration.DIAGNOSTIC21_C42_CONDITION_SUFFIX
             + orchestration.DIAGNOSTIC21_C43_CONDITION_SUFFIX
-            + orchestration.DIAGNOSTIC21_C44_CONDITION_SUFFIX,
+            + orchestration.DIAGNOSTIC21_C44_CONDITION_SUFFIX
+            + orchestration.DIAGNOSTIC21_C45_CONDITION_SUFFIX,
         )
         primary, reference = fixture_manifests()
         first = orchestration.build_v2_manifests(primary, reference)
@@ -128,7 +129,7 @@ class PartitionAndPolicyTests(unittest.TestCase):
             )
             self.assertTrue(
                 first[role]["frozen_configuration"]["condition"].endswith(
-                    orchestration.DIAGNOSTIC21_C44_CONDITION_SUFFIX
+                    orchestration.DIAGNOSTIC21_C45_CONDITION_SUFFIX
                 )
             )
 

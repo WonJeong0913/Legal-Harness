@@ -446,6 +446,28 @@ class HarnessPathTests(unittest.TestCase):
                         {"harness_gap_plan_recovery": recovery}, request_count
                     )
 
+    def test_model_mixed_history_collision_requires_one_surviving_request(self):
+        valid = repair_collision_recovery(
+            dropped_ids=["GRQ-R2-1"],
+            remaining_count=1,
+            disposition=GapPlanRecoveryDisposition.MODEL_MIXED_HISTORY_COLLISION,
+        )
+        self.assertIs(
+            HarnessRunner._validated_gap_plan_recovery(
+                {"harness_gap_plan_recovery": valid}, 1
+            ),
+            valid,
+        )
+        invalid = repair_collision_recovery(
+            dropped_ids=["GRQ-R2-1"],
+            remaining_count=0,
+            disposition=GapPlanRecoveryDisposition.MODEL_MIXED_HISTORY_COLLISION,
+        )
+        with self.assertRaisesRegex(ValidationError, "gap-plan recovery audit is invalid"):
+            HarnessRunner._validated_gap_plan_recovery(
+                {"harness_gap_plan_recovery": invalid}, 0
+            )
+
     def test_benchmark_candidate_failure_does_not_reclassify_abstention(self):
         runner, _, _ = self.make_runner(
             {
