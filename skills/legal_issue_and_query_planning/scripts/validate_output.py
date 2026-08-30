@@ -885,6 +885,76 @@ def _trusted_gap_anchor_phrases(evidence_item):
     return {sorted(shared)[-1]}
 
 
+def _request_scoped_completion_requirement(evidence_item, request):
+    """Return the exact atomic requirement named by a GAP request, if any.
+
+    A model may name an existing requirement in ``gap_reason`` to distinguish
+    complementary retrieval requests for one evidence item.  This is only a
+    routing reference: malformed, unknown, or non-Korean references return
+    ``None`` so the broader evidence-level anchor predicate stays in force.
+    """
+    if not isinstance(evidence_item, dict) or not isinstance(request, dict):
+        return None
+    evidence_id = evidence_item.get("evidence_item_id")
+    reason = request.get("gap_reason")
+    if not isinstance(evidence_id, str) or not isinstance(reason, str):
+        return None
+    match = re.match(
+        r"^\s*(%s-R[1-9][0-9]*)\s+미충족\s*:" % re.escape(evidence_id),
+        reason,
+    )
+    if match is None:
+        return None
+    matches = [
+        requirement
+        for requirement in evidence_item.get("completion_requirements", [])
+        if isinstance(requirement, dict)
+        and requirement.get("requirement_id") == match.group(1)
+        and isinstance(requirement.get("text"), str)
+        and requirement["text"].strip()
+    ]
+    return matches[0] if len(matches) == 1 else None
+
+
+def _scoped_anchor_in_query_terms(anchors, values):
+    """Match a literal Korean requirement anchor in one explicit query term.
+
+    The only relaxed morphology is a two-or-more-syllable suffix of one
+    compound source token (``조치`` in ``긴급조치``).  The full two-word anchor
+    must remain contiguous; this is not semantic expansion and never consults
+    query_text or source-question context.
+    """
+    if not isinstance(values, list):
+        return False
+    terms = [
+        re.findall(r"[가-힣]+", unicodedata.normalize("NFKC", value))
+        for value in values
+        if isinstance(value, str) and not re.search(r"[A-Za-z0-9]", value)
+    ]
+    # Preserve the existing contract that one request's ordered explicit terms
+    # may jointly spell an anchor; never join terms across requests.
+    term_views = terms + [
+        [token for term in terms for token in term]
+    ]
+    for anchor in anchors:
+        anchor_tokens = anchor.split()
+        if len(anchor_tokens) != 2:
+            continue
+        for term_tokens in term_views:
+            for index in range(len(term_tokens) - 1):
+                candidate = term_tokens[index : index + 2]
+                if all(
+                    source == observed
+                    or (
+                        len(observed) >= 2
+                        and source.endswith(observed)
+                    )
+                    for source, observed in zip(anchor_tokens, candidate)
+                ):
+                    return True
+    return False
+
+
 def validate_gap_query_terms_anchor_coverage(requests, evidence, unresolved, errors):
     """Keep repeated Korean fact/effect anchors in explicit gap query_terms.
 
@@ -902,10 +972,30 @@ def validate_gap_query_terms_anchor_coverage(requests, evidence, unresolved, err
         if not anchors:
             continue
         request_term_views = []
+        has_scoped_requirement = False
         for request in requests:
             if request.get("evidence_item_id") != item.get("evidence_item_id"):
                 continue
             values = request.get("query_terms", [])
+            requirement = _request_scoped_completion_requirement(item, request)
+            requirement_anchors = (
+                _korean_gap_anchor_phrases(requirement.get("text"))
+                if requirement is not None
+                else set()
+            )
+            if requirement_anchors:
+                has_scoped_requirement = True
+                if not _scoped_anchor_in_query_terms(requirement_anchors, values):
+                    errors.append(
+                        "GAP_QUERY_PLAN query_terms omit trusted Korean fact/effect anchors: "
+                        "evidence_item_id=%s; requirement_id=%s; missing_anchors=%s"
+                        % (
+                            item.get("evidence_item_id"),
+                            requirement.get("requirement_id"),
+                            ", ".join(sorted(requirement_anchors)),
+                        )
+                    )
+                continue
             if isinstance(values, list):
                 normalized_terms = [
                     norm(value) for value in values if isinstance(value, str) and norm(value)
@@ -913,6 +1003,8 @@ def validate_gap_query_terms_anchor_coverage(requests, evidence, unresolved, err
                 request_term_views.append((
                     normalized_terms, " ".join(normalized_terms),
                 ))
+        if has_scoped_requirement and not request_term_views:
+            continue
         missing = sorted(
             anchor for anchor in anchors
             if not any(

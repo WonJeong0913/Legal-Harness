@@ -33,9 +33,9 @@ C43_S3_VALIDATOR_SHA256 = {
         "11259e55a6d083b2b670e4d7207e9c8febf8dc0117ff6d338f9ebf364b43176d"
     ),
 }
-C43_S1_VALIDATOR_SHA256 = {
+C44_S1_VALIDATOR_SHA256 = {
     "skills/legal_issue_and_query_planning/scripts/validate_output.py": (
-        "c189203430b224ee56b765ee81407fcb281e3e9bc28fbeaefff78eb2c65bc418"
+        "33c1d1e91c77614fb4c89e6c5b3acbf5c14964d54a123a298fd4218462051a1f"
     ),
 }
 
@@ -233,14 +233,14 @@ class C36PromptStabilityTests(unittest.TestCase):
         )
         return output, executor._validators["legal_issue_and_query_planning"](output, skill_input)
 
-    def test_c36_prompt_resources_and_c43_validator_hashes(self):
+    def test_c36_prompt_resources_and_c44_validator_hashes(self):
         for relative, expected in C34_S1_PROMPT_RESOURCE_SHA256.items():
             self.assertEqual(hashlib.sha256((ROOT / relative).read_bytes()).hexdigest(), expected)
         for relative, expected in C37_S3_PROMPT_RESOURCE_SHA256.items():
             self.assertEqual(hashlib.sha256((ROOT / relative).read_bytes()).hexdigest(), expected)
         for relative, expected in C43_S3_VALIDATOR_SHA256.items():
             self.assertEqual(hashlib.sha256((ROOT / relative).read_bytes()).hexdigest(), expected)
-        for relative, expected in C43_S1_VALIDATOR_SHA256.items():
+        for relative, expected in C44_S1_VALIDATOR_SHA256.items():
             self.assertEqual(hashlib.sha256((ROOT / relative).read_bytes()).hexdigest(), expected)
 
     def test_saved_c34_qa0_raw_replays_through_c35_s3_normalizer_validator(self):

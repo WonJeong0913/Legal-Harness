@@ -1113,29 +1113,45 @@ class GapSpecificityRepairTests(unittest.TestCase):
             ["query repeats query_history: %s" % raw_query] * 2,
         )
 
-    def test_mixed_history_collision_projects_only_same_evidence_novel_request(self):
+    def test_persisted_mixed_history_shape_projects_contextual_novel_request(self):
         payload = gap_input()
-        payload["normalized_question"] = "위임 종료 후 수임자의 긴급조치 의무를 판단하라."
+        payload["normalized_question"] = (
+            "[배경 시나리오] 갑은 을에게 부동산 거래를 위임했습니다. 그러나 계약 기간 중 "
+            "갑이 해외로 장기 출장을 떠나게 되어 을에게 계약 종료를 알렸습니다. 출장 중 갑의 "
+            "부동산에 예상치 못한 홍수가 발생했고, 부동산에 대한 긴급 조치가 필요해졌습니다. "
+            "을은 갑과 연락이 닿지 않는 상황에서 갑의 부동산을 보호하기 위한 긴급 조치를 "
+            "진행했습니다. [질문] 갑이 을에게 부동산 거래를 위임했으나 위임 종료 후 갑의 해외 "
+            "출장으로 인해 긴급한 상황이 발생했을 때, 을은 어떤 의무를 가지는가?"
+        )
         evidence = payload["required_evidence_items"][0]
         evidence.update({
-            "description": "emergency mandate evidence",
-            "completion_criteria": "emergency scope legal basis",
-            "completion_requirements": [{
-                "requirement_id": "E1-R1",
-                "text": "emergency scope legal basis",
-            }],
+            "description": "위임 종료 후 수임자의 긴급조치 의무에 관한 민법 조항",
+            "completion_criteria": "위임 종료 후 긴급한 상황에서 수임자가 취해야 할 조치의 법적 근거와 의무 범위가 명시되어 있어야 한다.",
+            "completion_requirements": [
+                {"requirement_id": "E1-R1", "text": "위임 종료 후 수임자의 긴급조치 의무를 규정하는 조항"},
+                {"requirement_id": "E1-R2", "text": "긴급조치의 범위와 한계를 규정하는 조항"},
+            ],
         })
         historic = (
             "위임 종료 후 수임자의 긴급조치 의무\n[원문 맥락]\n"
-            + payload["normalized_question"]
+            "을은 갑과 연락이 닿지 않는 상황에서 갑의 부동산을 보호하기 위한 긴급 조치를 "
+            "진행했습니다. 갑이 을에게 부동산 거래를 위임했으나 위임 종료 후 갑의 해외 출장으로 "
+            "인해 긴급한 상황이 발생했을 때, 을은 어떤 의무를 가지는가?"
         )
         payload["query_history"] = [{"request_id": "RQ1", "query_text": historic}]
         duplicate = gap_request("E1", "위임 종료 후 수임자의 긴급조치 의무", request_id="GRQ-R1-1")
+        duplicate.update({
+            "query_channel": "provision_style",
+            "query_terms": ["위임 종료", "수임자", "긴급조치", "의무"],
+            "statute_hints": ["민법"],
+            "gap_reason": "E1-R1 미충족: 위임 종료 후 수임자의 긴급조치 의무를 규정하는 조항이 부재함",
+        })
         novel = gap_request("E1", "위임 종료 후 긴급한 경우 수임자의 조치 범위", request_id="GRQ-R1-2")
         novel.update({
             "query_channel": "sparse_keywords",
             "query_terms": ["위임 종료", "긴급한 경우", "조치 범위", "한계"],
             "statute_hints": ["민법"],
+            "gap_reason": "E1-R2 미충족: 긴급조치의 범위와 한계를 규정하는 조항이 부재함",
         })
         raw = gap_output([duplicate, novel])
         prompts, diagnostics = [], []
@@ -1156,6 +1172,7 @@ class GapSpecificityRepairTests(unittest.TestCase):
         self.assertEqual(recovery["disposition"], "model_mixed_history_collision_projection")
         self.assertEqual(recovery["dropped_request_ids"], ["GRQ-R2-1"])
         self.assertEqual(recovery["remaining_request_count"], 1)
+        self.assertIn("[원문 맥락]", output["gap_retrieval_requests"][0]["query_text"])
 
     def test_mixed_history_collision_rejects_scoring_override_or_lost_evidence(self):
         for variant in ("scoring_override", "different_evidence"):
@@ -1192,6 +1209,70 @@ class GapSpecificityRepairTests(unittest.TestCase):
                     executor.execute(
                         "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
                     )
+
+    def test_mixed_history_collision_rejects_unknown_requirement_or_semantic_repair(self):
+        payload = gap_input()
+        payload["normalized_question"] = "위임 종료 후 수임자의 긴급조치 의무를 판단하라."
+        evidence = payload["required_evidence_items"][0]
+        evidence.update({
+            "description": "위임 종료 후 수임자의 긴급조치 의무에 관한 민법 조항",
+            "completion_criteria": "긴급 조치의 법적 근거와 범위가 명시되어야 한다.",
+            "completion_requirements": [
+                {"requirement_id": "E1-R1", "text": "위임 종료 후 수임자의 긴급조치 의무를 규정하는 조항"},
+                {"requirement_id": "E1-R2", "text": "긴급조치의 범위와 한계를 규정하는 조항"},
+            ],
+        })
+        historic = "위임 종료 후 수임자의 긴급조치 의무\n[원문 맥락]\n" + payload["normalized_question"]
+        payload["query_history"] = [{"request_id": "RQ1", "query_text": historic}]
+        duplicate = gap_request("E1", "위임 종료 후 수임자의 긴급조치 의무")
+        duplicate.update({"query_terms": ["긴급조치", "의무"], "gap_reason": "E1-R1 미충족: 의무 조항 부재"})
+        novel = gap_request("E1", "위임 종료 후 긴급한 경우 수임자의 조치 범위")
+        novel.update({"query_terms": ["조치 범위", "한계"], "gap_reason": "E1-R99 미충족: 범위 조항 부재"})
+        raw = gap_output([duplicate, novel])
+        prompts = []
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills", "fixture-model", max_attempts=2,
+            generator=lambda prompt: prompts.append(prompt) or json.dumps(raw, ensure_ascii=False),
+        )
+        with self.assertRaisesRegex(SkillExecutionError, "query repeats query_history"):
+            executor.execute("legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload)
+        self.assertEqual(len(prompts), 2)
+
+        skill_input = executor._build_skill_input(
+            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
+        )
+        request = executor._normalize_harness_owned_fields(
+            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", skill_input,
+            copy.deepcopy(duplicate),
+        )
+        raw_request = copy.deepcopy(request)
+        repaired_request = copy.deepcopy(request)
+        repaired_request["query_text"] = executor._with_source_context(
+            raw_request["query_text"], skill_input
+        )
+        self.assertTrue(executor._s1_contextual_gap_transport_only(
+            raw_request, repaired_request, skill_input
+        ))
+        self.assertTrue(executor._s1_contextual_gap_repair_audit_only(
+            [{
+                "kind": "source_context_query_text_transport",
+                "request_id": raw_request["request_id"],
+                "field": "query_text",
+                "before": raw_request["query_text"],
+                "after": repaired_request["query_text"],
+            }],
+            [raw_request], [repaired_request], skill_input,
+        ))
+        repaired_request["query_text"] = executor._with_source_context(
+            "새 검색어", skill_input
+        )
+        self.assertFalse(executor._s1_contextual_gap_transport_only(
+            raw_request, repaired_request, skill_input
+        ))
+        self.assertFalse(executor._s1_contextual_gap_repair_audit_only(
+            [{"kind": "neutralized_ungrounded_article_specificity"}],
+            [raw_request], [raw_request], skill_input,
+        ))
 
     def test_gap_anchor_excludes_verbal_attributive_fragment(self):
         evidence = {

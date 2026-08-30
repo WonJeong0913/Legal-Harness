@@ -3220,6 +3220,84 @@ class LocalOllamaSkillExecutor:
             remaining_request_count=len(remaining_requests),
         )
 
+    def _s1_contextual_gap_transport_only(
+        self,
+        raw_request: Mapping[str, Any],
+        repaired_request: Mapping[str, Any],
+        skill_input: Mapping[str, Any],
+    ) -> bool:
+        """Allow only the harness's exact source-context query decoration.
+
+        A mixed-collision projection must not adopt an article neutralization,
+        a scoring override, or any other semantic query rewrite.  The sole
+        tolerated difference is adding/removing the deterministic context
+        suffix that this executor itself derives from normalized_question.
+        """
+        if not isinstance(raw_request, Mapping) or not isinstance(repaired_request, Mapping):
+            return False
+        if any(
+            raw_request.get(field) != repaired_request.get(field)
+            for field in (
+                "request_id", "issue_id", "evidence_item_id", "query_channel",
+                "query_terms", "statute_hints", "rationale", "gap_reason",
+                "source_assessment_status",
+            )
+        ):
+            return False
+        for field in ("first_stage_query_text", "rerank_query_text"):
+            raw_value = raw_request.get(field)
+            repaired_value = repaired_request.get(field)
+            if raw_value != repaired_value or (
+                isinstance(raw_value, str) and raw_value.strip()
+            ):
+                return False
+        raw_query = raw_request.get("query_text")
+        repaired_query = repaired_request.get("query_text")
+        if not isinstance(raw_query, str) or not isinstance(repaired_query, str):
+            return False
+        return (
+            raw_query == repaired_query
+            or self._with_source_context(raw_query, skill_input) == repaired_query
+            or self._with_source_context(repaired_query, skill_input) == raw_query
+        )
+
+    def _s1_contextual_gap_repair_audit_only(
+        self,
+        repairs: Sequence[Mapping[str, Any]],
+        raw_requests: Sequence[Mapping[str, Any]],
+        repaired_requests: Sequence[Mapping[str, Any]],
+        skill_input: Mapping[str, Any],
+    ) -> bool:
+        """Whitelist an audited source-context decoration, never a query rewrite."""
+        repaired_by_id = {
+            request.get("request_id"): request
+            for request in repaired_requests
+            if isinstance(request.get("request_id"), str)
+        }
+        raw_by_id = {
+            request.get("request_id"): request
+            for request in raw_requests
+            if isinstance(request.get("request_id"), str)
+        }
+        for repair in repairs:
+            if not isinstance(repair, Mapping):
+                return False
+            request_id = repair.get("request_id")
+            if (
+                repair.get("kind") != "source_context_query_text_transport"
+                or repair.get("field") != "query_text"
+                or not isinstance(request_id, str)
+                or request_id not in raw_by_id
+                or request_id not in repaired_by_id
+                or repair.get("before") != raw_by_id[request_id].get("query_text")
+                or repair.get("after") != repaired_by_id[request_id].get("query_text")
+                or not self._s1_contextual_gap_transport_only(
+                    raw_by_id[request_id], repaired_by_id[request_id], skill_input
+                )
+            ):
+                return False
+        return True
+
     def _project_mixed_history_collision_recovery(
         self,
         skill_name: str,
@@ -3233,14 +3311,13 @@ class LocalOllamaSkillExecutor:
         """Retain only a model's independently valid novel gap request.
 
         This is a fail-closed projection, not a query synthesis: it is available
-        only when the sole errors are historical duplicates, each removed
-        request has a surviving request for the same unresolved critical item,
-        and that surviving plan validates unchanged against the S1 contract.
+        only when the sole errors are historical duplicates in validator-facing
+        queries, each removed request has a surviving request for the same
+        unresolved critical item, and that surviving plan validates unchanged.
         """
         if (
             skill_name != "legal_issue_and_query_planning"
             or entry_point != "GAP_QUERY_PLAN"
-            or repairs
             or not validation_errors
         ):
             return None, None
@@ -3250,9 +3327,20 @@ class LocalOllamaSkillExecutor:
         if (
             not isinstance(raw_requests, list)
             or not raw_requests
-            or raw_requests != repaired_requests
+            or not isinstance(repaired_requests, list)
+            or len(raw_requests) != len(repaired_requests)
             or not isinstance(history, list)
             or not all(isinstance(item, Mapping) for item in raw_requests)
+            or not all(isinstance(item, Mapping) for item in repaired_requests)
+            or not all(
+                self._s1_contextual_gap_transport_only(
+                    raw_request, repaired_request, skill_input
+                )
+                for raw_request, repaired_request in zip(raw_requests, repaired_requests)
+            )
+            or not self._s1_contextual_gap_repair_audit_only(
+                repairs, raw_requests, repaired_requests, skill_input
+            )
         ):
             return None, None
         prior_queries = {
@@ -3276,7 +3364,7 @@ class LocalOllamaSkillExecutor:
         }
         kept_requests, dropped_ids, dropped_hashes, expected_errors = [], [], [], []
         dropped_evidence_ids, kept_evidence_ids = set(), set()
-        for request in raw_requests:
+        for request in repaired_requests:
             request_id = request.get("request_id")
             evidence_id = request.get("evidence_item_id")
             query = request.get("query_text")
@@ -3286,10 +3374,6 @@ class LocalOllamaSkillExecutor:
                 or not isinstance(evidence_id, str)
                 or not isinstance(query, str)
                 or not query.strip()
-                or any(
-                    isinstance(request.get(field), str) and request[field].strip()
-                    for field in ("first_stage_query_text", "rerank_query_text")
-                )
             ):
                 return None, None
             if self._normalized_query(query) in prior_queries:
