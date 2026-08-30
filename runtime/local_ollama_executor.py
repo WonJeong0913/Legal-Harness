@@ -2455,6 +2455,12 @@ class LocalOllamaSkillExecutor:
             if isinstance(target, Mapping)
             and isinstance(target.get("answer_target_id"), str)
         }
+        answer_targets_by_id = {
+            target.get("answer_target_id"): target
+            for target in self._list(skill_input, "answer_targets")
+            if isinstance(target, Mapping)
+            and isinstance(target.get("answer_target_id"), str)
+        }
 
         def string_set(value: Any) -> set:
             return {
@@ -2471,6 +2477,51 @@ class LocalOllamaSkillExecutor:
                 if isinstance(citation.get("provision_id"), str)
                 and citation["provision_id"]
             } if isinstance(claim_id, str) else set()
+
+        def penalty_payload(text: Any) -> Optional[Tuple[frozenset, frozenset]]:
+            """Return only a Korean numeric or categorical sanction payload safe to compare."""
+            if not isinstance(text, str) or not text.strip() or re.search(r"[A-Za-z]", text):
+                return None
+            compact = re.sub(r"\s+", "", unicodedata.normalize("NFKC", text))
+            ranges = frozenset(re.findall(
+                r"\d[\d,]*(?:년|개월|일|시간|(?:억|천만|백만|천|백|만)?원)?(?:이하|이상|미만|초과|이내)",
+                compact,
+            ))
+            sanction_heads = frozenset(
+                head
+                for head in (
+                    "징역", "벌금", "금고", "구류", "과료", "사형", "몰수", "자격정지", "자격상실",
+                )
+                if head in compact
+            )
+            return (ranges, sanction_heads) if sanction_heads else None
+
+        def incomplete_penalty_payload(
+            rule: Mapping[str, Any],
+            application: Mapping[str, Any],
+            target_ids: set,
+        ) -> bool:
+            """Keep a penalty rule public unless its exact payload survives in application."""
+            targets = [answer_targets_by_id.get(target_id) for target_id in target_ids]
+            if not targets or not all(
+                isinstance(target, Mapping)
+                and target.get("answer_type") == "penalty"
+                and isinstance(target.get("requested_output"), str)
+                and not re.search(r"[A-Za-z]", target["requested_output"])
+                and re.search(r"(?:형벌|처벌|법정형|제재)", target["requested_output"])
+                for target in targets
+            ):
+                return False
+            rule_payload = penalty_payload(rule.get("text"))
+            application_payload = penalty_payload(application.get("text"))
+            if rule_payload is None or application_payload is None:
+                return True
+            rule_ranges, rule_sanctions = rule_payload
+            application_ranges, application_sanctions = application_payload
+            return not (
+                rule_ranges <= application_ranges
+                and rule_sanctions <= application_sanctions
+            )
 
         public_applications = [
             claim
@@ -2503,6 +2554,8 @@ class LocalOllamaSkillExecutor:
                     or string_set(application.get("answer_target_ids")) != target_ids
                     or provision_ids(application) != cited_provision_ids
                 ):
+                    continue
+                if incomplete_penalty_payload(rule, application, target_ids):
                     continue
                 matches.append(
                     (rule["claim_id"], application_id, target_ids, cited_provision_ids)

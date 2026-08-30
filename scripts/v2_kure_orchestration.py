@@ -40,17 +40,19 @@ from public_answer_contract import (
 DIAGNOSTIC21_MODE = "diagnostic21"
 DIAGNOSTIC21_ENTRY_COUNT = 21
 DIAGNOSTIC21_CHUNKS = ((1, 20), (21, 21))
-DIAGNOSTIC21_PRIMARY_FROZEN_NAME = "v2-kure-qwen38-q8-offline-diagnostic21-c41-20260830"
-DIAGNOSTIC21_REFERENCE_FROZEN_NAME = "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c41-20260830"
-DIAGNOSTIC21_SOURCE_PRIMARY_SHA256 = "4541e03d8bec34b4c971d3c9079cc13821c63ccf3281dd03816c1d266e79c94c"
-DIAGNOSTIC21_SOURCE_REFERENCE_SHA256 = "ae1c826249d06449030b4e24da1b7a1b4ab74dd0dcbaf525b2ceb6c269f933e1"
-DIAGNOSTIC21_BOOTSTRAP_SOURCE_PRIMARY_SHA256 = "fff1100ec4c0eb4981239313d958c6dc9dbb1d0257c4c4fc49ab2f8731824821"
-DIAGNOSTIC21_BOOTSTRAP_SOURCE_REFERENCE_SHA256 = "5f83479ff0e2bc0d73db543b718186b654173e2d48bc5bb042de6a34359503c8"
-DIAGNOSTIC21_LEGACY_BOOTSTRAP_SOURCE_PRIMARY_SHA256 = "118ad3530ecb9b10dfe246f2d684a2473e5b317ecb4d5ae2816032e86b30810f"
-DIAGNOSTIC21_LEGACY_BOOTSTRAP_SOURCE_REFERENCE_SHA256 = "dd338d874d231d24ddb4c5f7b4f1833a527b0939138c5b854ecb88bdd0ac69ca"
-DIAGNOSTIC21_PRIOR_LEGACY_BOOTSTRAP_SOURCE_PRIMARY_SHA256 = "de31b50460ebe4b380920fe378c0a70762283dfef1ed601ac29ba8b92a87d561"
-DIAGNOSTIC21_PRIOR_LEGACY_BOOTSTRAP_SOURCE_REFERENCE_SHA256 = "0de4a1df791ee98e2f2c065df10ea7ccba4ffa4ba8ea84f39c8c83054bc2c7ae"
-DIAGNOSTIC21_IMPLEMENTATION_PARENT_COMMIT = "d1e78712d16ceea07d279b3cd9abc024b9e8515f"
+DIAGNOSTIC21_PRIMARY_FROZEN_NAME = "v2-kure-qwen38-q8-offline-diagnostic21-c42-20260830"
+DIAGNOSTIC21_REFERENCE_FROZEN_NAME = "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c42-20260830"
+DIAGNOSTIC21_SOURCE_PRIMARY_SHA256 = "eba5eafb7a79242138f13fbbadfb2840432a2634bb818ab6f547fbdc0e306adb"
+DIAGNOSTIC21_SOURCE_REFERENCE_SHA256 = "f949e6b00ad0bdd1dd0c91fff30bce99f0fc82fce248a7100b22db95d9c1e418"
+DIAGNOSTIC21_BOOTSTRAP_SOURCE_PRIMARY_SHA256 = "4541e03d8bec34b4c971d3c9079cc13821c63ccf3281dd03816c1d266e79c94c"
+DIAGNOSTIC21_BOOTSTRAP_SOURCE_REFERENCE_SHA256 = "ae1c826249d06449030b4e24da1b7a1b4ab74dd0dcbaf525b2ceb6c269f933e1"
+DIAGNOSTIC21_LEGACY_BOOTSTRAP_SOURCE_PRIMARY_SHA256 = "fff1100ec4c0eb4981239313d958c6dc9dbb1d0257c4c4fc49ab2f8731824821"
+DIAGNOSTIC21_LEGACY_BOOTSTRAP_SOURCE_REFERENCE_SHA256 = "5f83479ff0e2bc0d73db543b718186b654173e2d48bc5bb042de6a34359503c8"
+DIAGNOSTIC21_PRIOR_LEGACY_BOOTSTRAP_SOURCE_PRIMARY_SHA256 = "118ad3530ecb9b10dfe246f2d684a2473e5b317ecb4d5ae2816032e86b30810f"
+DIAGNOSTIC21_PRIOR_LEGACY_BOOTSTRAP_SOURCE_REFERENCE_SHA256 = "dd338d874d231d24ddb4c5f7b4f1833a527b0939138c5b854ecb88bdd0ac69ca"
+DIAGNOSTIC21_EARLIEST_LEGACY_BOOTSTRAP_SOURCE_PRIMARY_SHA256 = "de31b50460ebe4b380920fe378c0a70762283dfef1ed601ac29ba8b92a87d561"
+DIAGNOSTIC21_EARLIEST_LEGACY_BOOTSTRAP_SOURCE_REFERENCE_SHA256 = "0de4a1df791ee98e2f2c065df10ea7ccba4ffa4ba8ea84f39c8c83054bc2c7ae"
+DIAGNOSTIC21_IMPLEMENTATION_PARENT_COMMIT = "8f3cc3baffa74ceca5584fc23ad15fdbcb78db79"
 DIAGNOSTIC21_FLOAT_TOLERANCE = 1e-12
 DIAGNOSTIC21_C31_CONDITION_SUFFIX = "+C31-shared-public-answer-contract"
 DIAGNOSTIC21_C31_RELEASE = "C31-shared-public-answer-contract-alignment"
@@ -74,6 +76,8 @@ DIAGNOSTIC21_C40_CONDITION_SUFFIX = "+C40-S1-atomic-requirement-scope-minimality
 DIAGNOSTIC21_C40_RELEASE = "C40-S1-atomic-requirement-scope-minimality"
 DIAGNOSTIC21_C41_CONDITION_SUFFIX = "+C41-gap-anchor-novelty-trusted-completion-fallback"
 DIAGNOSTIC21_C41_RELEASE = "C41-gap-anchor-novelty-trusted-completion-fallback"
+DIAGNOSTIC21_C42_CONDITION_SUFFIX = "+C42-penalty-decisive-payload-projection-guard"
+DIAGNOSTIC21_C42_RELEASE = "C42-penalty-decisive-payload-projection-guard"
 DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE = "single_issue_fusion_top_k"
 DIAGNOSTIC21_C02_ROUND_MERGE_MODE = "request_rank_top1_guarded_swap"
 DIAGNOSTIC21_C30_CONDITION_SUFFIX = "+C30-paired-C02-gate-S3-carry-forward-overlay"
@@ -90,7 +94,8 @@ DIAGNOSTIC21_CANDIDATE_ID = (
     "C38-target-linked-qualifying-public-exception+"
     "C39-prompt-stable-validator-only-qualifying-exception+"
     "C40-S1-atomic-requirement-scope-minimality+"
-    "C41-gap-anchor-novelty-trusted-completion-fallback"
+    "C41-gap-anchor-novelty-trusted-completion-fallback+"
+    "C42-penalty-decisive-payload-projection-guard"
 )
 DIAGNOSTIC21_C22_CAPABILITY = {
     "capability": "standalone ungrounded paragraph gap recovery",
@@ -389,6 +394,25 @@ DIAGNOSTIC21_C41_SOURCE_PROVENANCE = {
     "release": DIAGNOSTIC21_C41_RELEASE,
     "implementation_layer": "S1_LOCAL_EXECUTOR_ANCHOR_NOVELTY_RETRY_AND_TRUSTED_COMPLETION_COLLISION_FAILSAFE",
 }
+DIAGNOSTIC21_C42_CAPABILITIES = {
+    "c42_penalty_decisive_payload_projection_guard": {
+        "scope": "S3_GENERATE_ANSWER_REQUIRED_CONTRACT_C33_EXACT_DIRECT_PUBLIC_RULE_APPLICATION_MATCH_ONLY",
+        "targets": "ALL_MATCHED_TARGETS_PENALTY_WITH_KOREAN_REQUESTED_PENALTY_OUTPUT_ONLY",
+        "payload": "KOREAN_NUMERIC_RANGE_AND_CATEGORICAL_SANCTION_HEAD_SET_SUBSET_COMPARISON",
+        "incomplete_or_unparseable_payload": "RETAIN_BOTH_PUBLIC_CLAIMS_NO_DEMOTION",
+        "complete_payload": "C33_LEGAL_RULE_DEMOTION_RETAINED",
+        "legal_conditions_and_non_penalty": "C33_C34_BEHAVIOR_RETAINED",
+        "mixed_or_english": "NO_EQUIVALENCE_INFERENCE_RULE_RETAINED",
+        "visible_skill_resources": "UNCHANGED",
+        "runtime_question_gold_provision_or_answer_synthesis": "NONE",
+    },
+}
+DIAGNOSTIC21_C42_SOURCE_PROVENANCE = {
+    "base_source_commit": "8f3cc3baffa74ceca5584fc23ad15fdbcb78db79",
+    "base_source_tree": "7abcf232d6ecbad901cf87d623b6a30760b06f3e",
+    "release": DIAGNOSTIC21_C42_RELEASE,
+    "implementation_layer": "LOCAL_EXECUTOR_S3_REDUNDANT_PUBLIC_PROJECTION_DECISIVE_PENALTY_PAYLOAD_GUARD",
+}
 DIAGNOSTIC21_SEMANTIC_AUTHORITY = (
     "Execution semantic authority is the committed clean source snapshot plus frozen S1/S2/S3 skill hashes."
 )
@@ -482,6 +506,9 @@ DIAGNOSTIC21_CONDITION_LINEAGE = {
     ],
     "C41_gap_anchor_novelty_trusted_completion_fallback_parent": [
         "d1e78712d16ceea07d279b3cd9abc024b9e8515f",
+    ],
+    "C42_penalty_decisive_payload_projection_guard_parent": [
+        "8f3cc3baffa74ceca5584fc23ad15fdbcb78db79",
     ],
 }
 DIAGNOSTIC21_SKILL_FILES = {
@@ -1010,7 +1037,7 @@ def _copy_manifest(source: Mapping[str, Any], name: str, configuration: Mapping[
     })
     output["selection"] = selection
     output["purpose"] = (
-        "C41 adds a two-primary-attempt-only S1 GAP anchor-novelty retry and trusted completion-contract fallback after a literal Korean anchor omission is followed by an all-history collision; it preserves duplicate-history protection and changes no public skill resource. C40 adds a validator-only, one-bounded-retry S1 atomic completion-requirement scope-minimality guard for exact Korean generic output descriptors, without deterministic deletion or visible prompt-resource changes. C39 restores byte-identical C37 S3 prompt resources and keeps C38 target-linked QUALIFYING conditional-exception authorization private to validation, while retaining CORE-only "
+        "C42 refines C33 redundant public projection only for explicit Korean penalty targets: it retains both public claims when a legal-rule numeric/range or categorical sanction payload is missing or not fully carried by the matching application, and otherwise preserves C33 demotion; no skill resource or model prompt changes. C41 adds a two-primary-attempt-only S1 GAP anchor-novelty retry and trusted completion-contract fallback after a literal Korean anchor omission is followed by an all-history collision; it preserves duplicate-history protection and changes no public skill resource. C40 adds a validator-only, one-bounded-retry S1 atomic completion-requirement scope-minimality guard for exact Korean generic output descriptors, without deterministic deletion or visible prompt-resource changes. C39 restores byte-identical C37 S3 prompt resources and keeps C38 target-linked QUALIFYING conditional-exception authorization private to validation, while retaining CORE-only "
         "public rules/applications and C32 carry-forward. It preserves C37's two-primary-attempt all-history-collision fail-safe, C36 prompt stabilization, and C35 validators, while "
         "records redacted prompt/input fingerprints without changing generation. It preserves the C34 type-aware "
         "redundant public projection and the C32 retry-only "
@@ -1354,6 +1381,37 @@ def _apply_c41_public_answer_contract(configuration: Dict[str, Any]) -> None:
     )
 
 
+def _with_c42_condition(condition: str) -> str:
+    if not isinstance(condition, str) or not condition:
+        raise OrchestrationError("C42 condition must be non-empty")
+    base = (
+        condition[:-len(DIAGNOSTIC21_C42_CONDITION_SUFFIX)]
+        if condition.endswith(DIAGNOSTIC21_C42_CONDITION_SUFFIX)
+        else condition
+    )
+    return _with_c41_condition(base) + DIAGNOSTIC21_C42_CONDITION_SUFFIX
+
+
+def _full_to_smoke_c42_condition(condition: str) -> str:
+    """Derive smoke from exactly one C42 full226 condition token."""
+    base = (
+        condition[:-len(DIAGNOSTIC21_C42_CONDITION_SUFFIX)]
+        if condition.endswith(DIAGNOSTIC21_C42_CONDITION_SUFFIX)
+        else condition
+    )
+    return _with_c42_condition(_full_to_smoke_c41_condition(base))
+
+
+def _apply_c42_public_answer_contract(configuration: Dict[str, Any]) -> None:
+    condition = str(configuration.get("condition") or "")
+    if condition.endswith(DIAGNOSTIC21_C42_CONDITION_SUFFIX):
+        configuration["condition"] = condition[:-len(DIAGNOSTIC21_C42_CONDITION_SUFFIX)]
+    _apply_c41_public_answer_contract(configuration)
+    configuration["condition"] = _with_c42_condition(
+        str(configuration.get("condition") or "")
+    )
+
+
 def build_v2_manifests(primary_source: Mapping[str, Any], reference_source: Mapping[str, Any]) -> Dict[str, Dict[str, Any]]:
     source_entries = list(primary_source.get("entries") or [])
     if _entry_signature(source_entries) != _entry_signature(reference_source.get("entries")):
@@ -1382,14 +1440,14 @@ def build_v2_manifests(primary_source: Mapping[str, Any], reference_source: Mapp
     runtime.update({"num_parallel": 1, "seed_forwarding": "ollama_options_seed"})
     primary_configuration["runtime_determinism"] = runtime
     primary_configuration["model_provenance"] = deepcopy(QWEN_MODEL_PROVENANCE)
-    _apply_c41_public_answer_contract(primary_configuration)
+    _apply_c42_public_answer_contract(primary_configuration)
     assert_kure_only(primary_configuration)
 
     reference_configuration = deepcopy(primary_configuration)
     reference_configuration["condition"] = reference_source_condition
     reference_configuration["retriever"] = "bm25"
     reference_configuration.pop("retriever_provenance", None)
-    _apply_c41_public_answer_contract(reference_configuration)
+    _apply_c42_public_answer_contract(reference_configuration)
     full = _copy_manifest(primary_source, PRIMARY_FROZEN_NAME, primary_configuration, source_entries, "PRIMARY_KURE_EXECUTION")
     reference = _copy_manifest(reference_source, REFERENCE_FROZEN_NAME, reference_configuration, source_entries, "COMPARISON_REFERENCE_ONLY_MUST_NEVER_BE_EXECUTED")
 
@@ -1410,9 +1468,9 @@ def build_v2_manifests(primary_source: Mapping[str, Any], reference_source: Mapp
         for index, entry in enumerate(smoke_entries, start=1)
     ]
     smoke_configuration = deepcopy(primary_configuration)
-    smoke_configuration["condition"] = _full_to_smoke_c41_condition(str(primary_configuration["condition"]))
+    smoke_configuration["condition"] = _full_to_smoke_c42_condition(str(primary_configuration["condition"]))
     smoke_reference_configuration = deepcopy(reference_configuration)
-    smoke_reference_configuration["condition"] = _full_to_smoke_c41_condition(str(reference_configuration["condition"]))
+    smoke_reference_configuration["condition"] = _full_to_smoke_c42_condition(str(reference_configuration["condition"]))
     return {
         "full": full,
         "reference": reference,
@@ -1477,7 +1535,7 @@ def _diagnostic21_selection(
     return {
         "candidate_id": DIAGNOSTIC21_CANDIDATE_ID,
         "method": (
-            "C41 adds a two-primary-attempt-only S1 GAP anchor-novelty retry and trusted completion-contract fallback after a literal Korean anchor omission is followed by an all-history collision; it preserves duplicate-history protection and changes no public skill resource. C40 adds a validator-only, one-bounded-retry S1 atomic completion-requirement scope-minimality guard for exact Korean generic output descriptors, without deterministic deletion or visible prompt-resource changes. C39 restores byte-identical C37 S3 prompt resources and keeps C38's target-linked accepted QUALIFYING conditional-exception authorization validator-only/private, while retaining CORE-only "
+            "C42 refines C33 redundant public projection only for explicit Korean penalty targets: it retains both public claims when a legal-rule numeric/range or categorical sanction payload is missing or not fully carried by the matching application, and otherwise preserves C33 demotion; no skill resource or model prompt changes. C41 adds a two-primary-attempt-only S1 GAP anchor-novelty retry and trusted completion-contract fallback after a literal Korean anchor omission is followed by an all-history collision; it preserves duplicate-history protection and changes no public skill resource. C40 adds a validator-only, one-bounded-retry S1 atomic completion-requirement scope-minimality guard for exact Korean generic output descriptors, without deterministic deletion or visible prompt-resource changes. C39 restores byte-identical C37 S3 prompt resources and keeps C38's target-linked accepted QUALIFYING conditional-exception authorization validator-only/private, while retaining CORE-only "
             "public rules/applications and C32 carry-forward. It preserves C37's two-primary-attempt all-history-collision fail-safe, C36 prompt stabilization, and C35 validators, and records "
             "redacted prompt/input fingerprints without changing generation. It preserves the C30 paired C02 gate, C31 shared public-answer contract, "
             "and C32 validator-only qualifying carry-forward. It preserves repeated Korean "
@@ -1543,6 +1601,8 @@ def _diagnostic21_selection(
         "c40_source_provenance": deepcopy(DIAGNOSTIC21_C40_SOURCE_PROVENANCE),
         "c41_capabilities": deepcopy(DIAGNOSTIC21_C41_CAPABILITIES),
         "c41_source_provenance": deepcopy(DIAGNOSTIC21_C41_SOURCE_PROVENANCE),
+        "c42_capabilities": deepcopy(DIAGNOSTIC21_C42_CAPABILITIES),
+        "c42_source_provenance": deepcopy(DIAGNOSTIC21_C42_SOURCE_PROVENANCE),
         "semantic_authority": DIAGNOSTIC21_SEMANTIC_AUTHORITY,
         "runtime_artifact_path_provenance": {
             "repo_relative_required": ["source_dataset.path", "kure paths", "bge reranker path"],
@@ -1581,6 +1641,8 @@ def build_diagnostic21_manifests(
         if configuration.get("round_merge_mode") != DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE:
             raise OrchestrationError("diagnostic21 %s source round_merge_mode mismatch" % label)
         base_condition = configuration["condition"]
+        if base_condition.endswith(DIAGNOSTIC21_C42_CONDITION_SUFFIX):
+            base_condition = base_condition[:-len(DIAGNOSTIC21_C42_CONDITION_SUFFIX)]
         if base_condition.endswith(DIAGNOSTIC21_C41_CONDITION_SUFFIX):
             base_condition = base_condition[:-len(DIAGNOSTIC21_C41_CONDITION_SUFFIX)]
         if base_condition.endswith(DIAGNOSTIC21_C40_CONDITION_SUFFIX):
@@ -1606,7 +1668,7 @@ def build_diagnostic21_manifests(
         configuration["condition"] = (
             base_condition + DIAGNOSTIC21_C30_CONDITION_SUFFIX + DIAGNOSTIC21_C31_CONDITION_SUFFIX
         )
-        _apply_c41_public_answer_contract(configuration)
+        _apply_c42_public_answer_contract(configuration)
         configuration["reranker_provenance"] = deepcopy(DIAGNOSTIC21_RERANKER_PROVENANCE)
     assert_kure_only(primary_configuration)
     if reference_configuration.get("retriever") != "bm25":
@@ -1627,7 +1689,7 @@ def build_diagnostic21_manifests(
     )
     primary["selection"] = selection
     primary["purpose"] = (
-        "C41 adds a two-primary-attempt-only S1 GAP anchor-novelty retry and trusted completion-contract fallback after a literal Korean anchor omission is followed by an all-history collision; it preserves duplicate-history protection and changes no public skill resource. C40 adds a validator-only, one-bounded-retry S1 atomic completion-requirement scope-minimality guard for exact Korean generic output descriptors, without deterministic deletion or visible prompt-resource changes. C39 restores byte-identical C37 S3 prompt resources and keeps C38 target-linked QUALIFYING conditional-exception authorization private to validation, while retaining CORE-only "
+        "C42 refines C33 redundant public projection only for explicit Korean penalty targets: it retains both public claims when a legal-rule numeric/range or categorical sanction payload is missing or not fully carried by the matching application, and otherwise preserves C33 demotion; no skill resource or model prompt changes. C41 adds a two-primary-attempt-only S1 GAP anchor-novelty retry and trusted completion-contract fallback after a literal Korean anchor omission is followed by an all-history collision; it preserves duplicate-history protection and changes no public skill resource. C40 adds a validator-only, one-bounded-retry S1 atomic completion-requirement scope-minimality guard for exact Korean generic output descriptors, without deterministic deletion or visible prompt-resource changes. C39 restores byte-identical C37 S3 prompt resources and keeps C38 target-linked QUALIFYING conditional-exception authorization private to validation, while retaining CORE-only "
         "public rules/applications and C32 carry-forward. It preserves C37's two-primary-attempt all-history-collision fail-safe, C36 prompt stabilization, and C35 validators, and records "
         "redacted prompt/input fingerprints without changing generation. It preserves the C30 paired C02 gate, C31 shared one-to-four-sentence public-answer "
         "contract, and C32 exact qualifying carry-forward citations in validator-only retry context, "
@@ -1800,6 +1862,10 @@ def assert_diagnostic21_manifest_integrity(
         raise OrchestrationError("diagnostic21 C41 capability mismatch")
     if selection.get("c41_source_provenance") != DIAGNOSTIC21_C41_SOURCE_PROVENANCE:
         raise OrchestrationError("diagnostic21 C41 source provenance mismatch")
+    if selection.get("c42_capabilities") != DIAGNOSTIC21_C42_CAPABILITIES:
+        raise OrchestrationError("diagnostic21 C42 capability mismatch")
+    if selection.get("c42_source_provenance") != DIAGNOSTIC21_C42_SOURCE_PROVENANCE:
+        raise OrchestrationError("diagnostic21 C42 source provenance mismatch")
     if selection.get("semantic_authority") != DIAGNOSTIC21_SEMANTIC_AUTHORITY:
         raise OrchestrationError("diagnostic21 semantic authority mismatch")
     if selection.get("runtime_artifact_path_provenance") != {
@@ -1816,8 +1882,8 @@ def assert_diagnostic21_manifest_integrity(
         raise OrchestrationError("diagnostic21 source condition lineage mismatch")
     for label, configuration in (("primary", primary_configuration), ("reference", reference_configuration)):
         condition = configuration.get("condition")
-        if not isinstance(condition, str) or not condition.endswith(DIAGNOSTIC21_C41_CONDITION_SUFFIX) or DIAGNOSTIC21_C30_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C31_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C32_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C33_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C34_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C35_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C36_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C37_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C38_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C39_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C40_CONDITION_SUFFIX not in condition:
-            raise OrchestrationError("diagnostic21 C30/C31/C32/C33/C34/C35/C36/C37/C38/C39/C40 source condition overlay mismatch: C41 required for %s" % label)
+        if not isinstance(condition, str) or not condition.endswith(DIAGNOSTIC21_C42_CONDITION_SUFFIX) or DIAGNOSTIC21_C30_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C31_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C32_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C33_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C34_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C35_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C36_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C37_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C38_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C39_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C40_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C41_CONDITION_SUFFIX not in condition:
+            raise OrchestrationError("diagnostic21 C30/C31/C32/C33/C34/C35/C36/C37/C38/C39/C40/C41 source condition overlay mismatch: C42 required for %s" % label)
         if any(configuration.get(key) != value for key, value in PUBLIC_ANSWER_FROZEN_CONFIGURATION.items()):
             raise OrchestrationError("diagnostic21 %s C31 public-answer contract mismatch" % label)
         if configuration.get("round_merge_mode") != DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE:
@@ -1887,6 +1953,12 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
             and reference_source_sha256
             == DIAGNOSTIC21_PRIOR_LEGACY_BOOTSTRAP_SOURCE_REFERENCE_SHA256
         )
+        or (
+            primary_source_sha256
+            == DIAGNOSTIC21_EARLIEST_LEGACY_BOOTSTRAP_SOURCE_PRIMARY_SHA256
+            and reference_source_sha256
+            == DIAGNOSTIC21_EARLIEST_LEGACY_BOOTSTRAP_SOURCE_REFERENCE_SHA256
+        )
     )
     for key in ("full", "reference", "smoke", "smoke_reference"):
         write_json_new(paths[key], manifests[key])
@@ -1916,7 +1988,7 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
         "primary_source_manifest_sha256": primary_source_sha256,
         "reference_source_manifest": str(reference_source.resolve()),
         "reference_source_manifest_sha256": reference_source_sha256,
-        "control_plane_release": DIAGNOSTIC21_C41_RELEASE,
+        "control_plane_release": DIAGNOSTIC21_C42_RELEASE,
         "public_answer_contract": dict(PUBLIC_ANSWER_FROZEN_CONFIGURATION),
         "generated": {key: {"path": str(path.relative_to(exec_root)), "sha256": sha256(path)} for key, path in paths.items()},
         "smoke_entries": [
@@ -1978,6 +2050,8 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
             "c40_source_provenance": deepcopy(DIAGNOSTIC21_C40_SOURCE_PROVENANCE),
             "c41_capabilities": deepcopy(DIAGNOSTIC21_C41_CAPABILITIES),
             "c41_source_provenance": deepcopy(DIAGNOSTIC21_C41_SOURCE_PROVENANCE),
+            "c42_capabilities": deepcopy(DIAGNOSTIC21_C42_CAPABILITIES),
+            "c42_source_provenance": deepcopy(DIAGNOSTIC21_C42_SOURCE_PROVENANCE),
         }
     write_json_new(frozen_root / "source_metadata.json", source_metadata)
     assert_reference_is_read_only(manifests["full"], manifests["reference"], paths["full"], paths["reference"])

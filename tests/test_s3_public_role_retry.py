@@ -248,6 +248,34 @@ def legal_conditions_payload():
     return result
 
 
+def penalty_payload():
+    result = single_target_payload()
+    result["answer_targets"][0].update({
+        "question_anchor": "어떤 처벌을 받을 수 있는가",
+        "requested_output": "형사처벌의 종류와 범위",
+        "answer_type": "penalty",
+    })
+    return result
+
+
+def penalty_rule_application_output(application_text, rule_text=None):
+    return raw_output(
+        [
+            (
+                "T1",
+                rule_text or (
+                    "해당 행위는 1년 이하의 징역, 500만원 이하의 벌금, "
+                    "구류 또는 과료에 처한다."
+                ),
+                "conclusion",
+                "legal_rule",
+                "P1",
+            ),
+            ("T1", application_text, "conclusion", "application", "P1"),
+        ]
+    )
+
+
 def qa86_case_anchor_payload():
     result = single_target_payload()
     result["answer_targets"][0]["question_anchor"] = "업무상 재해 인정 여부"
@@ -862,6 +890,146 @@ class S3PublicRoleRetryTests(unittest.TestCase):
                 }
             ],
         )
+
+    def test_penalty_rule_is_retained_when_application_omits_decisive_payload(self):
+        output = penalty_rule_application_output(
+            "공공장소에서 많은 사람이 오가는 곳에서 음란한 행위를 한 갑의 행위는 "
+            "구성요건에 해당하여 해당 조문의 형벌이 적용된다.",
+            rule_text=(
+                "공연히 음란한 행위를 한 자는 1년 이하의 징역, 500만원 이하의 벌금, "
+                "구류 또는 과료에 처한다."
+            ),
+        )
+        prompts, diagnostics = [], []
+
+        def generator(prompt):
+            prompts.append(prompt)
+            return json.dumps(output, ensure_ascii=False)
+
+        executor = LocalOllamaSkillExecutor(
+            ROOT / "skills", "fixture-model", max_attempts=2,
+            generator=generator, diagnostic_sink=diagnostics.append,
+        )
+        result = executor.execute(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", penalty_payload()
+        )
+
+        self.assertEqual(len(prompts), 1)
+        self.assertEqual(
+            [claim["public_role"] for claim in result["claims"]],
+            ["conclusion", "conclusion"],
+        )
+        self.assertEqual(
+            result["answer"],
+            "공연히 음란한 행위를 한 자는 1년 이하의 징역, 500만원 이하의 벌금, 구류 또는 과료에 처한다.[CT1]\n"
+            "공공장소에서 많은 사람이 오가는 곳에서 음란한 행위를 한 갑의 행위는 구성요건에 해당하여 해당 조문의 형벌이 적용된다.[CT2]",
+        )
+        self.assertNotIn("deterministic_repairs", diagnostics[0])
+        repeated, repairs = executor._repair_s3_redundant_public_rule_application_projection(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", result,
+            executor._build_skill_input(
+                "grounded_legal_answer_generation", "GENERATE_ANSWER", penalty_payload()
+            ),
+        )
+        self.assertIs(repeated, result)
+        self.assertEqual(repairs, [])
+
+    def test_penalty_rule_is_demoted_only_when_application_carries_full_payload(self):
+        executor = LocalOllamaSkillExecutor(ROOT / "skills", "fixture-model")
+        output = penalty_rule_application_output(
+            "이 사안에는 500만원 이하의 벌금 또는 1년 이하의 징역, 구류 또는 과료가 적용된다."
+        )
+        skill_input = executor._build_skill_input(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", penalty_payload()
+        )
+
+        repaired, repairs = executor._repair_s3_redundant_public_rule_application_projection(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", output, skill_input
+        )
+
+        self.assertEqual(
+            [claim["public_role"] for claim in repaired["claims"]],
+            ["audit", "conclusion"],
+        )
+        self.assertEqual(repairs[0]["kind"], "s3_redundant_public_legal_rule_demoted")
+
+    def test_penalty_payload_supports_scaled_amounts_and_categorical_sanctions(self):
+        executor = LocalOllamaSkillExecutor(ROOT / "skills", "fixture-model")
+        cases = [
+            (
+                penalty_rule_application_output(
+                    "이 사안에는 3천만원 이하의 벌금과 1년 이하의 징역이 적용된다.",
+                    rule_text="해당 행위는 1년 이하의 징역 또는 3천만원 이하의 벌금에 처한다.",
+                ),
+                ["audit", "conclusion"],
+            ),
+            (
+                penalty_rule_application_output(
+                    "이 사안에는 해당 조문의 형벌이 적용된다.",
+                    rule_text="해당 행위는 사형, 몰수, 자격상실 또는 구류에 처한다.",
+                ),
+                ["conclusion", "conclusion"],
+            ),
+            (
+                penalty_rule_application_output(
+                    "이 사안에는 사형, 몰수, 자격상실 또는 구류가 적용된다.",
+                    rule_text="해당 행위는 사형, 몰수, 자격상실 또는 구류에 처한다.",
+                ),
+                ["audit", "conclusion"],
+            ),
+        ]
+        skill_input = executor._build_skill_input(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", penalty_payload()
+        )
+        for output, expected_roles in cases:
+            with self.subTest(expected_roles=expected_roles):
+                repaired, _ = executor._repair_s3_redundant_public_rule_application_projection(
+                    "grounded_legal_answer_generation", "GENERATE_ANSWER", output, skill_input
+                )
+                self.assertEqual(
+                    [claim["public_role"] for claim in repaired["claims"]], expected_roles
+                )
+
+    def test_penalty_guard_fails_closed_for_partial_payload_non_penalty_and_mixed_text(self):
+        executor = LocalOllamaSkillExecutor(ROOT / "skills", "fixture-model")
+        cases = [
+            (
+                penalty_payload(),
+                penalty_rule_application_output("이 사안에는 1년 이하의 징역만 적용된다."),
+                ["conclusion", "conclusion"],
+            ),
+            (
+                single_target_payload(),
+                penalty_rule_application_output("이 사안에는 해당 조문의 형벌이 적용된다."),
+                ["audit", "conclusion"],
+            ),
+            (
+                penalty_payload(),
+                penalty_rule_application_output(
+                    "This case has 1년 이하의 징역, 500만원 이하의 벌금, 구류 또는 과료."
+                ),
+                ["conclusion", "conclusion"],
+            ),
+            (
+                penalty_payload(),
+                penalty_rule_application_output(
+                    "이 사안에는 해당 조문의 형벌이 적용된다.",
+                    rule_text="해당 행위에는 엄중한 책임이 따른다.",
+                ),
+                ["conclusion", "conclusion"],
+            ),
+        ]
+        for data, output, expected_roles in cases:
+            with self.subTest(expected_roles=expected_roles):
+                skill_input = executor._build_skill_input(
+                    "grounded_legal_answer_generation", "GENERATE_ANSWER", data
+                )
+                repaired, _ = executor._repair_s3_redundant_public_rule_application_projection(
+                    "grounded_legal_answer_generation", "GENERATE_ANSWER", output, skill_input
+                )
+                self.assertEqual(
+                    [claim["public_role"] for claim in repaired["claims"]], expected_roles
+                )
 
     def test_legal_conditions_demote_application_and_rebuild_answer(self):
         output = qa401_redundant_rule_application_output()
