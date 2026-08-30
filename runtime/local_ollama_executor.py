@@ -230,6 +230,7 @@ class LocalOllamaSkillExecutor:
         s3_carry_forward_obligations: List[Dict[str, Any]] = []
         s3_carry_forward_obligations_initialized = False
         initial_plan_effect_neutrality_retry_used = False
+        trusted_all_history_collision_retry_pending = False
         for attempt in range(1, self.max_attempts + 1):
             prompt = self._prompt(skill_name, entry_point, skill_input, repair_note)
             diagnostic: Dict[str, Any] = {
@@ -317,6 +318,59 @@ class LocalOllamaSkillExecutor:
                             validation_errors,
                         )
                     )
+                if gap_plan_recovery is None:
+                    recovery_output, collision_fallback_audit = (
+                        self._trusted_all_history_collision_fallback(
+                            skill_name,
+                            entry_point,
+                            unrepaired_skill_output,
+                            skill_output,
+                            skill_input,
+                            deterministic_repairs,
+                            validation_errors,
+                        )
+                    )
+                    if recovery_output is not None:
+                        fallback_errors = self._validators[skill_name](
+                            recovery_output, skill_input
+                        )
+                        if fallback_errors:
+                            recovery_output = None
+                        elif not trusted_all_history_collision_retry_pending:
+                            trusted_all_history_collision_retry_pending = True
+                        else:
+                            replan_events = [{
+                                "kind": "neutral_semantic_gap_replan_attempted",
+                                "reason": "all_history_collision",
+                            }]
+                            replan, replan_failure = self._neutral_s1_gap_replan(
+                                entry_point,
+                                skill_input,
+                                recovery_output,
+                                max_tokens,
+                                attempt,
+                            )
+                            if replan is not None:
+                                skill_output = replan
+                                validation_errors = self._validators[skill_name](
+                                    skill_output, skill_input
+                                )
+                                replan_events.append(
+                                    {"kind": "neutral_semantic_gap_replan_adopted"}
+                                )
+                                collision_fallback_audit["outcome"] = "replan_adopted"
+                            else:
+                                skill_output = recovery_output
+                                validation_errors = fallback_errors
+                                replan_events.append({
+                                    "kind": "neutral_semantic_gap_replan_fallback",
+                                    "reason": replan_failure,
+                                })
+                                collision_fallback_audit["outcome"] = "fallback_adopted"
+                            diagnostic["semantic_replan_events"] = replan_events
+                            diagnostic[
+                                "trusted_all_history_collision_fallback"
+                            ] = collision_fallback_audit
                 if gap_plan_recovery is not None:
                     replan_events = []
                     replan = None
@@ -2413,6 +2467,184 @@ class LocalOllamaSkillExecutor:
             ] = rule_id if legal_conditions_only else application_id
             repairs.append(repair)
         return repaired, repairs
+
+    def _trusted_all_history_collision_fallback(
+        self,
+        skill_name: str,
+        entry_point: str,
+        unrepaired: Mapping[str, Any],
+        repaired: Mapping[str, Any],
+        skill_input: Mapping[str, Any],
+        repairs: Sequence[Mapping[str, Any]],
+        validation_errors: Sequence[str],
+    ) -> Tuple[Optional[Dict[str, Any]], Optional[Dict[str, Any]]]:
+        """Replace only a fully invalid raw GAP plan from trusted S1 evidence.
+
+        A copied historical query remains a model validation error by default.
+        This bounded fail-safe applies only when every emitted request collides
+        with history, no harness transport repair changed the model output, and
+        each request targets an unresolved critical item with an explicit S1
+        completion contract.  The replacement is a unique contextual query
+        derived solely from that already-trusted completion criterion; it never
+        supplies a provision, question identifier, or legal conclusion.
+        """
+        if (
+            skill_name != "legal_issue_and_query_planning"
+            or entry_point != "GAP_QUERY_PLAN"
+            or repaired.get("status") != "ok"
+            or repairs
+            or not validation_errors
+        ):
+            return None, None
+        raw_requests = unrepaired.get("gap_retrieval_requests")
+        repaired_requests = repaired.get("gap_retrieval_requests")
+        history = skill_input.get("query_history")
+        if (
+            not isinstance(raw_requests, list)
+            or not raw_requests
+            or raw_requests != repaired_requests
+            or not isinstance(history, list)
+            or not all(isinstance(item, Mapping) for item in raw_requests)
+        ):
+            return None, None
+        prior_queries = {
+            self._normalized_query(item.get("query_text") or item.get("normalized_query"))
+            for item in history
+            if isinstance(item, Mapping)
+            and isinstance(item.get("query_text") or item.get("normalized_query"), str)
+        }
+        if not prior_queries:
+            return None, None
+        unresolved_ids = {
+            item.get("evidence_item_id")
+            for key in ("missing_evidence_items", "evidence_conflicts")
+            for item in self._list(skill_input, key)
+            if isinstance(item, Mapping)
+        }
+        required_by_id = {
+            item.get("evidence_item_id"): item
+            for item in self._list(skill_input, "required_evidence_items")
+            if isinstance(item, Mapping)
+        }
+        request_ids: List[str] = []
+        evidence_items: List[Mapping[str, Any]] = []
+        original_queries: List[str] = []
+        expected_errors: List[str] = []
+        for request in raw_requests:
+            request_id = request.get("request_id")
+            evidence_id = request.get("evidence_item_id")
+            query = request.get("query_text")
+            query_terms = request.get("query_terms")
+            statute_hints = request.get("statute_hints")
+            if (
+                not isinstance(request_id, str)
+                or not request_id
+                or not isinstance(evidence_id, str)
+                or not isinstance(query, str)
+                or not query.strip()
+                or not isinstance(query_terms, list)
+                or not query_terms
+                or not isinstance(statute_hints, list)
+                or not all(isinstance(item, str) and item.strip() for item in query_terms)
+                or not all(isinstance(item, str) and item.strip() for item in statute_hints)
+                or any(
+                    re.search(r"(?:제\s*)?\d+\s*(?:조|항)", item)
+                    for item in query_terms + statute_hints
+                )
+                or any(
+                    isinstance(request.get(field), str)
+                    and request[field].strip()
+                    for field in ("first_stage_query_text", "rerank_query_text")
+                )
+            ):
+                return None, None
+            normalized_query = self._normalized_query(query)
+            model_query = query.split("\n[원문 맥락]\n", 1)[0]
+            if (
+                normalized_query not in prior_queries
+                or any(
+                    self._normalized_query(field) != normalized_query
+                    for field in self._s1_scoring_query_fields(request)
+                )
+            ):
+                return None, None
+            evidence = required_by_id.get(evidence_id)
+            requirements = (
+                evidence.get("completion_requirements")
+                if isinstance(evidence, Mapping)
+                else None
+            )
+            if (
+                evidence_id not in unresolved_ids
+                or not isinstance(evidence, Mapping)
+                or evidence.get("critical") is not True
+                or not isinstance(evidence.get("completion_criteria"), str)
+                or not evidence["completion_criteria"].strip()
+                or self._normalized_query(model_query)
+                not in self._normalized_query(evidence["completion_criteria"])
+                or not isinstance(requirements, list)
+                or not any(
+                    isinstance(item, Mapping)
+                    and isinstance(item.get("text"), str)
+                    and item["text"].strip()
+                    for item in requirements
+                )
+            ):
+                return None, None
+            request_ids.append(request_id)
+            evidence_items.append(evidence)
+            original_queries.append(query)
+            expected_errors.append("query repeats query_history: %s" % query)
+        if (
+            len(request_ids) != len(set(request_ids))
+            or list(validation_errors) != expected_errors
+        ):
+            return None, None
+
+        recovered = copy.deepcopy(dict(repaired))
+        recovered_requests = recovered["gap_retrieval_requests"]
+        seen_queries = set(prior_queries)
+        fallback_queries: List[str] = []
+        try:
+            for index, (request, evidence) in enumerate(
+                zip(recovered_requests, evidence_items), start=1
+            ):
+                fallback_query = self._with_source_context(
+                    self._fallback_gap_query(
+                        evidence, index, seen_queries, skill_input
+                    ),
+                    skill_input,
+                )
+                normalized_fallback = self._normalized_query(fallback_query)
+                if normalized_fallback in seen_queries:
+                    return None, None
+                request["query_text"] = fallback_query
+                seen_queries.add(normalized_fallback)
+                fallback_queries.append(fallback_query)
+        except SkillExecutionError:
+            return None, None
+        recovered["target_evidence_item_ids"] = list(
+            dict.fromkeys(
+                request.get("evidence_item_id")
+                for request in recovered_requests
+                if isinstance(request.get("evidence_item_id"), str)
+            )
+        )
+        return recovered, {
+            "kind": "trusted_completion_all_history_collision_fallback",
+            "request_ids": request_ids,
+            "evidence_item_ids": [
+                item.get("evidence_item_id") for item in evidence_items
+            ],
+            "replaced_query_sha256": [
+                hashlib.sha256(query.encode("utf-8")).hexdigest()
+                for query in original_queries
+            ],
+            "fallback_query_sha256": [
+                hashlib.sha256(query.encode("utf-8")).hexdigest()
+                for query in fallback_queries
+            ],
+        }
 
     def _repair_induced_history_collision_recovery(
         self,

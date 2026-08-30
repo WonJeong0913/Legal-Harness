@@ -1113,6 +1113,154 @@ class GapSpecificityRepairTests(unittest.TestCase):
             ["query repeats query_history: %s" % raw_query] * 2,
         )
 
+    def test_all_history_collision_replans_then_uses_trusted_completion_fallback(self):
+        payload = gap_input()
+        payload["normalized_question"] = "법인 구성원이 갖추어야 할 자격 요건을 설명하라."
+        evidence = payload["required_evidence_items"][0]
+        evidence.update({
+            "description": "법인 구성원이 갖추어야 할 자격 요건 규정",
+            "completion_criteria": "법인 구성원 자격 요건의 법적 근거가 확인되어야 함",
+            "completion_requirements": [{
+                "requirement_id": "E1-R1",
+                "text": "법인 구성원의 자격 요건을 규정한 조항",
+            }],
+        })
+        historic = (
+            "법인 구성원 자격 요건\n[원문 맥락]\n"
+            + payload["normalized_question"]
+        )
+        payload["query_history"] = [{"request_id": "RQ1", "query_text": historic}]
+        raw = gap_output([
+            gap_request("E1", "법인 구성원 자격 요건", request_id="model-owned")
+        ])
+        prompts, diagnostics = [], []
+        responses = iter([
+            json.dumps(raw, ensure_ascii=False),
+            json.dumps(raw, ensure_ascii=False),
+            "not json",
+        ])
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills",
+            "fixture-model",
+            generator=lambda prompt: prompts.append(prompt) or next(responses),
+            diagnostic_sink=diagnostics.append,
+        )
+
+        output = executor.execute(
+            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
+        )
+
+        self.assertEqual(len(prompts), 3)
+        self.assertNotIn("NEUTRAL_SEMANTIC_GAP_REPLAN", prompts[1])
+        self.assertIn("NEUTRAL_SEMANTIC_GAP_REPLAN", prompts[2])
+        request = output["gap_retrieval_requests"][0]
+        self.assertNotEqual(request["query_text"], historic)
+        self.assertIn("법적 근거가 확인되어야 함 법률 조문", request["query_text"])
+        primary = [
+            item for item in diagnostics
+            if item["generation_kind"] == "primary_skill_attempt"
+        ]
+        self.assertEqual([item["outcome"] for item in primary], ["validation_error", "valid"])
+        fallback = primary[-1]["trusted_all_history_collision_fallback"]
+        self.assertEqual(fallback["outcome"], "fallback_adopted")
+        self.assertEqual(fallback["request_ids"], ["GRQ-R2-1"])
+        self.assertEqual(len(fallback["replaced_query_sha256"][0]), 64)
+        self.assertEqual(len(fallback["fallback_query_sha256"][0]), 64)
+
+    def test_all_history_collision_fallback_rejects_stale_scoring_or_pinpoint_fields(self):
+        for field, value in (
+            ("first_stage_query_text", "별도 검색 질의"),
+            ("rerank_query_text", "__same_as_historic_query__"),
+            ("query_terms", ["법인 구성원 자격 요건", "제999조"]),
+            ("statute_hints", ["예시법 제999조"]),
+        ):
+            with self.subTest(field=field):
+                payload = gap_input()
+                payload["normalized_question"] = "법인 구성원의 자격 요건을 설명하라."
+                evidence = payload["required_evidence_items"][0]
+                evidence.update({
+                    "completion_criteria": "법인 구성원 자격 요건의 법적 근거가 확인되어야 함",
+                    "completion_requirements": [{
+                        "requirement_id": "E1-R1",
+                        "text": "법인 구성원의 자격 요건을 규정한 조항",
+                    }],
+                })
+                historic = "법인 구성원 자격 요건\n[원문 맥락]\n" + payload["normalized_question"]
+                payload["query_history"] = [{"request_id": "RQ1", "query_text": historic}]
+                raw = gap_output([
+                    gap_request("E1", "법인 구성원 자격 요건", request_id="model-owned")
+                ])
+                request = raw["gap_retrieval_requests"][0]
+                if value == "__same_as_historic_query__":
+                    request["query_text"] = historic
+                    request[field] = historic
+                else:
+                    request[field] = value
+                prompts = []
+                executor = LocalOllamaSkillExecutor(
+                    PROJECT_ROOT / "skills",
+                    "fixture-model",
+                    max_attempts=2,
+                    generator=lambda prompt: (
+                        prompts.append(prompt) or json.dumps(raw, ensure_ascii=False)
+                    ),
+                )
+
+                with self.assertRaisesRegex(SkillExecutionError, "query repeats query_history"):
+                    executor.execute(
+                        "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
+                    )
+                self.assertEqual(len(prompts), 2)
+
+    def test_all_history_collision_adopts_clean_neutral_replan_before_fallback(self):
+        payload = gap_input()
+        payload["normalized_question"] = "법인 구성원이 갖추어야 할 자격 요건을 설명하라."
+        evidence = payload["required_evidence_items"][0]
+        evidence.update({
+            "completion_criteria": "법인 구성원 자격 요건의 법적 근거가 확인되어야 함",
+            "completion_requirements": [{
+                "requirement_id": "E1-R1",
+                "text": "법인 구성원의 자격 요건을 규정한 조항",
+            }],
+        })
+        historic = "법인 구성원 자격 요건\n[원문 맥락]\n" + payload["normalized_question"]
+        payload["query_history"] = [{"request_id": "RQ1", "query_text": historic}]
+        duplicate = gap_output([
+            gap_request("E1", "법인 구성원 자격 요건", request_id="model-owned")
+        ])
+        clean_replan = gap_output([
+            gap_request("E1", "법인 구성원 자격의 법적 근거", request_id="model-owned")
+        ])
+        diagnostics = []
+        responses = iter([
+            json.dumps(duplicate, ensure_ascii=False),
+            json.dumps(duplicate, ensure_ascii=False),
+            json.dumps(clean_replan, ensure_ascii=False),
+        ])
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills",
+            "fixture-model",
+            generator=lambda _prompt: next(responses),
+            diagnostic_sink=diagnostics.append,
+        )
+
+        output = executor.execute(
+            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
+        )
+
+        self.assertIn(
+            "법인 구성원 자격의 법적 근거",
+            output["gap_retrieval_requests"][0]["query_text"],
+        )
+        primary = [
+            item for item in diagnostics
+            if item["generation_kind"] == "primary_skill_attempt"
+        ]
+        self.assertEqual(
+            primary[-1]["trusted_all_history_collision_fallback"]["outcome"],
+            "replan_adopted",
+        )
+
     def test_c02_qa406_and_qa99_transcript_shapes_drop_only_repaired_history_collision(self):
         qa406_question = "갑이 을의 꽃 꺾기 행위에 대해 방해의 제거를 청구할 수 있는가? 또한, 갑에게 방해제거청구권이 인정되는 경우, 갑은 이를 남용할 수 있는가?"
         qa406_payload = gap_input()
