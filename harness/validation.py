@@ -3,12 +3,13 @@
 import math
 import re
 import unicodedata
-from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 
 from public_answer_contract import (
     PUBLIC_ANSWER_MAX_CHARACTERS,
     PUBLIC_ANSWER_MAX_LINES,
     PUBLIC_ANSWER_MIN_LINES,
+    qualifying_public_exception_citation_is_authorized,
 )
 from .contracts import (
     ApplicabilityStatus,
@@ -719,6 +720,9 @@ def _validate_answer_draft(
     scope_error: str,
     allow_empty: bool = False,
     core_conclusion_provision_ids: Optional[Sequence[str]] = None,
+    non_core_public_citation_authorizer: Optional[
+        Callable[[Mapping[str, Any], str], bool]
+    ] = None,
 ) -> AnswerDraft:
     raw_claims = _items(payload, "claims", allow_empty=allow_empty)
     claims = []
@@ -781,12 +785,29 @@ def _validate_answer_draft(
         )
     if core_conclusion_provision_ids is not None:
         claim_by_id = {claim.claim_id: claim for claim in claims}
+        raw_claim_by_id = {
+            raw.get("claim_id"): raw
+            for raw in raw_claims
+            if isinstance(raw.get("claim_id"), str)
+        }
         core_ids = set(core_conclusion_provision_ids)
         for citation in citations:
             claim = claim_by_id[citation.claim_id]
+            raw_claim = raw_claim_by_id.get(citation.claim_id)
             if (
                 claim.public_role == "conclusion"
                 and not set(citation.provision_ids).issubset(core_ids)
+                and not all(
+                    provision_id in core_ids
+                    or (
+                        non_core_public_citation_authorizer is not None
+                        and isinstance(raw_claim, Mapping)
+                        and non_core_public_citation_authorizer(
+                            raw_claim, provision_id
+                        )
+                    )
+                    for provision_id in citation.provision_ids
+                )
             ):
                 raise ValidationError(
                     "S3 conclusion claim may cite only CORE accepted provisions"
@@ -831,6 +852,35 @@ def _validate_answer_draft(
     )
 
 
+def _qualifying_public_exception_citation_is_authorized_in_state(
+    claim: Mapping[str, Any], provision_id: str, state: RunState
+) -> bool:
+    """Bridge final S3 validation to the shared C38 structural predicate."""
+    qualifying_links = [
+        {
+            "provision_id": link.provision_id,
+            "evidence_item_id": link.evidence_item_id,
+        }
+        for link in state.evidence_links
+        if link.assessment == "accepted" and link.role is EvidenceRole.QUALIFYING
+    ]
+    return qualifying_public_exception_citation_is_authorized(
+        dict(claim),
+        provision_id,
+        state.answered_target_ids,
+        [
+            {
+                "evidence_item_id": item.evidence_item_id,
+                "answer_target_ids": list(item.answer_target_ids),
+            }
+            for item in state.required_evidence_items
+        ],
+        state.accepted_provision_ids,
+        state.qualifying_provision_ids,
+        qualifying_links,
+    )
+
+
 def validate_answer_draft(payload: Mapping[str, Any], state: RunState) -> AnswerDraft:
     core_ids = state.core_accepted_provision_ids
     if not core_ids and not any(
@@ -839,14 +889,21 @@ def validate_answer_draft(payload: Mapping[str, Any], state: RunState) -> Answer
         # Compatibility for legacy state fixtures and records that predate
         # role projections: their accepted set is semantically all CORE.
         core_ids = state.accepted_provision_ids
-    return _validate_answer_draft(
+    draft = _validate_answer_draft(
         payload,
         state,
         state.answered_target_ids,
         state.accepted_provision_ids,
         "answer claim references deferred or unknown answer target",
         core_conclusion_provision_ids=core_ids,
+        non_core_public_citation_authorizer=(
+            lambda claim, provision_id:
+            _qualifying_public_exception_citation_is_authorized_in_state(
+                claim, provision_id, state
+            )
+        ),
     )
+    return draft
 
 
 def validate_benchmark_candidate_draft(

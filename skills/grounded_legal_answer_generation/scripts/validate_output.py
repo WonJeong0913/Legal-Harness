@@ -7,6 +7,14 @@ import unicodedata
 from pathlib import Path
 
 
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+from public_answer_contract import (  # noqa: E402
+    qualifying_public_exception_citation_is_authorized as shared_qualifying_public_exception_citation_is_authorized,
+)
+
+
 def load(path):
     with Path(path).open(encoding="utf-8") as handle:
         return json.load(handle)
@@ -468,6 +476,32 @@ def audit_conditional_exception_is_publicly_covered(
 _C32_CARRY_FORWARD_CONTEXT_KEY = "_harness_c32_conditional_exception_carry_forward_obligations"
 
 
+def qualifying_public_exception_citation_is_authorized(
+    claim, provision_id, input_data
+):
+    """Authorize the C38 public conditional-exception exception structurally."""
+    def provision_ids(key):
+        provisions = input_data.get(key)
+        if not isinstance(provisions, list) or not all(
+            isinstance(item, dict)
+            and isinstance(item.get("provision_id"), str)
+            and item["provision_id"]
+            for item in provisions
+        ):
+            return []
+        return [item["provision_id"] for item in provisions]
+
+    return shared_qualifying_public_exception_citation_is_authorized(
+        claim,
+        provision_id,
+        input_data.get("answered_target_ids"),
+        input_data.get("required_evidence_items"),
+        provision_ids("accepted_provisions"),
+        provision_ids("qualifying_provisions"),
+        input_data.get("qualifying_public_exception_links"),
+    )
+
+
 def qualifying_carry_forward_citation_is_authorized(
     claim, provision_id, input_data, citations_by_claim
 ):
@@ -625,6 +659,9 @@ def validate(output, input_data):
             and isinstance(claim, dict)
             and claim.get("public_role", "conclusion") == "conclusion"
             and provision_id not in core_ids
+            and not qualifying_public_exception_citation_is_authorized(
+                claim, provision_id, input_data
+            )
             and not qualifying_carry_forward_citation_is_authorized(
                 claim, provision_id, input_data, citations_by_claim
             )

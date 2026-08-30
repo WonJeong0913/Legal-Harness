@@ -18,6 +18,7 @@
     "core_accepted_provisions": {"type": "array", "items": {"$ref": "#/$defs/provision"}},
     "supplemental_provisions": {"type": "array", "items": {"$ref": "#/$defs/provision"}},
     "qualifying_provisions": {"type": "array", "items": {"$ref": "#/$defs/provision"}},
+    "qualifying_public_exception_links": {"type": "array", "items": {"$ref": "#/$defs/qualifying_public_exception_link"}},
     "alternative_provisions": {"type": "array", "items": {"$ref": "#/$defs/provision"}},
     "candidate_provisions": {"type": "array", "items": {"$ref": "#/$defs/provision"}},
     "answer_mode": {"enum": ["full", "conditional", "limited", "abstain_candidate"]},
@@ -65,6 +66,15 @@
         "evidence_item_id": {"type": "string", "pattern": "^E[1-9][0-9]*$"},
         "status": {"enum": ["covered", "partially_covered", "uncovered", "conflicting"]},
         "governing_legal_regime": {"enum": ["direct_entailment", "not_direct_entailment", "not_assessed"]}
+      }
+    },
+    "qualifying_public_exception_link": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provision_id", "evidence_item_id"],
+      "properties": {
+        "provision_id": {"type": "string", "minLength": 1},
+        "evidence_item_id": {"type": "string", "pattern": "^E[1-9][0-9]*$"}
       }
     },
     "provision": {

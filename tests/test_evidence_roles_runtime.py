@@ -3,6 +3,7 @@ from pathlib import Path
 
 from harness.contracts import (
     ApplicabilityStatus,
+    AnswerTarget,
     CandidateProvision,
     CoverageAssessment,
     CoverageStatus,
@@ -82,6 +83,40 @@ def raw_assessment(linked_ids, governing="direct_entailment"):
 
 
 class EvidenceRoleRuntimeTests(unittest.TestCase):
+    @staticmethod
+    def _c38_state(qualifying_evidence_targets=("T1",)):
+        state = state_with_candidates("P-core", "P-qual", "P-supp", "P-alt")
+        state.answer_targets = [
+            AnswerTarget("T1", "질문", "조건부 예외", "legal_conclusion"),
+        ]
+        state.answered_target_ids = ["T1"]
+        state.required_evidence_items = [
+            RequiredEvidenceItem(
+                "E1", "I1", "rule", "핵심 및 예외 근거", True,
+                answer_target_ids=list(qualifying_evidence_targets),
+            ),
+        ]
+        state.evidence_links = [
+            EvidenceLink("I1", "E1", "P-core", [SupportSpan(0, 2)], role=EvidenceRole.CORE),
+            EvidenceLink("I1", "E1", "P-qual", [SupportSpan(0, 2)], role=EvidenceRole.QUALIFYING, condition="예외 조건"),
+            EvidenceLink("I1", "E1", "P-supp", [SupportSpan(0, 2)], role=EvidenceRole.SUPPLEMENTAL),
+            EvidenceLink("I1", "E1", "P-alt", [SupportSpan(0, 2)], role=EvidenceRole.ALTERNATIVE, condition="대체 조건"),
+        ]
+        state.refresh_derived_fields()
+        return state
+
+    @staticmethod
+    def _c38_answer(provision_id="P-qual", claim_type="exception", applicability="conditional"):
+        return {
+            "claims": [{
+                "claim_id": "C1", "text": "조건부 예외 결론",
+                "claim_type": claim_type, "applicability": applicability,
+                "answer_target_ids": ["T1"], "public_role": "conclusion",
+            }],
+            "claim_citations": [{"claim_id": "C1", "provision_ids": [provision_id]}],
+            "answer": "조건부 예외 결론", "assumptions": [], "limitations": [],
+        }
+
     def test_roleless_legacy_link_is_core_and_direct_regime_falls_back(self):
         state = state_with_candidates("P-core")
         links, assessments, conflicts = validate_coverage_assessment(
@@ -197,6 +232,50 @@ class EvidenceRoleRuntimeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValidationError, "CORE accepted"):
             validate_answer_draft(invalid, state)
 
+    def test_c38_final_validation_allows_target_linked_qualifying_conditional_exception(self):
+        state = self._c38_state()
+        self.assertEqual(
+            validate_answer_draft(self._c38_answer(), state).claims[0].claim_id,
+            "C1",
+        )
+        payload = HarnessRunner._answer_payload(None, state)
+        self.assertEqual(
+            payload["qualifying_public_exception_links"],
+            [{"provision_id": "P-qual", "evidence_item_id": "E1"}],
+        )
+        executor = LocalOllamaSkillExecutor(ROOT / "skills", "test", generator=lambda _: "{}")
+        skill_input = executor._build_skill_input(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", payload
+        )
+        self.assertEqual(
+            skill_input["qualifying_public_exception_links"],
+            [{"provision_id": "P-qual", "evidence_item_id": "E1"}],
+        )
+
+    def test_c38_final_validation_rejects_nonexception_or_unlinked_auxiliary_conclusions(self):
+        cases = [
+            (self._c38_state(), self._c38_answer(claim_type="legal_rule")),
+            (self._c38_state(), self._c38_answer(provision_id="P-supp")),
+            (self._c38_state(), self._c38_answer(provision_id="P-alt")),
+            (self._c38_state(("T2",)), self._c38_answer()),
+        ]
+        for state, answer in cases:
+            with self.subTest(answer=answer):
+                with self.assertRaisesRegex(ValidationError, "CORE accepted"):
+                    validate_answer_draft(answer, state)
+
+    def test_c38_final_validation_keeps_core_public_conclusion_valid(self):
+        state = self._c38_state()
+        self.assertEqual(
+            validate_answer_draft(
+                self._c38_answer(
+                    provision_id="P-core", claim_type="legal_rule", applicability="direct"
+                ),
+                state,
+            ).claims[0].claim_id,
+            "C1",
+        )
+
     def test_runner_and_runtime_expose_core_and_auxiliary_views(self):
         state = state_with_candidates("P-core", "P-aux")
         state.evidence_links = [
@@ -229,6 +308,7 @@ class EvidenceRoleRuntimeTests(unittest.TestCase):
             [item["provision_id"] for item in skill_input["core_accepted_provisions"]],
             ["P-core"],
         )
+        self.assertEqual(skill_input["qualifying_public_exception_links"], [])
 
     def test_s2_runtime_preserves_auxiliary_link_but_excludes_it_from_coverage(self):
         executor = LocalOllamaSkillExecutor(ROOT / "skills", "test", generator=lambda _: "{}")

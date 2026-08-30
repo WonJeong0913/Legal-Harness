@@ -3219,6 +3219,9 @@ class LocalOllamaSkillExecutor:
                     run_id,
                     accepted=True,
                 ),
+                "qualifying_public_exception_links": (
+                    self._s3_qualifying_public_exception_links(payload)
+                ),
                 "alternative_provisions": self._external_provisions(
                     self._list(payload, "alternative_provisions", required=False),
                     run_id,
@@ -3265,6 +3268,49 @@ class LocalOllamaSkillExecutor:
                 },
             }
         raise SkillExecutionError("unsupported skill: %s" % skill_name)
+
+    def _s3_qualifying_public_exception_links(
+        self, payload: Mapping[str, Any]
+    ) -> List[Dict[str, str]]:
+        """Pass only accepted QUALIFYING provision/evidence provenance to S3."""
+        qualifying_ids = {
+            self._string(item, "provision_id")
+            for item in self._list(payload, "qualifying_provisions", required=False)
+            if isinstance(item, Mapping)
+        }
+        accepted_ids = {
+            self._string(item, "provision_id")
+            for item in self._list(payload, "accepted_provisions")
+            if isinstance(item, Mapping)
+        }
+        evidence_ids = {
+            self._string(item, "evidence_item_id")
+            for item in self._list(payload, "required_evidence_items")
+            if isinstance(item, Mapping)
+        }
+        pairs = set()
+        for link in self._list(
+            payload, "qualifying_public_exception_links", required=False
+        ):
+            if not isinstance(link, Mapping):
+                raise SkillExecutionError(
+                    "qualifying public exception links must contain objects"
+                )
+            provision_id = self._string(link, "provision_id")
+            evidence_item_id = self._string(link, "evidence_item_id")
+            if (
+                provision_id not in qualifying_ids
+                or provision_id not in accepted_ids
+                or evidence_item_id not in evidence_ids
+            ):
+                raise SkillExecutionError(
+                    "qualifying public exception link is not an accepted S3 provenance link"
+                )
+            pairs.add((provision_id, evidence_item_id))
+        return [
+            {"provision_id": provision_id, "evidence_item_id": evidence_item_id}
+            for provision_id, evidence_item_id in sorted(pairs)
+        ]
 
     def _planning_input(
         self,

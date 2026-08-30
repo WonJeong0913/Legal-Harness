@@ -9,23 +9,25 @@ from runtime.local_ollama_executor import LocalOllamaSkillExecutor
 
 
 ROOT = Path(__file__).resolve().parents[1]
-C34_PROMPT_RESOURCE_SHA256 = {
+C34_S1_PROMPT_RESOURCE_SHA256 = {
     "skills/legal_issue_and_query_planning/SKILL.md": (
         "6fc4008c72afd0a7e7d58f9214dee1eaa8af56de9c3ade5c920fb73d74f84094"
     ),
     "skills/legal_issue_and_query_planning/references/contract.md": (
         "59bcda8231e581eb51c96535c8193ac23b9573ce3242741c3f228fccf701f115"
     ),
+}
+C38_S3_PROMPT_RESOURCE_SHA256 = {
     "skills/grounded_legal_answer_generation/SKILL.md": (
-        "a146c3c7a0910c43d3d0f84a7f347e747a193a5ba88dcf7af50a800379735eac"
+        "c7f4f65a9817373a56a2d28803ecf4724ec4bc0a50bf2c9d8398d1f7aa2bddf8"
     ),
 }
-C35_VALIDATOR_SHA256 = {
+C38_VALIDATOR_SHA256 = {
     "skills/legal_issue_and_query_planning/scripts/validate_output.py": (
         "26cfdd84ab1d94fb3f346f4567eb7994a6d58f2c1835ed04a8c263da1bd53103"
     ),
     "skills/grounded_legal_answer_generation/scripts/validate_output.py": (
-        "7324f7475e88573ae5647441f2a8ed8a5f65a3c9b7a465b06a1145421dd64bbf"
+        "04637785f2e08fe09b5e047ca760fc34660fba124dcb1b7f2587a5f4b1cceb28"
     ),
 }
 
@@ -223,10 +225,12 @@ class C36PromptStabilityTests(unittest.TestCase):
         )
         return output, executor._validators["legal_issue_and_query_planning"](output, skill_input)
 
-    def test_prompt_resources_are_c34_exact_and_c35_validators_remain(self):
-        for relative, expected in C34_PROMPT_RESOURCE_SHA256.items():
+    def test_c36_s1_resources_remain_exact_while_c38_s3_resources_are_frozen(self):
+        for relative, expected in C34_S1_PROMPT_RESOURCE_SHA256.items():
             self.assertEqual(hashlib.sha256((ROOT / relative).read_bytes()).hexdigest(), expected)
-        for relative, expected in C35_VALIDATOR_SHA256.items():
+        for relative, expected in C38_S3_PROMPT_RESOURCE_SHA256.items():
+            self.assertEqual(hashlib.sha256((ROOT / relative).read_bytes()).hexdigest(), expected)
+        for relative, expected in C38_VALIDATOR_SHA256.items():
             self.assertEqual(hashlib.sha256((ROOT / relative).read_bytes()).hexdigest(), expected)
 
     def test_saved_c34_qa0_raw_replays_through_c35_s3_normalizer_validator(self):

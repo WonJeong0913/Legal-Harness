@@ -11,6 +11,7 @@ from .contracts import (
     CandidateAnswerBasis,
     AnswerDraft,
     CandidateAnswerStatus,
+    EvidenceRole,
     GapPlanRecovery,
     GapPlanRecoveryDisposition,
     OutcomeStatus,
@@ -1140,6 +1141,14 @@ class HarnessRunner:
         supplemental = provisions_for(state.supplemental_provision_ids)
         qualifying = provisions_for(state.qualifying_provision_ids)
         alternative = provisions_for(state.alternative_provision_ids)
+        qualifying_public_exception_links = [
+            {
+                "provision_id": link.provision_id,
+                "evidence_item_id": link.evidence_item_id,
+            }
+            for link in state.evidence_links
+            if link.assessment == "accepted" and link.role is EvidenceRole.QUALIFYING
+        ]
         return {
             "run_id": state.run_id,
             "question": state.question,
@@ -1156,6 +1165,7 @@ class HarnessRunner:
             "core_accepted_provisions": to_primitive(core_accepted),
             "supplemental_provisions": to_primitive(supplemental),
             "qualifying_provisions": to_primitive(qualifying),
+            "qualifying_public_exception_links": qualifying_public_exception_links,
             "alternative_provisions": to_primitive(alternative),
             "answer_mode": state.answer_mode.value if state.answer_mode else AnswerMode.FULL.value,
             "answered_target_ids": list(state.answered_target_ids),
