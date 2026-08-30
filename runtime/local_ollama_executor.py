@@ -100,6 +100,9 @@ S2_PARTIAL_CORE_LINK_INVARIANT = (
 INITIAL_PLAN_EFFECT_NEUTRALITY_ERROR_PREFIX = (
     "INITIAL_PLAN presupposes specific legal effect absent from question: "
 )
+INITIAL_PLAN_REQUIREMENT_SCOPE_MINIMALITY_ERROR_PREFIX = (
+    "INITIAL_PLAN scope-expanding generic output descriptor absent from question: "
+)
 
 S2_AXIS_PROJECTIONS = {
     ("covered", "direct", "none"): (
@@ -233,6 +236,7 @@ class LocalOllamaSkillExecutor:
         s3_carry_forward_obligations: List[Dict[str, Any]] = []
         s3_carry_forward_obligations_initialized = False
         initial_plan_effect_neutrality_retry_used = False
+        initial_plan_requirement_scope_minimality_retry_used = False
         trusted_all_history_collision_retry_pending = False
         for attempt in range(1, self.max_attempts + 1):
             prompt = self._prompt(skill_name, entry_point, skill_input, repair_note)
@@ -504,6 +508,16 @@ class LocalOllamaSkillExecutor:
                     if effect_neutrality_retry_instruction:
                         repair_instruction += effect_neutrality_retry_instruction
                         initial_plan_effect_neutrality_retry_used = True
+                    scope_minimality_retry_instruction = ""
+                    if not initial_plan_requirement_scope_minimality_retry_used:
+                        scope_minimality_retry_instruction = (
+                            self._s1_initial_plan_requirement_scope_minimality_retry_instruction(
+                                skill_name, entry_point, validation_errors
+                            )
+                        )
+                    if scope_minimality_retry_instruction:
+                        repair_instruction += scope_minimality_retry_instruction
+                        initial_plan_requirement_scope_minimality_retry_used = True
                     if any(
                         error.startswith(
                             "public application lacks requested-output case-fact anchors "
@@ -569,6 +583,7 @@ class LocalOllamaSkillExecutor:
                                 raw_skill_output
                                 if (
                                     effect_neutrality_retry_instruction
+                                    or scope_minimality_retry_instruction
                                     or compact_transport
                                     or deterministic_repairs
                                 )
@@ -1217,6 +1232,35 @@ class LocalOllamaSkillExecutor:
             "specific legal effect term with a neutral request for the applicable "
             "statutory legal effect. Do not substitute another outcome, expand "
             "scope, add a conclusion, or otherwise materially rewrite the plan."
+        )
+
+    @staticmethod
+    def _s1_initial_plan_requirement_scope_minimality_retry_instruction(
+        skill_name: str,
+        entry_point: str,
+        validation_errors: Sequence[str],
+    ) -> str:
+        """Return one retry for a duplicate generic-descriptor requirement."""
+        if (
+            skill_name != "legal_issue_and_query_planning"
+            or entry_point != "INITIAL_PLAN"
+            or not any(
+                error.startswith(
+                    INITIAL_PLAN_REQUIREMENT_SCOPE_MINIMALITY_ERROR_PREFIX
+                )
+                for error in validation_errors
+            )
+        ):
+            return ""
+        return (
+            " INITIAL-PLAN REQUIREMENT-SCOPE-MINIMALITY RETRY: For each named "
+            "evidence item and requirement, remove or merge only the extra "
+            "completion requirement whose only new content is the named generic "
+            "output descriptor absent from the trusted question. Retain any "
+            "requirement that supplies an independent actor, action, trigger, "
+            "condition, exception, cross-reference, or explicitly asked legal "
+            "effect. Do not change answer targets, legal conclusions, provision "
+            "terms, or other plan scope."
         )
 
     def _normalize_harness_owned_fields(

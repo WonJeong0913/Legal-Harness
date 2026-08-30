@@ -115,6 +115,124 @@ def validate_initial_plan_effect_neutrality(out, inp, errors):
             )
 
 
+GENERIC_OUTPUT_DESCRIPTORS = ("법적 효력", "유효성")
+_SCOPE_MINIMALITY_BOILERPLATE = frozenset(
+    {
+        "관한", "대한", "규정", "규정하", "규정하는", "조항", "법적", "효력",
+        "유효성", "유효", "허용", "여부", "요건", "포함", "포함하", "등", "및",
+        "또는", "필요", "필요한", "적용", "상기", "을", "를", "은", "는", "이",
+        "가", "의", "에", "도", "만", "로", "과", "와",
+    }
+)
+_KOREAN_PARTICLES = (
+    "으로부터", "에게서", "으로", "에서", "까지", "부터", "에게", "보다",
+    "처럼", "같이", "과", "와", "의", "을", "를", "은", "는", "이", "가",
+    "에", "도", "만", "로",
+)
+
+
+def _korean_only_text(value):
+    """Keep this narrow contract out of English and mixed-language plans."""
+    return (
+        isinstance(value, str)
+        and bool(re.search(r"[가-힣]", value))
+        and not bool(re.search(r"[A-Za-z]", value))
+    )
+
+
+def _scope_minimality_tokens(text):
+    """Normalize only Korean completion-requirement carrier phrases."""
+    if not _korean_only_text(text):
+        return ()
+    normalized = norm(text)
+    for descriptor in GENERIC_OUTPUT_DESCRIPTORS:
+        normalized = normalized.replace(descriptor, " ")
+    tokens = []
+    for token in re.findall(r"[가-힣]+", normalized):
+        if token in _SCOPE_MINIMALITY_BOILERPLATE:
+            continue
+        for particle in _KOREAN_PARTICLES:
+            if len(token) > len(particle) + 1 and token.endswith(particle):
+                token = token[: -len(particle)]
+                break
+        if token and token not in _SCOPE_MINIMALITY_BOILERPLATE:
+            tokens.append(token)
+    return tuple(tokens)
+
+
+def _contiguous_subsequence(needle, haystack):
+    if len(needle) < 2 or len(needle) > len(haystack):
+        return False
+    width = len(needle)
+    return any(tuple(haystack[index:index + width]) == tuple(needle)
+               for index in range(len(haystack) - width + 1))
+
+
+def validate_initial_plan_requirement_scope_minimality(out, inp, errors):
+    """Reject only a duplicate Korean requirement expanded by a generic descriptor."""
+    question = trusted_answer_question_segment(inp)
+    if not _korean_only_text(question):
+        return
+    targets = {
+        target.get("answer_target_id"): target
+        for target in out.get("answer_targets", [])
+        if isinstance(target, dict)
+        and isinstance(target.get("answer_target_id"), str)
+        and _korean_only_text(target.get("question_anchor"))
+    }
+    for item in out.get("required_evidence_items", []):
+        if not isinstance(item, dict):
+            continue
+        target_ids = item.get("answer_target_ids")
+        if (
+            item.get("critical") is not True
+            or item.get("scope_source") != "explicit_question"
+            or not isinstance(target_ids, list)
+            or len(target_ids) != 1
+            or target_ids[0] not in targets
+        ):
+            continue
+        anchor = targets[target_ids[0]].get("question_anchor")
+        requirements = item.get("completion_requirements")
+        if not _korean_only_text(anchor) or not isinstance(requirements, list):
+            continue
+        for requirement in requirements:
+            if not isinstance(requirement, dict):
+                continue
+            text = requirement.get("text")
+            if not _korean_only_text(text):
+                continue
+            descriptor = next(
+                (
+                    value for value in GENERIC_OUTPUT_DESCRIPTORS
+                    if value in text and value not in question and value not in anchor
+                ),
+                None,
+            )
+            carrier = _scope_minimality_tokens(text)
+            if descriptor is None or len(carrier) < 2:
+                continue
+            for sibling in requirements:
+                sibling_text = sibling.get("text") if isinstance(sibling, dict) else None
+                if (
+                    sibling is requirement
+                    or not _korean_only_text(sibling_text)
+                    or any(value in sibling_text for value in GENERIC_OUTPUT_DESCRIPTORS)
+                ):
+                    continue
+                if _contiguous_subsequence(carrier, _scope_minimality_tokens(sibling_text)):
+                    errors.append(
+                        "INITIAL_PLAN scope-expanding generic output descriptor absent from question: "
+                        "evidence_item_id=%s; requirement_id=%s; descriptor=%s"
+                        % (
+                            item.get("evidence_item_id"),
+                            requirement.get("requirement_id"),
+                            descriptor,
+                        )
+                    )
+                    break
+
+
 def history_queries(data):
     values = set()
     for item in (data or {}).get("query_history", []):
@@ -884,6 +1002,7 @@ def validate(out, inp):
         validate_requests(requests, issue_ids, evidence, prior, allowed, max_per_issue, errors)
         validate_article_grounding(requests, inp, errors)
         validate_initial_plan_effect_neutrality(out, inp, errors)
+        validate_initial_plan_requirement_scope_minimality(out, inp, errors)
         targeted = {r.get("evidence_item_id") for r in requests}
         for item in evidence:
             if item.get("critical") is True and item.get("evidence_item_id") not in targeted:
