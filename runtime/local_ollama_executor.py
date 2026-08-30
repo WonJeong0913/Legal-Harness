@@ -103,6 +103,9 @@ INITIAL_PLAN_EFFECT_NEUTRALITY_ERROR_PREFIX = (
 INITIAL_PLAN_REQUIREMENT_SCOPE_MINIMALITY_ERROR_PREFIX = (
     "INITIAL_PLAN scope-expanding generic output descriptor absent from question: "
 )
+GAP_QUERY_PLAN_TRUSTED_ANCHOR_ERROR_PREFIX = (
+    "GAP_QUERY_PLAN query_terms omit trusted Korean fact/effect anchors: "
+)
 
 S2_AXIS_PROJECTIONS = {
     ("covered", "direct", "none"): (
@@ -237,6 +240,8 @@ class LocalOllamaSkillExecutor:
         s3_carry_forward_obligations_initialized = False
         initial_plan_effect_neutrality_retry_used = False
         initial_plan_requirement_scope_minimality_retry_used = False
+        gap_anchor_novelty_retry_used = False
+        previous_s1_gap_anchor_only_failure = False
         trusted_all_history_collision_retry_pending = False
         for attempt in range(1, self.max_attempts + 1):
             prompt = self._prompt(skill_name, entry_point, skill_input, repair_note)
@@ -346,6 +351,18 @@ class LocalOllamaSkillExecutor:
                         )
                         if fallback_errors:
                             recovery_output = None
+                        elif (
+                            attempt == self.max_attempts
+                            and previous_s1_gap_anchor_only_failure
+                        ):
+                            skill_output = recovery_output
+                            validation_errors = fallback_errors
+                            collision_fallback_audit["outcome"] = (
+                                "fallback_adopted_after_anchor_novelty_retry"
+                            )
+                            diagnostic[
+                                "trusted_all_history_collision_fallback"
+                            ] = collision_fallback_audit
                         elif not trusted_all_history_collision_retry_pending:
                             trusted_all_history_collision_retry_pending = True
                         else:
@@ -518,6 +535,16 @@ class LocalOllamaSkillExecutor:
                     if scope_minimality_retry_instruction:
                         repair_instruction += scope_minimality_retry_instruction
                         initial_plan_requirement_scope_minimality_retry_used = True
+                    anchor_novelty_retry_instruction = ""
+                    if not gap_anchor_novelty_retry_used:
+                        anchor_novelty_retry_instruction = (
+                            self._s1_gap_anchor_novelty_retry_instruction(
+                                skill_name, entry_point, validation_errors
+                            )
+                        )
+                    if anchor_novelty_retry_instruction:
+                        repair_instruction += anchor_novelty_retry_instruction
+                        gap_anchor_novelty_retry_used = True
                     if any(
                         error.startswith(
                             "public application lacks requested-output case-fact anchors "
@@ -584,6 +611,7 @@ class LocalOllamaSkillExecutor:
                                 if (
                                     effect_neutrality_retry_instruction
                                     or scope_minimality_retry_instruction
+                                    or anchor_novelty_retry_instruction
                                     or compact_transport
                                     or deterministic_repairs
                                 )
@@ -595,6 +623,9 @@ class LocalOllamaSkillExecutor:
                     )
                     diagnostic["outcome"] = "validation_error"
                     diagnostic["error"] = "; ".join(validation_errors)
+                    previous_s1_gap_anchor_only_failure = bool(
+                        anchor_novelty_retry_instruction
+                    )
                     continue
                 if skill_output.get("status") == "error":
                     error = skill_output.get("error", {})
@@ -1261,6 +1292,32 @@ class LocalOllamaSkillExecutor:
             "condition, exception, cross-reference, or explicitly asked legal "
             "effect. Do not change answer targets, legal conclusions, provision "
             "terms, or other plan scope."
+        )
+
+    @staticmethod
+    def _s1_gap_anchor_novelty_retry_instruction(
+        skill_name: str,
+        entry_point: str,
+        validation_errors: Sequence[str],
+    ) -> str:
+        """Return the one retry for a GAP anchor omission, without relaxing history."""
+        if (
+            skill_name != "legal_issue_and_query_planning"
+            or entry_point != "GAP_QUERY_PLAN"
+            or not validation_errors
+            or not all(
+                error.startswith(GAP_QUERY_PLAN_TRUSTED_ANCHOR_ERROR_PREFIX)
+                for error in validation_errors
+            )
+        ):
+            return ""
+        return (
+            " GAP-ANCHOR-NOVELTY RETRY: Preserve every literal missing_anchors "
+            "phrase named in the validation error in query_terms. Replace query_text "
+            "with a query distinct from every exact query_history entry; use only an "
+            "existing completion criterion or completion requirement to add a "
+            "complementary phrase. Do not invent a statute, article, provision, legal "
+            "conclusion, or answer."
         )
 
     def _normalize_harness_owned_fields(
@@ -2526,6 +2583,106 @@ class LocalOllamaSkillExecutor:
             repairs.append(repair)
         return repaired, repairs
 
+    @staticmethod
+    def _s1_korean_phrase_tokens(value: Any) -> Tuple[str, ...]:
+        """Return conservative Korean fact/effect tokens from trusted S1 text."""
+        if not isinstance(value, str) or re.search(r"[A-Za-z0-9]", value):
+            return ()
+        particles = (
+            "으로부터",
+            "에게서",
+            "으로서",
+            "으로써",
+            "이라면",
+            "이라도",
+            "이라서",
+            "으로",
+            "에서",
+            "에게",
+            "까지",
+            "부터",
+            "처럼",
+            "보다",
+            "은",
+            "는",
+            "이",
+            "가",
+            "을",
+            "를",
+            "의",
+            "에",
+            "로",
+            "도",
+            "만",
+            "와",
+            "과",
+        )
+        tokens = []
+        for token in re.findall(r"[가-힣]+", unicodedata.normalize("NFKC", value)):
+            for particle in particles:
+                stem = token[: -len(particle)]
+                if token.endswith(particle) and len(stem) >= 2:
+                    token = stem
+                    break
+            if len(token) >= 2:
+                tokens.append(token)
+        return tuple(tokens)
+
+    @classmethod
+    def _s1_korean_phrase_is_covered(
+        cls,
+        phrase_tokens: Sequence[str],
+        source_tokens: Sequence[str],
+    ) -> bool:
+        """Match only a contiguous Korean phrase, allowing a source inflection."""
+        if not phrase_tokens or len(phrase_tokens) > len(source_tokens):
+            return False
+        width = len(phrase_tokens)
+        return any(
+            all(
+                source == phrase or source.startswith(phrase)
+                for phrase, source in zip(
+                    phrase_tokens, source_tokens[index : index + width]
+                )
+            )
+            for index in range(len(source_tokens) - width + 1)
+        )
+
+    @classmethod
+    def _s1_trusted_completion_covers_gap_request(
+        cls,
+        model_query: str,
+        query_terms: Sequence[Any],
+        evidence: Mapping[str, Any],
+    ) -> bool:
+        """Permit a narrow morphology-safe completion-contract fallback guard."""
+        model_tokens = cls._s1_korean_phrase_tokens(model_query)
+        term_phrases = [cls._s1_korean_phrase_tokens(term) for term in query_terms]
+        if (
+            not model_tokens
+            or not term_phrases
+            or any(not phrase for phrase in term_phrases)
+            or any(
+                not cls._s1_korean_phrase_is_covered(phrase, model_tokens)
+                for phrase in term_phrases
+            )
+        ):
+            return False
+        completion_sources = [evidence.get("completion_criteria")]
+        completion_sources.extend(
+            item.get("text")
+            for item in evidence.get("completion_requirements", [])
+            if isinstance(item, Mapping)
+        )
+        for source in completion_sources:
+            source_tokens = cls._s1_korean_phrase_tokens(source)
+            if source_tokens and all(
+                cls._s1_korean_phrase_is_covered(phrase, source_tokens)
+                for phrase in term_phrases
+            ):
+                return True
+        return False
+
     def _trusted_all_history_collision_fallback(
         self,
         skill_name: str,
@@ -2638,8 +2795,13 @@ class LocalOllamaSkillExecutor:
                 or evidence.get("critical") is not True
                 or not isinstance(evidence.get("completion_criteria"), str)
                 or not evidence["completion_criteria"].strip()
-                or self._normalized_query(model_query)
-                not in self._normalized_query(evidence["completion_criteria"])
+                or (
+                    self._normalized_query(model_query)
+                    not in self._normalized_query(evidence["completion_criteria"])
+                    and not self._s1_trusted_completion_covers_gap_request(
+                        model_query, query_terms, evidence
+                    )
+                )
                 or not isinstance(requirements, list)
                 or not any(
                     isinstance(item, Mapping)

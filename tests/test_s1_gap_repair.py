@@ -1212,6 +1212,179 @@ class GapSpecificityRepairTests(unittest.TestCase):
                     )
                 self.assertEqual(len(prompts), 2)
 
+    def _qa192_anchor_collision_fixture(self):
+        payload = gap_input()
+        payload["normalized_question"] = (
+            "공무소 전자기록의 위작·변작 및 행사에 대한 형벌을 판단하라."
+        )
+        evidence = payload["required_evidence_items"][0]
+        evidence.update({
+            "description": "공무소 전자기록의 위작·변작 및 행사에 대한 형벌 규정",
+            "completion_criteria": (
+                "공무소 전자기록의 위작·변작 행위와 행사 행위에 대한 "
+                "형벌이 명시된 조항을 확인"
+            ),
+            "completion_requirements": [
+                {
+                    "requirement_id": "E1-R1",
+                    "text": "공무소 전자기록의 위작·변작에 대한 형벌 규정 확인",
+                },
+                {
+                    "requirement_id": "E1-R2",
+                    "text": (
+                        "위작·변작된 공무소 전자기록의 행사에 대한 형벌 규정 "
+                        "확인"
+                    ),
+                },
+            ],
+        })
+        historic = (
+            "공무소 전자기록 위작 변작 행사 형벌\n[원문 맥락]\n"
+            + payload["normalized_question"]
+        )
+        payload["query_history"] = [{"request_id": "RQ1", "query_text": historic}]
+        return payload, historic
+
+    @staticmethod
+    def _qa192_gap_output(query_text, query_terms):
+        request = gap_request("E1", query_text, request_id="model-owned")
+        request.update({
+            "query_terms": query_terms,
+            "statute_hints": [],
+        })
+        return gap_output([request])
+
+    def test_gap_anchor_retry_keeps_anchor_and_accepts_a_novel_query(self):
+        payload, _historic = self._qa192_anchor_collision_fixture()
+        missing_anchor = self._qa192_gap_output(
+            "공전자기록 위작 변작 행사 형벌",
+            ["공전자기록", "위작", "변작", "행사", "형벌"],
+        )
+        novel = self._qa192_gap_output(
+            "공무소 전자기록 행사 형벌 규정 확인",
+            ["공무소 전자기록", "행사", "형벌", "규정"],
+        )
+        prompts, diagnostics = [], []
+        responses = iter([
+            json.dumps(missing_anchor, ensure_ascii=False),
+            json.dumps(novel, ensure_ascii=False),
+        ])
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills",
+            "fixture-model",
+            max_attempts=2,
+            generator=lambda prompt: prompts.append(prompt) or next(responses),
+            diagnostic_sink=diagnostics.append,
+        )
+
+        output = executor.execute(
+            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
+        )
+
+        self.assertEqual(len(prompts), 2)
+        self.assertNotIn("GAP-ANCHOR-NOVELTY RETRY", prompts[0])
+        self.assertIn("GAP-ANCHOR-NOVELTY RETRY", prompts[1])
+        self.assertEqual(
+            output["gap_retrieval_requests"][0]["query_terms"][0],
+            "공무소 전자기록",
+        )
+        primary = [
+            item for item in diagnostics
+            if item["generation_kind"] == "primary_skill_attempt"
+        ]
+        self.assertEqual([item["outcome"] for item in primary], ["validation_error", "valid"])
+        self.assertTrue(primary[0]["error"].startswith(
+            "GAP_QUERY_PLAN query_terms omit trusted Korean fact/effect anchors: "
+        ))
+        self.assertNotIn("trusted_all_history_collision_fallback", primary[-1])
+
+    def test_gap_anchor_then_history_collision_uses_trusted_completion_fallback(self):
+        payload, historic = self._qa192_anchor_collision_fixture()
+        missing_anchor = self._qa192_gap_output(
+            "공전자기록 위작 변작 행사 형벌",
+            ["공전자기록", "위작", "변작", "행사", "형벌"],
+        )
+        duplicate = self._qa192_gap_output(
+            "공무소 전자기록 위작 변작 행사 형벌",
+            ["공무소 전자기록", "위작", "변작", "행사", "형벌"],
+        )
+        prompts, diagnostics = [], []
+        responses = iter([
+            json.dumps(missing_anchor, ensure_ascii=False),
+            json.dumps(duplicate, ensure_ascii=False),
+        ])
+        executor = LocalOllamaSkillExecutor(
+            PROJECT_ROOT / "skills",
+            "fixture-model",
+            max_attempts=2,
+            generator=lambda prompt: prompts.append(prompt) or next(responses),
+            diagnostic_sink=diagnostics.append,
+        )
+
+        output = executor.execute(
+            "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
+        )
+
+        self.assertEqual(len(prompts), 2)
+        self.assertIn("GAP-ANCHOR-NOVELTY RETRY", prompts[1])
+        request = output["gap_retrieval_requests"][0]
+        self.assertNotEqual(request["query_text"], historic)
+        self.assertIn("공무소 전자기록의 위작·변작 행위", request["query_text"])
+        primary = [
+            item for item in diagnostics
+            if item["generation_kind"] == "primary_skill_attempt"
+        ]
+        self.assertEqual([item["outcome"] for item in primary], ["validation_error", "valid"])
+        fallback = primary[-1]["trusted_all_history_collision_fallback"]
+        self.assertEqual(fallback["outcome"], "fallback_adopted_after_anchor_novelty_retry")
+        self.assertEqual(fallback["request_ids"], ["GRQ-R2-1"])
+
+    def test_gap_anchor_collision_fallback_rejects_untrusted_or_nonanchor_path(self):
+        payload, _historic = self._qa192_anchor_collision_fixture()
+        missing_anchor = self._qa192_gap_output(
+            "공전자기록 위작 변작 행사 형벌",
+            ["공전자기록", "위작", "변작", "행사", "형벌"],
+        )
+        untrusted_duplicate = self._qa192_gap_output(
+            "공무소 전자기록 위작 변작 행사 형벌",
+            ["공무소 전자기록", "관계없는 대상"],
+        )
+        nonanchor_first = self._qa192_gap_output(
+            "공무소 전자기록 위작 변작 행사 형벌 보완",
+            ["공무소 전자기록", "위작", "변작", "행사", "형벌"],
+        )
+        nonanchor_first["gap_retrieval_requests"][0]["source_assessment_status"] = (
+            "not-a-valid-source-status"
+        )
+        duplicate = self._qa192_gap_output(
+            "공무소 전자기록 위작 변작 행사 형벌",
+            ["공무소 전자기록", "위작", "변작", "행사", "형벌"],
+        )
+        for first, second in (
+            (missing_anchor, untrusted_duplicate),
+            (nonanchor_first, duplicate),
+        ):
+            with self.subTest(first=first["gap_retrieval_requests"][0]["query_text"]):
+                prompts = []
+                responses = iter([
+                    json.dumps(first, ensure_ascii=False),
+                    json.dumps(second, ensure_ascii=False),
+                ])
+                executor = LocalOllamaSkillExecutor(
+                    PROJECT_ROOT / "skills",
+                    "fixture-model",
+                    max_attempts=2,
+                    generator=lambda prompt: prompts.append(prompt) or next(responses),
+                )
+
+                with self.assertRaisesRegex(
+                    SkillExecutionError, "query repeats query_history"
+                ):
+                    executor.execute(
+                        "legal_issue_and_query_planning", "GAP_QUERY_PLAN", payload
+                    )
+                self.assertEqual(len(prompts), 2)
+
     def test_all_history_collision_adopts_clean_neutral_replan_before_fallback(self):
         payload = gap_input()
         payload["normalized_question"] = "법인 구성원이 갖추어야 할 자격 요건을 설명하라."
