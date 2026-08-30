@@ -810,6 +810,11 @@ _KOREAN_PARTICLE_SUFFIXES = (
 _GAP_ANCHOR_CONTEXT_HEADS = frozenset({
     "기관", "법원", "회사", "사업장", "근로자", "사람", "당사자", "절차",
 })
+# A particle-marked request carrier does not itself identify the fact/effect
+# that a complementary retrieval query must preserve.  Keep this deliberately
+# singular and mechanical: it only changes a preceding Korean noun pair when
+# ``신청`` is the carrier, never query wording or legal content.
+_GAP_ANCHOR_REQUEST_CARRIERS = frozenset({"신청"})
 _KOREAN_DESCRIPTIVE_MODIFIER_SUFFIXES = (
     "하는", "되는", "받은", "발생한", "입은", "따른", "있는", "없는", "치는", "한",
 )
@@ -820,6 +825,15 @@ def _is_korean_descriptive_modifier(value):
     return isinstance(value, str) and value.endswith(
         _KOREAN_DESCRIPTIVE_MODIFIER_SUFFIXES
     )
+
+
+def _normalize_korean_particle_word(word):
+    """Return a particle-normalized Korean word and whether a particle was cut."""
+    normalized = word
+    for suffix in _KOREAN_PARTICLE_SUFFIXES:
+        if normalized.endswith(suffix) and len(normalized) - len(suffix) >= 2:
+            return normalized[:-len(suffix)], True
+    return normalized, False
 
 
 def _korean_gap_anchor_phrases(value):
@@ -833,18 +847,21 @@ def _korean_gap_anchor_phrases(value):
         return set()
     source_words = re.findall(r"[가-힣]+", unicodedata.normalize("NFKC", value))
     phrases = set()
-    for left, right in zip(source_words, source_words[1:]):
-        normalized_words = []
-        right_had_particle = False
-        for index, word in enumerate((left, right)):
-            normalized = word
-            for suffix in _KOREAN_PARTICLE_SUFFIXES:
-                if normalized.endswith(suffix) and len(normalized) - len(suffix) >= 2:
-                    normalized = normalized[:-len(suffix)]
-                    if index == 1:
-                        right_had_particle = True
-                    break
-            normalized_words.append(normalized)
+    for index, right in enumerate(source_words[1:], start=1):
+        left = source_words[index - 1]
+        normalized_left, _ = _normalize_korean_particle_word(left)
+        normalized_right, right_had_particle = _normalize_korean_particle_word(right)
+        source_phrase_words = (left, right)
+        normalized_words = (normalized_left, normalized_right)
+        if (
+            right_had_particle
+            and normalized_right in _GAP_ANCHOR_REQUEST_CARRIERS
+            and index >= 2
+        ):
+            previous = source_words[index - 2]
+            normalized_previous, _ = _normalize_korean_particle_word(previous)
+            source_phrase_words = (previous, left, right)
+            normalized_words = (normalized_previous, normalized_left)
         if (
             right_had_particle
             and all(
@@ -854,8 +871,7 @@ def _korean_gap_anchor_phrases(value):
             and normalized_words[1] not in _GAP_ANCHOR_CONTEXT_HEADS
             # Strip particles only from noun heads.  In particular, never turn
             # 규정하는/미치는 into the spurious heads 규정하/미치.
-            and not _is_korean_descriptive_modifier(left)
-            and not _is_korean_descriptive_modifier(right)
+            and not any(_is_korean_descriptive_modifier(word) for word in source_phrase_words)
         ):
             phrases.add(" ".join(normalized_words))
     return phrases
@@ -955,6 +971,37 @@ def _scoped_anchor_in_query_terms(anchors, values):
     return False
 
 
+def _compound_anchor_in_query_terms(anchor, values):
+    """Match one explicit compact Korean term to a two-word source anchor.
+
+    This is narrower than semantic expansion: the observed term must retain
+    the complete second source word and a two-or-more-syllable suffix of the
+    first source word (``집행정지`` for ``강제집행 정지``).  It never joins terms
+    across requests and never consults query_text or original-question text.
+    """
+    if not isinstance(values, list):
+        return False
+    anchor_tokens = anchor.split()
+    if len(anchor_tokens) != 2:
+        return False
+    source_prefix, source_head = anchor_tokens
+    for value in values:
+        if not isinstance(value, str) or re.search(r"[A-Za-z0-9]", value):
+            continue
+        observed_tokens = re.findall(
+            r"[가-힣]+", unicodedata.normalize("NFKC", value)
+        )
+        if len(observed_tokens) != 1:
+            continue
+        observed, _ = _normalize_korean_particle_word(observed_tokens[0])
+        if not observed.endswith(source_head):
+            continue
+        observed_prefix = observed[:-len(source_head)]
+        if len(observed_prefix) >= 2 and source_prefix.endswith(observed_prefix):
+            return True
+    return False
+
+
 def validate_gap_query_terms_anchor_coverage(requests, evidence, unresolved, errors):
     """Keep repeated Korean fact/effect anchors in explicit gap query_terms.
 
@@ -1010,6 +1057,7 @@ def validate_gap_query_terms_anchor_coverage(requests, evidence, unresolved, err
             if not any(
                 any(anchor in query_term for query_term in terms)
                 or anchor in joined_terms
+                or _compound_anchor_in_query_terms(anchor, terms)
                 for terms, joined_terms in request_term_views
             )
         )

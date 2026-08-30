@@ -1308,6 +1308,44 @@ class GapSpecificityRepairTests(unittest.TestCase):
         )
         self.assertEqual(len(errors), 1)
 
+    def test_gap_anchor_accepts_explicit_compound_for_request_carrier_fact_pair(self):
+        evidence = {
+            "evidence_item_id": "E2",
+            "critical": True,
+            "description": (
+                "민사집행법상 강제집행 정지 신청의 요건, 법원의 판단 기준 및 정지 효과"
+            ),
+            "completion_requirements": [{
+                "requirement_id": "E2-R1",
+                "text": "강제집행 정지 신청의 법적 근거 조항 확인",
+            }],
+        }
+        self.assertEqual(
+            S1_VALIDATOR._trusted_gap_anchor_phrases(evidence),
+            {"강제집행 정지"},
+        )
+        positive = []
+        S1_VALIDATOR.validate_gap_query_terms_anchor_coverage(
+            [{
+                "evidence_item_id": "E2",
+                "query_terms": ["제173조", "재심청구", "집행정지", "법원 재량"],
+            }],
+            [evidence], {"E2"}, positive,
+        )
+        self.assertEqual(positive, [])
+        for terms in (
+            ["제173조", "재심청구", "집행", "정지"],
+            ["제173조", "재심청구", "강제정지"],
+            ["제173조", "재심청구", "민사집행정지"],
+        ):
+            with self.subTest(terms=terms):
+                errors = []
+                S1_VALIDATOR.validate_gap_query_terms_anchor_coverage(
+                    [{"evidence_item_id": "E2", "query_terms": terms}],
+                    [evidence], {"E2"}, errors,
+                )
+                self.assertEqual(len(errors), 1)
+
     def test_all_history_collision_replans_then_uses_trusted_completion_fallback(self):
         payload = gap_input()
         payload["normalized_question"] = "법인 구성원이 갖추어야 할 자격 요건을 설명하라."
