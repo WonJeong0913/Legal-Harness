@@ -474,6 +474,9 @@ def audit_conditional_exception_is_publicly_covered(
 
 
 _C32_CARRY_FORWARD_CONTEXT_KEY = "_harness_c32_conditional_exception_carry_forward_obligations"
+_C39_QUALIFYING_PUBLIC_EXCEPTION_CONTEXT_KEY = (
+    "_harness_c39_qualifying_public_exception_links"
+)
 
 
 def qualifying_public_exception_citation_is_authorized(
@@ -498,7 +501,7 @@ def qualifying_public_exception_citation_is_authorized(
         input_data.get("required_evidence_items"),
         provision_ids("accepted_provisions"),
         provision_ids("qualifying_provisions"),
-        input_data.get("qualifying_public_exception_links"),
+        input_data.get(_C39_QUALIFYING_PUBLIC_EXCEPTION_CONTEXT_KEY),
     )
 
 

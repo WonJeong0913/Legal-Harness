@@ -232,7 +232,7 @@ class EvidenceRoleRuntimeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValidationError, "CORE accepted"):
             validate_answer_draft(invalid, state)
 
-    def test_c38_final_validation_allows_target_linked_qualifying_conditional_exception(self):
+    def test_c39_qa110_shape_private_context_preserves_target_linked_exception_authorization(self):
         state = self._c38_state()
         self.assertEqual(
             validate_answer_draft(self._c38_answer(), state).claims[0].claim_id,
@@ -240,15 +240,27 @@ class EvidenceRoleRuntimeTests(unittest.TestCase):
         )
         payload = HarnessRunner._answer_payload(None, state)
         self.assertEqual(
-            payload["qualifying_public_exception_links"],
+            payload["_harness_c39_qualifying_public_exception_links"],
             [{"provision_id": "P-qual", "evidence_item_id": "E1"}],
         )
         executor = LocalOllamaSkillExecutor(ROOT / "skills", "test", generator=lambda _: "{}")
         skill_input = executor._build_skill_input(
             "grounded_legal_answer_generation", "GENERATE_ANSWER", payload
         )
+        self.assertNotIn(
+            "_harness_c39_qualifying_public_exception_links", skill_input
+        )
+        self.assertNotIn("qualifying_public_exception_links", skill_input)
+        prompt = executor._prompt(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", skill_input, ""
+        )
+        self.assertNotIn("_harness_c39_qualifying_public_exception_links", prompt)
+        self.assertNotIn("qualifying_public_exception_links", prompt)
+        validator_input = executor._s3_validator_input(
+            "grounded_legal_answer_generation", skill_input, [], payload
+        )
         self.assertEqual(
-            skill_input["qualifying_public_exception_links"],
+            validator_input["_harness_c39_qualifying_public_exception_links"],
             [{"provision_id": "P-qual", "evidence_item_id": "E1"}],
         )
 
@@ -308,7 +320,8 @@ class EvidenceRoleRuntimeTests(unittest.TestCase):
             [item["provision_id"] for item in skill_input["core_accepted_provisions"]],
             ["P-core"],
         )
-        self.assertEqual(skill_input["qualifying_public_exception_links"], [])
+        self.assertNotIn("_harness_c39_qualifying_public_exception_links", skill_input)
+        self.assertNotIn("qualifying_public_exception_links", skill_input)
 
     def test_s2_runtime_preserves_auxiliary_link_but_excludes_it_from_coverage(self):
         executor = LocalOllamaSkillExecutor(ROOT / "skills", "test", generator=lambda _: "{}")

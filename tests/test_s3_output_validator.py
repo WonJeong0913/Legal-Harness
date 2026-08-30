@@ -105,7 +105,7 @@ class S3OutputValidatorTest(unittest.TestCase):
         }
 
     @staticmethod
-    def _c38_input():
+    def _c39_input():
         provisions = {
             "P1": "핵심 규정입니다.",
             "Q1": "조건부 예외 규정입니다.",
@@ -117,7 +117,7 @@ class S3OutputValidatorTest(unittest.TestCase):
             for provision_id, text in provisions.items()
         ]
         return {
-            "run_id": "c38-validator-fixture",
+            "run_id": "c39-validator-fixture",
             "mode": "GENERATE_ANSWER",
             "authorization": {
                 "action": "GENERATE",
@@ -141,7 +141,7 @@ class S3OutputValidatorTest(unittest.TestCase):
             "accepted_provisions": accepted,
             "core_accepted_provisions": [accepted[0]],
             "qualifying_provisions": [accepted[1]],
-            "qualifying_public_exception_links": [{
+            "_harness_c39_qualifying_public_exception_links": [{
                 "provision_id": "Q1", "evidence_item_id": "E1",
             }],
             "supplemental_provisions": [accepted[2]],
@@ -152,12 +152,15 @@ class S3OutputValidatorTest(unittest.TestCase):
         }
 
     @staticmethod
-    def _c38_output(provision_id="Q1", claim_type="exception", applicability="conditional"):
+    def _c39_output(
+        provision_id="Q1", claim_type="exception", applicability="conditional", target_ids=None
+    ):
         quoted_text = {
             "P1": "핵심 규정입니다.",
             "Q1": "조건부 예외 규정입니다.",
             "S1": "보조 규정입니다.",
             "A1": "대안 규정입니다.",
+            "X1": "알 수 없는 규정입니다.",
         }[provision_id]
         text = "조건부 예외를 공적으로 설명합니다."
         return {
@@ -165,11 +168,12 @@ class S3OutputValidatorTest(unittest.TestCase):
             "skill_id": "S3",
             "mode": "GENERATE_ANSWER",
             "status": "ok",
-            "run_id": "c38-validator-fixture",
+            "run_id": "c39-validator-fixture",
             "answer": text + "[CT1]",
             "claims": [{
                 "claim_id": "C1", "text": text, "claim_type": claim_type,
-                "applicability": applicability, "answer_target_ids": ["T1"],
+                "applicability": applicability,
+                "answer_target_ids": ["T1"] if target_ids is None else target_ids,
                 "citation_required": True, "public_role": "conclusion",
             }],
             "claim_citations": [{
@@ -292,39 +296,41 @@ class S3OutputValidatorTest(unittest.TestCase):
                 if name == "unaccepted provision":
                     self.assertIn("citation uses non-accepted provision: CT1", errors)
 
-    def test_c38_allows_only_target_linked_qualifying_conditional_exception(self):
+    def test_c39_allows_only_private_target_linked_qualifying_conditional_exception(self):
         validator = _load_validator()
         self.assertEqual(
-            validator.validate(self._c38_output(), self._c38_input()), []
+            validator.validate(self._c39_output(), self._c39_input()), []
         )
 
-    def test_c38_rejects_nonexception_or_unlinked_auxiliary_public_citations(self):
+    def test_c39_rejects_nonexception_or_unlinked_auxiliary_public_citations(self):
         validator = _load_validator()
         cases = [
-            ("non-exception qualifying", self._c38_output(claim_type="legal_rule"), None),
-            ("supplemental", self._c38_output(provision_id="S1"), None),
-            ("alternative", self._c38_output(provision_id="A1"), None),
-            ("unlinked qualifying", self._c38_output(), []),
+            ("non-exception qualifying", self._c39_output(claim_type="legal_rule"), None),
+            ("supplemental", self._c39_output(provision_id="S1"), None),
+            ("alternative", self._c39_output(provision_id="A1"), None),
+            ("unknown", self._c39_output(provision_id="X1"), None),
+            ("wrong target", self._c39_output(target_ids=["T2"]), None),
+            ("unlinked qualifying", self._c39_output(), []),
         ]
         for name, output, links in cases:
             with self.subTest(name=name):
-                input_data = self._c38_input()
+                input_data = self._c39_input()
                 if links is not None:
-                    input_data["qualifying_public_exception_links"] = links
+                    input_data["_harness_c39_qualifying_public_exception_links"] = links
                 errors = validator.validate(output, input_data)
                 self.assertIn(
                     "public conclusion may cite only core accepted provision: CT1",
                     errors,
                 )
 
-    def test_c38_keeps_core_public_citations_valid(self):
+    def test_c39_keeps_core_public_citations_valid(self):
         validator = _load_validator()
         self.assertEqual(
             validator.validate(
-                self._c38_output(
+                self._c39_output(
                     provision_id="P1", claim_type="legal_rule", applicability="direct"
                 ),
-                self._c38_input(),
+                self._c39_input(),
             ),
             [],
         )

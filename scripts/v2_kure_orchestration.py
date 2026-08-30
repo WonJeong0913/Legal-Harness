@@ -40,13 +40,13 @@ from public_answer_contract import (
 DIAGNOSTIC21_MODE = "diagnostic21"
 DIAGNOSTIC21_ENTRY_COUNT = 21
 DIAGNOSTIC21_CHUNKS = ((1, 20), (21, 21))
-DIAGNOSTIC21_PRIMARY_FROZEN_NAME = "v2-kure-qwen38-q8-offline-diagnostic21-c38-20260830"
-DIAGNOSTIC21_REFERENCE_FROZEN_NAME = "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c38-20260830"
-DIAGNOSTIC21_SOURCE_PRIMARY_SHA256 = "de31b50460ebe4b380920fe378c0a70762283dfef1ed601ac29ba8b92a87d561"
-DIAGNOSTIC21_SOURCE_REFERENCE_SHA256 = "0de4a1df791ee98e2f2c065df10ea7ccba4ffa4ba8ea84f39c8c83054bc2c7ae"
-DIAGNOSTIC21_BOOTSTRAP_SOURCE_PRIMARY_SHA256 = "bd31e27f36372d18d99e897b683765bfa886b4ad33f91997a8347b5987cedf7a"
-DIAGNOSTIC21_BOOTSTRAP_SOURCE_REFERENCE_SHA256 = "62a8cb3e7753ebc10e13368abd53619e5c1910b4c8f2b0b623236b8242d9c2f9"
-DIAGNOSTIC21_IMPLEMENTATION_PARENT_COMMIT = "26dc9f7bbca89b30936508ab644f052713a2dd36"
+DIAGNOSTIC21_PRIMARY_FROZEN_NAME = "v2-kure-qwen38-q8-offline-diagnostic21-c39-20260830"
+DIAGNOSTIC21_REFERENCE_FROZEN_NAME = "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c39-20260830"
+DIAGNOSTIC21_SOURCE_PRIMARY_SHA256 = "118ad3530ecb9b10dfe246f2d684a2473e5b317ecb4d5ae2816032e86b30810f"
+DIAGNOSTIC21_SOURCE_REFERENCE_SHA256 = "dd338d874d231d24ddb4c5f7b4f1833a527b0939138c5b854ecb88bdd0ac69ca"
+DIAGNOSTIC21_BOOTSTRAP_SOURCE_PRIMARY_SHA256 = "de31b50460ebe4b380920fe378c0a70762283dfef1ed601ac29ba8b92a87d561"
+DIAGNOSTIC21_BOOTSTRAP_SOURCE_REFERENCE_SHA256 = "0de4a1df791ee98e2f2c065df10ea7ccba4ffa4ba8ea84f39c8c83054bc2c7ae"
+DIAGNOSTIC21_IMPLEMENTATION_PARENT_COMMIT = "2785576f6f598c9a5933da9a78403c80b5b027d3"
 DIAGNOSTIC21_FLOAT_TOLERANCE = 1e-12
 DIAGNOSTIC21_C31_CONDITION_SUFFIX = "+C31-shared-public-answer-contract"
 DIAGNOSTIC21_C31_RELEASE = "C31-shared-public-answer-contract-alignment"
@@ -64,6 +64,8 @@ DIAGNOSTIC21_C37_CONDITION_SUFFIX = "+C37-two-attempt-all-history-collision-fail
 DIAGNOSTIC21_C37_RELEASE = "C37-two-attempt-all-history-collision-failsafe"
 DIAGNOSTIC21_C38_CONDITION_SUFFIX = "+C38-target-linked-qualifying-public-exception"
 DIAGNOSTIC21_C38_RELEASE = "C38-target-linked-qualifying-public-exception"
+DIAGNOSTIC21_C39_CONDITION_SUFFIX = "+C39-prompt-stable-validator-only-qualifying-exception"
+DIAGNOSTIC21_C39_RELEASE = "C39-prompt-stable-validator-only-qualifying-exception"
 DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE = "single_issue_fusion_top_k"
 DIAGNOSTIC21_C02_ROUND_MERGE_MODE = "request_rank_top1_guarded_swap"
 DIAGNOSTIC21_C30_CONDITION_SUFFIX = "+C30-paired-C02-gate-S3-carry-forward-overlay"
@@ -77,7 +79,8 @@ DIAGNOSTIC21_CANDIDATE_ID = (
     "C35-output-descriptor-request-local-gap-anchors+"
     "C36-prompt-stable-validator-only-C35+"
     "C37-two-attempt-all-history-collision-failsafe+"
-    "C38-target-linked-qualifying-public-exception"
+    "C38-target-linked-qualifying-public-exception+"
+    "C39-prompt-stable-validator-only-qualifying-exception"
 )
 DIAGNOSTIC21_C22_CAPABILITY = {
     "capability": "standalone ungrounded paragraph gap recovery",
@@ -326,6 +329,22 @@ DIAGNOSTIC21_C38_SOURCE_PROVENANCE = {
     "release": DIAGNOSTIC21_C38_RELEASE,
     "implementation_layer": "SHARED_S3_QUALIFYING_EXCEPTION_CITATION_AUTHORIZATION",
 }
+DIAGNOSTIC21_C39_CAPABILITIES = {
+    "c39_prompt_stable_qualifying_exception_validator": {
+        "visible_s3_prompt_resources": "C37_BYTE_IDENTICAL",
+        "qualifying_authorization": "PRIVATE_VALIDATOR_ONLY_ACCEPTED_QUALIFYING_PROVISION_EVIDENCE_TARGET_LINK",
+        "model_input_and_prompt": "NO_C39_QUALIFYING_AUTHORIZATION_CONTEXT",
+        "shared_final_harness_predicate": "C38_FAIL_CLOSED_PREDICATE_RETAINED",
+        "c32_retry_carry_forward_and_c34_case_fact_duplicate_guards": "PRESERVED",
+        "runtime_question_gold_provision_or_answer_synthesis": "NONE",
+    },
+}
+DIAGNOSTIC21_C39_SOURCE_PROVENANCE = {
+    "base_source_commit": "2785576f6f598c9a5933da9a78403c80b5b027d3",
+    "base_source_tree": "462d5493e49e27690fbbcfd651da95b7a5953ce0",
+    "release": DIAGNOSTIC21_C39_RELEASE,
+    "implementation_layer": "S3_PROMPT_STABLE_PRIVATE_VALIDATOR_ONLY_QUALIFYING_EXCEPTION_AUTHORIZATION",
+}
 DIAGNOSTIC21_SEMANTIC_AUTHORITY = (
     "Execution semantic authority is the committed clean source snapshot plus frozen S1/S2/S3 skill hashes."
 )
@@ -411,6 +430,9 @@ DIAGNOSTIC21_CONDITION_LINEAGE = {
     "C38_target_linked_qualifying_public_exception_parent": [
         "26dc9f7bbca89b30936508ab644f052713a2dd36",
     ],
+    "C39_prompt_stable_validator_only_qualifying_exception_parent": [
+        "2785576f6f598c9a5933da9a78403c80b5b027d3",
+    ],
 }
 DIAGNOSTIC21_SKILL_FILES = {
     "S1": {
@@ -427,13 +449,13 @@ DIAGNOSTIC21_SKILL_FILES = {
     },
     "S3": {
         "skill_path": "skills/grounded_legal_answer_generation/SKILL.md",
-        "skill_sha256": "c7f4f65a9817373a56a2d28803ecf4724ec4bc0a50bf2c9d8398d1f7aa2bddf8",
+        "skill_sha256": "a146c3c7a0910c43d3d0f84a7f347e747a193a5ba88dcf7af50a800379735eac",
         "contract_path": "skills/grounded_legal_answer_generation/references/contract.md",
-        "contract_sha256": "e68489d2970b72a9e3c4bf6efe56492c2ecee24e3863c51397c37a855664f1ff",
+        "contract_sha256": "f7a2760eb9a5a7aaefd09da4f1a322b90d4825bc25d78f9600fa79b0e71d083a",
         "input_schema_path": "skills/grounded_legal_answer_generation/references/input.schema.json",
-        "input_schema_sha256": "930d72388d4b993d4391be0038313c01d59abedf1dbaa10a96c24f90eed453de",
+        "input_schema_sha256": "575583d54580687f0d23e6adecf0d3a0f2dc3d5f0d3eacbad2dc010480daa527",
         "validator_path": "skills/grounded_legal_answer_generation/scripts/validate_output.py",
-        "validator_sha256": "04637785f2e08fe09b5e047ca760fc34660fba124dcb1b7f2587a5f4b1cceb28",
+        "validator_sha256": "4b427f3232cd947a9678d68323f547bc0dcae7e03a2a26c2e6dbd0b9186462bd",
     },
 }
 DIAGNOSTIC21_RERANKER_PROVENANCE = {
@@ -938,7 +960,7 @@ def _copy_manifest(source: Mapping[str, Any], name: str, configuration: Mapping[
     })
     output["selection"] = selection
     output["purpose"] = (
-        "C38 permits only a target-linked accepted QUALIFYING citation for a public conditional exception, while retaining CORE-only "
+        "C39 restores byte-identical C37 S3 prompt resources and keeps C38 target-linked QUALIFYING conditional-exception authorization private to validation, while retaining CORE-only "
         "public rules/applications and C32 carry-forward. It preserves C37's two-primary-attempt all-history-collision fail-safe, C36 prompt stabilization, and C35 validators, while "
         "records redacted prompt/input fingerprints without changing generation. It preserves the C34 type-aware "
         "redundant public projection and the C32 retry-only "
@@ -1189,6 +1211,37 @@ def _apply_c38_public_answer_contract(configuration: Dict[str, Any]) -> None:
     )
 
 
+def _with_c39_condition(condition: str) -> str:
+    if not isinstance(condition, str) or not condition:
+        raise OrchestrationError("C39 condition must be non-empty")
+    base = (
+        condition[:-len(DIAGNOSTIC21_C39_CONDITION_SUFFIX)]
+        if condition.endswith(DIAGNOSTIC21_C39_CONDITION_SUFFIX)
+        else condition
+    )
+    return _with_c38_condition(base) + DIAGNOSTIC21_C39_CONDITION_SUFFIX
+
+
+def _full_to_smoke_c39_condition(condition: str) -> str:
+    """Derive smoke from exactly one C39 full226 condition token."""
+    base = (
+        condition[:-len(DIAGNOSTIC21_C39_CONDITION_SUFFIX)]
+        if condition.endswith(DIAGNOSTIC21_C39_CONDITION_SUFFIX)
+        else condition
+    )
+    return _with_c39_condition(_full_to_smoke_c38_condition(base))
+
+
+def _apply_c39_public_answer_contract(configuration: Dict[str, Any]) -> None:
+    condition = str(configuration.get("condition") or "")
+    if condition.endswith(DIAGNOSTIC21_C39_CONDITION_SUFFIX):
+        configuration["condition"] = condition[:-len(DIAGNOSTIC21_C39_CONDITION_SUFFIX)]
+    _apply_c38_public_answer_contract(configuration)
+    configuration["condition"] = _with_c39_condition(
+        str(configuration.get("condition") or "")
+    )
+
+
 def build_v2_manifests(primary_source: Mapping[str, Any], reference_source: Mapping[str, Any]) -> Dict[str, Dict[str, Any]]:
     source_entries = list(primary_source.get("entries") or [])
     if _entry_signature(source_entries) != _entry_signature(reference_source.get("entries")):
@@ -1217,14 +1270,14 @@ def build_v2_manifests(primary_source: Mapping[str, Any], reference_source: Mapp
     runtime.update({"num_parallel": 1, "seed_forwarding": "ollama_options_seed"})
     primary_configuration["runtime_determinism"] = runtime
     primary_configuration["model_provenance"] = deepcopy(QWEN_MODEL_PROVENANCE)
-    _apply_c38_public_answer_contract(primary_configuration)
+    _apply_c39_public_answer_contract(primary_configuration)
     assert_kure_only(primary_configuration)
 
     reference_configuration = deepcopy(primary_configuration)
     reference_configuration["condition"] = reference_source_condition
     reference_configuration["retriever"] = "bm25"
     reference_configuration.pop("retriever_provenance", None)
-    _apply_c38_public_answer_contract(reference_configuration)
+    _apply_c39_public_answer_contract(reference_configuration)
     full = _copy_manifest(primary_source, PRIMARY_FROZEN_NAME, primary_configuration, source_entries, "PRIMARY_KURE_EXECUTION")
     reference = _copy_manifest(reference_source, REFERENCE_FROZEN_NAME, reference_configuration, source_entries, "COMPARISON_REFERENCE_ONLY_MUST_NEVER_BE_EXECUTED")
 
@@ -1245,9 +1298,9 @@ def build_v2_manifests(primary_source: Mapping[str, Any], reference_source: Mapp
         for index, entry in enumerate(smoke_entries, start=1)
     ]
     smoke_configuration = deepcopy(primary_configuration)
-    smoke_configuration["condition"] = _full_to_smoke_c38_condition(str(primary_configuration["condition"]))
+    smoke_configuration["condition"] = _full_to_smoke_c39_condition(str(primary_configuration["condition"]))
     smoke_reference_configuration = deepcopy(reference_configuration)
-    smoke_reference_configuration["condition"] = _full_to_smoke_c38_condition(str(reference_configuration["condition"]))
+    smoke_reference_configuration["condition"] = _full_to_smoke_c39_condition(str(reference_configuration["condition"]))
     return {
         "full": full,
         "reference": reference,
@@ -1312,7 +1365,7 @@ def _diagnostic21_selection(
     return {
         "candidate_id": DIAGNOSTIC21_CANDIDATE_ID,
         "method": (
-            "C38 permits only a target-linked accepted QUALIFYING citation for a public conditional exception, while retaining CORE-only "
+            "C39 restores byte-identical C37 S3 prompt resources and keeps C38's target-linked accepted QUALIFYING conditional-exception authorization validator-only/private, while retaining CORE-only "
             "public rules/applications and C32 carry-forward. It preserves C37's two-primary-attempt all-history-collision fail-safe, C36 prompt stabilization, and C35 validators, and records "
             "redacted prompt/input fingerprints without changing generation. It preserves the C30 paired C02 gate, C31 shared public-answer contract, "
             "and C32 validator-only qualifying carry-forward. It preserves repeated Korean "
@@ -1372,6 +1425,8 @@ def _diagnostic21_selection(
         "c37_source_provenance": deepcopy(DIAGNOSTIC21_C37_SOURCE_PROVENANCE),
         "c38_capabilities": deepcopy(DIAGNOSTIC21_C38_CAPABILITIES),
         "c38_source_provenance": deepcopy(DIAGNOSTIC21_C38_SOURCE_PROVENANCE),
+        "c39_capabilities": deepcopy(DIAGNOSTIC21_C39_CAPABILITIES),
+        "c39_source_provenance": deepcopy(DIAGNOSTIC21_C39_SOURCE_PROVENANCE),
         "semantic_authority": DIAGNOSTIC21_SEMANTIC_AUTHORITY,
         "runtime_artifact_path_provenance": {
             "repo_relative_required": ["source_dataset.path", "kure paths", "bge reranker path"],
@@ -1410,6 +1465,8 @@ def build_diagnostic21_manifests(
         if configuration.get("round_merge_mode") != DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE:
             raise OrchestrationError("diagnostic21 %s source round_merge_mode mismatch" % label)
         base_condition = configuration["condition"]
+        if base_condition.endswith(DIAGNOSTIC21_C39_CONDITION_SUFFIX):
+            base_condition = base_condition[:-len(DIAGNOSTIC21_C39_CONDITION_SUFFIX)]
         if base_condition.endswith(DIAGNOSTIC21_C38_CONDITION_SUFFIX):
             base_condition = base_condition[:-len(DIAGNOSTIC21_C38_CONDITION_SUFFIX)]
         if base_condition.endswith(DIAGNOSTIC21_C37_CONDITION_SUFFIX):
@@ -1429,7 +1486,7 @@ def build_diagnostic21_manifests(
         configuration["condition"] = (
             base_condition + DIAGNOSTIC21_C30_CONDITION_SUFFIX + DIAGNOSTIC21_C31_CONDITION_SUFFIX
         )
-        _apply_c38_public_answer_contract(configuration)
+        _apply_c39_public_answer_contract(configuration)
         configuration["reranker_provenance"] = deepcopy(DIAGNOSTIC21_RERANKER_PROVENANCE)
     assert_kure_only(primary_configuration)
     if reference_configuration.get("retriever") != "bm25":
@@ -1450,7 +1507,7 @@ def build_diagnostic21_manifests(
     )
     primary["selection"] = selection
     primary["purpose"] = (
-        "C38 permits only a target-linked accepted QUALIFYING citation for a public conditional exception, while retaining CORE-only "
+        "C39 restores byte-identical C37 S3 prompt resources and keeps C38 target-linked QUALIFYING conditional-exception authorization private to validation, while retaining CORE-only "
         "public rules/applications and C32 carry-forward. It preserves C37's two-primary-attempt all-history-collision fail-safe, C36 prompt stabilization, and C35 validators, and records "
         "redacted prompt/input fingerprints without changing generation. It preserves the C30 paired C02 gate, C31 shared one-to-four-sentence public-answer "
         "contract, and C32 exact qualifying carry-forward citations in validator-only retry context, "
@@ -1611,6 +1668,10 @@ def assert_diagnostic21_manifest_integrity(
         raise OrchestrationError("diagnostic21 C38 capability mismatch")
     if selection.get("c38_source_provenance") != DIAGNOSTIC21_C38_SOURCE_PROVENANCE:
         raise OrchestrationError("diagnostic21 C38 source provenance mismatch")
+    if selection.get("c39_capabilities") != DIAGNOSTIC21_C39_CAPABILITIES:
+        raise OrchestrationError("diagnostic21 C39 capability mismatch")
+    if selection.get("c39_source_provenance") != DIAGNOSTIC21_C39_SOURCE_PROVENANCE:
+        raise OrchestrationError("diagnostic21 C39 source provenance mismatch")
     if selection.get("semantic_authority") != DIAGNOSTIC21_SEMANTIC_AUTHORITY:
         raise OrchestrationError("diagnostic21 semantic authority mismatch")
     if selection.get("runtime_artifact_path_provenance") != {
@@ -1627,8 +1688,8 @@ def assert_diagnostic21_manifest_integrity(
         raise OrchestrationError("diagnostic21 source condition lineage mismatch")
     for label, configuration in (("primary", primary_configuration), ("reference", reference_configuration)):
         condition = configuration.get("condition")
-        if not isinstance(condition, str) or not condition.endswith(DIAGNOSTIC21_C38_CONDITION_SUFFIX) or DIAGNOSTIC21_C30_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C31_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C32_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C33_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C34_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C35_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C36_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C37_CONDITION_SUFFIX not in condition:
-            raise OrchestrationError("diagnostic21 %s C30/C31/C32/C33/C34/C35/C36/C37 source condition overlay mismatch: C38 required" % label)
+        if not isinstance(condition, str) or not condition.endswith(DIAGNOSTIC21_C39_CONDITION_SUFFIX) or DIAGNOSTIC21_C30_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C31_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C32_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C33_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C34_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C35_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C36_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C37_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C38_CONDITION_SUFFIX not in condition:
+            raise OrchestrationError("diagnostic21 %s C30/C31/C32/C33/C34/C35/C36/C37/C38 source condition overlay mismatch: C39 required" % label)
         if any(configuration.get(key) != value for key, value in PUBLIC_ANSWER_FROZEN_CONFIGURATION.items()):
             raise OrchestrationError("diagnostic21 %s C31 public-answer contract mismatch" % label)
         if configuration.get("round_merge_mode") != DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE:
@@ -1717,7 +1778,7 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
         "primary_source_manifest_sha256": primary_source_sha256,
         "reference_source_manifest": str(reference_source.resolve()),
         "reference_source_manifest_sha256": reference_source_sha256,
-        "control_plane_release": DIAGNOSTIC21_C38_RELEASE,
+        "control_plane_release": DIAGNOSTIC21_C39_RELEASE,
         "public_answer_contract": dict(PUBLIC_ANSWER_FROZEN_CONFIGURATION),
         "generated": {key: {"path": str(path.relative_to(exec_root)), "sha256": sha256(path)} for key, path in paths.items()},
         "smoke_entries": [
@@ -1773,6 +1834,8 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
             "c37_source_provenance": deepcopy(DIAGNOSTIC21_C37_SOURCE_PROVENANCE),
             "c38_capabilities": deepcopy(DIAGNOSTIC21_C38_CAPABILITIES),
             "c38_source_provenance": deepcopy(DIAGNOSTIC21_C38_SOURCE_PROVENANCE),
+            "c39_capabilities": deepcopy(DIAGNOSTIC21_C39_CAPABILITIES),
+            "c39_source_provenance": deepcopy(DIAGNOSTIC21_C39_SOURCE_PROVENANCE),
         }
     write_json_new(frozen_root / "source_metadata.json", source_metadata)
     assert_reference_is_read_only(manifests["full"], manifests["reference"], paths["full"], paths["reference"])

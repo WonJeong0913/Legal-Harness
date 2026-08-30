@@ -40,14 +40,10 @@ and limitations remain available in the structured audit record.
 `core_accepted_provisions[]`, `supplemental_provisions[]`,
 `qualifying_provisions[]`, and `alternative_provisions[]`; the role lists may
 overlap because one provision can have distinct link roles. Every public
-`conclusion` claim must cite only `core_accepted_provisions[]`. The sole normal
-auxiliary exception is a `claim_type: "exception"`, `applicability:
-"conditional"` public conclusion: it may cite a `QUALIFYING` provision only
-when `qualifying_public_exception_links[]` supplies its exact provision and an
-evidence item whose target set contains every target on that claim. Every other
-auxiliary citation is authorized only for `audit` claims and must never be used
-to establish, serialize, or rescue a public conclusion. The core evidence set
-remains the only coverage and governing-regime basis for publishable generation.
+`conclusion` claim must cite only `core_accepted_provisions[]`. Auxiliary
+provisions are authorized only for `audit` claim citations and must never be
+used to establish, serialize, or rescue a public conclusion. The core evidence
+set is the only coverage and governing-regime basis for publishable generation.
 
 On failed preconditions, use the schema error envelope with `INVALID_INPUT`,
 `GENERATION_NOT_AUTHORIZED`, `UNCOVERED_CRITICAL_EVIDENCE`, or

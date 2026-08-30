@@ -54,6 +54,9 @@ DEFAULT_S1_TRUNCATION_RETRY_MAX_TOKENS = 8192
 RESPONSE_TAIL_CHARACTERS = 512
 PROMPT_RUN_ID_PLACEHOLDER = "__HARNESS_RUN_ID__"
 S3_CARRY_FORWARD_VALIDATOR_CONTEXT_KEY = "_harness_c32_conditional_exception_carry_forward_obligations"
+S3_QUALIFYING_PUBLIC_EXCEPTION_VALIDATOR_CONTEXT_KEY = (
+    "_harness_c39_qualifying_public_exception_links"
+)
 
 S3_COMPACT_TRANSPORT_INVARIANT = (
     "For claim-bearing compact raw transport, omit answer, citation_id, "
@@ -273,7 +276,10 @@ class LocalOllamaSkillExecutor:
                 if deterministic_repairs:
                     diagnostic["deterministic_repairs"] = deterministic_repairs
                 validation_input = self._s3_validator_input(
-                    skill_name, skill_input, s3_carry_forward_obligations
+                    skill_name,
+                    skill_input,
+                    s3_carry_forward_obligations,
+                    payload,
                 )
                 validation_errors = self._validators[skill_name](
                     skill_output, validation_input
@@ -969,23 +975,31 @@ class LocalOllamaSkillExecutor:
                 obligations.append(obligation)
         return obligations
 
-    @staticmethod
     def _s3_validator_input(
+        self,
         skill_name: str,
         skill_input: Mapping[str, Any],
         obligations: Sequence[Mapping[str, Any]],
+        payload: Mapping[str, Any],
     ) -> Mapping[str, Any]:
-        """Attach frozen retry evidence only to the local validator call."""
+        """Attach private C32/C39 proof only to the local validator call."""
         if (
             skill_name != "grounded_legal_answer_generation"
             or skill_input.get("mode") != "GENERATE_ANSWER"
-            or not obligations
         ):
             return skill_input
+        qualifying_links = self._s3_qualifying_public_exception_links(payload)
+        if not obligations and not qualifying_links:
+            return skill_input
         validator_input = dict(skill_input)
-        validator_input[S3_CARRY_FORWARD_VALIDATOR_CONTEXT_KEY] = copy.deepcopy(
-            list(obligations)
-        )
+        if obligations:
+            validator_input[S3_CARRY_FORWARD_VALIDATOR_CONTEXT_KEY] = copy.deepcopy(
+                list(obligations)
+            )
+        if qualifying_links:
+            validator_input[
+                S3_QUALIFYING_PUBLIC_EXCEPTION_VALIDATOR_CONTEXT_KEY
+            ] = qualifying_links
         return validator_input
 
     @staticmethod
@@ -3219,9 +3233,6 @@ class LocalOllamaSkillExecutor:
                     run_id,
                     accepted=True,
                 ),
-                "qualifying_public_exception_links": (
-                    self._s3_qualifying_public_exception_links(payload)
-                ),
                 "alternative_provisions": self._external_provisions(
                     self._list(payload, "alternative_provisions", required=False),
                     run_id,
@@ -3272,7 +3283,7 @@ class LocalOllamaSkillExecutor:
     def _s3_qualifying_public_exception_links(
         self, payload: Mapping[str, Any]
     ) -> List[Dict[str, str]]:
-        """Pass only accepted QUALIFYING provision/evidence provenance to S3."""
+        """Read only accepted QUALIFYING proof reserved for S3 validation."""
         qualifying_ids = {
             self._string(item, "provision_id")
             for item in self._list(payload, "qualifying_provisions", required=False)
@@ -3290,7 +3301,9 @@ class LocalOllamaSkillExecutor:
         }
         pairs = set()
         for link in self._list(
-            payload, "qualifying_public_exception_links", required=False
+            payload,
+            S3_QUALIFYING_PUBLIC_EXCEPTION_VALIDATOR_CONTEXT_KEY,
+            required=False,
         ):
             if not isinstance(link, Mapping):
                 raise SkillExecutionError(

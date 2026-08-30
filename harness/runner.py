@@ -1165,7 +1165,9 @@ class HarnessRunner:
             "core_accepted_provisions": to_primitive(core_accepted),
             "supplemental_provisions": to_primitive(supplemental),
             "qualifying_provisions": to_primitive(qualifying),
-            "qualifying_public_exception_links": qualifying_public_exception_links,
+            # C39: this accepted link proof is validator-only and must never
+            # enter an S3 model prompt.
+            "_harness_c39_qualifying_public_exception_links": qualifying_public_exception_links,
             "alternative_provisions": to_primitive(alternative),
             "answer_mode": state.answer_mode.value if state.answer_mode else AnswerMode.FULL.value,
             "answered_target_ids": list(state.answered_target_ids),
