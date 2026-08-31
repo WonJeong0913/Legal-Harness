@@ -40,10 +40,14 @@ from public_answer_contract import (
 DIAGNOSTIC21_MODE = "diagnostic21"
 DIAGNOSTIC21_ENTRY_COUNT = 21
 DIAGNOSTIC21_CHUNKS = ((1, 20), (21, 21))
-DIAGNOSTIC21_PRIMARY_FROZEN_NAME = "v2-kure-qwen38-q8-offline-diagnostic21-c46-20260830"
-DIAGNOSTIC21_REFERENCE_FROZEN_NAME = "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c46-20260830"
-DIAGNOSTIC21_SOURCE_PRIMARY_SHA256 = "13bf5e8bd0e582f2ad5482854b6c32b17ef09147b323d845865f256fcc261626"
-DIAGNOSTIC21_SOURCE_REFERENCE_SHA256 = "fe229672b2fdc45b51eb7e49c954ebc2fc52b1312e0144b5d62754e0cef66965"
+FULL226_COMPLETED_WITH_ERRORS = "COMPLETED_WITH_ERRORS"
+FULL226_EXPLICIT_FAILURE_COLLECTION = "COMPLETE_WITH_EXPLICIT_EXECUTION_FAILURES"
+DIAGNOSTIC21_PRIMARY_FROZEN_NAME = "v2-kure-qwen38-q8-offline-diagnostic21-c47-20260831"
+DIAGNOSTIC21_REFERENCE_FROZEN_NAME = "v2-bm25-reference-qwen38-q8-offline-diagnostic21-c47-20260831"
+DIAGNOSTIC21_SOURCE_PRIMARY_SHA256 = "a97fc950bc3e7766c409e27072e8634011eead9718729dbdaf4294a45725e692"
+DIAGNOSTIC21_SOURCE_REFERENCE_SHA256 = "7a76df1da495bcaa206f8339bbca2e17b27ebe7ec415a1058b1081e7126f4330"
+DIAGNOSTIC21_C47_BOOTSTRAP_SOURCE_PRIMARY_SHA256 = "13bf5e8bd0e582f2ad5482854b6c32b17ef09147b323d845865f256fcc261626"
+DIAGNOSTIC21_C47_BOOTSTRAP_SOURCE_REFERENCE_SHA256 = "fe229672b2fdc45b51eb7e49c954ebc2fc52b1312e0144b5d62754e0cef66965"
 DIAGNOSTIC21_C45_BOOTSTRAP_SOURCE_PRIMARY_SHA256 = "f3aff13a9eda40e54ffd06765115dcfb6fb2b75be1654541975ef68ed2b02c4e"
 DIAGNOSTIC21_C45_BOOTSTRAP_SOURCE_REFERENCE_SHA256 = "fc09769107bd658783382ebbc8c50aaa740e68a047bb7f4dda5a4e6cbb4ac95e"
 DIAGNOSTIC21_C44_BOOTSTRAP_SOURCE_PRIMARY_SHA256 = "8fb502b13650b096165f051309e126b3af0f0ac1b857f503694ff83a2a6b558e"
@@ -94,6 +98,8 @@ DIAGNOSTIC21_C45_CONDITION_SUFFIX = "+C45-mixed-gap-recovery-runner-authorizatio
 DIAGNOSTIC21_C45_RELEASE = "C45-mixed-gap-recovery-runner-authorization"
 DIAGNOSTIC21_C46_CONDITION_SUFFIX = "+C46-request-carrier-compound-gap-anchor"
 DIAGNOSTIC21_C46_RELEASE = "C46-request-carrier-compound-gap-anchor"
+DIAGNOSTIC21_C47_CONDITION_SUFFIX = "+C47-covered-core-retry-continuous-full226-collection"
+DIAGNOSTIC21_C47_RELEASE = "C47-covered-core-retry-continuous-full226-collection"
 DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE = "single_issue_fusion_top_k"
 DIAGNOSTIC21_C02_ROUND_MERGE_MODE = "request_rank_top1_guarded_swap"
 DIAGNOSTIC21_C30_CONDITION_SUFFIX = "+C30-paired-C02-gate-S3-carry-forward-overlay"
@@ -115,7 +121,8 @@ DIAGNOSTIC21_CANDIDATE_ID = (
     "C43-bounded-gap-collision-and-anchor-morphology-repair+"
     "C44-contextual-mixed-gap-projection+"
     "C45-mixed-gap-recovery-runner-authorization+"
-    "C46-request-carrier-compound-gap-anchor"
+    "C46-request-carrier-compound-gap-anchor+"
+    "C47-covered-core-retry-continuous-full226-collection"
 )
 DIAGNOSTIC21_C22_CAPABILITY = {
     "capability": "standalone ungrounded paragraph gap recovery",
@@ -516,6 +523,27 @@ DIAGNOSTIC21_C46_SOURCE_PROVENANCE = {
     "base_source_tree": "ebe863514cfd8d42425de9280b52dd55b712d72a",
     "release": DIAGNOSTIC21_C46_RELEASE,
     "implementation_layer": "S1_VALIDATOR_REQUEST_CARRIER_ANCHOR_EXTRACTION_AND_EXPLICIT_COMPOUND_TERM_MATCHING",
+}
+DIAGNOSTIC21_C47_CAPABILITIES = {
+    "c47_s2_covered_core_retry_only": {
+        "scope": "S2_COVERED_DIRECT_NONE_UNSUPPORTED_SATISFIED_CRITERION_ONLY",
+        "action": "ONE_BOUNDED_MODEL_RETRY_WITH_EXPLICIT_CORE_LINK_OR_CONSERVATIVE_UNCOVERED_OUTPUT",
+        "deterministic_coverage_or_link_projection": "NONE",
+    },
+    "c47_full226_explicit_failure_collection": {
+        "scope": "FULL226_ONLY",
+        "terminal_status": "EXECUTION_FAILURE_REMAINS_EXPLICIT_AND_ZERO_SCORED",
+        "collection": "CONTINUES_ONLY_AFTER_AUDITABLE_COMPLETED_WITH_ERRORS_CHECKPOINT",
+        "smoke_diagnostic_infrastructure_source_snapshot_and_preflight": "FAIL_CLOSED",
+    },
+    "visible_skill_resources": "UNCHANGED",
+    "runtime_question_gold_provision_or_answer_synthesis": "NONE",
+}
+DIAGNOSTIC21_C47_SOURCE_PROVENANCE = {
+    "base_source_commit": "5d9a08ee5021df22bdf8fde4b915b3f85e886285",
+    "base_source_tree": "516797752fd8dfa64f8bf367d3335ab4f32e397e",
+    "release": DIAGNOSTIC21_C47_RELEASE,
+    "implementation_layer": "S2_RETRY_ONLY_COVERED_CORE_LINK_CONTRACT_AND_FULL226_COLLECTION_CONTROL_PLANE",
 }
 DIAGNOSTIC21_SEMANTIC_AUTHORITY = (
     "Execution semantic authority is the committed clean source snapshot plus frozen S1/S2/S3 skill hashes."
@@ -1144,6 +1172,7 @@ def _copy_manifest(source: Mapping[str, Any], name: str, configuration: Mapping[
     })
     output["selection"] = selection
     output["purpose"] = (
+        "C47 adds a retry-only S2 covered/core-link consistency contract and a full226-only collection control plane that preserves each terminal execution failure as an auditable zero-scored record while continuing later immutable chunks; smoke, diagnostic, preflight, source-snapshot, and infrastructure failures remain fail-closed. It changes no public skill resource or model prompt except the bounded S2 retry instruction. "
         "C46 changes only S1 validator normalization for a particle-marked generic request carrier: it keeps the preceding repeated fact/effect pair and permits only its mechanically preserved explicit compact Korean compound suffix; it never reads query_text/source context or changes a prompt. C45 authorizes the C44 typed mixed-history recovery audit only at the harness runner and only for exactly one dropped request with a surviving request; all other audits fail closed, and no semantic or prompt-resource mutation occurs. C44 projects only a validator-facing historical duplicate from a mixed same-critical-evidence GAP plan, retains the independently valid novel sibling unchanged, and accepts only an exact harness source-context transport decoration; any article neutralization, semantic query rewrite, scoring override, unknown requirement, or post-projection validation error remains fail-closed. C44 routes an exact named atomic completion requirement to its own literal explicit-term anchor without reading query_text or original context. It records typed repair hashes, synthesizes no query or answer, and changes no public skill resource. C43 retains only a separately valid novel GAP request when the same target also has a raw historical duplicate, excludes Korean verbal-attributive anchor fragments, and requires one concrete application case fact; it records typed audit hashes, synthesizes no query or answer, and changes no public skill resource. C42 refines C33 redundant public projection only for explicit Korean penalty targets: it retains both public claims when a legal-rule numeric/range or categorical sanction payload is missing or not fully carried by the matching application, and otherwise preserves C33 demotion; no skill resource or model prompt changes. C41 adds a two-primary-attempt-only S1 GAP anchor-novelty retry and trusted completion-contract fallback after a literal Korean anchor omission is followed by an all-history collision; it preserves duplicate-history protection and changes no public skill resource. C40 adds a validator-only, one-bounded-retry S1 atomic completion-requirement scope-minimality guard for exact Korean generic output descriptors, without deterministic deletion or visible prompt-resource changes. C39 restores byte-identical C37 S3 prompt resources and keeps C38 target-linked QUALIFYING conditional-exception authorization private to validation, while retaining CORE-only "
         "public rules/applications and C32 carry-forward. It preserves C37's two-primary-attempt all-history-collision fail-safe, C36 prompt stabilization, and C35 validators, while "
         "records redacted prompt/input fingerprints without changing generation. It preserves the C34 type-aware "
@@ -1643,6 +1672,37 @@ def _apply_c46_public_answer_contract(configuration: Dict[str, Any]) -> None:
     )
 
 
+def _with_c47_condition(condition: str) -> str:
+    if not isinstance(condition, str) or not condition:
+        raise OrchestrationError("C47 condition must be non-empty")
+    base = (
+        condition[:-len(DIAGNOSTIC21_C47_CONDITION_SUFFIX)]
+        if condition.endswith(DIAGNOSTIC21_C47_CONDITION_SUFFIX)
+        else condition
+    )
+    return _with_c46_condition(base) + DIAGNOSTIC21_C47_CONDITION_SUFFIX
+
+
+def _full_to_smoke_c47_condition(condition: str) -> str:
+    """Derive smoke from exactly one C47 full226 condition token."""
+    base = (
+        condition[:-len(DIAGNOSTIC21_C47_CONDITION_SUFFIX)]
+        if condition.endswith(DIAGNOSTIC21_C47_CONDITION_SUFFIX)
+        else condition
+    )
+    return _with_c47_condition(_full_to_smoke_c46_condition(base))
+
+
+def _apply_c47_public_answer_contract(configuration: Dict[str, Any]) -> None:
+    condition = str(configuration.get("condition") or "")
+    if condition.endswith(DIAGNOSTIC21_C47_CONDITION_SUFFIX):
+        configuration["condition"] = condition[:-len(DIAGNOSTIC21_C47_CONDITION_SUFFIX)]
+    _apply_c46_public_answer_contract(configuration)
+    configuration["condition"] = _with_c47_condition(
+        str(configuration.get("condition") or "")
+    )
+
+
 def build_v2_manifests(primary_source: Mapping[str, Any], reference_source: Mapping[str, Any]) -> Dict[str, Dict[str, Any]]:
     source_entries = list(primary_source.get("entries") or [])
     if _entry_signature(source_entries) != _entry_signature(reference_source.get("entries")):
@@ -1671,14 +1731,14 @@ def build_v2_manifests(primary_source: Mapping[str, Any], reference_source: Mapp
     runtime.update({"num_parallel": 1, "seed_forwarding": "ollama_options_seed"})
     primary_configuration["runtime_determinism"] = runtime
     primary_configuration["model_provenance"] = deepcopy(QWEN_MODEL_PROVENANCE)
-    _apply_c46_public_answer_contract(primary_configuration)
+    _apply_c47_public_answer_contract(primary_configuration)
     assert_kure_only(primary_configuration)
 
     reference_configuration = deepcopy(primary_configuration)
     reference_configuration["condition"] = reference_source_condition
     reference_configuration["retriever"] = "bm25"
     reference_configuration.pop("retriever_provenance", None)
-    _apply_c46_public_answer_contract(reference_configuration)
+    _apply_c47_public_answer_contract(reference_configuration)
     full = _copy_manifest(primary_source, PRIMARY_FROZEN_NAME, primary_configuration, source_entries, "PRIMARY_KURE_EXECUTION")
     reference = _copy_manifest(reference_source, REFERENCE_FROZEN_NAME, reference_configuration, source_entries, "COMPARISON_REFERENCE_ONLY_MUST_NEVER_BE_EXECUTED")
 
@@ -1699,9 +1759,9 @@ def build_v2_manifests(primary_source: Mapping[str, Any], reference_source: Mapp
         for index, entry in enumerate(smoke_entries, start=1)
     ]
     smoke_configuration = deepcopy(primary_configuration)
-    smoke_configuration["condition"] = _full_to_smoke_c46_condition(str(primary_configuration["condition"]))
+    smoke_configuration["condition"] = _full_to_smoke_c47_condition(str(primary_configuration["condition"]))
     smoke_reference_configuration = deepcopy(reference_configuration)
-    smoke_reference_configuration["condition"] = _full_to_smoke_c46_condition(str(reference_configuration["condition"]))
+    smoke_reference_configuration["condition"] = _full_to_smoke_c47_condition(str(reference_configuration["condition"]))
     return {
         "full": full,
         "reference": reference,
@@ -1842,6 +1902,8 @@ def _diagnostic21_selection(
         "c45_source_provenance": deepcopy(DIAGNOSTIC21_C45_SOURCE_PROVENANCE),
         "c46_capabilities": deepcopy(DIAGNOSTIC21_C46_CAPABILITIES),
         "c46_source_provenance": deepcopy(DIAGNOSTIC21_C46_SOURCE_PROVENANCE),
+        "c47_capabilities": deepcopy(DIAGNOSTIC21_C47_CAPABILITIES),
+        "c47_source_provenance": deepcopy(DIAGNOSTIC21_C47_SOURCE_PROVENANCE),
         "semantic_authority": DIAGNOSTIC21_SEMANTIC_AUTHORITY,
         "runtime_artifact_path_provenance": {
             "repo_relative_required": ["source_dataset.path", "kure paths", "bge reranker path"],
@@ -1880,6 +1942,8 @@ def build_diagnostic21_manifests(
         if configuration.get("round_merge_mode") != DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE:
             raise OrchestrationError("diagnostic21 %s source round_merge_mode mismatch" % label)
         base_condition = configuration["condition"]
+        if base_condition.endswith(DIAGNOSTIC21_C47_CONDITION_SUFFIX):
+            base_condition = base_condition[:-len(DIAGNOSTIC21_C47_CONDITION_SUFFIX)]
         if base_condition.endswith(DIAGNOSTIC21_C46_CONDITION_SUFFIX):
             base_condition = base_condition[:-len(DIAGNOSTIC21_C46_CONDITION_SUFFIX)]
         if base_condition.endswith(DIAGNOSTIC21_C45_CONDITION_SUFFIX):
@@ -1915,7 +1979,7 @@ def build_diagnostic21_manifests(
         configuration["condition"] = (
             base_condition + DIAGNOSTIC21_C30_CONDITION_SUFFIX + DIAGNOSTIC21_C31_CONDITION_SUFFIX
         )
-        _apply_c46_public_answer_contract(configuration)
+        _apply_c47_public_answer_contract(configuration)
         configuration["reranker_provenance"] = deepcopy(DIAGNOSTIC21_RERANKER_PROVENANCE)
     assert_kure_only(primary_configuration)
     if reference_configuration.get("retriever") != "bm25":
@@ -1936,6 +2000,7 @@ def build_diagnostic21_manifests(
     )
     primary["selection"] = selection
     primary["purpose"] = (
+        "C47 adds a retry-only S2 covered/core-link consistency contract and a full226-only collection control plane that preserves each terminal execution failure as an auditable zero-scored record while continuing later immutable chunks; smoke, diagnostic, preflight, source-snapshot, and infrastructure failures remain fail-closed. It changes no public skill resource or model prompt except the bounded S2 retry instruction. "
         "C46 changes only the S1 validator's explicit-Korean-term anchor normalization: when a particle-marked generic request carrier follows a fact/effect pair, the pair remains the anchor and only its mechanically preserved compact compound suffix may satisfy it; query_text and source context remain excluded. C45 authorizes the C44 typed mixed-history recovery audit only at the harness runner and only for exactly one dropped request with a surviving request; all other audits fail closed, and no semantic or prompt-resource mutation occurs. C44 projects only a validator-facing historical duplicate from a mixed same-critical-evidence GAP plan, retains the independently valid novel sibling unchanged, and accepts only an exact harness source-context transport decoration; all semantic rewrites, scoring overrides, unknown requirements, and post-projection validation errors remain fail-closed. It routes an exact named atomic completion requirement to its own literal explicit-term anchor without reading query_text or original context, synthesizes no query or answer, and changes no public skill resource. C43 retains only a separately valid novel GAP request when the same target also has a raw historical duplicate, excludes Korean verbal-attributive anchor fragments, and requires one concrete application case fact; it records typed audit hashes, synthesizes no query or answer, and changes no public skill resource. C42 refines C33 redundant public projection only for explicit Korean penalty targets: it retains both public claims when a legal-rule numeric/range or categorical sanction payload is missing or not fully carried by the matching application, and otherwise preserves C33 demotion; no skill resource or model prompt changes. C41 adds a two-primary-attempt-only S1 GAP anchor-novelty retry and trusted completion-contract fallback after a literal Korean anchor omission is followed by an all-history collision; it preserves duplicate-history protection and changes no public skill resource. C40 adds a validator-only, one-bounded-retry S1 atomic completion-requirement scope-minimality guard for exact Korean generic output descriptors, without deterministic deletion or visible prompt-resource changes. C39 restores byte-identical C37 S3 prompt resources and keeps C38 target-linked QUALIFYING conditional-exception authorization private to validation, while retaining CORE-only "
         "public rules/applications and C32 carry-forward. It preserves C37's two-primary-attempt all-history-collision fail-safe, C36 prompt stabilization, and C35 validators, and records "
         "redacted prompt/input fingerprints without changing generation. It preserves the C30 paired C02 gate, C31 shared one-to-four-sentence public-answer "
@@ -2129,6 +2194,10 @@ def assert_diagnostic21_manifest_integrity(
         raise OrchestrationError("diagnostic21 C46 capability mismatch")
     if selection.get("c46_source_provenance") != DIAGNOSTIC21_C46_SOURCE_PROVENANCE:
         raise OrchestrationError("diagnostic21 C46 source provenance mismatch")
+    if selection.get("c47_capabilities") != DIAGNOSTIC21_C47_CAPABILITIES:
+        raise OrchestrationError("diagnostic21 C47 capability mismatch")
+    if selection.get("c47_source_provenance") != DIAGNOSTIC21_C47_SOURCE_PROVENANCE:
+        raise OrchestrationError("diagnostic21 C47 source provenance mismatch")
     if selection.get("semantic_authority") != DIAGNOSTIC21_SEMANTIC_AUTHORITY:
         raise OrchestrationError("diagnostic21 semantic authority mismatch")
     if selection.get("runtime_artifact_path_provenance") != {
@@ -2145,8 +2214,8 @@ def assert_diagnostic21_manifest_integrity(
         raise OrchestrationError("diagnostic21 source condition lineage mismatch")
     for label, configuration in (("primary", primary_configuration), ("reference", reference_configuration)):
         condition = configuration.get("condition")
-        if not isinstance(condition, str) or not condition.endswith(DIAGNOSTIC21_C46_CONDITION_SUFFIX) or DIAGNOSTIC21_C30_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C31_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C32_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C33_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C34_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C35_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C36_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C37_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C38_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C39_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C40_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C41_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C42_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C43_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C44_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C45_CONDITION_SUFFIX not in condition:
-            raise OrchestrationError("diagnostic21 C30/C31/C32/C33/C34/C35/C36/C37/C38/C39/C40/C41/C42/C43/C44/C45 source condition overlay mismatch: C46 required for %s" % label)
+        if not isinstance(condition, str) or not condition.endswith(DIAGNOSTIC21_C47_CONDITION_SUFFIX) or DIAGNOSTIC21_C30_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C31_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C32_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C33_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C34_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C35_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C36_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C37_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C38_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C39_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C40_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C41_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C42_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C43_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C44_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C45_CONDITION_SUFFIX not in condition or DIAGNOSTIC21_C46_CONDITION_SUFFIX not in condition:
+            raise OrchestrationError("diagnostic21 C30/C31/C32/C33/C34/C35/C36/C37/C38/C39/C40/C41/C42/C43/C44/C45/C46 source condition overlay mismatch: C47 required for %s" % label)
         if any(configuration.get(key) != value for key, value in PUBLIC_ANSWER_FROZEN_CONFIGURATION.items()):
             raise OrchestrationError("diagnostic21 %s C31 public-answer contract mismatch" % label)
         if configuration.get("round_merge_mode") != DIAGNOSTIC21_RUNTIME_ROUND_MERGE_MODE:
@@ -2201,6 +2270,10 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
         (
             primary_source_sha256 == DIAGNOSTIC21_SOURCE_PRIMARY_SHA256
             and reference_source_sha256 == DIAGNOSTIC21_SOURCE_REFERENCE_SHA256
+        )
+        or (
+            primary_source_sha256 == DIAGNOSTIC21_C47_BOOTSTRAP_SOURCE_PRIMARY_SHA256
+            and reference_source_sha256 == DIAGNOSTIC21_C47_BOOTSTRAP_SOURCE_REFERENCE_SHA256
         )
         or (
             primary_source_sha256 == DIAGNOSTIC21_C45_BOOTSTRAP_SOURCE_PRIMARY_SHA256
@@ -2267,7 +2340,7 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
         "primary_source_manifest_sha256": primary_source_sha256,
         "reference_source_manifest": str(reference_source.resolve()),
         "reference_source_manifest_sha256": reference_source_sha256,
-        "control_plane_release": DIAGNOSTIC21_C46_RELEASE,
+        "control_plane_release": DIAGNOSTIC21_C47_RELEASE,
         "public_answer_contract": dict(PUBLIC_ANSWER_FROZEN_CONFIGURATION),
         "generated": {key: {"path": str(path.relative_to(exec_root)), "sha256": sha256(path)} for key, path in paths.items()},
         "smoke_entries": [
@@ -2283,6 +2356,7 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
             "repair_collision_failsafe": "REQUIRED",
             "repair_induced_list_dedupe": "REQUIRED",
             "s2_axis_canonical_projection": "REQUIRED",
+            "full226_execution_failure_collection": "EXPLICIT_ZERO_SCORED_TERMINAL_RECORD_CONTINUES_COLLECTION",
         },
     }
     if diagnostic21_available:
@@ -2339,6 +2413,8 @@ def write_v2_manifests(exec_root: Path, primary_source: Path, reference_source: 
             "c45_source_provenance": deepcopy(DIAGNOSTIC21_C45_SOURCE_PROVENANCE),
             "c46_capabilities": deepcopy(DIAGNOSTIC21_C46_CAPABILITIES),
             "c46_source_provenance": deepcopy(DIAGNOSTIC21_C46_SOURCE_PROVENANCE),
+            "c47_capabilities": deepcopy(DIAGNOSTIC21_C47_CAPABILITIES),
+            "c47_source_provenance": deepcopy(DIAGNOSTIC21_C47_SOURCE_PROVENANCE),
         }
     write_json_new(frozen_root / "source_metadata.json", source_metadata)
     assert_reference_is_read_only(manifests["full"], manifests["reference"], paths["full"], paths["reference"])
@@ -2488,6 +2564,10 @@ def make_plan(exec_root: Path, output_root: Path, mode: str) -> Dict[str, Any]:
             "parser_execution": "FORBIDDEN",
             "lf_eval_score_injection": "FORBIDDEN",
             "source_snapshot_assertion": "BEFORE_AND_AFTER_EVERY_CHUNK_AND_QUESTION",
+            "full226_execution_failure_collection": (
+                "EXPLICIT_ZERO_SCORED_TERMINAL_RECORD_CONTINUES_COLLECTION"
+                if mode == "full226" else "FAIL_CLOSED"
+            ),
         },
         "smoke_score_not_benchmark_evidence": mode == "smoke",
     }
@@ -2518,6 +2598,29 @@ def _jsonl_rows(path: Path) -> List[Dict[str, Any]]:
     return rows
 
 
+def _is_completed_collection_checkpoint(plan: Mapping[str, Any], payload: Mapping[str, Any], completed: int) -> bool:
+    """Accept only immutable boundaries that safely support collection resume."""
+    if payload.get("completed_questions") != completed:
+        return False
+    status = payload.get("checkpoint_status")
+    if status == "PASS":
+        return True
+    if plan.get("mode") != "full226" or status != FULL226_COMPLETED_WITH_ERRORS:
+        return False
+    failure_ids = payload.get("execution_failure_question_ids")
+    failure_count = payload.get("execution_failure_count")
+    return (
+        payload.get("collection_status") == FULL226_EXPLICIT_FAILURE_COLLECTION
+        and isinstance(failure_ids, list)
+        and all(isinstance(question_id, str) and question_id for question_id in failure_ids)
+        and len(set(failure_ids)) == len(failure_ids)
+        and type(failure_count) is int
+        and failure_count == len(failure_ids)
+        and failure_count > 0
+        and payload.get("validation_errors") == []
+    )
+
+
 def completed_checkpoints(paths: Mapping[str, Path], plan: Mapping[str, Any]) -> Tuple[int, ...]:
     complete: List[int] = []
     for item in plan["chunks"]:
@@ -2525,8 +2628,8 @@ def completed_checkpoints(paths: Mapping[str, Path], plan: Mapping[str, Any]) ->
         checkpoint = paths["checkpoints"] / ("checkpoint-%03d.json" % end)
         if checkpoint.is_file():
             payload = read_json(checkpoint)
-            if payload.get("checkpoint_status") != "PASS" or payload.get("completed_questions") != end:
-                raise OrchestrationError("checkpoint is not a completed PASS boundary: %s" % checkpoint)
+            if not _is_completed_collection_checkpoint(plan, payload, end):
+                raise OrchestrationError("checkpoint is not a completed collection boundary: %s" % checkpoint)
             complete.append(end)
     return tuple(complete)
 
@@ -2784,8 +2887,8 @@ def evaluate_checkpoint(exec_root: Path, paths: Mapping[str, Path], plan: Mappin
     final_checkpoint = paths["checkpoints"] / ("checkpoint-%03d.json" % completed)
     if final_checkpoint.exists():
         payload = read_json(final_checkpoint)
-        if payload.get("checkpoint_status") != "PASS":
-            raise OrchestrationError("final checkpoint is not PASS: %s" % final_checkpoint)
+        if not _is_completed_collection_checkpoint(plan, payload, completed):
+            raise OrchestrationError("final checkpoint is not a completed collection boundary: %s" % final_checkpoint)
         return payload
     attempt_id = uuid.uuid4().hex
     checkpoint_batch = paths["checkpoints"] / ("batch-%03d-attempt-%s" % (completed, attempt_id))
@@ -2839,13 +2942,28 @@ def evaluate_checkpoint(exec_root: Path, paths: Mapping[str, Path], plan: Mappin
                 continue
             if result_payload.get("answer") is not None or result_payload.get("final_answer") is not None:
                 public_abstain_leak_question_ids.append(question_id)
-    abnormal = [str(row.get("question_id")) for row in rows if row.get("status") not in NORMAL_STATUSES]
+    execution_failure_question_ids = [
+        str(row.get("question_id")) for row in rows
+        if row.get("status") == "EXECUTION_FAILURE"
+    ]
+    abnormal = [
+        str(row.get("question_id")) for row in rows
+        if row.get("status") not in NORMAL_STATUSES and row.get("status") != "EXECUTION_FAILURE"
+    ]
     unexpected_exit = [
         str(row.get("question_id")) for row in rows
         if (row.get("status") == "ANSWER" and row.get("exit_code") not in (0, None))
         or (row.get("status") == "ABSTAIN" and row.get("exit_code") not in (0, 1, None))
     ]
     recorded_errors = {str(row.get("question_id")): row.get("errors") for row in rows if row.get("errors")}
+    execution_failure_errors = {
+        str(row.get("question_id")): row.get("errors")
+        for row in rows if row.get("status") == "EXECUTION_FAILURE"
+    }
+    normal_recorded_errors = {
+        str(row.get("question_id")): row.get("errors")
+        for row in rows if row.get("status") in NORMAL_STATUSES and row.get("errors")
+    }
     citation = dict(aggregate.get("citation_integrity") or {})
     provenance_missing = [
         name for name in ("first_stage_at_100", "rrf_at_100", "bge_at_10", "bge_at_20", "bge_at_30")
@@ -2858,8 +2976,12 @@ def evaluate_checkpoint(exec_root: Path, paths: Mapping[str, Path], plan: Mappin
         errors.append("abnormal_outcomes=%d" % len(abnormal))
     if unexpected_exit:
         errors.append("unexpected_exit=%d" % len(unexpected_exit))
-    if recorded_errors:
-        errors.append("recorded_errors=%d" % len(recorded_errors))
+    if normal_recorded_errors:
+        errors.append("recorded_errors=%d" % len(normal_recorded_errors))
+    if execution_failure_question_ids and plan["mode"] != "full226":
+        errors.append("abnormal_outcomes=%d" % len(execution_failure_question_ids))
+    if execution_failure_errors and plan["mode"] != "full226":
+        errors.append("recorded_errors=%d" % len(execution_failure_errors))
     if citation.get("attempted", 0) and citation.get("pass_rate") != 1.0:
         errors.append("citation_integrity=%s" % citation.get("pass_rate"))
     if provenance_missing:
@@ -2883,6 +3005,16 @@ def evaluate_checkpoint(exec_root: Path, paths: Mapping[str, Path], plan: Mappin
             key: value for key, value in projection.items()
             if key not in {"mean_latency_ms", "median_latency_ms", "p95_latency_ms"}
         }
+    completed_with_explicit_failures = (
+        plan["mode"] == "full226"
+        and bool(execution_failure_question_ids)
+        and not errors
+    )
+    checkpoint_status = (
+        "PASS" if not errors and not completed_with_explicit_failures
+        else FULL226_COMPLETED_WITH_ERRORS if completed_with_explicit_failures
+        else "ERRORS_FOUND"
+    )
     event = {
         "event": (
             "FULL226_COMPLETED" if plan["mode"] == "full226" and completed == TOTAL_FULL226
@@ -2890,12 +3022,19 @@ def evaluate_checkpoint(exec_root: Path, paths: Mapping[str, Path], plan: Mappin
             else "DIAGNOSTIC21_COMPLETED" if diagnostic21 and completed == DIAGNOSTIC21_ENTRY_COUNT
             else "CHECKPOINT_COMPLETED"
         ),
-        "checkpoint_status": "PASS" if not errors else "ERRORS_FOUND",
+        "checkpoint_status": checkpoint_status,
+        "collection_status": (
+            FULL226_EXPLICIT_FAILURE_COLLECTION
+            if completed_with_explicit_failures else "COMPLETE" if not errors else "INCOMPLETE"
+        ),
         "completed_questions": completed,
         "total_questions": int(plan["entry_count"]),
         "checkpoint_range": [int(chunk_dirs[-1].name.split("-")[1]), int(chunk_dirs[-1].name.split("-")[2])],
         "validation_errors": errors,
         "abnormal_question_ids": abnormal,
+        "execution_failure_question_ids": execution_failure_question_ids,
+        "execution_failure_count": len(execution_failure_question_ids),
+        "execution_failure_errors": execution_failure_errors,
         "unexpected_exit_question_ids": unexpected_exit,
         "recorded_errors": recorded_errors,
         "stage_provenance_missing": provenance_missing,
@@ -3103,7 +3242,7 @@ def _finished_smoke_gate(paths: Mapping[str, Path], completed: int) -> Optional[
 
 
 def full226_gate(event: Mapping[str, Any]) -> Dict[str, Any]:
-    """Require the approved C02 public-answer/candidate proof thresholds on all 226 rows."""
+    """Report full226 quality gates without concealing terminal execution failures."""
     metrics_value = event.get("metrics")
     metrics = dict(metrics_value) if isinstance(metrics_value, Mapping) else {}
     reasons: List[str] = []
@@ -3112,8 +3251,36 @@ def full226_gate(event: Mapping[str, Any]) -> Dict[str, Any]:
         reasons.append("validation_errors_missing_or_nonlist")
     elif validation_errors:
         reasons.extend("validation_error:%s" % value for value in validation_errors)
-    if event.get("checkpoint_status") != "PASS":
-        reasons.append("checkpoint_status_not_pass")
+    checkpoint_status = event.get("checkpoint_status")
+    execution_failure_ids = event.get("execution_failure_question_ids")
+    execution_failure_count = event.get("execution_failure_count")
+    explicit_failure_collection = checkpoint_status == FULL226_COMPLETED_WITH_ERRORS
+    legacy_pass_event = (
+        checkpoint_status == "PASS"
+        and event.get("collection_status") is None
+        and execution_failure_count is None
+        and execution_failure_ids is None
+    )
+    if checkpoint_status not in {"PASS", FULL226_COMPLETED_WITH_ERRORS}:
+        reasons.append("checkpoint_status_not_completed_collection")
+    if not legacy_pass_event and event.get("collection_status") != (
+        FULL226_EXPLICIT_FAILURE_COLLECTION if explicit_failure_collection else "COMPLETE"
+    ):
+        reasons.append("collection_status_mismatch")
+    if not legacy_pass_event and (
+        not isinstance(execution_failure_ids, list)
+        or any(not isinstance(question_id, str) or not question_id for question_id in execution_failure_ids)
+        or len(set(execution_failure_ids)) != len(execution_failure_ids)
+        or type(execution_failure_count) is not int
+        or execution_failure_count != len(execution_failure_ids)
+    ):
+        reasons.append("execution_failure_audit_invalid")
+    elif explicit_failure_collection and execution_failure_count <= 0:
+        reasons.append("execution_failure_status_masks_empty_set")
+    elif not explicit_failure_collection and execution_failure_count:
+        reasons.append("execution_failure_status_masks_nonempty_set")
+    elif explicit_failure_collection:
+        reasons.append("explicit_execution_failures=%d" % execution_failure_count)
     if type(event.get("completed_questions")) is not int or event.get("completed_questions") != TOTAL_FULL226:
         reasons.append("completed_questions_not_226")
     if event.get("bm25_execution") != "FORBIDDEN":
@@ -3140,6 +3307,11 @@ def full226_gate(event: Mapping[str, Any]) -> Dict[str, Any]:
             or float(pass_rate) != 1.0
         ):
             reasons.append("citation_integrity")
+    if (
+        type(execution_failure_count) is int
+        and metrics.get("execution_failure_count") != execution_failure_count
+    ):
+        reasons.append("execution_failure_metric_mismatch")
     for metric_name, minimum in FULL226_C02_NONREGRESSION_MINIMUMS.items():
         observed = metrics.get(metric_name)
         if (
@@ -3148,9 +3320,24 @@ def full226_gate(event: Mapping[str, Any]) -> Dict[str, Any]:
             or float(observed) < float(minimum)
         ):
             reasons.append("numeric_regression:%s" % metric_name)
+    collection_complete = (
+        _is_completed_collection_checkpoint(
+            {"mode": "full226"}, event, TOTAL_FULL226
+        ) if explicit_failure_collection else (
+            checkpoint_status == "PASS"
+            and event.get("collection_status") == "COMPLETE"
+            and type(event.get("completed_questions")) is int
+            and event.get("completed_questions") == TOTAL_FULL226
+            and execution_failure_count == 0
+            and execution_failure_ids == []
+        )
+    )
+    collection_complete = collection_complete or legacy_pass_event
     return {
         "stage": "full226",
-        "status": "PASS" if not reasons else "FAIL",
+        "status": "PASS" if not reasons else FULL226_COMPLETED_WITH_ERRORS if explicit_failure_collection and collection_complete else "FAIL",
+        "quality_gate_status": "PASS" if not reasons else "FAIL",
+        "collection_status": event.get("collection_status"),
         "required_checks": [
             "public_answered_only_token_f1_at_800_c02_nonregression",
             "candidate_integrated_token_f1_at_800_c02_nonregression",
@@ -3159,6 +3346,7 @@ def full226_gate(event: Mapping[str, Any]) -> Dict[str, Any]:
             "bm25_execution_forbidden",
             "lf_eval_score_injection_forbidden",
             "evaluator_success",
+            "explicit_execution_failures_remain_zero_scored_and_auditable",
         ],
         "nonregression_minimums": dict(FULL226_C02_NONREGRESSION_MINIMUMS),
         "baseline_provenance": deepcopy(FULL226_C02_BASELINE_PROVENANCE),
@@ -3260,7 +3448,7 @@ def execute_plan(
         prior_chunks.append(attempt)
         checkpoint = evaluate_checkpoint(exec_root, paths, plan, prior_chunks, end, runtime_python)
         append_progress(paths, checkpoint)
-        if checkpoint["checkpoint_status"] != "PASS":
+        if not _is_completed_collection_checkpoint(plan, checkpoint, end):
             return 1
     final_checkpoint = read_json(paths["checkpoints"] / ("checkpoint-%03d.json" % int(plan["entry_count"])))
     if mode == "smoke":

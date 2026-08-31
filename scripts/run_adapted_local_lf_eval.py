@@ -258,11 +258,28 @@ def _load_kure_condition(output_root: Path) -> Tuple[List[Dict[str, Any]], Dict[
     if plan.get("frozen_configuration") != configuration:
         raise AdaptedLocalLFEvalError("C36 plan configuration mismatch")
     gate = _read_json(mode_root / "gate.json", "C36 full226 gate")
-    if gate.get("status") != "PASS":
-        raise AdaptedLocalLFEvalError("C36 full226 gate is not PASS")
+    if gate.get("status") not in {"PASS", v2.FULL226_COMPLETED_WITH_ERRORS}:
+        raise AdaptedLocalLFEvalError("C36 full226 gate is not a completed collection")
     checkpoint = _read_json(mode_root / "checkpoints" / "checkpoint-226.json", "C36 final checkpoint")
-    if checkpoint.get("checkpoint_status") != "PASS" or checkpoint.get("completed_questions") != TOTAL_QUESTIONS:
-        raise AdaptedLocalLFEvalError("C36 final checkpoint is not a 226-row PASS")
+    if checkpoint.get("completed_questions") != TOTAL_QUESTIONS:
+        raise AdaptedLocalLFEvalError("C36 final checkpoint is not a 226-row collection")
+    if checkpoint.get("checkpoint_status") == v2.FULL226_COMPLETED_WITH_ERRORS:
+        if (
+            checkpoint.get("collection_status") != v2.FULL226_EXPLICIT_FAILURE_COLLECTION
+            or not isinstance(checkpoint.get("execution_failure_question_ids"), list)
+            or checkpoint.get("execution_failure_count") != len(checkpoint["execution_failure_question_ids"])
+            or not checkpoint["execution_failure_question_ids"]
+            or checkpoint.get("validation_errors") != []
+        ):
+            raise AdaptedLocalLFEvalError("C36 completed-with-errors checkpoint is not auditable")
+    elif checkpoint.get("checkpoint_status") != "PASS":
+        raise AdaptedLocalLFEvalError("C36 final checkpoint is not a completed collection")
+    if gate.get("status") != checkpoint.get("checkpoint_status"):
+        raise AdaptedLocalLFEvalError("C36 gate/checkpoint collection status mismatch")
+    if checkpoint.get("checkpoint_status") == v2.FULL226_COMPLETED_WITH_ERRORS and (
+        gate.get("collection_status") != checkpoint.get("collection_status")
+    ):
+        raise AdaptedLocalLFEvalError("C36 gate/checkpoint collection status mismatch")
     if checkpoint.get("bm25_execution") != "FORBIDDEN" or checkpoint.get("lf_eval_score_injection") != "FORBIDDEN":
         raise AdaptedLocalLFEvalError("C36 final checkpoint relaxed a forbidden execution policy")
     batch_dir = Path(_require_string(checkpoint.get("batch_directory"), "checkpoint.batch_directory"))
@@ -295,6 +312,8 @@ def _load_kure_condition(output_root: Path) -> Tuple[List[Dict[str, Any]], Dict[
         candidate = result.get("candidate_answer")
         if candidate is not None and (not isinstance(candidate, str) or not candidate.strip()):
             raise AdaptedLocalLFEvalError("invalid candidate answer: %s" % question_id)
+        if status == "EXECUTION_FAILURE" and candidate is not None:
+            raise AdaptedLocalLFEvalError("execution failure leaked a candidate answer: %s" % question_id)
         outcome[question_id] = {
             "status": status,
             "published_answer": answer if status == "ANSWER" else None,

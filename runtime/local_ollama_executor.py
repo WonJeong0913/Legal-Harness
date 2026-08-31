@@ -97,6 +97,14 @@ S2_PARTIAL_CORE_LINK_INVARIANT = (
     "item as uncovered/not_assessed/missing_statute; never pair a partial CORE "
     "link with an unsatisfied criterion or no linked candidate IDs."
 )
+S2_COVERED_CORE_LINK_INVARIANT = (
+    "For every covered/direct/none assessment, every satisfied criterion must "
+    "name only a candidate that also has a CORE supports evidence_link for the "
+    "same evidence item. If no such direct CORE link is justified by the "
+    "supplied text, emit uncovered/not_assessed/missing_statute with every "
+    "criterion unsatisfied and no linked candidate IDs; never leave covered or "
+    "satisfied unsupported."
+)
 INITIAL_PLAN_EFFECT_NEUTRALITY_ERROR_PREFIX = (
     "INITIAL_PLAN presupposes specific legal effect absent from question: "
 )
@@ -525,6 +533,9 @@ class LocalOllamaSkillExecutor:
                         )
                     )
                     repair_instruction += self._s2_partial_core_retry_instruction(
+                        skill_name, validation_errors
+                    )
+                    repair_instruction += self._s2_covered_core_retry_instruction(
                         skill_name, validation_errors
                     )
                     effect_neutrality_retry_instruction = ""
@@ -1250,6 +1261,24 @@ class LocalOllamaSkillExecutor:
         ):
             return ""
         return " PARTIAL-CORE LINK RETRY CONTRACT: " + S2_PARTIAL_CORE_LINK_INVARIANT
+
+    @staticmethod
+    def _s2_covered_core_retry_instruction(
+        skill_name: str,
+        validation_errors: Sequence[str],
+    ) -> str:
+        """Return retry-only guidance for unsupported covered S2 transport."""
+        if (
+            skill_name != "provision_coverage_assessment"
+            or not any(
+                error.startswith("covered consistency failure:")
+                or error.startswith("criterion may use only accepted CORE provisions:")
+                or error.startswith("satisfied criterion requires accepted CORE evidence:")
+                for error in validation_errors
+            )
+        ):
+            return ""
+        return " COVERED-CORE LINK RETRY CONTRACT: " + S2_COVERED_CORE_LINK_INVARIANT
 
     @staticmethod
     def _s1_initial_plan_effect_neutrality_retry_instruction(

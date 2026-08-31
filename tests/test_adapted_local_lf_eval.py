@@ -63,7 +63,7 @@ def frozen_configuration():
     }
 
 
-def build_fixture(root):
+def build_fixture(root, execution_failure=False):
     worktree = root / "frozen-worktree"
     qa_path = worktree / "data" / "fixture.jsonl"
     entries = [
@@ -101,12 +101,21 @@ def build_fixture(root):
         "execution_policy": {"bm25_execution": "FORBIDDEN", "lf_eval_score_injection": "FORBIDDEN"},
     }
     write_json(mode / "plan.json", plan)
-    write_json(mode / "gate.json", {"status": "PASS"})
+    checkpoint_status = (
+        v2.FULL226_COMPLETED_WITH_ERRORS if execution_failure else "PASS"
+    )
+    collection_status = (
+        v2.FULL226_EXPLICIT_FAILURE_COLLECTION if execution_failure else "COMPLETE"
+    )
+    write_json(mode / "gate.json", {
+        "status": checkpoint_status,
+        "collection_status": collection_status,
+    })
     batch = mode / "checkpoints" / "batch-226-attempt-fixture"
     summaries = []
     for entry in entries:
         ordinal, question_id = entry["ordinal"], entry["question_id"]
-        status = "ANSWER" if ordinal == 1 else "ABSTAIN"
+        status = "EXECUTION_FAILURE" if execution_failure and ordinal == 3 else "ANSWER" if ordinal == 1 else "ABSTAIN"
         run = mode / "records" / "runs" / ("run-%03d" % ordinal)
         candidate = "후보 답변" if ordinal == 2 else ("공개 답변" if ordinal == 1 else None)
         result = {
@@ -128,8 +137,12 @@ def build_fixture(root):
         })
     write_jsonl(batch / "summary.jsonl", summaries)
     write_json(mode / "checkpoints" / "checkpoint-226.json", {
-        "checkpoint_status": "PASS",
+        "checkpoint_status": checkpoint_status,
+        "collection_status": collection_status,
         "completed_questions": 226,
+        "validation_errors": [],
+        "execution_failure_question_ids": ["fixture_003"] if execution_failure else [],
+        "execution_failure_count": 1 if execution_failure else 0,
         "batch_directory": str(batch),
         "bm25_execution": "FORBIDDEN",
         "lf_eval_score_injection": "FORBIDDEN",
@@ -209,6 +222,31 @@ class AdaptedLocalLFEvalTests(unittest.TestCase):
             self.assertEqual(inputs_before["manifest"], digest(worktree / "frozen_manifests" / "v2_kure_full226.json"))
             self.assertEqual(inputs_before["parser"], digest(parser_path))
             self.assertEqual(inputs_before["checkpoint"], digest(mode / "checkpoints" / "checkpoint-226.json"))
+
+    def test_completed_collection_with_explicit_failure_is_zero_scored_not_masked(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            kure_root, parser_path, unused_worktree, mode = build_fixture(root, execution_failure=True)
+            requests = []
+
+            def fake_urlopen(request, timeout):
+                requests.append(json.loads(request.data.decode("utf-8")))
+                return FakeResponse({"response": '{"score": 7}'})
+
+            with patch.object(adapted, "_verify_judge", return_value={"model_blob_sha256": "f" * 64}), patch.object(adapted, "urlopen", side_effect=fake_urlopen):
+                adapted.run_adapted_local_lf_eval(kure_root, parser_path, root / "adapted-output", timeout_seconds=3)
+            rows = [json.loads(line) for line in (root / "adapted-output" / "per_question.jsonl").read_text(encoding="utf-8").splitlines()]
+            failed = rows[2]["kure"]
+            self.assertEqual(failed["status"], "EXECUTION_FAILURE")
+            self.assertFalse(failed["public_answer"]["available"])
+            self.assertEqual(failed["public_answer"]["end_to_end_score_0_to_10"], 0)
+            self.assertFalse(failed["candidate_answer"]["available"])
+            self.assertEqual(failed["candidate_answer"]["end_to_end_score_0_to_10"], 0)
+            write_json(mode / "gate.json", {"status": "PASS", "collection_status": "COMPLETE"})
+            with patch.object(adapted, "_verify_judge") as judge:
+                with self.assertRaisesRegex(adapted.AdaptedLocalLFEvalError, "status mismatch"):
+                    adapted.run_adapted_local_lf_eval(kure_root, parser_path, root / "rejected-output")
+            judge.assert_not_called()
 
     def test_mismatched_parser_roster_fails_before_judge_call(self):
         with tempfile.TemporaryDirectory() as temporary:

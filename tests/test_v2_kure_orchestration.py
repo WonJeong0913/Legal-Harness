@@ -99,9 +99,9 @@ class PartitionAndPolicyTests(unittest.TestCase):
         with self.assertRaisesRegex(orchestration.OrchestrationError, "exactly one full226"):
             orchestration._full_to_smoke_c32_condition("fixture-full226-full226")
 
-    def test_c46_condition_overlay_is_idempotent_for_all_manifest_roles(self):
+    def test_c47_condition_overlay_is_idempotent_for_all_manifest_roles(self):
         self.assertEqual(
-            orchestration._full_to_smoke_c46_condition("fixture-full226"),
+            orchestration._full_to_smoke_c47_condition("fixture-full226"),
             "fixture-smoke3"
             + orchestration.DIAGNOSTIC21_C31_CONDITION_SUFFIX
             + orchestration.DIAGNOSTIC21_C32_CONDITION_SUFFIX
@@ -118,7 +118,8 @@ class PartitionAndPolicyTests(unittest.TestCase):
             + orchestration.DIAGNOSTIC21_C43_CONDITION_SUFFIX
             + orchestration.DIAGNOSTIC21_C44_CONDITION_SUFFIX
             + orchestration.DIAGNOSTIC21_C45_CONDITION_SUFFIX
-            + orchestration.DIAGNOSTIC21_C46_CONDITION_SUFFIX,
+            + orchestration.DIAGNOSTIC21_C46_CONDITION_SUFFIX
+            + orchestration.DIAGNOSTIC21_C47_CONDITION_SUFFIX,
         )
         primary, reference = fixture_manifests()
         first = orchestration.build_v2_manifests(primary, reference)
@@ -130,7 +131,7 @@ class PartitionAndPolicyTests(unittest.TestCase):
             )
             self.assertTrue(
                 first[role]["frozen_configuration"]["condition"].endswith(
-                    orchestration.DIAGNOSTIC21_C46_CONDITION_SUFFIX
+                    orchestration.DIAGNOSTIC21_C47_CONDITION_SUFFIX
                 )
             )
 
@@ -178,6 +179,55 @@ class ResumeAndMetricTests(unittest.TestCase):
             orchestration.write_jsonl_new(duplicate / "summary.jsonl", [{"ordinal": ordinal} for ordinal in range(21, 41)])
             with self.assertRaisesRegex(orchestration.OrchestrationError, "ambiguous"):
                 orchestration.completed_attempt_for(paths, 21, 40)
+
+    def test_full226_explicit_execution_failure_boundary_continues_and_resumes(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            output_root = Path(temporary) / "outputs"
+            paths = orchestration.plan_paths(output_root, "full226")
+            plan = self._plan(output_root)
+            self.assertEqual(orchestration.initialize_output(paths, plan, resume=False), 0)
+            checkpoint = {
+                "checkpoint_status": orchestration.FULL226_COMPLETED_WITH_ERRORS,
+                "collection_status": orchestration.FULL226_EXPLICIT_FAILURE_COLLECTION,
+                "completed_questions": 20,
+                "execution_failure_question_ids": ["fixture_003"],
+                "execution_failure_count": 1,
+                "validation_errors": [],
+            }
+            orchestration.write_json_new(paths["checkpoints"] / "checkpoint-020.json", checkpoint)
+            self.assertEqual(orchestration.completed_checkpoints(paths, plan), (20,))
+            self.assertEqual(orchestration.assert_resume_state(paths, plan, resume=True), 20)
+            smoke_plan = dict(plan)
+            smoke_plan["mode"] = "smoke"
+            self.assertFalse(orchestration._is_completed_collection_checkpoint(smoke_plan, checkpoint, 20))
+
+    def test_full226_gate_marks_explicit_failures_complete_without_masking_them(self):
+        metrics = {
+            "citation_integrity": {"attempted": 1, "passed": 1, "pass_rate": 1.0},
+            "execution_failure_count": 1,
+            "token_f1_answered_only": 1.0,
+            "token_f1_candidate": 1.0,
+        }
+        event = {
+            "checkpoint_status": orchestration.FULL226_COMPLETED_WITH_ERRORS,
+            "collection_status": orchestration.FULL226_EXPLICIT_FAILURE_COLLECTION,
+            "completed_questions": 226,
+            "validation_errors": [],
+            "execution_failure_question_ids": ["fixture_003"],
+            "execution_failure_count": 1,
+            "stage_provenance_missing": [],
+            "bm25_execution": "FORBIDDEN",
+            "lf_eval_score_injection": "FORBIDDEN",
+            "metrics": metrics,
+        }
+        gate = orchestration.full226_gate(event)
+        self.assertEqual(gate["status"], orchestration.FULL226_COMPLETED_WITH_ERRORS)
+        self.assertEqual(gate["quality_gate_status"], "FAIL")
+        self.assertIn("explicit_execution_failures=1", gate["reasons"])
+        masked = dict(event)
+        masked["checkpoint_status"] = "PASS"
+        masked["collection_status"] = "COMPLETE"
+        self.assertEqual(orchestration.full226_gate(masked)["status"], "FAIL")
 
     def test_progress_projection_uses_evaluator_aggregate_paths(self):
         projection = orchestration._metric_projection({
@@ -453,6 +503,49 @@ class NewV2RunnerSafetyTests(unittest.TestCase):
             self.assertNotIn("public_abstain_leak_question_ids", event)
             self.assertNotIn("public_abstain_missing_result_question_ids", event)
             self.assertNotIn("public_abstain_invalid_result_question_ids", event)
+            self.assertTrue((paths["checkpoints"] / "checkpoint-020.json").is_file())
+
+    def test_full226_checkpoint_materializes_explicit_failure_and_keeps_collection_boundary(self):
+        import subprocess
+        from scripts import materialize_checkpoint_batch
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            paths = orchestration.plan_paths(root / "durable-records", "full226")
+            for key in ("root", "records", "batches", "checkpoints", "evaluations"):
+                paths[key].mkdir(parents=True, exist_ok=True)
+            attempt = paths["batches"] / "chunk-001-020-attempt-complete"
+            attempt.mkdir()
+            orchestration.write_json_new(attempt / "metadata.json", {"start_ordinal": 1, "end_ordinal": 20, "completed_at_utc": "now"})
+            rows = [
+                {"ordinal": ordinal, "question_id": "q%d" % ordinal, "status": "EXECUTION_FAILURE" if ordinal == 3 else "ANSWER", "exit_code": 1 if ordinal == 3 else 0, "errors": ["terminal skill failure"] if ordinal == 3 else []}
+                for ordinal in range(1, 21)
+            ]
+            orchestration.write_jsonl_new(attempt / "summary.jsonl", rows)
+            plan = {"mode": "full226", "entry_count": 226}
+
+            def fake_materialize(chunk_dirs, batch_directory, **unused):
+                self.assertEqual(list(chunk_dirs), [attempt])
+                orchestration.write_jsonl_new(batch_directory / "summary.jsonl", rows)
+
+            def fake_evaluator(command, **unused):
+                out = Path(command[command.index("--output-dir") + 1])
+                out.mkdir(parents=True)
+                aggregate = {
+                    "provision": {"macro": {}, "micro": {}, "complete_evidence": {}, "exact_match": {}},
+                    "answer_quality": {"answer_count": 19, "abstain_count": 0, "execution_failure_count": 1},
+                    "citation_integrity": {"attempted": 19, "pass_rate": 1.0},
+                    "retrieval": {name: {"available": True} for name in ("first_stage_at_100", "rrf_at_100", "bge_at_10", "bge_at_20", "bge_at_30")},
+                    "efficiency": {"end_to_end_latency_ms": {"mean": 1000.0, "median": 1000.0, "p95": 1000.0}},
+                }
+                (out / "aggregate.json").write_text(json.dumps(aggregate), encoding="utf-8")
+                return subprocess.CompletedProcess(command, 0, stdout="ok", stderr="")
+
+            with patch.object(materialize_checkpoint_batch, "materialize_cumulative_batch", side_effect=fake_materialize), patch.object(orchestration.subprocess, "run", side_effect=fake_evaluator):
+                event = orchestration.evaluate_checkpoint(root, paths, plan, [attempt], 20, Path("/runtime/python"))
+            self.assertEqual(event["checkpoint_status"], orchestration.FULL226_COMPLETED_WITH_ERRORS)
+            self.assertEqual(event["collection_status"], orchestration.FULL226_EXPLICIT_FAILURE_COLLECTION)
+            self.assertEqual(event["execution_failure_question_ids"], ["q3"])
+            self.assertEqual(event["validation_errors"], [])
             self.assertTrue((paths["checkpoints"] / "checkpoint-020.json").is_file())
 
 
