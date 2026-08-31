@@ -196,6 +196,7 @@ class C08FrozenManifestTests(unittest.TestCase):
             metadata["execution_policy"],
             {
                 "bm25_execution": "FORBIDDEN",
+                "full226_execution_failure_collection": "EXPLICIT_ZERO_SCORED_TERMINAL_RECORD_CONTINUES_COLLECTION",
                 "lf_eval_score_injection": "FORBIDDEN",
                 "network": "OFFLINE_ONLY",
                 "parser_execution": "FORBIDDEN",
