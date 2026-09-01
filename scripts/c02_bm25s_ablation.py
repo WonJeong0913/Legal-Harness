@@ -80,6 +80,8 @@ OFFLINE_ENVIRONMENT = {
     "GGML_CUDA_DISABLE_GRAPHS": "1",
     "OLLAMA_NO_CLOUD": "1",
 }
+SYNTHETIC_FAILURE_RECORD_KIND = "SYNTHETIC_LAUNCHER_OR_INFRASTRUCTURE_FAILURE"
+LEGACY_SYNTHETIC_FAILURE_RECORD_KIND = "EXPLICIT_EXECUTION_FAILURE"
 PARSER_PARITY_FIXTURES = (
     {
         "query": "운송계약 손해배상채권 소멸시효 기간 기산점 [원문 맥락] 이에 따라 을은 상품이 인도된 날로부터 언제까지 소송을 제기할 수 있는지를 고민하게 되었다. 을은 갑에 대한 손해배상청구권을 어느 시점까지 행사할 수 있는가?",
@@ -653,6 +655,87 @@ def _outcome_counts(rows: Sequence[Mapping[str, Any]]) -> Dict[str, int]:
     }
 
 
+def _execution_failure_audit(rows: Sequence[Mapping[str, Any]]) -> Dict[str, Any]:
+    """Classify explicit failures without recasting a harness outcome as abstention.
+
+    A normal ``run_question`` failure writes the regular record schema and skill
+    provenance.  Only the outer launcher's exception materializer carries the
+    synthetic record kind.  Unknown shapes remain fail-closed at the smoke gate.
+    """
+    harness_records: List[Dict[str, Any]] = []
+    synthetic_records: List[Dict[str, Any]] = []
+    unclassified_records: List[Dict[str, Any]] = []
+    for row in rows:
+        if row.get("status") != "EXECUTION_FAILURE":
+            continue
+        directory = Path(str(row.get("record_directory") or ""))
+        metadata = read_json(directory / "metadata.json")
+        result = read_json(directory / "result.json")
+        receipt = {
+            "ordinal": row.get("ordinal"),
+            "question_id": row.get("question_id"),
+            "run_id": row.get("run_id"),
+            "termination_reason": result.get("termination_reason"),
+        }
+        if metadata.get("record_kind") in {
+            SYNTHETIC_FAILURE_RECORD_KIND,
+            LEGACY_SYNTHETIC_FAILURE_RECORD_KIND,
+        }:
+            synthetic_records.append(receipt)
+        elif (
+            isinstance(metadata.get("record_schema_version"), str)
+            and isinstance(metadata.get("skill_sha256"), Mapping)
+        ):
+            harness_records.append(receipt)
+        else:
+            unclassified_records.append(receipt)
+    return {
+        "harness_execution_failure_count": len(harness_records),
+        "synthetic_launcher_or_infrastructure_failure_count": len(synthetic_records),
+        "unclassified_execution_failure_count": len(unclassified_records),
+        "harness_execution_failure_records": harness_records,
+        "synthetic_failure_records": synthetic_records,
+        "unclassified_failure_records": unclassified_records,
+    }
+
+
+def _smoke3_gate_requirements(
+    final: Mapping[str, Any], expected_entry_count: int
+) -> Dict[str, Any]:
+    audit = final.get("execution_failure_audit")
+    outcomes = final.get("outcomes")
+    if not isinstance(audit, Mapping) or not isinstance(outcomes, Mapping):
+        raise C02Bm25sAblationError("smoke3 final is missing an execution-failure audit")
+    return {
+        "durable_record_and_provenance_verified": True,
+        "completed_entry_count": final.get("entry_count"),
+        "expected_entry_count": expected_entry_count,
+        "answer_count": outcomes.get("ANSWER", 0),
+        "synthetic_launcher_or_infrastructure_failure_count": audit.get(
+            "synthetic_launcher_or_infrastructure_failure_count"
+        ),
+        "unclassified_execution_failure_count": audit.get(
+            "unclassified_execution_failure_count"
+        ),
+    }
+
+
+def _smoke3_gate_policy_satisfied(
+    final: Mapping[str, Any], requirements: Mapping[str, Any], expected_entry_count: int
+) -> bool:
+    return (
+        final.get("status") == "COMPLETED_WITH_EXPLICIT_OUTCOMES"
+        and final.get("entry_count") == expected_entry_count
+        and requirements.get("durable_record_and_provenance_verified") is True
+        and requirements.get("completed_entry_count") == expected_entry_count
+        and requirements.get("expected_entry_count") == expected_entry_count
+        and isinstance(requirements.get("answer_count"), int)
+        and requirements["answer_count"] >= 1
+        and requirements.get("synthetic_launcher_or_infrastructure_failure_count") == 0
+        and requirements.get("unclassified_execution_failure_count") == 0
+    )
+
+
 def _synthetic_execution_failure_record(
     records_root: Path,
     *,
@@ -671,7 +754,7 @@ def _synthetic_execution_failure_record(
         "question_id": question_id,
         "configuration": dict(record_configuration),
         "source_snapshot": dict(source_snapshot),
-        "record_kind": "EXPLICIT_EXECUTION_FAILURE",
+        "record_kind": SYNTHETIC_FAILURE_RECORD_KIND,
     })
     _write_runtime_json(directory / "result.json", {
         "run_id": run_id,
@@ -866,6 +949,16 @@ def _assert_smoke3_gate(
     if gate.get("status") != "PASS" or gate.get("mode") != "smoke3":
         raise C02Bm25sAblationError("full226 requires a passing immutable bm25s smoke3 gate")
     smoke_manifest = read_json(LLM_SMOKE_MANIFEST)
+    final = gate.get("final")
+    requirements = gate.get("gate_requirements")
+    if (
+        not isinstance(final, Mapping)
+        or not isinstance(requirements, Mapping)
+        or not _smoke3_gate_policy_satisfied(
+            final, requirements, len(smoke_manifest.get("entries") or [])
+        )
+    ):
+        raise C02Bm25sAblationError("smoke3 gate outcome policy is not satisfied")
     if (
         gate.get("smoke_manifest_sha256") != sha256(LLM_SMOKE_MANIFEST)
         or gate.get("smoke_configuration_sha256")
@@ -985,11 +1078,13 @@ def execute_condition(
     _assert_completed_rows(
         rows, manifest, records_root, record_configuration, snapshot.to_dict()
     )
+    failure_audit = _execution_failure_audit(rows)
     final = {
         "status": "COMPLETED_WITH_EXPLICIT_OUTCOMES",
         "mode": mode,
         "entry_count": len(rows),
         "outcomes": _outcome_counts(rows),
+        "execution_failure_audit": failure_audit,
         "completed_at_utc": utc_now(),
     }
     _write_runtime_json(output_root / "final.json", final)
@@ -1000,18 +1095,22 @@ def execute_condition(
         "completed_questions": len(rows),
         "outcomes": _outcome_counts(rows),
         "has_execution_failure": bool(_outcome_counts(rows)["EXECUTION_FAILURE"]),
+        "execution_failure_audit": failure_audit,
     })
     _write_runtime_json(batch_root / "metadata.json", metadata)
     if mode == "smoke3":
+        gate_requirements = _smoke3_gate_requirements(final, len(manifest["entries"]))
         gate = {
             "mode": "smoke3",
             "status": (
                 "PASS"
-                if final["outcomes"]["ANSWER"] >= 1
-                and final["outcomes"]["EXECUTION_FAILURE"] == 0
+                if _smoke3_gate_policy_satisfied(
+                    final, gate_requirements, len(manifest["entries"])
+                )
                 else "FAIL"
             ),
             "final": final,
+            "gate_requirements": gate_requirements,
             "smoke_manifest_sha256": sha256(LLM_SMOKE_MANIFEST),
             "smoke_configuration_sha256": canonical_sha256(manifest["frozen_configuration"]),
             "source_snapshot": snapshot.to_dict(),

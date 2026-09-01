@@ -224,6 +224,80 @@ class ResumeAndEvaluatorCompatibilityTests(unittest.TestCase):
             "source_manifest_sha256": "b" * 64,
         }
 
+    @staticmethod
+    def _normal_harness_row(records, *, ordinal, status, configuration, snapshot):
+        question_id = "q%d" % ordinal
+        run_id = "normal-%d" % ordinal
+        directory = records / run_id
+        directory.mkdir()
+        ablation._write_runtime_json(directory / "metadata.json", {
+            "run_id": run_id,
+            "question_id": question_id,
+            "configuration": configuration,
+            "source_snapshot": snapshot,
+            "record_schema_version": "1.4",
+            "skill_sha256": {"legal_issue_and_query_planning/SKILL.md": "a" * 64},
+        })
+        ablation._write_runtime_json(directory / "result.json", {
+            "run_id": run_id,
+            "status": status,
+            "termination_reason": "INVALID_SKILL_OUTPUT" if status == "EXECUTION_FAILURE" else "COMPLETED",
+        })
+        return {
+            "ordinal": ordinal,
+            "question_id": question_id,
+            "n_hops": ordinal,
+            "status": status,
+            "record_directory": str(directory),
+            "record_result_file": str(directory / "result.json"),
+            "run_id": run_id,
+        }
+
+    def test_smoke_gate_allows_durable_harness_failure_but_rejects_synthetic_or_unknown(self):
+        with tempfile.TemporaryDirectory() as directory:
+            records = Path(directory) / "records"
+            records.mkdir()
+            configuration = self._configuration()
+            snapshot = {"git_commit": "c" * 40, "git_tree": "d" * 40, "source_manifest_sha256": "b" * 64}
+            manifest = {"entries": [
+                {"ordinal": 1, "question_id": "q1", "n_hops": 1},
+                {"ordinal": 2, "question_id": "q2", "n_hops": 2},
+                {"ordinal": 3, "question_id": "q3", "n_hops": 3},
+            ]}
+            rows = [
+                self._normal_harness_row(records, ordinal=1, status="ANSWER", configuration=configuration, snapshot=snapshot),
+                self._normal_harness_row(records, ordinal=2, status="ABSTAIN", configuration=configuration, snapshot=snapshot),
+                self._normal_harness_row(records, ordinal=3, status="EXECUTION_FAILURE", configuration=configuration, snapshot=snapshot),
+            ]
+            ablation._assert_completed_rows(rows, manifest, records, configuration, snapshot)
+            final = {
+                "status": "COMPLETED_WITH_EXPLICIT_OUTCOMES", "entry_count": 3,
+                "outcomes": ablation._outcome_counts(rows),
+                "execution_failure_audit": ablation._execution_failure_audit(rows),
+            }
+            requirements = ablation._smoke3_gate_requirements(final, 3)
+            self.assertEqual(final["execution_failure_audit"]["harness_execution_failure_count"], 1)
+            self.assertTrue(ablation._smoke3_gate_policy_satisfied(final, requirements, 3))
+
+            synthetic = ablation._synthetic_execution_failure_record(
+                records, question_id="q3", record_configuration=configuration,
+                source_snapshot=snapshot, error=RuntimeError("launcher failure"),
+            )
+            rows[2] = {"ordinal": 3, "question_id": "q3", "n_hops": 3, **synthetic}
+            final["outcomes"] = ablation._outcome_counts(rows)
+            final["execution_failure_audit"] = ablation._execution_failure_audit(rows)
+            requirements = ablation._smoke3_gate_requirements(final, 3)
+            self.assertEqual(requirements["synthetic_launcher_or_infrastructure_failure_count"], 1)
+            self.assertFalse(ablation._smoke3_gate_policy_satisfied(final, requirements, 3))
+
+            metadata = ablation.read_json(Path(rows[2]["record_directory"]) / "metadata.json")
+            metadata.pop("record_kind")
+            ablation._write_runtime_json(Path(rows[2]["record_directory"]) / "metadata.json", metadata)
+            final["execution_failure_audit"] = ablation._execution_failure_audit(rows)
+            requirements = ablation._smoke3_gate_requirements(final, 3)
+            self.assertEqual(requirements["unclassified_execution_failure_count"], 1)
+            self.assertFalse(ablation._smoke3_gate_policy_satisfied(final, requirements, 3))
+
     def test_explicit_failure_resume_prefix_is_evaluator_compatible(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
