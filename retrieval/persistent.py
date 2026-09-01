@@ -1,15 +1,105 @@
 """Search adapters for the on-disk KoBLEX BM25 and KURE exact indexes."""
 
+import hashlib
+import json
 import re
 import sqlite3
 from pathlib import Path
-from typing import Dict, List, Sequence
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 from harness.contracts import RetrievalRequest
 
 from .bm25 import baseline_korean_tokenize
 from .corpus import InMemoryProvisionCorpus, ProvisionDocument
 from .types import RetrievalHit
+
+
+PARSER_BM25S_TOP_K = 100
+
+
+def _bm25s_corpus_mapping_sha256(
+    rows: Sequence[Tuple[str, ProvisionDocument, str]],
+) -> str:
+    """Hash the immutable parquet-row-to-normalized-ID mapping in row order."""
+    digest = hashlib.sha256()
+    for source_index, document, text in rows:
+        payload = {
+            "source_index": source_index,
+            "provision_id": document.provision_id,
+            "text": text,
+        }
+        digest.update(
+            json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        )
+        digest.update(b"\n")
+    return digest.hexdigest()
+
+
+def load_bm25s_parser_rows(
+    statute_parquet_path: Path,
+    normalized_corpus_path: Path,
+) -> List[Tuple[str, ProvisionDocument, str]]:
+    """Load ParSeR text and validate its positional normalized-ID mapping."""
+    if not statute_parquet_path.is_file():
+        raise FileNotFoundError("ParSeR statute parquet is missing: %s" % statute_parquet_path)
+    if not normalized_corpus_path.is_file():
+        raise FileNotFoundError("normalized provision corpus is missing: %s" % normalized_corpus_path)
+    try:
+        import pyarrow.parquet as pq
+    except ImportError as exc:
+        raise RuntimeError("pyarrow is required for the C02 bm25s corpus") from exc
+    table = pq.read_table(
+        str(statute_parquet_path), columns=["index", "hierarchy", "content"]
+    )
+    columns = {
+        name: table.column(name).to_pylist()
+        for name in ("index", "hierarchy", "content")
+    }
+    normalized_rows: List[Dict[str, Any]] = []
+    with normalized_corpus_path.open("r", encoding="utf-8") as handle:
+        for number, line in enumerate(handle, start=1):
+            if not line.strip():
+                continue
+            try:
+                value = json.loads(line)
+                normalized_rows.append({
+                    "provision_id": str(value["provision_id"]),
+                    "source_index": str(value["source_index"]),
+                    "statute_name": str(value["statute_name"]),
+                    "provision_text": str(value["provision_text"]),
+                })
+            except (TypeError, KeyError, json.JSONDecodeError) as exc:
+                raise ValueError(
+                    "invalid normalized provision corpus at line %d" % number
+                ) from exc
+    row_count = len(columns["index"])
+    if row_count != len(normalized_rows):
+        raise ValueError("ParSeR parquet and normalized corpus row counts differ")
+    rows: List[Tuple[str, ProvisionDocument, str]] = []
+    for index in range(row_count):
+        source_index = str(columns["index"][index])
+        hierarchy = str(columns["hierarchy"][index])
+        content = str(columns["content"][index])
+        normalized = normalized_rows[index]
+        if (
+            normalized["source_index"] != source_index
+            or normalized["statute_name"] != hierarchy
+            or normalized["provision_text"] != content
+        ):
+            raise ValueError(
+                "ParSeR parquet row and normalized corpus mapping differ at row %d"
+                % index
+            )
+        rows.append((
+            source_index,
+            ProvisionDocument(
+                provision_id=normalized["provision_id"],
+                statute_name=hierarchy,
+                provision_text=content,
+            ),
+            hierarchy + content,
+        ))
+    return rows
 
 
 # The SQLite unicode61 tokenizer keeps Korean particles and endings attached to
@@ -226,6 +316,89 @@ class SqliteFts5Bm25Searcher:
             if len(selected) >= top_k:
                 break
         return selected
+
+
+class Bm25sParSeRFirstStageSearcher:
+    """ParSeR-compatible bm25s first stage for the isolated C02 ablation.
+
+    This adapter intentionally does *not* share the harness SQLite BM25
+    query expansion, statute-hint channel, or any first-stage ID deduplication.
+    It mirrors the released ParSeR retrieval call shape: parquet
+    ``hierarchy + content`` corpus text, English-stopword corpus tokenization,
+    default query tokenization, and a fixed top-100 retrieval result.
+    """
+
+    def __init__(
+        self,
+        rows: Sequence[Tuple[str, ProvisionDocument, str]],
+        *,
+        bm25s_module: Optional[Any] = None,
+    ):
+        if not rows:
+            raise ValueError("bm25s corpus must not be empty")
+        self.source_indexes = [source_index for source_index, _document, _text in rows]
+        self.documents = [document for _source_index, document, _text in rows]
+        self.texts = [text for _source_index, _document, text in rows]
+        if len(self.documents) != len(set(document.provision_id for document in self.documents)):
+            raise ValueError("bm25s corpus provision IDs must be unique")
+        if any(not text for text in self.texts):
+            raise ValueError("bm25s corpus text must not be empty")
+        if bm25s_module is None:
+            try:
+                import bm25s as bm25s_module
+            except ImportError as exc:
+                raise RuntimeError(
+                    "bm25s is required for the C02 ParSeR first-stage ablation"
+                ) from exc
+        self._bm25s = bm25s_module
+        self.corpus_size = len(self.documents)
+        self.corpus_mapping_sha256 = _bm25s_corpus_mapping_sha256(rows)
+        corpus_tokens = self._bm25s.tokenize(
+            self.texts,
+            stopwords="en",
+            show_progress=False,
+        )
+        self._retriever = self._bm25s.BM25()
+        self._retriever.index(corpus_tokens, show_progress=False)
+
+    @classmethod
+    def from_parquet(
+        cls,
+        statute_parquet_path: Path,
+        normalized_corpus_path: Path,
+        *,
+        bm25s_module: Optional[Any] = None,
+    ) -> "Bm25sParSeRFirstStageSearcher":
+        """Load immutable ParSeR text plus the normalized unique-ID mapping.
+
+        The ParSeR parquet ``index`` field is not unique.  The harness keeps
+        the one-to-one normalized provision IDs by validating the two source
+        files positionally before constructing retrieval hits.
+        """
+        return cls(
+            load_bm25s_parser_rows(statute_parquet_path, normalized_corpus_path),
+            bm25s_module=bm25s_module,
+        )
+
+    def search(self, request: RetrievalRequest) -> List[RetrievalHit]:
+        if request.top_k != PARSER_BM25S_TOP_K:
+            raise ValueError(
+                "C02 ParSeR bm25s first stage requires top_k=%d" % PARSER_BM25S_TOP_K
+            )
+        query_tokens = self._bm25s.tokenize([request.query_text], show_progress=False)
+        indexes, scores = self._retriever.retrieve(
+            query_tokens,
+            k=PARSER_BM25S_TOP_K,
+            show_progress=False,
+        )
+        return [
+            RetrievalHit(
+                document=self.documents[int(index)],
+                score=float(score),
+                source_request_id=request.request_id,
+            )
+            for index, score in zip(indexes[0], scores[0])
+        ]
 
 
 class KureExactIndexSearcher:

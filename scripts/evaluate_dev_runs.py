@@ -48,6 +48,7 @@ STAGE_SPECS = {
 STAGE_ALIASES = {
     "first_stage": "first_stage",
     "bm25": "first_stage",
+    "bm25s_parser": "first_stage",
     "kure": "first_stage",
     "fusion": "fusion",
     "rrf": "fusion",

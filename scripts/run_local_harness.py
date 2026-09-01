@@ -20,7 +20,11 @@ from harness.contracts import OutcomeStatus
 from harness.runner import HarnessConfig, HarnessRunner
 from harness.skill_registry import assert_skill_layout_complete
 from retrieval.corpus import InMemoryProvisionCorpus
-from retrieval.persistent import KureExactIndexSearcher, SqliteFts5Bm25Searcher
+from retrieval.persistent import (
+    Bm25sParSeRFirstStageSearcher,
+    KureExactIndexSearcher,
+    SqliteFts5Bm25Searcher,
+)
 from retrieval.pipeline import RetrievalPipeline
 from retrieval.reranker import LocalBgeCrossEncoderReranker
 from runtime.comparison_guard import resolve_frozen_configuration
@@ -43,12 +47,21 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("question", help="Korean statutory question to run")
     parser.add_argument(
         "--retriever",
-        choices=("kure", "bm25"),
+        choices=("kure", "bm25", "bm25s_parser"),
         default="kure",
-        help="first-stage retriever (default: kure; bm25 is for explicit comparison runs only)",
+        help=(
+            "first-stage retriever (default: kure; bm25 is comparison-only; "
+            "bm25s_parser is the isolated C02 ParSeR ablation only)"
+        ),
     )
     parser.add_argument("--model", default="legal-harness-qwen")
     parser.add_argument("--skills-root", type=Path, default=PROJECT_ROOT / "skills")
+    parser.add_argument(
+        "--asset-root",
+        type=Path,
+        default=PROJECT_ROOT,
+        help="read-only root containing data/ and models/ (default: this source tree)",
+    )
     parser.add_argument("--ollama-endpoint", default="http://127.0.0.1:11434/api/generate")
     parser.add_argument("--num-ctx", type=int, default=32768)
     parser.add_argument(
@@ -112,19 +125,25 @@ def parse_args() -> argparse.Namespace:
 
 
 def build_retriever(args: argparse.Namespace) -> RetrievalPipeline:
-    bm25_path = PROJECT_ROOT / "data/koblex/indexes/bm25/statute_fts5.sqlite3"
+    asset_root = Path(getattr(args, "asset_root", PROJECT_ROOT))
+    bm25_path = asset_root / "data/koblex/indexes/bm25/statute_fts5.sqlite3"
     if args.retriever == "bm25":
         first_stage = SqliteFts5Bm25Searcher(bm25_path)
+    elif args.retriever == "bm25s_parser":
+        first_stage = Bm25sParSeRFirstStageSearcher.from_parquet(
+            asset_root / "data/koblex/statute/corpus-00000-of-00001.parquet",
+            asset_root / "data/koblex/normalized/statute.jsonl",
+        )
     else:
         first_stage = KureExactIndexSearcher(
-            vectors_path=PROJECT_ROOT / "data/koblex/indexes/kure-v1/vectors.f32.npy",
-            provision_ids_path=PROJECT_ROOT / "data/koblex/indexes/kure-v1/provision_ids.txt",
-            normalized_corpus_path=PROJECT_ROOT / "data/koblex/normalized/statute.jsonl",
-            model_path=PROJECT_ROOT / "models/huggingface/nlpai-lab--KURE-v1",
+            vectors_path=asset_root / "data/koblex/indexes/kure-v1/vectors.f32.npy",
+            provision_ids_path=asset_root / "data/koblex/indexes/kure-v1/provision_ids.txt",
+            normalized_corpus_path=asset_root / "data/koblex/normalized/statute.jsonl",
+            model_path=asset_root / "models/huggingface/nlpai-lab--KURE-v1",
             device="cuda",
         )
     reranker = LocalBgeCrossEncoderReranker(
-        PROJECT_ROOT / "models/huggingface/dragonkue--bge-reranker-v2-m3-ko",
+        asset_root / "models/huggingface/dragonkue--bge-reranker-v2-m3-ko",
         device="cuda",
         document_mode=args.rerank_document_mode,
     )
@@ -149,6 +168,7 @@ def build_frozen_run_args(
     record_dir: Path,
     expected_git_commit: str,
     expected_source_manifest_sha256: str,
+    asset_root: Optional[Path] = None,
 ) -> argparse.Namespace:
     """Build direct-run arguments from a batch's resolved frozen configuration.
 
@@ -160,6 +180,7 @@ def build_frozen_run_args(
         retriever=configuration["retriever"],
         model=configuration["model"],
         skills_root=PROJECT_ROOT / "skills",
+        asset_root=asset_root or PROJECT_ROOT,
         ollama_endpoint=configuration.get(
             "ollama_endpoint",
             "http://127.0.0.1:11434/api/generate",
@@ -228,7 +249,8 @@ class PersistentHarnessResources:
     def __init__(self, args: argparse.Namespace):
         assert_skill_layout_complete(args.skills_root)
         self.corpus = InMemoryProvisionCorpus.from_jsonl(
-            PROJECT_ROOT / "data/koblex/normalized/statute.jsonl"
+            Path(getattr(args, "asset_root", PROJECT_ROOT))
+            / "data/koblex/normalized/statute.jsonl"
         )
         self.retriever = build_retriever(args)
         self._skill_executor = _build_skill_executor(args, diagnostic_sink=None)
@@ -256,7 +278,8 @@ def _build_fresh_runner(
 ) -> HarnessRunner:
     assert_skill_layout_complete(args.skills_root)
     corpus = InMemoryProvisionCorpus.from_jsonl(
-        PROJECT_ROOT / "data/koblex/normalized/statute.jsonl"
+        Path(getattr(args, "asset_root", PROJECT_ROOT))
+        / "data/koblex/normalized/statute.jsonl"
     )
     return HarnessRunner(
         skill_executor=_build_skill_executor(args, record.record_skill_attempt),
@@ -270,28 +293,12 @@ def _build_fresh_runner(
     )
 
 
-def run_question(
+def resolve_runtime_configuration(
     args: argparse.Namespace,
-    *,
-    source_snapshot: Optional[Any] = None,
-    resources: Optional[PersistentHarnessResources] = None,
-) -> LocalHarnessExecution:
-    """Execute one question with fresh or sequentially shared resources."""
-    source_snapshot = source_snapshot or capture_clean_source_snapshot(PROJECT_ROOT)
-    if (
-        args.expected_git_commit is not None
-        and source_snapshot.git_commit != args.expected_git_commit
-    ):
-        raise RuntimeError("Git commit does not match the frozen batch source")
-    if (
-        args.expected_source_manifest_sha256 is not None
-        and source_snapshot.source_manifest_sha256
-        != args.expected_source_manifest_sha256
-    ):
-        raise RuntimeError("source manifest hash does not match the frozen batch source")
-
-    run_id = str(uuid.uuid4())
-    configuration = resolve_frozen_configuration({
+    source_manifest_sha256: str,
+) -> Dict[str, Any]:
+    """Return the exact record configuration for one resolved local run."""
+    return resolve_frozen_configuration({
         "condition": args.condition,
         "seed": args.seed,
         "retriever": args.retriever,
@@ -317,8 +324,34 @@ def run_question(
         "s1_truncation_retry_max_tokens": (
             args.s1_truncation_retry_max_tokens
         ),
-        "source_manifest_sha256": source_snapshot.source_manifest_sha256,
+        "source_manifest_sha256": source_manifest_sha256,
     })
+
+
+def run_question(
+    args: argparse.Namespace,
+    *,
+    source_snapshot: Optional[Any] = None,
+    resources: Optional[PersistentHarnessResources] = None,
+) -> LocalHarnessExecution:
+    """Execute one question with fresh or sequentially shared resources."""
+    source_snapshot = source_snapshot or capture_clean_source_snapshot(PROJECT_ROOT)
+    if (
+        args.expected_git_commit is not None
+        and source_snapshot.git_commit != args.expected_git_commit
+    ):
+        raise RuntimeError("Git commit does not match the frozen batch source")
+    if (
+        args.expected_source_manifest_sha256 is not None
+        and source_snapshot.source_manifest_sha256
+        != args.expected_source_manifest_sha256
+    ):
+        raise RuntimeError("source manifest hash does not match the frozen batch source")
+
+    run_id = str(uuid.uuid4())
+    configuration = resolve_runtime_configuration(
+        args, source_snapshot.source_manifest_sha256
+    )
     record = ExperimentRecord(
         record_root=args.record_dir,
         run_id=run_id,

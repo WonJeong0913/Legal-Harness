@@ -155,3 +155,70 @@ def validate_retriever_comparison(
         "reference_retriever": reference_configuration["retriever"],
         "comparable_configuration_sha256": _canonical_sha256(comparable),
     }
+
+
+def validate_bm25s_first_stage_ablation(
+    c02_manifest: Mapping[str, Any],
+    ablation_manifest: Mapping[str, Any],
+    c02_manifest_path: Path,
+    ablation_manifest_path: Path,
+) -> Dict[str, Any]:
+    """Validate the separately named ParSeR-compatible bm25s C02 ablation.
+
+    This is intentionally not an extension of the historical ``bm25``/KURE
+    comparison path: ``bm25s_parser`` identifies the bm25s backend explicitly,
+    so it cannot be mistaken for the protected FTS5 reference configuration.
+    """
+    source = c02_manifest.get("source_dataset")
+    ablation_source = ablation_manifest.get("source_dataset")
+    if not isinstance(source, Mapping) or dict(source) != dict(ablation_source or {}):
+        raise RuntimeError("C02/bm25s source_dataset mismatch")
+    c02_entries = _entry_signature(c02_manifest.get("entries"))
+    ablation_entries = _entry_signature(ablation_manifest.get("entries"))
+    if c02_entries != ablation_entries:
+        raise RuntimeError("C02/bm25s entry mismatch")
+    c02_configuration = resolve_frozen_configuration(
+        c02_manifest.get("frozen_configuration", {})
+    )
+    ablation_configuration = resolve_frozen_configuration(
+        ablation_manifest.get("frozen_configuration", {})
+    )
+    if c02_configuration.get("retriever") != "kure":
+        raise RuntimeError("C02 bm25s ablation basis must use KURE")
+    if ablation_configuration.get("retriever") != "bm25s_parser":
+        raise RuntimeError("C02 bm25s ablation must declare retriever=bm25s_parser")
+    comparable = {
+        key: value
+        for key, value in c02_configuration.items()
+        if key not in ALLOWED_RETRIEVER_COMPARISON_DIFFERENCES
+    }
+    ablation_comparable = {
+        key: value
+        for key, value in ablation_configuration.items()
+        if key not in ALLOWED_RETRIEVER_COMPARISON_DIFFERENCES
+    }
+    differing_keys = sorted(
+        key
+        for key in set(comparable) | set(ablation_comparable)
+        if comparable.get(key) != ablation_comparable.get(key)
+    )
+    if differing_keys:
+        raise RuntimeError(
+            "C02 bm25s configuration mismatch outside allowed fields: %s"
+            % ", ".join(differing_keys)
+        )
+    provenance = ablation_configuration.get("retriever_provenance")
+    if not isinstance(provenance, Mapping) or provenance.get("backend") != "bm25s.BM25":
+        raise RuntimeError("C02 bm25s ablation must declare backend=bm25s.BM25")
+    if provenance.get("top_k") != 100:
+        raise RuntimeError("C02 bm25s ablation must declare top_k=100")
+    if provenance.get("query_tokenization") != "bm25s.tokenize([query])":
+        raise RuntimeError("C02 bm25s ablation query tokenization is not ParSeR-compatible")
+    return {
+        "status": "VALIDATED_C02_BM25S_FIRST_STAGE_ABLATION",
+        "entry_count": len(c02_entries),
+        "c02_manifest": str(c02_manifest_path),
+        "bm25s_manifest": str(ablation_manifest_path),
+        "allowed_differences": sorted(ALLOWED_RETRIEVER_COMPARISON_DIFFERENCES),
+        "comparable_configuration_sha256": _canonical_sha256(comparable),
+    }
