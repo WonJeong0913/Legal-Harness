@@ -1,0 +1,179 @@
+{
+  "id": "4a8a2b21-28d8-4ed2-9b83-02b44fca8c69",
+  "surface": "report",
+  "title": "KoBLEX 원 논문 표 10/10 — 참고값과 local C02 감사",
+  "generatedAt": "2026-09-01T00:00:00Z",
+  "status": "reviewed_saved_artifacts",
+  "filters": [],
+  "report": {
+    "asOf": "2026-09-01",
+    "visibleFilterIds": []
+  },
+  "queries": {
+    "table_coverage": {
+      "rows": [
+        {"table":"Table 1","topic":"Dataset statistics","paperValues":"예 — 전체 수록","localStatus":"별도 frozen dataset snapshot (비교 불가)","caveat":"논문 hop 분포 55/125/46과 local 57/127/42는 다름"},
+        {"table":"Table 2","topic":"Main baseline experiments","paperValues":"예 — 전체 수록","localStatus":"별도 C02/PARSER local 보조표","caveat":"원 논문 참고값 ≠ 우리 실행값"},
+        {"table":"Table 3","topic":"PARSER ablation","paperValues":"예 — 전체 수록","localStatus":"N/A — 미실행/비교 불가","caveat":"동등 local ablation 미실행"},
+        {"table":"Table 4","topic":"Retriever type","paperValues":"예 — 전체 수록","localStatus":"N/A — 미실행/비교 불가","caveat":"동등 local retriever sweep 미실행"},
+        {"table":"Table 5","topic":"Retrieval top-k","paperValues":"예 — 전체 수록","localStatus":"N/A — 미실행/비교 불가","caveat":"동등 local top-k sweep 미실행"},
+        {"table":"Table 6","topic":"Reranking top-l","paperValues":"예 — 전체 수록","localStatus":"N/A — 미실행/비교 불가","caveat":"동등 local top-l sweep 미실행"},
+        {"table":"Table 7","topic":"Filtering and validation","paperValues":"예 — 전체 수록","localStatus":"N/A — 미실행/비교 불가","caveat":"dataset construction pipeline 표"},
+        {"table":"Table 8","topic":"Metric–human correlation","paperValues":"예 — 전체 수록","localStatus":"N/A — 미실행/비교 불가","caveat":"local human-correlation study 미실행"},
+        {"table":"Table 9","topic":"LF-Eval examples","paperValues":"예 — 점수·구조 수록","localStatus":"N/A — 미실행/비교 불가","caveat":"긴 원문 대신 저작권 제한 패러프레이즈"},
+        {"table":"Table 10","topic":"Additional smaller-LLM results","paperValues":"예 — 전체 수록","localStatus":"N/A — 미실행/비교 불가","caveat":"동등 local small-model run 미실행"}
+      ],
+      "source": {"label":"논문 표 수록 범위 감사","urls":["https://aclanthology.org/2025.emnlp-main.200.pdf"],"filters":["공식 논문에 Table 1–10만 있고 Table 11/12는 없음."],"assumptions":["로컬 status는 논문 결과가 아니라 저장된 C02/PARSER artifact의 동등성 범위를 나타낸다."]}
+    },
+    "paper_table_1": {
+      "rows": [
+        {"depth":"1-hop","examples":55,"backgroundWords":33.96,"questionWords":13.35,"answerWords":11.67},
+        {"depth":"2-hop","examples":125,"backgroundWords":37.45,"questionWords":18.78,"answerWords":29.56},
+        {"depth":"3-hop","examples":46,"backgroundWords":46.2,"questionWords":27.13,"answerWords":53.11},
+        {"depth":"Total","examples":226,"backgroundWords":38.38,"questionWords":19.16,"answerWords":30.0}
+      ],
+      "source": {"label":"KoBLEX paper, Table 1 (official ACL Anthology PDF)","urls":["https://aclanthology.org/2025.emnlp-main.200.pdf"],"filters":["Paper reference values transcribed from Table 1."],"assumptions":["Values are the authors’ reported benchmark statistics, not a recomputation from the frozen local dataset."]}
+    },
+    "local_dataset_snapshot": {
+      "rows": [
+        {"depth":"1-hop","examples":57,"backgroundWords":34.18,"questionWords":13.32,"answerWords":11.86},
+        {"depth":"2-hop","examples":127,"backgroundWords":37.35,"questionWords":18.86,"answerWords":29.88},
+        {"depth":"3-hop","examples":42,"backgroundWords":47.19,"questionWords":28.0,"answerWords":54.98},
+        {"depth":"Total","examples":226,"backgroundWords":38.38,"questionWords":19.16,"answerWords":30.0}
+      ],
+      "source": {"label":"Frozen local KoBLEX Parquet snapshot","paths":["/workspace/Legal-Harness/data/koblex/qa/test-00000-of-00001.parquet"],"sha256":"afdaff3a8000cdf5e0a64adbcfc8e6aff0042b318bf03718155f2b70f551c47b","filters":["Whitespace-token averages over the frozen local snapshot."],"assumptions":["The fixed local roster is 57/127/42 by hop, unlike paper Table 1’s 55/125/46. Totals are equal but the per-hop distribution is not."]}
+    },
+    "paper_table_2": {
+      "rows": [
+        {"method":"SP (no retrieval)","family":"◇","f1Qwen":null,"f1Exaone":null,"f1Gpt4o":null,"emQwen":null,"emExaone":null,"emGpt4o":null,"tokenQwen":30.52,"tokenExaone":23.04,"tokenGpt4o":36.2,"lfQwen":40.74,"lfExaone":49.46,"lfGpt4o":55.0},
+        {"method":"CoT (no retrieval)","family":"◇","f1Qwen":null,"f1Exaone":null,"f1Gpt4o":null,"emQwen":null,"emExaone":null,"emGpt4o":null,"tokenQwen":26.37,"tokenExaone":23.71,"tokenGpt4o":32.34,"lfQwen":39.41,"lfExaone":37.42,"lfGpt4o":52.75},
+        {"method":"SP + OR (one time)","family":"♡","f1Qwen":21.5,"f1Exaone":21.5,"f1Gpt4o":21.5,"emQwen":7.08,"emExaone":7.08,"emGpt4o":7.08,"tokenQwen":32.18,"tokenExaone":20.58,"tokenGpt4o":26.75,"lfQwen":45.36,"lfExaone":43.98,"lfGpt4o":36.45},
+        {"method":"CoT + OR","family":"♡","f1Qwen":21.5,"f1Exaone":21.5,"f1Gpt4o":21.5,"emQwen":7.08,"emExaone":7.08,"emGpt4o":7.08,"tokenQwen":28.39,"tokenExaone":28.82,"tokenGpt4o":30.68,"lfQwen":42.1,"lfExaone":47.26,"lfGpt4o":46.42},
+        {"method":"Self-Ask (iterative)","family":"♠","f1Qwen":9.29,"f1Exaone":8.55,"f1Gpt4o":8.55,"emQwen":2.65,"emExaone":1.33,"emGpt4o":1.77,"tokenQwen":16.59,"tokenExaone":14.72,"tokenGpt4o":7.82,"lfQwen":34.14,"lfExaone":37.77,"lfGpt4o":22.44},
+        {"method":"IRCoT (iterative)","family":"♠","f1Qwen":20.42,"f1Exaone":15.89,"f1Gpt4o":23.91,"emQwen":4.42,"emExaone":1.77,"emGpt4o":4.42,"tokenQwen":31.62,"tokenExaone":26.31,"tokenGpt4o":31.39,"lfQwen":46.78,"lfExaone":48.2,"lfGpt4o":46.68},
+        {"method":"FLARE (iterative)","family":"♠","f1Qwen":40.64,"f1Exaone":25.23,"f1Gpt4o":31.75,"emQwen":3.98,"emExaone":14.16,"emGpt4o":4.42,"tokenQwen":29.54,"tokenExaone":21.31,"tokenGpt4o":34.37,"lfQwen":53.76,"lfExaone":34.66,"lfGpt4o":50.55},
+        {"method":"ProbTree (subquery)","family":"♣","f1Qwen":15.84,"f1Exaone":11.61,"f1Gpt4o":17.32,"emQwen":2.65,"emExaone":2.21,"emGpt4o":3.98,"tokenQwen":28.38,"tokenExaone":24.67,"tokenGpt4o":33.91,"lfQwen":43.77,"lfExaone":46.74,"lfGpt4o":52.62},
+        {"method":"BeamAggr (subquery)","family":"♣","f1Qwen":14.05,"f1Exaone":10.83,"f1Gpt4o":16.89,"emQwen":2.65,"emExaone":0.44,"emGpt4o":3.54,"tokenQwen":16.02,"tokenExaone":10.83,"tokenGpt4o":22.83,"lfQwen":32.31,"lfExaone":31.46,"lfGpt4o":41.59},
+        {"method":"PARSER (ours, subquery)","family":"♣","f1Qwen":46.24,"f1Exaone":48.73,"f1Gpt4o":59.41,"emQwen":17.7,"emExaone":17.7,"emGpt4o":26.99,"tokenQwen":40.65,"tokenExaone":31.09,"tokenGpt4o":46.14,"lfQwen":56.0,"lfExaone":57.58,"lfGpt4o":67.26}
+      ],
+      "source": {"label":"KoBLEX paper, Table 2 (official ACL Anthology PDF)","urls":["https://aclanthology.org/2025.emnlp-main.200.pdf"],"filters":["All values are percentages as reported in Table 2."],"assumptions":["◇ no retrieval; ♡ one-time retrieval; ♠ iterative retrieval; ♣ subquery decomposition. These values are paper references only."]}
+    },
+    "local_matched_comparison": {
+      "rows": [
+        {"condition":"OUR_C02_KURE","publishedAnswerRows":189,"abstainRows":29,"executionFailureRows":8,"provisionMacroF1":70.2237,"provisionMicroF1":68.9655,"provisionEM":42.0354,"tokenF1E2E":32.518,"localLfE2E":62.7434,"localLfAvailable":75.0265,"paperComparable":"아니오 — 비교 불가"},
+        {"condition":"PARSER_REPRODUCED","publishedAnswerRows":220,"abstainRows":0,"executionFailureRows":6,"provisionMacroF1":52.0463,"provisionMicroF1":49.6437,"provisionEM":25.6637,"tokenF1E2E":42.4437,"localLfE2E":62.3894,"localLfAvailable":64.0909,"paperComparable":"아니오 — 비교 불가"}
+      ],
+      "source": {"label":"저장된 local C02/KURE와 frozen PARSER-reproduced의 공개답변 비교","paths":["/root/worktrees/legal-harness-c02-frozen-b43-20260901/records/evaluations/kure-c02-qwen38-q8-full226-20260826","/workspace/Legal-Harness/records/baselines/koblex-parser-reproduced-qwen38-q8-226-23f5c9ae-45a5-4d7e-a88f-fbcfb5320185/final_results.jsonl","/workspace/Legal-Harness/records/adapted-local-qwen38-lf-eval-c02-vs-parser-r1-20260901-a839228/aggregate.json"],"filters":["동일한 frozen 226문항 canonical order. C02 Token F1은 저장된 end-to-end 800-character metric; PARSER 점수는 frozen baseline evaluator로 재현된 저장값."],"assumptions":["표시 점수는 0–100 scale이다. Macro F1은 226문항의 provision-set F1 평균(실행 실패=0), micro F1은 전체 TP/predicted/gold 집계, EM은 226문항 중 exact provision-set match 비율, Token F1 E2E는 ABSTAIN/실패=0이다. Adapted local judge E2E도 미답변 또는 실패를 unjudged zero로 둔다. 이는 논문 Table 2 값도, official LF-Eval도 아니다."]}
+    },
+    "local_candidate_comparison": {
+      "rows": [
+        {"condition":"OUR_C02_KURE","candidateAvailableRows":214,"executionFailureRows":8,"provisionMacroF1":70.2237,"provisionMicroF1":68.9655,"provisionEM":42.0354,"tokenF1E2E":34.8644,"localLfE2E":67.3894,"localLfAvailable":71.1682,"paperComparable":"아니오 — 진단 전용"},
+        {"condition":"PARSER_REPRODUCED","candidateAvailableRows":220,"executionFailureRows":6,"provisionMacroF1":52.0463,"provisionMicroF1":49.6437,"provisionEM":25.6637,"tokenF1E2E":42.4437,"localLfE2E":62.3894,"localLfAvailable":64.0909,"paperComparable":"아니오 — 진단 전용"}
+      ],
+      "source": {"label":"저장된 local candidate-answer 진단 비교","paths":["/root/worktrees/legal-harness-c02-frozen-b43-20260901/records/evaluations/kure-c02-qwen38-q8-full226-20260826/aggregate.json","/workspace/Legal-Harness/records/adapted-local-qwen38-lf-eval-c02-vs-parser-r1-20260901-a839228/aggregate.json"],"filters":["C02 candidate가 없는 행 또는 execution failure는 E2E zero. PARSER candidate는 published answer와 동일한 경우만 저장됨."],"assumptions":["Candidate answer는 공개 답변이 아닌 진단 projection이다. Retrieval F1/EM은 동일한 저장된 provision outcome을 반복 표시하며 candidate text metric이 아니다."]}
+    },
+    "paired_robustness": {
+      "rows": [
+        {"metric":"Retrieval F1 (macro per item)","scale":"0–1","c02MinusParser":0.181778,"ci95Low":0.12716,"ci95High":0.235473,"wins":112,"ties":73,"losses":41},
+        {"metric":"Retrieval exact match","scale":"0–1","c02MinusParser":0.163717,"ci95Low":0.097345,"ci95High":0.230088,"wins":52,"ties":159,"losses":15},
+        {"metric":"Token F1 at 800 characters","scale":"0–1","c02MinusParser":-0.099257,"ci95Low":-0.129643,"ci95High":-0.069026,"wins":75,"ties":2,"losses":149},
+        {"metric":"Adapted Local Qwen38 LF — public answer","scale":"0–10 (E2E; available judge scores are 1–10)","c02MinusParser":0.035398,"ci95Low":-0.495575,"ci95High":0.561947,"wins":89,"ties":47,"losses":90},
+        {"metric":"Adapted Local Qwen38 LF — candidate answer","scale":"0–10 (E2E; available judge scores are 1–10)","c02MinusParser":0.5,"ci95Low":0.004425,"ci95High":0.99115,"wins":94,"ties":53,"losses":79}
+      ],
+      "source": {"label":"보조 local paired robustness 계산","paths":["/root/worktrees/legal-harness-c02-frozen-b43-20260901/records/evaluations/kure-c02-qwen38-q8-full226-20260826/per_question.csv","/workspace/Legal-Harness/records/baselines/koblex-parser-reproduced-qwen38-q8-226-23f5c9ae-45a5-4d7e-a88f-fbcfb5320185/final_results.jsonl","/workspace/Legal-Harness/records/adapted-local-qwen38-lf-eval-c02-vs-parser-r1-20260901-a839228/per_question.jsonl"],"sha256":{"c02_per_question":"b0828c0d194aac9d59d3ad5894aae6220b8eaabc2c21959feabd76b5ac43e3f6","parser_final_results":"b5becdf85f18bb7c4563aaf91e088aaaed15c202bdfec1f935d7b5dc5b4779b9","adapted_local_per_question":"99cfeb819095bcf6b43350a8886bd39cb707a0436fb4fc3f2e7e9ac1a3956ce7"},"filters":["226 ordered question IDs; delta는 C02 minus PARSER. NumPy default_rng(PCG64), seed 20260901, 10,000 resamples of 226 paired rows, 95% percentile (NumPy linear / Type 7) interval. Saved failure/unavailable는 end-to-end에서 명시적 zero."],"assumptions":["Win/tie/loss는 문항별 C02/PARSER 값을 비교한다. Retrieval F1/EM은 저장된 C02 provision row와 frozen PARSER evaluator의 saved gold-context exact set comparison을 사용한다. 단일 frozen run의 문항 표본 불확실성 요약이며 multi-seed model-stability experiment도 paper LF-Eval도 아니다."]}
+    },
+    "paper_table_3": {
+      "rows": [
+        {"setting":"PARSER","f1":48.74,"em":17.7,"tokenF1":31.09,"lfEval":57.58},
+        {"setting":"w/o Selection","f1":40.61,"em":13.72,"tokenF1":27.11,"lfEval":50.18},
+        {"setting":"w/o Reranking","f1":40.64,"em":14.16,"tokenF1":29.54,"lfEval":54.02},
+        {"setting":"w/o Reranking, Selection","f1":27.56,"em":6.64,"tokenF1":25.9,"lfEval":45.97},
+        {"setting":"w/o Reranking, Selection, Provision","f1":21.41,"em":3.98,"tokenF1":21.2,"lfEval":45.52}
+      ],
+      "source": {"label":"KoBLEX paper, Table 3 (EXAONE-3.5-32B ablation)","urls":["https://aclanthology.org/2025.emnlp-main.200.pdf"],"filters":["All values are percentages as reported."],"assumptions":["No equivalent local ablation was executed."]}
+    },
+    "paper_table_4": {
+      "rows": [
+        {"retriever":"Sparse","f1":48.74,"em":17.7,"tokenF1":31.09,"lfEval":57.58},
+        {"retriever":"Dense","f1":50.43,"em":16.81,"tokenF1":29.56,"lfEval":57.58},
+        {"retriever":"Hybrid","f1":48.16,"em":16.81,"tokenF1":28.76,"lfEval":56.61}
+      ],
+      "source": {"label":"KoBLEX paper, Table 4 (EXAONE-3.5-32B retriever type)","urls":["https://aclanthology.org/2025.emnlp-main.200.pdf"],"filters":["All values are percentages as reported."],"assumptions":["No equivalent local retriever-type comparison was executed."]}
+    },
+    "paper_table_5": {
+      "rows": [
+        {"topK":"top-50","f1":47.98,"em":16.81,"tokenF1":30.24,"lfEval":58.93},
+        {"topK":"top-100","f1":48.74,"em":17.7,"tokenF1":31.09,"lfEval":57.58},
+        {"topK":"top-200","f1":49.29,"em":17.7,"tokenF1":31.2,"lfEval":60.59},
+        {"topK":"top-300","f1":50.26,"em":18.58,"tokenF1":31.97,"lfEval":60.58}
+      ],
+      "source": {"label":"KoBLEX paper, Table 5 (EXAONE-3.5-32B retrieval top-k)","urls":["https://aclanthology.org/2025.emnlp-main.200.pdf"],"filters":["All values are percentages as reported."],"assumptions":["No equivalent local top-k sweep was executed."]}
+    },
+    "paper_table_6": {
+      "rows": [
+        {"topL":"top-5","f1":47.56,"em":17.26,"tokenF1":30.63,"lfEval":59.21},
+        {"topL":"top-10","f1":48.74,"em":17.7,"tokenF1":31.09,"lfEval":57.58},
+        {"topL":"top-20","f1":50.03,"em":18.14,"tokenF1":30.67,"lfEval":59.14},
+        {"topL":"top-30","f1":50.34,"em":19.03,"tokenF1":30.43,"lfEval":58.49}
+      ],
+      "source": {"label":"KoBLEX paper, Table 6 (EXAONE-3.5-32B reranking top-l)","urls":["https://aclanthology.org/2025.emnlp-main.200.pdf"],"filters":["All values are percentages as reported."],"assumptions":["No equivalent local top-l sweep was executed."]}
+    },
+    "paper_table_7": {
+      "rows": [
+        {"step":"Step 2 — After reformulation","oneHop":"648","twoHop":"677","threeHop":"1,353","fourHop":"357","total":"3,035"},
+        {"step":"A. Full Check","oneHop":"636 (98%)","twoHop":"647 (96%)","threeHop":"1,273 (94%)","fourHop":"337 (94%)","total":"2,893 (95%)"},
+        {"step":"B. Partial Check","oneHop":"614 (95%)","twoHop":"164 (24%)","threeHop":"58 (4%)","fourHop":"4 (1%)","total":"840 (28%)"},
+        {"step":"Step 3 — after LLM validation (A ∩ B)","oneHop":"601 (93%)","twoHop":"160 (24%)","threeHop":"51 (4%)","fourHop":"4 (1%)","total":"816 (27%)"},
+        {"step":"* Before human validation","oneHop":"67 (10%)","twoHop":"158 (23%)","threeHop":"51 (4%)","fourHop":"4 (1%)","total":"280 (9%)"},
+        {"step":"Step 4 & 5 — after human validation","oneHop":"55 (8%)","twoHop":"125 (18%)","threeHop":"46 (4%)","fourHop":"0 (0%)","total":"226 (7%)"}
+      ],
+      "source": {"label":"KoBLEX paper, Table 7 (filtering and validation statistics)","urls":["https://aclanthology.org/2025.emnlp-main.200.pdf"],"filters":["Counts and parenthesized percentages are reported as printed."],"assumptions":["This is dataset-construction evidence; no local equivalent pipeline was executed."]}
+    },
+    "paper_table_8": {
+      "rows": [
+        {"metric":"LF-Eval (ours)","pearsonR":84.9},
+        {"metric":"Faithfulness scores (Trautmann et al., 2024)","pearsonR":6.87},
+        {"metric":"Token-level F-1","pearsonR":61.25},
+        {"metric":"BLEU","pearsonR":51.89},
+        {"metric":"ROUGE-L","pearsonR":32.19}
+      ],
+      "source": {"label":"KoBLEX paper, Table 8 (automatic metric vs. human Pearson correlation)","urls":["https://aclanthology.org/2025.emnlp-main.200.pdf"],"filters":["Values are reported correlations in percent form, retained as printed."],"assumptions":["No local human-correlation study was executed; local adapted judge scores are not a substitute."]}
+    },
+    "paper_table_9": {
+      "rows": [
+        {"example":"Example 1","officialLfScore":10.0,"shortParaphrase":"Court-recorded civil settlement: response preserved the final-judgment effect.","assessmentParaphrase":"Complete alignment in the paper’s example."},
+        {"example":"Example 2","officialLfScore":2.5344,"shortParaphrase":"Buyer-issued invoice confirmation: response omitted key documentation and material-threshold details.","assessmentParaphrase":"Substantial omissions in the paper’s example."}
+      ],
+      "source": {"label":"KoBLEX paper, Table 9 (LF-Eval examples; copyright-limited paraphrase)","urls":["https://aclanthology.org/2025.emnlp-main.200.pdf"],"filters":["Only structure, scores, and short independent paraphrases are reproduced; no long scenario, answer, or evaluator text is copied."],"assumptions":["Scores belong to the paper’s official GPT-4o/DeepEval LF-Eval example, not the local adapted judge."]}
+    },
+    "paper_table_10": {
+      "rows": [
+        {"method":"SP (no retrieval)","family":"◇","f1Qwen8b":null,"f1Exaone8b":null,"emQwen8b":null,"emExaone8b":null,"tokenQwen8b":25.59,"tokenExaone8b":15.98,"lfQwen8b":35.13,"lfExaone8b":44.82},
+        {"method":"CoT (no retrieval)","family":"◇","f1Qwen8b":null,"f1Exaone8b":null,"emQwen8b":null,"emExaone8b":null,"tokenQwen8b":22.89,"tokenExaone8b":18.94,"lfQwen8b":31.28,"lfExaone8b":38.58},
+        {"method":"SP + OR (one time)","family":"♡","f1Qwen8b":21.5,"f1Exaone8b":21.5,"emQwen8b":7.08,"emExaone8b":7.08,"tokenQwen8b":27.32,"tokenExaone8b":16.79,"lfQwen8b":37.64,"lfExaone8b":43.2},
+        {"method":"CoT + OR","family":"♡","f1Qwen8b":21.5,"f1Exaone8b":21.5,"emQwen8b":7.08,"emExaone8b":7.08,"tokenQwen8b":26.68,"tokenExaone8b":22.64,"lfQwen8b":39.43,"lfExaone8b":43.57},
+        {"method":"Self-Ask (iterative)","family":"♠","f1Qwen8b":10.03,"f1Exaone8b":4.57,"emQwen8b":2.21,"emExaone8b":0.88,"tokenQwen8b":6.19,"tokenExaone8b":9.12,"lfQwen8b":17.63,"lfExaone8b":26.99},
+        {"method":"IRCoT (iterative)","family":"♠","f1Qwen8b":21.79,"f1Exaone8b":19.19,"emQwen8b":4.87,"emExaone8b":3.98,"tokenQwen8b":12.72,"tokenExaone8b":19.19,"lfQwen8b":20.45,"lfExaone8b":24.16},
+        {"method":"FLARE (iterative)","family":"♠","f1Qwen8b":25.4,"f1Exaone8b":20.38,"emQwen8b":5.31,"emExaone8b":3.1,"tokenQwen8b":22.72,"tokenExaone8b":11.84,"lfQwen8b":38.84,"lfExaone8b":23.35},
+        {"method":"ProbTree (subquery)","family":"♣","f1Qwen8b":13.26,"f1Exaone8b":7.76,"emQwen8b":3.1,"emExaone8b":0.88,"tokenQwen8b":28.53,"tokenExaone8b":19.61,"lfQwen8b":40.93,"lfExaone8b":42.3},
+        {"method":"BeamAggr (subquery)","family":"♣","f1Qwen8b":11.27,"f1Exaone8b":5.94,"emQwen8b":2.65,"emExaone8b":0.88,"tokenQwen8b":17.75,"tokenExaone8b":10.9,"lfQwen8b":33.35,"lfExaone8b":31.6},
+        {"method":"PARSER (ours, subquery)","family":"♣","f1Qwen8b":34.18,"f1Exaone8b":36.78,"emQwen8b":11.5,"emExaone8b":10.62,"tokenQwen8b":34.64,"tokenExaone8b":24.4,"lfQwen8b":49.41,"lfExaone8b":52.39}
+      ],
+      "source": {"label":"KoBLEX paper, Table 10 (additional smaller-LLM results)","urls":["https://aclanthology.org/2025.emnlp-main.200.pdf"],"filters":["All values are percentages as reported; Qwen3-8B and EXAONE-3.5-7.8B columns."],"assumptions":["No equivalent local small-model experiment was executed."]}
+    },
+    "provenance": {
+      "rows": [
+        {"artifact":"Official paper PDF","role":"Primary paper table source","location":"https://aclanthology.org/2025.emnlp-main.200.pdf","sha256":"N/A — remote primary source"},
+        {"artifact":"Official KoBLEX repository","role":"Primary implementation/context source","location":"https://github.com/daehuikim/KoBLEX","sha256":"N/A — remote primary source"},
+        {"artifact":"Official KoBLEX results directory","role":"Baseline-output context; not the primary paper-number source","location":"https://github.com/daehuikim/KoBLEX/tree/main/results","sha256":"N/A — remote primary source"},
+        {"artifact":"Frozen C02 aggregate","role":"Local KURE metrics","location":"records/evaluations/kure-c02-qwen38-q8-full226-20260826/aggregate.json","sha256":"02903d26253ef8a54238d19529a9d30308c5ca4341d9c178c28deefc663469bb"},
+        {"artifact":"Frozen C02 per-question bundle","role":"Local outcomes / published answer contract","location":"records/evaluations/kure-c02-qwen38-q8-full226-20260826/per_question.csv","sha256":"b0828c0d194aac9d59d3ad5894aae6220b8eaabc2c21959feabd76b5ac43e3f6"},
+        {"artifact":"Frozen C02 metadata","role":"Source/model provenance","location":"records/evaluations/kure-c02-qwen38-q8-full226-20260826/metadata.json","sha256":"05deec0bc415866ee911c98b77aa1a1e2174724b6b75471895826db88154a265"},
+        {"artifact":"Frozen PARSER reproduced outputs","role":"Matched local comparison input","location":"records/baselines/koblex-parser-reproduced-qwen38-q8-226-23f5c9ae-45a5-4d7e-a88f-fbcfb5320185/final_results.jsonl","sha256":"b5becdf85f18bb7c4563aaf91e088aaaed15c202bdfec1f935d7b5dc5b4779b9"},
+        {"artifact":"Adapted Local Qwen38 LF aggregate","role":"Post-hoc local judge comparison","location":"records/adapted-local-qwen38-lf-eval-c02-vs-parser-r1-20260901-a839228/aggregate.json","sha256":"212b2e61a0c1e2252dc80a718d2bf0ee43a250ded7c6210c1bd4e29ed7b5dc59"},
+        {"artifact":"Adapted Local Qwen38 LF metadata","role":"Judge and comparator provenance","location":"records/adapted-local-qwen38-lf-eval-c02-vs-parser-r1-20260901-a839228/metadata.json","sha256":"5f79f7d51fb4221d5cd2c28c20ac6effc371228fbf1733302c269d89acd5acb9"}
+      ],
+      "source": {"label":"Report provenance and hashes","filters":["Saved artifacts were read only; no retrieval, PARSER, BM25, full226, or model evaluation was rerun."],"assumptions":["C02 frozen bundle Git commit b43c613ad9c5498627f2cb2a25915c80f9f08374; tree d8296a2cacde164074688eba5068a5709534c0b5. Local Qwen judge blob SHA-256 f5c702d8820d36fb55985bb238fc83ee3a313e920f4b752a437c3a6a9e14e4c8."]}
+    }
+  }
+}
