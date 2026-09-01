@@ -149,6 +149,25 @@ def _under(path: Path, root: Path, label: str) -> Path:
     return resolved
 
 
+def _frozen_linked_dataset_path(exec_root: Path, manifest_path: Any, expected_sha256: Any) -> Tuple[Path, bool]:
+    """Resolve only a SHA-pinned repository-relative dataset, including linked assets."""
+    relative = Path(_require_string(manifest_path, "source_dataset.path"))
+    if relative.is_absolute() or ".." in relative.parts:
+        raise AdaptedLocalLFEvalError("source_dataset.path must be a traversal-free relative path")
+    lexical_root = exec_root.absolute()
+    lexical_path = lexical_root / relative
+    try:
+        lexical_path.absolute().relative_to(lexical_root)
+    except ValueError as exc:
+        raise AdaptedLocalLFEvalError("source_dataset.path must remain under frozen exec_root") from exc
+    if not lexical_path.is_file():
+        raise AdaptedLocalLFEvalError("frozen C36 source dataset is missing")
+    resolved = lexical_path.resolve()
+    if sha256(resolved) != expected_sha256:
+        raise AdaptedLocalLFEvalError("frozen C36 source dataset hash mismatch")
+    return resolved, resolved != lexical_path.absolute()
+
+
 def _write_json_new(path: Path, value: Mapping[str, Any]) -> None:
     if os.path.lexists(str(path)):
         raise AdaptedLocalLFEvalError("refusing to overwrite output: %s" % path)
@@ -325,9 +344,9 @@ def _load_kure_condition(output_root: Path) -> Tuple[List[Dict[str, Any]], Dict[
         }
     source_dataset = _require_mapping(manifest.get("source_dataset"), "C36 source_dataset")
     exec_root = Path(_require_string(plan.get("exec_root"), "plan.exec_root"))
-    dataset_path = _under(exec_root / _require_string(source_dataset.get("path"), "source_dataset.path"), exec_root, "source dataset")
-    if not dataset_path.is_file() or sha256(dataset_path) != source_dataset.get("sha256"):
-        raise AdaptedLocalLFEvalError("frozen C36 source dataset hash mismatch")
+    dataset_path, linked_asset = _frozen_linked_dataset_path(
+        exec_root, source_dataset.get("path"), source_dataset.get("sha256")
+    )
     provenance = {
         "mode_root": str(mode_root),
         "plan_sha256": sha256(plan_path),
@@ -339,6 +358,7 @@ def _load_kure_condition(output_root: Path) -> Tuple[List[Dict[str, Any]], Dict[
         "checkpoint_summary_sha256": sha256(summary_path),
         "source_dataset": str(dataset_path),
         "source_dataset_sha256": sha256(dataset_path),
+        "source_dataset_linked_asset": linked_asset,
         "frozen_model_provenance": dict(v2.QWEN_MODEL_PROVENANCE),
     }
     return entries, outcome, provenance

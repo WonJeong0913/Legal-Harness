@@ -248,6 +248,29 @@ class AdaptedLocalLFEvalTests(unittest.TestCase):
                     adapted.run_adapted_local_lf_eval(kure_root, parser_path, root / "rejected-output")
             judge.assert_not_called()
 
+    def test_manifest_pinned_linked_dataset_allows_only_relative_exact_hash_target(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            kure_root, unused_parser, worktree, unused_mode = build_fixture(root)
+            dataset = worktree / "data" / "fixture.jsonl"
+            linked_asset = root / "linked-assets" / "fixture.jsonl"
+            linked_asset.parent.mkdir()
+            linked_asset.write_bytes(dataset.read_bytes())
+            expected_sha = digest(linked_asset)
+            dataset.unlink()
+            dataset.symlink_to(linked_asset)
+            unused_entries, unused_outcome, provenance = adapted._load_kure_condition(kure_root)
+            self.assertEqual(provenance["source_dataset"], str(linked_asset.resolve()))
+            self.assertEqual(provenance["source_dataset_sha256"], expected_sha)
+            self.assertTrue(provenance["source_dataset_linked_asset"])
+            with self.assertRaisesRegex(adapted.AdaptedLocalLFEvalError, "traversal-free relative"):
+                adapted._frozen_linked_dataset_path(worktree, "../linked-assets/fixture.jsonl", expected_sha)
+            with self.assertRaisesRegex(adapted.AdaptedLocalLFEvalError, "traversal-free relative"):
+                adapted._frozen_linked_dataset_path(worktree, str(linked_asset), expected_sha)
+            linked_asset.write_text("different", encoding="utf-8")
+            with self.assertRaisesRegex(adapted.AdaptedLocalLFEvalError, "hash mismatch"):
+                adapted._load_kure_condition(kure_root)
+
     def test_mismatched_parser_roster_fails_before_judge_call(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
