@@ -5,6 +5,7 @@ from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
+import csv
 
 from scripts.evaluate_dev_runs import EvaluationError, load_lf_eval_scores
 from scripts import v2_kure_orchestration as v2
@@ -32,6 +33,14 @@ def write_json(path, value):
 def write_jsonl(path, rows):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")
+
+
+def write_csv(path, fieldnames, rows):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
 
 
 def digest(path):
@@ -150,7 +159,100 @@ def build_fixture(root):
     return output_root, parser_path, worktree, mode
 
 
+def build_c02_bundle_fixture(root):
+    kure_root, unused_parser, worktree, unused_mode = build_fixture(root)
+    entries = json.loads((worktree / "frozen_manifests" / "v2_kure_full226.json").read_text()) ["entries"]
+    dataset = worktree / "data" / "fixture.jsonl"
+    bundle = root / "c02-bundle"
+    statuses = {1: "ANSWER", 2: "ABSTAIN", 3: "EXECUTION_FAILURE"}
+    rows = []
+    selected = []
+    for entry in entries:
+        ordinal, question_id = entry["ordinal"], entry["question_id"]
+        status = statuses.get(ordinal, "ABSTAIN")
+        answer = "공개 답변" if ordinal == 1 else ("후보 답변" if ordinal == 2 else "")
+        rows.append({
+            "ordinal": ordinal, "question_id": question_id, "run_id": "c02-%03d" % ordinal,
+            "status": status, "candidate_answer": answer,
+            "candidate_answer_status": "PUBLISHED_ANSWER" if ordinal == 1 else ("GENERATED" if ordinal == 2 else "NOT_NORMAL_OUTCOME"),
+            "candidate_answer_basis": "published_answer" if ordinal == 1 else ("retrieved_candidates" if ordinal == 2 else ""),
+            "candidate_answer_available": "True" if ordinal in {1, 2} else "False",
+        })
+        selected.append({"ordinal": ordinal, "question_id": question_id, "status": status})
+    fields = list(rows[0])
+    write_csv(bundle / "per_question.csv", fields, rows)
+    write_json(bundle / "batch" / "manifest.json", {"entries": entries})
+    write_json(bundle / "batch" / "metadata.json", {})
+    write_jsonl(bundle / "batch" / "summary.jsonl", [])
+    write_json(bundle / "audit" / "receipt.json", {})
+    write_json(bundle / "audit" / "source-artifacts.json", {})
+    write_json(bundle / "audit" / "source-row-map.json", {"ordinal_order": list(range(1, 227)), "selected_rows": selected})
+    write_json(bundle / "metadata.json", {"evaluator_git_commit": "fixture-source", "evaluator_git_source_worktree_dirty": False, "inputs": {"dataset": str(dataset), "dataset_sha256": digest(dataset)}})
+    (bundle / "summary.md").write_text("# frozen fixture\n", encoding="utf-8")
+    write_json(bundle / "execution-plan.json", {
+        "frozen_configuration": frozen_configuration(),
+        "source_snapshot": {"git_commit": "fixture-source", "git_tree": "fixture-tree"},
+        "execution_policy": {"bm25_execution": "FORBIDDEN", "lf_eval_score_injection": "FORBIDDEN"},
+    })
+    counts = {status: sum(row["status"] == status for row in rows) for status in ("ANSWER", "ABSTAIN", "EXECUTION_FAILURE")}
+    write_json(bundle / "aggregate.json", {"outcomes": {status: {"count": count} for status, count in counts.items()}})
+    paths = sorted(adapted.C02_REQUIRED_CHECKSUM_PATHS)
+    checksum_lines = ["%s  %s" % (digest(bundle / relative), relative) for relative in paths]
+    (bundle / "SHA256SUMS").write_text("\n".join(checksum_lines) + "\n", encoding="utf-8")
+    return bundle, dataset, entries
+
+
+def refresh_c02_fixture_checksums(bundle):
+    paths = sorted(adapted.C02_REQUIRED_CHECKSUM_PATHS)
+    lines = ["%s  %s" % (digest(bundle / relative), relative) for relative in paths]
+    (bundle / "SHA256SUMS").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 class AdaptedLocalLFEvalTests(unittest.TestCase):
+    def test_c02_frozen_bundle_uses_only_published_answers_and_hashes_every_artifact(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            bundle, dataset, entries = build_c02_bundle_fixture(root)
+            with patch.object(adapted, "_verify_c02_frozen_bundle_worktree", return_value=bundle), patch.object(
+                adapted, "C02_FROZEN_AGGREGATE_SHA256", digest(bundle / "aggregate.json")
+            ), patch.object(adapted, "C02_FROZEN_DATASET_PATH", dataset), patch.object(
+                adapted, "C02_FROZEN_DATASET_SHA256", digest(dataset)
+            ):
+                loaded_entries, outcomes, provenance, configuration = adapted._load_c02_frozen_condition(bundle)
+            self.assertEqual(loaded_entries, entries)
+            self.assertEqual(outcomes[entries[0]["question_id"]]["published_answer"], "공개 답변")
+            self.assertIsNone(outcomes[entries[1]["question_id"]]["published_answer"])
+            self.assertEqual(outcomes[entries[1]["question_id"]]["candidate_answer"], "후보 답변")
+            self.assertIsNone(outcomes[entries[2]["question_id"]]["candidate_answer"])
+            self.assertEqual(provenance["aggregate_sha256"], digest(bundle / "aggregate.json"))
+            self.assertEqual(configuration["model"], v2.EXPECTED_RUNTIME["model"])
+            (bundle / "batch" / "summary.jsonl").write_text("tampered\n", encoding="utf-8")
+            with patch.object(adapted, "_verify_c02_frozen_bundle_worktree", return_value=bundle), patch.object(
+                adapted, "C02_FROZEN_AGGREGATE_SHA256", digest(bundle / "aggregate.json")
+            ), patch.object(adapted, "C02_FROZEN_DATASET_PATH", dataset), patch.object(
+                adapted, "C02_FROZEN_DATASET_SHA256", digest(dataset)
+            ):
+                with self.assertRaisesRegex(adapted.AdaptedLocalLFEvalError, "artifact hash mismatch"):
+                    adapted._load_c02_frozen_condition(bundle)
+
+    def test_c02_frozen_bundle_rejects_nonpublished_answer_even_if_checksum_is_refreshed(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            bundle, dataset, unused_entries = build_c02_bundle_fixture(root)
+            csv_path = bundle / "per_question.csv"
+            with csv_path.open(encoding="utf-8", newline="") as handle:
+                rows = list(csv.DictReader(handle))
+            rows[0]["candidate_answer_status"] = "GENERATED"
+            write_csv(csv_path, list(rows[0]), rows)
+            refresh_c02_fixture_checksums(bundle)
+            with patch.object(adapted, "_verify_c02_frozen_bundle_worktree", return_value=bundle), patch.object(
+                adapted, "C02_FROZEN_AGGREGATE_SHA256", digest(bundle / "aggregate.json")
+            ), patch.object(adapted, "C02_FROZEN_DATASET_PATH", dataset), patch.object(
+                adapted, "C02_FROZEN_DATASET_SHA256", digest(dataset)
+            ):
+                with self.assertRaisesRegex(adapted.AdaptedLocalLFEvalError, "authoritative published answer"):
+                    adapted._load_c02_frozen_condition(bundle)
+
     def test_exact_official_projection_and_rubric_are_frozen(self):
         self.assertEqual(adapted.official_prediction("a" * 801), "a" * 800)
         # The official source has an accidental \t escape, so a literal <\\think>

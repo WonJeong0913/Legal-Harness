@@ -17,6 +17,7 @@ this program's scope.
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
 import json
 import os
@@ -42,6 +43,21 @@ OFFICIAL_SOURCE_URL = "https://github.com/daehuikim/KoBLEX/blob/main/experiments
 TOTAL_QUESTIONS = 226
 PUBLIC_ZERO_POLICY = "NON_ANSWER_OR_EXECUTION_FAILURE_IS_UNJUDGED_ZERO_FOR_END_TO_END"
 CANDIDATE_ZERO_POLICY = "MISSING_OR_EXECUTION_FAILURE_CANDIDATE_IS_UNJUDGED_ZERO_FOR_END_TO_END"
+
+# This adapter deliberately admits one historic, immutable C02 publication
+# bundle.  It must be checked out cleanly at this exact commit, and every
+# imported content artifact is rechecked against the bundle's SHA256SUMS.
+C02_FROZEN_BUNDLE_COMMIT = "b43c613ad9c5498627f2cb2a25915c80f9f08374"
+C02_FROZEN_BUNDLE_TREE = "d8296a2cacde164074688eba5068a5709534c0b5"
+C02_FROZEN_BUNDLE_RELATIVE_PATH = Path("records/evaluations/kure-c02-qwen38-q8-full226-20260826")
+C02_FROZEN_AGGREGATE_SHA256 = "02903d26253ef8a54238d19529a9d30308c5ca4341d9c178c28deefc663469bb"
+C02_FROZEN_DATASET_PATH = Path("/workspace/Legal-Harness/data/koblex/qa/test-00000-of-00001.parquet")
+C02_FROZEN_DATASET_SHA256 = "afdaff3a8000cdf5e0a64adbcfc8e6aff0042b318bf03718155f2b70f551c47b"
+C02_REQUIRED_CHECKSUM_PATHS = {
+    "aggregate.json", "metadata.json", "per_question.csv", "summary.md", "batch/manifest.json",
+    "batch/metadata.json", "batch/summary.jsonl", "audit/receipt.json",
+    "audit/source-artifacts.json", "audit/source-row-map.json", "execution-plan.json",
+}
 
 # Reproduced verbatim from KoBLEX's evaluate_legal_fidelity() GEval setup.
 OFFICIAL_CRITERIA = (
@@ -147,6 +163,76 @@ def _under(path: Path, root: Path, label: str) -> Path:
     except ValueError as exc:
         raise AdaptedLocalLFEvalError("%s must remain under %s" % (label, parent)) from exc
     return resolved
+
+
+def _frozen_linked_dataset_path(exec_root: Path, manifest_path: Any, expected_sha256: Any) -> Tuple[Path, bool]:
+    """Resolve only a SHA-pinned repository-relative dataset, including linked assets."""
+    relative = Path(_require_string(manifest_path, "source_dataset.path"))
+    if relative.is_absolute() or ".." in relative.parts:
+        raise AdaptedLocalLFEvalError("source_dataset.path must be a traversal-free relative path")
+    lexical_root = exec_root.absolute()
+    lexical_path = lexical_root / relative
+    try:
+        lexical_path.absolute().relative_to(lexical_root)
+    except ValueError as exc:
+        raise AdaptedLocalLFEvalError("source_dataset.path must remain under frozen exec_root") from exc
+    if not lexical_path.is_file():
+        raise AdaptedLocalLFEvalError("frozen C36 source dataset is missing")
+    resolved = lexical_path.resolve()
+    if sha256(resolved) != expected_sha256:
+        raise AdaptedLocalLFEvalError("frozen C36 source dataset hash mismatch")
+    return resolved, resolved != lexical_path.absolute()
+
+
+def _git_text(cwd: Path, arguments: Sequence[str], label: str) -> str:
+    try:
+        return subprocess.run(
+            ("git", *arguments), cwd=cwd, check=True, capture_output=True, text=True
+        ).stdout.strip()
+    except (OSError, subprocess.CalledProcessError) as exc:
+        raise AdaptedLocalLFEvalError("cannot verify %s as a frozen Git worktree" % label) from exc
+
+
+def _verify_c02_frozen_bundle_worktree(bundle: Path) -> Path:
+    """Accept only the clean committed C02 publication bundle, never live runs."""
+    resolved = bundle.resolve()
+    top = Path(_git_text(resolved, ("rev-parse", "--show-toplevel"), "C02 bundle")).resolve()
+    if resolved != top / C02_FROZEN_BUNDLE_RELATIVE_PATH:
+        raise AdaptedLocalLFEvalError("C02 bundle must occupy its committed frozen path")
+    if _git_text(top, ("rev-parse", "HEAD"), "C02 bundle") != C02_FROZEN_BUNDLE_COMMIT:
+        raise AdaptedLocalLFEvalError("C02 bundle worktree does not match the frozen commit")
+    if _git_text(top, ("rev-parse", "HEAD^{tree}"), "C02 bundle") != C02_FROZEN_BUNDLE_TREE:
+        raise AdaptedLocalLFEvalError("C02 bundle worktree does not match the frozen tree")
+    if _git_text(top, ("status", "--porcelain=v1", "--untracked-files=all"), "C02 bundle"):
+        raise AdaptedLocalLFEvalError("C02 bundle worktree must be clean")
+    if not resolved.is_dir():
+        raise AdaptedLocalLFEvalError("C02 frozen publication bundle is missing")
+    return resolved
+
+
+def _c02_bundle_checksums(bundle: Path) -> Dict[str, str]:
+    try:
+        lines = (bundle / "SHA256SUMS").read_text(encoding="utf-8").splitlines()
+    except (OSError, UnicodeDecodeError) as exc:
+        raise AdaptedLocalLFEvalError("C02 SHA256SUMS is missing or invalid") from exc
+    checksums: Dict[str, str] = {}
+    for line in lines:
+        fields = line.split(maxsplit=1)
+        if len(fields) != 2 or len(fields[0]) != 64 or any(ch not in "0123456789abcdef" for ch in fields[0]):
+            raise AdaptedLocalLFEvalError("C02 SHA256SUMS has an invalid entry")
+        relative = Path(fields[1])
+        if relative.is_absolute() or ".." in relative.parts or fields[1] in checksums:
+            raise AdaptedLocalLFEvalError("C02 SHA256SUMS has an unsafe entry")
+        checksums[fields[1]] = fields[0]
+    if set(checksums) != C02_REQUIRED_CHECKSUM_PATHS:
+        raise AdaptedLocalLFEvalError("C02 SHA256SUMS does not describe the exact frozen artifact set")
+    for relative, expected in checksums.items():
+        path = _under(bundle / relative, bundle, "C02 checksum artifact")
+        if not path.is_file() or sha256(path) != expected:
+            raise AdaptedLocalLFEvalError("C02 frozen artifact hash mismatch: %s" % relative)
+    if checksums["aggregate.json"] != C02_FROZEN_AGGREGATE_SHA256:
+        raise AdaptedLocalLFEvalError("C02 frozen aggregate hash does not match the committed release")
+    return checksums
 
 
 def _write_json_new(path: Path, value: Mapping[str, Any]) -> None:
@@ -258,11 +344,28 @@ def _load_kure_condition(output_root: Path) -> Tuple[List[Dict[str, Any]], Dict[
     if plan.get("frozen_configuration") != configuration:
         raise AdaptedLocalLFEvalError("C36 plan configuration mismatch")
     gate = _read_json(mode_root / "gate.json", "C36 full226 gate")
-    if gate.get("status") != "PASS":
-        raise AdaptedLocalLFEvalError("C36 full226 gate is not PASS")
+    if gate.get("status") not in {"PASS", v2.FULL226_COMPLETED_WITH_ERRORS}:
+        raise AdaptedLocalLFEvalError("C36 full226 gate is not a completed collection")
     checkpoint = _read_json(mode_root / "checkpoints" / "checkpoint-226.json", "C36 final checkpoint")
-    if checkpoint.get("checkpoint_status") != "PASS" or checkpoint.get("completed_questions") != TOTAL_QUESTIONS:
-        raise AdaptedLocalLFEvalError("C36 final checkpoint is not a 226-row PASS")
+    if checkpoint.get("completed_questions") != TOTAL_QUESTIONS:
+        raise AdaptedLocalLFEvalError("C36 final checkpoint is not a 226-row collection")
+    if checkpoint.get("checkpoint_status") == v2.FULL226_COMPLETED_WITH_ERRORS:
+        if (
+            checkpoint.get("collection_status") != v2.FULL226_EXPLICIT_FAILURE_COLLECTION
+            or not isinstance(checkpoint.get("execution_failure_question_ids"), list)
+            or checkpoint.get("execution_failure_count") != len(checkpoint["execution_failure_question_ids"])
+            or not checkpoint["execution_failure_question_ids"]
+            or checkpoint.get("validation_errors") != []
+        ):
+            raise AdaptedLocalLFEvalError("C36 completed-with-errors checkpoint is not auditable")
+    elif checkpoint.get("checkpoint_status") != "PASS":
+        raise AdaptedLocalLFEvalError("C36 final checkpoint is not a completed collection")
+    if gate.get("status") != checkpoint.get("checkpoint_status"):
+        raise AdaptedLocalLFEvalError("C36 gate/checkpoint collection status mismatch")
+    if checkpoint.get("checkpoint_status") == v2.FULL226_COMPLETED_WITH_ERRORS and (
+        gate.get("collection_status") != checkpoint.get("collection_status")
+    ):
+        raise AdaptedLocalLFEvalError("C36 gate/checkpoint collection status mismatch")
     if checkpoint.get("bm25_execution") != "FORBIDDEN" or checkpoint.get("lf_eval_score_injection") != "FORBIDDEN":
         raise AdaptedLocalLFEvalError("C36 final checkpoint relaxed a forbidden execution policy")
     batch_dir = Path(_require_string(checkpoint.get("batch_directory"), "checkpoint.batch_directory"))
@@ -295,6 +398,8 @@ def _load_kure_condition(output_root: Path) -> Tuple[List[Dict[str, Any]], Dict[
         candidate = result.get("candidate_answer")
         if candidate is not None and (not isinstance(candidate, str) or not candidate.strip()):
             raise AdaptedLocalLFEvalError("invalid candidate answer: %s" % question_id)
+        if status == "EXECUTION_FAILURE" and candidate is not None:
+            raise AdaptedLocalLFEvalError("execution failure leaked a candidate answer: %s" % question_id)
         outcome[question_id] = {
             "status": status,
             "published_answer": answer if status == "ANSWER" else None,
@@ -306,9 +411,9 @@ def _load_kure_condition(output_root: Path) -> Tuple[List[Dict[str, Any]], Dict[
         }
     source_dataset = _require_mapping(manifest.get("source_dataset"), "C36 source_dataset")
     exec_root = Path(_require_string(plan.get("exec_root"), "plan.exec_root"))
-    dataset_path = _under(exec_root / _require_string(source_dataset.get("path"), "source_dataset.path"), exec_root, "source dataset")
-    if not dataset_path.is_file() or sha256(dataset_path) != source_dataset.get("sha256"):
-        raise AdaptedLocalLFEvalError("frozen C36 source dataset hash mismatch")
+    dataset_path, linked_asset = _frozen_linked_dataset_path(
+        exec_root, source_dataset.get("path"), source_dataset.get("sha256")
+    )
     provenance = {
         "mode_root": str(mode_root),
         "plan_sha256": sha256(plan_path),
@@ -320,9 +425,126 @@ def _load_kure_condition(output_root: Path) -> Tuple[List[Dict[str, Any]], Dict[
         "checkpoint_summary_sha256": sha256(summary_path),
         "source_dataset": str(dataset_path),
         "source_dataset_sha256": sha256(dataset_path),
+        "source_dataset_linked_asset": linked_asset,
         "frozen_model_provenance": dict(v2.QWEN_MODEL_PROVENANCE),
     }
     return entries, outcome, provenance
+
+
+def _c02_boolean(value: Any, label: str) -> bool:
+    if value == "True":
+        return True
+    if value == "False":
+        return False
+    raise AdaptedLocalLFEvalError("%s must be the frozen CSV boolean spelling" % label)
+
+
+def _load_c02_frozen_condition(bundle: Path) -> Tuple[List[Dict[str, Any]], Dict[str, Dict[str, Any]], Dict[str, Any], Dict[str, Any]]:
+    """Load the C02 compact publication without following its stale raw-run paths."""
+    bundle = _verify_c02_frozen_bundle_worktree(bundle)
+    checksums = _c02_bundle_checksums(bundle)
+    metadata = _read_json(bundle / "metadata.json", "C02 frozen metadata")
+    aggregate = _read_json(bundle / "aggregate.json", "C02 frozen aggregate")
+    execution_plan = _read_json(bundle / "execution-plan.json", "C02 execution plan")
+    source_map = _read_json(bundle / "audit" / "source-row-map.json", "C02 source row map")
+    manifest = _read_json(bundle / "batch" / "manifest.json", "C02 batch manifest")
+    configuration = _require_mapping(execution_plan.get("frozen_configuration"), "C02 frozen configuration")
+    _configuration_is_frozen(configuration)
+    source_snapshot = _require_mapping(execution_plan.get("source_snapshot"), "C02 source snapshot")
+    if source_snapshot.get("git_commit") != metadata.get("evaluator_git_commit"):
+        raise AdaptedLocalLFEvalError("C02 metadata/source snapshot commit mismatch")
+    if not isinstance(source_snapshot.get("git_tree"), str) or not source_snapshot["git_tree"]:
+        raise AdaptedLocalLFEvalError("C02 source snapshot tree is missing")
+    if metadata.get("evaluator_git_source_worktree_dirty") is not False:
+        raise AdaptedLocalLFEvalError("C02 metadata does not attest to a clean evaluated source worktree")
+    policy = _require_mapping(execution_plan.get("execution_policy"), "C02 execution policy")
+    if policy.get("bm25_execution") != "FORBIDDEN" or policy.get("lf_eval_score_injection") != "FORBIDDEN":
+        raise AdaptedLocalLFEvalError("C02 frozen execution policy was relaxed")
+    entries = _entries(manifest)
+    if source_map.get("ordinal_order") != list(range(1, TOTAL_QUESTIONS + 1)):
+        raise AdaptedLocalLFEvalError("C02 source row map has invalid ordinal order")
+    selected = source_map.get("selected_rows")
+    if not isinstance(selected, list) or len(selected) != TOTAL_QUESTIONS:
+        raise AdaptedLocalLFEvalError("C02 source row map must select exactly 226 rows")
+    try:
+        with (bundle / "per_question.csv").open("r", encoding="utf-8", newline="") as handle:
+            rows = list(csv.DictReader(handle))
+    except (OSError, UnicodeDecodeError, csv.Error) as exc:
+        raise AdaptedLocalLFEvalError("C02 frozen per-question CSV is invalid") from exc
+    required_fields = {
+        "ordinal", "question_id", "run_id", "status", "candidate_answer",
+        "candidate_answer_status", "candidate_answer_basis", "candidate_answer_available",
+    }
+    if len(rows) != TOTAL_QUESTIONS or not required_fields.issubset(set(rows[0] if rows else ())):
+        raise AdaptedLocalLFEvalError("C02 frozen per-question CSV has an invalid schema")
+    outcomes: Dict[str, Dict[str, Any]] = {}
+    counts = {"ANSWER": 0, "ABSTAIN": 0, "EXECUTION_FAILURE": 0}
+    for entry, source, row in zip(entries, selected, rows):
+        ordinal, question_id = entry["ordinal"], str(entry["question_id"])
+        if (
+            str(row.get("ordinal")) != str(ordinal)
+            or row.get("question_id") != question_id
+            or source.get("ordinal") != ordinal
+            or source.get("question_id") != question_id
+            or source.get("status") != row.get("status")
+        ):
+            raise AdaptedLocalLFEvalError("C02 frozen row/map/manifest identity mismatch")
+        status = row.get("status")
+        if status not in counts:
+            raise AdaptedLocalLFEvalError("C02 frozen row has invalid status: %s" % question_id)
+        counts[status] += 1
+        candidate_available = _c02_boolean(row.get("candidate_answer_available"), "C02 candidate availability")
+        candidate = row.get("candidate_answer") or None
+        if candidate is not None and not isinstance(candidate, str):
+            raise AdaptedLocalLFEvalError("C02 candidate answer is invalid: %s" % question_id)
+        if bool(candidate) != candidate_available:
+            raise AdaptedLocalLFEvalError("C02 candidate availability mismatches its answer: %s" % question_id)
+        candidate_status, candidate_basis = row.get("candidate_answer_status") or None, row.get("candidate_answer_basis") or None
+        if status == "ANSWER":
+            if not candidate or candidate_status != "PUBLISHED_ANSWER" or candidate_basis != "published_answer":
+                raise AdaptedLocalLFEvalError("C02 ANSWER lacks its authoritative published answer: %s" % question_id)
+            published_answer = candidate
+        else:
+            published_answer = None
+        if status == "EXECUTION_FAILURE" and (candidate is not None or candidate_available):
+            raise AdaptedLocalLFEvalError("C02 execution failure leaked a candidate answer: %s" % question_id)
+        outcomes[question_id] = {
+            "status": status,
+            "published_answer": published_answer,
+            "candidate_answer": candidate,
+            "candidate_answer_status": candidate_status,
+            "candidate_answer_basis": candidate_basis,
+        }
+    if len(outcomes) != TOTAL_QUESTIONS:
+        raise AdaptedLocalLFEvalError("C02 frozen per-question CSV has duplicate question IDs")
+    expected_outcomes = aggregate.get("outcomes")
+    if not isinstance(expected_outcomes, Mapping) or any(
+        _require_mapping(expected_outcomes.get(status), "C02 aggregate outcome").get("count") != count
+        for status, count in counts.items()
+    ):
+        raise AdaptedLocalLFEvalError("C02 frozen aggregate outcome counts mismatch")
+    inputs = _require_mapping(metadata.get("inputs"), "C02 metadata inputs")
+    dataset_path = Path(_require_string(inputs.get("dataset"), "C02 metadata dataset"))
+    if dataset_path != C02_FROZEN_DATASET_PATH or inputs.get("dataset_sha256") != C02_FROZEN_DATASET_SHA256:
+        raise AdaptedLocalLFEvalError("C02 frozen dataset path/hash does not match the committed release")
+    if not dataset_path.is_file() or sha256(dataset_path) != C02_FROZEN_DATASET_SHA256:
+        raise AdaptedLocalLFEvalError("C02 frozen dataset is missing or hash-mismatched")
+    provenance = {
+        "condition": "OUR_C02_KURE",
+        "frozen_bundle": str(bundle),
+        "frozen_bundle_commit": C02_FROZEN_BUNDLE_COMMIT,
+        "frozen_bundle_tree": C02_FROZEN_BUNDLE_TREE,
+        "sha256sums_sha256": sha256(bundle / "SHA256SUMS"),
+        "frozen_artifact_sha256": checksums,
+        "aggregate_sha256": sha256(bundle / "aggregate.json"),
+        "per_question_sha256": sha256(bundle / "per_question.csv"),
+        "source_row_map_sha256": sha256(bundle / "audit" / "source-row-map.json"),
+        "source_dataset": str(dataset_path),
+        "source_dataset_sha256": sha256(dataset_path),
+        "published_answer_contract": "candidate_answer only for ANSWER with PUBLISHED_ANSWER/published_answer; stale record_directory is never read",
+        "frozen_model_provenance": dict(v2.QWEN_MODEL_PROVENANCE),
+    }
+    return entries, outcomes, provenance, configuration
 
 
 def _parser_contexts(row: Mapping[str, Any], question_id: str) -> List[str]:
@@ -542,28 +764,39 @@ def _git_provenance() -> Dict[str, Any]:
     }
 
 
-def run_adapted_local_lf_eval(kure_output_root: Path, parser_results: Path, output_dir: Path, timeout_seconds: float = 120.0) -> Dict[str, Any]:
-    kure_output_root, parser_results, output_dir = kure_output_root.resolve(), parser_results.resolve(), output_dir.resolve()
-    if not kure_output_root.is_dir() or not parser_results.is_file():
-        raise AdaptedLocalLFEvalError("KURE output root or ParSeR final_results input is absent")
+def run_adapted_local_lf_eval(
+    kure_output_root: Optional[Path], parser_results: Path, output_dir: Path, timeout_seconds: float = 120.0,
+    c02_frozen_bundle: Optional[Path] = None,
+) -> Dict[str, Any]:
+    if (kure_output_root is None) == (c02_frozen_bundle is None):
+        raise AdaptedLocalLFEvalError("select exactly one completed C36 root or frozen C02 bundle")
+    parser_results, output_dir = parser_results.resolve(), output_dir.resolve()
+    source = (c02_frozen_bundle if c02_frozen_bundle is not None else kure_output_root).resolve()
+    if not source.is_dir() or not parser_results.is_file():
+        raise AdaptedLocalLFEvalError("KURE/C02 source or ParSeR final_results input is absent")
     if os.path.lexists(str(output_dir)):
         raise AdaptedLocalLFEvalError("refusing to overwrite adapted evaluator output")
-    for source in (kure_output_root, parser_results):
+    for input_source in (source, parser_results):
         try:
-            output_dir.relative_to(source)
+            output_dir.relative_to(input_source)
         except ValueError:
             continue
         raise AdaptedLocalLFEvalError("adapted evaluator output must not be inside an input artifact")
-    entries, kure, kure_provenance = _load_kure_condition(kure_output_root)
+    if c02_frozen_bundle is None:
+        entries, kure, kure_provenance = _load_kure_condition(source)
+        configuration = _read_json(Path(kure_provenance["primary_manifest"]), "C36 primary manifest")["frozen_configuration"]
+        kure_label, provenance_label = "OUR_C36_KURE", "kure_c36"
+    else:
+        entries, kure, kure_provenance, configuration = _load_c02_frozen_condition(source)
+        kure_label, provenance_label = "OUR_C02_KURE", "kure_c02"
     source_dataset = Path(kure_provenance["source_dataset"])
     gold = load_gold_items(source_dataset)
     roster = [str(entry["question_id"]) for entry in entries]
     if set(roster) - set(gold):
         raise AdaptedLocalLFEvalError("C36 roster has question(s) absent from frozen source dataset")
     parser, parser_provenance = _load_parser_condition(parser_results, entries, gold)
-    configuration = _read_json(Path(kure_provenance["primary_manifest"]), "C36 primary manifest")["frozen_configuration"]
     os.environ.update(v2.OFFLINE_ENVIRONMENT)
-    readiness = _verify_judge(_require_mapping(configuration, "C36 frozen configuration"), timeout_seconds)
+    readiness = _verify_judge(_require_mapping(configuration, "frozen configuration"), timeout_seconds)
     cache: Dict[str, Dict[str, Any]] = {}
     kure_scores = _evaluate_condition(kure, gold, roster, cache, timeout_seconds)
     parser_scores = _evaluate_condition(parser, gold, roster, cache, timeout_seconds)
@@ -607,15 +840,15 @@ def run_adapted_local_lf_eval(kure_output_root: Path, parser_results: Path, outp
             "external_api": "FORBIDDEN",
         },
         "input_provenance": {
-            "canonical_c36_roster_sha256": canonical_sha256(roster),
-            "kure_c36": kure_provenance,
+            "canonical_roster_sha256": canonical_sha256(roster),
+            provenance_label: kure_provenance,
             "parser_reproduced": parser_provenance,
         },
         "conditions": {
-            "OUR_C36_KURE": _aggregate(kure_scores, roster),
+            kure_label: _aggregate(kure_scores, roster),
             "PARSER_REPRODUCED": _aggregate(parser_scores, roster),
         },
-        "paired_delta_definition": "PARSER_REPRODUCED minus OUR_C36_KURE; no judge call for public abstentions or failures",
+        "paired_delta_definition": "PARSER_REPRODUCED minus %s; no judge call for public abstentions or failures" % kure_label,
     }
     output_dir.mkdir(parents=True, exist_ok=False)
     metadata = {
@@ -643,7 +876,9 @@ def run_adapted_local_lf_eval(kure_output_root: Path, parser_results: Path, outp
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--kure-output-root", type=Path, required=True, help="completed C36 output root containing full226/")
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument("--kure-output-root", type=Path, help="completed C36 output root containing full226/")
+    source.add_argument("--c02-frozen-bundle", type=Path, help="clean b43 C02 compact publication bundle")
     parser.add_argument("--parser-results", type=Path, required=True, help="completed reproduced ParSeR final_results.jsonl")
     parser.add_argument("--output-dir", type=Path, required=True, help="new, separate adapted-evaluator artifact directory")
     parser.add_argument("--timeout-seconds", type=float, default=120.0)
@@ -652,7 +887,10 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    result = run_adapted_local_lf_eval(args.kure_output_root, args.parser_results, args.output_dir, args.timeout_seconds)
+    result = run_adapted_local_lf_eval(
+        args.kure_output_root, args.parser_results, args.output_dir, args.timeout_seconds,
+        c02_frozen_bundle=args.c02_frozen_bundle,
+    )
     print(json.dumps({"status": "PASS", "evaluator_id": EVALUATOR_ID, "output_dir": result["output_dir"], "receipt": result["receipt"]}, ensure_ascii=False, sort_keys=True))
 
 
