@@ -43,6 +43,10 @@ OFFICIAL_SOURCE_URL = "https://github.com/daehuikim/KoBLEX/blob/main/experiments
 TOTAL_QUESTIONS = 226
 PUBLIC_ZERO_POLICY = "NON_ANSWER_OR_EXECUTION_FAILURE_IS_UNJUDGED_ZERO_FOR_END_TO_END"
 CANDIDATE_ZERO_POLICY = "MISSING_OR_EXECUTION_FAILURE_CANDIDATE_IS_UNJUDGED_ZERO_FOR_END_TO_END"
+C36_FULL226_COMPLETED_WITH_ERRORS = getattr(v2, "FULL226_COMPLETED_WITH_ERRORS", "COMPLETED_WITH_ERRORS")
+C36_FULL226_EXPLICIT_FAILURE_COLLECTION = getattr(
+    v2, "FULL226_EXPLICIT_FAILURE_COLLECTION", "COMPLETE_WITH_EXPLICIT_EXECUTION_FAILURES"
+)
 
 # This adapter deliberately admits one historic, immutable C02 publication
 # bundle.  It must be checked out cleanly at this exact commit, and every
@@ -344,14 +348,14 @@ def _load_kure_condition(output_root: Path) -> Tuple[List[Dict[str, Any]], Dict[
     if plan.get("frozen_configuration") != configuration:
         raise AdaptedLocalLFEvalError("C36 plan configuration mismatch")
     gate = _read_json(mode_root / "gate.json", "C36 full226 gate")
-    if gate.get("status") not in {"PASS", v2.FULL226_COMPLETED_WITH_ERRORS}:
+    if gate.get("status") not in {"PASS", C36_FULL226_COMPLETED_WITH_ERRORS}:
         raise AdaptedLocalLFEvalError("C36 full226 gate is not a completed collection")
     checkpoint = _read_json(mode_root / "checkpoints" / "checkpoint-226.json", "C36 final checkpoint")
     if checkpoint.get("completed_questions") != TOTAL_QUESTIONS:
         raise AdaptedLocalLFEvalError("C36 final checkpoint is not a 226-row collection")
-    if checkpoint.get("checkpoint_status") == v2.FULL226_COMPLETED_WITH_ERRORS:
+    if checkpoint.get("checkpoint_status") == C36_FULL226_COMPLETED_WITH_ERRORS:
         if (
-            checkpoint.get("collection_status") != v2.FULL226_EXPLICIT_FAILURE_COLLECTION
+            checkpoint.get("collection_status") != C36_FULL226_EXPLICIT_FAILURE_COLLECTION
             or not isinstance(checkpoint.get("execution_failure_question_ids"), list)
             or checkpoint.get("execution_failure_count") != len(checkpoint["execution_failure_question_ids"])
             or not checkpoint["execution_failure_question_ids"]
@@ -362,7 +366,7 @@ def _load_kure_condition(output_root: Path) -> Tuple[List[Dict[str, Any]], Dict[
         raise AdaptedLocalLFEvalError("C36 final checkpoint is not a completed collection")
     if gate.get("status") != checkpoint.get("checkpoint_status"):
         raise AdaptedLocalLFEvalError("C36 gate/checkpoint collection status mismatch")
-    if checkpoint.get("checkpoint_status") == v2.FULL226_COMPLETED_WITH_ERRORS and (
+    if checkpoint.get("checkpoint_status") == C36_FULL226_COMPLETED_WITH_ERRORS and (
         gate.get("collection_status") != checkpoint.get("collection_status")
     ):
         raise AdaptedLocalLFEvalError("C36 gate/checkpoint collection status mismatch")
