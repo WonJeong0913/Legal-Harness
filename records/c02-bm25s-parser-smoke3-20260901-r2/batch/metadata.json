@@ -1,0 +1,145 @@
+{
+  "asset_provenance": {
+    "asset_root": "/workspace/Legal-Harness",
+    "assets": {
+      "normalized_corpus": {
+        "path": "data/koblex/normalized/statute.jsonl",
+        "sha256": "0e2283c7bcfa8f92d3ea7d4dd249449a31c0528b47dde04ab408bee45e0857b0"
+      },
+      "qa_parquet": {
+        "path": "data/koblex/qa/test-00000-of-00001.parquet",
+        "sha256": "afdaff3a8000cdf5e0a64adbcfc8e6aff0042b318bf03718155f2b70f551c47b"
+      },
+      "statute_parquet": {
+        "path": "data/koblex/statute/corpus-00000-of-00001.parquet",
+        "sha256": "6323f7d024ec504f4b2346cd3ab67aa709aac49a5340c9f3d8372ad6bd5f9b8b"
+      }
+    },
+    "documents": 233544,
+    "parquet_to_provision_id_mapping": "positional parquet row to normalized provision_id; duplicate parquet index values remain distinct and are never first-stage deduplicated",
+    "parquet_to_provision_id_mapping_sha256": "087ba03a2b960fc8d567a43afcccac2a6a931e44115dede18c96a8bd4bdbdabd"
+  },
+  "batch_id": "c02-bm25s-6d36462165db4f25b01b55351c44d248",
+  "batch_manifest_sha256": "49404f14b103be7b98a073536d5c79fdc9f47f24efdeb6b0dae05e6c60693fb2",
+  "completed_at_utc": "2026-09-01T08:55:58.263433+00:00",
+  "completed_questions": 3,
+  "configuration": {
+    "candidate_budget_scope": "per_round",
+    "candidate_selection": "evidence_balanced",
+    "condition": "C02-BM25s-ParSeR-first-stage-ablation-Qwen3.8-Q8_0-smoke3",
+    "conditional_generation": "answer_target_full_conditional_limited",
+    "contextual_query_dedup": "after_source_context_attachment",
+    "coverage_contract": "legal_applicability_criterion_results",
+    "dedup_mode": "legal_text_alias",
+    "factual_branch_classification": "missing_selector_is_partial_not_legal_conflict",
+    "final_top_k": 10,
+    "input_format": "koblex_background_plus_question",
+    "model": "legal-harness-qwen38-q8",
+    "model_provenance": {
+      "alias": "legal-harness-qwen38-q8",
+      "file": "Qwen3.8-27B-Q8_0.gguf",
+      "observed_architecture": "qwen35",
+      "observed_parameter_count": "26.9B",
+      "ollama_details": {
+        "family": "qwen35",
+        "parameter_size": "26.9B",
+        "quantization_level": "Q8_0"
+      },
+      "ollama_manifest_digest": "91f49c230b9d1fd034414b1035b361cfe4ad1c89f7076012b10420edea8b78ff",
+      "ollama_model_blob": "/root/.ollama/models/blobs/sha256-f5c702d8820d36fb55985bb238fc83ee3a313e920f4b752a437c3a6a9e14e4c8",
+      "provenance_note": "Observed local Ollama metadata; architecture is recorded, not relabeled.",
+      "quantization": "Q8_0",
+      "sha256": "f5c702d8820d36fb55985bb238fc83ee3a313e920f4b752a437c3a6a9e14e4c8"
+    },
+    "monotonic_coverage": true,
+    "num_ctx": 32768,
+    "ollama_endpoint": "http://127.0.0.1:11435/api/generate",
+    "per_evidence_min_k": 1,
+    "planning_contract": "answer_targets_required",
+    "rerank_document_mode": "statute_and_body",
+    "rerank_pool_k": 100,
+    "rerank_query_mode": "per_request",
+    "reranker": "dragonkue--bge-reranker-v2-m3-ko",
+    "retrieval_stage_provenance_required_for_evaluation": true,
+    "retriever": "bm25s_parser",
+    "retriever_provenance": {
+      "backend": "bm25s.BM25",
+      "bm25s_version": "0.3.10",
+      "corpus_text": "parquet hierarchy + content in immutable parquet row order",
+      "corpus_tokenization": "bm25s.tokenize(corpus, stopwords='en')",
+      "documents": 233544,
+      "first_stage_only": true,
+      "first_stage_provision_id_deduplication": "FORBIDDEN",
+      "fts5_query_expansion": "FORBIDDEN",
+      "mapping_policy": "positional parquet row to normalized provision_id; duplicate parquet index values remain distinct and are never first-stage deduplicated",
+      "normalized_corpus_path": "data/koblex/normalized/statute.jsonl",
+      "normalized_corpus_sha256": "0e2283c7bcfa8f92d3ea7d4dd249449a31c0528b47dde04ab408bee45e0857b0",
+      "parquet_to_provision_id_mapping_sha256": "087ba03a2b960fc8d567a43afcccac2a6a931e44115dede18c96a8bd4bdbdabd",
+      "query_tokenization": "bm25s.tokenize([query])",
+      "statute_hint_recall_channel": "FORBIDDEN",
+      "statute_parquet_path": "data/koblex/statute/corpus-00000-of-00001.parquet",
+      "statute_parquet_sha256": "6323f7d024ec504f4b2346cd3ab67aa709aac49a5340c9f3d8372ad6bd5f9b8b",
+      "top_k": 100
+    },
+    "round_merge_mode": "request_rank_top1_guarded_swap",
+    "runtime_determinism": {
+      "GGML_CUDA_DISABLE_GRAPHS": 1,
+      "flash_attention": false,
+      "num_parallel": 1,
+      "ollama_version": "0.20.5",
+      "prompt_run_id_placeholder": "__HARNESS_RUN_ID__",
+      "seed_forwarding": "ollama_options_seed"
+    },
+    "s1_max_tokens": 4096,
+    "s1_truncation_retry_max_tokens": 8192,
+    "s3_audit_fields": [
+      "assumptions",
+      "limitations",
+      "claims",
+      "claim_citations"
+    ],
+    "s3_claim_contract": "all_claims_cited_uncited_limitations_outside_claims",
+    "s3_public_answer_format": "conclusion_first_1_to_3_short_sentences",
+    "s3_public_answer_max_characters": 800,
+    "s3_public_answer_max_claims": 3,
+    "seed": 0,
+    "skill_max_tokens": {
+      "grounded_legal_answer_generation": 3072,
+      "legal_issue_and_query_planning": 4096,
+      "provision_coverage_assessment": 3072
+    },
+    "total_retrieval_requests": 9,
+    "total_retrieval_rounds": 3
+  },
+  "entry_count": 3,
+  "execution_failure_audit": {
+    "harness_execution_failure_count": 1,
+    "harness_execution_failure_records": [
+      {
+        "ordinal": 3,
+        "question_id": "qa_140_3hop_540_rand",
+        "run_id": "d4a6b6fc-fff5-4642-8324-c7214916309f",
+        "termination_reason": "INVALID_SKILL_OUTPUT"
+      }
+    ],
+    "synthetic_failure_records": [],
+    "synthetic_launcher_or_infrastructure_failure_count": 0,
+    "unclassified_execution_failure_count": 0,
+    "unclassified_failure_records": []
+  },
+  "execution_mode": "warm_persistent_bm25s_first_stage_only",
+  "has_execution_failure": true,
+  "outcomes": {
+    "ABSTAIN": 1,
+    "ANSWER": 1,
+    "EXECUTION_FAILURE": 1
+  },
+  "resume_policy": "CONTIGUOUS_PREFIX_ONLY",
+  "source_snapshot": {
+    "git_commit": "edc9da4746b87cde61d967f0d8730cb8c9373649",
+    "git_tree": "9b3f613d8ffac9ce3c4b5f7ba2e172c242881553",
+    "source_manifest_sha256": "13961080db0df56bbd4a0867ec8e5b1841b3c63d804381c22b3b4d4e375d68ba"
+  },
+  "started_at_utc": "2026-09-01T08:45:05.818289+00:00",
+  "v2_bm25_reference_execution": "MUST_NEVER_BE_EXECUTED"
+}
