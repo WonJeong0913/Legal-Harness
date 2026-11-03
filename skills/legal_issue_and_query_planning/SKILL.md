@@ -43,3 +43,7 @@ Validate a result with:
 ```bash
 python3 scripts/validate_output.py output.json --input input.json
 ```
+
+## Epistemic neutrality
+
+Keep evidence obligations and retrieval hypotheses distinct. Do not present a legal answer, article, condition, or threshold absent from the question as established fact. Preserve explicit independent outputs and genuinely distinct rules, exceptions, cross-references, and legal effects without inventing extra lanes. GAP queries remain tied to the supplied unresolved item; a new statutory pinpoint must be grounded by the original question or the harness-supplied candidate cross-reference, otherwise use a neutral semantic query.

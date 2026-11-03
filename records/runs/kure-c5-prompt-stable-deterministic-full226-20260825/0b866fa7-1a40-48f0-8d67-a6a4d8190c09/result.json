@@ -1,0 +1,1264 @@
+{
+  "abstention_reason": null,
+  "answer": "취소소송은 처분등의 취소를 구할 법률상 이익이 있는 자가 제기할 수 있다.[CT1]\n갑은 강제수용 처분의 취소를 구할 법률상 이익이 있는 자로서 취소소송을 제기할 수 있는 원고적격이 있다.[CT2]",
+  "answer_mode": "limited",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "갑이 강제수용 처분의 취소를 구할 법률상 이익을 실제로 가지는지 여부는 사실관계에 따라 판단되어야 한다."
+    }
+  ],
+  "candidate_answer": "취소소송은 처분등의 취소를 구할 법률상 이익이 있는 자가 제기할 수 있다.[CT1]\n갑은 강제수용 처분의 취소를 구할 법률상 이익이 있는 자로서 취소소송을 제기할 수 있는 원고적격이 있다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "행정소송법 12조  원고적격#KOBLEX-011437",
+      "quoted_text": "제12조(원고적격) 취소소송은 처분등의 취소를 구할 법률상 이익이 있는 자가 제기할 수 있다. 처분등의 효과가 기간의 경과, 처분등의 집행 그 밖의 사유로 인하여 소멸된 뒤에도 그 처분등의 취소로 인하여 회복되는 법률상 이익이 있는 자의 경우에는 또한 같다.",
+      "support_description": "취소소송의 원고적격 요건으로 법률상 이익을 규정한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "행정소송법 12조  원고적격#KOBLEX-011437",
+      "quoted_text": "제12조(원고적격) 취소소송은 처분등의 취소를 구할 법률상 이익이 있는 자가 제기할 수 있다. 처분등의 효과가 기간의 경과, 처분등의 집행 그 밖의 사유로 인하여 소멸된 뒤에도 그 처분등의 취소로 인하여 회복되는 법률상 이익이 있는 자의 경우에는 또한 같다.",
+      "support_description": "갑의 원고적격 판단에 적용되는 법적 근거를 제공한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "취소소송은 처분등의 취소를 구할 법률상 이익이 있는 자가 제기할 수 있다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "conditional",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "갑은 강제수용 처분의 취소를 구할 법률상 이익이 있는 자로서 취소소송을 제기할 수 있는 원고적격이 있다."
+    }
+  ],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-25T02:27:57.435537+00:00",
+  "deferred_target_ids": [
+    "T2"
+  ],
+  "end_to_end_latency_ms": 712677.22,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "집행정지 인정 요건에 관한 질문(T2)은 미해결 상태이므로 본 답변에서 다루지 않는다."
+    },
+    {
+      "code": "LIMITATION_2",
+      "message": "집행정지 관련 증거(E2)가 일부만 충족되어 있어, '원고의 청구가 승소할 가능성이 높음'이라는 명시적 요건에 대한 법적 근거가 부족하다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 359,
+      "dedup_collapse": 101,
+      "evidence_fusion": 359,
+      "first_stage": 500,
+      "request_rerank": 500,
+      "round_selected": 30,
+      "rrf": 400,
+      "selected": 359
+    }
+  },
+  "run_id": "0b866fa7-1a40-48f0-8d67-a6a4d8190c09",
+  "skill_generation_diagnostics": {
+    "attempt_count": 7,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "행정소송법 23조  집행정지#KOBLEX-011480",
+      "행정소송법 23조  집행정지#KOBLEX-011481",
+      "행정소송법 12조  원고적격#KOBLEX-011437"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": true,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 5,
+          "request_count": 2,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [
+            "T2"
+          ],
+          "explanation": "Only the citable answer targets will be answered; remaining targets are deferred.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": [
+            "T2"
+          ]
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "limited",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "갑에게 지역 개발 사업에 대한 강제 수용 절차에 대하여 취소소송을 제기할 수 있는 자격이 있는가?",
+        "requested_output": "Determination of whether Party A has standing to file an action for cancellation of the compulsory expropriation procedure."
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_requirements",
+        "question_anchor": "취소 소송이 제기된 경우에 집행정지가 인정될 수 있는 요건은 무엇인가?",
+        "requested_output": "The statutory requirements for granting a stay of execution in the context of a cancellation action."
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "행정소송법 24조  집행정지의 취소#KOBLEX-011485"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 31,
+        "first_stage_score": 0.5810437202453613,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "행정소송법 24조  집행정지의 취소#KOBLEX-011485",
+        "provision_text": "제24조(집행정지의 취소)",
+        "rerank_rank": 1,
+        "rerank_score": 0.0003382767899893224,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "행정소송법 24조  집행정지의 취소",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "행정소송법 12조  원고적격#KOBLEX-011437"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 7,
+        "first_stage_score": 0.6051856875419617,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "행정소송법 12조  원고적격#KOBLEX-011437",
+        "provision_text": "제12조(원고적격) 취소소송은 처분등의 취소를 구할 법률상 이익이 있는 자가 제기할 수 있다. 처분등의 효과가 기간의 경과, 처분등의 집행 그 밖의 사유로 인하여 소멸된 뒤에도 그 처분등의 취소로 인하여 회복되는 법률상 이익이 있는 자의 경우에는 또한 같다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.0002991707588080317,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "행정소송법 12조  원고적격",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "행정소송법 9조  재판관할#KOBLEX-011429"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6569511890411377,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "행정소송법 9조  재판관할#KOBLEX-011429",
+        "provision_text": "③토지의 수용 기타 부동산 또는 특정의 장소에 관계되는 처분등에 대한 취소소송은 그 부동산 또는 장소의 소재지를 관할하는 행정법원에 이를 제기할 수 있다. <개정 2014.5.20>",
+        "rerank_rank": 3,
+        "rerank_score": 0.00016020602197386324,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "행정소송법 9조  재판관할 3항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "산지관리법 시행령 11조  산지전용ㆍ일시사용제한지역지정의 해제#KOBLEX-090491"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 83,
+        "first_stage_score": 0.5584630966186523,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "산지관리법 시행령 11조  산지전용ㆍ일시사용제한지역지정의 해제#KOBLEX-090491",
+        "provision_text": "3. 지역 발전을 위한 기반시설(교통시설ㆍ물류시설 및 정보통신시설만 해당한다)의 설치 등 토지이용의 합리화를 위하여 필요한 경우",
+        "rerank_rank": 4,
+        "rerank_score": 7.405738142551854e-05,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "산지관리법 시행령 11조  산지전용ㆍ일시사용제한지역지정의 해제 3호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "행정소송법 28조  사정판결#KOBLEX-011498"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 61,
+        "first_stage_score": 0.5712438225746155,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "행정소송법 28조  사정판결#KOBLEX-011498",
+        "provision_text": "③원고는 피고인 행정청이 속하는 국가 또는 공공단체를 상대로 손해배상, 제해시설의 설치 그 밖에 적당한 구제방법의 청구를 당해 취소소송등이 계속된 법원에 병합하여 제기할 수 있다.",
+        "rerank_rank": 1,
+        "rerank_score": 7.354412082349882e-05,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "행정소송법 28조  사정판결 3항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "행정소송법 4조  항고소송#KOBLEX-011413"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 45,
+        "first_stage_score": 0.5735257267951965,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "행정소송법 4조  항고소송#KOBLEX-011413",
+        "provision_text": "1. 취소소송: 행정청의 위법한 처분등을 취소 또는 변경하는 소송",
+        "rerank_rank": 5,
+        "rerank_score": 6.975606083869934e-05,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "행정소송법 4조  항고소송 1호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 88조  처분효력의 부정지#KOBLEX-027092",
+          "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 88조  처분효력의 부정지#KOBLEX-120059"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6161053776741028,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 88조  처분효력의 부정지#KOBLEX-027092",
+        "provision_text": "제88조(처분효력의 부정지) 제83조에 따른 이의의 신청이나 제85조에 따른 행정소송의 제기는 사업의 진행 및 토지의 수용 또는 사용을 정지시키지 아니한다.",
+        "rerank_rank": 6,
+        "rerank_score": 6.726816354785115e-05,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 88조  처분효력의 부정지",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "행정소송법 18조  행정심판과의 관계#KOBLEX-011460"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 33,
+        "first_stage_score": 0.580244243144989,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "행정소송법 18조  행정심판과의 관계#KOBLEX-011460",
+        "provision_text": "①취소소송은 법령의 규정에 의하여 당해 처분에 대한 행정심판을 제기할 수 있는 경우에도 이를 거치지 아니하고 제기할 수 있다. 다만, 다른 법률에 당해 처분에 대한 행정심판의 재결을 거치지 아니하면 취소소송을 제기할 수 없다는 규정이 있는 때에는 그러하지 아니하다. <개정 1994.7.27>",
+        "rerank_rank": 7,
+        "rerank_score": 3.153855504933745e-05,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "행정소송법 18조  행정심판과의 관계 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "행정소송법 24조  집행정지의 취소#KOBLEX-011486"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6594606041908264,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "행정소송법 24조  집행정지의 취소#KOBLEX-011486",
+        "provision_text": "①집행정지의 결정이 확정된 후 집행정지가 공공복리에 중대한 영향을 미치거나 그 정지사유가 없어진 때에는 당사자의 신청 또는 직권에 의하여 결정으로써 집행정지의 결정을 취소할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 2.5071067284443416e-05,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "행정소송법 24조  집행정지의 취소 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "행정심판법 13조  청구인 적격#KOBLEX-182785"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 52,
+        "first_stage_score": 0.5676626563072205,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "행정심판법 13조  청구인 적격#KOBLEX-182785",
+        "provision_text": "① 취소심판은 처분의 취소 또는 변경을 구할 법률상 이익이 있는 자가 청구할 수 있다. 처분의 효과가 기간의 경과, 처분의 집행, 그 밖의 사유로 소멸된 뒤에도 그 처분의 취소로 회복되는 법률상 이익이 있는 자의 경우에도 또한 같다.",
+        "rerank_rank": 8,
+        "rerank_score": 2.0853112800978124e-05,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "행정심판법 13조  청구인 적격 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "행정소송법 23조  집행정지#KOBLEX-011480"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 63,
+        "first_stage_score": 0.5762612223625183,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "행정소송법 23조  집행정지#KOBLEX-011480",
+        "provision_text": "②취소소송이 제기된 경우에 처분등이나 그 집행 또는 절차의 속행으로 인하여 생길 회복하기 어려운 손해를 예방하기 위하여 긴급한 필요가 있다고 인정할 때에는 본안이 계속되고 있는 법원은 당사자의 신청 또는 직권에 의하여 처분등의 효력이나 그 집행 또는 절차의 속행의 전부 또는 일부의 정지(이하 \"執行停止\"라 한다)를 결정할 수 있다. 다만, 처분의 효력정지는 처분등의 집행 또는 절차의 속행을 정지함으로써 목적을 달성할 수 있는 경우에는 허용되지 아니한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.0005234966520220041,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E2",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "행정소송법 23조  집행정지 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "행정소송법 23조  집행정지#KOBLEX-011478"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 59,
+        "first_stage_score": 0.5771099925041199,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "행정소송법 23조  집행정지#KOBLEX-011478",
+        "provision_text": "제23조(집행정지)",
+        "rerank_rank": 2,
+        "rerank_score": 9.739575762068853e-05,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "행정소송법 23조  집행정지",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방자치법 22조  주민소송#KOBLEX-076256"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 42,
+        "first_stage_score": 0.5840193033218384,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "지방자치법 22조  주민소송#KOBLEX-076256",
+        "provision_text": "제22조(주민소송)",
+        "rerank_rank": 3,
+        "rerank_score": 4.9398520786780864e-05,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "지방자치법 22조  주민소송",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "난민법 22조  난민인정결정의 취소 등#KOBLEX-009541"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 41,
+        "first_stage_score": 0.5845131874084473,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "난민법 22조  난민인정결정의 취소 등#KOBLEX-009541",
+        "provision_text": "제22조(난민인정결정의 취소 등)",
+        "rerank_rank": 4,
+        "rerank_score": 4.869122494710609e-05,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "난민법 22조  난민인정결정의 취소 등",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국토의 계획 및 이용에 관한 법률 22조 2 시ㆍ군 도시ㆍ군기본계획의 승인#KOBLEX-198809"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 91,
+        "first_stage_score": 0.5663980841636658,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "국토의 계획 및 이용에 관한 법률 22조 2 시ㆍ군 도시ㆍ군기본계획의 승인#KOBLEX-198809",
+        "provision_text": "제22조의2(시ㆍ군 도시ㆍ군기본계획의 승인)",
+        "rerank_rank": 5,
+        "rerank_score": 4.0004364564083517e-05,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "국토의 계획 및 이용에 관한 법률 22조 2 시ㆍ군 도시ㆍ군기본계획의 승인",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도시개발법 시행령 22조  도시개발사업의 시행규정 등#KOBLEX-214133"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 69,
+        "first_stage_score": 0.5729566812515259,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "도시개발법 시행령 22조  도시개발사업의 시행규정 등#KOBLEX-214133",
+        "provision_text": "제22조(도시개발사업의 시행규정 등)",
+        "rerank_rank": 6,
+        "rerank_score": 3.800968988798559e-05,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "도시개발법 시행령 22조  도시개발사업의 시행규정 등",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공공주택 특별법 27조  토지등의 수용 등#KOBLEX-057956",
+          "공공주택 특별법 27조  토지등의 수용 등#KOBLEX-139987",
+          "공공주택 특별법 27조  토지등의 수용 등#KOBLEX-221312"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 78,
+        "first_stage_score": 0.570564866065979,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "공공주택 특별법 27조  토지등의 수용 등#KOBLEX-057956",
+        "provision_text": "② 주택지구를 지정하거나 제35조제1항에 따라 주택건설사업계획을 승인하여 고시한 때에는 「공익사업을 위한 토지 등의 취득 및 보상에 관한 법률」 제20조제1항 및 같은 법 제22조에 따른 사업인정 및 사업인정의 고시가 있는 것으로 본다. <개정 2020.12.22>",
+        "rerank_rank": 7,
+        "rerank_score": 3.711287718033418e-05,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "공공주택 특별법 27조  토지등의 수용 등 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도시 및 주거환경정비법 22조  정비구역등 해제의 효력#KOBLEX-148070",
+          "도시 및 주거환경정비법 22조  정비구역등 해제의 효력#KOBLEX-228642"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 49,
+        "first_stage_score": 0.5801665782928467,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "도시 및 주거환경정비법 22조  정비구역등 해제의 효력#KOBLEX-148070",
+        "provision_text": "제22조(정비구역등 해제의 효력)",
+        "rerank_rank": 8,
+        "rerank_score": 3.472513708402403e-05,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "도시 및 주거환경정비법 22조  정비구역등 해제의 효력",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "산업입지 및 개발에 관한 법률 22조  토지수용#KOBLEX-078731"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 54,
+        "first_stage_score": 0.5796467661857605,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "산업입지 및 개발에 관한 법률 22조  토지수용#KOBLEX-078731",
+        "provision_text": "제22조(토지수용)",
+        "rerank_rank": 9,
+        "rerank_score": 3.4483742638258263e-05,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "산업입지 및 개발에 관한 법률 22조  토지수용",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "산업집적활성화 및 공장설립에 관한 법률 22조 3 산업집적지경쟁력강화사업추진계획의 수립 등#KOBLEX-042785"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 65,
+        "first_stage_score": 0.574849009513855,
+        "fusion_rank": 10,
+        "issue_id": "I2",
+        "provision_id": "산업집적활성화 및 공장설립에 관한 법률 22조 3 산업집적지경쟁력강화사업추진계획의 수립 등#KOBLEX-042785",
+        "provision_text": "제22조의3(산업집적지경쟁력강화사업추진계획의 수립 등)",
+        "rerank_rank": 10,
+        "rerank_score": 3.297779767308384e-05,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "산업집적활성화 및 공장설립에 관한 법률 22조 3 산업집적지경쟁력강화사업추진계획의 수립 등",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "행정소송법 23조  집행정지#KOBLEX-011481"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 56,
+        "first_stage_score": 0.5720545053482056,
+        "fusion_rank": 33,
+        "issue_id": "I2",
+        "provision_id": "행정소송법 23조  집행정지#KOBLEX-011481",
+        "provision_text": "③집행정지는 공공복리에 중대한 영향을 미칠 우려가 있을 때에는 허용되지 아니한다.",
+        "rerank_rank": 33,
+        "rerank_score": 0.0014496674994006753,
+        "retrieval_round": 3,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E2",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "행정소송법 23조  집행정지 3항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "행정소송법 23조  집행정지#KOBLEX-011482"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 88,
+        "first_stage_score": 0.5617102980613708,
+        "fusion_rank": 36,
+        "issue_id": "I2",
+        "provision_id": "행정소송법 23조  집행정지#KOBLEX-011482",
+        "provision_text": "④제2항의 규정에 의한 집행정지의 결정을 신청함에 있어서는 그 이유에 대한 소명이 있어야 한다.",
+        "rerank_rank": 36,
+        "rerank_score": 0.0012355248909443617,
+        "retrieval_round": 3,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "행정소송법 23조  집행정지 4항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "행정소송법 29조  취소판결등의 효력#KOBLEX-011501"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.612457275390625,
+        "fusion_rank": 40,
+        "issue_id": "I2",
+        "provision_id": "행정소송법 29조  취소판결등의 효력#KOBLEX-011501",
+        "provision_text": "②제1항의 규정은 제23조의 규정에 의한 집행정지의 결정 또는 제24조의 규정에 의한 그 집행정지결정의 취소결정에 준용한다.",
+        "rerank_rank": 40,
+        "rerank_score": 0.00025879923487082124,
+        "retrieval_round": 3,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "행정소송법 29조  취소판결등의 효력 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "행정소송법 23조  집행정지#KOBLEX-011483"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 74,
+        "first_stage_score": 0.5665152072906494,
+        "fusion_rank": 10,
+        "issue_id": "I2",
+        "provision_id": "행정소송법 23조  집행정지#KOBLEX-011483",
+        "provision_text": "⑤제2항의 규정에 의한 집행정지의 결정 또는 기각의 결정에 대하여는 즉시항고할 수 있다. 이 경우 집행정지의 결정에 대한 즉시항고에는 결정의 집행을 정지하는 효력이 없다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.00014319963520392776,
+        "retrieval_round": 3,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "행정소송법 23조  집행정지 5항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방세징수법 83조  공매의 취소 및 공고#KOBLEX-131418"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 46,
+        "first_stage_score": 0.5787373185157776,
+        "fusion_rank": 42,
+        "issue_id": "I2",
+        "provision_id": "지방세징수법 83조  공매의 취소 및 공고#KOBLEX-131418",
+        "provision_text": "① 지방자치단체의 장은 다음 각 호의 어느 하나에 해당하는 경우에는 공매를 취소할 수 있다. 1. 해당 재산의 압류를 해제한 경우 2. 제105조에 따라 체납처분을 유예한 경우 3. 「행정소송법」 제23조에 따라 법원이 체납처분에 대한 집행정지의 결정을 한 경우 4. 그 밖에 공매를 진행하기 곤란한 경우로서 대통령령으로 정하는 경우",
+        "rerank_rank": 42,
+        "rerank_score": 9.109153324970976e-05,
+        "retrieval_round": 3,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "지방세징수법 83조  공매의 취소 및 공고 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "공공주택 특별법 27조  토지등의 수용 등#KOBLEX-057956": "② 주택지구를 지정하거나 제35조제1항에 따라 주택건설사업계획을 승인하여 고시한 때에는 「공익사업을 위한 토지 등의 취득 및 보상에 관한 법률」 제20조제1항 및 같은 법 제22조에 따른 사업인정 및 사업인정의 고시가 있는 것으로 본다. <개정 2020.12.22>",
+      "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 88조  처분효력의 부정지#KOBLEX-027092": "제88조(처분효력의 부정지) 제83조에 따른 이의의 신청이나 제85조에 따른 행정소송의 제기는 사업의 진행 및 토지의 수용 또는 사용을 정지시키지 아니한다.",
+      "국토의 계획 및 이용에 관한 법률 22조 2 시ㆍ군 도시ㆍ군기본계획의 승인#KOBLEX-198809": "제22조의2(시ㆍ군 도시ㆍ군기본계획의 승인)",
+      "난민법 22조  난민인정결정의 취소 등#KOBLEX-009541": "제22조(난민인정결정의 취소 등)",
+      "도시 및 주거환경정비법 22조  정비구역등 해제의 효력#KOBLEX-148070": "제22조(정비구역등 해제의 효력)",
+      "도시개발법 시행령 22조  도시개발사업의 시행규정 등#KOBLEX-214133": "제22조(도시개발사업의 시행규정 등)",
+      "산업입지 및 개발에 관한 법률 22조  토지수용#KOBLEX-078731": "제22조(토지수용)",
+      "산업집적활성화 및 공장설립에 관한 법률 22조 3 산업집적지경쟁력강화사업추진계획의 수립 등#KOBLEX-042785": "제22조의3(산업집적지경쟁력강화사업추진계획의 수립 등)",
+      "산지관리법 시행령 11조  산지전용ㆍ일시사용제한지역지정의 해제#KOBLEX-090491": "3. 지역 발전을 위한 기반시설(교통시설ㆍ물류시설 및 정보통신시설만 해당한다)의 설치 등 토지이용의 합리화를 위하여 필요한 경우",
+      "지방세징수법 83조  공매의 취소 및 공고#KOBLEX-131418": "① 지방자치단체의 장은 다음 각 호의 어느 하나에 해당하는 경우에는 공매를 취소할 수 있다. 1. 해당 재산의 압류를 해제한 경우 2. 제105조에 따라 체납처분을 유예한 경우 3. 「행정소송법」 제23조에 따라 법원이 체납처분에 대한 집행정지의 결정을 한 경우 4. 그 밖에 공매를 진행하기 곤란한 경우로서 대통령령으로 정하는 경우",
+      "지방자치법 22조  주민소송#KOBLEX-076256": "제22조(주민소송)",
+      "행정소송법 12조  원고적격#KOBLEX-011437": "제12조(원고적격) 취소소송은 처분등의 취소를 구할 법률상 이익이 있는 자가 제기할 수 있다. 처분등의 효과가 기간의 경과, 처분등의 집행 그 밖의 사유로 인하여 소멸된 뒤에도 그 처분등의 취소로 인하여 회복되는 법률상 이익이 있는 자의 경우에는 또한 같다.",
+      "행정소송법 18조  행정심판과의 관계#KOBLEX-011460": "①취소소송은 법령의 규정에 의하여 당해 처분에 대한 행정심판을 제기할 수 있는 경우에도 이를 거치지 아니하고 제기할 수 있다. 다만, 다른 법률에 당해 처분에 대한 행정심판의 재결을 거치지 아니하면 취소소송을 제기할 수 없다는 규정이 있는 때에는 그러하지 아니하다. <개정 1994.7.27>",
+      "행정소송법 23조  집행정지#KOBLEX-011478": "제23조(집행정지)",
+      "행정소송법 23조  집행정지#KOBLEX-011480": "②취소소송이 제기된 경우에 처분등이나 그 집행 또는 절차의 속행으로 인하여 생길 회복하기 어려운 손해를 예방하기 위하여 긴급한 필요가 있다고 인정할 때에는 본안이 계속되고 있는 법원은 당사자의 신청 또는 직권에 의하여 처분등의 효력이나 그 집행 또는 절차의 속행의 전부 또는 일부의 정지(이하 \"執行停止\"라 한다)를 결정할 수 있다. 다만, 처분의 효력정지는 처분등의 집행 또는 절차의 속행을 정지함으로써 목적을 달성할 수 있는 경우에는 허용되지 아니한다.",
+      "행정소송법 23조  집행정지#KOBLEX-011481": "③집행정지는 공공복리에 중대한 영향을 미칠 우려가 있을 때에는 허용되지 아니한다.",
+      "행정소송법 23조  집행정지#KOBLEX-011482": "④제2항의 규정에 의한 집행정지의 결정을 신청함에 있어서는 그 이유에 대한 소명이 있어야 한다.",
+      "행정소송법 23조  집행정지#KOBLEX-011483": "⑤제2항의 규정에 의한 집행정지의 결정 또는 기각의 결정에 대하여는 즉시항고할 수 있다. 이 경우 집행정지의 결정에 대한 즉시항고에는 결정의 집행을 정지하는 효력이 없다.",
+      "행정소송법 24조  집행정지의 취소#KOBLEX-011485": "제24조(집행정지의 취소)",
+      "행정소송법 24조  집행정지의 취소#KOBLEX-011486": "①집행정지의 결정이 확정된 후 집행정지가 공공복리에 중대한 영향을 미치거나 그 정지사유가 없어진 때에는 당사자의 신청 또는 직권에 의하여 결정으로써 집행정지의 결정을 취소할 수 있다.",
+      "행정소송법 28조  사정판결#KOBLEX-011498": "③원고는 피고인 행정청이 속하는 국가 또는 공공단체를 상대로 손해배상, 제해시설의 설치 그 밖에 적당한 구제방법의 청구를 당해 취소소송등이 계속된 법원에 병합하여 제기할 수 있다.",
+      "행정소송법 29조  취소판결등의 효력#KOBLEX-011501": "②제1항의 규정은 제23조의 규정에 의한 집행정지의 결정 또는 제24조의 규정에 의한 그 집행정지결정의 취소결정에 준용한다.",
+      "행정소송법 4조  항고소송#KOBLEX-011413": "1. 취소소송: 행정청의 위법한 처분등을 취소 또는 변경하는 소송",
+      "행정소송법 9조  재판관할#KOBLEX-011429": "③토지의 수용 기타 부동산 또는 특정의 장소에 관계되는 처분등에 대한 취소소송은 그 부동산 또는 장소의 소재지를 관할하는 행정법원에 이를 제기할 수 있다. <개정 2014.5.20>",
+      "행정심판법 13조  청구인 적격#KOBLEX-182785": "① 취소심판은 처분의 취소 또는 변경을 구할 법률상 이익이 있는 자가 청구할 수 있다. 처분의 효과가 기간의 경과, 처분의 집행, 그 밖의 사유로 소멸된 뒤에도 그 처분의 취소로 회복되는 법률상 이익이 있는 자의 경우에도 또한 같다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "행정소송법 12조  원고적격#KOBLEX-011437"
+            ],
+            "rationale": "C002의 본문에 '취소소송은 처분등의 취소를 구할 법률상 이익이 있는 자가 제기할 수 있다'고 명시되어 있어 권리상 이익(법률상 이익) 요건을 직접 입증한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "행정소송법 12조  원고적격#KOBLEX-011437"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C002(행정소송법 제12조)는 취소소송을 제기할 수 있는 자의 자격을 '법률상 이익'으로 명확히 규정하고 있어, E1의 법적 근거는 완전히 충족된다. 갑이 해당 이익을 가지는지 여부는 사실관계의 문제이지 법적 근거의 부재가 아니다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "행정소송법 23조  집행정지#KOBLEX-011480"
+            ],
+            "rationale": "C011은 '회복하기 어려운 손해를 예방하기 위하여 긴급한 필요가 있다고 인정할 때'라는 요건을 규정하여 E2-R1의 일부(긴급성/손해 예방)를 지원하지만, '원고의 청구가 승소할 가능성이 높음'이라는 명시적 요건은 포함하지 않아 완전히 충족되지 않는다.",
+            "requirement_id": "E2-R1",
+            "status": "partially_satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "행정소송법 23조  집행정지#KOBLEX-011481"
+            ],
+            "rationale": "C021은 '집행정지는 공공복리에 중대한 영향을 미칠 우려가 있을 때에는 허용되지 아니한다'고 명시하여, 집행정지가 공공이익에 중대한 해를 끼치지 않아야 한다는 E2-R2의 요건을 직접 충족한다.",
+            "requirement_id": "E2-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "missing_statute",
+        "legal_status": "partially_covered",
+        "linked_provision_ids": [
+          "행정소송법 23조  집행정지#KOBLEX-011480",
+          "행정소송법 23조  집행정지#KOBLEX-011481"
+        ],
+        "missing_aspects": [
+          "E2-R1"
+        ],
+        "partial_kind": "legal_support_gap",
+        "rationale": "C011(행정소송법 제23조 제2항)은 '회복하기 어려운 손해 예방'과 '긴급한 필요' 요건을 규정하고, C021(제23조 제3항)은 '공공복리에 중대한 영향 미치지 않음' 요건을 규정하여 E2-R2를 충족한다. 그러나 E2-R1이 요구하는 '원고의 청구가 승소할 가능성이 높음'이라는 명시적 요건은 후보 조항 어디에도 포함되어 있지 않아 법적 근거가 일부만 충족된다.",
+        "status": "partially_covered"
+      }
+    ],
+    "deferred_target_ids": [
+      "T2"
+    ],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "행정소송법 12조  원고적격#KOBLEX-011437",
+        "support_spans": [
+          {
+            "end_char": 144,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "행정소송법 23조  집행정지#KOBLEX-011480",
+        "support_spans": [
+          {
+            "end_char": 255,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "행정소송법 23조  집행정지#KOBLEX-011481",
+        "support_spans": [
+          {
+            "end_char": 45,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 5,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "Standing to sue for cancellation of an administrative disposition regarding compulsory expropriation.",
+        "issue_id": "I1"
+      },
+      {
+        "description": "Requirements for granting a stay of execution in administrative litigation.",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "Identify the specific article in the Administrative Litigation Act that lists the conditions for a stay of execution.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "The provision must state that the stay is granted if the execution would cause irreparable damage and the plaintiff's claim has a high probability of success."
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "The provision must include the requirement that the stay does not significantly harm the public interest."
+          }
+        ],
+        "critical": true,
+        "description": "Statutory provision outlining the requirements for granting a stay of execution (집행정지) in administrative litigation.",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "Directly answers the second part of the question regarding the conditions for the stay of execution.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑의 소유지 일부가 지역 개발 사업으로 인하여 강제 수용되었다. 갑은 해당 절차가 부당하다고 생각하여 행정 소송을 통해 위 강제수용의 취소를 구하고자 한다. 한편 갑은 이 소송이 진행되는 동안 개발 사업이 진행되어 자신에게 회복하기 어려운 손해가 발생할 것을 우려하여 집행정지도 함께 신청하였다. [질문] 갑에게 지역 개발 사업에 대한 강제 수용 절차에 대하여 취소소송을 제기할 수 있는 자격이 있는가? 그리고 취소 소송이 제기된 경우에 집행정지가 인정될 수 있는 요건은 무엇인가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "행정소송법",
+          "취소소송",
+          "소송요건",
+          "권리상 이익"
+        ],
+        "query_text": "행정소송법 취소소송 제기 자격 권리상 이익 [원문 맥락] 갑에게 지역 개발 사업에 대한 강제 수용 절차에 대하여 취소소송을 제기할 수 있는 자격이 있는가? 그리고 취소 소송이 제기된 경우에 집행정지가 인정될 수 있는 요건은 무엇인가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "행정소송법 제4조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "행정소송법",
+          "집행정지",
+          "회복하기 어려운 손해",
+          "공공이익"
+        ],
+        "query_text": "행정소송법 집행정지 요건 회복하기 어려운 손해 공공이익 [원문 맥락] 갑에게 지역 개발 사업에 대한 강제 수용 절차에 대하여 취소소송을 제기할 수 있는 자격이 있는가? 그리고 취소 소송이 제기된 경우에 집행정지가 인정될 수 있는 요건은 무엇인가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "행정소송법 제12조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "행정소송법 제22조",
+          "집행정지",
+          "회복하기 어려운 손해",
+          "공공이익"
+        ],
+        "query_text": "행정소송법 제22조 집행정지 인정 요건 회복하기 어려운 손해 공공이익 저해 [원문 맥락] 갑에게 지역 개발 사업에 대한 강제 수용 절차에 대하여 취소소송을 제기할 수 있는 자격이 있는가? 그리고 취소 소송이 제기된 경우에 집행정지가 인정될 수 있는 요건은 무엇인가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "행정소송법 제22조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "행정소송법 제23조",
+          "집행정지",
+          "공공복리",
+          "저해"
+        ],
+        "query_text": "행정소송법 제23조 제2항 집행정지 결정 요건 공공복리 저해 금지 [원문 맥락] 갑에게 지역 개발 사업에 대한 강제 수용 절차에 대하여 취소소송을 제기할 수 있는 자격이 있는가? 그리고 취소 소송이 제기된 경우에 집행정지가 인정될 수 있는 요건은 무엇인가?",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "행정소송법 제23조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "집행정지",
+          "승소 가능성",
+          "인정 요건",
+          "행정소송"
+        ],
+        "query_text": "집행정지 청구 승소 가능성 인정 요건 행정소송 [원문 맥락] 갑에게 지역 개발 사업에 대한 강제 수용 절차에 대하여 취소소송을 제기할 수 있는 자격이 있는가? 그리고 취소 소송이 제기된 경우에 집행정지가 인정될 수 있는 요건은 무엇인가?",
+        "request_id": "GRQ-R3-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "행정소송법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑의 소유지 일부가 지역 개발 사업으로 인하여 강제 수용되었다. 갑은 해당 절차가 부당하다고 생각하여 행정 소송을 통해 위 강제수용의 취소를 구하고자 한다. 한편 갑은 이 소송이 진행되는 동안 개발 사업이 진행되어 자신에게  회복하기 어려운 손해가 발생할 것을 우려하여 집행정지도 함께 신청하였다.\n\n[질문]\n갑에게 지역 개발 사업에 대한 강제 수용 절차에 대하여 취소소송을 제기할 수 있는 자격이 있는가? 그리고 취소 소송이 제기된 경우에 집행정지가 인정될 수 있는 요건은 무엇인가?",
+    "remaining_request_budget": 4,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific article in the Administrative Litigation Act that defines who has the standing to file a cancellation action.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The provision must specify that a person with an interest in the right (권리상 이익) may file a cancellation action."
+          }
+        ],
+        "critical": true,
+        "description": "Statutory provision defining the standing (interest in the right) required to file a cancellation action in administrative litigation.",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "Determines whether Party A, as the owner of the expropriated land, meets the legal threshold to initiate the lawsuit.",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "Identify the specific article in the Administrative Litigation Act that lists the conditions for a stay of execution.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "The provision must state that the stay is granted if the execution would cause irreparable damage and the plaintiff's claim has a high probability of success."
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "The provision must include the requirement that the stay does not significantly harm the public interest."
+          }
+        ],
+        "critical": true,
+        "description": "Statutory provision outlining the requirements for granting a stay of execution (집행정지) in administrative litigation.",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "Directly answers the second part of the question regarding the conditions for the stay of execution.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "0b866fa7-1a40-48f0-8d67-a6a4d8190c09",
+    "seen_provision_ids": [
+      "행정소송법 23조  집행정지#KOBLEX-011483",
+      "산지관리법 시행령 11조  산지전용ㆍ일시사용제한지역지정의 해제#KOBLEX-090491",
+      "공익사업을 위한 토지 등의 취득 및 보상에 관한 법률 88조  처분효력의 부정지#KOBLEX-027092",
+      "행정소송법 23조  집행정지#KOBLEX-011481",
+      "행정소송법 9조  재판관할#KOBLEX-011429",
+      "산업집적활성화 및 공장설립에 관한 법률 22조 3 산업집적지경쟁력강화사업추진계획의 수립 등#KOBLEX-042785",
+      "지방세징수법 83조  공매의 취소 및 공고#KOBLEX-131418",
+      "행정소송법 18조  행정심판과의 관계#KOBLEX-011460",
+      "행정소송법 23조  집행정지#KOBLEX-011480",
+      "지방자치법 22조  주민소송#KOBLEX-076256",
+      "행정소송법 28조  사정판결#KOBLEX-011498",
+      "행정심판법 13조  청구인 적격#KOBLEX-182785",
+      "행정소송법 23조  집행정지#KOBLEX-011478",
+      "행정소송법 24조  집행정지의 취소#KOBLEX-011485",
+      "난민법 22조  난민인정결정의 취소 등#KOBLEX-009541",
+      "공공주택 특별법 27조  토지등의 수용 등#KOBLEX-057956",
+      "도시개발법 시행령 22조  도시개발사업의 시행규정 등#KOBLEX-214133",
+      "행정소송법 23조  집행정지#KOBLEX-011482",
+      "행정소송법 29조  취소판결등의 효력#KOBLEX-011501",
+      "국토의 계획 및 이용에 관한 법률 22조 2 시ㆍ군 도시ㆍ군기본계획의 승인#KOBLEX-198809",
+      "도시 및 주거환경정비법 22조  정비구역등 해제의 효력#KOBLEX-148070",
+      "행정소송법 12조  원고적격#KOBLEX-011437",
+      "산업입지 및 개발에 관한 법률 22조  토지수용#KOBLEX-078731",
+      "행정소송법 24조  집행정지의 취소#KOBLEX-011486",
+      "행정소송법 4조  항고소송#KOBLEX-011413"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

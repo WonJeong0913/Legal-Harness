@@ -1,0 +1,95 @@
+{
+  "abnormal_question_ids": [],
+  "batch_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c36-r3-20260828-b00a17a/diagnostic21/checkpoints/batch-020-attempt-cc92580fcc0b4517a8aa350b0762d8d9",
+  "bm25_execution": "FORBIDDEN",
+  "checkpoint_range": [
+    1,
+    20
+  ],
+  "checkpoint_status": "PASS",
+  "completed_questions": 20,
+  "diagnostic21_checkpoint_role": "FIRST_CHUNK_COVERAGE_CHECKPOINT_NOT_A_FINAL_GATE",
+  "evaluation_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c36-r3-20260828-b00a17a/diagnostic21/evaluations/checkpoint-020-attempt-cc92580fcc0b4517a8aa350b0762d8d9",
+  "evaluator_command": [
+    "/usr/bin/python3.10",
+    "/root/worktrees/legal-harness-c30-integrated-20260827/scripts/evaluate_dev_runs.py",
+    "--batch-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c36-r3-20260828-b00a17a/diagnostic21/checkpoints/batch-020-attempt-cc92580fcc0b4517a8aa350b0762d8d9",
+    "--output-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c36-r3-20260828-b00a17a/diagnostic21/evaluations/checkpoint-020-attempt-cc92580fcc0b4517a8aa350b0762d8d9",
+    "--require-stage-provenance"
+  ],
+  "event": "DIAGNOSTIC21_CHECKPOINT20_COMPLETED",
+  "lf_eval_score_injection": "FORBIDDEN",
+  "metrics": {
+    "abstain_count": 5,
+    "answer_count": 15,
+    "citation_integrity": {
+      "attempted": 15,
+      "pass_rate": 1.0,
+      "passed": 15
+    },
+    "complete_evidence_count": 6,
+    "complete_evidence_rate": 0.3,
+    "execution_failure_count": 0,
+    "outcome_counts": {
+      "ABSTAIN": 5,
+      "ANSWER": 15,
+      "EXECUTION_FAILURE": 0
+    },
+    "paired_c02_answer_cohort": {
+      "definition": "mean current token_f1_at_800 over the predeclared C02 ANSWER cohort",
+      "denominator": 4,
+      "frozen_cohort_file": "frozen_manifests/c02_diagnostic21_answer_cohort.json",
+      "frozen_cohort_sha256": "046b04e37437100a51769f40cf12e45e969169ecd15644188ef7c4cebf9b1b60",
+      "provenance": {
+        "evaluated_source_commit": "c02e2818ad54e9d5a1a9bd02b604e987192bb244",
+        "evaluated_source_tree": "9fcb0ebceb0b3d96955f1626f2c952a457be930f",
+        "per_question_csv_path": "records/evaluations/kure-c02-qwen38-q8-full226-20260826/per_question.csv",
+        "published_per_question_csv_sha256": "b0828c0d194aac9d59d3ad5894aae6220b8eaabc2c21959feabd76b5ac43e3f6",
+        "published_result_commit": "b43c613ad9c5498627f2cb2a25915c80f9f08374",
+        "published_result_tree": "d8296a2cacde164074688eba5068a5709534c0b5"
+      },
+      "rows": [
+        {
+          "question_id": "qa_86_3hop_140",
+          "status": "ANSWER",
+          "token_f1_at_800": 0.4247787610619469
+        },
+        {
+          "question_id": "qa_401_2hop_619",
+          "status": "ANSWER",
+          "token_f1_at_800": 0.6896551724137931
+        },
+        {
+          "question_id": "qa_430_3hop_669",
+          "status": "ANSWER",
+          "token_f1_at_800": 0.2641509433962264
+        },
+        {
+          "question_id": "qa_25_1hop_37",
+          "status": "ANSWER",
+          "token_f1_at_800": 0.5185185185185185
+        }
+      ],
+      "token_f1_at_800": 0.47427584884762125
+    },
+    "provision_exact_match_count": 5,
+    "provision_exact_match_rate": 0.25,
+    "provision_macro_f1": 0.5516666666666666,
+    "provision_macro_precision": 0.6458333333333334,
+    "provision_macro_recall": 0.525,
+    "provision_micro_f1": 0.6086956521739131,
+    "token_f1_answered_only": 0.35058571503008257,
+    "token_f1_candidate": 0.3134942787584949,
+    "token_f1_end_to_end": 0.2629392862725619
+  },
+  "public_abstain_invalid_result_question_ids": [],
+  "public_abstain_leak_question_ids": [],
+  "public_abstain_missing_result_question_ids": [],
+  "recorded_errors": {},
+  "stage_provenance_missing": [],
+  "total_questions": 21,
+  "unexpected_exit_question_ids": [],
+  "validation_errors": []
+}

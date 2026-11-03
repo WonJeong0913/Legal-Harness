@@ -1,0 +1,83 @@
+{
+  "abnormal_question_ids": [
+    "qa_312_2hop_499",
+    "qa_213_2hop_812_rand",
+    "qa_86_3hop_140",
+    "qa_352_3hop_554"
+  ],
+  "batch_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-20260825-77ac6085-user-approved-overlap/full226/checkpoints/batch-020-attempt-dc121a5a91d94c658b30c24542071e88",
+  "bm25_execution": "FORBIDDEN",
+  "checkpoint_range": [
+    1,
+    20
+  ],
+  "checkpoint_status": "ERRORS_FOUND",
+  "completed_questions": 20,
+  "evaluation_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-20260825-77ac6085-user-approved-overlap/full226/evaluations/checkpoint-020-attempt-dc121a5a91d94c658b30c24542071e88",
+  "evaluator_command": [
+    "/usr/bin/python3.10",
+    "/tmp/legal-harness-v2-qwen38-ready.UplwZo/worktree/scripts/evaluate_dev_runs.py",
+    "--batch-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-20260825-77ac6085-user-approved-overlap/full226/checkpoints/batch-020-attempt-dc121a5a91d94c658b30c24542071e88",
+    "--output-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-20260825-77ac6085-user-approved-overlap/full226/evaluations/checkpoint-020-attempt-dc121a5a91d94c658b30c24542071e88",
+    "--require-stage-provenance"
+  ],
+  "evaluator_elapsed_seconds": 1.8422533278353512,
+  "event": "CHECKPOINT_COMPLETED",
+  "lf_eval_score_injection": "FORBIDDEN",
+  "metrics": {
+    "abstain_count": 1,
+    "answer_count": 15,
+    "citation_integrity": {
+      "attempted": 15,
+      "pass_rate": 1.0,
+      "passed": 15
+    },
+    "complete_evidence_count": 11,
+    "complete_evidence_rate": 0.55,
+    "execution_failure_count": 4,
+    "mean_latency_ms": 215525.57510000002,
+    "median_latency_ms": 198814.073,
+    "outcome_counts": {
+      "ABSTAIN": 1,
+      "ANSWER": 15,
+      "EXECUTION_FAILURE": 4
+    },
+    "p95_latency_ms": 339791.2907500001,
+    "provision_exact_match_count": 10,
+    "provision_exact_match_rate": 0.5,
+    "provision_macro_f1": 0.6933333333333334,
+    "provision_macro_precision": 0.7,
+    "provision_macro_recall": 0.7,
+    "provision_micro_f1": 0.6571428571428571,
+    "token_f1_answered_only": 0.3960453064431422,
+    "token_f1_candidate": 0.3064679420965076,
+    "token_f1_end_to_end": 0.29703397983235663
+  },
+  "recorded_at_utc": "2026-08-25T11:03:12.937889+00:00",
+  "recorded_errors": {
+    "qa_213_2hop_812_rand": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: statute/article pair lacks question or supplied candidate-cross-reference provenance: 지방세특례제한법 제70조; unqualified statute/article lacks unique provenance: 제70조"
+    ],
+    "qa_312_2hop_499": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: statute/article pair lacks question or supplied candidate-cross-reference provenance: 민법 제840조; statute/article pair lacks question or supplied candidate-cross-reference provenance: 민법 제840조"
+    ],
+    "qa_352_3hop_554": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: statute/article pair lacks question or supplied candidate-cross-reference provenance: 국민체육진흥법 제48조; unqualified statute/article lacks unique provenance: 제48조"
+    ],
+    "qa_86_3hop_140": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: statute/article pair lacks question or supplied candidate-cross-reference provenance: 산업재해보상보험법 제37조"
+    ]
+  },
+  "remaining_eta_ms": 44398268.4706,
+  "remaining_eta_seconds": 44398.2684706,
+  "remaining_eta_utc": "2026-08-25T23:23:11.206051+00:00",
+  "stage_provenance_missing": [],
+  "total_questions": 226,
+  "unexpected_exit_question_ids": [],
+  "validation_errors": [
+    "abnormal_outcomes=4",
+    "recorded_errors=4"
+  ]
+}

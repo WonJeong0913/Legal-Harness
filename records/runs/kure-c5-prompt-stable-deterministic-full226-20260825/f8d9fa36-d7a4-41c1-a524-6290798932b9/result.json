@@ -1,0 +1,926 @@
+{
+  "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": null,
+  "candidate_answer_basis": "retrieved_candidates",
+  "candidate_answer_error": "grounded_legal_answer_generation did not produce a valid GENERATE_BENCHMARK_CANDIDATE result after 2 attempts: grounded_legal_answer_generation returned UNCOVERED_CRITICAL_EVIDENCE: Critical evidence items E1 and E2 are uncovered. The supplied candidate provisions do not contain the core statutory provisions defining the insurer's general liability (e.g., Commercial Act Article 667) or the legal scope of the subject matter of insurance (e.g., Commercial Act Article 665).",
+  "candidate_answer_status": "EXECUTION_FAILURE",
+  "candidate_answer_termination_reason": "INVALID_SKILL_OUTPUT",
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-25T01:44:20.414972+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 431019.278,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 366,
+      "dedup_collapse": 68,
+      "evidence_fusion": 366,
+      "first_stage": 400,
+      "request_rerank": 400,
+      "round_selected": 20,
+      "rrf": 400,
+      "selected": 366
+    }
+  },
+  "run_id": "f8d9fa36-d7a4-41c1-a524-6290798932b9",
+  "skill_generation_diagnostics": {
+    "attempt_count": 6,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 8,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 2,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "ABSTAIN",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "Two consecutive retrieval rounds did not improve critical evidence.",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "ABSTAIN",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 18
+        },
+        "event": "BENCHMARK_CANDIDATE_GENERATION_STARTED",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "error": "grounded_legal_answer_generation did not produce a valid GENERATE_BENCHMARK_CANDIDATE result after 2 attempts: grounded_legal_answer_generation returned UNCOVERED_CRITICAL_EVIDENCE: Critical evidence items E1 and E2 are uncovered. The supplied candidate provisions do not contain the core statutory provisions defining the insurer's general liability (e.g., Commercial Act Article 667) or the legal scope of the subject matter of insurance (e.g., Commercial Act Article 665).",
+          "termination_reason": "INVALID_SKILL_OUTPUT"
+        },
+        "event": "BENCHMARK_CANDIDATE_EXECUTION_FAILURE",
+        "phase": "ABSTAINED"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_rule",
+        "question_anchor": "을 보험회사가 부담하는 법적 책임은 무엇이며",
+        "requested_output": "손해보험계약에서 보험회사가 부담하는 법적 책임의 내용"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_scope",
+        "question_anchor": "이 계약에서 정할 수 있는 보험의 목적은 어떤 범위로 한정되는가",
+        "requested_output": "손해보험계약에서 보험의 목적의 법적 범위"
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "보험업법 188조  손해사정사 등의 업무#KOBLEX-022570"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 29,
+        "first_stage_score": 0.5666012763977051,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "보험업법 188조  손해사정사 등의 업무#KOBLEX-022570",
+        "provision_text": "3. 손해액 및 보험금의 사정",
+        "rerank_rank": 1,
+        "rerank_score": 0.9401043057441711,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "보험업법 188조  손해사정사 등의 업무 3호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 666조  손해보험증권#KOBLEX-115975"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 39,
+        "first_stage_score": 0.593591034412384,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "상법 666조  손해보험증권#KOBLEX-115975",
+        "provision_text": "1. 보험의 목적",
+        "rerank_rank": 2,
+        "rerank_score": 0.939172089099884,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상법 666조  손해보험증권 1호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "보험업법 102조#KOBLEX-022176"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 98,
+        "first_stage_score": 0.5237466096878052,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "보험업법 102조#KOBLEX-022176",
+        "provision_text": "제3절 보험계약자의 권리 <개정 2010.7.23>",
+        "rerank_rank": 3,
+        "rerank_score": 0.8741682767868042,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "보험업법 102조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 675조  사고발생 후의 목적멸실과 보상책임#KOBLEX-116000"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 11,
+        "first_stage_score": 0.6153796911239624,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "상법 675조  사고발생 후의 목적멸실과 보상책임#KOBLEX-116000",
+        "provision_text": "제675조(사고발생 후의 목적멸실과 보상책임) 보험의 목적에 관하여 보험자가 부담할 손해가 생긴 경우에는 그 후 그 목적이 보험자가 부담하지 아니하는 보험사고의 발생으로 인하여 멸실된 때에도 보험자는 이미 생긴 손해를 보상할 책임을 면하지 못한다. <개정 1962.12.12>",
+        "rerank_rank": 4,
+        "rerank_score": 0.8675307035446167,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상법 675조  사고발생 후의 목적멸실과 보상책임",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "보험업법 시행령 80조  보장대상 손해보험계약의 범위#KOBLEX-121698"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 83,
+        "first_stage_score": 0.5618816614151001,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "보험업법 시행령 80조  보장대상 손해보험계약의 범위#KOBLEX-121698",
+        "provision_text": "제80조(보장대상 손해보험계약의 범위)",
+        "rerank_rank": 5,
+        "rerank_score": 0.8432819843292236,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "보험업법 시행령 80조  보장대상 손해보험계약의 범위",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 674조  일부보험#KOBLEX-115999"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 25,
+        "first_stage_score": 0.5678993463516235,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "상법 674조  일부보험#KOBLEX-115999",
+        "provision_text": "제674조(일부보험) 보험가액의 일부를 보험에 붙인 경우에는 보험자는 보험금액의 보험가액에 대한 비율에 따라 보상할 책임을 진다. 그러나 당사자간에 다른 약정이 있는 때에는 보험자는 보험금액의 한도내에서 그 손해를 보상할 책임을 진다. <개정 1991.12.31>",
+        "rerank_rank": 6,
+        "rerank_score": 0.8356509208679199,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "상법 674조  일부보험",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 724조  보험자와 제3자와의 관계#KOBLEX-116125"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 37,
+        "first_stage_score": 0.5567331910133362,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "상법 724조  보험자와 제3자와의 관계#KOBLEX-116125",
+        "provision_text": "②제3자는 피보험자가 책임을 질 사고로 입은 손해에 대하여 보험금액의 한도내에서 보험자에게 직접 보상을 청구할 수 있다. 그러나 보험자는 피보험자가 그 사고에 관하여 가지는 항변으로써 제3자에게 대항할 수 있다. <개정 1991.12.31>",
+        "rerank_rank": 7,
+        "rerank_score": 0.8162867426872253,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "상법 724조  보험자와 제3자와의 관계 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 639조  타인을 위한 보험#KOBLEX-115921"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6258381605148315,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "상법 639조  타인을 위한 보험#KOBLEX-115921",
+        "provision_text": "②제1항의 경우에는 그 타인은 당연히 그 계약의 이익을 받는다. 그러나 손해보험계약의 경우에 보험계약자가 그 타인에게 보험사고의 발생으로 생긴 손해의 배상을 한 때에는 보험계약자는 그 타인의 권리를 해하지 아니하는 범위안에서 보험자에게 보험금액의 지급을 청구할 수 있다. <신설 1991.12.31>",
+        "rerank_rank": 8,
+        "rerank_score": 0.807490885257721,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "상법 639조  타인을 위한 보험 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "보험업법 146조  권리ㆍ의무의 승계#KOBLEX-022406"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 22,
+        "first_stage_score": 0.5627198219299316,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "보험업법 146조  권리ㆍ의무의 승계#KOBLEX-022406",
+        "provision_text": "① 보험계약을 이전한 보험회사가 그 보험계약에 관하여 가진 권리와 의무는 보험계약을 이전받은 보험회사가 승계한다. 이전계약으로써 이전할 것을 정한 자산에 관하여도 또한 같다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.8062095642089844,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "보험업법 146조  권리ㆍ의무의 승계 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 715조  다른 보험계약등에 관한 통지#KOBLEX-116101"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 82,
+        "first_stage_score": 0.5326598882675171,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "상법 715조  다른 보험계약등에 관한 통지#KOBLEX-116101",
+        "provision_text": "①피보험자가 위부를 함에 있어서는 보험자에 대하여 보험의 목적에 관한 다른 보험계약과 그 부담에 속한 채무의 유무와 그 종류 및 내용을 통지하여야 한다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.7965094447135925,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "상법 715조  다른 보험계약등에 관한 통지 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 737조#KOBLEX-116182"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 63,
+        "first_stage_score": 0.5392382144927979,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "상법 737조#KOBLEX-116182",
+        "provision_text": "제3절 상해보험",
+        "rerank_rank": 2,
+        "rerank_score": 0.9523927569389343,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상법 737조",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 687조  동전#KOBLEX-116024"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 40,
+        "first_stage_score": 0.5506651997566223,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "상법 687조  동전#KOBLEX-116024",
+        "provision_text": "제687조(동전) 집합된 물건을 일괄하여 보험의 목적으로 한 때에는 그 목적에 속한 물건이 보험기간중에 수시로 교체된 경우에도 보험사고의 발생 시에 현존한 물건은 보험의 목적에 포함된 것으로 한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.6486070156097412,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2"
+        ],
+        "statute_name": "상법 687조  동전",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 678조  보험자의 면책사유#KOBLEX-116005"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 55,
+        "first_stage_score": 0.544314444065094,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "상법 678조  보험자의 면책사유#KOBLEX-116005",
+        "provision_text": "제678조(보험자의 면책사유) 보험의 목적의 성질, 하자 또는 자연소모로 인한 손해는 보험자가 이를 보상할 책임이 없다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.2624417841434479,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상법 678조  보험자의 면책사유",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 681조  보험목적에 관한 보험대위#KOBLEX-116012"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.5971304178237915,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "상법 681조  보험목적에 관한 보험대위#KOBLEX-116012",
+        "provision_text": "제681조(보험목적에 관한 보험대위) 보험의 목적의 전부가 멸실한 경우에 보험금액의 전부를 지급한 보험자는 그 목적에 대한 피보험자의 권리를 취득한다. 그러나 보험가액의 일부를 보험에 붙인 경우에는 보험자가 취득할 권리는 보험금액의 보험가액에 대한 비율에 따라 이를 정한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.22531911730766296,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상법 681조  보험목적에 관한 보험대위",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 676조  손해액의 산정기준#KOBLEX-116003"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 91,
+        "first_stage_score": 0.5507332682609558,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "상법 676조  손해액의 산정기준#KOBLEX-116003",
+        "provision_text": "②제1항의 손해액의 산정에 관한 비용은 보험자의 부담으로 한다. <개정 1991.12.31>",
+        "rerank_rank": 6,
+        "rerank_score": 0.20441320538520813,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상법 676조  손해액의 산정기준 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 653조  보험계약자 등의 고의나 중과실로 인한 위험증가와 계약해지#KOBLEX-115953"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 98,
+        "first_stage_score": 0.5262556076049805,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "상법 653조  보험계약자 등의 고의나 중과실로 인한 위험증가와 계약해지#KOBLEX-115953",
+        "provision_text": "제653조(보험계약자 등의 고의나 중과실로 인한 위험증가와 계약해지) 보험기간중에 보험계약자, 피보험자 또는 보험수익자의 고의 또는 중대한 과실로 인하여 사고발생의 위험이 현저하게 변경 또는 증가된 때에는 보험자는 그 사실을 안 날부터 1월내에 보험료의 증액을 청구하거나 계약을 해지할 수 있다. <개정 1991.12.31>",
+        "rerank_rank": 7,
+        "rerank_score": 0.18854252994060516,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2"
+        ],
+        "statute_name": "상법 653조  보험계약자 등의 고의나 중과실로 인한 위험증가와 계약해지",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 708조  적하의 일부손해의 보상#KOBLEX-116081"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 14,
+        "first_stage_score": 0.5754755735397339,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "상법 708조  적하의 일부손해의 보상#KOBLEX-116081",
+        "provision_text": "제708조(적하의 일부손해의 보상) 보험의 목적인 적하가 훼손되어 양륙항에 도착한 때에는 보험자는 그 훼손된 상태의 가액과 훼손되지 아니한 상태의 가액과의 비율에 따라 보험가액의 일부에 대한 손해를 보상할 책임이 있다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.13880428671836853,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상법 708조  적하의 일부손해의 보상",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상법 682조  제3자에 대한 보험대위#KOBLEX-116014"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6462200284004211,
+        "fusion_rank": 10,
+        "issue_id": "I2",
+        "provision_id": "상법 682조  제3자에 대한 보험대위#KOBLEX-116014",
+        "provision_text": "① 손해가 제3자의 행위로 인하여 발생한 경우에 보험금을 지급한 보험자는 그 지급한 금액의 한도에서 그 제3자에 대한 보험계약자 또는 피보험자의 권리를 취득한다. 다만, 보험자가 보상할 보험금의 일부를 지급한 경우에는 피보험자의 권리를 침해하지 아니하는 범위에서 그 권리를 행사할 수 있다.",
+        "rerank_rank": 10,
+        "rerank_score": 0.12996549904346466,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "상법 682조  제3자에 대한 보험대위 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "보험업법 102조#KOBLEX-022176": "제3절 보험계약자의 권리 <개정 2010.7.23>",
+      "보험업법 146조  권리ㆍ의무의 승계#KOBLEX-022406": "① 보험계약을 이전한 보험회사가 그 보험계약에 관하여 가진 권리와 의무는 보험계약을 이전받은 보험회사가 승계한다. 이전계약으로써 이전할 것을 정한 자산에 관하여도 또한 같다.",
+      "보험업법 188조  손해사정사 등의 업무#KOBLEX-022570": "3. 손해액 및 보험금의 사정",
+      "보험업법 시행령 80조  보장대상 손해보험계약의 범위#KOBLEX-121698": "제80조(보장대상 손해보험계약의 범위)",
+      "상법 639조  타인을 위한 보험#KOBLEX-115921": "②제1항의 경우에는 그 타인은 당연히 그 계약의 이익을 받는다. 그러나 손해보험계약의 경우에 보험계약자가 그 타인에게 보험사고의 발생으로 생긴 손해의 배상을 한 때에는 보험계약자는 그 타인의 권리를 해하지 아니하는 범위안에서 보험자에게 보험금액의 지급을 청구할 수 있다. <신설 1991.12.31>",
+      "상법 653조  보험계약자 등의 고의나 중과실로 인한 위험증가와 계약해지#KOBLEX-115953": "제653조(보험계약자 등의 고의나 중과실로 인한 위험증가와 계약해지) 보험기간중에 보험계약자, 피보험자 또는 보험수익자의 고의 또는 중대한 과실로 인하여 사고발생의 위험이 현저하게 변경 또는 증가된 때에는 보험자는 그 사실을 안 날부터 1월내에 보험료의 증액을 청구하거나 계약을 해지할 수 있다. <개정 1991.12.31>",
+      "상법 666조  손해보험증권#KOBLEX-115975": "1. 보험의 목적",
+      "상법 674조  일부보험#KOBLEX-115999": "제674조(일부보험) 보험가액의 일부를 보험에 붙인 경우에는 보험자는 보험금액의 보험가액에 대한 비율에 따라 보상할 책임을 진다. 그러나 당사자간에 다른 약정이 있는 때에는 보험자는 보험금액의 한도내에서 그 손해를 보상할 책임을 진다. <개정 1991.12.31>",
+      "상법 675조  사고발생 후의 목적멸실과 보상책임#KOBLEX-116000": "제675조(사고발생 후의 목적멸실과 보상책임) 보험의 목적에 관하여 보험자가 부담할 손해가 생긴 경우에는 그 후 그 목적이 보험자가 부담하지 아니하는 보험사고의 발생으로 인하여 멸실된 때에도 보험자는 이미 생긴 손해를 보상할 책임을 면하지 못한다. <개정 1962.12.12>",
+      "상법 676조  손해액의 산정기준#KOBLEX-116003": "②제1항의 손해액의 산정에 관한 비용은 보험자의 부담으로 한다. <개정 1991.12.31>",
+      "상법 678조  보험자의 면책사유#KOBLEX-116005": "제678조(보험자의 면책사유) 보험의 목적의 성질, 하자 또는 자연소모로 인한 손해는 보험자가 이를 보상할 책임이 없다.",
+      "상법 681조  보험목적에 관한 보험대위#KOBLEX-116012": "제681조(보험목적에 관한 보험대위) 보험의 목적의 전부가 멸실한 경우에 보험금액의 전부를 지급한 보험자는 그 목적에 대한 피보험자의 권리를 취득한다. 그러나 보험가액의 일부를 보험에 붙인 경우에는 보험자가 취득할 권리는 보험금액의 보험가액에 대한 비율에 따라 이를 정한다.",
+      "상법 682조  제3자에 대한 보험대위#KOBLEX-116014": "① 손해가 제3자의 행위로 인하여 발생한 경우에 보험금을 지급한 보험자는 그 지급한 금액의 한도에서 그 제3자에 대한 보험계약자 또는 피보험자의 권리를 취득한다. 다만, 보험자가 보상할 보험금의 일부를 지급한 경우에는 피보험자의 권리를 침해하지 아니하는 범위에서 그 권리를 행사할 수 있다.",
+      "상법 687조  동전#KOBLEX-116024": "제687조(동전) 집합된 물건을 일괄하여 보험의 목적으로 한 때에는 그 목적에 속한 물건이 보험기간중에 수시로 교체된 경우에도 보험사고의 발생 시에 현존한 물건은 보험의 목적에 포함된 것으로 한다.",
+      "상법 708조  적하의 일부손해의 보상#KOBLEX-116081": "제708조(적하의 일부손해의 보상) 보험의 목적인 적하가 훼손되어 양륙항에 도착한 때에는 보험자는 그 훼손된 상태의 가액과 훼손되지 아니한 상태의 가액과의 비율에 따라 보험가액의 일부에 대한 손해를 보상할 책임이 있다.",
+      "상법 715조  다른 보험계약등에 관한 통지#KOBLEX-116101": "①피보험자가 위부를 함에 있어서는 보험자에 대하여 보험의 목적에 관한 다른 보험계약과 그 부담에 속한 채무의 유무와 그 종류 및 내용을 통지하여야 한다.",
+      "상법 724조  보험자와 제3자와의 관계#KOBLEX-116125": "②제3자는 피보험자가 책임을 질 사고로 입은 손해에 대하여 보험금액의 한도내에서 보험자에게 직접 보상을 청구할 수 있다. 그러나 보험자는 피보험자가 그 사고에 관하여 가지는 항변으로써 제3자에게 대항할 수 있다. <개정 1991.12.31>",
+      "상법 737조#KOBLEX-116182": "제3절 상해보험"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No supplied candidate provision directly defines the insurer's general legal liability in a damage insurance contract.",
+            "requirement_id": "E1-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E1-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "The supplied candidates do not contain the core statutory provision defining the insurer's general liability to compensate for losses in a damage insurance contract (e.g., Commercial Act Article 667). C004 addresses a specific scenario of loss after an accident, C006 addresses partial insurance, and C008 addresses insurance for the benefit of a third party, but none directly establish the general legal responsibility of the insurer as required by E1-R1.",
+        "status": "uncovered"
+      },
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No supplied candidate provision defines the legal scope of the subject matter of insurance in a damage insurance contract.",
+            "requirement_id": "E2-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E2-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "The supplied candidates do not contain the statutory provision defining the scope or legal limits of the 'subject matter of insurance' (보험의 목적) in a damage insurance contract (e.g., Commercial Act Article 665). C002 is a fragment of a list of contents for an insurance certificate, not a definition of the subject matter's scope. C005 is a heading for a decree provision without the substantive text defining the scope.",
+        "status": "uncovered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [],
+    "last_retrieval_new_provision_count": 8,
+    "last_validated_event": "RESPONSE_ASSEMBLY.ABSTAIN",
+    "legal_issues": [
+      {
+        "description": "손해보험계약에서 보험회사의 법적 책임은 무엇인가",
+        "issue_id": "I1"
+      },
+      {
+        "description": "손해보험계약에서 보험의 목적은 어떤 범위로 한정되는가",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "손해보험계약에서 보험회사가 부담하는 법적 책임의 내용을 명시하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "손해보험계약에서 보험회사의 법적 책임 내용을 규정하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "손해보험계약에서 보험회사의 법적 책임에 관한 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 보험회사의 법적 책임을 직접 묻고 있으므로 해당 규정이 필수",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "손해보험계약에서 보험의 목적의 법적 범위를 한정하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "손해보험계약에서 보험의 목적의 범위를 규정하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "손해보험계약에서 보험의 목적의 범위에 관한 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "definition",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 보험의 목적의 범위를 직접 묻고 있으므로 해당 규정이 필수",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] 갑은 자신의 고급 자전거를 대상으로 을 보험회사와 손해보험계약을 체결했다. 얼마 후 갑의 자전거가 도난당하는 사고가 발생했고, 이에 갑은 보험금을 청구하기 위해 을 보험회사에 연락했다. [질문] 갑이 체결한 손해보험계약에서 을 보험회사가 부담하는 법적 책임은 무엇이며, 이 계약에서 정할 수 있는 보험의 목적은 어떤 범위로 한정되는가?",
+    "phase": "ABSTAINED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "손해보험",
+          "보험회사",
+          "법적 책임",
+          "손해배상"
+        ],
+        "query_text": "손해보험계약 보험회사 법적 책임 [원문 맥락] 얼마 후 갑의 자전거가 도난당하는 사고가 발생했고, 이에 갑은 보험금을 청구하기 위해 을 보험회사에 연락했다. 갑이 체결한 손해보험계약에서 을 보험회사가 부담하는 법적 책임은 무엇이며, 이 계약에서 정할 수 있는 보험의 목적은 어떤 범위로 한정되는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "보험업법",
+          "상법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "손해보험",
+          "보험의 목적",
+          "범위",
+          "한정"
+        ],
+        "query_text": "손해보험 보험의 목적 범위 [원문 맥락] 얼마 후 갑의 자전거가 도난당하는 사고가 발생했고, 이에 갑은 보험금을 청구하기 위해 을 보험회사에 연락했다. 갑이 체결한 손해보험계약에서 을 보험회사가 부담하는 법적 책임은 무엇이며, 이 계약에서 정할 수 있는 보험의 목적은 어떤 범위로 한정되는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "보험업법",
+          "상법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "손해보험",
+          "보험자",
+          "손해배상책임",
+          "보험금 지급"
+        ],
+        "query_text": "상법 손해보험 보험자의 손해배상책임 보험금 지급의무 [원문 맥락] 얼마 후 갑의 자전거가 도난당하는 사고가 발생했고, 이에 갑은 보험금을 청구하기 위해 을 보험회사에 연락했다. 갑이 체결한 손해보험계약에서 을 보험회사가 부담하는 법적 책임은 무엇이며, 이 계약에서 정할 수 있는 보험의 목적은 어떤 범위로 한정되는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "상법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "손해보험",
+          "보험의 목적",
+          "정의",
+          "범위"
+        ],
+        "query_text": "상법 손해보험 보험의 목적 정의 범위 [원문 맥락] 얼마 후 갑의 자전거가 도난당하는 사고가 발생했고, 이에 갑은 보험금을 청구하기 위해 을 보험회사에 연락했다. 갑이 체결한 손해보험계약에서 을 보험회사가 부담하는 법적 책임은 무엇이며, 이 계약에서 정할 수 있는 보험의 목적은 어떤 범위로 한정되는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "상법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 자신의 고급 자전거를 대상으로 을 보험회사와 손해보험계약을 체결했다. 얼마 후 갑의 자전거가 도난당하는 사고가 발생했고, 이에 갑은 보험금을 청구하기 위해 을 보험회사에 연락했다.\n\n[질문]\n갑이 체결한 손해보험계약에서 을 보험회사가 부담하는 법적 책임은 무엇이며, 이 계약에서 정할 수 있는 보험의 목적은 어떤 범위로 한정되는가?",
+    "remaining_request_budget": 5,
+    "remaining_round_budget": 1,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "손해보험계약에서 보험회사가 부담하는 법적 책임의 내용을 명시하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "손해보험계약에서 보험회사의 법적 책임 내용을 규정하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "손해보험계약에서 보험회사의 법적 책임에 관한 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 보험회사의 법적 책임을 직접 묻고 있으므로 해당 규정이 필수",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "손해보험계약에서 보험의 목적의 법적 범위를 한정하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "손해보험계약에서 보험의 목적의 범위를 규정하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "손해보험계약에서 보험의 목적의 범위에 관한 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "definition",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 보험의 목적의 범위를 직접 묻고 있으므로 해당 규정이 필수",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 2,
+    "run_id": "f8d9fa36-d7a4-41c1-a524-6290798932b9",
+    "seen_provision_ids": [
+      "상법 687조  동전#KOBLEX-116024",
+      "보험업법 102조#KOBLEX-022176",
+      "상법 653조  보험계약자 등의 고의나 중과실로 인한 위험증가와 계약해지#KOBLEX-115953",
+      "상법 674조  일부보험#KOBLEX-115999",
+      "상법 737조#KOBLEX-116182",
+      "상법 675조  사고발생 후의 목적멸실과 보상책임#KOBLEX-116000",
+      "상법 676조  손해액의 산정기준#KOBLEX-116003",
+      "상법 639조  타인을 위한 보험#KOBLEX-115921",
+      "상법 678조  보험자의 면책사유#KOBLEX-116005",
+      "상법 666조  손해보험증권#KOBLEX-115975",
+      "보험업법 188조  손해사정사 등의 업무#KOBLEX-022570",
+      "보험업법 시행령 80조  보장대상 손해보험계약의 범위#KOBLEX-121698",
+      "보험업법 146조  권리ㆍ의무의 승계#KOBLEX-022406",
+      "상법 715조  다른 보험계약등에 관한 통지#KOBLEX-116101",
+      "상법 681조  보험목적에 관한 보험대위#KOBLEX-116012",
+      "상법 708조  적하의 일부손해의 보상#KOBLEX-116081",
+      "상법 724조  보험자와 제3자와의 관계#KOBLEX-116125",
+      "상법 682조  제3자에 대한 보험대위#KOBLEX-116014"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ABSTAIN",
+  "termination_reason": "NO_RETRIEVAL_PROGRESS"
+}

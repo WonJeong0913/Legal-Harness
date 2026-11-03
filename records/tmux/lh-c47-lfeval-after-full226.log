@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/root/worktrees/legal-harness-c47-s2-covered-consistency-20260831/scripts/run_adapted_local_lf_eval.py", line 146, in _under
+    resolved.relative_to(parent)
+  File "/usr/lib/python3.10/pathlib.py", line 818, in relative_to
+    raise ValueError("{!r} is not in the subpath of {!r}"
+ValueError: '/workspace/Legal-Harness/data/koblex/qa/test-00000-of-00001.parquet' is not in the subpath of '/root/worktrees/legal-harness-c47-s2-covered-consistency-20260831' OR one path is relative and the other is absolute.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/worktrees/legal-harness-c47-s2-covered-consistency-20260831/scripts/run_adapted_local_lf_eval.py", line 679, in <module>
+    main()
+  File "/root/worktrees/legal-harness-c47-s2-covered-consistency-20260831/scripts/run_adapted_local_lf_eval.py", line 674, in main
+    result = run_adapted_local_lf_eval(args.kure_output_root, args.parser_results, args.output_dir, args.timeout_seconds)
+  File "/root/worktrees/legal-harness-c47-s2-covered-consistency-20260831/scripts/run_adapted_local_lf_eval.py", line 576, in run_adapted_local_lf_eval
+    entries, kure, kure_provenance = _load_kure_condition(kure_output_root)
+  File "/root/worktrees/legal-harness-c47-s2-covered-consistency-20260831/scripts/run_adapted_local_lf_eval.py", line 328, in _load_kure_condition
+    dataset_path = _under(exec_root / _require_string(source_dataset.get("path"), "source_dataset.path"), exec_root, "source dataset")
+  File "/root/worktrees/legal-harness-c47-s2-covered-consistency-20260831/scripts/run_adapted_local_lf_eval.py", line 148, in _under
+    raise AdaptedLocalLFEvalError("%s must remain under %s" % (label, parent)) from exc
+__main__.AdaptedLocalLFEvalError: source dataset must remain under /root/worktrees/legal-harness-c47-s2-covered-consistency-20260831

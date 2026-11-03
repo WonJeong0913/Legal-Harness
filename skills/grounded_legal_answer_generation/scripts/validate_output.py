@@ -23,24 +23,32 @@ def unique(items, key, pattern, errors):
     return seen
 
 
-def public_claims(claims):
-    selected = []
-
-    def add(claim):
-        if claim not in selected and len(selected) < 3:
-            selected.append(claim)
-
-    if claims:
-        add(claims[0])
-    for claim in claims:
-        if claim.get("applicability") == "conditional":
+def public_claims(claims, target_order, require_roles=False):
+    if not require_roles:
+        selected = []
+        def add(claim):
+            if claim not in selected and len(selected) < 3:
+                selected.append(claim)
+        if claims:
+            add(claims[0])
+        for claim in claims:
+            if claim.get("applicability") == "conditional":
+                add(claim)
+        for claim in claims:
+            if claim.get("claim_type") == "legal_rule":
+                add(claim)
+        for claim in claims:
             add(claim)
-    for claim in claims:
-        if claim.get("claim_type") == "legal_rule":
-            add(claim)
-    for claim in claims:
-        add(claim)
-    return selected
+        return selected
+    target_index = {target_id: index for index, target_id in enumerate(target_order)}
+    public = [claim for claim in claims if claim.get("public_role") == "conclusion"]
+    return sorted(
+        public,
+        key=lambda claim: min(
+            (target_index[target_id] for target_id in claim.get("answer_target_ids", []) if target_id in target_index),
+            default=len(target_index),
+        ),
+    )
 
 
 def validate_preconditions(input_data, errors):
@@ -131,6 +139,15 @@ def validate_answer_target_scope(output, input_data, errors):
         claimed.update(target_ids)
     if claimed != set(answered):
         errors.append("claims must cover every answered target exactly within scope")
+    if input_data.get("generation_constraints", {}).get("public_conclusion_contract") == "required":
+        public = [claim for claim in output.get("claims", []) if isinstance(claim, dict) and claim.get("public_role") == "conclusion"]
+        if any(not isinstance(claim, dict) or claim.get("public_role") not in {"conclusion", "audit"} for claim in output.get("claims", [])):
+            errors.append("every claim must declare public_role under the public conclusion contract")
+        if not 1 <= len(public) <= 3:
+            errors.append("public conclusion contract requires 1 to 3 conclusion claims")
+        public_targets = {target_id for claim in public for target_id in claim.get("answer_target_ids", [])}
+        if public_targets != set(answered):
+            errors.append("public conclusion claims must cover every answered target")
     if mode == "limited" and deferred and not output.get("limitations"):
         errors.append("limited generation requires an explicit limitation")
 
@@ -241,7 +258,11 @@ def validate(output, input_data):
                     for citation in citations_by_claim.get(claim.get("claim_id"), [])
                 ),
             )
-            for claim in public_claims(claims)
+            for claim in public_claims(
+                claims,
+                input_data.get("answered_target_ids", []),
+                input_data.get("generation_constraints", {}).get("public_conclusion_contract") == "required",
+            )
         ]
         expected_answer = "\n".join(expected_lines)
         if answer != expected_answer:

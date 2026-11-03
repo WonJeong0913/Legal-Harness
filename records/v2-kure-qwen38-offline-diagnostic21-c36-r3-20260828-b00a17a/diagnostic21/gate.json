@@ -1,0 +1,206 @@
+{
+  "answer_yield_minimum": 4,
+  "baseline": {
+    "accepted_complete_evidence_count": 7,
+    "candidate_token_f1": {
+      "abstain": 0.277137767213064,
+      "all_outcomes": 0.19949510741048834,
+      "available": 13,
+      "missing_or_failure": 8,
+      "normal_outcomes": 0.32226132735540425
+    },
+    "citation_integrity": {
+      "attempted": 4,
+      "pass_rate": 1.0,
+      "passed": 4
+    },
+    "provenance": {
+      "evaluated_source_commit": "c02e2818ad54e9d5a1a9bd02b604e987192bb244",
+      "evaluated_source_tree": "9fcb0ebceb0b3d96955f1626f2c952a457be930f",
+      "published_per_question_csv_sha256": "b0828c0d194aac9d59d3ad5894aae6220b8eaabc2c21959feabd76b5ac43e3f6",
+      "published_result_commit": "b43c613ad9c5498627f2cb2a25915c80f9f08374",
+      "published_result_tree": "d8296a2cacde164074688eba5068a5709534c0b5"
+    },
+    "provision_exact_match_count": 2,
+    "provision_macro": {
+      "f1": 0.4862433862433862,
+      "precision": 0.5294784580498866,
+      "recall": 0.5317460317460317
+    },
+    "status_counts": {
+      "ABSTAIN": 9,
+      "ANSWER": 4,
+      "EXECUTION_FAILURE": 8
+    },
+    "token_f1_answered_only": 0.42378933767566984,
+    "token_f1_end_to_end": 0.0807217786048895
+  },
+  "nonregression_minimums": {
+    "complete_evidence_count": 7,
+    "provision_exact_match_count": 2,
+    "provision_macro_f1": 0.4862433862433862,
+    "token_f1_candidate": 0.19949510741048834,
+    "token_f1_end_to_end": 0.0807217786048895
+  },
+  "paired_c02_answer_cohort": {
+    "baseline_mean_token_f1_at_800": 0.42378933767566984,
+    "cohort_count": 4,
+    "derivation": {
+      "evaluation_only": true,
+      "method": "Filter the immutable C02 published per_question.csv to the fixed diagnostic21 roster, then retain only rows whose published status is ANSWER. This artifact is a predeclared evaluation cohort and is not runtime retrieval, answer, abstention, or gold-aware policy.",
+      "score_column": "token_f1_at_800",
+      "status_equals": "ANSWER"
+    },
+    "provenance": {
+      "evaluated_source_commit": "c02e2818ad54e9d5a1a9bd02b604e987192bb244",
+      "evaluated_source_tree": "9fcb0ebceb0b3d96955f1626f2c952a457be930f",
+      "per_question_csv_path": "records/evaluations/kure-c02-qwen38-q8-full226-20260826/per_question.csv",
+      "published_per_question_csv_sha256": "b0828c0d194aac9d59d3ad5894aae6220b8eaabc2c21959feabd76b5ac43e3f6",
+      "published_result_commit": "b43c613ad9c5498627f2cb2a25915c80f9f08374",
+      "published_result_tree": "d8296a2cacde164074688eba5068a5709534c0b5"
+    },
+    "rows": [
+      {
+        "n_hops": 3,
+        "question_id": "qa_86_3hop_140",
+        "source_ordinal": 17,
+        "status": "ANSWER",
+        "token_f1_at_800": 0.3170731707317073
+      },
+      {
+        "n_hops": 2,
+        "question_id": "qa_401_2hop_619",
+        "source_ordinal": 25,
+        "status": "ANSWER",
+        "token_f1_at_800": 0.4999999999999999
+      },
+      {
+        "n_hops": 3,
+        "question_id": "qa_430_3hop_669",
+        "source_ordinal": 51,
+        "status": "ANSWER",
+        "token_f1_at_800": 0.339622641509434
+      },
+      {
+        "n_hops": 1,
+        "question_id": "qa_25_1hop_37",
+        "source_ordinal": 52,
+        "status": "ANSWER",
+        "token_f1_at_800": 0.5384615384615384
+      }
+    ],
+    "schema_version": "c02_diagnostic21_answer_cohort_v1"
+  },
+  "paired_c02_answer_cohort_sha256": "046b04e37437100a51769f40cf12e45e969169ecd15644188ef7c4cebf9b1b60",
+  "reasons": [],
+  "required_checks": [
+    "zero_execution_failures",
+    "normal_outcomes_without_abstain_answer_leakage",
+    "abstain_result_json_present_and_public_answer_free",
+    "citation_integrity_100_percent",
+    "c02_answer_yield_nonregression",
+    "paired_c02_answer_cohort_token_f1_at_800",
+    "stage_provenance",
+    "fixed_numeric_baseline_nonregression",
+    "bm25_execution_forbidden",
+    "lf_eval_score_injection_forbidden",
+    "evaluator_success"
+  ],
+  "source_checkpoint": {
+    "abnormal_question_ids": [],
+    "batch_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c36-r3-20260828-b00a17a/diagnostic21/checkpoints/batch-021-attempt-7f65bb7d478d4be691da45fef4eac0a5",
+    "bm25_execution": "FORBIDDEN",
+    "checkpoint_range": [
+      21,
+      21
+    ],
+    "checkpoint_status": "PASS",
+    "completed_questions": 21,
+    "diagnostic21_checkpoint_role": "FINAL_GATE_CANDIDATE",
+    "evaluation_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c36-r3-20260828-b00a17a/diagnostic21/evaluations/checkpoint-021-attempt-7f65bb7d478d4be691da45fef4eac0a5",
+    "evaluator_command": [
+      "/usr/bin/python3.10",
+      "/root/worktrees/legal-harness-c30-integrated-20260827/scripts/evaluate_dev_runs.py",
+      "--batch-dir",
+      "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c36-r3-20260828-b00a17a/diagnostic21/checkpoints/batch-021-attempt-7f65bb7d478d4be691da45fef4eac0a5",
+      "--output-dir",
+      "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c36-r3-20260828-b00a17a/diagnostic21/evaluations/checkpoint-021-attempt-7f65bb7d478d4be691da45fef4eac0a5",
+      "--require-stage-provenance"
+    ],
+    "event": "DIAGNOSTIC21_COMPLETED",
+    "lf_eval_score_injection": "FORBIDDEN",
+    "metrics": {
+      "abstain_count": 6,
+      "answer_count": 15,
+      "citation_integrity": {
+        "attempted": 15,
+        "pass_rate": 1.0,
+        "passed": 15
+      },
+      "complete_evidence_count": 7,
+      "complete_evidence_rate": 0.3333333333333333,
+      "execution_failure_count": 0,
+      "outcome_counts": {
+        "ABSTAIN": 6,
+        "ANSWER": 15,
+        "EXECUTION_FAILURE": 0
+      },
+      "paired_c02_answer_cohort": {
+        "definition": "mean current token_f1_at_800 over the predeclared C02 ANSWER cohort",
+        "denominator": 4,
+        "frozen_cohort_file": "frozen_manifests/c02_diagnostic21_answer_cohort.json",
+        "frozen_cohort_sha256": "046b04e37437100a51769f40cf12e45e969169ecd15644188ef7c4cebf9b1b60",
+        "provenance": {
+          "evaluated_source_commit": "c02e2818ad54e9d5a1a9bd02b604e987192bb244",
+          "evaluated_source_tree": "9fcb0ebceb0b3d96955f1626f2c952a457be930f",
+          "per_question_csv_path": "records/evaluations/kure-c02-qwen38-q8-full226-20260826/per_question.csv",
+          "published_per_question_csv_sha256": "b0828c0d194aac9d59d3ad5894aae6220b8eaabc2c21959feabd76b5ac43e3f6",
+          "published_result_commit": "b43c613ad9c5498627f2cb2a25915c80f9f08374",
+          "published_result_tree": "d8296a2cacde164074688eba5068a5709534c0b5"
+        },
+        "rows": [
+          {
+            "question_id": "qa_86_3hop_140",
+            "status": "ANSWER",
+            "token_f1_at_800": 0.4247787610619469
+          },
+          {
+            "question_id": "qa_401_2hop_619",
+            "status": "ANSWER",
+            "token_f1_at_800": 0.6896551724137931
+          },
+          {
+            "question_id": "qa_430_3hop_669",
+            "status": "ANSWER",
+            "token_f1_at_800": 0.2641509433962264
+          },
+          {
+            "question_id": "qa_25_1hop_37",
+            "status": "ANSWER",
+            "token_f1_at_800": 0.5185185185185185
+          }
+        ],
+        "token_f1_at_800": 0.47427584884762125
+      },
+      "provision_exact_match_count": 5,
+      "provision_exact_match_rate": 0.23809523809523808,
+      "provision_macro_f1": 0.5634920634920635,
+      "provision_macro_precision": 0.6468253968253969,
+      "provision_macro_recall": 0.5476190476190476,
+      "provision_micro_f1": 0.6216216216216216,
+      "token_f1_answered_only": 0.35058571503008257,
+      "token_f1_candidate": 0.30608477676247636,
+      "token_f1_end_to_end": 0.2504183678786304
+    },
+    "public_abstain_invalid_result_question_ids": [],
+    "public_abstain_leak_question_ids": [],
+    "public_abstain_missing_result_question_ids": [],
+    "recorded_errors": {},
+    "stage_provenance_missing": [],
+    "total_questions": 21,
+    "unexpected_exit_question_ids": [],
+    "validation_errors": []
+  },
+  "stage": "diagnostic21",
+  "status": "PASS"
+}

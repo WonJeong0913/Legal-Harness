@@ -1,0 +1,212 @@
+{
+  "attempt_id": "3cb2960eadc14b6cb535c53bc5cf06a8",
+  "batch_id": "chunk-001-020-attempt-3cb2960eadc14b6cb535c53bc5cf06a8",
+  "batch_manifest_sha256": "d933905bd69083e5673367b2fbf026434453d7d6c2be12be6d73942a8c84d076",
+  "bm25_execution": "FORBIDDEN",
+  "completed_at_utc": "2026-08-28T05:37:53.544613+00:00",
+  "configuration": {
+    "candidate_budget_scope": "per_round",
+    "candidate_selection": "evidence_balanced",
+    "condition": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0+C30-paired-C02-gate-S3-carry-forward-overlay+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward+C33-redundant-public-rule-demotion+C34-type-aware-public-projection-gap-anchors+C35-output-descriptor-request-local-gap-anchors+C36-prompt-stable-validator-only-C35",
+    "conditional_generation": "answer_target_full_conditional_limited",
+    "contextual_query_dedup": "same_output_after_context_history_duplicate_invalid",
+    "coverage_contract": "legal_applicability_criterion_results",
+    "dedup_mode": "legal_text_alias",
+    "evidence_role_capabilities": {
+      "accepted_provision_ids": "authorized_union",
+      "direct_entailment_coverage_gate": "accepted_core_only",
+      "official_provision_scoring": "core_only"
+    },
+    "evidence_role_contract": "c04_core_auxiliary_roles_v1",
+    "factual_branch_classification": "missing_selector_is_partial_not_legal_conflict",
+    "final_top_k": 10,
+    "input_format": "koblex_background_plus_question",
+    "model": "legal-harness-qwen38-q8",
+    "model_provenance": {
+      "alias": "legal-harness-qwen38-q8",
+      "file": "Qwen3.8-27B-Q8_0.gguf",
+      "observed_architecture": "qwen35",
+      "observed_parameter_count": "26.9B",
+      "ollama_details": {
+        "family": "qwen35",
+        "parameter_size": "26.9B",
+        "quantization_level": "Q8_0"
+      },
+      "ollama_manifest_digest": "91f49c230b9d1fd034414b1035b361cfe4ad1c89f7076012b10420edea8b78ff",
+      "ollama_model_blob": "/root/.ollama/models/blobs/sha256-f5c702d8820d36fb55985bb238fc83ee3a313e920f4b752a437c3a6a9e14e4c8",
+      "provenance_note": "Observed local Ollama metadata; architecture is recorded, not relabeled.",
+      "quantization": "Q8_0",
+      "sha256": "f5c702d8820d36fb55985bb238fc83ee3a313e920f4b752a437c3a6a9e14e4c8"
+    },
+    "monotonic_coverage": true,
+    "num_ctx": 32768,
+    "ollama_endpoint": "http://127.0.0.1:11435/api/generate",
+    "per_evidence_min_k": 1,
+    "planning_contract": "answer_targets_required",
+    "repair_collision_capabilities": {
+      "all_dropped": "existing_limited_or_abstain_no_state_mutation",
+      "bounded_neutral_replan": 1,
+      "mixed": "novel_only_dispatch",
+      "raw_history_duplicate": "invalid",
+      "repair_induced_history_collision": "typed_recovery"
+    },
+    "repair_collision_contract": "c05_repair_collision_failsafe_v1",
+    "repair_induced_retrieval_list_dedupe_capabilities": {
+      "audit_kind": "deduplicated_repair_induced_list_values",
+      "drop_scope": "only_collisions_newly_induced_by_article_neutralization",
+      "fields": [
+        "query_terms",
+        "statute_hints"
+      ],
+      "order": "stable_first",
+      "raw_duplicates": "preserved_for_final_validator"
+    },
+    "repair_induced_retrieval_list_dedupe_contract": "c08_repair_induced_retrieval_list_dedupe_v1",
+    "rerank_document_mode": "statute_and_body",
+    "rerank_pool_k": 100,
+    "rerank_query_mode": "per_request",
+    "reranker": "dragonkue--bge-reranker-v2-m3-ko",
+    "reranker_provenance": {
+      "device": "cuda",
+      "model_id": "dragonkue/bge-reranker-v2-m3-ko",
+      "model_path": "models/huggingface/dragonkue--bge-reranker-v2-m3-ko",
+      "model_weights_sha256": "aba51b69d97bfff4cd2c1d8eb6c57764e350231850f712b75ae426270f265a43"
+    },
+    "retrieval_stage_provenance_required_for_evaluation": true,
+    "retriever": "kure",
+    "retriever_provenance": {
+      "device": "cuda",
+      "dimensions": 1024,
+      "distance": "exact cosine via normalized dot product",
+      "documents": 233544,
+      "model_id": "nlpai-lab/KURE-v1",
+      "model_path": "models/huggingface/nlpai-lab--KURE-v1",
+      "model_weights_sha256": "c18156e80caf8ff45eb84a24a853130c3bca03087ccb41b051f86e7556bae02c",
+      "normalized_corpus_path": "data/koblex/normalized/statute.jsonl",
+      "normalized_corpus_sha256": "0e2283c7bcfa8f92d3ea7d4dd249449a31c0528b47dde04ab408bee45e0857b0",
+      "provision_ids_path": "data/koblex/indexes/kure-v1/provision_ids.txt",
+      "provision_ids_sha256": "37333588e1692927d5e6925e4f6bde1ea2d8291f3fda2dddbdad18507445cff8",
+      "vectors_path": "data/koblex/indexes/kure-v1/vectors.f32.npy",
+      "vectors_sha256": "3e312dbf4cf24e7b91bc9833a9001416d85644e6868bdb657d889bd535a9d983"
+    },
+    "round_merge_mode": "single_issue_fusion_top_k",
+    "runtime_determinism": {
+      "GGML_CUDA_DISABLE_GRAPHS": 1,
+      "flash_attention": false,
+      "num_parallel": 1,
+      "ollama_version": "0.20.5",
+      "prompt_run_id_placeholder": "__HARNESS_RUN_ID__",
+      "seed_forwarding": "ollama_options_seed"
+    },
+    "s1_max_tokens": 4096,
+    "s1_truncation_retry_max_tokens": 8192,
+    "s2_axis_canonical_projection_capabilities": {
+      "allowed_tuple_projections": [
+        {
+          "applicability_status": "direct",
+          "derived_governing_legal_regime": "direct_entailment",
+          "derived_partial_kind": "not_applicable",
+          "derived_status": "covered",
+          "gap_type": "none",
+          "legal_status": "covered"
+        },
+        {
+          "applicability_status": "conditional",
+          "derived_governing_legal_regime": "direct_entailment",
+          "derived_partial_kind": "factual_condition",
+          "derived_status": "partially_covered",
+          "gap_type": "missing_fact",
+          "legal_status": "covered"
+        },
+        {
+          "applicability_status": "not_assessed",
+          "derived_governing_legal_regime": "not_direct_entailment",
+          "derived_partial_kind": "legal_support_gap",
+          "derived_status": "partially_covered",
+          "gap_type": "missing_statute",
+          "legal_status": "partially_covered"
+        },
+        {
+          "applicability_status": "not_assessed",
+          "derived_governing_legal_regime": "not_direct_entailment",
+          "derived_partial_kind": "not_applicable",
+          "derived_status": "uncovered",
+          "gap_type": "missing_statute",
+          "legal_status": "uncovered"
+        },
+        {
+          "applicability_status": "not_assessed",
+          "derived_governing_legal_regime": "not_direct_entailment",
+          "derived_partial_kind": "not_applicable",
+          "derived_status": "conflicting",
+          "gap_type": "conflict",
+          "legal_status": "conflicting"
+        },
+        {
+          "applicability_status": "not_assessed",
+          "derived_governing_legal_regime": "not_direct_entailment",
+          "derived_partial_kind": "not_applicable",
+          "derived_status": "uncovered",
+          "gap_type": "scope_excess",
+          "legal_status": "uncovered",
+          "scope_excess_critical": false
+        }
+      ],
+      "audit_event": "S2_LEGACY_PROJECTION_DERIVED",
+      "invalid_partial_unsupported_or_semantic_tuple": "fail_closed",
+      "legacy_derived_by_harness": [
+        "status",
+        "partial_kind",
+        "governing_legal_regime",
+        "missing_evidence_items",
+        "evidence_conflicts"
+      ],
+      "no_runtime_state_or_role_union_mutation": true,
+      "scope_excess": "noncritical_only",
+      "semantic_authority": {
+        "atomic_axes": [
+          "legal_status",
+          "applicability_status",
+          "gap_type"
+        ],
+        "validated_with": [
+          "criterion_results",
+          "links",
+          "roles"
+        ]
+      }
+    },
+    "s2_axis_canonical_projection_contract": "c06_s2_axis_canonical_projection_v1",
+    "s3_audit_fields": [
+      "assumptions",
+      "limitations",
+      "claims",
+      "claim_citations"
+    ],
+    "s3_claim_contract": "all_claims_cited_uncited_limitations_outside_claims",
+    "s3_public_answer_format": "conclusion_first_1_to_4_short_sentences",
+    "s3_public_answer_max_characters": 800,
+    "s3_public_answer_max_claims": 4,
+    "seed": 0,
+    "skill_max_tokens": {
+      "grounded_legal_answer_generation": 3072,
+      "legal_issue_and_query_planning": 4096,
+      "provision_coverage_assessment": 3072
+    },
+    "total_retrieval_requests": 9,
+    "total_retrieval_rounds": 3
+  },
+  "end_ordinal": 20,
+  "entry_count": 20,
+  "execution_mode": "warm_persistent_kure_only",
+  "has_execution_failure": false,
+  "lf_eval_score_injection": "FORBIDDEN",
+  "record_root": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c36-r1-20260828-b00a17a/diagnostic21/records/runs",
+  "source_snapshot": {
+    "git_commit": "b00a17ac84b8f5101433de95b5491b2f6a15bf70",
+    "git_tree": "9be5a6790397f5a690fe3edcc2358a5d1343edcf",
+    "source_manifest_sha256": "9740c3f58c269922363191d8b26b79b0f738fa33f08dc7a67639b3a42e76bd13"
+  },
+  "start_ordinal": 1,
+  "started_at_utc": "2026-08-28T04:41:47.109792+00:00"
+}

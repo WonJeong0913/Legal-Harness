@@ -12,6 +12,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import hashlib
 import importlib.util
+import copy
 import json
 import re
 import unicodedata
@@ -44,6 +45,19 @@ RESPONSE_TAIL_CHARACTERS = 512
 PUBLIC_ANSWER_MAX_CHARACTERS = 800
 PUBLIC_ANSWER_MAX_CLAIMS = 3
 
+PROMPT_RUN_ID_PLACEHOLDER = "__HARNESS_RUN_ID__"
+
+S3_COMPACT_TRANSPORT_INVARIANT = (
+    "For claim-bearing compact raw transport, omit answer, citation_id, "
+    "quoted_text, and answer_marker; retain every claim plus claim_id, "
+    "provision_id, answer_target_ids, and short support_description for each citation. Mark each claim public_role as conclusion or audit; conclusion claims are the only public text."
+)
+S2_COMPACT_AUDIT_INVARIANT = (
+    "For raw S2 transport omit link_id, [FULL_TEXT], assessment-level linked "
+    "IDs, satisfied_aspects, missing_aspects, and missing/conflict arrays when "
+    "derivable; retain each legal status, criterion requirement_id/status, "
+    "criterion linked candidate IDs, relation/conflict choice, and one concise rationale for each evidence link, coverage assessment, and criterion result."
+)
 
 @dataclass(frozen=True)
 class GenerationResult:
@@ -75,6 +89,7 @@ class LocalOllamaSkillExecutor:
         diagnostic_sink: Optional[Callable[[Mapping[str, Any]], None]] = None,
         s1_max_tokens: int = DEFAULT_SKILL_MAX_TOKENS["legal_issue_and_query_planning"],
         s1_truncation_retry_max_tokens: int = DEFAULT_S1_TRUNCATION_RETRY_MAX_TOKENS,
+        seed: int = 0,
     ):
         if timeout_seconds < 1 or num_ctx < 1024 or max_attempts < 1:
             raise ValueError("timeout, num_ctx, and max_attempts must be positive")
@@ -98,6 +113,10 @@ class LocalOllamaSkillExecutor:
         self.diagnostic_sink = diagnostic_sink
         self.s1_max_tokens = s1_max_tokens
         self.s1_truncation_retry_max_tokens = s1_truncation_retry_max_tokens
+        # Keep the historical default while forwarding the frozen run seed to
+        # every Ollama request. Test generators retain their one-argument
+        # interface so existing local unit tests and callers stay compatible.
+        self.seed = seed
         self._resources: Dict[str, Dict[str, str]] = {}
         self._validators: Dict[str, Callable[[Mapping[str, Any], Mapping[str, Any]], List[str]]] = {}
         for skill_name in SKILL_IDS:
@@ -138,19 +157,46 @@ class LocalOllamaSkillExecutor:
                         "MODEL_OUTPUT_TRUNCATED: %s %s attempt %d reached num_predict=%d"
                         % (skill_name, entry_point, attempt, max_tokens)
                     )
-                skill_output = self._parse_json_object(generation.text)
+                raw_skill_output = self._parse_json_object(generation.text)
                 skill_output = self._normalize_harness_owned_fields(
-                    skill_name, entry_point, skill_input, skill_output
+                    skill_name, entry_point, skill_input, copy.deepcopy(raw_skill_output)
                 )
                 validation_errors = self._validators[skill_name](skill_output, skill_input)
                 if validation_errors:
                     errors = validation_errors
+                    compact_transport = (
+                        skill_name in {
+                            "provision_coverage_assessment",
+                            "grounded_legal_answer_generation",
+                        }
+                        and bool(
+                            self._resources[skill_name].get(
+                                "compact_output_schema"
+                            )
+                        )
+                    )
+                    repair_instruction = (
+                        " Return a corrected replacement under the displayed raw compact "
+                        "transport schema. Preserve valid semantic decisions and do not "
+                        "add harness-owned fields."
+                        if compact_transport
+                        else (
+                            " Return a corrected replacement JSON. Preserve valid fields and "
+                            "rebuild linked_provision_ids from evidence_links."
+                        )
+                    )
                     repair_note = (
                         "Your previous JSON failed validation: "
                         + "; ".join(validation_errors)
-                        + ". Return a corrected replacement JSON. Preserve valid fields and rebuild "
-                        "linked_provision_ids from evidence_links. Previous JSON: "
-                        + json.dumps(skill_output, ensure_ascii=False, separators=(",", ":"))
+                        + repair_instruction
+                        + " Previous JSON: "
+                        + json.dumps(
+                            self._redact_run_ids_for_prompt(
+                                raw_skill_output if compact_transport else skill_output
+                            ),
+                            ensure_ascii=False,
+                            separators=(",", ":"),
+                        )
                     )
                     diagnostic["outcome"] = "validation_error"
                     diagnostic["error"] = "; ".join(validation_errors)
@@ -378,12 +424,20 @@ class LocalOllamaSkillExecutor:
                 message = note.get("message")
                 if not isinstance(message, str) or not message.strip():
                     return output
+        self._ensure_public_roles(
+            normalized_claims,
+            answered_target_ids,
+            allow_legacy_default=(
+                skill_input.get("generation_constraints", {}).get("public_conclusion_contract")
+                != "required"
+            ),
+        )
         answer_lines = [
             "%s%s" % (
                 claim.get("text"),
                 "".join(markers_by_claim.get(claim["claim_id"], [])),
             )
-            for claim in self._public_s3_claims(normalized_claims)
+            for claim in self._public_s3_claims(normalized_claims, answered_target_ids)
         ]
         answer = "\n".join(answer_lines)
         max_answer_chars = skill_input.get("generation_constraints", {}).get(
@@ -403,26 +457,53 @@ class LocalOllamaSkillExecutor:
         return normalized
 
     @staticmethod
-    def _public_s3_claims(
+    def _ensure_public_roles(
         claims: List[Dict[str, Any]],
-    ) -> List[Dict[str, Any]]:
+        target_order: List[str],
+        *,
+        allow_legacy_default: bool,
+    ) -> None:
+        """Preserve explicit roles; migrate role-less output only for legacy inputs."""
+        if not allow_legacy_default:
+            return
+        if any("public_role" in claim for claim in claims):
+            for claim in claims:
+                claim.setdefault("public_role", "audit")
+            return
+        for claim in claims:
+            claim["public_role"] = "audit"
         selected: List[Dict[str, Any]] = []
 
-        def add(claim: Dict[str, Any]) -> None:
+        def select(claim: Dict[str, Any]) -> None:
             if claim not in selected and len(selected) < PUBLIC_ANSWER_MAX_CLAIMS:
                 selected.append(claim)
 
         if claims:
-            add(claims[0])
+            select(claims[0])
         for claim in claims:
             if claim.get("applicability") == "conditional":
-                add(claim)
+                select(claim)
         for claim in claims:
             if claim.get("claim_type") == "legal_rule":
-                add(claim)
+                select(claim)
         for claim in claims:
-            add(claim)
-        return selected
+            select(claim)
+        for claim in selected:
+            claim["public_role"] = "conclusion"
+
+    @staticmethod
+    def _public_s3_claims(
+        claims: List[Dict[str, Any]], target_order: List[str]
+    ) -> List[Dict[str, Any]]:
+        target_index = {target_id: index for index, target_id in enumerate(target_order)}
+        public = [claim for claim in claims if claim.get("public_role") == "conclusion"]
+        return sorted(
+            public,
+            key=lambda claim: min(
+                (target_index[target_id] for target_id in claim.get("answer_target_ids", []) if target_id in target_index),
+                default=len(target_index),
+            ),
+        )
 
     @staticmethod
     def _compact_question_only_answer(value: Any) -> Optional[str]:
@@ -734,6 +815,8 @@ class LocalOllamaSkillExecutor:
             "output_schema": directory / "references/output.schema.json",
             "validator": directory / "scripts/validate_output.py",
         }
+        if skill_name in {"provision_coverage_assessment", "grounded_legal_answer_generation"}:
+            paths["compact_output_schema"] = directory / "references" / "compact_output.schema.json"
         missing = [name for name, path in paths.items() if not path.is_file()]
         if missing:
             raise SkillExecutionError("%s is missing: %s" % (skill_name, ", ".join(missing)))
@@ -838,6 +921,7 @@ class LocalOllamaSkillExecutor:
                     "language": "ko",
                     "max_answer_chars": PUBLIC_ANSWER_MAX_CHARACTERS,
                     "citation_marker_style": "citation_id",
+                    "public_conclusion_contract": "required",
                 },
             }
         raise SkillExecutionError("unsupported skill: %s" % skill_name)
@@ -890,6 +974,7 @@ class LocalOllamaSkillExecutor:
                 "missing_evidence_items": self._list(payload, "missing_evidence_items"),
                 "evidence_conflicts": self._list(payload, "evidence_conflicts"),
                 "query_history": self._list(payload, "query_history"),
+                "candidate_cross_references": self._list(payload, "candidate_cross_references", required=False),
                 "seen_provision_ids": self._list(payload, "seen_provision_ids"),
                 "remaining_request_budget": payload.get("remaining_request_budget"),
             }
@@ -955,13 +1040,14 @@ class LocalOllamaSkillExecutor:
                 provision["supported_evidence_item_ids"] = supported
             if not accepted:
                 provision["source_provision_id"] = source_provision_id
-                provision["retrieval_metadata"] = {
-                    "run_id": run_id,
+                retrieval_metadata = {
                     "source_request_id": candidate.get("source_request_id"),
                     "retrieval_round": candidate.get("retrieval_round"),
                     "first_stage_score": candidate.get("first_stage_score"),
                     "rerank_score": candidate.get("rerank_score"),
                 }
+                if any(value is not None for value in retrieval_metadata.values()):
+                    provision["retrieval_metadata"] = {"run_id": run_id, **retrieval_metadata}
             provisions.append(provision)
         return provisions
 
@@ -973,6 +1059,17 @@ class LocalOllamaSkillExecutor:
         repair_note: str,
     ) -> str:
         resources = self._resources[skill_name]
+        prompt_input = self._redact_run_ids_for_prompt(skill_input)
+        prompt_repair_note = self._redact_run_id_text(
+            repair_note, skill_input.get("run_id")
+        )
+        compact_output_schema = resources.get("compact_output_schema")
+        output_schema = compact_output_schema or resources["output_schema"]
+        output_schema_label = (
+            "RAW COMPACT TRANSPORT; the harness deterministically normalizes it before canonical validation"
+            if compact_output_schema
+            else "CANONICAL VALIDATED OUTPUT"
+        )
         return """You are executing one external skill inside a deterministic legal QA harness.
 Return exactly one JSON object and nothing else. Do not use Markdown code fences.
 The harness, not you, controls retrieval, policy, abstention, and citation validation.
@@ -983,7 +1080,7 @@ SKILL INSTRUCTIONS:
 CONTRACT:
 {contract}
 
-OUTPUT JSON SCHEMA:
+OUTPUT JSON SCHEMA ({output_schema_label}):
 {output_schema}
 
 ENTRY POINT: {entry_point}
@@ -997,12 +1094,39 @@ FINAL OUTPUT INVARIANTS:
 """.format(
             instructions=resources["instructions"],
             contract=resources["contract"],
-            output_schema=resources["output_schema"],
+            output_schema=output_schema,
+            output_schema_label=output_schema_label,
             entry_point=entry_point,
-            repair_note=repair_note,
-            input_json=json.dumps(skill_input, ensure_ascii=False, separators=(",", ":")),
-            output_invariants=self._output_invariants(skill_name, skill_input),
+            repair_note=prompt_repair_note,
+            input_json=json.dumps(prompt_input, ensure_ascii=False, separators=(",", ":")),
+            output_invariants=self._output_invariants(skill_name, prompt_input),
         )
+
+    @classmethod
+    def _redact_run_ids_for_prompt(cls, value: Any) -> Any:
+        """Return a prompt-only copy with every run ID replaced deterministically."""
+        if isinstance(value, Mapping):
+            return {
+                key: (
+                    PROMPT_RUN_ID_PLACEHOLDER
+                    if key == "run_id"
+                    else cls._redact_run_ids_for_prompt(item)
+                )
+                for key, item in value.items()
+            }
+        if isinstance(value, list):
+            return [cls._redact_run_ids_for_prompt(item) for item in value]
+        if isinstance(value, tuple):
+            return tuple(cls._redact_run_ids_for_prompt(item) for item in value)
+        return value
+
+    @staticmethod
+    def _redact_run_id_text(text: str, run_id: Any) -> str:
+        """Defend retry prompts against a run ID embedded in prior-output text."""
+        if not isinstance(run_id, str) or not run_id:
+            return text
+        return text.replace(run_id, PROMPT_RUN_ID_PLACEHOLDER)
+
     def _output_invariants(self, skill_name: str, skill_input: Mapping[str, Any]) -> str:
         if skill_name == "legal_issue_and_query_planning":
             return self._s1_output_invariants(skill_input)
@@ -1019,6 +1143,8 @@ FINAL OUTPUT INVARIANTS:
                     "Use only candidate provision IDs supplied in INPUT; they are retrieved evidence, not accepted evidence. "
                     "Give a conclusion-first benchmark answer in 1 to 3 short sentences and no more than 800 characters, with no abstention or audit boilerplate. "
                     "Answer every supplied target, cite every substantive claim, preserve all audit arrays, and do not state that the candidate is authorized or publishable."
+                    + " "
+                    + S3_COMPACT_TRANSPORT_INVARIANT
                 )
             answer_mode = skill_input.get("answer_mode", "full")
             answered_target_ids = self._list(
@@ -1050,11 +1176,15 @@ FINAL OUTPUT INVARIANTS:
                         json.dumps(deferred_target_ids),
                         json.dumps(partial_ids),
                     )
+                    + " "
+                    + S3_COMPACT_TRANSPORT_INVARIANT
                 )
             return (
                 "Use only accepted provision IDs supplied in INPUT. Answer mode is %s; substantive claims may name only answered target IDs %s and must not name deferred target IDs %s. Every claims[] item must set citation_required true and have at least one claim_citation; keep uncited factual or limitation prose in assumptions[] or limitations[]. "
                 "Preserve every audit field, but make the public answer conclusion-first, 1 to 3 short sentences, no more than 800 characters, and include only an outcome-changing condition and the minimum statutory basis; do not append all audit claims or notes."
                 % (answer_mode, json.dumps(answered_target_ids), json.dumps(deferred_target_ids))
+                + " "
+                + S3_COMPACT_TRANSPORT_INVARIANT
             )
         if skill_name != "provision_coverage_assessment":
             return "Use only the identifiers and fields supplied in INPUT."
@@ -1070,7 +1200,7 @@ FINAL OUTPUT INVARIANTS:
         ]
         return (
             "Use only evidence IDs %s and candidate IDs %s. Assess each ledger item exactly once: %s. "
-            "Use '[FULL_TEXT]' in links and one criterion result per supplied requirement; never invent IDs or missing aspects. "
+            "For raw compact transport omit link IDs and quoted text; retain one criterion result per supplied requirement, its linked candidate IDs, and every legal decision; never invent IDs or missing aspects. "
             "Follow the contract's closed-requirement coverage mapping."
             % (
                 json.dumps([item["evidence_item_id"] for item in evidence_ledger]),
@@ -1078,11 +1208,14 @@ FINAL OUTPUT INVARIANTS:
                 json.dumps(evidence_ledger, ensure_ascii=False, separators=(",", ":")),
 
             )
+            + " "
+            + S2_COMPACT_AUDIT_INVARIANT
         )
     def _s1_output_invariants(self, skill_input: Mapping[str, Any]) -> str:
         if skill_input.get("mode") != "GAP_QUERY_PLAN":
             return (
                 "Copy run_id. Keep one target per requested conclusion, but preserve separate critical evidence for distinct rules, exceptions, cross-references, or legal effects. Give every critical item a request. Follow the supplied query-field contract without assuming a retriever-specific override."
+                " Completion requirements distinguish statutory evidence obligations from retrieval hypotheses. Do not state a legal answer, article, condition, or threshold absent from the question as established fact; preserve genuinely independent rules, exceptions, cross-references, and legal effects."
             )
         prior_queries = []
         for item in self._list(skill_input, "query_history"):
@@ -1098,6 +1231,7 @@ FINAL OUTPUT INVARIANTS:
         ]
         return (
             "Target only unresolved statute-evidence IDs %s. Do not search for missing facts or scope excess. "
+            " A new statutory pinpoint must be grounded by the original question or the supplied candidate_cross_references; otherwise use a neutral semantic query for the original unresolved evidence item. "
             "Each KURE semantic gap query must differ from prior queries %s. Copy run_id and stay within budget."
             % (
                 json.dumps(unresolved),
@@ -1115,7 +1249,12 @@ FINAL OUTPUT INVARIANTS:
                 "stream": False,
                 "format": "json",
                 "keep_alive": "15m",
-                "options": {"temperature": 0, "num_ctx": self.num_ctx, "num_predict": max_tokens},
+                "options": {
+                    "temperature": 0,
+                    "num_ctx": self.num_ctx,
+                    "num_predict": max_tokens,
+                    "seed": self.seed,
+                },
             }
         ).encode("utf-8")
         request = urllib.request.Request(

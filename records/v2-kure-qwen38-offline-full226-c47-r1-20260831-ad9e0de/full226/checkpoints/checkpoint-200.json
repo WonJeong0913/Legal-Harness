@@ -1,0 +1,159 @@
+{
+  "abnormal_question_ids": [],
+  "batch_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c47-r1-20260831-ad9e0de/full226/checkpoints/batch-200-attempt-86af3c95b43040108c1c5727803d78a9",
+  "bm25_execution": "FORBIDDEN",
+  "checkpoint_range": [
+    181,
+    200
+  ],
+  "checkpoint_status": "COMPLETED_WITH_ERRORS",
+  "collection_status": "COMPLETE_WITH_EXPLICIT_EXECUTION_FAILURES",
+  "completed_questions": 200,
+  "evaluation_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c47-r1-20260831-ad9e0de/full226/evaluations/checkpoint-200-attempt-86af3c95b43040108c1c5727803d78a9",
+  "evaluator_command": [
+    "/usr/bin/python3.10",
+    "/root/worktrees/legal-harness-c47-s2-covered-consistency-20260831/scripts/evaluate_dev_runs.py",
+    "--batch-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c47-r1-20260831-ad9e0de/full226/checkpoints/batch-200-attempt-86af3c95b43040108c1c5727803d78a9",
+    "--output-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c47-r1-20260831-ad9e0de/full226/evaluations/checkpoint-200-attempt-86af3c95b43040108c1c5727803d78a9",
+    "--require-stage-provenance"
+  ],
+  "evaluator_elapsed_seconds": 5.799159141024575,
+  "event": "CHECKPOINT_COMPLETED",
+  "execution_failure_count": 13,
+  "execution_failure_errors": {
+    "qa_165_1hop_293": [
+      "grounded_legal_answer_generation did not produce a valid GENERATE_ANSWER result after 2 attempts: public application lacks requested-output case-fact anchors before redundant-rule demotion: answer_target_id=T1; application_claim_id=C3; missing_anchors=형사배상명령 신청"
+    ],
+    "qa_168_3hop_301": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: GAP_QUERY_PLAN query_terms omit trusted Korean fact/effect anchors: evidence_item_id=E2; missing_anchors=상속인 상속재산"
+    ],
+    "qa_17_1hop_24": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: query repeats query_history: 채무불이행 유형별 계약해제 요건 차이 이행거절 이행불능 [원문 맥락] 하지만 을은 이미 해당 상품을 납품할 의사가 없음을 명확히 밝혔습니다. 을이 납품 의사를 미리 포기한 경우, 갑은 어떤 조건 하에 을과의 계약을 해제할 수 있는가?"
+    ],
+    "qa_197_2hop_752_rand": [
+      "provision_coverage_assessment did not produce a valid ASSESS_COVERAGE result after 2 attempts: criterion may use only accepted CORE provisions: E1"
+    ],
+    "qa_28_2hop_112_rand": [
+      "grounded_legal_answer_generation did not produce a valid GENERATE_ANSWER result after 2 attempts: public conclusion may cite only core accepted provision: CT3; conditional exception carry-forward obligation is not publicly covered: 1"
+    ],
+    "qa_309_3hop_881_rand2": [
+      "legal_issue_and_query_planning did not produce a valid INITIAL_PLAN result after 2 attempts: question_anchor is not a question substring: T1"
+    ],
+    "qa_32_3hop_51": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: query repeats query_history: 상법 보험계약 특약 보험자 피보험자 불리한 조건 제한\n[원문 맥락]\n갑이 14세인 아들 을을 피보험자로 하여 을의 사망을 보험사고로 한 생명보험에 가입하려는 경우, 그 계약은 유효한가? 또한, 질병보험 가입 시 생명보험 및 상해보험에 관한 규정은 어떻게 적용되며, 보험자인 보험회사는 갑에게 불리한 계약조건을 특약으로 제시할 수 있는가?"
+    ],
+    "qa_366_3hop_580": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: query repeats query_history: 타인의 재물을 점유한 절도죄의 구성요건 및 법정형\n[원문 맥락]\n또한, 갑은 길거리에서 을의 가방을 훔쳤다. 갑이 컴퓨터 해킹으로 을의 계좌에서 돈을 이체한 경우, 을을 속여 돈을 송금하게 한 경우, 그리고 가방을 훔친 경우 각각 어떤 처벌을 받게 되는가?"
+    ],
+    "qa_450_2hop_717": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: query repeats query_history: 전자적 기록 허위 작성 입력 공문서 작성죄 적용 범위\n[원문 맥락]\n이로 인해 시청의 재무 보고서에 오류가 발생했습니다. 갑과 을은 각자 어떤 처벌을 받을 수 있는가?"
+    ],
+    "qa_566_2hop_861": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: GAP_QUERY_PLAN query_terms omit trusted Korean fact/effect anchors: evidence_item_id=E2; missing_anchors=민사상 손해배상책임"
+    ],
+    "qa_59_2hop_90": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: GAP_QUERY_PLAN query_terms omit trusted Korean fact/effect anchors: evidence_item_id=E1; missing_anchors=공탁금 보관료"
+    ],
+    "qa_602_2hop_910": [
+      "grounded_legal_answer_generation did not produce a valid GENERATE_ANSWER result after 2 attempts: public application lacks requested-output case-fact anchors before redundant-rule demotion: answer_target_id=T1; application_claim_id=C2; missing_anchors=항소심 원심; duplicate invalid S3 public-role response reproduced"
+    ],
+    "qa_608_3hop_919": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: query repeats query_history: 근로기준법 제2조 평균임금 정의 산정 기준\n[원문 맥락]\n특히 평균임금의 산정 방식과 퇴직연금제도의 종류에 대해 알고 싶어 합니다. 을이 퇴직금 제도를 설정한다면, 어떠한 기준에 의해 설정해야 하고, 평균임금과 퇴직연금제도는 어떻게 정의되는가?"
+    ]
+  },
+  "execution_failure_question_ids": [
+    "qa_309_3hop_881_rand2",
+    "qa_168_3hop_301",
+    "qa_197_2hop_752_rand",
+    "qa_366_3hop_580",
+    "qa_32_3hop_51",
+    "qa_566_2hop_861",
+    "qa_608_3hop_919",
+    "qa_59_2hop_90",
+    "qa_602_2hop_910",
+    "qa_28_2hop_112_rand",
+    "qa_165_1hop_293",
+    "qa_450_2hop_717",
+    "qa_17_1hop_24"
+  ],
+  "lf_eval_score_injection": "FORBIDDEN",
+  "metrics": {
+    "abstain_count": 27,
+    "answer_count": 160,
+    "citation_integrity": {
+      "attempted": 160,
+      "pass_rate": 1.0,
+      "passed": 160
+    },
+    "complete_evidence_count": 110,
+    "complete_evidence_rate": 0.55,
+    "execution_failure_count": 13,
+    "mean_latency_ms": 157155.07652,
+    "median_latency_ms": 137824.7435,
+    "outcome_counts": {
+      "ABSTAIN": 27,
+      "ANSWER": 160,
+      "EXECUTION_FAILURE": 13
+    },
+    "p95_latency_ms": 317910.6489999999,
+    "provision_exact_match_count": 86,
+    "provision_exact_match_rate": 0.43,
+    "provision_macro_f1": 0.7007261904761904,
+    "provision_macro_precision": 0.7310595238095238,
+    "provision_macro_recall": 0.7133333333333334,
+    "provision_micro_f1": 0.701058201058201,
+    "token_f1_answered_only": 0.371295564271133,
+    "token_f1_candidate": 0.32584831314262086,
+    "token_f1_end_to_end": 0.29703645141690643
+  },
+  "recorded_errors": {
+    "qa_165_1hop_293": [
+      "grounded_legal_answer_generation did not produce a valid GENERATE_ANSWER result after 2 attempts: public application lacks requested-output case-fact anchors before redundant-rule demotion: answer_target_id=T1; application_claim_id=C3; missing_anchors=형사배상명령 신청"
+    ],
+    "qa_168_3hop_301": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: GAP_QUERY_PLAN query_terms omit trusted Korean fact/effect anchors: evidence_item_id=E2; missing_anchors=상속인 상속재산"
+    ],
+    "qa_17_1hop_24": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: query repeats query_history: 채무불이행 유형별 계약해제 요건 차이 이행거절 이행불능 [원문 맥락] 하지만 을은 이미 해당 상품을 납품할 의사가 없음을 명확히 밝혔습니다. 을이 납품 의사를 미리 포기한 경우, 갑은 어떤 조건 하에 을과의 계약을 해제할 수 있는가?"
+    ],
+    "qa_197_2hop_752_rand": [
+      "provision_coverage_assessment did not produce a valid ASSESS_COVERAGE result after 2 attempts: criterion may use only accepted CORE provisions: E1"
+    ],
+    "qa_28_2hop_112_rand": [
+      "grounded_legal_answer_generation did not produce a valid GENERATE_ANSWER result after 2 attempts: public conclusion may cite only core accepted provision: CT3; conditional exception carry-forward obligation is not publicly covered: 1"
+    ],
+    "qa_309_3hop_881_rand2": [
+      "legal_issue_and_query_planning did not produce a valid INITIAL_PLAN result after 2 attempts: question_anchor is not a question substring: T1"
+    ],
+    "qa_32_3hop_51": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: query repeats query_history: 상법 보험계약 특약 보험자 피보험자 불리한 조건 제한\n[원문 맥락]\n갑이 14세인 아들 을을 피보험자로 하여 을의 사망을 보험사고로 한 생명보험에 가입하려는 경우, 그 계약은 유효한가? 또한, 질병보험 가입 시 생명보험 및 상해보험에 관한 규정은 어떻게 적용되며, 보험자인 보험회사는 갑에게 불리한 계약조건을 특약으로 제시할 수 있는가?"
+    ],
+    "qa_366_3hop_580": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: query repeats query_history: 타인의 재물을 점유한 절도죄의 구성요건 및 법정형\n[원문 맥락]\n또한, 갑은 길거리에서 을의 가방을 훔쳤다. 갑이 컴퓨터 해킹으로 을의 계좌에서 돈을 이체한 경우, 을을 속여 돈을 송금하게 한 경우, 그리고 가방을 훔친 경우 각각 어떤 처벌을 받게 되는가?"
+    ],
+    "qa_450_2hop_717": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: query repeats query_history: 전자적 기록 허위 작성 입력 공문서 작성죄 적용 범위\n[원문 맥락]\n이로 인해 시청의 재무 보고서에 오류가 발생했습니다. 갑과 을은 각자 어떤 처벌을 받을 수 있는가?"
+    ],
+    "qa_566_2hop_861": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: GAP_QUERY_PLAN query_terms omit trusted Korean fact/effect anchors: evidence_item_id=E2; missing_anchors=민사상 손해배상책임"
+    ],
+    "qa_59_2hop_90": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: GAP_QUERY_PLAN query_terms omit trusted Korean fact/effect anchors: evidence_item_id=E1; missing_anchors=공탁금 보관료"
+    ],
+    "qa_602_2hop_910": [
+      "grounded_legal_answer_generation did not produce a valid GENERATE_ANSWER result after 2 attempts: public application lacks requested-output case-fact anchors before redundant-rule demotion: answer_target_id=T1; application_claim_id=C2; missing_anchors=항소심 원심; duplicate invalid S3 public-role response reproduced"
+    ],
+    "qa_608_3hop_919": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: query repeats query_history: 근로기준법 제2조 평균임금 정의 산정 기준\n[원문 맥락]\n특히 평균임금의 산정 방식과 퇴직연금제도의 종류에 대해 알고 싶어 합니다. 을이 퇴직금 제도를 설정한다면, 어떠한 기준에 의해 설정해야 하고, 평균임금과 퇴직연금제도는 어떻게 정의되는가?"
+    ]
+  },
+  "remaining_eta_ms": 4086031.9895200003,
+  "remaining_eta_seconds": 4086.0319895200005,
+  "remaining_eta_utc": "2026-08-31T16:22:37.534066+00:00",
+  "stage_provenance_missing": [],
+  "total_questions": 226,
+  "unexpected_exit_question_ids": [],
+  "validation_errors": []
+}

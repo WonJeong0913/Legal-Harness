@@ -1,0 +1,238 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/provision-coverage-assessment/compact-output.schema.json",
+  "title": "S2 compact raw transport",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/success"
+    },
+    {
+      "$ref": "#/$defs/error"
+    }
+  ],
+  "$defs": {
+    "link": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_item_id",
+        "provision_id",
+        "relation",
+        "rationale"
+      ],
+      "properties": {
+        "evidence_item_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provision_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "relation": {
+          "enum": [
+            "supports",
+            "partially_supports",
+            "conflicts"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "criterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requirement_id",
+        "status",
+        "linked_provision_ids",
+        "rationale"
+      ],
+      "properties": {
+        "requirement_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "satisfied",
+            "partially_satisfied",
+            "unsatisfied",
+            "conflicting"
+          ]
+        },
+        "linked_provision_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_item_id",
+        "status",
+        "rationale",
+        "legal_status",
+        "applicability_status",
+        "gap_type",
+        "criterion_results"
+      ],
+      "properties": {
+        "evidence_item_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "covered",
+            "partially_covered",
+            "uncovered",
+            "conflicting"
+          ]
+        },
+        "partial_kind": {
+          "enum": [
+            "factual_condition",
+            "legal_support_gap"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "legal_status": {
+          "enum": [
+            "covered",
+            "partially_covered",
+            "uncovered",
+            "conflicting"
+          ]
+        },
+        "applicability_status": {
+          "enum": [
+            "direct",
+            "conditional",
+            "not_assessed"
+          ]
+        },
+        "gap_type": {
+          "enum": [
+            "none",
+            "missing_statute",
+            "missing_fact",
+            "scope_excess",
+            "conflict"
+          ]
+        },
+        "criterion_results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/criterion"
+          }
+        }
+      }
+    },
+    "success": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "skill_id",
+        "mode",
+        "status",
+        "evidence_links",
+        "coverage_assessments"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "1.0"
+        },
+        "skill_id": {
+          "const": "S2"
+        },
+        "mode": {
+          "const": "ASSESS_COVERAGE"
+        },
+        "status": {
+          "const": "ok"
+        },
+        "evidence_links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/link"
+          }
+        },
+        "coverage_assessments": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/assessment"
+          }
+        }
+      }
+    },
+    "error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "skill_id",
+        "mode",
+        "status",
+        "error"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "1.0"
+        },
+        "skill_id": {
+          "const": "S2"
+        },
+        "mode": {
+          "const": "ASSESS_COVERAGE"
+        },
+        "status": {
+          "const": "error"
+        },
+        "error": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "code",
+            "message",
+            "details"
+          ],
+          "properties": {
+            "code": {
+              "enum": [
+                "INVALID_INPUT",
+                "MISSING_REQUIRED_EVIDENCE",
+                "CONTRACT_UNSATISFIABLE"
+              ]
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1
+            },
+            "details": {
+              "type": "array"
+            }
+          }
+        }
+      }
+    }
+  }
+}

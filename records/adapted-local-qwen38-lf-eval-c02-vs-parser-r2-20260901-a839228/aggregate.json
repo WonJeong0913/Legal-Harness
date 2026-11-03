@@ -1,0 +1,135 @@
+{
+  "adapted_local_judge": {
+    "endpoint": "http://127.0.0.1:11435/api/generate",
+    "model_alias": "legal-harness-qwen38-q8",
+    "prompt_template_sha256": "18d022aa25831141d38379f5f90902081c7d0c03b3ac773b08e11acffa6da9d2",
+    "readiness": {
+      "available_aliases": [
+        "legal-harness-qwen38-q8:latest"
+      ],
+      "details": {
+        "family": "qwen35",
+        "parameter_size": "26.9B",
+        "quantization_level": "Q8_0"
+      },
+      "endpoint": "http://127.0.0.1:11435/api/generate",
+      "manifest_digest": "91f49c230b9d1fd034414b1035b361cfe4ad1c89f7076012b10420edea8b78ff",
+      "model_alias": "legal-harness-qwen38-q8",
+      "model_blob": "/root/.ollama/models/blobs/sha256-f5c702d8820d36fb55985bb238fc83ee3a313e920f4b752a437c3a6a9e14e4c8",
+      "model_blob_sha256": "f5c702d8820d36fb55985bb238fc83ee3a313e920f4b752a437c3a6a9e14e4c8",
+      "resolved_model_name": "legal-harness-qwen38-q8:latest",
+      "seed": 0,
+      "tags_url": "http://127.0.0.1:11435/api/tags",
+      "temperature": 0
+    },
+    "rubric_sha256": "b5c9f9b02da3ef5415293a4d942033c6a8048b5caa72ce3c60f9870a1fd297a8",
+    "seed": 0,
+    "temperature": 0
+  },
+  "conditions": {
+    "OUR_C02_KURE": {
+      "candidate_answer": {
+        "available_only_mean_1_to_10": 7.116822429907,
+        "end_to_end_mean_0_to_10": 6.738938053097,
+        "model_scored_count": 214,
+        "policy": "MISSING_OR_EXECUTION_FAILURE_CANDIDATE_IS_UNJUDGED_ZERO_FOR_END_TO_END",
+        "unjudged_zero_count": 12
+      },
+      "public_answer": {
+        "answered_only_mean_1_to_10": 7.502645502646,
+        "end_to_end_mean_0_to_10": 6.274336283186,
+        "model_scored_count": 189,
+        "policy": "NON_ANSWER_OR_EXECUTION_FAILURE_IS_UNJUDGED_ZERO_FOR_END_TO_END",
+        "unjudged_zero_count": 37
+      },
+      "question_count": 226
+    },
+    "PARSER_REPRODUCED": {
+      "candidate_answer": {
+        "available_only_mean_1_to_10": 6.409090909091,
+        "end_to_end_mean_0_to_10": 6.238938053097,
+        "model_scored_count": 220,
+        "policy": "MISSING_OR_EXECUTION_FAILURE_CANDIDATE_IS_UNJUDGED_ZERO_FOR_END_TO_END",
+        "unjudged_zero_count": 6
+      },
+      "public_answer": {
+        "answered_only_mean_1_to_10": 6.409090909091,
+        "end_to_end_mean_0_to_10": 6.238938053097,
+        "model_scored_count": 220,
+        "policy": "NON_ANSWER_OR_EXECUTION_FAILURE_IS_UNJUDGED_ZERO_FOR_END_TO_END",
+        "unjudged_zero_count": 6
+      },
+      "question_count": 226
+    }
+  },
+  "evaluator_id": "ADAPTED_LOCAL_QWEN38_LF_EVAL",
+  "execution_prohibitions": {
+    "bm25_execution": "FORBIDDEN",
+    "external_api": "FORBIDDEN",
+    "kure_primary_score_injection": "FORBIDDEN",
+    "parser_execution": "FORBIDDEN"
+  },
+  "input_provenance": {
+    "canonical_roster_sha256": "3d1886c27f618b452b1c1d05533e9fb55cb1aa6ed5f0d984dbeac25b8931dfca",
+    "kure_c02": {
+      "aggregate_sha256": "02903d26253ef8a54238d19529a9d30308c5ca4341d9c178c28deefc663469bb",
+      "condition": "OUR_C02_KURE",
+      "frozen_artifact_sha256": {
+        "aggregate.json": "02903d26253ef8a54238d19529a9d30308c5ca4341d9c178c28deefc663469bb",
+        "audit/receipt.json": "969a7f92bab8cf7c60e7ca655801aadbdf1cf9a01ddf68f017cd9c3e7f25ec89",
+        "audit/source-artifacts.json": "4991c88eb01c6db0d943acfb344f984a0d5e0ad69bb1188e4073d6c71e637127",
+        "audit/source-row-map.json": "46497db9e782f77fe830c0be22df917214fbb5fce298f7c59079d763d5ccc880",
+        "batch/manifest.json": "c869d6ce4c44765d8a59fb9de4c487e31233f284c3f1dfb45026233355e960a4",
+        "batch/metadata.json": "79133904af6c4a4bb0138614c80683b7eca7deba89defb62678192db2865f2fd",
+        "batch/summary.jsonl": "8bd06d0270e96720ae0cc377806d1d7badf5edd74c034ccd79d6431778b168a2",
+        "execution-plan.json": "e0b653272b225284b0f056b2df980ba91cb8cc1ff7231212020bc5b0e53e0e1b",
+        "metadata.json": "05deec0bc415866ee911c98b77aa1a1e2174724b6b75471895826db88154a265",
+        "per_question.csv": "b0828c0d194aac9d59d3ad5894aae6220b8eaabc2c21959feabd76b5ac43e3f6",
+        "summary.md": "575983418d95075de8a1e470c0efa131e5c05d43fd33ec59523f1054a7552a2f"
+      },
+      "frozen_bundle": "/root/worktrees/legal-harness-c02-frozen-b43-20260901/records/evaluations/kure-c02-qwen38-q8-full226-20260826",
+      "frozen_bundle_commit": "b43c613ad9c5498627f2cb2a25915c80f9f08374",
+      "frozen_bundle_tree": "d8296a2cacde164074688eba5068a5709534c0b5",
+      "frozen_model_provenance": {
+        "alias": "legal-harness-qwen38-q8",
+        "file": "Qwen3.8-27B-Q8_0.gguf",
+        "observed_architecture": "qwen35",
+        "observed_parameter_count": "26.9B",
+        "ollama_details": {
+          "family": "qwen35",
+          "parameter_size": "26.9B",
+          "quantization_level": "Q8_0"
+        },
+        "ollama_manifest_digest": "91f49c230b9d1fd034414b1035b361cfe4ad1c89f7076012b10420edea8b78ff",
+        "ollama_model_blob": "/root/.ollama/models/blobs/sha256-f5c702d8820d36fb55985bb238fc83ee3a313e920f4b752a437c3a6a9e14e4c8",
+        "provenance_note": "Observed local Ollama metadata; architecture is recorded, not relabeled.",
+        "quantization": "Q8_0",
+        "sha256": "f5c702d8820d36fb55985bb238fc83ee3a313e920f4b752a437c3a6a9e14e4c8"
+      },
+      "per_question_sha256": "b0828c0d194aac9d59d3ad5894aae6220b8eaabc2c21959feabd76b5ac43e3f6",
+      "published_answer_contract": "candidate_answer only for ANSWER with PUBLISHED_ANSWER/published_answer; stale record_directory is never read",
+      "sha256sums_sha256": "f1515bdc18eaec77e835b231ec726f06d614958ce34b8bebcd11c5339b96a573",
+      "source_dataset": "/workspace/Legal-Harness/data/koblex/qa/test-00000-of-00001.parquet",
+      "source_dataset_sha256": "afdaff3a8000cdf5e0a64adbcfc8e6aff0042b318bf03718155f2b70f551c47b",
+      "source_row_map_sha256": "46497db9e782f77fe830c0be22df917214fbb5fce298f7c59079d763d5ccc880"
+    },
+    "parser_reproduced": {
+      "canonical_order_sha256": "3d1886c27f618b452b1c1d05533e9fb55cb1aa6ed5f0d984dbeac25b8931dfca",
+      "condition": "PARSER_REPRODUCED",
+      "final_results": "/workspace/Legal-Harness/records/baselines/koblex-parser-reproduced-qwen38-q8-226-23f5c9ae-45a5-4d7e-a88f-fbcfb5320185/final_results.jsonl",
+      "final_results_sha256": "b5becdf85f18bb7c4563aaf91e088aaaed15c202bdfec1f935d7b5dc5b4779b9",
+      "source_order_matches_c36": true,
+      "source_order_sha256": "3d1886c27f618b452b1c1d05533e9fb55cb1aa6ed5f0d984dbeac25b8931dfca"
+    }
+  },
+  "official_lf_eval": {
+    "evaluator_id": "OFFICIAL_KOBLEX_GPT4O_DEEPEVAL_LF_EVAL",
+    "execution_status": "NOT_EXECUTED_EXTERNAL_GPT4O_DEEPEVAL_FORBIDDEN",
+    "official_prediction_projection": "answer.split(\"<\\think>\")[0][:800]",
+    "reproduced_rubric_sha256": "b5c9f9b02da3ef5415293a4d942033c6a8048b5caa72ce3c60f9870a1fd297a8",
+    "score_equivalence": "FORBIDDEN",
+    "source_url": "https://github.com/daehuikim/KoBLEX/blob/main/experiments/lf-eval/eval_pipeline.py"
+  },
+  "paired_delta_definition": "PARSER_REPRODUCED minus OUR_C02_KURE; no judge call for public abstentions or failures",
+  "schema_version": "adapted_local_lf_eval_dual_condition_v1"
+}

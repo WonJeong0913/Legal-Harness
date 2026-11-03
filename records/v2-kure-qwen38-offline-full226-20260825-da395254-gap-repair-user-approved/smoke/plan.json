@@ -1,0 +1,150 @@
+{
+  "chunks": [
+    {
+      "end_ordinal": 3,
+      "start_ordinal": 1
+    }
+  ],
+  "comparison_validation": {
+    "allowed_differences": [
+      "condition",
+      "retriever",
+      "retriever_provenance"
+    ],
+    "bm25_execution": "FORBIDDEN",
+    "bm25_reference_use": "READ_ONLY_CONFIGURATION_GUARD",
+    "comparable_configuration_sha256": "6de29afd61f26904df360d65518c2f02d8014e6787ff1067133e50305dae3564",
+    "entry_count": 3,
+    "primary_manifest": "/tmp/legal-harness-v2-gap-repair.FpDvIl/worktree/frozen_manifests/v2_kure_smoke3.json",
+    "primary_retriever": "kure",
+    "reference_manifest": "/tmp/legal-harness-v2-gap-repair.FpDvIl/worktree/frozen_manifests/v2_bm25_reference_smoke3.json",
+    "reference_retriever": "bm25",
+    "status": "VALIDATED_IDENTICAL_EXCEPT_RETRIEVER"
+  },
+  "created_at_utc": "2026-08-25T11:16:40.846445+00:00",
+  "entry_count": 3,
+  "exec_root": "/tmp/legal-harness-v2-gap-repair.FpDvIl/worktree",
+  "execution_policy": {
+    "bm25_execution": "FORBIDDEN",
+    "bm25_reference_use": "READ_ONLY_CONFIGURATION_GUARD",
+    "lf_eval_score_injection": "FORBIDDEN",
+    "parser_execution": "FORBIDDEN",
+    "primary_retriever": "kure",
+    "source_snapshot_assertion": "BEFORE_AND_AFTER_EVERY_CHUNK_AND_QUESTION"
+  },
+  "frozen_configuration": {
+    "candidate_budget_scope": "per_round",
+    "candidate_selection": "evidence_balanced",
+    "condition": "V2-KURE-offline-smoke3-Qwen3.8-Q8_0",
+    "conditional_generation": "answer_target_full_conditional_limited",
+    "contextual_query_dedup": "after_source_context_attachment",
+    "coverage_contract": "legal_applicability_criterion_results",
+    "dedup_mode": "legal_text_alias",
+    "factual_branch_classification": "missing_selector_is_partial_not_legal_conflict",
+    "final_top_k": 10,
+    "input_format": "koblex_background_plus_question",
+    "model": "legal-harness-qwen38-q8",
+    "model_provenance": {
+      "alias": "legal-harness-qwen38-q8",
+      "file": "Qwen3.8-27B-Q8_0.gguf",
+      "observed_architecture": "qwen35",
+      "observed_parameter_count": "26.9B",
+      "ollama_details": {
+        "family": "qwen35",
+        "parameter_size": "26.9B",
+        "quantization_level": "Q8_0"
+      },
+      "ollama_manifest_digest": "91f49c230b9d1fd034414b1035b361cfe4ad1c89f7076012b10420edea8b78ff",
+      "ollama_model_blob": "/root/.ollama/models/blobs/sha256-f5c702d8820d36fb55985bb238fc83ee3a313e920f4b752a437c3a6a9e14e4c8",
+      "provenance_note": "Observed local Ollama metadata; architecture is recorded, not relabeled.",
+      "quantization": "Q8_0",
+      "sha256": "f5c702d8820d36fb55985bb238fc83ee3a313e920f4b752a437c3a6a9e14e4c8"
+    },
+    "monotonic_coverage": true,
+    "num_ctx": 32768,
+    "ollama_endpoint": "http://127.0.0.1:11435/api/generate",
+    "per_evidence_min_k": 1,
+    "planning_contract": "answer_targets_required",
+    "rerank_document_mode": "statute_and_body",
+    "rerank_pool_k": 100,
+    "rerank_query_mode": "per_request",
+    "reranker": "dragonkue--bge-reranker-v2-m3-ko",
+    "retrieval_stage_provenance_required_for_evaluation": true,
+    "retriever": "kure",
+    "retriever_provenance": {
+      "device": "cuda",
+      "dimensions": 1024,
+      "distance": "exact cosine via normalized dot product",
+      "documents": 233544,
+      "model_id": "nlpai-lab/KURE-v1",
+      "model_path": "models/huggingface/nlpai-lab--KURE-v1",
+      "model_weights_sha256": "c18156e80caf8ff45eb84a24a853130c3bca03087ccb41b051f86e7556bae02c",
+      "normalized_corpus_path": "data/koblex/normalized/statute.jsonl",
+      "normalized_corpus_sha256": "0e2283c7bcfa8f92d3ea7d4dd249449a31c0528b47dde04ab408bee45e0857b0",
+      "provision_ids_path": "data/koblex/indexes/kure-v1/provision_ids.txt",
+      "provision_ids_sha256": "37333588e1692927d5e6925e4f6bde1ea2d8291f3fda2dddbdad18507445cff8",
+      "vectors_path": "data/koblex/indexes/kure-v1/vectors.f32.npy",
+      "vectors_sha256": "3e312dbf4cf24e7b91bc9833a9001416d85644e6868bdb657d889bd535a9d983"
+    },
+    "round_merge_mode": "request_rank_top1_guarded_swap",
+    "runtime_determinism": {
+      "GGML_CUDA_DISABLE_GRAPHS": 1,
+      "flash_attention": false,
+      "num_parallel": 1,
+      "ollama_version": "0.20.5",
+      "prompt_run_id_placeholder": "__HARNESS_RUN_ID__",
+      "seed_forwarding": "ollama_options_seed"
+    },
+    "s1_max_tokens": 4096,
+    "s1_truncation_retry_max_tokens": 8192,
+    "s3_audit_fields": [
+      "assumptions",
+      "limitations",
+      "claims",
+      "claim_citations"
+    ],
+    "s3_claim_contract": "all_claims_cited_uncited_limitations_outside_claims",
+    "s3_public_answer_format": "conclusion_first_1_to_3_short_sentences",
+    "s3_public_answer_max_characters": 800,
+    "s3_public_answer_max_claims": 3,
+    "seed": 0,
+    "skill_max_tokens": {
+      "grounded_legal_answer_generation": 3072,
+      "legal_issue_and_query_planning": 4096,
+      "provision_coverage_assessment": 3072
+    },
+    "total_retrieval_requests": 9,
+    "total_retrieval_rounds": 3
+  },
+  "mode": "smoke",
+  "orchestration_schema_version": "v2.0",
+  "output_root": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-20260825-da395254-gap-repair-user-approved",
+  "primary_manifest": "/tmp/legal-harness-v2-gap-repair.FpDvIl/worktree/frozen_manifests/v2_kure_smoke3.json",
+  "primary_manifest_sha256": "941253309ec35f8170164bda4efb05851b632402b844cb64f4ede152a92685d0",
+  "reference_manifest": "/tmp/legal-harness-v2-gap-repair.FpDvIl/worktree/frozen_manifests/v2_bm25_reference_smoke3.json",
+  "reference_manifest_sha256": "1a9d22328f2f4995b7a2bd21f39e01b9592f376a6afebb1f7fe1eef372e035b0",
+  "runtime": {
+    "endpoint": "http://127.0.0.1:11435/api/generate",
+    "model": "legal-harness-qwen38-q8",
+    "num_ctx": 32768,
+    "num_parallel": 1,
+    "offline_environment": {
+      "GGML_CUDA_DISABLE_GRAPHS": "1",
+      "HF_DATASETS_OFFLINE": "1",
+      "HF_HUB_DISABLE_TELEMETRY": "1",
+      "HF_HUB_OFFLINE": "1",
+      "OLLAMA_NO_CLOUD": "1",
+      "OLLAMA_NUM_PARALLEL": "1",
+      "TOKENIZERS_PARALLELISM": "false",
+      "TRANSFORMERS_OFFLINE": "1"
+    },
+    "seed": 0,
+    "warm_persistent": true
+  },
+  "smoke_score_not_benchmark_evidence": true,
+  "source_snapshot": {
+    "git_commit": "da39525470adf189f74e4afaa6ca6e17219fc68a",
+    "git_tree": "3e9ceda36a9bba45e28b8c8ba2819ccaf1af4d4c",
+    "source_manifest_sha256": "1ac5fd4ee403e409a983531045465edbaa9bf05d5d4afd4df3503bc0938eeada"
+  }
+}

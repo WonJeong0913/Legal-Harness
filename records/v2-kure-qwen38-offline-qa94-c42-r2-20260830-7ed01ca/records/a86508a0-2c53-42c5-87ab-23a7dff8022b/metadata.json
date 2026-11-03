@@ -1,0 +1,108 @@
+{
+  "configuration": {
+    "candidate_budget_scope": "per_round",
+    "candidate_selection": "evidence_balanced",
+    "condition": "V2-KURE-c08-s1-repair-list-dedupe-v1-c06-s2-axis-canonical-projection-v1-c05-repair-collision-failsafe-v1-c04-core-auxiliary-roles-v1-s1-neutral-single-issue-fusion-top10-offline-full226-Qwen3.8-Q8_0+C31-shared-public-answer-contract+C32-retry-only-qualifying-carry-forward+C33-redundant-public-rule-demotion+C34-type-aware-public-projection-gap-anchors+C35-output-descriptor-request-local-gap-anchors+C36-prompt-stable-validator-only-C35+C37-two-attempt-all-history-collision-failsafe+C38-target-linked-qualifying-public-exception+C39-prompt-stable-validator-only-qualifying-exception+C40-S1-atomic-requirement-scope-minimality+C41-gap-anchor-novelty-trusted-completion-fallback+C42-penalty-decisive-payload-projection-guard",
+    "conditional_generation": "answer_target_full_conditional_limited",
+    "dedup_mode": "legal_text_alias",
+    "final_top_k": 10,
+    "input_format": "koblex_background_plus_question",
+    "model": "legal-harness-qwen38-q8",
+    "monotonic_coverage": true,
+    "num_ctx": 32768,
+    "ollama_endpoint": "http://127.0.0.1:11435/api/generate",
+    "per_evidence_min_k": 1,
+    "planning_contract": "answer_targets_required",
+    "rerank_document_mode": "statute_and_body",
+    "rerank_pool_k": 100,
+    "rerank_query_mode": "per_request",
+    "retrieval_stage_provenance_required_for_evaluation": true,
+    "retriever": "kure",
+    "round_merge_mode": "single_issue_fusion_top_k",
+    "s1_max_tokens": 4096,
+    "s1_truncation_retry_max_tokens": 8192,
+    "s3_audit_fields": [
+      "assumptions",
+      "limitations",
+      "claims",
+      "claim_citations"
+    ],
+    "s3_public_answer_format": "conclusion_first_1_to_4_short_sentences",
+    "s3_public_answer_max_characters": 800,
+    "s3_public_answer_max_claims": 4,
+    "seed": 0,
+    "skill_max_tokens": {
+      "grounded_legal_answer_generation": 3072,
+      "legal_issue_and_query_planning": 4096,
+      "provision_coverage_assessment": 3072
+    },
+    "source_manifest_sha256": "0c9da84f757d9457a23a6014604140c0871f69f30cbfffb00c0adbe167339dc1",
+    "total_retrieval_requests": 9,
+    "total_retrieval_rounds": 3
+  },
+  "git_commit": "7ed01ca75974b7c206de3fa11e45a26cf97fcc11",
+  "git_source_worktree_dirty": false,
+  "index_metadata": {
+    "bm25": {
+      "database": "data/koblex/indexes/bm25/statute_fts5.sqlite3",
+      "type": "SQLite FTS5"
+    },
+    "documents": 233544,
+    "identity": {
+      "provision_id": "{KoBLEX index}#KOBLEX-{one-based source row number}",
+      "source_index": "original KoBLEX index value retained in normalized corpus"
+    },
+    "kure": {
+      "dimensions": 1024,
+      "model": "nlpai-lab/KURE-v1",
+      "provision_ids": "data/koblex/indexes/kure-v1/provision_ids.txt",
+      "similarity": "exact cosine similarity; float32 memory-mapped matrix",
+      "vector_file": "data/koblex/indexes/kure-v1/vectors.f32.npy"
+    },
+    "source": "JihyungL/KoBLEX-statute",
+    "source_file": "data/koblex/statute/corpus-00000-of-00001.parquet",
+    "source_sha256": "6323f7d024ec504f4b2346cd3ab67aa709aac49a5340c9f3d8372ad6bd5f9b8b"
+  },
+  "model_artifact": null,
+  "question": "[배경 시나리오]\n갑은 어느 날 저녁 공원에서 많은 사람이 오가는 곳에서 옷을 벗고 춤을 추며 음란한 행위를 하였습니다. 이 행위로 인해 주변 사람들은 불쾌감을 느꼈고, 결국 경찰에 의해 체포되었습니다.\n\n[질문]\n갑이 공공장소에서 음란한 행위를 한 경우, 그는 어떤 처벌을 받을 수 있는가?",
+  "question_id": "qa_94_1hop_155",
+  "record_schema_version": "1.4",
+  "retrieval_provenance_schema_version": "1.0",
+  "run_id": "a86508a0-2c53-42c5-87ab-23a7dff8022b",
+  "runtime": {
+    "packages": {
+      "pyarrow": "18.1.0",
+      "sentence-transformers": "5.1.2",
+      "torch": "2.7.1+cu128",
+      "transformers": "4.57.6"
+    },
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+    "python": "3.10.12 (main, Jan 26 2026, 14:55:28) [GCC 11.4.0]"
+  },
+  "skill_sha256": {
+    "grounded_legal_answer_generation/SKILL.md": "a146c3c7a0910c43d3d0f84a7f347e747a193a5ba88dcf7af50a800379735eac",
+    "grounded_legal_answer_generation/references/compact_output.schema.json": "24f4c11627634787c8935c1435a53e6cc0351a9a8340b322bd04b2964d959f79",
+    "grounded_legal_answer_generation/references/contract.md": "f7a2760eb9a5a7aaefd09da4f1a322b90d4825bc25d78f9600fa79b0e71d083a",
+    "grounded_legal_answer_generation/references/input.schema.json": "575583d54580687f0d23e6adecf0d3a0f2dc3d5f0d3eacbad2dc010480daa527",
+    "grounded_legal_answer_generation/references/output.schema.json": "3bc7e9f9a4cece6dd68a39768b8d13b7e6dee0c603d18ecc16882733bcbb7f32",
+    "grounded_legal_answer_generation/scripts/validate_output.py": "4b427f3232cd947a9678d68323f547bc0dcae7e03a2a26c2e6dbd0b9186462bd",
+    "legal_issue_and_query_planning/SKILL.md": "6fc4008c72afd0a7e7d58f9214dee1eaa8af56de9c3ade5c920fb73d74f84094",
+    "legal_issue_and_query_planning/references/contract.md": "59bcda8231e581eb51c96535c8193ac23b9573ce3242741c3f228fccf701f115",
+    "legal_issue_and_query_planning/references/input.schema.json": "29ea004e5039ff492f23a64dbbea3974bfb59c90414d9fd32ae0f7d39d375261",
+    "legal_issue_and_query_planning/references/output.schema.json": "0eed8d8a0bd3d270d5729e56473f4d12099e4747c700cebd798a394341ce82ef",
+    "legal_issue_and_query_planning/scripts/validate_output.py": "e1db2ec6a07fbac84a84280caaafc3ab1e95d912cec9ccc4a911382f84d9caba",
+    "provision_coverage_assessment/SKILL.md": "a1d0ede5f6d049e975b356e7325d4a6aef1122db33d023a34cf6f59c45d96e95",
+    "provision_coverage_assessment/references/compact_output.schema.json": "e2fe95de18f5d603c04f80ecf61d9e46dcc0471e71de9d6780317878a19aec50",
+    "provision_coverage_assessment/references/contract.md": "63da034fa277849a9e496ff6ebbaa96fd67e4bed0718635650e7872bd964d215",
+    "provision_coverage_assessment/references/input.schema.json": "103a9c4996f5620f1a78c25e5f6c325fcbdb2622f7dd43f504234e09838ad7b8",
+    "provision_coverage_assessment/references/output.schema.json": "b792eec785aa205668f2854924f9f475072d9b12bd5d77b5abb3ee9f9ff0a001",
+    "provision_coverage_assessment/scripts/validate_output.py": "2d63bd38df2b7b5eb57009b6c056908339aeee4f5f9eee4ad987405841c3b619",
+    "skill-pack-manifest.json": "dfb5cb7036a88ed43d8a9e17489dc1686f3f9a64ce9be525f230446af8868cd0"
+  },
+  "source_snapshot": {
+    "git_commit": "7ed01ca75974b7c206de3fa11e45a26cf97fcc11",
+    "git_tree": "2895e0caa3bd6ed97e15383db584c86c860c1750",
+    "source_manifest_sha256": "0c9da84f757d9457a23a6014604140c0871f69f30cbfffb00c0adbe167339dc1"
+  },
+  "started_at_utc": "2026-08-30T07:48:51.297386+00:00"
+}

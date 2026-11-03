@@ -1,0 +1,70 @@
+{
+  "abnormal_question_ids": [
+    "qa_192_2hop_334"
+  ],
+  "batch_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c40-r1-20260830-d1e7871/full226/checkpoints/batch-020-attempt-9cc08b57245e4d1b94524cf63759411f",
+  "bm25_execution": "FORBIDDEN",
+  "checkpoint_range": [
+    1,
+    20
+  ],
+  "checkpoint_status": "ERRORS_FOUND",
+  "completed_questions": 20,
+  "evaluation_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c40-r1-20260830-d1e7871/full226/evaluations/checkpoint-020-attempt-9cc08b57245e4d1b94524cf63759411f",
+  "evaluator_command": [
+    "/usr/bin/python3.10",
+    "/root/worktrees/legal-harness-c30-integrated-20260827/scripts/evaluate_dev_runs.py",
+    "--batch-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c40-r1-20260830-d1e7871/full226/checkpoints/batch-020-attempt-9cc08b57245e4d1b94524cf63759411f",
+    "--output-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c40-r1-20260830-d1e7871/full226/evaluations/checkpoint-020-attempt-9cc08b57245e4d1b94524cf63759411f",
+    "--require-stage-provenance"
+  ],
+  "evaluator_elapsed_seconds": 1.9047954059933545,
+  "event": "CHECKPOINT_COMPLETED",
+  "lf_eval_score_injection": "FORBIDDEN",
+  "metrics": {
+    "abstain_count": 2,
+    "answer_count": 17,
+    "citation_integrity": {
+      "attempted": 17,
+      "pass_rate": 1.0,
+      "passed": 17
+    },
+    "complete_evidence_count": 14,
+    "complete_evidence_rate": 0.7,
+    "execution_failure_count": 1,
+    "mean_latency_ms": 121606.0571,
+    "median_latency_ms": 109925.2665,
+    "outcome_counts": {
+      "ABSTAIN": 2,
+      "ANSWER": 17,
+      "EXECUTION_FAILURE": 1
+    },
+    "p95_latency_ms": 239638.57060000004,
+    "provision_exact_match_count": 12,
+    "provision_exact_match_rate": 0.6,
+    "provision_macro_f1": 0.8333333333333334,
+    "provision_macro_precision": 0.8666666666666667,
+    "provision_macro_recall": 0.8333333333333334,
+    "provision_micro_f1": 0.8169014084507041,
+    "token_f1_answered_only": 0.3333569796410114,
+    "token_f1_candidate": 0.2970376432211755,
+    "token_f1_end_to_end": 0.2833534326948597
+  },
+  "recorded_errors": {
+    "qa_192_2hop_334": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: query repeats query_history: 공무소 전자기록 위작 변작 행사 형벌\n[원문 맥락]\n이와 같은 상황에서 갑과 을은 각각 어떤 형사처벌을 받게 되는가? 갑이 공무소의 전자기록을 위작하거나 변작하여 을이 이를 행사한 경우, 갑과 을은 각각 어떤 형벌을 받게 되는가?"
+    ]
+  },
+  "remaining_eta_ms": 25050847.7626,
+  "remaining_eta_seconds": 25050.847762600002,
+  "remaining_eta_utc": "2026-08-30T13:54:58.476244+00:00",
+  "stage_provenance_missing": [],
+  "total_questions": 226,
+  "unexpected_exit_question_ids": [],
+  "validation_errors": [
+    "abnormal_outcomes=1",
+    "recorded_errors=1"
+  ]
+}

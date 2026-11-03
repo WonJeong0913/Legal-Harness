@@ -1,0 +1,70 @@
+{
+  "abnormal_question_ids": [
+    "qa_435_2hop_678"
+  ],
+  "batch_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c35-r1-20260828-94f8037/diagnostic21/checkpoints/batch-020-attempt-76eff31def1a4794b1e8e033597a0846",
+  "bm25_execution": "FORBIDDEN",
+  "checkpoint_range": [
+    1,
+    20
+  ],
+  "checkpoint_status": "ERRORS_FOUND",
+  "completed_questions": 20,
+  "diagnostic21_checkpoint_role": "FIRST_CHUNK_COVERAGE_CHECKPOINT_NOT_A_FINAL_GATE",
+  "evaluation_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c35-r1-20260828-94f8037/diagnostic21/evaluations/checkpoint-020-attempt-76eff31def1a4794b1e8e033597a0846",
+  "evaluator_command": [
+    "/usr/bin/python3.10",
+    "/root/worktrees/legal-harness-c30-integrated-20260827/scripts/evaluate_dev_runs.py",
+    "--batch-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c35-r1-20260828-94f8037/diagnostic21/checkpoints/batch-020-attempt-76eff31def1a4794b1e8e033597a0846",
+    "--output-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c35-r1-20260828-94f8037/diagnostic21/evaluations/checkpoint-020-attempt-76eff31def1a4794b1e8e033597a0846",
+    "--require-stage-provenance"
+  ],
+  "event": "DIAGNOSTIC21_CHECKPOINT20_COMPLETED",
+  "lf_eval_score_injection": "FORBIDDEN",
+  "metrics": {
+    "abstain_count": 7,
+    "answer_count": 12,
+    "citation_integrity": {
+      "attempted": 12,
+      "pass_rate": 1.0,
+      "passed": 12
+    },
+    "complete_evidence_count": 7,
+    "complete_evidence_rate": 0.35,
+    "execution_failure_count": 1,
+    "outcome_counts": {
+      "ABSTAIN": 7,
+      "ANSWER": 12,
+      "EXECUTION_FAILURE": 1
+    },
+    "paired_c02_answer_cohort": null,
+    "provision_exact_match_count": 4,
+    "provision_exact_match_rate": 0.2,
+    "provision_macro_f1": 0.5466666666666666,
+    "provision_macro_precision": 0.6041666666666666,
+    "provision_macro_recall": 0.5666666666666667,
+    "provision_micro_f1": 0.6268656716417911,
+    "token_f1_answered_only": 0.31763105389936336,
+    "token_f1_candidate": 0.2723649585533784,
+    "token_f1_end_to_end": 0.19057863233961803
+  },
+  "public_abstain_invalid_result_question_ids": [],
+  "public_abstain_leak_question_ids": [],
+  "public_abstain_missing_result_question_ids": [],
+  "recorded_at_utc": "2026-08-28T03:58:12.670147+00:00",
+  "recorded_errors": {
+    "qa_435_2hop_678": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: query repeats query_history: 여객자동차터미널사업 면허 기준 시설 요건\n[원문 맥락]\n동시에, 이 터미널은 확장을 계획 중인데, 을은 터미널의 면허기준을 검토하고자 한다. 갑은 을에게 승차권 판매를 어떻게 위탁해야 하며, 갑의 터미널 확장 계획에 대한 면허기준은 무엇인가?; query repeats query_history: 여객터미널 면허신청 서류 시설도면 기준\n[원문 맥락]\n동시에, 이 터미널은 확장을 계획 중인데, 을은 터미널의 면허기준을 검토하고자 한다. 갑은 을에게 승차권 판매를 어떻게 위탁해야 하며, 갑의 터미널 확장 계획에 대한 면허기준은 무엇인가?"
+    ]
+  },
+  "stage_provenance_missing": [],
+  "total_questions": 21,
+  "unexpected_exit_question_ids": [],
+  "validation_errors": [
+    "abnormal_outcomes=1",
+    "recorded_errors=1",
+    "paired_c02_answer_cohort=paired C02 score cohort row is not ANSWER: qa_86_3hop_140"
+  ]
+}

@@ -1,0 +1,1106 @@
+{
+  "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": "부동산에 관한 법률행위로 인한 물권의 득실변경은 등기하여야 그 효력이 생긴다.[CT1]\n을은 소유권이전등기가 완료되지 않았으므로, 갑으로부터 토지 소유권을 취득하지 못했다.[CT2]",
+  "candidate_answer_basis": "retrieved_candidates",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "GENERATED",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [
+    {
+      "code": "A1",
+      "message": "갑과 을 사이의 매매계약이 유효하게 체결되었고, 을이 대금을 전부 지급한 사실은 문제의 전제로 가정한다."
+    }
+  ],
+  "candidate_claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "민법 186조  부동산물권변동의 효력#KOBLEX-058761",
+      "quoted_text": "제186조(부동산물권변동의 효력) 부동산에 관한 법률행위로 인한 물권의 득실변경은 등기하여야 그 효력이 생긴다.",
+      "support_description": "부동산 물권변동의 등기 요건 및 효력 발생 시점을 규정하여, 등기 없이는 소유권이 이전되지 않음을 근거로 제시한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "민법 186조  부동산물권변동의 효력#KOBLEX-058761",
+      "quoted_text": "제186조(부동산물권변동의 효력) 부동산에 관한 법률행위로 인한 물권의 득실변경은 등기하여야 그 효력이 생긴다.",
+      "support_description": "등기 요건 미충족 상태에서 매매계약과 대금 지급만으로는 소유권이 이전되지 않는다는 사실 적용을 뒷받침한다."
+    }
+  ],
+  "candidate_claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "부동산에 관한 법률행위로 인한 물권의 득실변경은 등기하여야 그 효력이 생긴다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "을은 소유권이전등기가 완료되지 않았으므로, 갑으로부터 토지 소유권을 취득하지 못했다."
+    }
+  ],
+  "candidate_limitations": [
+    {
+      "code": "L1",
+      "message": "부동산 매매계약이 소유권 이전의무를 발생시키는 채권적 계약임을 직접적으로 명시하는 조항이 후보군에 포함되어 있지 않아, 계약의 채권적 성격을 독립적으로 인용하지 못한다."
+    },
+    {
+      "code": "L2",
+      "message": "본 결과는 비공개 벤치마크 후보이며, 공개 정책은 ABSTAIN으로 유지된다."
+    }
+  ],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-25T05:10:17.026903+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 363637.459,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 353,
+      "dedup_collapse": 125,
+      "evidence_fusion": 353,
+      "first_stage": 500,
+      "request_rerank": 500,
+      "round_selected": 30,
+      "rrf": 400,
+      "selected": 353
+    }
+  },
+  "run_id": "510ab28b-ad3a-4302-b1e1-d3d304c9b3d1",
+  "skill_generation_diagnostics": {
+    "attempt_count": 7,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "민법 186조  부동산물권변동의 효력#KOBLEX-058761"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 6,
+          "request_count": 1,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 5,
+          "request_count": 2,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "ABSTAIN",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "Two consecutive retrieval rounds did not improve critical evidence.",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "ABSTAIN",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 21
+        },
+        "event": "BENCHMARK_CANDIDATE_GENERATION_STARTED",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 21,
+          "claim_count": 2
+        },
+        "event": "BENCHMARK_CANDIDATE_VALIDATED",
+        "phase": "ABSTAINED"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "을이 그 땅의 소유권을 취득한 것으로 볼 수 있는가?",
+        "requested_output": "Determination of whether the buyer acquired ownership of the land despite the absence of registration."
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "지방세법 시행령 20조  취득의 시기 등#KOBLEX-077349"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.5757707953453064,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "지방세법 시행령 20조  취득의 시기 등#KOBLEX-077349",
+        "provision_text": "⑭ 제1항, 제2항 및 제5항에 따른 취득일 전에 등기 또는 등록을 한 경우에는 그 등기일 또는 등록일에 취득한 것으로 본다. <개정 2014.8.12, 2015.7.24, 2021.12.31>",
+        "rerank_rank": 2,
+        "rerank_score": 0.049818944185972214,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "지방세법 시행령 20조  취득의 시기 등 14항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부동산등기법 53조  환매특약의 등기#KOBLEX-087982"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 68,
+        "first_stage_score": 0.550984799861908,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "부동산등기법 53조  환매특약의 등기#KOBLEX-087982",
+        "provision_text": "1. 매수인이 지급한 대금",
+        "rerank_rank": 1,
+        "rerank_score": 0.14186546206474304,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "부동산등기법 53조  환매특약의 등기 1호",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 245조  점유로 인한 부동산소유권의 취득기간#KOBLEX-058895"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.5893735885620117,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "민법 245조  점유로 인한 부동산소유권의 취득기간#KOBLEX-058895",
+        "provision_text": "①20년간 소유의 의사로 평온, 공연하게 부동산을 점유하는 자는 등기함으로써 그 소유권을 취득한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.021941274404525757,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 245조  점유로 인한 부동산소유권의 취득기간 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 99조  부동산, 동산#KOBLEX-058578"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 75,
+        "first_stage_score": 0.5500893592834473,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "민법 99조  부동산, 동산#KOBLEX-058578",
+        "provision_text": "①토지 및 그 정착물은 부동산이다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.01976986974477768,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "민법 99조  부동산, 동산 1항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 186조  부동산물권변동의 효력#KOBLEX-058761"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 67,
+        "first_stage_score": 0.5768477320671082,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "민법 186조  부동산물권변동의 효력#KOBLEX-058761",
+        "provision_text": "제186조(부동산물권변동의 효력) 부동산에 관한 법률행위로 인한 물권의 득실변경은 등기하여야 그 효력이 생긴다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.013754721730947495,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민법 186조  부동산물권변동의 효력",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사집행법 90조  경매절차의 이해관계인#KOBLEX-128366"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 44,
+        "first_stage_score": 0.566675066947937,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "민사집행법 90조  경매절차의 이해관계인#KOBLEX-128366",
+        "provision_text": "3. 등기부에 기입된 부동산 위의 권리자",
+        "rerank_rank": 6,
+        "rerank_score": 0.012495988979935646,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "민사집행법 90조  경매절차의 이해관계인 3호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부동산등기법 15조  물적 편성주의#KOBLEX-087840"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 38,
+        "first_stage_score": 0.5641083121299744,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "부동산등기법 15조  물적 편성주의#KOBLEX-087840",
+        "provision_text": "② 등기기록에는 부동산의 표시에 관한 사항을 기록하는 표제부와 소유권에 관한 사항을 기록하는 갑구(甲區) 및 소유권 외의 권리에 관한 사항을 기록하는 을구(乙區)를 둔다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.011922423727810383,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "부동산등기법 15조  물적 편성주의 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 245조  점유로 인한 부동산소유권의 취득기간#KOBLEX-058896"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 27,
+        "first_stage_score": 0.5694200396537781,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "민법 245조  점유로 인한 부동산소유권의 취득기간#KOBLEX-058896",
+        "provision_text": "②부동산의 소유자로 등기한 자가 10년간 소유의 의사로 평온, 공연하게 선의이며 과실없이 그 부동산을 점유한 때에는 소유권을 취득한다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.005462115164846182,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "민법 245조  점유로 인한 부동산소유권의 취득기간 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "제주특별자치도 설치 및 국제자유도시 조성을 위한 특별법 153조  토지등의 취득업무 위탁#KOBLEX-037319"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 51,
+        "first_stage_score": 0.5668855309486389,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "제주특별자치도 설치 및 국제자유도시 조성을 위한 특별법 153조  토지등의 취득업무 위탁#KOBLEX-037319",
+        "provision_text": "제153조(토지등의 취득업무 위탁)",
+        "rerank_rank": 9,
+        "rerank_score": 0.0045355805195868015,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "제주특별자치도 설치 및 국제자유도시 조성을 위한 특별법 153조  토지등의 취득업무 위탁",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "주택법 21조  대지의 소유권 확보 등#KOBLEX-133178",
+          "주택법 21조  대지의 소유권 확보 등#KOBLEX-204690"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 52,
+        "first_stage_score": 0.5556464791297913,
+        "fusion_rank": 10,
+        "issue_id": "I2",
+        "provision_id": "주택법 21조  대지의 소유권 확보 등#KOBLEX-133178",
+        "provision_text": "제21조(대지의 소유권 확보 등)",
+        "rerank_rank": 10,
+        "rerank_score": 0.004510338418185711,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "주택법 21조  대지의 소유권 확보 등",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부동산등기법 52조  부기로 하는 등기#KOBLEX-087973"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 79,
+        "first_stage_score": 0.5468147993087769,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "부동산등기법 52조  부기로 하는 등기#KOBLEX-087973",
+        "provision_text": "2. 소유권 외의 권리의 이전등기",
+        "rerank_rank": 2,
+        "rerank_score": 0.0006873600068502128,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "부동산등기법 52조  부기로 하는 등기 2호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부동산등기법 97조  공매처분으로 인한 등기의 촉탁#KOBLEX-088148"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 98,
+        "first_stage_score": 0.5437454581260681,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "부동산등기법 97조  공매처분으로 인한 등기의 촉탁#KOBLEX-088148",
+        "provision_text": "1. 공매처분으로 인한 권리이전의 등기",
+        "rerank_rank": 4,
+        "rerank_score": 0.00045568932546302676,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "부동산등기법 97조  공매처분으로 인한 등기의 촉탁 1호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "도시 및 주거환경정비법 87조  대지 및 건축물에 대한 권리의 확정#KOBLEX-148452",
+          "도시 및 주거환경정비법 87조  대지 및 건축물에 대한 권리의 확정#KOBLEX-229024"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.5827311277389526,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "도시 및 주거환경정비법 87조  대지 및 건축물에 대한 권리의 확정#KOBLEX-148452",
+        "provision_text": "① 대지 또는 건축물을 분양받을 자에게 제86조제2항에 따라 소유권을 이전한 경우 종전의 토지 또는 건축물에 설정된 지상권ㆍ전세권ㆍ저당권ㆍ임차권ㆍ가등기담보권ㆍ가압류 등 등기된 권리 및 「주택임대차보호법」 제3조제1항의 요건을 갖춘 임차권은 소유권을 이전받은 대지 또는 건축물에 설정된 것으로 본다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.0002448175218887627,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "도시 및 주거환경정비법 87조  대지 및 건축물에 대한 권리의 확정 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 245조#KOBLEX-058893"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 82,
+        "first_stage_score": 0.5465331673622131,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "민법 245조#KOBLEX-058893",
+        "provision_text": "제2절 소유권의 취득",
+        "rerank_rank": 6,
+        "rerank_score": 0.00020302801567595452,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 245조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부동산등기법 61조  구분건물의 등기기록에 대지권등기가 되어 있는 경우#KOBLEX-088007"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 39,
+        "first_stage_score": 0.5624373555183411,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "부동산등기법 61조  구분건물의 등기기록에 대지권등기가 되어 있는 경우#KOBLEX-088007",
+        "provision_text": "④ 토지의 소유권이 대지권인 경우에 대지권이라는 뜻의 등기가 되어 있는 토지의 등기기록에는 소유권이전등기, 저당권설정등기, 그 밖에 이와 관련이 있는 등기를 할 수 없다.",
+        "rerank_rank": 8,
+        "rerank_score": 0.00015737517969682813,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "부동산등기법 61조  구분건물의 등기기록에 대지권등기가 되어 있는 경우 4항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "지방세법 7조  납세의무자 등#KOBLEX-101744"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 83,
+        "first_stage_score": 0.5465153455734253,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "지방세법 7조  납세의무자 등#KOBLEX-101744",
+        "provision_text": "⑯ 「도시개발법」에 따른 도시개발사업과 「도시 및 주거환경정비법」에 따른 정비사업의 시행으로 해당 사업의 대상이 되는 부동산의 소유자(상속인을 포함한다)가 환지계획 또는 관리처분계획에 따라 공급받거나 토지상환채권으로 상환받는 건축물은 그 소유자가 원시취득한 것으로 보며, 토지의 경우에는 그 소유자가 승계취득한 것으로 본다. 이 경우 토지는 당초 소유한 토지 면적을 초과하는 경우로서 그 초과한 면적에 해당하는 부분에 한정하여 취득한 것으로 본다. <신설 2023.3.14>",
+        "rerank_rank": 10,
+        "rerank_score": 0.00011802944936789572,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "지방세법 7조  납세의무자 등 16항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "건축법 시행규칙 3조  기존건축물에 대한 특례#KOBLEX-061047"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.5752313733100891,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "건축법 시행규칙 3조  기존건축물에 대한 특례#KOBLEX-061047",
+        "provision_text": "4. 대지의 일부 토지소유권에 대하여 「민법」 제245조에 따라 소유권이전등기가 완료된 경우",
+        "rerank_rank": 2,
+        "rerank_score": 0.0005997847765684128,
+        "retrieval_round": 3,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "건축법 시행규칙 3조  기존건축물에 대한 특례 4호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "농지법 6조#KOBLEX-172957"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 78,
+        "first_stage_score": 0.5430859923362732,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "농지법 6조#KOBLEX-172957",
+        "provision_text": "제2장 농지의 소유",
+        "rerank_rank": 4,
+        "rerank_score": 0.0005579021526500583,
+        "retrieval_round": 3,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "농지법 6조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "공간정보의 구축 및 관리 등에 관한 법률 64조#KOBLEX-123343"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 61,
+        "first_stage_score": 0.550123393535614,
+        "fusion_rank": 11,
+        "issue_id": "I1",
+        "provision_id": "공간정보의 구축 및 관리 등에 관한 법률 64조#KOBLEX-123343",
+        "provision_text": "제1절 토지의 등록",
+        "rerank_rank": 11,
+        "rerank_score": 0.00037672623875550926,
+        "retrieval_round": 3,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "공간정보의 구축 및 관리 등에 관한 법률 64조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민법 563조  매매의 의의#KOBLEX-059518"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.5905995965003967,
+        "fusion_rank": 12,
+        "issue_id": "I1",
+        "provision_id": "민법 563조  매매의 의의#KOBLEX-059518",
+        "provision_text": "제563조(매매의 의의) 매매는 당사자 일방이 재산권을 상대방에게 이전할 것을 약정하고 상대방이 그 대금을 지급할 것을 약정함으로써 그 효력이 생긴다.",
+        "rerank_rank": 12,
+        "rerank_score": 0.00037368605262599885,
+        "retrieval_round": 3,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "민법 563조  매매의 의의",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "농지법 시행령 4조#KOBLEX-199440"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 80,
+        "first_stage_score": 0.5430859923362732,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "농지법 시행령 4조#KOBLEX-199440",
+        "provision_text": "제2장 농지의 소유",
+        "rerank_rank": 6,
+        "rerank_score": 0.0003515584103297442,
+        "retrieval_round": 3,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1",
+          "GRQ-R3-2"
+        ],
+        "statute_name": "농지법 시행령 4조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "건축법 시행규칙 3조  기존건축물에 대한 특례#KOBLEX-061047": "4. 대지의 일부 토지소유권에 대하여 「민법」 제245조에 따라 소유권이전등기가 완료된 경우",
+      "공간정보의 구축 및 관리 등에 관한 법률 64조#KOBLEX-123343": "제1절 토지의 등록",
+      "농지법 6조#KOBLEX-172957": "제2장 농지의 소유",
+      "농지법 시행령 4조#KOBLEX-199440": "제2장 농지의 소유",
+      "도시 및 주거환경정비법 87조  대지 및 건축물에 대한 권리의 확정#KOBLEX-148452": "① 대지 또는 건축물을 분양받을 자에게 제86조제2항에 따라 소유권을 이전한 경우 종전의 토지 또는 건축물에 설정된 지상권ㆍ전세권ㆍ저당권ㆍ임차권ㆍ가등기담보권ㆍ가압류 등 등기된 권리 및 「주택임대차보호법」 제3조제1항의 요건을 갖춘 임차권은 소유권을 이전받은 대지 또는 건축물에 설정된 것으로 본다.",
+      "민법 186조  부동산물권변동의 효력#KOBLEX-058761": "제186조(부동산물권변동의 효력) 부동산에 관한 법률행위로 인한 물권의 득실변경은 등기하여야 그 효력이 생긴다.",
+      "민법 245조  점유로 인한 부동산소유권의 취득기간#KOBLEX-058895": "①20년간 소유의 의사로 평온, 공연하게 부동산을 점유하는 자는 등기함으로써 그 소유권을 취득한다.",
+      "민법 245조  점유로 인한 부동산소유권의 취득기간#KOBLEX-058896": "②부동산의 소유자로 등기한 자가 10년간 소유의 의사로 평온, 공연하게 선의이며 과실없이 그 부동산을 점유한 때에는 소유권을 취득한다.",
+      "민법 245조#KOBLEX-058893": "제2절 소유권의 취득",
+      "민법 563조  매매의 의의#KOBLEX-059518": "제563조(매매의 의의) 매매는 당사자 일방이 재산권을 상대방에게 이전할 것을 약정하고 상대방이 그 대금을 지급할 것을 약정함으로써 그 효력이 생긴다.",
+      "민법 99조  부동산, 동산#KOBLEX-058578": "①토지 및 그 정착물은 부동산이다.",
+      "민사집행법 90조  경매절차의 이해관계인#KOBLEX-128366": "3. 등기부에 기입된 부동산 위의 권리자",
+      "부동산등기법 15조  물적 편성주의#KOBLEX-087840": "② 등기기록에는 부동산의 표시에 관한 사항을 기록하는 표제부와 소유권에 관한 사항을 기록하는 갑구(甲區) 및 소유권 외의 권리에 관한 사항을 기록하는 을구(乙區)를 둔다.",
+      "부동산등기법 52조  부기로 하는 등기#KOBLEX-087973": "2. 소유권 외의 권리의 이전등기",
+      "부동산등기법 53조  환매특약의 등기#KOBLEX-087982": "1. 매수인이 지급한 대금",
+      "부동산등기법 61조  구분건물의 등기기록에 대지권등기가 되어 있는 경우#KOBLEX-088007": "④ 토지의 소유권이 대지권인 경우에 대지권이라는 뜻의 등기가 되어 있는 토지의 등기기록에는 소유권이전등기, 저당권설정등기, 그 밖에 이와 관련이 있는 등기를 할 수 없다.",
+      "부동산등기법 97조  공매처분으로 인한 등기의 촉탁#KOBLEX-088148": "1. 공매처분으로 인한 권리이전의 등기",
+      "제주특별자치도 설치 및 국제자유도시 조성을 위한 특별법 153조  토지등의 취득업무 위탁#KOBLEX-037319": "제153조(토지등의 취득업무 위탁)",
+      "주택법 21조  대지의 소유권 확보 등#KOBLEX-133178": "제21조(대지의 소유권 확보 등)",
+      "지방세법 7조  납세의무자 등#KOBLEX-101744": "⑯ 「도시개발법」에 따른 도시개발사업과 「도시 및 주거환경정비법」에 따른 정비사업의 시행으로 해당 사업의 대상이 되는 부동산의 소유자(상속인을 포함한다)가 환지계획 또는 관리처분계획에 따라 공급받거나 토지상환채권으로 상환받는 건축물은 그 소유자가 원시취득한 것으로 보며, 토지의 경우에는 그 소유자가 승계취득한 것으로 본다. 이 경우 토지는 당초 소유한 토지 면적을 초과하는 경우로서 그 초과한 면적에 해당하는 부분에 한정하여 취득한 것으로 본다. <신설 2023.3.14>",
+      "지방세법 시행령 20조  취득의 시기 등#KOBLEX-077349": "⑭ 제1항, 제2항 및 제5항에 따른 취득일 전에 등기 또는 등록을 한 경우에는 그 등기일 또는 등록일에 취득한 것으로 본다. <개정 2014.8.12, 2015.7.24, 2021.12.31>"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "부동산 매매계약이 소유권 이전 및 등기 의무를 발생시킨다는 내용을 직접적으로 명시하는 조항이 후보군에 존재하지 않는다.",
+            "requirement_id": "E1-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E1-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "부동산 매매계약이 소유권 이전의무를 발생시키는 채권적 계약임을 명시하는 조항이 후보군에 포함되어 있지 않다. C020(민법 제563조)은 매매의 의의를 정의하지만, 소유권 이전 및 등기 의무를 직접적으로 명시하지 않아 E1-R1의 요건을 충족하지 못한다.",
+        "status": "uncovered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "민법 186조  부동산물권변동의 효력#KOBLEX-058761"
+            ],
+            "rationale": "민법 제186조는 부동산에 관한 법률행위로 인한 물권의 득실변경은 등기하여야 그 효력이 생긴다고 명시하여, 등기를 통한 소유권 취득 요건을 직접적으로 입증한다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "민법 186조  부동산물권변동의 효력#KOBLEX-058761"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "민법 제186조는 부동산 물권변동의 효력이 등기 시에 발생한다고 규정하여, 등기 없이는 소유권이 취득되지 않는다는 법적 요건을 충족한다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "민법 186조  부동산물권변동의 효력#KOBLEX-058761",
+        "support_spans": [
+          {
+            "end_char": 62,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 5,
+    "last_validated_event": "RESPONSE_ASSEMBLY.ABSTAIN",
+    "legal_issues": [
+      {
+        "description": "The legal effect of a real estate sale contract and payment on the transfer of ownership rights.",
+        "issue_id": "I1"
+      },
+      {
+        "description": "The role of registration in the acquisition of real estate ownership.",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the provision stating that a contract for the sale of real estate creates an obligation to perform transfer and registration, not immediate ownership transfer.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The contract for sale of real estate is an obligation to transfer ownership and register the transfer."
+          }
+        ],
+        "critical": true,
+        "description": "The legal nature of a real estate sale contract as an obligation to transfer ownership rather than a direct transfer of title.",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "Establishes that the contract and payment alone do not effectuate the transfer of ownership.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] 갑은 을에게 자신의 토지를 매도하기로 계약을 체결하였다. 을은 대금을 전부 지급하였으나, 아직 소유권 이전 등기를 하지 않은 상태이다. 을은 그 땅에 건물을 짓기 시작하려 한다. 이 상황에서 갑은 을에게 소유권이 이전되었는지 여부를 묻고자 한다. [질문] 을은 갑으로부터 토지를 매수하고 대금을 모두 지불하였으나, 아직 등기가 되지 않았습니다. 을이 그 땅의 소유권을 취득한 것으로 볼 수 있는가?",
+    "phase": "ABSTAINED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "부동산 매매",
+          "소유권 이전",
+          "계약 효력",
+          "채권적 효력"
+        ],
+        "query_text": "부동산 매매계약의 효력 소유권 이전 의무 [원문 맥락] 을은 갑으로부터 토지를 매수하고 대금을 모두 지불하였으나, 아직 등기가 되지 않았습니다. 을이 그 땅의 소유권을 취득한 것으로 볼 수 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제577조",
+          "민법 제578조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "부동산 소유권",
+          "등기",
+          "취득",
+          "물권변동"
+        ],
+        "query_text": "부동산 소유권 취득 등기 요건 [원문 맥락] 을은 갑으로부터 토지를 매수하고 대금을 모두 지불하였으나, 아직 등기가 되지 않았습니다. 을이 그 땅의 소유권을 취득한 것으로 볼 수 있는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제186조",
+          "민법 제187조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "매매계약",
+          "채권적 효력",
+          "소유권 이전의무",
+          "민법 제577조"
+        ],
+        "query_text": "부동산 매매계약의 채권적 효력 소유권 이전의무 발생 [원문 맥락] 을은 갑으로부터 토지를 매수하고 대금을 모두 지불하였으나, 아직 등기가 되지 않았습니다. 을이 그 땅의 소유권을 취득한 것으로 볼 수 있는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제577조",
+          "민법 제578조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "매매계약",
+          "채권적 효력",
+          "소유권이전등기",
+          "이전의무"
+        ],
+        "query_text": "매매계약 채권적 효력 소유권이전등기 의무 [원문 맥락] 을은 갑으로부터 토지를 매수하고 대금을 모두 지불하였으나, 아직 등기가 되지 않았습니다. 을이 그 땅의 소유권을 취득한 것으로 볼 수 있는가?",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제577조",
+          "민법 제578조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "민법 제577조",
+          "매매의 효력",
+          "소유권이전등기",
+          "채무"
+        ],
+        "query_text": "민법 제577조 매매의 효력 소유권이전등기 의무 [원문 맥락] 을은 갑으로부터 토지를 매수하고 대금을 모두 지불하였으나, 아직 등기가 되지 않았습니다. 을이 그 땅의 소유권을 취득한 것으로 볼 수 있는가?",
+        "request_id": "GRQ-R3-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "민법 제577조"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 을에게 자신의 토지를 매도하기로 계약을 체결하였다. 을은 대금을 전부 지급하였으나, 아직 소유권 이전 등기를 하지 않은 상태이다. 을은 그 땅에 건물을 짓기 시작하려 한다. 이 상황에서 갑은 을에게 소유권이 이전되었는지 여부를 묻고자 한다.\n\n[질문]\n을은 갑으로부터 토지를 매수하고 대금을 모두 지불하였으나, 아직 등기가 되지 않았습니다. 을이 그 땅의 소유권을 취득한 것으로 볼 수 있는가?",
+    "remaining_request_budget": 4,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the provision stating that a contract for the sale of real estate creates an obligation to perform transfer and registration, not immediate ownership transfer.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The contract for sale of real estate is an obligation to transfer ownership and register the transfer."
+          }
+        ],
+        "critical": true,
+        "description": "The legal nature of a real estate sale contract as an obligation to transfer ownership rather than a direct transfer of title.",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "Establishes that the contract and payment alone do not effectuate the transfer of ownership.",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the provision stating that ownership of real estate is acquired upon registration.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "Ownership of real estate is acquired through registration."
+          }
+        ],
+        "critical": true,
+        "description": "The requirement of registration for the acquisition of ownership of real estate.",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "Determines that without registration, ownership has not been legally transferred to the buyer.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "510ab28b-ad3a-4302-b1e1-d3d304c9b3d1",
+    "seen_provision_ids": [
+      "주택법 21조  대지의 소유권 확보 등#KOBLEX-133178",
+      "공간정보의 구축 및 관리 등에 관한 법률 64조#KOBLEX-123343",
+      "제주특별자치도 설치 및 국제자유도시 조성을 위한 특별법 153조  토지등의 취득업무 위탁#KOBLEX-037319",
+      "부동산등기법 52조  부기로 하는 등기#KOBLEX-087973",
+      "지방세법 시행령 20조  취득의 시기 등#KOBLEX-077349",
+      "부동산등기법 97조  공매처분으로 인한 등기의 촉탁#KOBLEX-088148",
+      "부동산등기법 15조  물적 편성주의#KOBLEX-087840",
+      "민법 245조  점유로 인한 부동산소유권의 취득기간#KOBLEX-058896",
+      "민법 186조  부동산물권변동의 효력#KOBLEX-058761",
+      "민법 99조  부동산, 동산#KOBLEX-058578",
+      "민법 245조#KOBLEX-058893",
+      "부동산등기법 53조  환매특약의 등기#KOBLEX-087982",
+      "민법 245조  점유로 인한 부동산소유권의 취득기간#KOBLEX-058895",
+      "농지법 6조#KOBLEX-172957",
+      "건축법 시행규칙 3조  기존건축물에 대한 특례#KOBLEX-061047",
+      "민법 563조  매매의 의의#KOBLEX-059518",
+      "민사집행법 90조  경매절차의 이해관계인#KOBLEX-128366",
+      "농지법 시행령 4조#KOBLEX-199440",
+      "지방세법 7조  납세의무자 등#KOBLEX-101744",
+      "부동산등기법 61조  구분건물의 등기기록에 대지권등기가 되어 있는 경우#KOBLEX-088007",
+      "도시 및 주거환경정비법 87조  대지 및 건축물에 대한 권리의 확정#KOBLEX-148452"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ABSTAIN",
+  "termination_reason": "NO_RETRIEVAL_PROGRESS"
+}

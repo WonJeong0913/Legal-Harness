@@ -1,0 +1,70 @@
+{
+  "abnormal_question_ids": [
+    "qa_140_3hop_540_rand"
+  ],
+  "batch_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c19-final-20260827/smoke/checkpoints/batch-003-attempt-f9b5a3e95b85459084aa33d08bd4cfad",
+  "bm25_execution": "FORBIDDEN",
+  "checkpoint_range": [
+    1,
+    3
+  ],
+  "checkpoint_status": "ERRORS_FOUND",
+  "completed_questions": 3,
+  "evaluation_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c19-final-20260827/smoke/evaluations/checkpoint-003-attempt-f9b5a3e95b85459084aa33d08bd4cfad",
+  "evaluator_command": [
+    "/usr/bin/python3.10",
+    "/tmp/legal-harness-c19-execution-path-safety-20260826/scripts/evaluate_dev_runs.py",
+    "--batch-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c19-final-20260827/smoke/checkpoints/batch-003-attempt-f9b5a3e95b85459084aa33d08bd4cfad",
+    "--output-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c19-final-20260827/smoke/evaluations/checkpoint-003-attempt-f9b5a3e95b85459084aa33d08bd4cfad",
+    "--require-stage-provenance"
+  ],
+  "evaluator_elapsed_seconds": 1.6256782980635762,
+  "event": "CHECKPOINT_COMPLETED",
+  "lf_eval_score_injection": "FORBIDDEN",
+  "metrics": {
+    "abstain_count": 0,
+    "answer_count": 2,
+    "citation_integrity": {
+      "attempted": 2,
+      "pass_rate": 1.0,
+      "passed": 2
+    },
+    "complete_evidence_count": 2,
+    "complete_evidence_rate": 0.6666666666666666,
+    "execution_failure_count": 1,
+    "mean_latency_ms": 127122.85466666667,
+    "median_latency_ms": 136828.346,
+    "outcome_counts": {
+      "ABSTAIN": 0,
+      "ANSWER": 2,
+      "EXECUTION_FAILURE": 1
+    },
+    "p95_latency_ms": 150925.1477,
+    "provision_exact_match_count": 2,
+    "provision_exact_match_rate": 0.6666666666666666,
+    "provision_macro_f1": 0.7777777777777778,
+    "provision_macro_precision": 0.7777777777777778,
+    "provision_macro_recall": 0.7777777777777778,
+    "provision_micro_f1": 0.6666666666666666,
+    "token_f1_answered_only": 0.4666666666666667,
+    "token_f1_candidate": 0.3111111111111111,
+    "token_f1_end_to_end": 0.3111111111111111
+  },
+  "recorded_errors": {
+    "qa_140_3hop_540_rand": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: query repeats query_history: 법무사법인 구성원 자격 요건 법무사 자격 결격사유\n[원문 맥락]\n이들은 법무사법인을 설립하기 위한 절차를 알아보고, 설립 후 필요한 조치에 대해 고민하고 있습니다. 갑, 을, 병이 법무사법인을 설립하기 위해 어떤 절차를 거쳐야 하며, 설립인가 후 2주 이내에 어떤 조치를 해야 하고, 법무사법인의 구성원 자격 요건은 무엇인가?"
+    ]
+  },
+  "remaining_eta_ms": null,
+  "remaining_eta_seconds": null,
+  "remaining_eta_utc": null,
+  "stage_provenance_missing": [],
+  "total_questions": 3,
+  "unexpected_exit_question_ids": [],
+  "validation_errors": [
+    "abnormal_outcomes=1",
+    "recorded_errors=1"
+  ]
+}

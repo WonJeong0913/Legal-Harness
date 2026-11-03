@@ -4,10 +4,13 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import sys
 import uuid
+from dataclasses import dataclass
 from pathlib import Path
+from typing import Any, Dict, Mapping, Optional
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
@@ -38,7 +41,12 @@ from tools.validate_citation_integrity import CitationIntegrityChecker
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("question", help="Korean statutory question to run")
-    parser.add_argument("--retriever", choices=("bm25", "kure"), default="bm25")
+    parser.add_argument(
+        "--retriever",
+        choices=("kure", "bm25"),
+        default="kure",
+        help="first-stage retriever (default: kure; bm25 is for explicit comparison runs only)",
+    )
     parser.add_argument("--model", default="legal-harness-qwen")
     parser.add_argument("--skills-root", type=Path, default=PROJECT_ROOT / "skills")
     parser.add_argument("--ollama-endpoint", default="http://127.0.0.1:11434/api/generate")
@@ -74,6 +82,12 @@ def parse_args() -> argparse.Namespace:
         default="per_issue",
     )
     parser.add_argument(
+        "--round-merge-mode",
+        choices=("raw_score", "request_rank_top1_guarded_swap"),
+        default="raw_score",
+        help="experimental per-round merge; default raw_score preserves C5",
+    )
+    parser.add_argument(
         "--dedup-mode",
         choices=("none", "legal_text_alias"),
         default="none",
@@ -85,7 +99,10 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--input-format", default="question_only")
     parser.add_argument("--record-dir", type=Path, default=PROJECT_ROOT / "records/runs")
-    parser.add_argument("--question-id", help="stable benchmark item ID, for example qa_19_1hop_28")
+    parser.add_argument(
+        "--question-id",
+        help="stable benchmark item ID, for example qa_19_1hop_28",
+    )
     parser.add_argument("--condition", default="M", help="frozen experimental condition ID")
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--result-file", type=Path, help="write the complete run result as JSON")
@@ -121,12 +138,146 @@ def build_retriever(args: argparse.Namespace) -> RetrievalPipeline:
         per_evidence_min_k=args.per_evidence_min_k,
         dedup_mode=args.dedup_mode,
         candidate_budget_scope=args.candidate_budget_scope,
+        round_merge_mode=getattr(args, "round_merge_mode", "raw_score"),
     )
 
 
-def main() -> int:
-    args = parse_args()
-    source_snapshot = capture_clean_source_snapshot(PROJECT_ROOT)
+def build_frozen_run_args(
+    question: str,
+    question_id: str,
+    configuration: Mapping[str, Any],
+    record_dir: Path,
+    expected_git_commit: str,
+    expected_source_manifest_sha256: str,
+) -> argparse.Namespace:
+    """Build direct-run arguments from a batch's resolved frozen configuration.
+
+    This mirrors the legacy child-process command so both execution modes use
+    the same resolved frozen settings.
+    """
+    return argparse.Namespace(
+        question=question,
+        retriever=configuration["retriever"],
+        model=configuration["model"],
+        skills_root=PROJECT_ROOT / "skills",
+        ollama_endpoint=configuration.get(
+            "ollama_endpoint",
+            "http://127.0.0.1:11434/api/generate",
+        ),
+        num_ctx=configuration["num_ctx"],
+        s1_max_tokens=configuration.get(
+            "s1_max_tokens",
+            DEFAULT_SKILL_MAX_TOKENS["legal_issue_and_query_planning"],
+        ),
+        s1_truncation_retry_max_tokens=configuration.get(
+            "s1_truncation_retry_max_tokens",
+            DEFAULT_S1_TRUNCATION_RETRY_MAX_TOKENS,
+        ),
+        rounds=configuration["total_retrieval_rounds"],
+        requests=configuration["total_retrieval_requests"],
+        rerank_pool_k=configuration.get("rerank_pool_k", 100),
+        final_top_k=configuration.get("final_top_k", 10),
+        rerank_query_mode=configuration.get("rerank_query_mode", "combined_issue"),
+        candidate_selection=configuration.get("candidate_selection", "global_top_k"),
+        per_evidence_min_k=configuration.get("per_evidence_min_k", 1),
+        candidate_budget_scope=configuration.get("candidate_budget_scope", "per_issue"),
+        round_merge_mode=configuration.get("round_merge_mode", "raw_score"),
+        dedup_mode=configuration.get("dedup_mode", "none"),
+        rerank_document_mode=configuration.get("rerank_document_mode", "body_only"),
+        input_format=configuration.get("input_format", "koblex_background_plus_question"),
+        record_dir=record_dir,
+        question_id=question_id,
+        condition=configuration["condition"],
+        seed=configuration["seed"],
+        result_file=None,
+        expected_git_commit=expected_git_commit,
+        expected_source_manifest_sha256=expected_source_manifest_sha256,
+    )
+
+
+def _build_skill_executor(
+    args: argparse.Namespace,
+    diagnostic_sink: Optional[Any],
+) -> LocalOllamaSkillExecutor:
+    return LocalOllamaSkillExecutor(
+        skills_root=args.skills_root,
+        model=args.model,
+        endpoint=args.ollama_endpoint,
+        num_ctx=args.num_ctx,
+        diagnostic_sink=diagnostic_sink,
+        s1_max_tokens=args.s1_max_tokens,
+        s1_truncation_retry_max_tokens=args.s1_truncation_retry_max_tokens,
+        seed=args.seed,
+    )
+
+
+@dataclass(frozen=True)
+class LocalHarnessExecution:
+    exit_code: int
+    summary: Dict[str, Any]
+    rendered_output: str
+
+
+class PersistentHarnessResources:
+    """Share immutable expensive resources across sequential batch entries.
+
+    The KURE/BGE pipeline is reused only serially; each runner receives a
+    distinct trace and skill-diagnostic sink for its ExperimentRecord.
+    """
+
+    def __init__(self, args: argparse.Namespace):
+        assert_skill_layout_complete(args.skills_root)
+        self.corpus = InMemoryProvisionCorpus.from_jsonl(
+            PROJECT_ROOT / "data/koblex/normalized/statute.jsonl"
+        )
+        self.retriever = build_retriever(args)
+        self._skill_executor = _build_skill_executor(args, diagnostic_sink=None)
+
+    def build_runner(
+        self, args: argparse.Namespace, record: ExperimentRecord
+    ) -> HarnessRunner:
+        # The executor's loaded skill text and validator modules are immutable.
+        skill_executor = copy.copy(self._skill_executor)
+        skill_executor.diagnostic_sink = record.record_skill_attempt
+        return HarnessRunner(
+            skill_executor=skill_executor,
+            retriever=self.retriever,
+            citation_validator=CitationIntegrityChecker(self.corpus),
+            config=HarnessConfig(
+                total_retrieval_rounds=args.rounds,
+                total_retrieval_requests=args.requests,
+            ),
+            trace_sink=record.trace_sink,
+        )
+
+
+def _build_fresh_runner(
+    args: argparse.Namespace, record: ExperimentRecord
+) -> HarnessRunner:
+    assert_skill_layout_complete(args.skills_root)
+    corpus = InMemoryProvisionCorpus.from_jsonl(
+        PROJECT_ROOT / "data/koblex/normalized/statute.jsonl"
+    )
+    return HarnessRunner(
+        skill_executor=_build_skill_executor(args, record.record_skill_attempt),
+        retriever=build_retriever(args),
+        citation_validator=CitationIntegrityChecker(corpus),
+        config=HarnessConfig(
+            total_retrieval_rounds=args.rounds,
+            total_retrieval_requests=args.requests,
+        ),
+        trace_sink=record.trace_sink,
+    )
+
+
+def run_question(
+    args: argparse.Namespace,
+    *,
+    source_snapshot: Optional[Any] = None,
+    resources: Optional[PersistentHarnessResources] = None,
+) -> LocalHarnessExecution:
+    """Execute one question with fresh or sequentially shared resources."""
+    source_snapshot = source_snapshot or capture_clean_source_snapshot(PROJECT_ROOT)
     if (
         args.expected_git_commit is not None
         and source_snapshot.git_commit != args.expected_git_commit
@@ -152,6 +303,7 @@ def main() -> int:
         "rerank_pool_k": args.rerank_pool_k,
         "final_top_k": args.final_top_k,
         "candidate_budget_scope": args.candidate_budget_scope,
+        "round_merge_mode": getattr(args, "round_merge_mode", "raw_score"),
         "rerank_query_mode": args.rerank_query_mode,
         "candidate_selection": args.candidate_selection,
         "per_evidence_min_k": args.per_evidence_min_k,
@@ -177,27 +329,9 @@ def main() -> int:
         question_id=args.question_id,
         source_snapshot=source_snapshot.to_dict(),
     )
-    assert_skill_layout_complete(args.skills_root)
-    corpus = InMemoryProvisionCorpus.from_jsonl(
-        PROJECT_ROOT / "data/koblex/normalized/statute.jsonl"
-    )
-    runner = HarnessRunner(
-        skill_executor=LocalOllamaSkillExecutor(
-            skills_root=args.skills_root,
-            model=args.model,
-            endpoint=args.ollama_endpoint,
-            num_ctx=args.num_ctx,
-            diagnostic_sink=record.record_skill_attempt,
-            s1_max_tokens=args.s1_max_tokens,
-            s1_truncation_retry_max_tokens=args.s1_truncation_retry_max_tokens,
-        ),
-        retriever=build_retriever(args),
-        citation_validator=CitationIntegrityChecker(corpus),
-        config=HarnessConfig(
-            total_retrieval_rounds=args.rounds,
-            total_retrieval_requests=args.requests,
-        ),
-        trace_sink=record.trace_sink,
+    runner = (
+        resources.build_runner(args, record)
+        if resources is not None else _build_fresh_runner(args, record)
     )
     outcome = runner.run(args.question, run_id=run_id)
     assert_source_snapshot_unchanged(PROJECT_ROOT, source_snapshot)
@@ -210,8 +344,16 @@ def main() -> int:
         "condition": args.condition,
         "seed": args.seed,
         "question_id": args.question_id,
-        "termination_reason": outcome.termination_reason.value if outcome.termination_reason else None,
-        "abstention_reason": outcome.abstention_reason.value if outcome.abstention_reason else None,
+        "termination_reason": (
+            outcome.termination_reason.value
+            if outcome.termination_reason
+            else None
+        ),
+        "abstention_reason": (
+            outcome.abstention_reason.value
+            if outcome.abstention_reason
+            else None
+        ),
         "run_id": outcome.state.run_id,
         "retrieval_rounds_used": outcome.state.retrieval_rounds_used,
         "accepted_provision_ids": sorted(outcome.state.accepted_provision_ids),
@@ -232,12 +374,24 @@ def main() -> int:
     if args.result_file:
         args.result_file.parent.mkdir(parents=True, exist_ok=True)
         args.result_file.write_text(rendered + "\n", encoding="utf-8")
-    print(rendered)
     if outcome.answer:
-        print("\n--- answer ---\n" + outcome.answer)
+        rendered += "\n\n--- answer ---\n" + outcome.answer
     elif outcome.candidate_answer:
-        print("\n--- benchmark candidate (ABSTAIN remains public status) ---\n" + outcome.candidate_answer)
-    return 0 if outcome.status is OutcomeStatus.ANSWER else 1
+        rendered += (
+            "\n\n--- benchmark candidate (ABSTAIN remains public status) ---\n"
+            + outcome.candidate_answer
+        )
+    return LocalHarnessExecution(
+        exit_code=0 if outcome.status is OutcomeStatus.ANSWER else 1,
+        summary=summary,
+        rendered_output=rendered,
+    )
+
+
+def main() -> int:
+    execution = run_question(parse_args())
+    print(execution.rendered_output)
+    return execution.exit_code
 
 
 if __name__ == "__main__":

@@ -1,0 +1,70 @@
+{
+  "abnormal_question_ids": [
+    "qa_522_2hop_806"
+  ],
+  "batch_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c46-r1-20260831-5d9a08e/full226/checkpoints/batch-060-attempt-db86d03976ad4112a5f472c57fdddb31",
+  "bm25_execution": "FORBIDDEN",
+  "checkpoint_range": [
+    41,
+    60
+  ],
+  "checkpoint_status": "ERRORS_FOUND",
+  "completed_questions": 60,
+  "evaluation_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c46-r1-20260831-5d9a08e/full226/evaluations/checkpoint-060-attempt-db86d03976ad4112a5f472c57fdddb31",
+  "evaluator_command": [
+    "/usr/bin/python3.10",
+    "/root/worktrees/legal-harness-c30-integrated-20260827/scripts/evaluate_dev_runs.py",
+    "--batch-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c46-r1-20260831-5d9a08e/full226/checkpoints/batch-060-attempt-db86d03976ad4112a5f472c57fdddb31",
+    "--output-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c46-r1-20260831-5d9a08e/full226/evaluations/checkpoint-060-attempt-db86d03976ad4112a5f472c57fdddb31",
+    "--require-stage-provenance"
+  ],
+  "evaluator_elapsed_seconds": 2.7604672570014372,
+  "event": "CHECKPOINT_COMPLETED",
+  "lf_eval_score_injection": "FORBIDDEN",
+  "metrics": {
+    "abstain_count": 6,
+    "answer_count": 53,
+    "citation_integrity": {
+      "attempted": 53,
+      "pass_rate": 1.0,
+      "passed": 53
+    },
+    "complete_evidence_count": 37,
+    "complete_evidence_rate": 0.6166666666666667,
+    "execution_failure_count": 1,
+    "mean_latency_ms": 119637.20203333333,
+    "median_latency_ms": 109925.3385,
+    "outcome_counts": {
+      "ABSTAIN": 6,
+      "ANSWER": 53,
+      "EXECUTION_FAILURE": 1
+    },
+    "p95_latency_ms": 224548.52494999996,
+    "provision_exact_match_count": 29,
+    "provision_exact_match_rate": 0.48333333333333334,
+    "provision_macro_f1": 0.7692857142857142,
+    "provision_macro_precision": 0.8083333333333333,
+    "provision_macro_recall": 0.7805555555555556,
+    "provision_micro_f1": 0.7733333333333334,
+    "token_f1_answered_only": 0.3687417965658646,
+    "token_f1_candidate": 0.3479840596144017,
+    "token_f1_end_to_end": 0.3257219202998471
+  },
+  "recorded_errors": {
+    "qa_522_2hop_806": [
+      "provision_coverage_assessment did not produce a valid ASSESS_COVERAGE result after 2 attempts: covered consistency failure: E2; satisfied criterion requires accepted CORE evidence: E2"
+    ]
+  },
+  "remaining_eta_ms": 19859775.537533335,
+  "remaining_eta_seconds": 19859.775537533336,
+  "remaining_eta_utc": "2026-08-31T08:58:52.607482+00:00",
+  "stage_provenance_missing": [],
+  "total_questions": 226,
+  "unexpected_exit_question_ids": [],
+  "validation_errors": [
+    "abnormal_outcomes=1",
+    "recorded_errors=1"
+  ]
+}

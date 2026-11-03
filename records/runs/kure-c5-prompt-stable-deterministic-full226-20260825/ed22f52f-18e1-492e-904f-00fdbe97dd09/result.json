@@ -1,0 +1,749 @@
+{
+  "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": "형사소송법 제420조에 따라 재심은 유죄의 확정판결에 대하여 그 선고를 받은 자의 이익을 위하여 청구할 수 있다.[CT1]",
+  "candidate_answer_basis": "retrieved_candidates",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "GENERATED",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [
+    {
+      "code": "A1",
+      "message": "갑의 유죄 판결이 확정되었음을 전제한다."
+    }
+  ],
+  "candidate_claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형사소송법 420조  재심이유#KOBLEX-232856",
+      "quoted_text": "제420조(재심이유) 재심은 다음 각 호의 어느 하나에 해당하는 이유가 있는 경우에 유죄의 확정판결에 대하여 그 선고를 받은 자의 이익을 위하여 청구할 수 있다.",
+      "support_description": "유죄 확정판결에 대한 재심청구의 일반적 법적 근거를 제시한다."
+    }
+  ],
+  "candidate_claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "형사소송법 제420조에 따라 재심은 유죄의 확정판결에 대하여 그 선고를 받은 자의 이익을 위하여 청구할 수 있다."
+    }
+  ],
+  "candidate_limitations": [
+    {
+      "code": "L1",
+      "message": "제공된 후보 조문(C001-C014)에는 저작권 등록 무효를 근거로 한 형사재심 사유가 명시되어 있지 않아, 구체적인 재심청구 근거를 특정할 수 없다."
+    }
+  ],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-25T05:04:13.499591+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 209169.239,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 164,
+      "dedup_collapse": 122,
+      "evidence_fusion": 164,
+      "first_stage": 300,
+      "request_rerank": 300,
+      "round_selected": 20,
+      "rrf": 200,
+      "selected": 164
+    }
+  },
+  "run_id": "ed22f52f-18e1-492e-904f-00fdbe97dd09",
+  "skill_generation_diagnostics": {
+    "attempt_count": 5,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 4,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "ABSTAIN",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "Two consecutive retrieval rounds did not improve critical evidence.",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "ABSTAIN",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 14
+        },
+        "event": "BENCHMARK_CANDIDATE_GENERATION_STARTED",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 14,
+          "claim_count": 1
+        },
+        "event": "BENCHMARK_CANDIDATE_VALIDATED",
+        "phase": "ABSTAINED"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "statutory_ground",
+        "question_anchor": "갑은 어떤 근거로 유죄 판결에 대해 재심을 청구할 수 있는가?",
+        "requested_output": "The specific statutory ground for requesting retrial of the guilty verdict."
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "형사소송법 420조  재심이유#KOBLEX-232856"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.7587689757347107,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 420조  재심이유#KOBLEX-232856",
+        "provision_text": "제420조(재심이유) 재심은 다음 각 호의 어느 하나에 해당하는 이유가 있는 경우에 유죄의 확정판결에 대하여 그 선고를 받은 자의 이익을 위하여 청구할 수 있다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.8206943273544312,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형사소송법 420조  재심이유",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 470조  재심사유#KOBLEX-093637",
+          "군사법원법 470조  재심사유#KOBLEX-159602"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 20,
+        "first_stage_score": 0.6675087213516235,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 470조  재심사유#KOBLEX-093637",
+        "provision_text": "① 항소나 상고를 기각한 확정판결에 대하여는 제469조제1호ㆍ제2호 및 제7호의 사유가 있는 경우에만 그 선고를 받은 사람의 이익을 위하여 재심을 청구할 수 있다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.5718297362327576,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "군사법원법 470조  재심사유 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 451조  재심사유#KOBLEX-064669"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 45,
+        "first_stage_score": 0.6456297636032104,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "민사소송법 451조  재심사유#KOBLEX-064669",
+        "provision_text": "②제1항제4호 내지 제7호의 경우에는 처벌받을 행위에 대하여 유죄의 판결이나 과태료부과의 재판이 확정된 때 또는 증거부족 외의 이유로 유죄의 확정판결이나 과태료부과의 확정재판을 할 수 없을 때에만 재심의 소를 제기할 수 있다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.4112611413002014,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사소송법 451조  재심사유 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 470조  재심사유#KOBLEX-093638",
+          "군사법원법 470조  재심사유#KOBLEX-159603"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 76,
+        "first_stage_score": 0.6058312058448792,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 470조  재심사유#KOBLEX-093638",
+        "provision_text": "② 제1심 확정판결에 대한 재심청구사건의 판결이 있은 후에는 항소기각의 판결에 대하여 다시 재심을 청구하지 못한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.3249117434024811,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "군사법원법 470조  재심사유 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 469조  재심이유#KOBLEX-093628",
+          "군사법원법 469조  재심이유#KOBLEX-159593"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.7587136626243591,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 469조  재심이유#KOBLEX-093628",
+        "provision_text": "제469조(재심이유) 재심은 다음 각 호의 어느 하나에 해당하는 사유가 있을 때에 유죄의 확정판결에 대하여 그 선고를 받은 사람의 이익을 위하여 청구할 수 있다. <개정 2016.1.6, 2021.9.24>",
+        "rerank_rank": 5,
+        "rerank_score": 0.3062537610530853,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "군사법원법 469조  재심이유",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소송촉진 등에 관한 특례법 23조 2 재심#KOBLEX-085229",
+          "소송촉진 등에 관한 특례법 23조 2 재심#KOBLEX-194134",
+          "소송촉진 등에 관한 특례법 23조 2 재심#KOBLEX-203625"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.6914902925491333,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "소송촉진 등에 관한 특례법 23조 2 재심#KOBLEX-085229",
+        "provision_text": "① 제23조 본문에 따라 유죄판결을 받고 그 판결이 확정된 자가 책임을 질 수 없는 사유로 공판절차에 출석할 수 없었던 경우 「형사소송법」 제424조에 규정된 자는 그 판결이 있었던 사실을 안 날부터 14일 이내[재심청구인(再審請求人)이 책임을 질 수 없는 사유로 위 기간에 재심청구를 하지 못한 경우에는 그 사유가 없어진 날부터 14일 이내]에 제1심 법원에 재심을 청구할 수 있다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.20919965207576752,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "소송촉진 등에 관한 특례법 23조 2 재심 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 470조  재심사유#KOBLEX-093639",
+          "군사법원법 470조  재심사유#KOBLEX-159604"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 66,
+        "first_stage_score": 0.6141130328178406,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 470조  재심사유#KOBLEX-093639",
+        "provision_text": "③ 제1심 또는 제2심의 확정판결에 대한 재심청구사건의 판결이 있은 후에는 상고기각의 판결에 대하여 다시 재심을 청구하지 못한다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.17821165919303894,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "군사법원법 470조  재심사유 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 451조  재심사유#KOBLEX-064668"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 61,
+        "first_stage_score": 0.6193517446517944,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "민사소송법 451조  재심사유#KOBLEX-064668",
+        "provision_text": "①다음 각호 가운데 어느 하나에 해당하면 확정된 종국판결에 대하여 재심의 소를 제기할 수 있다. 다만, 당사자가 상소에 의하여 그 사유를 주장하였거나, 이를 알고도 주장하지 아니한 때에는 그러하지 아니하다. 1. 법률에 따라 판결법원을 구성하지 아니한 때 2. 법률상 그 재판에 관여할 수 없는 법관이 관여한 때 3. 법정대리권ㆍ소송대리권 또는 대리인이 소송행위를 하는 데에 필요한 권한의 수여에 흠이 있는 때. 다만, 제60조 또는 제97조의 규정에 따라 추인한 때에는 그러하지 아니하다. 4. 재판에 관여한 법관이 그 사건에 관하여 직무에 관한 죄를 범한 때 5. 형사상 처벌을 받을 다른 사람의 행위로 말미암아 자백을 하였거나 판결에 영향을 미칠 공격 또는 방어방법의 제출에 방해를 받은 때 6. 판결의 증거가 된 문서, 그 밖의 물건이 위조되거나 변조된 것인 때 7. 증인ㆍ감정인ㆍ통역인의 거짓 진술 또는 당사자신문에 따른 당사자나 법정대리인의 거짓 진술이 판결의 증거가 된 때 8. 판결의 기초가 된 민사나 형사의 판결, 그 밖의 재판 또는 행정처분이 다른 재판이나 행정처분에 따라 바뀐 때 9. 판결에 영향을 미칠 중요한 사항에 관하여 판단을 누락한 때 10. 재심을 제기할 판결이 전에 선고한 확정판결에 어긋나는 때 11. 당사자가 상대방의 주소 또는 거소를 알고 있었음에도 있는 곳을 잘 모른다고 하거나 주소나 거소를 거짓으로 하여 소를 제기한 때",
+        "rerank_rank": 8,
+        "rerank_score": 0.1630626618862152,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "민사소송법 451조  재심사유 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 435조  재심개시의 결정#KOBLEX-232894"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 22,
+        "first_stage_score": 0.6638346314430237,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 435조  재심개시의 결정#KOBLEX-232894",
+        "provision_text": "①재심의 청구가 이유있다고 인정한 때에는 재심개시의 결정을 하여야 한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.07026857882738113,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형사소송법 435조  재심개시의 결정 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "헌법재판소법 47조  위헌결정의 효력#KOBLEX-188038"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 8,
+        "first_stage_score": 0.6915173530578613,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "헌법재판소법 47조  위헌결정의 효력#KOBLEX-188038",
+        "provision_text": "④ 제3항의 경우에 위헌으로 결정된 법률 또는 법률의 조항에 근거한 유죄의 확정판결에 대하여는 재심을 청구할 수 있다. <개정 2014.5.20>",
+        "rerank_rank": 10,
+        "rerank_score": 0.05838458240032196,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "헌법재판소법 47조  위헌결정의 효력 4항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부마민주항쟁 관련자의 명예회복 및 보상 등에 관한 법률 11조  특별재심#KOBLEX-000425"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.7051041722297668,
+        "fusion_rank": 12,
+        "issue_id": "I1",
+        "provision_id": "부마민주항쟁 관련자의 명예회복 및 보상 등에 관한 법률 11조  특별재심#KOBLEX-000425",
+        "provision_text": "① 관련자 중 부마민주항쟁과 관련한 행위로 유죄의 확정판결, 면소판결을 선고받은 자는 「형사소송법」 제420조, 제424조 및 「군사법원법」 제469조, 제473조에도 불구하고 재심을 청구할 수 있다.",
+        "rerank_rank": 12,
+        "rerank_score": 0.9568436145782471,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "부마민주항쟁 관련자의 명예회복 및 보상 등에 관한 법률 11조  특별재심 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 436조  청구의 경합과 청구기각의 결정#KOBLEX-232898"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 99,
+        "first_stage_score": 0.5985713005065918,
+        "fusion_rank": 59,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 436조  청구의 경합과 청구기각의 결정#KOBLEX-232898",
+        "provision_text": "②제1심 또는 제2심판결에 대한 상고기각의 판결과 그 판결에 의하여 확정된 제1심 또는 제2심의 판결에 대하여 재심의 청구가 있는 경우에 제1심법원 또는 항소법원이 재심의 판결을 한 때에는 상고법원은 결정으로 재심의 청구를 기각하여야 한다. <개정 1963.12.13>",
+        "rerank_rank": 59,
+        "rerank_score": 0.8842624425888062,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-2",
+        "source_request_ids": [
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형사소송법 436조  청구의 경합과 청구기각의 결정 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 474조  군검사만이 청구할 수 있는 재심#KOBLEX-093647",
+          "군사법원법 474조  군검사만이 청구할 수 있는 재심#KOBLEX-159612"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 17,
+        "first_stage_score": 0.6797817945480347,
+        "fusion_rank": 20,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 474조  군검사만이 청구할 수 있는 재심#KOBLEX-093647",
+        "provision_text": "제474조(군검사만이 청구할 수 있는 재심) 제469조제7호의 사유에 따른 재심청구는 유죄를 선고받은 사람이 그 죄를 범하게 한 경우에는 대검찰청 검사 또는 군검사가 아니면 하지 못한다. <개정 2016.1.6>",
+        "rerank_rank": 20,
+        "rerank_score": 0.7996147274971008,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "군사법원법 474조  군검사만이 청구할 수 있는 재심",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 484조  재심개시의 결정#KOBLEX-093666",
+          "군사법원법 484조  재심개시의 결정#KOBLEX-159631"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 24,
+        "first_stage_score": 0.6765320897102356,
+        "fusion_rank": 14,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 484조  재심개시의 결정#KOBLEX-093666",
+        "provision_text": "① 재심청구가 이유 있다고 인정하면 재심개시의 결정을 하여야 한다.",
+        "rerank_rank": 14,
+        "rerank_score": 0.7894779443740845,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "군사법원법 484조  재심개시의 결정 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "군사법원법 469조  재심이유#KOBLEX-093628": "제469조(재심이유) 재심은 다음 각 호의 어느 하나에 해당하는 사유가 있을 때에 유죄의 확정판결에 대하여 그 선고를 받은 사람의 이익을 위하여 청구할 수 있다. <개정 2016.1.6, 2021.9.24>",
+      "군사법원법 470조  재심사유#KOBLEX-093637": "① 항소나 상고를 기각한 확정판결에 대하여는 제469조제1호ㆍ제2호 및 제7호의 사유가 있는 경우에만 그 선고를 받은 사람의 이익을 위하여 재심을 청구할 수 있다.",
+      "군사법원법 470조  재심사유#KOBLEX-093638": "② 제1심 확정판결에 대한 재심청구사건의 판결이 있은 후에는 항소기각의 판결에 대하여 다시 재심을 청구하지 못한다.",
+      "군사법원법 470조  재심사유#KOBLEX-093639": "③ 제1심 또는 제2심의 확정판결에 대한 재심청구사건의 판결이 있은 후에는 상고기각의 판결에 대하여 다시 재심을 청구하지 못한다.",
+      "군사법원법 474조  군검사만이 청구할 수 있는 재심#KOBLEX-093647": "제474조(군검사만이 청구할 수 있는 재심) 제469조제7호의 사유에 따른 재심청구는 유죄를 선고받은 사람이 그 죄를 범하게 한 경우에는 대검찰청 검사 또는 군검사가 아니면 하지 못한다. <개정 2016.1.6>",
+      "군사법원법 484조  재심개시의 결정#KOBLEX-093666": "① 재심청구가 이유 있다고 인정하면 재심개시의 결정을 하여야 한다.",
+      "민사소송법 451조  재심사유#KOBLEX-064668": "①다음 각호 가운데 어느 하나에 해당하면 확정된 종국판결에 대하여 재심의 소를 제기할 수 있다. 다만, 당사자가 상소에 의하여 그 사유를 주장하였거나, 이를 알고도 주장하지 아니한 때에는 그러하지 아니하다. 1. 법률에 따라 판결법원을 구성하지 아니한 때 2. 법률상 그 재판에 관여할 수 없는 법관이 관여한 때 3. 법정대리권ㆍ소송대리권 또는 대리인이 소송행위를 하는 데에 필요한 권한의 수여에 흠이 있는 때. 다만, 제60조 또는 제97조의 규정에 따라 추인한 때에는 그러하지 아니하다. 4. 재판에 관여한 법관이 그 사건에 관하여 직무에 관한 죄를 범한 때 5. 형사상 처벌을 받을 다른 사람의 행위로 말미암아 자백을 하였거나 판결에 영향을 미칠 공격 또는 방어방법의 제출에 방해를 받은 때 6. 판결의 증거가 된 문서, 그 밖의 물건이 위조되거나 변조된 것인 때 7. 증인ㆍ감정인ㆍ통역인의 거짓 진술 또는 당사자신문에 따른 당사자나 법정대리인의 거짓 진술이 판결의 증거가 된 때 8. 판결의 기초가 된 민사나 형사의 판결, 그 밖의 재판 또는 행정처분이 다른 재판이나 행정처분에 따라 바뀐 때 9. 판결에 영향을 미칠 중요한 사항에 관하여 판단을 누락한 때 10. 재심을 제기할 판결이 전에 선고한 확정판결에 어긋나는 때 11. 당사자가 상대방의 주소 또는 거소를 알고 있었음에도 있는 곳을 잘 모른다고 하거나 주소나 거소를 거짓으로 하여 소를 제기한 때",
+      "민사소송법 451조  재심사유#KOBLEX-064669": "②제1항제4호 내지 제7호의 경우에는 처벌받을 행위에 대하여 유죄의 판결이나 과태료부과의 재판이 확정된 때 또는 증거부족 외의 이유로 유죄의 확정판결이나 과태료부과의 확정재판을 할 수 없을 때에만 재심의 소를 제기할 수 있다.",
+      "부마민주항쟁 관련자의 명예회복 및 보상 등에 관한 법률 11조  특별재심#KOBLEX-000425": "① 관련자 중 부마민주항쟁과 관련한 행위로 유죄의 확정판결, 면소판결을 선고받은 자는 「형사소송법」 제420조, 제424조 및 「군사법원법」 제469조, 제473조에도 불구하고 재심을 청구할 수 있다.",
+      "소송촉진 등에 관한 특례법 23조 2 재심#KOBLEX-085229": "① 제23조 본문에 따라 유죄판결을 받고 그 판결이 확정된 자가 책임을 질 수 없는 사유로 공판절차에 출석할 수 없었던 경우 「형사소송법」 제424조에 규정된 자는 그 판결이 있었던 사실을 안 날부터 14일 이내[재심청구인(再審請求人)이 책임을 질 수 없는 사유로 위 기간에 재심청구를 하지 못한 경우에는 그 사유가 없어진 날부터 14일 이내]에 제1심 법원에 재심을 청구할 수 있다.",
+      "헌법재판소법 47조  위헌결정의 효력#KOBLEX-188038": "④ 제3항의 경우에 위헌으로 결정된 법률 또는 법률의 조항에 근거한 유죄의 확정판결에 대하여는 재심을 청구할 수 있다. <개정 2014.5.20>",
+      "형사소송법 420조  재심이유#KOBLEX-232856": "제420조(재심이유) 재심은 다음 각 호의 어느 하나에 해당하는 이유가 있는 경우에 유죄의 확정판결에 대하여 그 선고를 받은 자의 이익을 위하여 청구할 수 있다.",
+      "형사소송법 435조  재심개시의 결정#KOBLEX-232894": "①재심의 청구가 이유있다고 인정한 때에는 재심개시의 결정을 하여야 한다.",
+      "형사소송법 436조  청구의 경합과 청구기각의 결정#KOBLEX-232898": "②제1심 또는 제2심판결에 대한 상고기각의 판결과 그 판결에 의하여 확정된 제1심 또는 제2심의 판결에 대하여 재심의 청구가 있는 경우에 제1심법원 또는 항소법원이 재심의 판결을 한 때에는 상고법원은 결정으로 재심의 청구를 기각하여야 한다. <개정 1963.12.13>"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No supplied candidate provision explicitly lists the specific ground for retrial based on the invalidation or change of a legal act or registration that served as the basis for the original conviction. C001 is merely the header for the list of grounds without the list itself.",
+            "requirement_id": "E1-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E1-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "The requirement E1-R1 demands a provision that explicitly lists a ground for retrial based on the invalidation, revocation, or change of a legal act, registration, or status that was a basis for the original conviction. Candidate C001 (Criminal Procedure Act Art. 420) provides only the introductory text stating that retrial may be requested for reasons listed in the subsequent items, but it does not contain the specific list of grounds itself. None of the other supplied candidates (C002-C014) provide the specific criminal retrial ground for the invalidation of an underlying legal act or registration. C008 is a civil procedure provision, C010 is specific to unconstitutional law decisions, and the others are procedural or unrelated to the specific substantive ground requested. Therefore, the specific statutory ground is not established by the supplied candidates.",
+        "status": "uncovered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [],
+    "last_retrieval_new_provision_count": 4,
+    "last_validated_event": "RESPONSE_ASSEMBLY.ABSTAIN",
+    "legal_issues": [
+      {
+        "description": "Whether the invalidation of the underlying copyright registration constitutes a statutory ground for retrial of the criminal conviction.",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific article and clause in the Criminal Procedure Act that allows retrial when a legal act or status relied upon in the original judgment is subsequently invalidated or changed.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The provision must explicitly list a ground for retrial based on the invalidation, revocation, or change of a legal act, registration, or status that was a basis for the original conviction."
+          }
+        ],
+        "critical": true,
+        "description": "Statutory provisions defining grounds for retrial of a final criminal judgment, specifically those related to changes in legal status or invalidation of underlying legal acts.",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "The question asks for the specific legal basis (ground) for the retrial request, which must be derived from the statutory list of retrial grounds.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] 갑은 을의 저작권을 침해한 혐의로 유죄 판결을 받았다. 하지만 이후 을의 저작권 등록이 부정확하다는 이유로 갑에 대한 유죄 판결이 무효로 확정되었다. 이와 관련하여 갑은 자신이 받은 유죄 판결에 대해 재심을 청구할 수 있는지 여부가 쟁점이 되었다. [질문] 갑은 어떤 근거로 유죄 판결에 대해 재심을 청구할 수 있는가?",
+    "phase": "ABSTAINED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "형사소송법",
+          "재심사유",
+          "확정판결",
+          "무효",
+          "저작권 등록"
+        ],
+        "query_text": "형사소송법 재심사유 확정판결 무효 저작권 등록 [원문 맥락] 이와 관련하여 갑은 자신이 받은 유죄 판결에 대해 재심을 청구할 수 있는지 여부가 쟁점이 되었다. 갑은 어떤 근거로 유죄 판결에 대해 재심을 청구할 수 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "형사소송법",
+          "재심사유",
+          "법률관계 변동",
+          "확정판결"
+        ],
+        "query_text": "형사소송법 제420조 제1항 제11호 재심사유 확정판결의 근거가 된 법률관계의 변동 [원문 맥락] 이와 관련하여 갑은 자신이 받은 유죄 판결에 대해 재심을 청구할 수 있는지 여부가 쟁점이 되었다. 갑은 어떤 근거로 유죄 판결에 대해 재심을 청구할 수 있는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "재심",
+          "등록 무효",
+          "판결 근거",
+          "변경"
+        ],
+        "query_text": "재심 사유 등록 무효 판결 근거 변경 형사소송법 [원문 맥락] 이와 관련하여 갑은 자신이 받은 유죄 판결에 대해 재심을 청구할 수 있는지 여부가 쟁점이 되었다. 갑은 어떤 근거로 유죄 판결에 대해 재심을 청구할 수 있는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 을의 저작권을 침해한 혐의로 유죄 판결을 받았다. 하지만 이후 을의 저작권 등록이 부정확하다는 이유로 갑에 대한 유죄 판결이 무효로 확정되었다. 이와 관련하여 갑은 자신이 받은 유죄 판결에 대해 재심을 청구할 수 있는지 여부가 쟁점이 되었다.\n\n[질문]\n갑은 어떤 근거로 유죄 판결에 대해 재심을 청구할 수 있는가?",
+    "remaining_request_budget": 6,
+    "remaining_round_budget": 1,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific article and clause in the Criminal Procedure Act that allows retrial when a legal act or status relied upon in the original judgment is subsequently invalidated or changed.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The provision must explicitly list a ground for retrial based on the invalidation, revocation, or change of a legal act, registration, or status that was a basis for the original conviction."
+          }
+        ],
+        "critical": true,
+        "description": "Statutory provisions defining grounds for retrial of a final criminal judgment, specifically those related to changes in legal status or invalidation of underlying legal acts.",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "The question asks for the specific legal basis (ground) for the retrial request, which must be derived from the statutory list of retrial grounds.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 2,
+    "run_id": "ed22f52f-18e1-492e-904f-00fdbe97dd09",
+    "seen_provision_ids": [
+      "군사법원법 484조  재심개시의 결정#KOBLEX-093666",
+      "군사법원법 474조  군검사만이 청구할 수 있는 재심#KOBLEX-093647",
+      "헌법재판소법 47조  위헌결정의 효력#KOBLEX-188038",
+      "형사소송법 420조  재심이유#KOBLEX-232856",
+      "군사법원법 470조  재심사유#KOBLEX-093638",
+      "소송촉진 등에 관한 특례법 23조 2 재심#KOBLEX-085229",
+      "군사법원법 470조  재심사유#KOBLEX-093637",
+      "민사소송법 451조  재심사유#KOBLEX-064668",
+      "부마민주항쟁 관련자의 명예회복 및 보상 등에 관한 법률 11조  특별재심#KOBLEX-000425",
+      "군사법원법 469조  재심이유#KOBLEX-093628",
+      "형사소송법 435조  재심개시의 결정#KOBLEX-232894",
+      "군사법원법 470조  재심사유#KOBLEX-093639",
+      "형사소송법 436조  청구의 경합과 청구기각의 결정#KOBLEX-232898",
+      "민사소송법 451조  재심사유#KOBLEX-064669"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ABSTAIN",
+  "termination_reason": "NO_RETRIEVAL_PROGRESS"
+}

@@ -1,0 +1,503 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "Legal-Harness C5 2-hop 회귀 원인 분석",
+    "description": "D4와 C5의 동일 226문항 결과를 paired 비교하고, C5 원시 retrieval trace를 실제 S2 입력까지 재구성한 기술 진단 보고서",
+    "generatedAt": "2026-08-24T07:50:53Z",
+    "cards": [
+      {
+        "id": "paired-regressions",
+        "description": "D4에서는 gold 조문이 모두 accepted였지만 C5에서는 불완전해진 2-hop 문항 수",
+        "dataset": "headline",
+        "sourceId": "paired-reconciliation",
+        "metrics": [
+          {
+            "label": "2-hop paired 회귀",
+            "field": "paired_regressions",
+            "format": "number"
+          }
+        ]
+      },
+      {
+        "id": "round-merge-loss",
+        "description": "issue별 BGE 상위 집합에는 gold가 있었지만 실제 round_selected 후보에서 불완전해진 paired 회귀",
+        "dataset": "headline",
+        "sourceId": "paired-reconciliation",
+        "metrics": [
+          {
+            "label": "round 병합 손실",
+            "field": "round_merge_losses",
+            "format": "number"
+          },
+          {
+            "label": "29개 회귀 중 비중",
+            "field": "round_merge_share",
+            "format": "percent"
+          }
+        ]
+      },
+      {
+        "id": "actual-s2-loss",
+        "description": "실제 S2 입력 후보에 gold가 모두 있었으나 accepted 링크에서 불완전해진 paired 회귀",
+        "dataset": "headline",
+        "sourceId": "paired-reconciliation",
+        "metrics": [
+          {
+            "label": "실제 S2 링크 손실",
+            "field": "actual_s2_losses",
+            "format": "number"
+          },
+          {
+            "label": "29개 회귀 중 비중",
+            "field": "actual_s2_share",
+            "format": "percent"
+          }
+        ]
+      },
+      {
+        "id": "overall-f1",
+        "description": "전체 226문항의 provision macro F1; C5는 정밀도와 실행 안정성을 높였지만 complete evidence는 감소",
+        "dataset": "headline",
+        "sourceId": "paired-reconciliation",
+        "metrics": [
+          {
+            "label": "C5 provision macro F1",
+            "field": "c5_macro_f1",
+            "format": "percent"
+          },
+          {
+            "label": "D4 provision macro F1",
+            "field": "d4_macro_f1",
+            "format": "percent"
+          }
+        ]
+      }
+    ],
+    "charts": [
+      {
+        "id": "paired-loss-stage",
+        "title": "D4→C5 2-hop paired 회귀의 최초 손실 단계",
+        "subtitle": "D4 complete → C5 incomplete 29문항; 단계는 상호배타적이며 파이프라인 순서로 표시",
+        "intent": "decomposition",
+        "question": "29개 2-hop 회귀가 처음 발생한 단계는 어디인가?",
+        "rationale": "상호배타적인 원인 단계별 문항 수를 정확히 비교하기 위해 수평 막대를 사용한다.",
+        "comparisonContext": {
+          "denominator": "D4 complete에서 C5 incomplete로 전환한 2-hop 29문항",
+          "grain": "문항",
+          "unit": "문항 수"
+        },
+        "type": "horizontalBar",
+        "dataset": "paired_loss_stage",
+        "sourceId": "paired-reconciliation",
+        "encodings": {
+          "x": {
+            "field": "stage",
+            "type": "nominal",
+            "label": "최초 손실 단계"
+          },
+          "y": {
+            "field": "count",
+            "type": "quantitative",
+            "format": "number",
+            "label": "문항 수"
+          },
+          "tooltip": [
+            {
+              "field": "count",
+              "type": "quantitative",
+              "format": "number",
+              "label": "문항 수"
+            },
+            {
+              "field": "share",
+              "type": "quantitative",
+              "format": "percent",
+              "label": "29문항 중 비중"
+            }
+          ]
+        },
+        "valueFormat": "number",
+        "layout": "full",
+        "maxRows": 6,
+        "surface": {
+          "surface": "card",
+          "showControls": false,
+          "viewMode": "both"
+        }
+      },
+      {
+        "id": "c5-actual-funnel",
+        "title": "C5 gold-complete 문항의 실제 후보 funnel",
+        "subtitle": "정상 종료 222문항 기준; issue BGE와 실제 S2 입력 사이에 20문항 순손실",
+        "intent": "funnel",
+        "question": "C5에서 모든 gold 조문을 보존한 문항 수가 실제 S2 입력까지 어떻게 감소하는가?",
+        "rationale": "단계별 정확한 문항 수와 비율을 함께 읽기 위해 파이프라인 순서의 수평 막대를 사용한다.",
+        "comparisonContext": {
+          "denominator": "C5 ANSWER 또는 ABSTAIN으로 정상 종료한 222문항",
+          "grain": "문항",
+          "unit": "gold-complete 문항 수"
+        },
+        "type": "horizontalBar",
+        "dataset": "c5_actual_funnel",
+        "sourceId": "paired-reconciliation",
+        "encodings": {
+          "x": {
+            "field": "stage",
+            "type": "ordinal",
+            "label": "단계"
+          },
+          "y": {
+            "field": "complete_count",
+            "type": "quantitative",
+            "format": "number",
+            "label": "gold-complete 문항 수"
+          },
+          "tooltip": [
+            {
+              "field": "complete_count",
+              "type": "quantitative",
+              "format": "number",
+              "label": "문항 수"
+            },
+            {
+              "field": "complete_rate",
+              "type": "quantitative",
+              "format": "percent",
+              "label": "222문항 중 비율"
+            }
+          ]
+        },
+        "valueFormat": "number",
+        "layout": "full",
+        "maxRows": 7,
+        "surface": {
+          "surface": "card",
+          "showControls": false,
+          "viewMode": "both"
+        }
+      }
+    ],
+    "tables": [
+      {
+        "id": "diagnostic-examples",
+        "title": "원인을 구분하는 대표 문항",
+        "subtitle": "같은 provision-recall 실패라도 실제 발생 지점과 해석이 다름",
+        "dataset": "diagnostic_examples",
+        "sourceId": "paired-reconciliation",
+        "defaultSort": {
+          "field": "question_id",
+          "direction": "asc"
+        },
+        "density": "spacious",
+        "layout": "full",
+        "columns": [
+          {
+            "field": "question_id",
+            "label": "문항",
+            "type": "text"
+          },
+          {
+            "field": "observed_stage",
+            "label": "관측 단계",
+            "type": "text"
+          },
+          {
+            "field": "evidence",
+            "label": "직접 증거",
+            "type": "text"
+          },
+          {
+            "field": "interpretation",
+            "label": "해석",
+            "type": "text"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "id": "paired-reconciliation",
+        "label": "D4/C5 평가 및 C5 원시 trace 재조정",
+        "path": "records/reports/legal-harness-c5-root-cause-20260824/report_widget_snapshot.sql",
+        "query": {
+          "engine": "Python 3.9 + Legal-Harness evaluator",
+          "language": "python",
+          "description": "동일 question_id로 D4/C5 per_question.csv를 결합하고, evaluate_dev_runs.py의 gold-group 매칭을 재사용해 C5 retrieval_stages.jsonl의 first_stage, bge_rerank, round_selected와 result.json의 candidate/accepted 집합을 순서대로 비교했다.",
+          "query": "For each 2-hop question: pair D4 and C5 by question_id; select D4 accepted_complete_evidence=True and C5=False; rebuild KoBLEX GoldGroup objects with build_gold_groups(); find the first incomplete set among KURE@100, RRF@100, BGE@30, BGE@20, BGE@10, state.candidate_provisions, and state.accepted_provision_ids.",
+          "executed_at": "2026-08-24T07:50:53Z",
+          "filters": [
+            "Same immutable KoBLEX 226-question test parquet in both runs",
+            "Paired regression cohort: n_hops=2, D4 accepted_complete_evidence=True, C5 accepted_complete_evidence=False",
+            "C5 actual funnel excludes four EXECUTION_FAILURE rows and uses denominator 222"
+          ],
+          "metric_definitions": [
+            "accepted_complete_evidence: every logical KoBLEX gold context has at least one acceptable accepted provision ID; extra accepted provisions do not make it false",
+            "BGE@k complete: evaluator union of issue-level bge_rerank rows whose rerank_rank is at most k across rounds",
+            "round candidate complete: every logical gold context occurs in result.state.candidate_provisions, the actual accumulated S2 input candidates",
+            "S2 link loss: round candidate set is gold-complete but state.accepted_provision_ids is not"
+          ],
+          "tables_used": [
+            "records/evaluations/kure-bge-abstain-repair-d4-qwen38-q8-226-20260820-reconciled-20260821/per_question.csv",
+            "records/evaluations/kure-c5-full226-20260822-a74e76d-checkpoint-226/per_question.csv",
+            "records/runs/kure-c5-full226-20260822-a74e76d/*/retrieval_stages.jsonl",
+            "records/runs/kure-c5-full226-20260822-a74e76d/*/result.json",
+            "data/koblex/qa/test-00000-of-00001.parquet",
+            "data/koblex/normalized/statute.jsonl",
+            "scripts/evaluate_dev_runs.py"
+          ]
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "id": "title",
+        "type": "markdown",
+        "body": "# Legal-Harness C5 2-hop 회귀 원인 분석\n\nD4와 C5의 동일 226문항 결과를 paired 비교하고 C5 trace를 실제 S2 입력까지 재구성한 기술 진단"
+      },
+      {
+        "id": "technical-summary",
+        "type": "markdown",
+        "sourceId": "paired-reconciliation",
+        "body": "## 기술 요약\n\n핵심 원인은 S2 하나가 아니다. D4에서 complete였으나 C5에서 incomplete가 된 2-hop 29문항을 최초 손실 단계로 분해하면, **15건(51.7%)이 issue별 BGE와 실제 `round_selected` 사이**, 12건이 S1·KURE·BGE 구간, 실제 S2 accepted-link 손실은 2건(6.9%)이다. 기존의 ‘BGE@10 complete인데 accepted incomplete’ 분석은 평가기가 `round_selected`를 측정하지 않아 15건을 S2 손실처럼 합친 것이다.\n\nC5는 실패를 40건에서 4건으로 줄이고 전체 provision macro F1을 58.4%에서 67.1%로 높였지만, complete evidence는 137건에서 124건으로 감소했다. 즉 C5는 전반적 정밀도·안정성은 개선했으나, multi-hop의 모든 조문을 동시에 보존하는 all-or-nothing 지표에서 회귀했다."
+      },
+      {
+        "id": "headline-metrics",
+        "type": "metric-strip",
+        "cardIds": [
+          "paired-regressions",
+          "round-merge-loss",
+          "actual-s2-loss",
+          "overall-f1"
+        ]
+      },
+      {
+        "id": "key-findings",
+        "type": "markdown",
+        "sourceId": "paired-reconciliation",
+        "body": "## 핵심 발견\n\n1. **측정 정의가 원인 위치를 가렸다.** 평가기의 `BGE@10`은 issue별 rerank 상위 집합의 합집합이다. 실제 S2 입력은 그 뒤의 round-wide 10개 cutoff를 통과한 `state.candidate_provisions`다.\n2. **round 병합이 가장 큰 paired 회귀 지점이다.** 서로 다른 질의의 raw BGE score를 전역 비교하고, 중복 후보의 evidence 태그를 합친 뒤 한 후보가 여러 quota를 동시에 만족하도록 계산한다.\n3. **S1 의미 이동이 검색 손실을 만든다.** 대표적으로 ‘포상금’을 ‘신고자 보호’, ‘청구이의의 소’를 ‘재심·즉시항고’, ‘인가 후 공고’를 ‘등록·통보’로 바꾼 계획이 확인됐다.\n4. **S2 문구만 고치는 처방은 범위가 작다.** 29개 paired 회귀 중 실제 후보가 complete였는데 S2 링크가 incomplete인 문항은 2개뿐이다. 그중 하나는 S1 완료요건 자체가 잘못됐고, 다른 하나는 gold 문맥이 서류 목록 앞의 도입문만 포함하는 benchmark granularity 문제다."
+      },
+      {
+        "id": "paired-loss-chart",
+        "type": "chart",
+        "chartId": "paired-loss-stage",
+        "layout": "full"
+      },
+      {
+        "id": "c5-funnel-chart",
+        "type": "chart",
+        "chartId": "c5-actual-funnel",
+        "layout": "full"
+      },
+      {
+        "id": "diagnostic-examples-block",
+        "type": "table",
+        "tableId": "diagnostic-examples",
+        "layout": "full"
+      },
+      {
+        "id": "scope-data-metrics",
+        "type": "markdown",
+        "sourceId": "paired-reconciliation",
+        "body": "## 범위·데이터·지표\n\n- 비교 대상: 동일 KoBLEX test parquet의 226문항, 동일 KURE-v1·BGE reranker·Qwen3.8-27B Q8_0·seed 0·3 round·round당 top-10 설정\n- D4 source commit: `a6d76e5`; C5 source commit: `a74e76d`\n- paired 회귀: 동일 2-hop 문항에서 D4 `accepted_complete_evidence=True`, C5 `False`\n- complete는 precision이 아니라 recall-only all-gold 조건이다. 한 gold 조문이라도 누락하면 false이며, 비-gold가 추가되어도 complete에는 영향이 없다.\n- C5 정상 종료 222문항의 실제 funnel: KURE@100 193 → issue BGE@10 157 → 실제 S2 후보 137 → accepted complete 124."
+      },
+      {
+        "id": "methodology",
+        "type": "markdown",
+        "sourceId": "paired-reconciliation",
+        "body": "## 방법론\n\n1. 공식 evaluator의 `build_gold_groups()`와 `precision_recall_f1()`를 그대로 사용해 gold-to-corpus 매칭 의미를 보존했다.\n2. D4/C5 `per_question.csv`를 `question_id`로 결합해 2-hop paired 전환을 재현했다.\n3. 각 C5 정상 실행에서 `retrieval_stages.jsonl`을 읽어 KURE@100, RRF@100, BGE@30/20/10을 구성했다.\n4. 평가기에 없는 실제 후보 단계를 `result.state.candidate_provisions`로 추가하고, 마지막으로 `accepted_provision_ids`를 비교했다.\n5. 최초로 gold-complete가 깨지는 단계 하나만 부여해 29문항을 상호배타적으로 분류했다.\n6. 대표 사례는 질문, S1 evidence/queries, BGE rank, round selection reason, S2 rationale, gold context 본문을 직접 대조했다."
+      },
+      {
+        "id": "limitations",
+        "type": "markdown",
+        "sourceId": "paired-reconciliation",
+        "body": "## 한계·불확실성·강건성\n\n- D4 원시 `result.json`은 현재 저장소에 없고 batch log와 평가 CSV만 남아 있어, D4와 C5의 S1 JSON을 항목별로 직접 비교할 수 없다. 따라서 특정 C5 스킬 문장 하나가 query 변화를 일으켰다는 인과 확신도는 **중간**이다.\n- retrieval pipeline 코드는 D4→C5 사이에 바뀌지 않았다. round 병합은 C5에서 새로 생긴 결함이 아니라, C5의 다른 S1 출력·점수 분포에서 더 많이 노출된 기존 취약성이다.\n- temperature 0이어도 로컬 추론과 동시 실행의 완전 결정성은 별도 고정입력 replay 없이는 보장할 수 없다.\n- KoBLEX gold가 조문의 도입문 chunk만 가리키는 사례에서는 provision recall과 실제 답변 충분성이 다를 수 있다. `qa_244_2hop_931_rand`가 직접 확인된 예다.\n- 기존 trace를 이용한 offline quota 반사실은 15개 round 손실 중 3개만 복구했다. 따라서 multi-target quota 중복만 고쳐서는 충분하지 않으며, 실제 고정입력 retrieval/S2 replay가 필요하다."
+      },
+      {
+        "id": "next-steps",
+        "type": "markdown",
+        "sourceId": "paired-reconciliation",
+        "body": "## 권장 다음 단계\n\n1. **평가기부터 분리한다.** `round_selected_complete`와 `candidate_complete`를 공식 funnel에 추가해 issue BGE와 S2 입력을 구별한다.\n2. **retrieval 고정입력 ablation을 먼저 한다.** 15개 round 손실에 대해 기존 per-issue rankings를 고정하고, raw-score global merge, rank-fusion merge, evidence별 최소 보존, request별 round-robin을 비교한다.\n3. **S1 의미 보존 smoke를 분리한다.** 명백한 5개 문항부터 법적 행위·효과·법령 scope·교차참조가 질문과 동일한지 검사한다.\n4. **S2는 실제 2개 paired 손실과 전체 13개 candidate→accepted 손실만 대상으로 한다.** ‘smallest set’ 완화 전에 잘못된 S1 requirement와 gold granularity를 분리한다.\n5. 각 변경은 동일 candidate list를 사용하는 stage-only replay로 검증한 뒤에만 full 226을 다시 실행한다. ParSeR baseline은 재실행하지 않고 frozen reference로 유지한다."
+      },
+      {
+        "id": "further-questions",
+        "type": "markdown",
+        "body": "## 추가 확인 질문\n\n- 10개 후보 예산을 round 전체에 유지할지, evidence/issue별 최소 슬롯을 예약할지?\n- KoBLEX provision recall 최적화와 실제 법적 충분성 중 어느 지표를 1차 gate로 둘지?\n- full run 전에 고정입력 ablation의 합격 기준을 D4 2-hop recall 80.7%·complete 69.3%로 둘지?"
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-08-24T07:50:53Z",
+    "status": "ready",
+    "datasets": {
+      "headline": [
+        {
+          "paired_regressions": 29,
+          "round_merge_losses": 15,
+          "round_merge_share": 0.5172413793103449,
+          "actual_s2_losses": 2,
+          "actual_s2_share": 0.06896551724137931,
+          "c5_macro_f1": 0.6705781927020865,
+          "d4_macro_f1": 0.5844254811068971
+        }
+      ],
+      "paired_loss_stage": [
+        {
+          "order": 1,
+          "stage": "KURE@100 이전",
+          "count": 4,
+          "share": 0.13793103448275862
+        },
+        {
+          "order": 2,
+          "stage": "BGE Top-30 밖",
+          "count": 2,
+          "share": 0.06896551724137931
+        },
+        {
+          "order": 3,
+          "stage": "BGE rank 21–30",
+          "count": 2,
+          "share": 0.06896551724137931
+        },
+        {
+          "order": 4,
+          "stage": "BGE rank 11–20",
+          "count": 4,
+          "share": 0.13793103448275862
+        },
+        {
+          "order": 5,
+          "stage": "round_selected 병합",
+          "count": 15,
+          "share": 0.5172413793103449
+        },
+        {
+          "order": 6,
+          "stage": "S2 accepted 링크",
+          "count": 2,
+          "share": 0.06896551724137931
+        }
+      ],
+      "c5_actual_funnel": [
+        {
+          "order": 1,
+          "stage": "KURE@100",
+          "complete_count": 193,
+          "complete_rate": 0.8693693693693694,
+          "denominator": 222
+        },
+        {
+          "order": 2,
+          "stage": "RRF@100",
+          "complete_count": 192,
+          "complete_rate": 0.8648648648648649,
+          "denominator": 222
+        },
+        {
+          "order": 3,
+          "stage": "issue BGE@30",
+          "complete_count": 183,
+          "complete_rate": 0.8243243243243243,
+          "denominator": 222
+        },
+        {
+          "order": 4,
+          "stage": "issue BGE@20",
+          "complete_count": 175,
+          "complete_rate": 0.7882882882882883,
+          "denominator": 222
+        },
+        {
+          "order": 5,
+          "stage": "issue BGE@10",
+          "complete_count": 157,
+          "complete_rate": 0.7072072072072072,
+          "denominator": 222
+        },
+        {
+          "order": 6,
+          "stage": "실제 S2 후보",
+          "complete_count": 137,
+          "complete_rate": 0.6171171171171171,
+          "denominator": 222
+        },
+        {
+          "order": 7,
+          "stage": "S2 accepted",
+          "complete_count": 124,
+          "complete_rate": 0.5585585585585585,
+          "denominator": 222
+        }
+      ],
+      "diagnostic_examples": [
+        {
+          "question_id": "qa_130_2hop_501_rand",
+          "observed_stage": "S1 → KURE@100",
+          "evidence": "gold는 부정행위 신고 포상금인데 S1은 신고자 보호조치를 계획·검색",
+          "interpretation": "질문의 법적 효과를 다른 효과로 바꾼 명확한 S1 의미 이동"
+        },
+        {
+          "question_id": "qa_192_2hop_334",
+          "observed_stage": "round_selected 병합",
+          "evidence": "형법 제229조가 E2 issue BGE 1위였지만 실제 후보에서 누락; 다른 공통 후보 하나가 E1·E2 quota를 동시에 충족",
+          "interpretation": "S2 판단 전 구조적 crowd-out"
+        },
+        {
+          "question_id": "qa_244_2hop_931_rand",
+          "observed_stage": "S2 accepted",
+          "evidence": "gold 제29조 chunk는 ‘다음 각 호의 서류’ 도입문만 있고 실제 목록은 없음",
+          "interpretation": "S2의 uncovered 판단은 법적 충분성 관점에서 합리적이며 benchmark granularity와 충돌"
+        },
+        {
+          "question_id": "qa_343_2hop_541",
+          "observed_stage": "S1 requirement → S2",
+          "evidence": "질문상 이자채권은 3년인데 S1 completion requirement가 5년이라고 고정",
+          "interpretation": "표면상 S2 누락이지만 선행 S1 계약 오류가 직접 원인"
+        },
+        {
+          "question_id": "qa_356_2hop_565",
+          "observed_stage": "S1 → BGE",
+          "evidence": "청구이의의 소·집행문부여 이의의 소를 재심청구·즉시항고로 변경",
+          "interpretation": "검색어가 정확한 법적 절차에서 벗어난 명확한 S1 의미 이동"
+        }
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "paired-reconciliation",
+      "label": "D4/C5 평가 및 C5 원시 trace 재조정",
+      "path": "records/reports/legal-harness-c5-root-cause-20260824/report_widget_snapshot.sql",
+      "query": {
+        "engine": "Python 3.9 + Legal-Harness evaluator",
+        "language": "python",
+        "description": "동일 question_id로 D4/C5 per_question.csv를 결합하고, evaluate_dev_runs.py의 gold-group 매칭을 재사용해 C5 retrieval_stages.jsonl의 first_stage, bge_rerank, round_selected와 result.json의 candidate/accepted 집합을 순서대로 비교했다.",
+        "query": "For each 2-hop question: pair D4 and C5 by question_id; select D4 accepted_complete_evidence=True and C5=False; rebuild KoBLEX GoldGroup objects with build_gold_groups(); find the first incomplete set among KURE@100, RRF@100, BGE@30, BGE@20, BGE@10, state.candidate_provisions, and state.accepted_provision_ids.",
+        "executed_at": "2026-08-24T07:50:53Z",
+        "filters": [
+          "Same immutable KoBLEX 226-question test parquet in both runs",
+          "Paired regression cohort: n_hops=2, D4 accepted_complete_evidence=True, C5 accepted_complete_evidence=False",
+          "C5 actual funnel excludes four EXECUTION_FAILURE rows and uses denominator 222"
+        ],
+        "metric_definitions": [
+          "accepted_complete_evidence: every logical KoBLEX gold context has at least one acceptable accepted provision ID; extra accepted provisions do not make it false",
+          "BGE@k complete: evaluator union of issue-level bge_rerank rows whose rerank_rank is at most k across rounds",
+          "round candidate complete: every logical gold context occurs in result.state.candidate_provisions, the actual accumulated S2 input candidates",
+          "S2 link loss: round candidate set is gold-complete but state.accepted_provision_ids is not"
+        ],
+        "tables_used": [
+          "records/evaluations/kure-bge-abstain-repair-d4-qwen38-q8-226-20260820-reconciled-20260821/per_question.csv",
+          "records/evaluations/kure-c5-full226-20260822-a74e76d-checkpoint-226/per_question.csv",
+          "records/runs/kure-c5-full226-20260822-a74e76d/*/retrieval_stages.jsonl",
+          "records/runs/kure-c5-full226-20260822-a74e76d/*/result.json",
+          "data/koblex/qa/test-00000-of-00001.parquet",
+          "data/koblex/normalized/statute.jsonl",
+          "scripts/evaluate_dev_runs.py"
+        ]
+      }
+    }
+  ]
+}

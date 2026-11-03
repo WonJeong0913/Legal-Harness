@@ -1,0 +1,103 @@
+{
+  "abnormal_question_ids": [],
+  "batch_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c47-r1-20260831-ad9e0de/full226/checkpoints/batch-120-attempt-590711b7745349ccab66956d72fd8541",
+  "bm25_execution": "FORBIDDEN",
+  "checkpoint_range": [
+    101,
+    120
+  ],
+  "checkpoint_status": "COMPLETED_WITH_ERRORS",
+  "collection_status": "COMPLETE_WITH_EXPLICIT_EXECUTION_FAILURES",
+  "completed_questions": 120,
+  "evaluation_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c47-r1-20260831-ad9e0de/full226/evaluations/checkpoint-120-attempt-590711b7745349ccab66956d72fd8541",
+  "evaluator_command": [
+    "/usr/bin/python3.10",
+    "/root/worktrees/legal-harness-c47-s2-covered-consistency-20260831/scripts/evaluate_dev_runs.py",
+    "--batch-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c47-r1-20260831-ad9e0de/full226/checkpoints/batch-120-attempt-590711b7745349ccab66956d72fd8541",
+    "--output-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c47-r1-20260831-ad9e0de/full226/evaluations/checkpoint-120-attempt-590711b7745349ccab66956d72fd8541",
+    "--require-stage-provenance"
+  ],
+  "evaluator_elapsed_seconds": 4.069946953008184,
+  "event": "CHECKPOINT_COMPLETED",
+  "execution_failure_count": 5,
+  "execution_failure_errors": {
+    "qa_168_3hop_301": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: GAP_QUERY_PLAN query_terms omit trusted Korean fact/effect anchors: evidence_item_id=E2; missing_anchors=상속인 상속재산"
+    ],
+    "qa_197_2hop_752_rand": [
+      "provision_coverage_assessment did not produce a valid ASSESS_COVERAGE result after 2 attempts: criterion may use only accepted CORE provisions: E1"
+    ],
+    "qa_309_3hop_881_rand2": [
+      "legal_issue_and_query_planning did not produce a valid INITIAL_PLAN result after 2 attempts: question_anchor is not a question substring: T1"
+    ],
+    "qa_32_3hop_51": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: query repeats query_history: 상법 보험계약 특약 보험자 피보험자 불리한 조건 제한\n[원문 맥락]\n갑이 14세인 아들 을을 피보험자로 하여 을의 사망을 보험사고로 한 생명보험에 가입하려는 경우, 그 계약은 유효한가? 또한, 질병보험 가입 시 생명보험 및 상해보험에 관한 규정은 어떻게 적용되며, 보험자인 보험회사는 갑에게 불리한 계약조건을 특약으로 제시할 수 있는가?"
+    ],
+    "qa_366_3hop_580": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: query repeats query_history: 타인의 재물을 점유한 절도죄의 구성요건 및 법정형\n[원문 맥락]\n또한, 갑은 길거리에서 을의 가방을 훔쳤다. 갑이 컴퓨터 해킹으로 을의 계좌에서 돈을 이체한 경우, 을을 속여 돈을 송금하게 한 경우, 그리고 가방을 훔친 경우 각각 어떤 처벌을 받게 되는가?"
+    ]
+  },
+  "execution_failure_question_ids": [
+    "qa_309_3hop_881_rand2",
+    "qa_168_3hop_301",
+    "qa_197_2hop_752_rand",
+    "qa_366_3hop_580",
+    "qa_32_3hop_51"
+  ],
+  "lf_eval_score_injection": "FORBIDDEN",
+  "metrics": {
+    "abstain_count": 14,
+    "answer_count": 101,
+    "citation_integrity": {
+      "attempted": 101,
+      "pass_rate": 1.0,
+      "passed": 101
+    },
+    "complete_evidence_count": 68,
+    "complete_evidence_rate": 0.5666666666666667,
+    "execution_failure_count": 5,
+    "mean_latency_ms": 141554.16376666666,
+    "median_latency_ms": 123739.138,
+    "outcome_counts": {
+      "ABSTAIN": 14,
+      "ANSWER": 101,
+      "EXECUTION_FAILURE": 5
+    },
+    "p95_latency_ms": 257039.28715,
+    "provision_exact_match_count": 56,
+    "provision_exact_match_rate": 0.4666666666666667,
+    "provision_macro_f1": 0.734920634920635,
+    "provision_macro_precision": 0.7787499999999999,
+    "provision_macro_recall": 0.7347222222222222,
+    "provision_micro_f1": 0.7331887201735359,
+    "token_f1_answered_only": 0.38047066603730056,
+    "token_f1_candidate": 0.3404616512196341,
+    "token_f1_end_to_end": 0.3202294772480613
+  },
+  "recorded_errors": {
+    "qa_168_3hop_301": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: GAP_QUERY_PLAN query_terms omit trusted Korean fact/effect anchors: evidence_item_id=E2; missing_anchors=상속인 상속재산"
+    ],
+    "qa_197_2hop_752_rand": [
+      "provision_coverage_assessment did not produce a valid ASSESS_COVERAGE result after 2 attempts: criterion may use only accepted CORE provisions: E1"
+    ],
+    "qa_309_3hop_881_rand2": [
+      "legal_issue_and_query_planning did not produce a valid INITIAL_PLAN result after 2 attempts: question_anchor is not a question substring: T1"
+    ],
+    "qa_32_3hop_51": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: query repeats query_history: 상법 보험계약 특약 보험자 피보험자 불리한 조건 제한\n[원문 맥락]\n갑이 14세인 아들 을을 피보험자로 하여 을의 사망을 보험사고로 한 생명보험에 가입하려는 경우, 그 계약은 유효한가? 또한, 질병보험 가입 시 생명보험 및 상해보험에 관한 규정은 어떻게 적용되며, 보험자인 보험회사는 갑에게 불리한 계약조건을 특약으로 제시할 수 있는가?"
+    ],
+    "qa_366_3hop_580": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: query repeats query_history: 타인의 재물을 점유한 절도죄의 구성요건 및 법정형\n[원문 맥락]\n또한, 갑은 길거리에서 을의 가방을 훔쳤다. 갑이 컴퓨터 해킹으로 을의 계좌에서 돈을 이체한 경우, 을을 속여 돈을 송금하게 한 경우, 그리고 가방을 훔친 경우 각각 어떤 처벌을 받게 되는가?"
+    ]
+  },
+  "remaining_eta_ms": 15004741.359266667,
+  "remaining_eta_seconds": 15004.741359266667,
+  "remaining_eta_utc": "2026-08-31T15:23:22.095149+00:00",
+  "stage_provenance_missing": [],
+  "total_questions": 226,
+  "unexpected_exit_question_ids": [],
+  "validation_errors": []
+}

@@ -1,0 +1,75 @@
+{
+  "answer_quality": {
+    "candidate_lf_eval": {
+      "available": false,
+      "note": "Export candidate_answer to a separate frozen LF-Eval input; --lf-eval-scores continues to score published ANSWER records only.",
+      "unavailable_reason": "SEPARATE_FROZEN_CANDIDATE_INPUT_REQUIRED"
+    },
+    "candidate_token_f1_at_800": {
+      "execution_failure_score": 0.0,
+      "scope": "ANSWER uses candidate_answer or legacy answer fallback; ABSTAIN uses candidate_answer"
+    },
+    "display_score_scale": "0_100",
+    "internal_score_scale": "0_1",
+    "official_token_f1_at_800": {
+      "max_characters": 800,
+      "mode": "answer.split(\"<\\think>\")[0][:800]"
+    },
+    "published_token_f1": {
+      "max_characters": null,
+      "mode": "legacy_full_text"
+    },
+    "token_f1_normalization": "lowercase + [가-힣a-z0-9] tokenization"
+  },
+  "comparison_validity": null,
+  "evaluation_schema_version": "1.5",
+  "evaluator_git_commit": "cc58d932a14f00c0e7c24fa082e16ef2a434515d",
+  "evaluator_git_source_worktree_dirty": false,
+  "evidence_roles": {
+    "authorized_union_source": "state.accepted_provision_ids",
+    "auxiliary_citation_count": "Count of structured claim-citation provision references explicitly marked supplemental, qualifying, or alternative; legacy unmarked citations count only when their provision belongs exclusively to an auxiliary role.",
+    "auxiliary_role_sources": {
+      "alternative": "state.alternative_provision_ids",
+      "qualifying": "state.qualifying_provision_ids",
+      "supplemental": "state.supplemental_provision_ids"
+    },
+    "provision_score_source": "state.core_accepted_provision_ids when present; otherwise legacy state.accepted_provision_ids",
+    "role_decision_boundary": "The evaluator only reads persisted state roles. It neither derives roles from KoBLEX gold nor supplies gold or role decisions to a running harness.",
+    "schema": "c04_evidence_roles_v1",
+    "unique_count_note": "Role counts are unique within each role list. A provision may hold more than one link-level role, so their sum can exceed the authorized-union count."
+  },
+  "generated_at_utc": "2026-08-27T16:52:14.832953+00:00",
+  "inputs": {
+    "answer_labels": null,
+    "answer_labels_sha256": null,
+    "batch_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c24-20260827-cc58d932/diagnostic21/checkpoints/batch-020-attempt-bf7de2a345dc45b3838ed6d8c5277832",
+    "corpus": "/workspace/Legal-Harness/data/koblex/normalized/statute.jsonl",
+    "corpus_sha256": "0e2283c7bcfa8f92d3ea7d4dd249449a31c0528b47dde04ab408bee45e0857b0",
+    "dataset": "/workspace/Legal-Harness/data/koblex/qa/test-00000-of-00001.parquet",
+    "dataset_sha256": "afdaff3a8000cdf5e0a64adbcfc8e6aff0042b318bf03718155f2b70f551c47b",
+    "gold_map": null,
+    "gold_map_sha256": null,
+    "lf_eval_scores": null,
+    "lf_eval_scores_sha256": null,
+    "manifest": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c24-20260827-cc58d932/diagnostic21/checkpoints/batch-020-attempt-bf7de2a345dc45b3838ed6d8c5277832/manifest.json",
+    "manifest_sha256": "39afca8a5f6eac96cc9580247c2b3a71da4a1813d6d9b034f79383ad91bef000",
+    "split_manifest": null,
+    "split_manifest_sha256": null
+  },
+  "lf_eval": {
+    "display_score_scale": "0_100",
+    "input_scale": null,
+    "internal_score_scale": "0_1",
+    "judge_model": null,
+    "judge_revision": null,
+    "prompt_sha256": null,
+    "provided": false,
+    "scale": null
+  },
+  "validation": {
+    "joined_results": 20,
+    "manifest_entries": 20,
+    "require_stage_provenance": true,
+    "warnings": []
+  }
+}

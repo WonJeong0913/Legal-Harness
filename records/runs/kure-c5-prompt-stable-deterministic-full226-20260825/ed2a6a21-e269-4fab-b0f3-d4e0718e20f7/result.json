@@ -1,0 +1,1131 @@
+{
+  "abstention_reason": null,
+  "answer": "한 개의 행위가 여러 개의 죄에 해당하는 경우에는 가장 무거운 죄에 대하여 정한 형으로 처벌한다.[CT1]\n갑의 행위가 저작권 침해와 상표권 침해에 모두 해당하는 경우, 형법 제40조에 따라 가장 무거운 죄의 형으로 처벌한다.[CT2]",
+  "answer_mode": "limited",
+  "answered_target_ids": [
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_FACT",
+      "message": "갑의 행위가 저작권 침해와 상표권 침해에 모두 해당한다고 가정한다."
+    }
+  ],
+  "candidate_answer": "한 개의 행위가 여러 개의 죄에 해당하는 경우에는 가장 무거운 죄에 대하여 정한 형으로 처벌한다.[CT1]\n갑의 행위가 저작권 침해와 상표권 침해에 모두 해당하는 경우, 형법 제40조에 따라 가장 무거운 죄의 형으로 처벌한다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형법 40조  상상적 경합#KOBLEX-192729",
+      "quoted_text": "제40조(상상적 경합) 한 개의 행위가 여러 개의 죄에 해당하는 경우에는 가장 무거운 죄에 대하여 정한 형으로 처벌한다.",
+      "support_description": "상상적 경합의 정의와 처벌 방식을 명시하여 저작권과 상표권 침해 경합 시 처벌 근거를 제공한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "형법 40조  상상적 경합#KOBLEX-192729",
+      "quoted_text": "제40조(상상적 경합) 한 개의 행위가 여러 개의 죄에 해당하는 경우에는 가장 무거운 죄에 대하여 정한 형으로 처벌한다.",
+      "support_description": "갑의 행위가 두 가지 범죄에 해당하는 경우 가장 무거운 형으로 처벌한다는 법적 결론을 뒷받침한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "한 개의 행위가 여러 개의 죄에 해당하는 경우에는 가장 무거운 죄에 대하여 정한 형으로 처벌한다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "갑의 행위가 저작권 침해와 상표권 침해에 모두 해당하는 경우, 형법 제40조에 따라 가장 무거운 죄의 형으로 처벌한다."
+    }
+  ],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-25T04:02:44.499925+00:00",
+  "deferred_target_ids": [
+    "T1"
+  ],
+  "end_to_end_latency_ms": 388129.897,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "DEFERRED_TARGET",
+      "message": "법 개정 후 저작권법 형벌 적용 여부(T1)는 형벌법규의 소급적용 금지 원칙에 관한 조항이 제공되지 않아 본 답변에서 제외됩니다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 336,
+      "dedup_collapse": 122,
+      "evidence_fusion": 336,
+      "first_stage": 400,
+      "request_rerank": 400,
+      "round_selected": 30,
+      "rrf": 400,
+      "selected": 336
+    }
+  },
+  "run_id": "ed2a6a21-e269-4fab-b0f3-d4e0718e20f7",
+  "skill_generation_diagnostics": {
+    "attempt_count": 7,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형법 40조  상상적 경합#KOBLEX-192729"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 7,
+          "request_count": 1,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 5,
+          "request_count": 1,
+          "retrieval_round": 3
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T2"
+          ],
+          "deferred_target_ids": [
+            "T1"
+          ],
+          "explanation": "Only the citable answer targets will be answered; remaining targets are deferred.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "limited",
+          "answered_target_ids": [
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": [
+            "T1"
+          ]
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "limited",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "갑이 법 개정 후에 저작권법에 따라 처벌받아야 하는지",
+        "requested_output": "법 개정 후 저작권법 형벌 적용 여부"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "갑의 행위가 저작권 침해와 상표권 침해에 모두 해당하는 경우 어떻게 처벌해야 하는지",
+        "requested_output": "저작권 침해와 상표권 침해의 경합 시 처벌 방식"
+      }
+    ],
+    "answered_target_ids": [
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "상표법 160조  재심에 의하여 회복한 상표권의 효력 제한#KOBLEX-057572"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 69,
+        "first_stage_score": 0.555038571357727,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "상표법 160조  재심에 의하여 회복한 상표권의 효력 제한#KOBLEX-057572",
+        "provision_text": "제160조(재심에 의하여 회복한 상표권의 효력 제한) 다음 각 호의 어느 하나에 해당하는 경우 상표권의 효력은 해당 심결이 확정된 후 그 회복된 상표권의 등록 전에 선의(善意)로 해당 등록상표와 같은 상표를 그 지정상품과 같은 상품에 사용한 행위, 제108조제1항 각 호의 어느 하나 또는 같은 조 제2항 각 호의 어느 하나에 해당하는 행위에는 미치지 아니한다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.005675776861608028,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "상표법 160조  재심에 의하여 회복한 상표권의 효력 제한",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 40조  상상적 경합#KOBLEX-192729"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.5526316165924072,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "형법 40조  상상적 경합#KOBLEX-192729",
+        "provision_text": "제40조(상상적 경합) 한 개의 행위가 여러 개의 죄에 해당하는 경우에는 가장 무거운 죄에 대하여 정한 형으로 처벌한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9841603636741638,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "형법 40조  상상적 경합",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "마약류 불법거래 방지에 관한 특례법 2조  정의#KOBLEX-006491",
+          "마약류 불법거래 방지에 관한 특례법 2조  정의#KOBLEX-045241"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 85,
+        "first_stage_score": 0.522026777267456,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "마약류 불법거래 방지에 관한 특례법 2조  정의#KOBLEX-006491",
+        "provision_text": "② 이 법에서 \"마약류범죄\"란 다음 각 호의 죄[그 죄와 다른 죄가 「형법」 제40조에 따른 상상적 경합(想像的 競合) 관계에 있는 경우에는 그 다른 죄를 포함한다]를 말한다. 1. 제6조ㆍ제9조 또는 제10조의 죄 2. 「마약류관리에 관한 법률」 제58조부터 제61조까지의 죄",
+        "rerank_rank": 2,
+        "rerank_score": 0.98093181848526,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "마약류 불법거래 방지에 관한 특례법 2조  정의 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "저작권법 55조 2 착오ㆍ누락의 통지 및 직권 경정#KOBLEX-084719"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 94,
+        "first_stage_score": 0.5188679695129395,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "저작권법 55조 2 착오ㆍ누락의 통지 및 직권 경정#KOBLEX-084719",
+        "provision_text": "② 제1항의 착오나 누락이 등록 담당 직원의 잘못으로 인한 것인 경우에는 지체 없이 그 등록된 사항을 경정(更正)하고 그 내용을 저작권 등록자에게 알려야 한다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.0062719350680708885,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "저작권법 55조 2 착오ㆍ누락의 통지 및 직권 경정 2항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상표법 112조  고의의 추정#KOBLEX-057376"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 52,
+        "first_stage_score": 0.5286528468132019,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "상표법 112조  고의의 추정#KOBLEX-057376",
+        "provision_text": "제112조(고의의 추정) 제222조에 따라 등록상표임을 표시한 타인의 상표권 또는 전용사용권을 침해한 자는 그 침해행위에 대하여 그 상표가 이미 등록된 사실을 알았던 것으로 추정한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.0052411979995667934,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "상표법 112조  고의의 추정",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "디자인보호법 84조  등록료의 추가납부 또는 보전에 의한 디자인등록출원과 디자인권의 회복 등#KOBLEX-126131",
+          "디자인보호법 84조  등록료의 추가납부 또는 보전에 의한 디자인등록출원과 디자인권의 회복 등#KOBLEX-129394"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 57,
+        "first_stage_score": 0.5269092917442322,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "디자인보호법 84조  등록료의 추가납부 또는 보전에 의한 디자인등록출원과 디자인권의 회복 등#KOBLEX-126131",
+        "provision_text": "⑤ 효력제한기간 중 국내에서 선의로 제2항 또는 제3항에 따른 디자인등록출원된 디자인, 등록디자인 또는 이와 유사한 디자인을 업으로 실시하거나 이를 준비하고 있는 자는 그 실시하거나 준비하고 있는 디자인 및 사업목적의 범위에서 그 디자인권에 대하여 통상실시권을 가진다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.0021389948669821024,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "디자인보호법 84조  등록료의 추가납부 또는 보전에 의한 디자인등록출원과 디자인권의 회복 등 5항",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "저작권법 61조  배타적발행권 소멸 후의 복제물의 배포#KOBLEX-084759"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 51,
+        "first_stage_score": 0.5291750431060791,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "저작권법 61조  배타적발행권 소멸 후의 복제물의 배포#KOBLEX-084759",
+        "provision_text": "2. 배타적발행권의 존속기간 중 저작재산권자에게 그 저작물의 발행에 따른 대가를 지급하고 그 대가에 상응하는 부수의 복제물을 배포하는 경우",
+        "rerank_rank": 7,
+        "rerank_score": 0.0019641192629933357,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "저작권법 61조  배타적발행권 소멸 후의 복제물의 배포 2호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "증권거래법 214조  징역과 벌금의 병과#KOBLEX-227638"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 60,
+        "first_stage_score": 0.5266604423522949,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "증권거래법 214조  징역과 벌금의 병과#KOBLEX-227638",
+        "provision_text": "②제1항의 규정에 따라 제207조의2제2항의 규정을 위반한 자에 대하여 벌금형을 병과하는 경우에는 그 위반행위로 얻은 이익 또는 회피손실액의 3배에 상당하는 금액 이하의 벌금에 처한다. <신설 2002.4.27>",
+        "rerank_rank": 8,
+        "rerank_score": 0.001758288941346109,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "증권거래법 214조  징역과 벌금의 병과 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "저작권법 104조 3 권리관리정보의 제거ㆍ변경 등의 금지#KOBLEX-084918"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 82,
+        "first_stage_score": 0.5365461707115173,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "저작권법 104조 3 권리관리정보의 제거ㆍ변경 등의 금지#KOBLEX-084918",
+        "provision_text": "① 누구든지 정당한 권한 없이 저작권, 그 밖에 이 법에 따라 보호되는 권리의 침해를 유발 또는 은닉한다는 사실을 알거나 과실로 알지 못하고 다음 각 호의 어느 하나에 해당하는 행위를 하여서는 아니 된다. <개정 2011.12.2> 1. 권리관리정보를 고의로 제거ㆍ변경하거나 거짓으로 부가하는 행위 2. 권리관리정보가 정당한 권한 없이 제거 또는 변경되었다는 사실을 알면서 그 권리관리정보를 배포하거나 배포할 목적으로 수입하는 행위 3. 권리관리정보가 정당한 권한 없이 제거ㆍ변경되거나 거짓으로 부가된 사실을 알면서 해당 저작물등의 원본이나 그 복제물을 배포ㆍ공연 또는 공중송신하거나 배포를 목적으로 수입하는 행위",
+        "rerank_rank": 9,
+        "rerank_score": 0.0016288101905956864,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "저작권법 104조 3 권리관리정보의 제거ㆍ변경 등의 금지 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "헌법재판소법 47조  위헌결정의 효력#KOBLEX-188037"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 40,
+        "first_stage_score": 0.5348891019821167,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "헌법재판소법 47조  위헌결정의 효력#KOBLEX-188037",
+        "provision_text": "③ 제2항에도 불구하고 형벌에 관한 법률 또는 법률의 조항은 소급하여 그 효력을 상실한다. 다만, 해당 법률 또는 법률의 조항에 대하여 종전에 합헌으로 결정한 사건이 있는 경우에는 그 결정이 있는 날의 다음 날로 소급하여 효력을 상실한다. <신설 2014.5.20>",
+        "rerank_rank": 1,
+        "rerank_score": 0.0001008634571917355,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_request_rank_top1_guarded_swap:request_id=RQ1;rerank_rank=1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "헌법재판소법 47조  위헌결정의 효력 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 1조#KOBLEX-192643"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 58,
+        "first_stage_score": 0.5411587357521057,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형법 1조#KOBLEX-192643",
+        "provision_text": "제1장 형법의 적용범위",
+        "rerank_rank": 1,
+        "rerank_score": 0.0001269284839509055,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형법 1조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형법 349조  부당이득#KOBLEX-193404"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 86,
+        "first_stage_score": 0.5356801152229309,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형법 349조  부당이득#KOBLEX-193404",
+        "provision_text": "② 제1항의 방법으로 제3자로 하여금 부당한 이익을 취득하게 한 경우에도 제1항의 형에 처한다.",
+        "rerank_rank": 3,
+        "rerank_score": 2.37292556448665e-06,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형법 349조  부당이득 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "저작권법 137조  벌칙#KOBLEX-085171"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 30,
+        "first_stage_score": 0.5516265630722046,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "저작권법 137조  벌칙#KOBLEX-085171",
+        "provision_text": "①다음 각 호의 어느 하나에 해당하는 자는 1년 이하의 징역 또는 1천만원 이하의 벌금에 처한다. <개정 2009.4.22, 2011.12.2, 2020.2.4> 1. 저작자 아닌 자를 저작자로 하여 실명ㆍ이명을 표시하여 저작물을 공표한 자 2. 실연자 아닌 자를 실연자로 하여 실명ㆍ이명을 표시하여 실연을 공연 또는 공중송신하거나 복제물을 배포한 자 3. 제14조제2항을 위반한 자 3의2. 제104조의4제3호에 해당하는 행위를 한 자 3의3. 제104조의6을 위반한 자 4. 제105조제1항에 따른 허가를 받지 아니하고 저작권신탁관리업을 한 자 5. 제124조제2항에 따라 침해행위로 보는 행위를 한 자 6. 자신에게 정당한 권리가 없음을 알면서 고의로 제103조제1항 또는 제3항에 따른 복제ㆍ전송의 중단 또는 재개요구를 하여 온라인서비스제공자의 업무를 방해한 자 7. 제55조의5(제90조 및 제98조에 따라 준용되는 경우를 포함한다)를 위반한 자",
+        "rerank_rank": 5,
+        "rerank_score": 2.0883205706923036e-06,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "저작권법 137조  벌칙 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상표법 124조  공동심판의 청구 등#KOBLEX-057418"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 32,
+        "first_stage_score": 0.5498396754264832,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "상표법 124조  공동심판의 청구 등#KOBLEX-057418",
+        "provision_text": "③ 제1항에도 불구하고 상표권 또는 상표등록을 받을 수 있는 권리의 공유자가 그 공유인 권리에 관하여 심판을 청구할 경우에는 공유자 모두가 공동으로 청구하여야 한다.",
+        "rerank_rank": 6,
+        "rerank_score": 1.980913566512754e-06,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "상표법 124조  공동심판의 청구 등 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "보건범죄 단속에 관한 특별조치법 4조  부정유독물 제조 등의 처벌#KOBLEX-081600"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 98,
+        "first_stage_score": 0.5339508056640625,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "보건범죄 단속에 관한 특별조치법 4조  부정유독물 제조 등의 처벌#KOBLEX-081600",
+        "provision_text": "② 제1항의 경우에는 제조, 사용, 위조 또는 변조한 제품의 소매가격의 2배 이상 5배 이하에 상당하는 벌금을 병과한다.",
+        "rerank_rank": 8,
+        "rerank_score": 1.9002160343006835e-06,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "보건범죄 단속에 관한 특별조치법 4조  부정유독물 제조 등의 처벌 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "저작권법 123조  침해의 정지 등 청구#KOBLEX-085087"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.5744674205780029,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "저작권법 123조  침해의 정지 등 청구#KOBLEX-085087",
+        "provision_text": "②저작권 그 밖에 이 법에 따라 보호되는 권리를 가진 자는 제1항의 규정에 따른 청구를 하는 경우에 침해행위에 의하여 만들어진 물건의 폐기나 그 밖의 필요한 조치를 청구할 수 있다.",
+        "rerank_rank": 9,
+        "rerank_score": 1.8940030486191972e-06,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "저작권법 123조  침해의 정지 등 청구 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "저작권법 124조  침해로 보는 행위#KOBLEX-085091"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.5846177935600281,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "저작권법 124조  침해로 보는 행위#KOBLEX-085091",
+        "provision_text": "①다음 각 호의 어느 하나에 해당하는 행위는 저작권 그 밖에 이 법에 따라 보호되는 권리의 침해로 본다. <개정 2009.4.22> 1. 수입 시에 대한민국 내에서 만들어졌더라면 저작권 그 밖에 이 법에 따라 보호되는 권리의 침해로 될 물건을 대한민국 내에서 배포할 목적으로 수입하는 행위 2. 저작권 그 밖에 이 법에 따라 보호되는 권리를 침해하는 행위에 의하여 만들어진 물건(제1호의 수입물건을 포함한다)을 그 사실을 알고 배포할 목적으로 소지하는 행위 3. 프로그램의 저작권을 침해하여 만들어진 프로그램의 복제물(제1호에 따른 수입 물건을 포함한다)을 그 사실을 알면서 취득한 자가 이를 업무상 이용하는 행위",
+        "rerank_rank": 10,
+        "rerank_score": 1.8504993022361305e-06,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R3-1"
+        ],
+        "statute_name": "저작권법 124조  침해로 보는 행위 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "저작권법 125조  손해배상의 청구#KOBLEX-085098"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.5773652791976929,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "저작권법 125조  손해배상의 청구#KOBLEX-085098",
+        "provision_text": "④등록되어 있는 저작권, 배타적발행권(제88조 및 제96조에 따라 준용되는 경우를 포함한다), 출판권, 저작인접권 또는 데이터베이스제작자의 권리를 침해한 자는 그 침해행위에 과실이 있는 것으로 추정한다. <개정 2009.4.22, 2011.12.2>",
+        "rerank_rank": 3,
+        "rerank_score": 5.680408503394574e-05,
+        "retrieval_round": 3,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "저작권법 125조  손해배상의 청구 4항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "저작권법 104조 8 침해의 정지ㆍ예방 청구 등#KOBLEX-084930"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 26,
+        "first_stage_score": 0.5513947010040283,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "저작권법 104조 8 침해의 정지ㆍ예방 청구 등#KOBLEX-084930",
+        "provision_text": "제104조의8(침해의 정지ㆍ예방 청구 등) 저작권, 그 밖에 이 법에 따라 보호되는 권리를 가진 자는 제104조의2부터 제104조의4까지의 규정을 위반한 자에 대하여 침해의 정지ㆍ예방, 손해배상의 담보 또는 손해배상이나 이를 갈음하는 법정손해배상의 청구를 할 수 있으며, 고의 또는 과실 없이 제104조의2제1항의 행위를 한 자에 대하여는 침해의 정지ㆍ예방을 청구할 수 있다. 이 경우 제123조, 제125조, 제125조의2, 제126조 및 제129조를 준용한다. <개정 2011.12.2>",
+        "rerank_rank": 5,
+        "rerank_score": 2.6481549866730347e-05,
+        "retrieval_round": 3,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "저작권법 104조 8 침해의 정지ㆍ예방 청구 등",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "저작권법 102조  온라인서비스제공자의 책임 제한#KOBLEX-084887"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 77,
+        "first_stage_score": 0.5308778882026672,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "저작권법 102조  온라인서비스제공자의 책임 제한#KOBLEX-084887",
+        "provision_text": "① 온라인서비스제공자는 다음 각 호의 행위와 관련하여 저작권, 그 밖에 이 법에 따라 보호되는 권리가 침해되더라도 그 호의 분류에 따라 각 목의 요건을 모두 갖춘 경우에는 그 침해에 대하여 책임을 지지 아니한다. <개정 2011.6.30, 2011.12.2, 2020.2.4> 1. 내용의 수정 없이 저작물등을 송신하거나 경로를 지정하거나 연결을 제공하는 행위 또는 그 과정에서 저작물등을 그 송신을 위하여 합리적으로 필요한 기간 내에서 자동적ㆍ중개적ㆍ일시적으로 저장하는 행위 2. 서비스이용자의 요청에 따라 송신된 저작물등을 후속 이용자들이 효율적으로 접근하거나 수신할 수 있게 할 목적으로 그 저작물등을 자동적ㆍ중개적ㆍ일시적으로 저장하는 행위 3. 복제ㆍ전송자의 요청에 따라 저작물등을 온라인서비스제공자의 컴퓨터에 저장하는 행위 또는 정보검색도구를 통하여 이용자에게 정보통신망상 저작물등의 위치를 알 수 있게 하거나 연결하는 행위 4. 삭제 <2020.2.4>",
+        "rerank_rank": 7,
+        "rerank_score": 2.247511838504579e-05,
+        "retrieval_round": 3,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "저작권법 102조  온라인서비스제공자의 책임 제한 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "저작권법 136조  벌칙#KOBLEX-085169"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.5826358199119568,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "저작권법 136조  벌칙#KOBLEX-085169",
+        "provision_text": "②다음 각 호의 어느 하나에 해당하는 자는 3년 이하의 징역 또는 3천만원 이하의 벌금에 처하거나 이를 병과할 수 있다. <개정 2009.4.22, 2011.6.30, 2011.12.2> 1. 저작인격권 또는 실연자의 인격권을 침해하여 저작자 또는 실연자의 명예를 훼손한 자 2. 제53조 및 제54조(제90조 및 제98조에 따라 준용되는 경우를 포함한다)에 따른 등록을 거짓으로 한 자 3. 제93조에 따라 보호되는 데이터베이스제작자의 권리를 복제ㆍ배포ㆍ방송 또는 전송의 방법으로 침해한 자 3의2. 제103조의3제4항을 위반한 자 3의3. 업으로 또는 영리를 목적으로 제104조의2제1항 또는 제2항을 위반한 자 3의4. 업으로 또는 영리를 목적으로 제104조의3제1항을 위반한 자. 다만, 과실로 저작권 또는 이 법에 따라 보호되는 권리 침해를 유발 또는 은닉한다는 사실을 알지 못한 자는 제외한다. 3의5. 제104조의4제1호 또는 제2호에 해당하는 행위를 한 자 3의6. 제104조의5를 위반한 자 3의7. 제104조의7을 위반한 자 4. 제124조제1항에 따른 침해행위로 보는 행위를 한 자 5. 삭제 <2011.6.30> 6. 삭제 <2011.6.30>",
+        "rerank_rank": 9,
+        "rerank_score": 1.9149430954712443e-05,
+        "retrieval_round": 3,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "저작권법 136조  벌칙 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "저작권법 138조  벌칙#KOBLEX-085176"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 92,
+        "first_stage_score": 0.5279595851898193,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "저작권법 138조  벌칙#KOBLEX-085176",
+        "provision_text": "3. 제58조제3항(제63조의2, 제88조 및 제96조에 따라 준용되는 경우를 포함한다)을 위반하여 저작재산권자의 표지를 하지 아니한 자",
+        "rerank_rank": 10,
+        "rerank_score": 1.5051322407089174e-05,
+        "retrieval_round": 3,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R3-1",
+        "source_request_ids": [
+          "GRQ-R3-1"
+        ],
+        "statute_name": "저작권법 138조  벌칙 3호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "디자인보호법 84조  등록료의 추가납부 또는 보전에 의한 디자인등록출원과 디자인권의 회복 등#KOBLEX-126131": "⑤ 효력제한기간 중 국내에서 선의로 제2항 또는 제3항에 따른 디자인등록출원된 디자인, 등록디자인 또는 이와 유사한 디자인을 업으로 실시하거나 이를 준비하고 있는 자는 그 실시하거나 준비하고 있는 디자인 및 사업목적의 범위에서 그 디자인권에 대하여 통상실시권을 가진다.",
+      "마약류 불법거래 방지에 관한 특례법 2조  정의#KOBLEX-006491": "② 이 법에서 \"마약류범죄\"란 다음 각 호의 죄[그 죄와 다른 죄가 「형법」 제40조에 따른 상상적 경합(想像的 競合) 관계에 있는 경우에는 그 다른 죄를 포함한다]를 말한다. 1. 제6조ㆍ제9조 또는 제10조의 죄 2. 「마약류관리에 관한 법률」 제58조부터 제61조까지의 죄",
+      "보건범죄 단속에 관한 특별조치법 4조  부정유독물 제조 등의 처벌#KOBLEX-081600": "② 제1항의 경우에는 제조, 사용, 위조 또는 변조한 제품의 소매가격의 2배 이상 5배 이하에 상당하는 벌금을 병과한다.",
+      "상표법 112조  고의의 추정#KOBLEX-057376": "제112조(고의의 추정) 제222조에 따라 등록상표임을 표시한 타인의 상표권 또는 전용사용권을 침해한 자는 그 침해행위에 대하여 그 상표가 이미 등록된 사실을 알았던 것으로 추정한다.",
+      "상표법 124조  공동심판의 청구 등#KOBLEX-057418": "③ 제1항에도 불구하고 상표권 또는 상표등록을 받을 수 있는 권리의 공유자가 그 공유인 권리에 관하여 심판을 청구할 경우에는 공유자 모두가 공동으로 청구하여야 한다.",
+      "상표법 160조  재심에 의하여 회복한 상표권의 효력 제한#KOBLEX-057572": "제160조(재심에 의하여 회복한 상표권의 효력 제한) 다음 각 호의 어느 하나에 해당하는 경우 상표권의 효력은 해당 심결이 확정된 후 그 회복된 상표권의 등록 전에 선의(善意)로 해당 등록상표와 같은 상표를 그 지정상품과 같은 상품에 사용한 행위, 제108조제1항 각 호의 어느 하나 또는 같은 조 제2항 각 호의 어느 하나에 해당하는 행위에는 미치지 아니한다.",
+      "저작권법 102조  온라인서비스제공자의 책임 제한#KOBLEX-084887": "① 온라인서비스제공자는 다음 각 호의 행위와 관련하여 저작권, 그 밖에 이 법에 따라 보호되는 권리가 침해되더라도 그 호의 분류에 따라 각 목의 요건을 모두 갖춘 경우에는 그 침해에 대하여 책임을 지지 아니한다. <개정 2011.6.30, 2011.12.2, 2020.2.4> 1. 내용의 수정 없이 저작물등을 송신하거나 경로를 지정하거나 연결을 제공하는 행위 또는 그 과정에서 저작물등을 그 송신을 위하여 합리적으로 필요한 기간 내에서 자동적ㆍ중개적ㆍ일시적으로 저장하는 행위 2. 서비스이용자의 요청에 따라 송신된 저작물등을 후속 이용자들이 효율적으로 접근하거나 수신할 수 있게 할 목적으로 그 저작물등을 자동적ㆍ중개적ㆍ일시적으로 저장하는 행위 3. 복제ㆍ전송자의 요청에 따라 저작물등을 온라인서비스제공자의 컴퓨터에 저장하는 행위 또는 정보검색도구를 통하여 이용자에게 정보통신망상 저작물등의 위치를 알 수 있게 하거나 연결하는 행위 4. 삭제 <2020.2.4>",
+      "저작권법 104조 3 권리관리정보의 제거ㆍ변경 등의 금지#KOBLEX-084918": "① 누구든지 정당한 권한 없이 저작권, 그 밖에 이 법에 따라 보호되는 권리의 침해를 유발 또는 은닉한다는 사실을 알거나 과실로 알지 못하고 다음 각 호의 어느 하나에 해당하는 행위를 하여서는 아니 된다. <개정 2011.12.2> 1. 권리관리정보를 고의로 제거ㆍ변경하거나 거짓으로 부가하는 행위 2. 권리관리정보가 정당한 권한 없이 제거 또는 변경되었다는 사실을 알면서 그 권리관리정보를 배포하거나 배포할 목적으로 수입하는 행위 3. 권리관리정보가 정당한 권한 없이 제거ㆍ변경되거나 거짓으로 부가된 사실을 알면서 해당 저작물등의 원본이나 그 복제물을 배포ㆍ공연 또는 공중송신하거나 배포를 목적으로 수입하는 행위",
+      "저작권법 104조 8 침해의 정지ㆍ예방 청구 등#KOBLEX-084930": "제104조의8(침해의 정지ㆍ예방 청구 등) 저작권, 그 밖에 이 법에 따라 보호되는 권리를 가진 자는 제104조의2부터 제104조의4까지의 규정을 위반한 자에 대하여 침해의 정지ㆍ예방, 손해배상의 담보 또는 손해배상이나 이를 갈음하는 법정손해배상의 청구를 할 수 있으며, 고의 또는 과실 없이 제104조의2제1항의 행위를 한 자에 대하여는 침해의 정지ㆍ예방을 청구할 수 있다. 이 경우 제123조, 제125조, 제125조의2, 제126조 및 제129조를 준용한다. <개정 2011.12.2>",
+      "저작권법 123조  침해의 정지 등 청구#KOBLEX-085087": "②저작권 그 밖에 이 법에 따라 보호되는 권리를 가진 자는 제1항의 규정에 따른 청구를 하는 경우에 침해행위에 의하여 만들어진 물건의 폐기나 그 밖의 필요한 조치를 청구할 수 있다.",
+      "저작권법 124조  침해로 보는 행위#KOBLEX-085091": "①다음 각 호의 어느 하나에 해당하는 행위는 저작권 그 밖에 이 법에 따라 보호되는 권리의 침해로 본다. <개정 2009.4.22> 1. 수입 시에 대한민국 내에서 만들어졌더라면 저작권 그 밖에 이 법에 따라 보호되는 권리의 침해로 될 물건을 대한민국 내에서 배포할 목적으로 수입하는 행위 2. 저작권 그 밖에 이 법에 따라 보호되는 권리를 침해하는 행위에 의하여 만들어진 물건(제1호의 수입물건을 포함한다)을 그 사실을 알고 배포할 목적으로 소지하는 행위 3. 프로그램의 저작권을 침해하여 만들어진 프로그램의 복제물(제1호에 따른 수입 물건을 포함한다)을 그 사실을 알면서 취득한 자가 이를 업무상 이용하는 행위",
+      "저작권법 125조  손해배상의 청구#KOBLEX-085098": "④등록되어 있는 저작권, 배타적발행권(제88조 및 제96조에 따라 준용되는 경우를 포함한다), 출판권, 저작인접권 또는 데이터베이스제작자의 권리를 침해한 자는 그 침해행위에 과실이 있는 것으로 추정한다. <개정 2009.4.22, 2011.12.2>",
+      "저작권법 136조  벌칙#KOBLEX-085169": "②다음 각 호의 어느 하나에 해당하는 자는 3년 이하의 징역 또는 3천만원 이하의 벌금에 처하거나 이를 병과할 수 있다. <개정 2009.4.22, 2011.6.30, 2011.12.2> 1. 저작인격권 또는 실연자의 인격권을 침해하여 저작자 또는 실연자의 명예를 훼손한 자 2. 제53조 및 제54조(제90조 및 제98조에 따라 준용되는 경우를 포함한다)에 따른 등록을 거짓으로 한 자 3. 제93조에 따라 보호되는 데이터베이스제작자의 권리를 복제ㆍ배포ㆍ방송 또는 전송의 방법으로 침해한 자 3의2. 제103조의3제4항을 위반한 자 3의3. 업으로 또는 영리를 목적으로 제104조의2제1항 또는 제2항을 위반한 자 3의4. 업으로 또는 영리를 목적으로 제104조의3제1항을 위반한 자. 다만, 과실로 저작권 또는 이 법에 따라 보호되는 권리 침해를 유발 또는 은닉한다는 사실을 알지 못한 자는 제외한다. 3의5. 제104조의4제1호 또는 제2호에 해당하는 행위를 한 자 3의6. 제104조의5를 위반한 자 3의7. 제104조의7을 위반한 자 4. 제124조제1항에 따른 침해행위로 보는 행위를 한 자 5. 삭제 <2011.6.30> 6. 삭제 <2011.6.30>",
+      "저작권법 137조  벌칙#KOBLEX-085171": "①다음 각 호의 어느 하나에 해당하는 자는 1년 이하의 징역 또는 1천만원 이하의 벌금에 처한다. <개정 2009.4.22, 2011.12.2, 2020.2.4> 1. 저작자 아닌 자를 저작자로 하여 실명ㆍ이명을 표시하여 저작물을 공표한 자 2. 실연자 아닌 자를 실연자로 하여 실명ㆍ이명을 표시하여 실연을 공연 또는 공중송신하거나 복제물을 배포한 자 3. 제14조제2항을 위반한 자 3의2. 제104조의4제3호에 해당하는 행위를 한 자 3의3. 제104조의6을 위반한 자 4. 제105조제1항에 따른 허가를 받지 아니하고 저작권신탁관리업을 한 자 5. 제124조제2항에 따라 침해행위로 보는 행위를 한 자 6. 자신에게 정당한 권리가 없음을 알면서 고의로 제103조제1항 또는 제3항에 따른 복제ㆍ전송의 중단 또는 재개요구를 하여 온라인서비스제공자의 업무를 방해한 자 7. 제55조의5(제90조 및 제98조에 따라 준용되는 경우를 포함한다)를 위반한 자",
+      "저작권법 138조  벌칙#KOBLEX-085176": "3. 제58조제3항(제63조의2, 제88조 및 제96조에 따라 준용되는 경우를 포함한다)을 위반하여 저작재산권자의 표지를 하지 아니한 자",
+      "저작권법 55조 2 착오ㆍ누락의 통지 및 직권 경정#KOBLEX-084719": "② 제1항의 착오나 누락이 등록 담당 직원의 잘못으로 인한 것인 경우에는 지체 없이 그 등록된 사항을 경정(更正)하고 그 내용을 저작권 등록자에게 알려야 한다.",
+      "저작권법 61조  배타적발행권 소멸 후의 복제물의 배포#KOBLEX-084759": "2. 배타적발행권의 존속기간 중 저작재산권자에게 그 저작물의 발행에 따른 대가를 지급하고 그 대가에 상응하는 부수의 복제물을 배포하는 경우",
+      "증권거래법 214조  징역과 벌금의 병과#KOBLEX-227638": "②제1항의 규정에 따라 제207조의2제2항의 규정을 위반한 자에 대하여 벌금형을 병과하는 경우에는 그 위반행위로 얻은 이익 또는 회피손실액의 3배에 상당하는 금액 이하의 벌금에 처한다. <신설 2002.4.27>",
+      "헌법재판소법 47조  위헌결정의 효력#KOBLEX-188037": "③ 제2항에도 불구하고 형벌에 관한 법률 또는 법률의 조항은 소급하여 그 효력을 상실한다. 다만, 해당 법률 또는 법률의 조항에 대하여 종전에 합헌으로 결정한 사건이 있는 경우에는 그 결정이 있는 날의 다음 날로 소급하여 효력을 상실한다. <신설 2014.5.20>",
+      "형법 1조#KOBLEX-192643": "제1장 형법의 적용범위",
+      "형법 349조  부당이득#KOBLEX-193404": "② 제1항의 방법으로 제3자로 하여금 부당한 이익을 취득하게 한 경우에도 제1항의 형에 처한다.",
+      "형법 40조  상상적 경합#KOBLEX-192729": "제40조(상상적 경합) 한 개의 행위가 여러 개의 죄에 해당하는 경우에는 가장 무거운 죄에 대하여 정한 형으로 처벌한다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "형벌법규의 소급적용 금지 원칙을 명시한 조항이 후보 목록에 존재하지 않는다.",
+            "requirement_id": "E1-R1",
+            "status": "unsatisfied"
+          },
+          {
+            "linked_provision_ids": [],
+            "rationale": "소급적용의 예외(경형법)를 명시한 조항이 후보 목록에 존재하지 않는다.",
+            "requirement_id": "E1-R2",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E1-R1",
+          "E1-R2"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "공급된 후보 조항 중 형벌법규의 소급적용 금지 원칙(형법 제1조)이나 경형법 예외를 명시한 조항이 없다. C010은 헌법재판소 위헌결정의 효력에 관한 규정으로, 입법부에 의한 법 개정의 소급적용 문제를 다루지 않으므로 E1의 요구사항을 충족하지 못한다.",
+        "status": "uncovered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형법 40조  상상적 경합#KOBLEX-192729"
+            ],
+            "rationale": "형법 제40조는 '한 개의 행위가 여러 개의 죄에 해당하는 경우'를 상상적 경합으로 정의한다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          },
+          {
+            "linked_provision_ids": [
+              "형법 40조  상상적 경합#KOBLEX-192729"
+            ],
+            "rationale": "형법 제40조는 상상적 경합 시 '가장 무거운 죄에 대하여 정한 형으로 처벌한다'고 규정한다.",
+            "requirement_id": "E2-R2",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형법 40조  상상적 경합#KOBLEX-192729"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "형법 제40조(C002)는 상상적 경합의 개념(한 개의 행위가 여러 개의 죄에 해당하는 경우)과 처벌 방식(가장 무거운 죄의 형으로 처벌)을 모두 명시하여 E2의 모든 완료 요구사항을 충족한다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [
+      "T1"
+    ],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "형법 40조  상상적 경합#KOBLEX-192729",
+        "support_spans": [
+          {
+            "end_char": 67,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 5,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "사후에 형벌 조항이 삭제된 경우, 개정 전 행위에 대한 형사처벌의 근거가 되는지",
+        "issue_id": "I1"
+      },
+      {
+        "description": "저작권 침해와 상표권 침해가 동시에 성립하는 경우의 형사처벌 규율",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "형벌법규의 소급적용 금지 원칙과 예외가 명시된 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "형벌법규의 소급적용 금지 원칙을 명시한 조항"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "소급적용의 예외가 되는 경우(경형법)를 명시한 조항"
+          }
+        ],
+        "critical": true,
+        "description": "형벌법규의 소급적용 금지 원칙 및 예외 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "법 개정 후 처벌 가능 여부를 판단하는 핵심 법적 근거",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] 갑은 오래된 컴퓨터 프로그램을 무단으로 복제하여 판매하는 행위를 하였습니다. 사건 발생 이후, 정부는 해당 프로그램에 대한 저작권법을 개정하여 무단 복제에 대한 형벌 조항을 삭제하였습니다. 동시에, 갑의 행위는 저작권 침해와 동시에 상표권 침해에 해당할 수 있습니다. [질문] 갑이 법 개정 후에 저작권법에 따라 처벌받아야 하는지, 그리고 갑의 행위가 저작권 침해와 상표권 침해에 모두 해당하는 경우 어떻게 처벌해야 하는지?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "형벌법규",
+          "소급적용",
+          "금지",
+          "경형법"
+        ],
+        "query_text": "형벌법규의 소급적용 금지 원칙 및 예외 [원문 맥락] 동시에, 갑의 행위는 저작권 침해와 동시에 상표권 침해에 해당할 수 있습니다. 갑이 법 개정 후에 저작권법에 따라 처벌받아야 하는지, 그리고 갑의 행위가 저작권 침해와 상표권 침해에 모두 해당하는 경우 어떻게 처벌해야 하는지?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법 제1조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "상상적 경합",
+          "처벌",
+          "가장 무거운 형"
+        ],
+        "query_text": "상상적 경합의 처벌 규정 [원문 맥락] 동시에, 갑의 행위는 저작권 침해와 동시에 상표권 침해에 해당할 수 있습니다. 갑이 법 개정 후에 저작권법에 따라 처벌받아야 하는지, 그리고 갑의 행위가 저작권 침해와 상표권 침해에 모두 해당하는 경우 어떻게 처벌해야 하는지?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법 제39조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "형법 제1조",
+          "형벌법규",
+          "소급적용",
+          "경형법"
+        ],
+        "query_text": "형법 제1조 형벌법규의 소급적용 금지 원칙 및 경형법 예외 [원문 맥락] 동시에, 갑의 행위는 저작권 침해와 동시에 상표권 침해에 해당할 수 있습니다. 갑이 법 개정 후에 저작권법에 따라 처벌받아야 하는지, 그리고 갑의 행위가 저작권 침해와 상표권 침해에 모두 해당하는 경우 어떻게 처벌해야 하는지?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "형법 제1조",
+          "형벌법규",
+          "소급적용",
+          "경형법"
+        ],
+        "query_text": "형법 제1조 형벌법규 소급적용 금지 경형법 [원문 맥락] 동시에, 갑의 행위는 저작권 침해와 동시에 상표권 침해에 해당할 수 있습니다. 갑이 법 개정 후에 저작권법에 따라 처벌받아야 하는지, 그리고 갑의 행위가 저작권 침해와 상표권 침해에 모두 해당하는 경우 어떻게 처벌해야 하는지?",
+        "request_id": "GRQ-R3-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 오래된 컴퓨터 프로그램을 무단으로 복제하여 판매하는 행위를 하였습니다. 사건 발생 이후, 정부는 해당 프로그램에 대한 저작권법을 개정하여 무단 복제에 대한 형벌 조항을 삭제하였습니다. 동시에, 갑의 행위는 저작권 침해와 동시에 상표권 침해에 해당할 수 있습니다.\n\n[질문]\n갑이 법 개정 후에 저작권법에 따라 처벌받아야 하는지, 그리고 갑의 행위가 저작권 침해와 상표권 침해에 모두 해당하는 경우 어떻게 처벌해야 하는지?",
+    "remaining_request_budget": 5,
+    "remaining_round_budget": 0,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "형벌법규의 소급적용 금지 원칙과 예외가 명시된 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "형벌법규의 소급적용 금지 원칙을 명시한 조항"
+          },
+          {
+            "requirement_id": "E1-R2",
+            "text": "소급적용의 예외가 되는 경우(경형법)를 명시한 조항"
+          }
+        ],
+        "critical": true,
+        "description": "형벌법규의 소급적용 금지 원칙 및 예외 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "법 개정 후 처벌 가능 여부를 판단하는 핵심 법적 근거",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "상상적 경합의 정의와 처벌 방식을 명시한 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "상상적 경합의 개념을 정의한 조항"
+          },
+          {
+            "requirement_id": "E2-R2",
+            "text": "상상적 경합 시 가장 무거운 형으로 처벌한다는 규정"
+          }
+        ],
+        "critical": true,
+        "description": "상상적 경합에 대한 처벌 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "저작권과 상표권 침해의 경합 시 처벌 방식을 결정하는 핵심 근거",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 3,
+    "run_id": "ed2a6a21-e269-4fab-b0f3-d4e0718e20f7",
+    "seen_provision_ids": [
+      "저작권법 61조  배타적발행권 소멸 후의 복제물의 배포#KOBLEX-084759",
+      "상표법 160조  재심에 의하여 회복한 상표권의 효력 제한#KOBLEX-057572",
+      "마약류 불법거래 방지에 관한 특례법 2조  정의#KOBLEX-006491",
+      "상표법 112조  고의의 추정#KOBLEX-057376",
+      "저작권법 137조  벌칙#KOBLEX-085171",
+      "저작권법 138조  벌칙#KOBLEX-085176",
+      "보건범죄 단속에 관한 특별조치법 4조  부정유독물 제조 등의 처벌#KOBLEX-081600",
+      "저작권법 136조  벌칙#KOBLEX-085169",
+      "증권거래법 214조  징역과 벌금의 병과#KOBLEX-227638",
+      "저작권법 104조 3 권리관리정보의 제거ㆍ변경 등의 금지#KOBLEX-084918",
+      "저작권법 124조  침해로 보는 행위#KOBLEX-085091",
+      "형법 40조  상상적 경합#KOBLEX-192729",
+      "저작권법 104조 8 침해의 정지ㆍ예방 청구 등#KOBLEX-084930",
+      "저작권법 125조  손해배상의 청구#KOBLEX-085098",
+      "형법 349조  부당이득#KOBLEX-193404",
+      "형법 1조#KOBLEX-192643",
+      "헌법재판소법 47조  위헌결정의 효력#KOBLEX-188037",
+      "저작권법 55조 2 착오ㆍ누락의 통지 및 직권 경정#KOBLEX-084719",
+      "상표법 124조  공동심판의 청구 등#KOBLEX-057418",
+      "저작권법 123조  침해의 정지 등 청구#KOBLEX-085087",
+      "디자인보호법 84조  등록료의 추가납부 또는 보전에 의한 디자인등록출원과 디자인권의 회복 등#KOBLEX-126131",
+      "저작권법 102조  온라인서비스제공자의 책임 제한#KOBLEX-084887"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

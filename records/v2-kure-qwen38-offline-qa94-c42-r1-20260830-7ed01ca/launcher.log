@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/root/worktrees/legal-harness-c30-integrated-20260827/retrieval/persistent.py", line 268, in __init__
+    from sentence_transformers import SentenceTransformer
+ModuleNotFoundError: No module named 'sentence_transformers'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/root/worktrees/legal-harness-c30-integrated-20260827/scripts/run_local_harness.py", line 338, in run_question
+    if resources is not None else _build_fresh_runner(args, record)
+  File "/root/worktrees/legal-harness-c30-integrated-20260827/scripts/run_local_harness.py", line 267, in _build_fresh_runner
+    retriever=build_retriever(args),
+  File "/root/worktrees/legal-harness-c30-integrated-20260827/scripts/run_local_harness.py", line 123, in build_retriever
+    first_stage = KureExactIndexSearcher(
+  File "/root/worktrees/legal-harness-c30-integrated-20260827/retrieval/persistent.py", line 270, in __init__
+    raise RuntimeError("install the project GPU retrieval dependencies first") from exc
+RuntimeError: install the project GPU retrieval dependencies first

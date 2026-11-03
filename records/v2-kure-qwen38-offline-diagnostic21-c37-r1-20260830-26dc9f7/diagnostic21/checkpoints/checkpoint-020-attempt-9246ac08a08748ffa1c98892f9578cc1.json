@@ -1,0 +1,69 @@
+{
+  "abnormal_question_ids": [
+    "qa_110_1hop_193"
+  ],
+  "batch_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c37-r1-20260830-26dc9f7/diagnostic21/checkpoints/batch-020-attempt-9246ac08a08748ffa1c98892f9578cc1",
+  "bm25_execution": "FORBIDDEN",
+  "checkpoint_range": [
+    1,
+    20
+  ],
+  "checkpoint_status": "ERRORS_FOUND",
+  "completed_questions": 20,
+  "diagnostic21_checkpoint_role": "FIRST_CHUNK_COVERAGE_CHECKPOINT_NOT_A_FINAL_GATE",
+  "evaluation_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c37-r1-20260830-26dc9f7/diagnostic21/evaluations/checkpoint-020-attempt-9246ac08a08748ffa1c98892f9578cc1",
+  "evaluator_command": [
+    "/usr/bin/python3.10",
+    "/root/worktrees/legal-harness-c30-integrated-20260827/scripts/evaluate_dev_runs.py",
+    "--batch-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c37-r1-20260830-26dc9f7/diagnostic21/checkpoints/batch-020-attempt-9246ac08a08748ffa1c98892f9578cc1",
+    "--output-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c37-r1-20260830-26dc9f7/diagnostic21/evaluations/checkpoint-020-attempt-9246ac08a08748ffa1c98892f9578cc1",
+    "--require-stage-provenance"
+  ],
+  "event": "DIAGNOSTIC21_CHECKPOINT20_COMPLETED",
+  "lf_eval_score_injection": "FORBIDDEN",
+  "metrics": {
+    "abstain_count": 3,
+    "answer_count": 16,
+    "citation_integrity": {
+      "attempted": 16,
+      "pass_rate": 1.0,
+      "passed": 16
+    },
+    "complete_evidence_count": 9,
+    "complete_evidence_rate": 0.45,
+    "execution_failure_count": 1,
+    "outcome_counts": {
+      "ABSTAIN": 3,
+      "ANSWER": 16,
+      "EXECUTION_FAILURE": 1
+    },
+    "paired_c02_answer_cohort": null,
+    "provision_exact_match_count": 3,
+    "provision_exact_match_rate": 0.15,
+    "provision_macro_f1": 0.58,
+    "provision_macro_precision": 0.6291666666666667,
+    "provision_macro_recall": 0.6416666666666666,
+    "provision_micro_f1": 0.6233766233766234,
+    "token_f1_answered_only": 0.3235128089200134,
+    "token_f1_candidate": 0.29357422680195117,
+    "token_f1_end_to_end": 0.2588102471360107
+  },
+  "public_abstain_invalid_result_question_ids": [],
+  "public_abstain_leak_question_ids": [],
+  "public_abstain_missing_result_question_ids": [],
+  "recorded_errors": {
+    "qa_110_1hop_193": [
+      "S3 conclusion claim may cite only CORE accepted provisions"
+    ]
+  },
+  "stage_provenance_missing": [],
+  "total_questions": 21,
+  "unexpected_exit_question_ids": [],
+  "validation_errors": [
+    "abnormal_outcomes=1",
+    "recorded_errors=1",
+    "paired_c02_answer_cohort=paired C02 score cohort row is not ANSWER: qa_401_2hop_619"
+  ]
+}

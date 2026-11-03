@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "/root/worktrees/legal-harness-c48-lf-eval-linked-dataset-20260901/scripts/run_adapted_local_lf_eval.py", line 699, in <module>
+    main()
+  File "/root/worktrees/legal-harness-c48-lf-eval-linked-dataset-20260901/scripts/run_adapted_local_lf_eval.py", line 694, in main
+    result = run_adapted_local_lf_eval(args.kure_output_root, args.parser_results, args.output_dir, args.timeout_seconds)
+  File "/root/worktrees/legal-harness-c48-lf-eval-linked-dataset-20260901/scripts/run_adapted_local_lf_eval.py", line 608, in run_adapted_local_lf_eval
+    parser_scores = _evaluate_condition(parser, gold, roster, cache, timeout_seconds)
+  File "/root/worktrees/legal-harness-c48-lf-eval-linked-dataset-20260901/scripts/run_adapted_local_lf_eval.py", line 529, in _evaluate_condition
+    public = _score(gold[question_id], item.get("published_answer"), "public_answer", cache, timeout_seconds)
+  File "/root/worktrees/legal-harness-c48-lf-eval-linked-dataset-20260901/scripts/run_adapted_local_lf_eval.py", line 505, in _score
+    score, response_text, request_payload = _judge_prompt(prompt, timeout_seconds)
+  File "/root/worktrees/legal-harness-c48-lf-eval-linked-dataset-20260901/scripts/run_adapted_local_lf_eval.py", line 468, in _judge_prompt
+    with urlopen(request, timeout=timeout_seconds) as response:
+  File "/usr/lib/python3.10/urllib/request.py", line 216, in urlopen
+    return opener.open(url, data, timeout)
+  File "/usr/lib/python3.10/urllib/request.py", line 519, in open
+    response = self._open(req, data)
+  File "/usr/lib/python3.10/urllib/request.py", line 536, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+  File "/usr/lib/python3.10/urllib/request.py", line 496, in _call_chain
+    result = func(*args)
+  File "/usr/lib/python3.10/urllib/request.py", line 1377, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "/usr/lib/python3.10/urllib/request.py", line 1352, in do_open
+    r = h.getresponse()
+  File "/usr/lib/python3.10/http/client.py", line 1395, in getresponse
+    response.begin()
+  File "/usr/lib/python3.10/http/client.py", line 323, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.10/http/client.py", line 284, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/usr/lib/python3.10/socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+KeyboardInterrupt

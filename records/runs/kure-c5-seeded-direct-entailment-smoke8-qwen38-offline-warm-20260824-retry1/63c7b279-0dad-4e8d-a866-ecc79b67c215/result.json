@@ -1,0 +1,865 @@
+{
+  "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+  "answer": null,
+  "answer_mode": null,
+  "answered_target_ids": [],
+  "assumptions": [],
+  "candidate_answer": "형의 선고를 하는 때에는 판결이유에 범죄된 사실, 증거의 요지와 법령의 적용을 명시하여야 한다.[CT1]\n1심 판결에 유죄 사유가 전혀 기재되지 않은 사실은 형사소송법 제323조 제1항의 판결이유 기재 의무 위반에 해당하며, 이는 항소이유로 주장할 수 있는 사유이다.[CT2]",
+  "candidate_answer_basis": "retrieved_candidates",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "GENERATED",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [
+    {
+      "code": "A1",
+      "message": "1심 판결문에 갑의 유죄 사유가 전혀 기재되지 않았다는 사실은 문제의 전제로 가정한다."
+    }
+  ],
+  "candidate_claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형사소송법 323조  유죄판결에 명시될 이유#KOBLEX-232617",
+      "quoted_text": "①형의 선고를 하는 때에는 판결이유에 범죄될 사실, 증거의 요지와 법령의 적용을 명시하여야 한다.",
+      "support_description": "유죄판결에 범죄된 사실, 증거의 요지, 법령의 적용을 명시해야 한다는 법적 의무를 규정하여, 사유 미기재가 절차적 하자로 인정될 수 있는 근거를 제공한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "형사소송법 323조  유죄판결에 명시될 이유#KOBLEX-232617",
+      "quoted_text": "①형의 선고를 하는 때에는 판결이유에 범죄될 사실, 증거의 요지와 법령의 적용을 명시하여야 한다.",
+      "support_description": "1심 판결에 유죄 사유가 기재되지 않은 사실이 제323조 제1항의 의무 위반임을 확인하여, 이를 항소이유로 주장할 수 있는 법적 근거를 제시한다."
+    }
+  ],
+  "candidate_claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "형의 선고를 하는 때에는 판결이유에 범죄된 사실, 증거의 요지와 법령의 적용을 명시하여야 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "1심 판결에 유죄 사유가 전혀 기재되지 않은 사실은 형사소송법 제323조 제1항의 판결이유 기재 의무 위반에 해당하며, 이는 항소이유로 주장할 수 있는 사유이다."
+    }
+  ],
+  "candidate_limitations": [
+    {
+      "code": "L1",
+      "message": "형사소송법 제361조의5에서 정한 항소이유 목록의 구체적 항목(예: 13호 재심청구사유 등)이 후보 조문에 포함되어 있지 않아, '사유 미기재'가 항소이유 목록의 어느 호에 해당하는지 직접 확인하지 못한다."
+    },
+    {
+      "code": "L2",
+      "message": "본 답변은 비공개 벤치마크 후보이며, 공개 정책은 ABSTAIN으로 유지된다."
+    }
+  ],
+  "claim_citations": [],
+  "claims": [],
+  "complete_answer": false,
+  "completed_at_utc": "2026-08-24T23:48:45.295839+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 213999.489,
+  "errors": [],
+  "limitations": [],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 179,
+      "dedup_collapse": 105,
+      "evidence_fusion": 179,
+      "first_stage": 300,
+      "request_rerank": 300,
+      "round_selected": 20,
+      "rrf": 200,
+      "selected": 179
+    }
+  },
+  "run_id": "63c7b279-0dad-4e8d-a866-ecc79b67c215",
+  "skill_generation_diagnostics": {
+    "attempt_count": 5,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 1,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 8,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": false,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 2,
+          "progress": false,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "ABSTAIN",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "Two consecutive retrieval rounds did not improve critical evidence.",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "abstention_reason": "INSUFFICIENT_CRITICAL_EVIDENCE",
+          "termination_reason": "NO_RETRIEVAL_PROGRESS"
+        },
+        "event": "ABSTAIN",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 18
+        },
+        "event": "BENCHMARK_CANDIDATE_GENERATION_STARTED",
+        "phase": "ABSTAINED"
+      },
+      {
+        "details": {
+          "candidate_answer_basis": "retrieved_candidates",
+          "candidate_provision_count": 18,
+          "claim_count": 2
+        },
+        "event": "BENCHMARK_CANDIDATE_VALIDATED",
+        "phase": "ABSTAINED"
+      }
+    ],
+    "answer_mode": null,
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_ground",
+        "question_anchor": "항소 이유로 주장할 수 있는 사유 중 하나는 무엇인가?",
+        "requested_output": "A specific statutory ground for appeal based on the absence of reasons in the first-instance judgment."
+      }
+    ],
+    "answered_target_ids": [],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "형사소송법 361조 5 항소이유#KOBLEX-232721"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 5,
+        "first_stage_score": 0.633352518081665,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 361조 5 항소이유#KOBLEX-232721",
+        "provision_text": "제361조의5(항소이유) 다음 사유가 있을 경우에는 원심판결에 대한 항소이유로 할 수 있다. <개정 1963.12.13>",
+        "rerank_rank": 1,
+        "rerank_score": 0.12935958802700043,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형사소송법 361조 5 항소이유",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 364조  항소법원의 심판#KOBLEX-232744"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 36,
+        "first_stage_score": 0.610206663608551,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 364조  항소법원의 심판#KOBLEX-232744",
+        "provision_text": "①항소법원은 항소이유에 포함된 사유에 관하여 심판하여야 한다. <개정 1963.12.13>",
+        "rerank_rank": 2,
+        "rerank_score": 0.06475858390331268,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형사소송법 364조  항소법원의 심판 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 361조 5 항소이유#KOBLEX-232734"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 89,
+        "first_stage_score": 0.5920877456665039,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 361조 5 항소이유#KOBLEX-232734",
+        "provision_text": "13. 재심청구의 사유가 있는 때",
+        "rerank_rank": 3,
+        "rerank_score": 0.03880072757601738,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 361조 5 항소이유 13호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 369조  재판서의 기재방식#KOBLEX-232757"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 48,
+        "first_stage_score": 0.6057095527648926,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 369조  재판서의 기재방식#KOBLEX-232757",
+        "provision_text": "제369조(재판서의 기재방식) 항소법원의 재판서에는 항소이유에 대한 판단을 기재하여야 하며 원심판결에 기재한 사실과 증거를 인용할 수 있다. <개정 1963.12.13>",
+        "rerank_rank": 4,
+        "rerank_score": 0.025198688730597496,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 369조  재판서의 기재방식",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 323조  유죄판결에 명시될 이유#KOBLEX-232617"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 77,
+        "first_stage_score": 0.5952652096748352,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 323조  유죄판결에 명시될 이유#KOBLEX-232617",
+        "provision_text": "①형의 선고를 하는 때에는 판결이유에 범죄될 사실, 증거의 요지와 법령의 적용을 명시하여야 한다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.017927953973412514,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 323조  유죄판결에 명시될 이유 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 23조  기피신청기각과 즉시항고#KOBLEX-231478"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 57,
+        "first_stage_score": 0.6007019877433777,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 23조  기피신청기각과 즉시항고#KOBLEX-231478",
+        "provision_text": "①기피신청을 기각한 결정에 대하여는 즉시항고를 할 수 있다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.01629042997956276,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 23조  기피신청기각과 즉시항고 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 429조  재심청구의 취하#KOBLEX-232882"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 33,
+        "first_stage_score": 0.6107683777809143,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 429조  재심청구의 취하#KOBLEX-232882",
+        "provision_text": "①재심의 청구는 취하할 수 있다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.009801649488508701,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 429조  재심청구의 취하 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 436조  청구의 경합과 청구기각의 결정#KOBLEX-232897"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 55,
+        "first_stage_score": 0.6013056039810181,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 436조  청구의 경합과 청구기각의 결정#KOBLEX-232897",
+        "provision_text": "①항소기각의 확정판결과 그 판결에 의하여 확정된 제1심판결에 대하여 재심의 청구가 있는 경우에 제1심법원이 재심의 판결을 한 때에는 항소법원은 결정으로 재심의 청구를 기각하여야 한다. <개정 1963.12.13>",
+        "rerank_rank": 8,
+        "rerank_score": 0.007779387291520834,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 436조  청구의 경합과 청구기각의 결정 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 434조  동전#KOBLEX-232891"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 70,
+        "first_stage_score": 0.5967140197753906,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 434조  동전#KOBLEX-232891",
+        "provision_text": "①재심의 청구가 이유없다고 인정한 때에는 결정으로 기각하여야 한다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.00660916930064559,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 434조  동전 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 383조  상고이유#KOBLEX-232788"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 66,
+        "first_stage_score": 0.5979862809181213,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 383조  상고이유#KOBLEX-232788",
+        "provision_text": "3. 재심청구의 사유가 있는 때",
+        "rerank_rank": 10,
+        "rerank_score": 0.006105534266680479,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 383조  상고이유 3호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 361조 4 항소기각의 결정#KOBLEX-232719"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 72,
+        "first_stage_score": 0.5841885209083557,
+        "fusion_rank": 38,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 361조 4 항소기각의 결정#KOBLEX-232719",
+        "provision_text": "①항소인이나 변호인이 전조제1항의 기간 내에 항소이유서를 제출하지 아니한 때에는 결정으로 항소를 기각하여야 한다. 단, 직권조사사유가 있거나 항소장에 항소이유의 기재가 있는 때에는 예외로 한다.",
+        "rerank_rank": 38,
+        "rerank_score": 0.046233609318733215,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 361조 4 항소기각의 결정 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 364조  항소법원의 심판#KOBLEX-232748"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 10,
+        "first_stage_score": 0.6250618696212769,
+        "fusion_rank": 40,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 364조  항소법원의 심판#KOBLEX-232748",
+        "provision_text": "⑤항소이유 없음이 명백한 때에는 항소장, 항소이유서 기타의 소송기록에 의하여 변론없이 판결로써 항소를 기각할 수 있다. <개정 1963.12.13>",
+        "rerank_rank": 40,
+        "rerank_score": 0.019610712304711342,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 364조  항소법원의 심판 5항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 361조 4 항소기각의 결정#KOBLEX-232718"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 39,
+        "first_stage_score": 0.5967373847961426,
+        "fusion_rank": 42,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 361조 4 항소기각의 결정#KOBLEX-232718",
+        "provision_text": "제361조의4(항소기각의 결정)",
+        "rerank_rank": 42,
+        "rerank_score": 0.005521118640899658,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 361조 4 항소기각의 결정",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 430조  항소기각의 판결#KOBLEX-093541",
+          "군사법원법 430조  항소기각의 판결#KOBLEX-159506"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 79,
+        "first_stage_score": 0.5819403529167175,
+        "fusion_rank": 44,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 430조  항소기각의 판결#KOBLEX-093541",
+        "provision_text": "② 항소이유가 없음이 명백할 때에는 항소장, 항소이유서, 그 밖의 항소기록에 따라 변론 없이 판결로 항소를 기각할 수 있다.",
+        "rerank_rank": 44,
+        "rerank_score": 0.004661546088755131,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "군사법원법 430조  항소기각의 판결 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 361조 3 항소이유서와 답변서#KOBLEX-232713"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.6301144361495972,
+        "fusion_rank": 46,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 361조 3 항소이유서와 답변서#KOBLEX-232713",
+        "provision_text": "제361조의3(항소이유서와 답변서)",
+        "rerank_rank": 46,
+        "rerank_score": 0.0032206024043262005,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "형사소송법 361조 3 항소이유서와 답변서",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상고심절차에 관한 특례법 5조  판결의 특례#KOBLEX-027563"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 79,
+        "first_stage_score": 0.5791687965393066,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "상고심절차에 관한 특례법 5조  판결의 특례#KOBLEX-027563",
+        "provision_text": "① 제4조 및 「민사소송법」 제429조 본문에 따른 판결에는 이유를 적지 아니할 수 있다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.0013668714091181755,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "상고심절차에 관한 특례법 5조  판결의 특례 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 430조  항소기각의 판결#KOBLEX-093540",
+          "군사법원법 430조  항소기각의 판결#KOBLEX-159505"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 17,
+        "first_stage_score": 0.606109619140625,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 430조  항소기각의 판결#KOBLEX-093540",
+        "provision_text": "① 제414조 각 호의 어느 하나에 해당하는 사유가 없을 때에는 판결로 항소를 기각하여야 한다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.0011275713331997395,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "군사법원법 430조  항소기각의 판결 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "민사소송법 390조#KOBLEX-064551"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.6515111923217773,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "민사소송법 390조#KOBLEX-064551",
+        "provision_text": "제1장 항소",
+        "rerank_rank": 8,
+        "rerank_score": 0.0010219364194199443,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "민사소송법 390조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "군사법원법 430조  항소기각의 판결#KOBLEX-093540": "① 제414조 각 호의 어느 하나에 해당하는 사유가 없을 때에는 판결로 항소를 기각하여야 한다.",
+      "군사법원법 430조  항소기각의 판결#KOBLEX-093541": "② 항소이유가 없음이 명백할 때에는 항소장, 항소이유서, 그 밖의 항소기록에 따라 변론 없이 판결로 항소를 기각할 수 있다.",
+      "민사소송법 390조#KOBLEX-064551": "제1장 항소",
+      "상고심절차에 관한 특례법 5조  판결의 특례#KOBLEX-027563": "① 제4조 및 「민사소송법」 제429조 본문에 따른 판결에는 이유를 적지 아니할 수 있다.",
+      "형사소송법 23조  기피신청기각과 즉시항고#KOBLEX-231478": "①기피신청을 기각한 결정에 대하여는 즉시항고를 할 수 있다.",
+      "형사소송법 323조  유죄판결에 명시될 이유#KOBLEX-232617": "①형의 선고를 하는 때에는 판결이유에 범죄될 사실, 증거의 요지와 법령의 적용을 명시하여야 한다.",
+      "형사소송법 361조 3 항소이유서와 답변서#KOBLEX-232713": "제361조의3(항소이유서와 답변서)",
+      "형사소송법 361조 4 항소기각의 결정#KOBLEX-232718": "제361조의4(항소기각의 결정)",
+      "형사소송법 361조 4 항소기각의 결정#KOBLEX-232719": "①항소인이나 변호인이 전조제1항의 기간 내에 항소이유서를 제출하지 아니한 때에는 결정으로 항소를 기각하여야 한다. 단, 직권조사사유가 있거나 항소장에 항소이유의 기재가 있는 때에는 예외로 한다.",
+      "형사소송법 361조 5 항소이유#KOBLEX-232721": "제361조의5(항소이유) 다음 사유가 있을 경우에는 원심판결에 대한 항소이유로 할 수 있다. <개정 1963.12.13>",
+      "형사소송법 361조 5 항소이유#KOBLEX-232734": "13. 재심청구의 사유가 있는 때",
+      "형사소송법 364조  항소법원의 심판#KOBLEX-232744": "①항소법원은 항소이유에 포함된 사유에 관하여 심판하여야 한다. <개정 1963.12.13>",
+      "형사소송법 364조  항소법원의 심판#KOBLEX-232748": "⑤항소이유 없음이 명백한 때에는 항소장, 항소이유서 기타의 소송기록에 의하여 변론없이 판결로써 항소를 기각할 수 있다. <개정 1963.12.13>",
+      "형사소송법 369조  재판서의 기재방식#KOBLEX-232757": "제369조(재판서의 기재방식) 항소법원의 재판서에는 항소이유에 대한 판단을 기재하여야 하며 원심판결에 기재한 사실과 증거를 인용할 수 있다. <개정 1963.12.13>",
+      "형사소송법 383조  상고이유#KOBLEX-232788": "3. 재심청구의 사유가 있는 때",
+      "형사소송법 429조  재심청구의 취하#KOBLEX-232882": "①재심의 청구는 취하할 수 있다.",
+      "형사소송법 434조  동전#KOBLEX-232891": "①재심의 청구가 이유없다고 인정한 때에는 결정으로 기각하여야 한다.",
+      "형사소송법 436조  청구의 경합과 청구기각의 결정#KOBLEX-232897": "①항소기각의 확정판결과 그 판결에 의하여 확정된 제1심판결에 대하여 재심의 청구가 있는 경우에 제1심법원이 재심의 판결을 한 때에는 항소법원은 결정으로 재심의 청구를 기각하여야 한다. <개정 1963.12.13>"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "not_assessed",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [],
+            "rationale": "No supplied candidate provision explicitly lists 'lack of reasons' (사유 미기재) or a similar defect in the judgment as a ground for appeal. C001 is the header for the list but lacks the specific items. C003 refers to retrial grounds, not the specific defect of missing reasons in the original judgment as an appeal ground.",
+            "requirement_id": "E1-R1",
+            "status": "unsatisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "missing_statute",
+        "legal_status": "uncovered",
+        "linked_provision_ids": [],
+        "missing_aspects": [
+          "E1-R1"
+        ],
+        "partial_kind": "not_applicable",
+        "rationale": "The requirement E1-R1 asks for a statutory provision that explicitly lists 'lack of reasons' (사유 미기재) or a similar defect in the judgment as a ground for appeal. Candidate C001 provides the introductory text for Article 361-5 but does not contain the specific list items. Candidate C003 lists 'grounds for retrial' (재심청구의 사유) as item 13, which is a distinct legal concept from the specific defect of missing reasons in the original judgment. Candidate C005 establishes the obligation to state reasons in a guilty verdict but does not list the failure to do so as a statutory ground for appeal. No other supplied candidates directly entail the specific proposition required. Therefore, the evidence item remains uncovered.",
+        "status": "uncovered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [],
+    "last_retrieval_new_provision_count": 8,
+    "last_validated_event": "RESPONSE_ASSEMBLY.ABSTAIN",
+    "legal_issues": [
+      {
+        "description": "Whether the failure to state reasons in a first-instance criminal judgment constitutes a statutory ground for appeal.",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific article and clause that lists 'lack of reasons' or similar defects as a ground for appeal.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The provision must explicitly list 'lack of reasons' (사유 미기재) or a similar defect in the judgment as a ground for appeal."
+          }
+        ],
+        "critical": true,
+        "description": "Statutory provision listing grounds for appeal in criminal cases, specifically addressing defects in the judgment such as lack of reasons.",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "The question asks for a specific appeal ground; the statutory list of grounds is the primary source for this answer.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "no_progress_rounds": 2,
+    "normalized_question": "[배경 시나리오] 갑은 폭행 혐의로 1심에서 유죄 판결을 받았습니다. 하지만, 1심 판결문에는 갑이 어떤 이유로 유죄인지에 대한 사유가 전혀 제시되지 않았습니다. . 갑은 이러한 이유로 항소를 고려하고 있습니다. [질문] 갑은 1심 판결에 대해 항소를 제기하려고 합니다. 항소 이유로 주장할 수 있는 사유 중 하나는 무엇인가?",
+    "phase": "ABSTAINED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "형사소송법",
+          "항소이유",
+          "판결문",
+          "사유 미기재"
+        ],
+        "query_text": "형사소송법 항소이유 판결문 사유 미기재 [원문 맥락] 갑은 1심 판결에 대해 항소를 제기하려고 합니다. 항소 이유로 주장할 수 있는 사유 중 하나는 무엇인가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "형사소송법",
+          "제361조",
+          "항소이유",
+          "판결 이유",
+          "기재"
+        ],
+        "query_text": "형사소송법 제361조 제5항 항소이유 판결 이유의 기재가 없는 경우 [원문 맥락] 갑은 1심 판결에 대해 항소를 제기하려고 합니다. 항소 이유로 주장할 수 있는 사유 중 하나는 무엇인가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "항소이유",
+          "판결문",
+          "이유 미기재",
+          "상소이유"
+        ],
+        "query_text": "항소이유 판결문 이유 미기재 상소이유 [원문 맥락] 갑은 1심 판결에 대해 항소를 제기하려고 합니다. 항소 이유로 주장할 수 있는 사유 중 하나는 무엇인가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 폭행 혐의로 1심에서 유죄 판결을 받았습니다. 하지만, 1심 판결문에는 갑이 어떤 이유로 유죄인지에 대한 사유가 전혀 제시되지 않았습니다. . 갑은 이러한 이유로 항소를 고려하고 있습니다.\n\n[질문]\n갑은 1심 판결에 대해 항소를 제기하려고 합니다. 항소 이유로 주장할 수 있는 사유 중 하나는 무엇인가?",
+    "remaining_request_budget": 6,
+    "remaining_round_budget": 1,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "Identify the specific article and clause that lists 'lack of reasons' or similar defects as a ground for appeal.",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "The provision must explicitly list 'lack of reasons' (사유 미기재) or a similar defect in the judgment as a ground for appeal."
+          }
+        ],
+        "critical": true,
+        "description": "Statutory provision listing grounds for appeal in criminal cases, specifically addressing defects in the judgment such as lack of reasons.",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "The question asks for a specific appeal ground; the statutory list of grounds is the primary source for this answer.",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 2,
+    "run_id": "63c7b279-0dad-4e8d-a866-ecc79b67c215",
+    "seen_provision_ids": [
+      "형사소송법 323조  유죄판결에 명시될 이유#KOBLEX-232617",
+      "군사법원법 430조  항소기각의 판결#KOBLEX-093541",
+      "형사소송법 361조 3 항소이유서와 답변서#KOBLEX-232713",
+      "형사소송법 364조  항소법원의 심판#KOBLEX-232744",
+      "형사소송법 23조  기피신청기각과 즉시항고#KOBLEX-231478",
+      "형사소송법 361조 5 항소이유#KOBLEX-232734",
+      "형사소송법 436조  청구의 경합과 청구기각의 결정#KOBLEX-232897",
+      "형사소송법 364조  항소법원의 심판#KOBLEX-232748",
+      "형사소송법 361조 4 항소기각의 결정#KOBLEX-232718",
+      "형사소송법 434조  동전#KOBLEX-232891",
+      "형사소송법 361조 4 항소기각의 결정#KOBLEX-232719",
+      "민사소송법 390조#KOBLEX-064551",
+      "형사소송법 429조  재심청구의 취하#KOBLEX-232882",
+      "형사소송법 369조  재판서의 기재방식#KOBLEX-232757",
+      "형사소송법 383조  상고이유#KOBLEX-232788",
+      "상고심절차에 관한 특례법 5조  판결의 특례#KOBLEX-027563",
+      "형사소송법 361조 5 항소이유#KOBLEX-232721",
+      "군사법원법 430조  항소기각의 판결#KOBLEX-093540"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ABSTAIN",
+  "termination_reason": "NO_RETRIEVAL_PROGRESS"
+}

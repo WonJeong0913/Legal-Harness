@@ -1,0 +1,137 @@
+{
+  "batch_root": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c02e281-targeted-resume168-20260826/batches/c02e281-targeted-resume-ord042-054-061-226-20260826",
+  "created_at_utc": "2026-08-26T07:36:36.590456+00:00",
+  "execution_mode": "warm_persistent_kure_only",
+  "external_runner": {
+    "path": "/root/legal-harness-c02-targeted-resume-runner-20260826.py",
+    "sha256": "2cf12e799f5868d3bf580a31229b4c85bb1a5f4c81cc685358f3eb4d55f96026"
+  },
+  "frozen_configuration": {
+    "candidate_budget_scope": "per_round",
+    "candidate_selection": "evidence_balanced",
+    "condition": "V2-KURE-offline-full226-Qwen3.8-Q8_0",
+    "conditional_generation": "answer_target_full_conditional_limited",
+    "contextual_query_dedup": "after_source_context_attachment",
+    "coverage_contract": "legal_applicability_criterion_results",
+    "dedup_mode": "legal_text_alias",
+    "factual_branch_classification": "missing_selector_is_partial_not_legal_conflict",
+    "final_top_k": 10,
+    "input_format": "koblex_background_plus_question",
+    "model": "legal-harness-qwen38-q8",
+    "model_provenance": {
+      "alias": "legal-harness-qwen38-q8",
+      "file": "Qwen3.8-27B-Q8_0.gguf",
+      "observed_architecture": "qwen35",
+      "observed_parameter_count": "26.9B",
+      "ollama_details": {
+        "family": "qwen35",
+        "parameter_size": "26.9B",
+        "quantization_level": "Q8_0"
+      },
+      "ollama_manifest_digest": "91f49c230b9d1fd034414b1035b361cfe4ad1c89f7076012b10420edea8b78ff",
+      "ollama_model_blob": "/root/.ollama/models/blobs/sha256-f5c702d8820d36fb55985bb238fc83ee3a313e920f4b752a437c3a6a9e14e4c8",
+      "provenance_note": "Observed local Ollama metadata; architecture is recorded, not relabeled.",
+      "quantization": "Q8_0",
+      "sha256": "f5c702d8820d36fb55985bb238fc83ee3a313e920f4b752a437c3a6a9e14e4c8"
+    },
+    "monotonic_coverage": true,
+    "num_ctx": 32768,
+    "ollama_endpoint": "http://127.0.0.1:11435/api/generate",
+    "per_evidence_min_k": 1,
+    "planning_contract": "answer_targets_required",
+    "rerank_document_mode": "statute_and_body",
+    "rerank_pool_k": 100,
+    "rerank_query_mode": "per_request",
+    "reranker": "dragonkue--bge-reranker-v2-m3-ko",
+    "retrieval_stage_provenance_required_for_evaluation": true,
+    "retriever": "kure",
+    "retriever_provenance": {
+      "device": "cuda",
+      "dimensions": 1024,
+      "distance": "exact cosine via normalized dot product",
+      "documents": 233544,
+      "model_id": "nlpai-lab/KURE-v1",
+      "model_path": "models/huggingface/nlpai-lab--KURE-v1",
+      "model_weights_sha256": "c18156e80caf8ff45eb84a24a853130c3bca03087ccb41b051f86e7556bae02c",
+      "normalized_corpus_path": "data/koblex/normalized/statute.jsonl",
+      "normalized_corpus_sha256": "0e2283c7bcfa8f92d3ea7d4dd249449a31c0528b47dde04ab408bee45e0857b0",
+      "provision_ids_path": "data/koblex/indexes/kure-v1/provision_ids.txt",
+      "provision_ids_sha256": "37333588e1692927d5e6925e4f6bde1ea2d8291f3fda2dddbdad18507445cff8",
+      "vectors_path": "data/koblex/indexes/kure-v1/vectors.f32.npy",
+      "vectors_sha256": "3e312dbf4cf24e7b91bc9833a9001416d85644e6868bdb657d889bd535a9d983"
+    },
+    "round_merge_mode": "request_rank_top1_guarded_swap",
+    "runtime_determinism": {
+      "GGML_CUDA_DISABLE_GRAPHS": 1,
+      "flash_attention": false,
+      "num_parallel": 1,
+      "ollama_version": "0.20.5",
+      "prompt_run_id_placeholder": "__HARNESS_RUN_ID__",
+      "seed_forwarding": "ollama_options_seed"
+    },
+    "s1_max_tokens": 4096,
+    "s1_truncation_retry_max_tokens": 8192,
+    "s3_audit_fields": [
+      "assumptions",
+      "limitations",
+      "claims",
+      "claim_citations"
+    ],
+    "s3_claim_contract": "all_claims_cited_uncited_limitations_outside_claims",
+    "s3_public_answer_format": "conclusion_first_1_to_3_short_sentences",
+    "s3_public_answer_max_characters": 800,
+    "s3_public_answer_max_claims": 3,
+    "seed": 0,
+    "skill_max_tokens": {
+      "grounded_legal_answer_generation": 3072,
+      "legal_issue_and_query_planning": 4096,
+      "provision_coverage_assessment": 3072
+    },
+    "total_retrieval_requests": 9,
+    "total_retrieval_rounds": 3
+  },
+  "original_abnormal_evidence": {
+    "abnormal_tasks": [
+      {
+        "ordinal": 42,
+        "question_id": "qa_406_2hop_622",
+        "run_id": "9671a242-57c9-41db-82f6-20073a347c89",
+        "status": "EXECUTION_FAILURE"
+      },
+      {
+        "ordinal": 54,
+        "question_id": "qa_99_1hop_167",
+        "run_id": "f3672ffa-0b03-4e77-b0d4-fb29655da702",
+        "status": "EXECUTION_FAILURE"
+      }
+    ],
+    "checkpoint": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-20260825-c02e281-deterministic-ties/full226/checkpoints/checkpoint-060-attempt-aeba667025b44d7f879fc22500e97f61.json",
+    "checkpoint_sha256": "e380bbe66e4a9ab761bca92368a3cbbbc851bb4e32dbcfac714cb343e85d5263",
+    "summary": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-20260825-c02e281-deterministic-ties/full226/checkpoints/batch-060-attempt-aeba667025b44d7f879fc22500e97f61/summary.jsonl",
+    "summary_sha256": "d320fcbc790092bff11df1c76628971c33e47089d637b7542ff7190e1e7951c3"
+  },
+  "primary_manifest_sha256": "4e1109bb6930a96125ddcc3e26a16ff2f356438197a9d2e862e0bbec8a07ac61",
+  "record_root": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c02e281-targeted-resume168-20260826/records/runs",
+  "reference_execution": "FORBIDDEN",
+  "reference_manifest_sha256": "289bc70e81fa77066273960dbe1ba74121b9dd68be5b7c3dee63ee289ceeaa95",
+  "retriever_comparison": {
+    "allowed_differences": [
+      "condition",
+      "retriever",
+      "retriever_provenance"
+    ],
+    "comparable_configuration_sha256": "6de29afd61f26904df360d65518c2f02d8014e6787ff1067133e50305dae3564",
+    "entry_count": 226,
+    "primary_manifest": "/tmp/legal-harness-v2-semantic-s2-nmbvUZ/worktree/frozen_manifests/v2_kure_full226.json",
+    "primary_retriever": "kure",
+    "reference_manifest": "/tmp/legal-harness-v2-semantic-s2-nmbvUZ/worktree/frozen_manifests/v2_bm25_reference_full226.json",
+    "reference_retriever": "bm25",
+    "status": "VALIDATED_IDENTICAL_EXCEPT_RETRIEVER"
+  },
+  "schema_version": "c02_targeted_resume_metadata_v1",
+  "source_commit": "c02e2818ad54e9d5a1a9bd02b604e987192bb244",
+  "source_metadata_sha256": "3f11a6c9a876eb245c007dad1a584454939d0cd4df2813df83b28e7806f383d5",
+  "source_tree": "9fcb0ebceb0b3d96955f1626f2c952a457be930f",
+  "task_count": 168,
+  "task_sequence_sha256": "190af662a1c5a005dc8135f173aad29bf62ff20f18fe91922647212591177bd9"
+}

@@ -1,0 +1,76 @@
+{
+  "abnormal_question_ids": [
+    "qa_116_1hop_207",
+    "qa_125_1hop_225",
+    "qa_273_2hop_431"
+  ],
+  "batch_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c24-20260827-cc58d932/diagnostic21/checkpoints/batch-020-attempt-bf7de2a345dc45b3838ed6d8c5277832",
+  "bm25_execution": "FORBIDDEN",
+  "checkpoint_range": [
+    1,
+    20
+  ],
+  "checkpoint_status": "ERRORS_FOUND",
+  "completed_questions": 20,
+  "diagnostic21_checkpoint_role": "FIRST_CHUNK_COVERAGE_CHECKPOINT_NOT_A_FINAL_GATE",
+  "evaluation_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c24-20260827-cc58d932/diagnostic21/evaluations/checkpoint-020-attempt-bf7de2a345dc45b3838ed6d8c5277832",
+  "evaluator_command": [
+    "/usr/bin/python3.10",
+    "/tmp/legal-harness-c24-integrated-20260827/scripts/evaluate_dev_runs.py",
+    "--batch-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c24-20260827-cc58d932/diagnostic21/checkpoints/batch-020-attempt-bf7de2a345dc45b3838ed6d8c5277832",
+    "--output-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c24-20260827-cc58d932/diagnostic21/evaluations/checkpoint-020-attempt-bf7de2a345dc45b3838ed6d8c5277832",
+    "--require-stage-provenance"
+  ],
+  "event": "DIAGNOSTIC21_CHECKPOINT20_COMPLETED",
+  "lf_eval_score_injection": "FORBIDDEN",
+  "metrics": {
+    "abstain_count": 3,
+    "answer_count": 14,
+    "citation_integrity": {
+      "attempted": 14,
+      "pass_rate": 1.0,
+      "passed": 14
+    },
+    "complete_evidence_count": 5,
+    "complete_evidence_rate": 0.25,
+    "execution_failure_count": 3,
+    "outcome_counts": {
+      "ABSTAIN": 3,
+      "ANSWER": 14,
+      "EXECUTION_FAILURE": 3
+    },
+    "provision_exact_match_count": 3,
+    "provision_exact_match_rate": 0.15,
+    "provision_macro_f1": 0.5533333333333333,
+    "provision_macro_precision": 0.6416666666666666,
+    "provision_macro_recall": 0.525,
+    "provision_micro_f1": 0.6086956521739131,
+    "token_f1_answered_only": 0.3631035600131956,
+    "token_f1_candidate": 0.29605783864409563,
+    "token_f1_end_to_end": 0.2541724920092369
+  },
+  "public_abstain_invalid_result_question_ids": [],
+  "public_abstain_leak_question_ids": [],
+  "public_abstain_missing_result_question_ids": [],
+  "recorded_at_utc": "2026-08-27T16:52:15.007054+00:00",
+  "recorded_errors": {
+    "qa_116_1hop_207": [
+      "legal_issue_and_query_planning did not produce a valid INITIAL_PLAN result after 2 attempts: question_anchor is not a question substring: T1"
+    ],
+    "qa_125_1hop_225": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: duplicate normalized query in output: 형사소송법 항소이유 판단의 이유 불기재 [원문 맥락] 갑은 1심 판결에 대해 항소를 제기하려고 합니다. 항소 이유로 주장할 수 있는 사유 중 하나는 무엇인가?"
+    ],
+    "qa_273_2hop_431": [
+      "provision_coverage_assessment did not produce a valid ASSESS_COVERAGE result after 2 attempts: partially_covered consistency failure: E1"
+    ]
+  },
+  "stage_provenance_missing": [],
+  "total_questions": 21,
+  "unexpected_exit_question_ids": [],
+  "validation_errors": [
+    "abnormal_outcomes=3",
+    "recorded_errors=3"
+  ]
+}

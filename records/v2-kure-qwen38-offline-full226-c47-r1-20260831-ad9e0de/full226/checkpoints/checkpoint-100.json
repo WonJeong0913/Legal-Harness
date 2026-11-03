@@ -1,0 +1,82 @@
+{
+  "abnormal_question_ids": [],
+  "batch_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c47-r1-20260831-ad9e0de/full226/checkpoints/batch-100-attempt-4022ccf905de466593015979cbe15749",
+  "bm25_execution": "FORBIDDEN",
+  "checkpoint_range": [
+    81,
+    100
+  ],
+  "checkpoint_status": "COMPLETED_WITH_ERRORS",
+  "collection_status": "COMPLETE_WITH_EXPLICIT_EXECUTION_FAILURES",
+  "completed_questions": 100,
+  "evaluation_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c47-r1-20260831-ad9e0de/full226/evaluations/checkpoint-100-attempt-4022ccf905de466593015979cbe15749",
+  "evaluator_command": [
+    "/usr/bin/python3.10",
+    "/root/worktrees/legal-harness-c47-s2-covered-consistency-20260831/scripts/evaluate_dev_runs.py",
+    "--batch-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c47-r1-20260831-ad9e0de/full226/checkpoints/batch-100-attempt-4022ccf905de466593015979cbe15749",
+    "--output-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-c47-r1-20260831-ad9e0de/full226/evaluations/checkpoint-100-attempt-4022ccf905de466593015979cbe15749",
+    "--require-stage-provenance"
+  ],
+  "evaluator_elapsed_seconds": 3.7307103050115984,
+  "event": "CHECKPOINT_COMPLETED",
+  "execution_failure_count": 2,
+  "execution_failure_errors": {
+    "qa_168_3hop_301": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: GAP_QUERY_PLAN query_terms omit trusted Korean fact/effect anchors: evidence_item_id=E2; missing_anchors=상속인 상속재산"
+    ],
+    "qa_309_3hop_881_rand2": [
+      "legal_issue_and_query_planning did not produce a valid INITIAL_PLAN result after 2 attempts: question_anchor is not a question substring: T1"
+    ]
+  },
+  "execution_failure_question_ids": [
+    "qa_309_3hop_881_rand2",
+    "qa_168_3hop_301"
+  ],
+  "lf_eval_score_injection": "FORBIDDEN",
+  "metrics": {
+    "abstain_count": 13,
+    "answer_count": 85,
+    "citation_integrity": {
+      "attempted": 85,
+      "pass_rate": 1.0,
+      "passed": 85
+    },
+    "complete_evidence_count": 57,
+    "complete_evidence_rate": 0.57,
+    "execution_failure_count": 2,
+    "mean_latency_ms": 143125.96115,
+    "median_latency_ms": 123739.138,
+    "outcome_counts": {
+      "ABSTAIN": 13,
+      "ANSWER": 85,
+      "EXECUTION_FAILURE": 2
+    },
+    "p95_latency_ms": 257631.83199999997,
+    "provision_exact_match_count": 46,
+    "provision_exact_match_rate": 0.46,
+    "provision_macro_f1": 0.7357142857142858,
+    "provision_macro_precision": 0.7775,
+    "provision_macro_recall": 0.7366666666666667,
+    "provision_micro_f1": 0.7397959183673469,
+    "token_f1_answered_only": 0.38335729494435405,
+    "token_f1_candidate": 0.35013230946858837,
+    "token_f1_end_to_end": 0.3258537007027009
+  },
+  "recorded_errors": {
+    "qa_168_3hop_301": [
+      "legal_issue_and_query_planning did not produce a valid GAP_QUERY_PLAN result after 2 attempts: GAP_QUERY_PLAN query_terms omit trusted Korean fact/effect anchors: evidence_item_id=E2; missing_anchors=상속인 상속재산"
+    ],
+    "qa_309_3hop_881_rand2": [
+      "legal_issue_and_query_planning did not produce a valid INITIAL_PLAN result after 2 attempts: question_anchor is not a question substring: T1"
+    ]
+  },
+  "remaining_eta_ms": 18033871.1049,
+  "remaining_eta_seconds": 18033.871104899998,
+  "remaining_eta_utc": "2026-08-31T15:29:11.041475+00:00",
+  "stage_provenance_missing": [],
+  "total_questions": 226,
+  "unexpected_exit_question_ids": [],
+  "validation_errors": []
+}

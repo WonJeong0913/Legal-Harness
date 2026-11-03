@@ -1,0 +1,593 @@
+{
+  "abstention_reason": null,
+  "answer": "업무상 부상 또는 질병으로 요양을 하고 있는 근로자에게 산재보험 의료기관 내에서 업무상 부상 또는 질병의 요양과 관련하여 발생한 사고가 발생하면 업무상 사고로 봅니다.[CT1][CT2]\n산재 요양 중 산재보험 의료기관 내에서 업무상 부상 또는 질병의 요양과 관련하여 발생한 사고는 업무상 사고로 인정됩니다.[CT3]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "A1",
+      "message": "갑이 산재보험 의료기관 내에서 업무상 부상 또는 질병의 요양과 관련하여 사고를 입은 것으로 가정합니다."
+    }
+  ],
+  "candidate_answer": "업무상 부상 또는 질병으로 요양을 하고 있는 근로자에게 산재보험 의료기관 내에서 업무상 부상 또는 질병의 요양과 관련하여 발생한 사고가 발생하면 업무상 사고로 봅니다.[CT1][CT2]\n산재 요양 중 산재보험 의료기관 내에서 업무상 부상 또는 질병의 요양과 관련하여 발생한 사고는 업무상 사고로 인정됩니다.[CT3]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191608",
+      "quoted_text": "제32조(요양 중의 사고) 업무상 부상 또는 질병으로 요양을 하고 있는 근로자에게 다음 각 호의 어느 하나에 해당하는 사고가 발생하면 법 제37조제1항제1호바목에 따른 업무상 사고로 본다. <개정 2018.12.11>",
+      "support_description": "요양 중 사고의 업무상 사고 인정 일반 원칙을 규정합니다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C1",
+      "provision_id": "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191610",
+      "quoted_text": "2. 요양 중인 산재보험 의료기관(산재보험 의료기관이 아닌 의료기관에서 응급진료 등을 받는 경우에는 그 의료기관을 말한다. 이하 이 조에서 같다) 내에서 업무상 부상 또는 질병의 요양과 관련하여 발생한 사고",
+      "support_description": "산재보험 의료기관 내 요양 관련 사고를 업무상 사고로 규정합니다."
+    },
+    {
+      "answer_marker": "[CT3]",
+      "citation_id": "CT3",
+      "claim_id": "C2",
+      "provision_id": "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191610",
+      "quoted_text": "2. 요양 중인 산재보험 의료기관(산재보험 의료기관이 아닌 의료기관에서 응급진료 등을 받는 경우에는 그 의료기관을 말한다. 이하 이 조에서 같다) 내에서 업무상 부상 또는 질병의 요양과 관련하여 발생한 사고",
+      "support_description": "질문의 사실관계(산재 요양 중, 산재보험 의료기관, 요양 관련 사고)에 직접 적용되는 규정입니다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "업무상 부상 또는 질병으로 요양을 하고 있는 근로자에게 산재보험 의료기관 내에서 업무상 부상 또는 질병의 요양과 관련하여 발생한 사고가 발생하면 업무상 사고로 봅니다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "application",
+      "text": "산재 요양 중 산재보험 의료기관 내에서 업무상 부상 또는 질병의 요양과 관련하여 발생한 사고는 업무상 사고로 인정됩니다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-25T03:25:27.070020+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 246328.06,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "L1",
+      "message": "본 답변은 산업재해보상보험법 시행령 제32조에 근거한 법적 결론이며, 개별 사건의 구체적 사실관계에 따른 최종 판단은 관련 기관의 확인이 필요합니다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 100,
+      "evidence_fusion": 100,
+      "first_stage": 100,
+      "request_rerank": 100,
+      "round_selected": 10,
+      "rrf": 100,
+      "selected": 100
+    }
+  },
+  "run_id": "e2f1723d-95ff-4093-91b2-10e7105e0dc6",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191610",
+      "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191608",
+      "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191609"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 1,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 1,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "이 사고는 업무상 재해로 인정될 수 있는가?",
+        "requested_output": "산재 요양 중 산재보험 의료기관 내 의료사고로 인한 추가 상해의 업무상 재해 인정 여부"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "산업재해보상보험법 시행령 27조#KOBLEX-191593"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 49,
+        "first_stage_score": 0.5829982161521912,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "산업재해보상보험법 시행령 27조#KOBLEX-191593",
+        "provision_text": "제2절 업무상의 재해의 인정 기준",
+        "rerank_rank": 1,
+        "rerank_score": 0.9999586343765259,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "산업재해보상보험법 시행령 27조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "산업재해보상보험법 37조  업무상의 재해의 인정 기준#KOBLEX-166719"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 93,
+        "first_stage_score": 0.5476844906806946,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "산업재해보상보험법 37조  업무상의 재해의 인정 기준#KOBLEX-166719",
+        "provision_text": "⑤ 업무상의 재해의 구체적인 인정 기준은 대통령령으로 정한다. <개정 2017.10.24>",
+        "rerank_rank": 2,
+        "rerank_score": 0.9999490976333618,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "산업재해보상보험법 37조  업무상의 재해의 인정 기준 5항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "산업재해보상보험법 시행령 28조  시설물 등의 결함 등에 따른 사고#KOBLEX-191600"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 44,
+        "first_stage_score": 0.5860401391983032,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "산업재해보상보험법 시행령 28조  시설물 등의 결함 등에 따른 사고#KOBLEX-191600",
+        "provision_text": "② 사업주가 제공한 시설물등을 사업주의 구체적인 지시를 위반하여 이용한 행위로 발생한 사고와 그 시설물등의 관리 또는 이용권이 근로자의 전속적 권한에 속하는 경우에 그 관리 또는 이용 중에 발생한 사고는 법 제37조제1항제1호나목에 따른 업무상 사고로 보지 않는다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.9999489784240723,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "산업재해보상보험법 시행령 28조  시설물 등의 결함 등에 따른 사고 2항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "산업재해보상보험법 시행령 27조  업무수행 중의 사고#KOBLEX-191597"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 73,
+        "first_stage_score": 0.5628073215484619,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "산업재해보상보험법 시행령 27조  업무수행 중의 사고#KOBLEX-191597",
+        "provision_text": "③ 업무의 성질상 업무수행 장소가 정해져 있지 않은 근로자가 최초로 업무수행 장소에 도착하여 업무를 시작한 때부터 최후로 업무를 완수한 후 퇴근하기 전까지 업무와 관련하여 발생한 사고는 법 제37조제1항제1호가목에 따른 업무상 사고로 본다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.9999469518661499,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "산업재해보상보험법 시행령 27조  업무수행 중의 사고 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191610"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.7466880083084106,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191610",
+        "provision_text": "2. 요양 중인 산재보험 의료기관(산재보험 의료기관이 아닌 의료기관에서 응급진료 등을 받는 경우에는 그 의료기관을 말한다. 이하 이 조에서 같다) 내에서 업무상 부상 또는 질병의 요양과 관련하여 발생한 사고",
+        "rerank_rank": 5,
+        "rerank_score": 0.9999433755874634,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "산업재해보상보험법 시행령 32조  요양 중의 사고 2호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "산업재해보상보험법 시행령 33조  제3자의 행위에 따른 사고#KOBLEX-191612"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 58,
+        "first_stage_score": 0.5727015733718872,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "산업재해보상보험법 시행령 33조  제3자의 행위에 따른 사고#KOBLEX-191612",
+        "provision_text": "제33조(제3자의 행위에 따른 사고) 제3자의 행위로 근로자에게 사고가 발생한 경우에 그 근로자가 담당한 업무가 사회통념상 제3자의 가해행위를 유발할 수 있는 성질의 업무라고 인정되면 그 사고는 법 제37조제1항제1호바목에 따른 업무상 사고로 본다.",
+        "rerank_rank": 6,
+        "rerank_score": 0.9999346733093262,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "산업재해보상보험법 시행령 33조  제3자의 행위에 따른 사고",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "산업재해보상보험법 시행령 28조  시설물 등의 결함 등에 따른 사고#KOBLEX-191599"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 56,
+        "first_stage_score": 0.5730204582214355,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "산업재해보상보험법 시행령 28조  시설물 등의 결함 등에 따른 사고#KOBLEX-191599",
+        "provision_text": "① 사업주가 제공한 시설물, 장비 또는 차량 등(이하 이 조에서 \"시설물등\"이라 한다)의 결함이나 사업주의 관리 소홀로 발생한 사고는 법 제37조제1항제1호나목에 따른 업무상 사고로 본다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.9999314546585083,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "산업재해보상보험법 시행령 28조  시설물 등의 결함 등에 따른 사고 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191609"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 60,
+        "first_stage_score": 0.5726177096366882,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191609",
+        "provision_text": "1. 요양급여와 관련하여 발생한 의료사고",
+        "rerank_rank": 8,
+        "rerank_score": 0.9999301433563232,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "산업재해보상보험법 시행령 32조  요양 중의 사고 1호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "산업재해보상보험법 시행령 36조  자해행위에 따른 업무상의 재해의 인정 기준#KOBLEX-191628"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 77,
+        "first_stage_score": 0.5606027245521545,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "산업재해보상보험법 시행령 36조  자해행위에 따른 업무상의 재해의 인정 기준#KOBLEX-191628",
+        "provision_text": "3. 그 밖에 업무상의 사유로 인한 정신적 이상 상태에서 자해행위를 하였다는 상당인과관계가 인정되는 경우",
+        "rerank_rank": 9,
+        "rerank_score": 0.9999289512634277,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "산업재해보상보험법 시행령 36조  자해행위에 따른 업무상의 재해의 인정 기준 3호",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191608"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.7028087973594666,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191608",
+        "provision_text": "제32조(요양 중의 사고) 업무상 부상 또는 질병으로 요양을 하고 있는 근로자에게 다음 각 호의 어느 하나에 해당하는 사고가 발생하면 법 제37조제1항제1호바목에 따른 업무상 사고로 본다. <개정 2018.12.11>",
+        "rerank_rank": 10,
+        "rerank_score": 0.9999268054962158,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "산업재해보상보험법 시행령 32조  요양 중의 사고",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "산업재해보상보험법 37조  업무상의 재해의 인정 기준#KOBLEX-166719": "⑤ 업무상의 재해의 구체적인 인정 기준은 대통령령으로 정한다. <개정 2017.10.24>",
+      "산업재해보상보험법 시행령 27조  업무수행 중의 사고#KOBLEX-191597": "③ 업무의 성질상 업무수행 장소가 정해져 있지 않은 근로자가 최초로 업무수행 장소에 도착하여 업무를 시작한 때부터 최후로 업무를 완수한 후 퇴근하기 전까지 업무와 관련하여 발생한 사고는 법 제37조제1항제1호가목에 따른 업무상 사고로 본다.",
+      "산업재해보상보험법 시행령 27조#KOBLEX-191593": "제2절 업무상의 재해의 인정 기준",
+      "산업재해보상보험법 시행령 28조  시설물 등의 결함 등에 따른 사고#KOBLEX-191599": "① 사업주가 제공한 시설물, 장비 또는 차량 등(이하 이 조에서 \"시설물등\"이라 한다)의 결함이나 사업주의 관리 소홀로 발생한 사고는 법 제37조제1항제1호나목에 따른 업무상 사고로 본다.",
+      "산업재해보상보험법 시행령 28조  시설물 등의 결함 등에 따른 사고#KOBLEX-191600": "② 사업주가 제공한 시설물등을 사업주의 구체적인 지시를 위반하여 이용한 행위로 발생한 사고와 그 시설물등의 관리 또는 이용권이 근로자의 전속적 권한에 속하는 경우에 그 관리 또는 이용 중에 발생한 사고는 법 제37조제1항제1호나목에 따른 업무상 사고로 보지 않는다.",
+      "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191608": "제32조(요양 중의 사고) 업무상 부상 또는 질병으로 요양을 하고 있는 근로자에게 다음 각 호의 어느 하나에 해당하는 사고가 발생하면 법 제37조제1항제1호바목에 따른 업무상 사고로 본다. <개정 2018.12.11>",
+      "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191609": "1. 요양급여와 관련하여 발생한 의료사고",
+      "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191610": "2. 요양 중인 산재보험 의료기관(산재보험 의료기관이 아닌 의료기관에서 응급진료 등을 받는 경우에는 그 의료기관을 말한다. 이하 이 조에서 같다) 내에서 업무상 부상 또는 질병의 요양과 관련하여 발생한 사고",
+      "산업재해보상보험법 시행령 33조  제3자의 행위에 따른 사고#KOBLEX-191612": "제33조(제3자의 행위에 따른 사고) 제3자의 행위로 근로자에게 사고가 발생한 경우에 그 근로자가 담당한 업무가 사회통념상 제3자의 가해행위를 유발할 수 있는 성질의 업무라고 인정되면 그 사고는 법 제37조제1항제1호바목에 따른 업무상 사고로 본다.",
+      "산업재해보상보험법 시행령 36조  자해행위에 따른 업무상의 재해의 인정 기준#KOBLEX-191628": "3. 그 밖에 업무상의 사유로 인한 정신적 이상 상태에서 자해행위를 하였다는 상당인과관계가 인정되는 경우"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191608",
+              "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191609",
+              "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191610"
+            ],
+            "rationale": "C010, C008, C005 조항을 통해 산재 요양 중 산재보험 의료기관에서 발생한 사고(의료사고 포함)가 업무상 재해로 인정된다는 법적 규정이 명확히 확인되었다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191608",
+          "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191609",
+          "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191610"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "제시된 후보 조항들은 산재 요양 중 산재보험 의료기관에서 발생한 의료사고가 업무상 재해로 인정되는지 여부에 대한 법적 근거를 충분히 제공한다. C010은 요양 중 사고의 업무상 사고 인정 일반 원칙을, C008과 C005는 각각 요양급여 관련 의료사고와 산재보험 의료기관 내 요양 관련 사고를 구체적으로 업무상 사고로 규정하여 질문의 사실관계(산재 요양 중, 산재보험 의료기관, 의료과실로 인한 추가 상해)에 직접 적용 가능한 법적 규정을 형성한다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191608",
+        "support_spans": [
+          {
+            "end_char": 121,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191609",
+        "support_spans": [
+          {
+            "end_char": 22,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191610",
+        "support_spans": [
+          {
+            "end_char": 115,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "산재 요양 중 산재보험 의료기관에서 발생한 의료사고가 업무상 재해에 해당하는지 여부",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 제조업체에서 일하는 근로자 갑은 업무 중 기계에 손을 다쳐 산업재해로 인정받아 요양 중에 있다. 갑은 정기적인 치료를 위해 지정된 산재보험 의료기관에 통원하고 있으며, 최근 병원 내 시술 중 의료과실로 인해 새로운 상해를 입었다. 이로 인해 갑은 기존 재해 외에 추가 상해까지 입게 되었고, 해당 사고도 산재로 인정받을 수 있는지 궁금해졌다. [질문] 산재로 요양 중인 근로자 갑이 산재보험 의료기관에서 치료를 받다 의료사고로 추가 상해를 입은 경우, 이 사고는 업무상 재해로 인정될 수 있는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "산재 요양",
+          "산재보험 의료기관",
+          "업무상 재해",
+          "의료사고"
+        ],
+        "query_text": "산재 요양 중 산재보험 의료기관에서 발생한 사고 업무상 재해 인정 [원문 맥락] 이로 인해 갑은 기존 재해 외에 추가 상해까지 입게 되었고, 해당 사고도 산재로 인정받을 수 있는지 궁금해졌다. 산재로 요양 중인 근로자 갑이 산재보험 의료기관에서 치료를 받다 의료사고로 추가 상해를 입은 경우, 이 사고는 업무상 재해로 인정될 수 있는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "산업재해보상보험법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n제조업체에서 일하는 근로자 갑은 업무 중 기계에 손을 다쳐 산업재해로 인정받아 요양 중에 있다. 갑은 정기적인 치료를 위해 지정된 산재보험 의료기관에 통원하고 있으며, 최근 병원 내 시술 중 의료과실로 인해 새로운 상해를 입었다. 이로 인해 갑은 기존 재해 외에 추가 상해까지 입게 되었고, 해당 사고도 산재로 인정받을 수 있는지 궁금해졌다.\n\n[질문]\n산재로 요양 중인 근로자 갑이 산재보험 의료기관에서 치료를 받다 의료사고로 추가 상해를 입은 경우, 이 사고는 업무상 재해로 인정될 수 있는가?",
+    "remaining_request_budget": 8,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "산재 요양 중 산재보험 의료기관에서 발생한 사고가 업무상 재해로 인정되는지 명시하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "산재 요양 중 산재보험 의료기관에서 발생한 사고의 업무상 재해 인정 여부"
+          }
+        ],
+        "critical": true,
+        "description": "산재 요양 중 산재보험 의료기관에서 발생한 사고의 업무상 재해 인정 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 요구하는 법적 결론을 도출하기 위한 핵심 규정",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "e2f1723d-95ff-4093-91b2-10e7105e0dc6",
+    "seen_provision_ids": [
+      "산업재해보상보험법 37조  업무상의 재해의 인정 기준#KOBLEX-166719",
+      "산업재해보상보험법 시행령 27조  업무수행 중의 사고#KOBLEX-191597",
+      "산업재해보상보험법 시행령 27조#KOBLEX-191593",
+      "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191608",
+      "산업재해보상보험법 시행령 36조  자해행위에 따른 업무상의 재해의 인정 기준#KOBLEX-191628",
+      "산업재해보상보험법 시행령 28조  시설물 등의 결함 등에 따른 사고#KOBLEX-191599",
+      "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191610",
+      "산업재해보상보험법 시행령 33조  제3자의 행위에 따른 사고#KOBLEX-191612",
+      "산업재해보상보험법 시행령 28조  시설물 등의 결함 등에 따른 사고#KOBLEX-191600",
+      "산업재해보상보험법 시행령 32조  요양 중의 사고#KOBLEX-191609"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

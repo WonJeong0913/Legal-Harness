@@ -1,0 +1,71 @@
+{
+  "abnormal_question_ids": [
+    "qa_215_2hop_820_rand"
+  ],
+  "batch_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-20260825-da395254-gap-repair-user-approved/full226/checkpoints/batch-040-attempt-256f022ede9d4933a321b2a1c4c6676a",
+  "bm25_execution": "FORBIDDEN",
+  "checkpoint_range": [
+    21,
+    40
+  ],
+  "checkpoint_status": "ERRORS_FOUND",
+  "completed_questions": 40,
+  "evaluation_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-20260825-da395254-gap-repair-user-approved/full226/evaluations/checkpoint-040-attempt-256f022ede9d4933a321b2a1c4c6676a",
+  "evaluator_command": [
+    "/usr/bin/python3.10",
+    "/tmp/legal-harness-v2-gap-repair.FpDvIl/worktree/scripts/evaluate_dev_runs.py",
+    "--batch-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-20260825-da395254-gap-repair-user-approved/full226/checkpoints/batch-040-attempt-256f022ede9d4933a321b2a1c4c6676a",
+    "--output-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-full226-20260825-da395254-gap-repair-user-approved/full226/evaluations/checkpoint-040-attempt-256f022ede9d4933a321b2a1c4c6676a",
+    "--require-stage-provenance"
+  ],
+  "evaluator_elapsed_seconds": 2.384523769142106,
+  "event": "CHECKPOINT_COMPLETED",
+  "lf_eval_score_injection": "FORBIDDEN",
+  "metrics": {
+    "abstain_count": 2,
+    "answer_count": 37,
+    "citation_integrity": {
+      "attempted": 37,
+      "pass_rate": 1.0,
+      "passed": 37
+    },
+    "complete_evidence_count": 24,
+    "complete_evidence_rate": 0.6,
+    "execution_failure_count": 1,
+    "mean_latency_ms": 239611.68495,
+    "median_latency_ms": 227049.06949999998,
+    "outcome_counts": {
+      "ABSTAIN": 2,
+      "ANSWER": 37,
+      "EXECUTION_FAILURE": 1
+    },
+    "p95_latency_ms": 459153.7908999997,
+    "provision_exact_match_count": 16,
+    "provision_exact_match_rate": 0.4,
+    "provision_macro_f1": 0.7146428571428571,
+    "provision_macro_precision": 0.71875,
+    "provision_macro_recall": 0.7583333333333333,
+    "provision_micro_f1": 0.6878980891719746,
+    "token_f1_answered_only": 0.3819880560969012,
+    "token_f1_candidate": 0.3590363251785718,
+    "token_f1_end_to_end": 0.3533389518896336
+  },
+  "recorded_at_utc": "2026-08-25T14:08:08.202149+00:00",
+  "recorded_errors": {
+    "qa_215_2hop_820_rand": [
+      "grounded_legal_answer_generation did not produce a valid GENERATE_ANSWER result after 2 attempts: public conclusion contract requires 1 to 3 conclusion claims; public answer must contain 1 to 3 short lines"
+    ]
+  },
+  "remaining_eta_ms": 44567773.400699995,
+  "remaining_eta_seconds": 44567.773400699996,
+  "remaining_eta_utc": "2026-08-26T02:30:55.975223+00:00",
+  "stage_provenance_missing": [],
+  "total_questions": 226,
+  "unexpected_exit_question_ids": [],
+  "validation_errors": [
+    "abnormal_outcomes=1",
+    "recorded_errors=1"
+  ]
+}

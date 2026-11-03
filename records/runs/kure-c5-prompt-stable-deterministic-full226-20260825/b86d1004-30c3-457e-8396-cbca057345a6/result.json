@@ -1,0 +1,664 @@
+{
+  "abstention_reason": null,
+  "answer": "선장은 해원을 징계할 경우 미리 3명 이상의 해원으로 구성되는 징계위원회의 의결을 거쳐야 한다.[CT1]\n해원에 대한 징계는 훈계, 상륙금지 및 하선으로 하며, 상륙금지는 정박 중에 10일 이내로 한다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1",
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "선내 해원 수가 8명이라는 사실은 질문의 배경 시나리오에서 주어진 것으로, 10명 이내의 경우 해당한다는 전제 하에 적용한다."
+    }
+  ],
+  "candidate_answer": "선장은 해원을 징계할 경우 미리 3명 이상의 해원으로 구성되는 징계위원회의 의결을 거쳐야 한다.[CT1]\n해원에 대한 징계는 훈계, 상륙금지 및 하선으로 하며, 상륙금지는 정박 중에 10일 이내로 한다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "선원법 22조  해원의 징계#KOBLEX-067238",
+      "quoted_text": "④ 선장은 해원을 징계할 경우에는 미리 5명(해원 수가 10명 이내인 경우에는 3명) 이상의 해원으로 구성되는 징계위원회의 의결을 거쳐야 한다.",
+      "support_description": "해원 수가 10명 이내인 경우 3명 이상의 징계위원회 의결이 필요함을 명시하여 절차적 요건을 규정한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "선원법 22조  해원의 징계#KOBLEX-067236",
+      "quoted_text": "② 징계는 훈계, 상륙금지 및 하선으로 하며, 상륙금지는 정박 중에 10일 이내로 한다.",
+      "support_description": "해원에 부과할 수 있는 징계의 종류와 상륙금지의 기간 제한을 명시하여 징계의 범위를 규정한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "procedure",
+      "text": "선장은 해원을 징계할 경우 미리 3명 이상의 해원으로 구성되는 징계위원회의 의결을 거쳐야 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "해원에 대한 징계는 훈계, 상륙금지 및 하선으로 하며, 상륙금지는 정박 중에 10일 이내로 한다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-25T04:40:09.126996+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 177019.571,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "본 답변은 선원법 제22조에 근거한 징계 절차와 종류에 한정되며, 징계 사유의 구체적 판단이나 기타 법적 효과는 다루지 않는다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 187,
+      "dedup_collapse": 26,
+      "evidence_fusion": 187,
+      "first_stage": 200,
+      "request_rerank": 200,
+      "round_selected": 10,
+      "rrf": 200,
+      "selected": 187
+    }
+  },
+  "run_id": "b86d1004-30c3-457e-8396-cbca057345a6",
+  "skill_generation_diagnostics": {
+    "attempt_count": 3,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "선원법 22조  해원의 징계#KOBLEX-067238",
+      "선원법 22조  해원의 징계#KOBLEX-067236"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "procedural_requirement",
+        "question_anchor": "갑이 을에게 징계를 내릴 때 따라야 하는 절차는 무엇이며",
+        "requested_output": "선장이 해원에게 징계를 부과할 때 준수해야 하는 법적 절차"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "substantive_consequence",
+        "question_anchor": "을의 폭력행위에 대해 가능한 징계는 무엇인가?",
+        "requested_output": "해원의 폭력행위에 대해 선장이 부과할 수 있는 징계의 종류"
+      }
+    ],
+    "answered_target_ids": [
+      "T1",
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "선원법 22조  해원의 징계#KOBLEX-067238"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.7211073040962219,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "선원법 22조  해원의 징계#KOBLEX-067238",
+        "provision_text": "④ 선장은 해원을 징계할 경우에는 미리 5명(해원 수가 10명 이내인 경우에는 3명) 이상의 해원으로 구성되는 징계위원회의 의결을 거쳐야 한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.8817497491836548,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "선원법 22조  해원의 징계 4항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "선원법 22조  해원의 징계#KOBLEX-067236"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 7,
+        "first_stage_score": 0.5874019265174866,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "선원법 22조  해원의 징계#KOBLEX-067236",
+        "provision_text": "② 징계는 훈계, 상륙금지 및 하선으로 하며, 상륙금지는 정박 중에 10일 이내로 한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.5813538432121277,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "선원법 22조  해원의 징계 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "해양사고의 조사 및 심판에 관한 법률 6조  징계의 종류와 감면#KOBLEX-164414"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 75,
+        "first_stage_score": 0.5229203701019287,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "해양사고의 조사 및 심판에 관한 법률 6조  징계의 종류와 감면#KOBLEX-164414",
+        "provision_text": "제6조(징계의 종류와 감면)",
+        "rerank_rank": 2,
+        "rerank_score": 0.5042020678520203,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "해양사고의 조사 및 심판에 관한 법률 6조  징계의 종류와 감면",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "법무사법 48조  징계처분#KOBLEX-061640",
+          "법무사법 48조  징계처분#KOBLEX-171604"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 13,
+        "first_stage_score": 0.5594139099121094,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "법무사법 48조  징계처분#KOBLEX-061640",
+        "provision_text": "② 징계의 종류는 다음과 같다. 1. 제명(除名) 2. 1개월 이상 2년 이하의 업무정지 3. 500만원 이하의 과태료 4. 견책(譴責)",
+        "rerank_rank": 3,
+        "rerank_score": 0.48756876587867737,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "법무사법 48조  징계처분 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "선원법 161조  벌칙#KOBLEX-067808"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 6,
+        "first_stage_score": 0.592902660369873,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "선원법 161조  벌칙#KOBLEX-067808",
+        "provision_text": "2. 인명을 구조하는 데 필요한 조치를 다하지 아니하였거나 필요한 조치를 다하지 아니하고 선박을 떠나 사람을 사망에 이르게 한 해원: 3년 이상의 징역",
+        "rerank_rank": 4,
+        "rerank_score": 0.3379349112510681,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "선원법 161조  벌칙 2호",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "국회법 163조  징계의 종류와 선포#KOBLEX-132595"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 85,
+        "first_stage_score": 0.5194476842880249,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "국회법 163조  징계의 종류와 선포#KOBLEX-132595",
+        "provision_text": "제163조(징계의 종류와 선포)",
+        "rerank_rank": 5,
+        "rerank_score": 0.33651068806648254,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2"
+        ],
+        "statute_name": "국회법 163조  징계의 종류와 선포",
+        "target_evidence_item_ids": [
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "사립학교법 61조  징계의 사유 및 종류#KOBLEX-172464"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 20,
+        "first_stage_score": 0.5645198822021484,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "사립학교법 61조  징계의 사유 및 종류#KOBLEX-172464",
+        "provision_text": "② 징계는 파면, 해임, 강등, 정직, 감봉, 견책으로 한다. <개정 2021.8.10>",
+        "rerank_rank": 6,
+        "rerank_score": 0.29186344146728516,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "사립학교법 61조  징계의 사유 및 종류 2항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "해양사고의 조사 및 심판에 관한 법률 6조  징계의 종류와 감면#KOBLEX-164415"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.5683624744415283,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "해양사고의 조사 및 심판에 관한 법률 6조  징계의 종류와 감면#KOBLEX-164415",
+        "provision_text": "① 제5조제2항의 징계는 다음 세 가지로 하고, 행위의 경중(輕重)에 따라서 심판원이 징계의 종류를 정한다. 1. 면허의 취소 2. 업무정지 3. 견책(譴責)",
+        "rerank_rank": 7,
+        "rerank_score": 0.28890788555145264,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "해양사고의 조사 및 심판에 관한 법률 6조  징계의 종류와 감면 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "정당법 49조#KOBLEX-109709"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 40,
+        "first_stage_score": 0.5663288235664368,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "정당법 49조#KOBLEX-109709",
+        "provision_text": "제8장 벌칙",
+        "rerank_rank": 8,
+        "rerank_score": 0.24060498178005219,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "정당법 49조",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "건설기술 진흥법 85조#KOBLEX-062912",
+          "건설기술 진흥법 85조#KOBLEX-170706"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 34,
+        "first_stage_score": 0.5663288235664368,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "건설기술 진흥법 85조#KOBLEX-062912",
+        "provision_text": "제8장 벌칙",
+        "rerank_rank": 9,
+        "rerank_score": 0.2387111783027649,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "건설기술 진흥법 85조",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "건설기술 진흥법 85조#KOBLEX-062912": "제8장 벌칙",
+      "국회법 163조  징계의 종류와 선포#KOBLEX-132595": "제163조(징계의 종류와 선포)",
+      "법무사법 48조  징계처분#KOBLEX-061640": "② 징계의 종류는 다음과 같다. 1. 제명(除名) 2. 1개월 이상 2년 이하의 업무정지 3. 500만원 이하의 과태료 4. 견책(譴責)",
+      "사립학교법 61조  징계의 사유 및 종류#KOBLEX-172464": "② 징계는 파면, 해임, 강등, 정직, 감봉, 견책으로 한다. <개정 2021.8.10>",
+      "선원법 161조  벌칙#KOBLEX-067808": "2. 인명을 구조하는 데 필요한 조치를 다하지 아니하였거나 필요한 조치를 다하지 아니하고 선박을 떠나 사람을 사망에 이르게 한 해원: 3년 이상의 징역",
+      "선원법 22조  해원의 징계#KOBLEX-067236": "② 징계는 훈계, 상륙금지 및 하선으로 하며, 상륙금지는 정박 중에 10일 이내로 한다.",
+      "선원법 22조  해원의 징계#KOBLEX-067238": "④ 선장은 해원을 징계할 경우에는 미리 5명(해원 수가 10명 이내인 경우에는 3명) 이상의 해원으로 구성되는 징계위원회의 의결을 거쳐야 한다.",
+      "정당법 49조#KOBLEX-109709": "제8장 벌칙",
+      "해양사고의 조사 및 심판에 관한 법률 6조  징계의 종류와 감면#KOBLEX-164414": "제6조(징계의 종류와 감면)",
+      "해양사고의 조사 및 심판에 관한 법률 6조  징계의 종류와 감면#KOBLEX-164415": "① 제5조제2항의 징계는 다음 세 가지로 하고, 행위의 경중(輕重)에 따라서 심판원이 징계의 종류를 정한다. 1. 면허의 취소 2. 업무정지 3. 견책(譴責)"
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "선원법 22조  해원의 징계#KOBLEX-067238"
+            ],
+            "rationale": "C001 mandates the disciplinary committee resolution as a prerequisite for the captain to impose discipline, satisfying the requirement for procedural conditions.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "선원법 22조  해원의 징계#KOBLEX-067238"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The supplied candidate C001 provides the specific procedural rule for the captain to impose discipline on a crew member, including the requirement for a disciplinary committee resolution. This fully establishes the legal proposition required by E1-R1.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "선원법 22조  해원의 징계#KOBLEX-067236"
+            ],
+            "rationale": "C002 lists the permissible disciplinary actions (admonition, prohibition of landing, disembarkation), satisfying the requirement for the scope of discipline.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "선원법 22조  해원의 징계#KOBLEX-067236"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "The supplied candidate C002 defines the specific types of discipline that can be imposed on crew members. This directly answers the question regarding the possible disciplinary actions for the crew member's violent behavior.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "선원법 22조  해원의 징계#KOBLEX-067238",
+        "support_spans": [
+          {
+            "end_char": 80,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "선원법 22조  해원의 징계#KOBLEX-067236",
+        "support_spans": [
+          {
+            "end_char": 49,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 10,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "선장의 해원에 대한 징계권 행사 시 준수해야 할 절차적 요건",
+        "issue_id": "I1"
+      },
+      {
+        "description": "해원의 폭력행위에 적용 가능한 징계의 범위",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 해상 운송 회사의 선장이고, 을은 그 선박의 해원이다. 어느 날 을은 다른 해원들과의 심각한 갈등 끝에 폭력행위를 벌여 선내 질서를 심각하게 어지럽혔다. 이를 목격한 갑은 을에게 징계를 내리기로 결정하였다. 선내에 있는 해원의 수는 총 8명이다. [질문] 갑이 을에게 징계를 내릴 때 따라야 하는 절차는 무엇이며, 을의 폭력행위에 대해 가능한 징계는 무엇인가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "선장",
+          "해원",
+          "징계",
+          "절차"
+        ],
+        "query_text": "선장 해원 징계 절차 [원문 맥락] 선내에 있는 해원의 수는 총 8명이다. 갑이 을에게 징계를 내릴 때 따라야 하는 절차는 무엇이며, 을의 폭력행위에 대해 가능한 징계는 무엇인가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "해상법",
+          "선원법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "해원",
+          "폭력행위",
+          "징계",
+          "선내질서"
+        ],
+        "query_text": "해원 폭력행위 징계 종류 [원문 맥락] 선내에 있는 해원의 수는 총 8명이다. 갑이 을에게 징계를 내릴 때 따라야 하는 절차는 무엇이며, 을의 폭력행위에 대해 가능한 징계는 무엇인가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "해상법",
+          "선원법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 해상 운송 회사의 선장이고, 을은 그 선박의 해원이다. 어느 날 을은 다른 해원들과의 심각한 갈등 끝에 폭력행위를 벌여 선내 질서를 심각하게 어지럽혔다. 이를 목격한 갑은 을에게 징계를 내리기로 결정하였다. 선내에 있는 해원의 수는 총 8명이다.\n\n[질문]\n갑이 을에게 징계를 내릴 때 따라야 하는 절차는 무엇이며, 을의 폭력행위에 대해 가능한 징계는 무엇인가?",
+    "remaining_request_budget": 7,
+    "remaining_round_budget": 2,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "징계 부과 전·후의 필수 절차(예: 심문, 의견청취, 서면통지 등)가 명시되어 있어야 함",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "선장의 징계권 행사 시 필수 절차 요건이 규정되어 있어야 함"
+          }
+        ],
+        "critical": true,
+        "description": "선장이 해원에게 징계를 부과할 때의 절차적 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "procedure",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 징계 절차가 명시적으로 요구됨",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "폭력행위나 질서 위반에 해당하는 징계 유형(예: 감봉, 해고, 벌금 등)이 명시되어 있어야 함",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "해원의 폭력행위 또는 선내 질서 위반에 적용 가능한 징계의 종류가 규정되어 있어야 함"
+          }
+        ],
+        "critical": true,
+        "description": "해원의 폭력행위 또는 선내 질서 위반에 대한 징계 종류 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 가능한 징계의 종류가 명시적으로 요구됨",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 1,
+    "run_id": "b86d1004-30c3-457e-8396-cbca057345a6",
+    "seen_provision_ids": [
+      "해양사고의 조사 및 심판에 관한 법률 6조  징계의 종류와 감면#KOBLEX-164414",
+      "법무사법 48조  징계처분#KOBLEX-061640",
+      "선원법 22조  해원의 징계#KOBLEX-067236",
+      "해양사고의 조사 및 심판에 관한 법률 6조  징계의 종류와 감면#KOBLEX-164415",
+      "선원법 161조  벌칙#KOBLEX-067808",
+      "국회법 163조  징계의 종류와 선포#KOBLEX-132595",
+      "사립학교법 61조  징계의 사유 및 종류#KOBLEX-172464",
+      "정당법 49조#KOBLEX-109709",
+      "선원법 22조  해원의 징계#KOBLEX-067238",
+      "건설기술 진흥법 85조#KOBLEX-062912"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

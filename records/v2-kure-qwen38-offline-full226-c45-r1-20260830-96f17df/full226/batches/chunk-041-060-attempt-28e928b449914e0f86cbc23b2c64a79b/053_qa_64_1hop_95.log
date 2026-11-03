@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/root/worktrees/legal-harness-c30-integrated-20260827/scripts/v2_kure_orchestration.py", line 2655, in execute_chunk
+    "batch_manifest_sha256": sha256(chunk_dir / "manifest.json"),
+  File "/root/worktrees/legal-harness-c30-integrated-20260827/scripts/run_local_harness.py", line 341, in run_question
+    assert_source_snapshot_unchanged(PROJECT_ROOT, source_snapshot)
+  File "/root/worktrees/legal-harness-c30-integrated-20260827/runtime/source_snapshot.py", line 104, in assert_source_snapshot_unchanged
+    actual = capture_clean_source_snapshot(project_root)
+  File "/root/worktrees/legal-harness-c30-integrated-20260827/runtime/source_snapshot.py", line 90, in capture_clean_source_snapshot
+    raise SourceSnapshotError(
+runtime.source_snapshot.SourceSnapshotError: experiment source worktree is dirty outside records/: scripts/v2_kure_orchestration.py, skills/legal_issue_and_query_planning/scripts/validate_output.py, tests/test_s1_gap_repair.py

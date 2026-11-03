@@ -1,0 +1,2985 @@
+{
+  "answer_quality": {
+    "abstain_count": 6,
+    "abstain_rate": 0.2857142857142857,
+    "answer_count": 15,
+    "answer_mode_rates_e2e": {
+      "conditional": 0.047619047619047616,
+      "full": 0.42857142857142855,
+      "limited": 0.23809523809523808
+    },
+    "answer_modes": {
+      "conditional": 1,
+      "full": 9,
+      "limited": 5
+    },
+    "answer_rate": 0.7142857142857143,
+    "candidate_lf_eval": {
+      "available": false,
+      "note": "Export candidate_answer to a separately frozen LF-Eval input. The existing --lf-eval-scores import keeps its published ANSWER-record meaning.",
+      "unavailable_reason": "SEPARATE_FROZEN_CANDIDATE_INPUT_REQUIRED"
+    },
+    "candidate_token_f1_at_800": {
+      "abstain_available_count": 6,
+      "abstain_available_only": 0.20576139284209466,
+      "abstain_count": 6,
+      "abstain_missing_count": 0,
+      "abstain_only": 0.20576139284209466,
+      "all_outcomes": 0.30920733726208605,
+      "all_outcomes_available_count": 21,
+      "all_outcomes_missing_or_execution_failure_count": 0,
+      "available_count": 21,
+      "available_only": 0.30920733726208605,
+      "execution_failure_count": 0,
+      "internal_scale": "0_1",
+      "missing_count": 0,
+      "missing_or_execution_failure_score": 0.0,
+      "normal_outcome_count": 21,
+      "normal_outcomes": 0.30920733726208605,
+      "prediction_projection": "answer.split(\"<\\think>\")[0][:800]",
+      "scale_display": "0_100"
+    },
+    "execution_failure_count": 0,
+    "execution_failure_rate": 0.0,
+    "lf_eval": {
+      "answered_only": null,
+      "available": false,
+      "end_to_end": null,
+      "input_scale": null,
+      "internal_scale": "0_1",
+      "missing_answer_score_count": 15,
+      "scale": null,
+      "scale_display": "0_100",
+      "unavailable_reason": "LF_EVAL_NOT_PROVIDED"
+    },
+    "over_abstention_exact_match_at_800": {
+      "count": 0,
+      "definition": "ABSTAIN rows whose available benchmark candidate exactly matches the gold answer after answer.split(\"<\\think>\")[0][:800] and KoBLEX normalization; unavailable candidates are counted as non-matches.",
+      "rate": 0.0
+    },
+    "token_f1": {
+      "answered_only": 0.35058571503008257,
+      "end_to_end": 0.2504183678786304,
+      "internal_scale": "0_1",
+      "scale_display": "0_100"
+    },
+    "token_f1_at_800": {
+      "answered_only": 0.35058571503008257,
+      "end_to_end": 0.2504183678786304,
+      "internal_scale": "0_1",
+      "prediction_projection": "answer.split(\"<\\think>\")[0][:800]",
+      "scale_display": "0_100"
+    },
+    "unrecorded_answer_mode_count": 0
+  },
+  "answers": {
+    "false_supported_answer_count": null,
+    "false_supported_answer_rate": null,
+    "false_supported_label_coverage": 0.0,
+    "false_supported_labelled_count": 0,
+    "gold_incomplete_supported_answer_count": 10,
+    "supported_answer_count": 15,
+    "supported_answer_yield": 0.7142857142857143
+  },
+  "batch_name": "v2-kure-qwen38-q8-offline-diagnostic21-c36-20260828-checkpoint-021",
+  "by_hop": {
+    "1": {
+      "answer_quality": {
+        "abstain_count": 3,
+        "abstain_rate": 0.375,
+        "answer_count": 5,
+        "answer_mode_rates_e2e": {
+          "conditional": 0.125,
+          "full": 0.5,
+          "limited": 0.0
+        },
+        "answer_modes": {
+          "conditional": 1,
+          "full": 4,
+          "limited": 0
+        },
+        "answer_rate": 0.625,
+        "candidate_lf_eval": {
+          "available": false,
+          "note": "Export candidate_answer to a separately frozen LF-Eval input. The existing --lf-eval-scores import keeps its published ANSWER-record meaning.",
+          "unavailable_reason": "SEPARATE_FROZEN_CANDIDATE_INPUT_REQUIRED"
+        },
+        "candidate_token_f1_at_800": {
+          "abstain_available_count": 3,
+          "abstain_available_only": 0.1530407191961925,
+          "abstain_count": 3,
+          "abstain_missing_count": 0,
+          "abstain_only": 0.1530407191961925,
+          "all_outcomes": 0.25057204594486454,
+          "all_outcomes_available_count": 8,
+          "all_outcomes_missing_or_execution_failure_count": 0,
+          "available_count": 8,
+          "available_only": 0.25057204594486454,
+          "execution_failure_count": 0,
+          "internal_scale": "0_1",
+          "missing_count": 0,
+          "missing_or_execution_failure_score": 0.0,
+          "normal_outcome_count": 8,
+          "normal_outcomes": 0.25057204594486454,
+          "prediction_projection": "answer.split(\"<\\think>\")[0][:800]",
+          "scale_display": "0_100"
+        },
+        "execution_failure_count": 0,
+        "execution_failure_rate": 0.0,
+        "lf_eval": {
+          "answered_only": null,
+          "available": false,
+          "end_to_end": null,
+          "input_scale": null,
+          "internal_scale": "0_1",
+          "missing_answer_score_count": 5,
+          "scale": null,
+          "scale_display": "0_100",
+          "unavailable_reason": "LF_EVAL_NOT_PROVIDED"
+        },
+        "over_abstention_exact_match_at_800": {
+          "count": 0,
+          "definition": "ABSTAIN rows whose available benchmark candidate exactly matches the gold answer after answer.split(\"<\\think>\")[0][:800] and KoBLEX normalization; unavailable candidates are counted as non-matches.",
+          "rate": 0.0
+        },
+        "token_f1": {
+          "answered_only": 0.3090908419940678,
+          "end_to_end": 0.19318177624629237,
+          "internal_scale": "0_1",
+          "scale_display": "0_100"
+        },
+        "token_f1_at_800": {
+          "answered_only": 0.3090908419940678,
+          "end_to_end": 0.19318177624629237,
+          "internal_scale": "0_1",
+          "prediction_projection": "answer.split(\"<\\think>\")[0][:800]",
+          "scale_display": "0_100"
+        },
+        "unrecorded_answer_mode_count": 0
+      },
+      "answers": {
+        "false_supported_answer_count": null,
+        "false_supported_answer_rate": null,
+        "false_supported_label_coverage": 0.0,
+        "false_supported_labelled_count": 0,
+        "gold_incomplete_supported_answer_count": 3,
+        "supported_answer_count": 5,
+        "supported_answer_yield": 0.625
+      },
+      "citation_integrity": {
+        "attempted": 5,
+        "pass_rate": 1.0,
+        "passed": 5
+      },
+      "efficiency": {
+        "candidate_count_returned": {
+          "count": 8,
+          "mean": 17.5,
+          "median": 20.0,
+          "p95": 26.499999999999993
+        },
+        "candidate_count_unique": {
+          "count": 8,
+          "mean": 13.875,
+          "median": 15.0,
+          "p95": 17.65
+        },
+        "end_to_end_latency_ms": {
+          "count": 8,
+          "mean": 162907.996875,
+          "median": 99459.4015,
+          "p95": 364956.5168
+        },
+        "retrieval_requests": {
+          "count": 8,
+          "mean": 2.375,
+          "median": 2.5,
+          "p95": 4.299999999999999
+        },
+        "retrieval_rounds": {
+          "count": 8,
+          "mean": 1.75,
+          "median": 2.0,
+          "p95": 2.6499999999999995
+        }
+      },
+      "evidence_roles": {
+        "alternative": {
+          "mean_unique_per_question": 0.125,
+          "per_question_unique_total": 1
+        },
+        "authorized_union": {
+          "mean_unique_per_question": 1.5,
+          "per_question_unique_total": 12
+        },
+        "auxiliary_citations": {
+          "count": 0,
+          "questions_with_citation_count": 0
+        },
+        "auxiliary_union": {
+          "mean_unique_per_question": 0.375,
+          "per_question_unique_total": 3
+        },
+        "core": {
+          "mean_unique_per_question": 1.125,
+          "per_question_unique_total": 9
+        },
+        "legacy_fallback_question_count": 0,
+        "provision_score_sources": {
+          "core_accepted_provision_ids": 8
+        },
+        "qualifying": {
+          "mean_unique_per_question": 0.0,
+          "per_question_unique_total": 0
+        },
+        "role_schema_available_question_count": 8,
+        "supplemental": {
+          "mean_unique_per_question": 0.25,
+          "per_question_unique_total": 2
+        }
+      },
+      "outcomes": {
+        "ABSTAIN": {
+          "count": 3,
+          "rate": 0.375
+        },
+        "ANSWER": {
+          "count": 5,
+          "rate": 0.625
+        },
+        "EXECUTION_FAILURE": {
+          "count": 0,
+          "rate": 0.0
+        }
+      },
+      "provision": {
+        "complete_evidence": {
+          "count": 3,
+          "rate": 0.375
+        },
+        "exact_match": {
+          "count": 2,
+          "rate": 0.25
+        },
+        "macro": {
+          "f1": 0.41666666666666663,
+          "precision": 0.4375,
+          "recall": 0.4375
+        },
+        "micro": {
+          "f1": 0.4444444444444444,
+          "gold": 9,
+          "precision": 0.4444444444444444,
+          "predicted": 9,
+          "recall": 0.4444444444444444,
+          "true_positive": 4
+        }
+      },
+      "retrieval": {
+        "bge_at_10": {
+          "available": true,
+          "available_questions": 8,
+          "complete_evidence_count": 5,
+          "complete_evidence_recall": 0.625,
+          "provision_recall_macro": 0.625,
+          "provision_recall_micro": 0.6666666666666666,
+          "question_count": 8,
+          "unavailable_reason": null
+        },
+        "bge_at_20": {
+          "available": true,
+          "available_questions": 8,
+          "complete_evidence_count": 8,
+          "complete_evidence_recall": 1.0,
+          "provision_recall_macro": 1.0,
+          "provision_recall_micro": 1.0,
+          "question_count": 8,
+          "unavailable_reason": null
+        },
+        "bge_at_30": {
+          "available": true,
+          "available_questions": 8,
+          "complete_evidence_count": 8,
+          "complete_evidence_recall": 1.0,
+          "provision_recall_macro": 1.0,
+          "provision_recall_micro": 1.0,
+          "question_count": 8,
+          "unavailable_reason": null
+        },
+        "first_stage_at_100": {
+          "available": true,
+          "available_questions": 8,
+          "complete_evidence_count": 8,
+          "complete_evidence_recall": 1.0,
+          "provision_recall_macro": 1.0,
+          "provision_recall_micro": 1.0,
+          "question_count": 8,
+          "unavailable_reason": null
+        },
+        "rrf_at_100": {
+          "available": true,
+          "available_questions": 8,
+          "complete_evidence_count": 8,
+          "complete_evidence_recall": 1.0,
+          "provision_recall_macro": 1.0,
+          "provision_recall_micro": 1.0,
+          "question_count": 8,
+          "unavailable_reason": null
+        }
+      },
+      "retrieval_loss": {
+        "accepted": {
+          "complete_evidence": {
+            "count": 3,
+            "rate": 0.375
+          },
+          "gold": 9,
+          "macro": {
+            "f1": 0.41666666666666663,
+            "precision": 0.4375,
+            "recall": 0.4375
+          },
+          "micro": {
+            "f1": 0.4444444444444444,
+            "precision": 0.4444444444444444,
+            "recall": 0.4444444444444444
+          },
+          "predicted": 9,
+          "question_count": 8,
+          "true_positive": 4
+        },
+        "available": true,
+        "available_questions": 8,
+        "final_candidate": {
+          "complete_evidence": {
+            "count": 5,
+            "rate": 0.625
+          },
+          "gold": 9,
+          "macro": {
+            "f1": 0.10769459298871065,
+            "precision": 0.06047794117647059,
+            "recall": 0.625
+          },
+          "micro": {
+            "f1": 0.1,
+            "precision": 0.05405405405405406,
+            "recall": 0.6666666666666666
+          },
+          "predicted": 111,
+          "question_count": 8,
+          "true_positive": 6
+        },
+        "first_candidate_complete_round": {
+          "counts": {
+            "1": 3,
+            "2": 2
+          },
+          "never_complete_count": 3
+        },
+        "first_round_selected_complete_round": {
+          "counts": {
+            "1": 3,
+            "2": 2
+          },
+          "never_complete_count": 3
+        },
+        "normal_outcome_questions": 8,
+        "round_selected_cumulative": {
+          "1": {
+            "complete_evidence": {
+              "count": 3,
+              "rate": 0.375
+            },
+            "gold": 9,
+            "macro": {
+              "f1": 0.08712121212121213,
+              "precision": 0.05,
+              "recall": 0.375
+            },
+            "micro": {
+              "f1": 0.08988764044943821,
+              "precision": 0.05,
+              "recall": 0.4444444444444444
+            },
+            "predicted": 80,
+            "question_count": 8,
+            "true_positive": 4
+          },
+          "2": {
+            "complete_evidence": {
+              "count": 5,
+              "rate": 0.625
+            },
+            "gold": 9,
+            "macro": {
+              "f1": 0.1122194798665387,
+              "precision": 0.06308210784313725,
+              "recall": 0.625
+            },
+            "micro": {
+              "f1": 0.10344827586206896,
+              "precision": 0.056074766355140186,
+              "recall": 0.6666666666666666
+            },
+            "predicted": 107,
+            "question_count": 8,
+            "true_positive": 6
+          },
+          "3": {
+            "complete_evidence": {
+              "count": 5,
+              "rate": 0.625
+            },
+            "gold": 9,
+            "macro": {
+              "f1": 0.10769459298871065,
+              "precision": 0.06047794117647059,
+              "recall": 0.625
+            },
+            "micro": {
+              "f1": 0.1,
+              "precision": 0.05405405405405406,
+              "recall": 0.6666666666666666
+            },
+            "predicted": 111,
+            "question_count": 8,
+            "true_positive": 6
+          }
+        },
+        "round_selected_matches_final_candidate": {
+          "match_count": 8,
+          "mismatch_count": 0
+        },
+        "unavailable_reason": null
+      }
+    },
+    "2": {
+      "answer_quality": {
+        "abstain_count": 3,
+        "abstain_rate": 0.375,
+        "answer_count": 5,
+        "answer_mode_rates_e2e": {
+          "conditional": 0.0,
+          "full": 0.25,
+          "limited": 0.375
+        },
+        "answer_modes": {
+          "conditional": 0,
+          "full": 2,
+          "limited": 3
+        },
+        "answer_rate": 0.625,
+        "candidate_lf_eval": {
+          "available": false,
+          "note": "Export candidate_answer to a separately frozen LF-Eval input. The existing --lf-eval-scores import keeps its published ANSWER-record meaning.",
+          "unavailable_reason": "SEPARATE_FROZEN_CANDIDATE_INPUT_REQUIRED"
+        },
+        "candidate_token_f1_at_800": {
+          "abstain_available_count": 3,
+          "abstain_available_only": 0.2584820664879968,
+          "abstain_count": 3,
+          "abstain_missing_count": 0,
+          "abstain_only": 0.2584820664879968,
+          "all_outcomes": 0.3569240058953536,
+          "all_outcomes_available_count": 8,
+          "all_outcomes_missing_or_execution_failure_count": 0,
+          "available_count": 8,
+          "available_only": 0.3569240058953536,
+          "execution_failure_count": 0,
+          "internal_scale": "0_1",
+          "missing_count": 0,
+          "missing_or_execution_failure_score": 0.0,
+          "normal_outcome_count": 8,
+          "normal_outcomes": 0.3569240058953536,
+          "prediction_projection": "answer.split(\"<\\think>\")[0][:800]",
+          "scale_display": "0_100"
+        },
+        "execution_failure_count": 0,
+        "execution_failure_rate": 0.0,
+        "lf_eval": {
+          "answered_only": null,
+          "available": false,
+          "end_to_end": null,
+          "input_scale": null,
+          "internal_scale": "0_1",
+          "missing_answer_score_count": 5,
+          "scale": null,
+          "scale_display": "0_100",
+          "unavailable_reason": "LF_EVAL_NOT_PROVIDED"
+        },
+        "over_abstention_exact_match_at_800": {
+          "count": 0,
+          "definition": "ABSTAIN rows whose available benchmark candidate exactly matches the gold answer after answer.split(\"<\\think>\")[0][:800] and KoBLEX normalization; unavailable candidates are counted as non-matches.",
+          "rate": 0.0
+        },
+        "token_f1": {
+          "answered_only": 0.41598916953976767,
+          "end_to_end": 0.25999323096235477,
+          "internal_scale": "0_1",
+          "scale_display": "0_100"
+        },
+        "token_f1_at_800": {
+          "answered_only": 0.41598916953976767,
+          "end_to_end": 0.25999323096235477,
+          "internal_scale": "0_1",
+          "prediction_projection": "answer.split(\"<\\think>\")[0][:800]",
+          "scale_display": "0_100"
+        },
+        "unrecorded_answer_mode_count": 0
+      },
+      "answers": {
+        "false_supported_answer_count": null,
+        "false_supported_answer_rate": null,
+        "false_supported_label_coverage": 0.0,
+        "false_supported_labelled_count": 0,
+        "gold_incomplete_supported_answer_count": 3,
+        "supported_answer_count": 5,
+        "supported_answer_yield": 0.625
+      },
+      "citation_integrity": {
+        "attempted": 5,
+        "pass_rate": 1.0,
+        "passed": 5
+      },
+      "efficiency": {
+        "candidate_count_returned": {
+          "count": 8,
+          "mean": 25.0,
+          "median": 25.0,
+          "p95": 30.0
+        },
+        "candidate_count_unique": {
+          "count": 8,
+          "mean": 18.25,
+          "median": 17.5,
+          "p95": 22.95
+        },
+        "end_to_end_latency_ms": {
+          "count": 8,
+          "mean": 217382.46225,
+          "median": 172864.87900000002,
+          "p95": 417148.6368
+        },
+        "retrieval_requests": {
+          "count": 8,
+          "mean": 4.5,
+          "median": 4.0,
+          "p95": 6.299999999999999
+        },
+        "retrieval_rounds": {
+          "count": 8,
+          "mean": 2.5,
+          "median": 2.5,
+          "p95": 3.0
+        }
+      },
+      "evidence_roles": {
+        "alternative": {
+          "mean_unique_per_question": 0.0,
+          "per_question_unique_total": 0
+        },
+        "authorized_union": {
+          "mean_unique_per_question": 2.0,
+          "per_question_unique_total": 16
+        },
+        "auxiliary_citations": {
+          "count": 0,
+          "questions_with_citation_count": 0
+        },
+        "auxiliary_union": {
+          "mean_unique_per_question": 0.25,
+          "per_question_unique_total": 2
+        },
+        "core": {
+          "mean_unique_per_question": 1.75,
+          "per_question_unique_total": 14
+        },
+        "legacy_fallback_question_count": 0,
+        "provision_score_sources": {
+          "core_accepted_provision_ids": 8
+        },
+        "qualifying": {
+          "mean_unique_per_question": 0.0,
+          "per_question_unique_total": 0
+        },
+        "role_schema_available_question_count": 8,
+        "supplemental": {
+          "mean_unique_per_question": 0.25,
+          "per_question_unique_total": 2
+        }
+      },
+      "outcomes": {
+        "ABSTAIN": {
+          "count": 3,
+          "rate": 0.375
+        },
+        "ANSWER": {
+          "count": 5,
+          "rate": 0.625
+        },
+        "EXECUTION_FAILURE": {
+          "count": 0,
+          "rate": 0.0
+        }
+      },
+      "provision": {
+        "complete_evidence": {
+          "count": 3,
+          "rate": 0.375
+        },
+        "exact_match": {
+          "count": 2,
+          "rate": 0.25
+        },
+        "macro": {
+          "f1": 0.6416666666666666,
+          "precision": 0.7395833333333334,
+          "recall": 0.625
+        },
+        "micro": {
+          "f1": 0.6666666666666666,
+          "gold": 16,
+          "precision": 0.7142857142857143,
+          "predicted": 14,
+          "recall": 0.625,
+          "true_positive": 10
+        }
+      },
+      "retrieval": {
+        "bge_at_10": {
+          "available": true,
+          "available_questions": 8,
+          "complete_evidence_count": 4,
+          "complete_evidence_recall": 0.5,
+          "provision_recall_macro": 0.6875,
+          "provision_recall_micro": 0.6875,
+          "question_count": 8,
+          "unavailable_reason": null
+        },
+        "bge_at_20": {
+          "available": true,
+          "available_questions": 8,
+          "complete_evidence_count": 6,
+          "complete_evidence_recall": 0.75,
+          "provision_recall_macro": 0.875,
+          "provision_recall_micro": 0.875,
+          "question_count": 8,
+          "unavailable_reason": null
+        },
+        "bge_at_30": {
+          "available": true,
+          "available_questions": 8,
+          "complete_evidence_count": 6,
+          "complete_evidence_recall": 0.75,
+          "provision_recall_macro": 0.875,
+          "provision_recall_micro": 0.875,
+          "question_count": 8,
+          "unavailable_reason": null
+        },
+        "first_stage_at_100": {
+          "available": true,
+          "available_questions": 8,
+          "complete_evidence_count": 7,
+          "complete_evidence_recall": 0.875,
+          "provision_recall_macro": 0.9375,
+          "provision_recall_micro": 0.9375,
+          "question_count": 8,
+          "unavailable_reason": null
+        },
+        "rrf_at_100": {
+          "available": true,
+          "available_questions": 8,
+          "complete_evidence_count": 7,
+          "complete_evidence_recall": 0.875,
+          "provision_recall_macro": 0.9375,
+          "provision_recall_micro": 0.9375,
+          "question_count": 8,
+          "unavailable_reason": null
+        }
+      },
+      "retrieval_loss": {
+        "accepted": {
+          "complete_evidence": {
+            "count": 3,
+            "rate": 0.375
+          },
+          "gold": 16,
+          "macro": {
+            "f1": 0.6416666666666666,
+            "precision": 0.7395833333333334,
+            "recall": 0.625
+          },
+          "micro": {
+            "f1": 0.6666666666666666,
+            "precision": 0.7142857142857143,
+            "recall": 0.625
+          },
+          "predicted": 14,
+          "question_count": 8,
+          "true_positive": 10
+        },
+        "available": true,
+        "available_questions": 8,
+        "final_candidate": {
+          "complete_evidence": {
+            "count": 3,
+            "rate": 0.375
+          },
+          "gold": 16,
+          "macro": {
+            "f1": 0.1217601104867224,
+            "precision": 0.06762586613592805,
+            "recall": 0.625
+          },
+          "micro": {
+            "f1": 0.12345679012345677,
+            "precision": 0.0684931506849315,
+            "recall": 0.625
+          },
+          "predicted": 146,
+          "question_count": 8,
+          "true_positive": 10
+        },
+        "first_candidate_complete_round": {
+          "counts": {
+            "1": 1,
+            "2": 1,
+            "3": 1
+          },
+          "never_complete_count": 5
+        },
+        "first_round_selected_complete_round": {
+          "counts": {
+            "1": 1,
+            "2": 1,
+            "3": 1
+          },
+          "never_complete_count": 5
+        },
+        "normal_outcome_questions": 8,
+        "round_selected_cumulative": {
+          "1": {
+            "complete_evidence": {
+              "count": 1,
+              "rate": 0.125
+            },
+            "gold": 16,
+            "macro": {
+              "f1": 0.14583333333333334,
+              "precision": 0.08750000000000001,
+              "recall": 0.4375
+            },
+            "micro": {
+              "f1": 0.14583333333333331,
+              "precision": 0.0875,
+              "recall": 0.4375
+            },
+            "predicted": 80,
+            "question_count": 8,
+            "true_positive": 7
+          },
+          "2": {
+            "complete_evidence": {
+              "count": 2,
+              "rate": 0.25
+            },
+            "gold": 16,
+            "macro": {
+              "f1": 0.13080516297428063,
+              "precision": 0.07413847117794486,
+              "recall": 0.5625
+            },
+            "micro": {
+              "f1": 0.12413793103448276,
+              "precision": 0.06976744186046512,
+              "recall": 0.5625
+            },
+            "predicted": 129,
+            "question_count": 8,
+            "true_positive": 9
+          },
+          "3": {
+            "complete_evidence": {
+              "count": 3,
+              "rate": 0.375
+            },
+            "gold": 16,
+            "macro": {
+              "f1": 0.1217601104867224,
+              "precision": 0.06762586613592805,
+              "recall": 0.625
+            },
+            "micro": {
+              "f1": 0.12345679012345677,
+              "precision": 0.0684931506849315,
+              "recall": 0.625
+            },
+            "predicted": 146,
+            "question_count": 8,
+            "true_positive": 10
+          }
+        },
+        "round_selected_matches_final_candidate": {
+          "match_count": 8,
+          "mismatch_count": 0
+        },
+        "unavailable_reason": null
+      }
+    },
+    "3": {
+      "answer_quality": {
+        "abstain_count": 0,
+        "abstain_rate": 0.0,
+        "answer_count": 5,
+        "answer_mode_rates_e2e": {
+          "conditional": 0.0,
+          "full": 0.6,
+          "limited": 0.4
+        },
+        "answer_modes": {
+          "conditional": 0,
+          "full": 3,
+          "limited": 2
+        },
+        "answer_rate": 1.0,
+        "candidate_lf_eval": {
+          "available": false,
+          "note": "Export candidate_answer to a separately frozen LF-Eval input. The existing --lf-eval-scores import keeps its published ANSWER-record meaning.",
+          "unavailable_reason": "SEPARATE_FROZEN_CANDIDATE_INPUT_REQUIRED"
+        },
+        "candidate_token_f1_at_800": {
+          "abstain_available_count": 0,
+          "abstain_available_only": null,
+          "abstain_count": 0,
+          "abstain_missing_count": 0,
+          "abstain_only": null,
+          "all_outcomes": 0.32667713355641226,
+          "all_outcomes_available_count": 5,
+          "all_outcomes_missing_or_execution_failure_count": 0,
+          "available_count": 5,
+          "available_only": 0.32667713355641226,
+          "execution_failure_count": 0,
+          "internal_scale": "0_1",
+          "missing_count": 0,
+          "missing_or_execution_failure_score": 0.0,
+          "normal_outcome_count": 5,
+          "normal_outcomes": 0.32667713355641226,
+          "prediction_projection": "answer.split(\"<\\think>\")[0][:800]",
+          "scale_display": "0_100"
+        },
+        "execution_failure_count": 0,
+        "execution_failure_rate": 0.0,
+        "lf_eval": {
+          "answered_only": null,
+          "available": false,
+          "end_to_end": null,
+          "input_scale": null,
+          "internal_scale": "0_1",
+          "missing_answer_score_count": 5,
+          "scale": null,
+          "scale_display": "0_100",
+          "unavailable_reason": "LF_EVAL_NOT_PROVIDED"
+        },
+        "over_abstention_exact_match_at_800": {
+          "count": 0,
+          "definition": "ABSTAIN rows whose available benchmark candidate exactly matches the gold answer after answer.split(\"<\\think>\")[0][:800] and KoBLEX normalization; unavailable candidates are counted as non-matches.",
+          "rate": null
+        },
+        "token_f1": {
+          "answered_only": 0.32667713355641226,
+          "end_to_end": 0.32667713355641226,
+          "internal_scale": "0_1",
+          "scale_display": "0_100"
+        },
+        "token_f1_at_800": {
+          "answered_only": 0.32667713355641226,
+          "end_to_end": 0.32667713355641226,
+          "internal_scale": "0_1",
+          "prediction_projection": "answer.split(\"<\\think>\")[0][:800]",
+          "scale_display": "0_100"
+        },
+        "unrecorded_answer_mode_count": 0
+      },
+      "answers": {
+        "false_supported_answer_count": null,
+        "false_supported_answer_rate": null,
+        "false_supported_label_coverage": 0.0,
+        "false_supported_labelled_count": 0,
+        "gold_incomplete_supported_answer_count": 4,
+        "supported_answer_count": 5,
+        "supported_answer_yield": 1.0
+      },
+      "citation_integrity": {
+        "attempted": 5,
+        "pass_rate": 1.0,
+        "passed": 5
+      },
+      "efficiency": {
+        "candidate_count_returned": {
+          "count": 5,
+          "mean": 22.0,
+          "median": 20.0,
+          "p95": 28.0
+        },
+        "candidate_count_unique": {
+          "count": 5,
+          "mean": 18.4,
+          "median": 18.0,
+          "p95": 19.6
+        },
+        "end_to_end_latency_ms": {
+          "count": 5,
+          "mean": 151479.3296,
+          "median": 149725.666,
+          "p95": 194485.1072
+        },
+        "retrieval_requests": {
+          "count": 5,
+          "mean": 4.0,
+          "median": 4.0,
+          "p95": 5.0
+        },
+        "retrieval_rounds": {
+          "count": 5,
+          "mean": 2.2,
+          "median": 2.0,
+          "p95": 2.8
+        }
+      },
+      "evidence_roles": {
+        "alternative": {
+          "mean_unique_per_question": 0.0,
+          "per_question_unique_total": 0
+        },
+        "authorized_union": {
+          "mean_unique_per_question": 2.6,
+          "per_question_unique_total": 13
+        },
+        "auxiliary_citations": {
+          "count": 1,
+          "questions_with_citation_count": 1
+        },
+        "auxiliary_union": {
+          "mean_unique_per_question": 0.4,
+          "per_question_unique_total": 2
+        },
+        "core": {
+          "mean_unique_per_question": 2.2,
+          "per_question_unique_total": 11
+        },
+        "legacy_fallback_question_count": 0,
+        "provision_score_sources": {
+          "core_accepted_provision_ids": 5
+        },
+        "qualifying": {
+          "mean_unique_per_question": 0.2,
+          "per_question_unique_total": 1
+        },
+        "role_schema_available_question_count": 5,
+        "supplemental": {
+          "mean_unique_per_question": 0.2,
+          "per_question_unique_total": 1
+        }
+      },
+      "outcomes": {
+        "ABSTAIN": {
+          "count": 0,
+          "rate": 0.0
+        },
+        "ANSWER": {
+          "count": 5,
+          "rate": 1.0
+        },
+        "EXECUTION_FAILURE": {
+          "count": 0,
+          "rate": 0.0
+        }
+      },
+      "provision": {
+        "complete_evidence": {
+          "count": 1,
+          "rate": 0.2
+        },
+        "exact_match": {
+          "count": 1,
+          "rate": 0.2
+        },
+        "macro": {
+          "f1": 0.6733333333333333,
+          "precision": 0.8333333333333334,
+          "recall": 0.6
+        },
+        "micro": {
+          "f1": 0.6923076923076923,
+          "gold": 15,
+          "precision": 0.8181818181818182,
+          "predicted": 11,
+          "recall": 0.6,
+          "true_positive": 9
+        }
+      },
+      "retrieval": {
+        "bge_at_10": {
+          "available": true,
+          "available_questions": 5,
+          "complete_evidence_count": 1,
+          "complete_evidence_recall": 0.2,
+          "provision_recall_macro": 0.6666666666666666,
+          "provision_recall_micro": 0.6666666666666666,
+          "question_count": 5,
+          "unavailable_reason": null
+        },
+        "bge_at_20": {
+          "available": true,
+          "available_questions": 5,
+          "complete_evidence_count": 1,
+          "complete_evidence_recall": 0.2,
+          "provision_recall_macro": 0.7333333333333333,
+          "provision_recall_micro": 0.7333333333333333,
+          "question_count": 5,
+          "unavailable_reason": null
+        },
+        "bge_at_30": {
+          "available": true,
+          "available_questions": 5,
+          "complete_evidence_count": 3,
+          "complete_evidence_recall": 0.6,
+          "provision_recall_macro": 0.8666666666666667,
+          "provision_recall_micro": 0.8666666666666667,
+          "question_count": 5,
+          "unavailable_reason": null
+        },
+        "first_stage_at_100": {
+          "available": true,
+          "available_questions": 5,
+          "complete_evidence_count": 4,
+          "complete_evidence_recall": 0.8,
+          "provision_recall_macro": 0.9333333333333333,
+          "provision_recall_micro": 0.9333333333333333,
+          "question_count": 5,
+          "unavailable_reason": null
+        },
+        "rrf_at_100": {
+          "available": true,
+          "available_questions": 5,
+          "complete_evidence_count": 4,
+          "complete_evidence_recall": 0.8,
+          "provision_recall_macro": 0.9333333333333333,
+          "provision_recall_micro": 0.9333333333333333,
+          "question_count": 5,
+          "unavailable_reason": null
+        }
+      },
+      "retrieval_loss": {
+        "accepted": {
+          "complete_evidence": {
+            "count": 1,
+            "rate": 0.2
+          },
+          "gold": 15,
+          "macro": {
+            "f1": 0.6733333333333333,
+            "precision": 0.8333333333333334,
+            "recall": 0.6
+          },
+          "micro": {
+            "f1": 0.6923076923076923,
+            "precision": 0.8181818181818182,
+            "recall": 0.6
+          },
+          "predicted": 11,
+          "question_count": 5,
+          "true_positive": 9
+        },
+        "available": true,
+        "available_questions": 5,
+        "final_candidate": {
+          "complete_evidence": {
+            "count": 1,
+            "rate": 0.2
+          },
+          "gold": 15,
+          "macro": {
+            "f1": 0.16811594202898553,
+            "precision": 0.09777777777777777,
+            "recall": 0.6
+          },
+          "micro": {
+            "f1": 0.16822429906542058,
+            "precision": 0.09782608695652174,
+            "recall": 0.6
+          },
+          "predicted": 92,
+          "question_count": 5,
+          "true_positive": 9
+        },
+        "first_candidate_complete_round": {
+          "counts": {
+            "2": 1
+          },
+          "never_complete_count": 4
+        },
+        "first_round_selected_complete_round": {
+          "counts": {
+            "2": 1
+          },
+          "never_complete_count": 4
+        },
+        "normal_outcome_questions": 5,
+        "round_selected_cumulative": {
+          "1": {
+            "complete_evidence": {
+              "count": 0,
+              "rate": 0.0
+            },
+            "gold": 15,
+            "macro": {
+              "f1": 0.12307692307692306,
+              "precision": 0.08,
+              "recall": 0.26666666666666666
+            },
+            "micro": {
+              "f1": 0.12307692307692307,
+              "precision": 0.08,
+              "recall": 0.26666666666666666
+            },
+            "predicted": 50,
+            "question_count": 5,
+            "true_positive": 4
+          },
+          "2": {
+            "complete_evidence": {
+              "count": 1,
+              "rate": 0.2
+            },
+            "gold": 15,
+            "macro": {
+              "f1": 0.18156132018024604,
+              "precision": 0.1073015873015873,
+              "recall": 0.6
+            },
+            "micro": {
+              "f1": 0.17475728155339806,
+              "precision": 0.10227272727272728,
+              "recall": 0.6
+            },
+            "predicted": 88,
+            "question_count": 5,
+            "true_positive": 9
+          },
+          "3": {
+            "complete_evidence": {
+              "count": 1,
+              "rate": 0.2
+            },
+            "gold": 15,
+            "macro": {
+              "f1": 0.16811594202898553,
+              "precision": 0.09777777777777777,
+              "recall": 0.6
+            },
+            "micro": {
+              "f1": 0.16822429906542058,
+              "precision": 0.09782608695652174,
+              "recall": 0.6
+            },
+            "predicted": 92,
+            "question_count": 5,
+            "true_positive": 9
+          }
+        },
+        "round_selected_matches_final_candidate": {
+          "match_count": 5,
+          "mismatch_count": 0
+        },
+        "unavailable_reason": null
+      }
+    }
+  },
+  "citation_integrity": {
+    "attempted": 15,
+    "pass_rate": 1.0,
+    "passed": 15
+  },
+  "efficiency": {
+    "candidate_count_returned": {
+      "count": 21,
+      "mean": 21.428571428571427,
+      "median": 20.0,
+      "p95": 30.0
+    },
+    "candidate_count_unique": {
+      "count": 21,
+      "mean": 16.61904761904762,
+      "median": 17.0,
+      "p95": 21.0
+    },
+    "end_to_end_latency_ms": {
+      "count": 21,
+      "mean": 180939.0629047619,
+      "median": 149725.666,
+      "p95": 390132.217
+    },
+    "retrieval_requests": {
+      "count": 21,
+      "mean": 3.5714285714285716,
+      "median": 4.0,
+      "p95": 5.0
+    },
+    "retrieval_rounds": {
+      "count": 21,
+      "mean": 2.142857142857143,
+      "median": 2.0,
+      "p95": 3.0
+    }
+  },
+  "evaluation_schema_version": "1.5",
+  "evidence_roles": {
+    "alternative": {
+      "mean_unique_per_question": 0.047619047619047616,
+      "per_question_unique_total": 1
+    },
+    "authorized_union": {
+      "mean_unique_per_question": 1.9523809523809523,
+      "per_question_unique_total": 41
+    },
+    "auxiliary_citations": {
+      "count": 1,
+      "questions_with_citation_count": 1
+    },
+    "auxiliary_union": {
+      "mean_unique_per_question": 0.3333333333333333,
+      "per_question_unique_total": 7
+    },
+    "core": {
+      "mean_unique_per_question": 1.619047619047619,
+      "per_question_unique_total": 34
+    },
+    "legacy_fallback_question_count": 0,
+    "provision_score_sources": {
+      "core_accepted_provision_ids": 21
+    },
+    "qualifying": {
+      "mean_unique_per_question": 0.047619047619047616,
+      "per_question_unique_total": 1
+    },
+    "role_schema_available_question_count": 21,
+    "supplemental": {
+      "mean_unique_per_question": 0.23809523809523808,
+      "per_question_unique_total": 5
+    }
+  },
+  "outcomes": {
+    "ABSTAIN": {
+      "count": 6,
+      "rate": 0.2857142857142857
+    },
+    "ANSWER": {
+      "count": 15,
+      "rate": 0.7142857142857143
+    },
+    "EXECUTION_FAILURE": {
+      "count": 0,
+      "rate": 0.0
+    }
+  },
+  "provision": {
+    "complete_evidence": {
+      "count": 7,
+      "rate": 0.3333333333333333
+    },
+    "exact_match": {
+      "count": 5,
+      "rate": 0.23809523809523808
+    },
+    "macro": {
+      "f1": 0.5634920634920635,
+      "precision": 0.6468253968253969,
+      "recall": 0.5476190476190476
+    },
+    "micro": {
+      "f1": 0.6216216216216216,
+      "gold": 40,
+      "precision": 0.6764705882352942,
+      "predicted": 34,
+      "recall": 0.575,
+      "true_positive": 23
+    }
+  },
+  "question_count": 21,
+  "retrieval": {
+    "bge_at_10": {
+      "available": true,
+      "available_questions": 21,
+      "complete_evidence_count": 10,
+      "complete_evidence_recall": 0.47619047619047616,
+      "provision_recall_macro": 0.6587301587301587,
+      "provision_recall_micro": 0.675,
+      "question_count": 21,
+      "unavailable_reason": null
+    },
+    "bge_at_20": {
+      "available": true,
+      "available_questions": 21,
+      "complete_evidence_count": 15,
+      "complete_evidence_recall": 0.7142857142857143,
+      "provision_recall_macro": 0.8888888888888888,
+      "provision_recall_micro": 0.85,
+      "question_count": 21,
+      "unavailable_reason": null
+    },
+    "bge_at_30": {
+      "available": true,
+      "available_questions": 21,
+      "complete_evidence_count": 17,
+      "complete_evidence_recall": 0.8095238095238095,
+      "provision_recall_macro": 0.9206349206349206,
+      "provision_recall_micro": 0.9,
+      "question_count": 21,
+      "unavailable_reason": null
+    },
+    "first_stage_at_100": {
+      "available": true,
+      "available_questions": 21,
+      "complete_evidence_count": 19,
+      "complete_evidence_recall": 0.9047619047619048,
+      "provision_recall_macro": 0.9603174603174603,
+      "provision_recall_micro": 0.95,
+      "question_count": 21,
+      "unavailable_reason": null
+    },
+    "rrf_at_100": {
+      "available": true,
+      "available_questions": 21,
+      "complete_evidence_count": 19,
+      "complete_evidence_recall": 0.9047619047619048,
+      "provision_recall_macro": 0.9603174603174603,
+      "provision_recall_micro": 0.95,
+      "question_count": 21,
+      "unavailable_reason": null
+    }
+  },
+  "retrieval_loss": {
+    "accepted": {
+      "complete_evidence": {
+        "count": 7,
+        "rate": 0.3333333333333333
+      },
+      "gold": 40,
+      "macro": {
+        "f1": 0.5634920634920635,
+        "precision": 0.6468253968253969,
+        "recall": 0.5476190476190476
+      },
+      "micro": {
+        "f1": 0.6216216216216216,
+        "precision": 0.6764705882352942,
+        "recall": 0.575
+      },
+      "predicted": 34,
+      "question_count": 21,
+      "true_positive": 23
+    },
+    "available": true,
+    "available_questions": 21,
+    "final_candidate": {
+      "complete_evidence": {
+        "count": 9,
+        "rate": 0.42857142857142855
+      },
+      "gold": 40,
+      "macro": {
+        "f1": 0.12743892085468533,
+        "precision": 0.07208187368514657,
+        "recall": 0.6190476190476191
+      },
+      "micro": {
+        "f1": 0.12853470437017994,
+        "precision": 0.07163323782234957,
+        "recall": 0.625
+      },
+      "predicted": 349,
+      "question_count": 21,
+      "true_positive": 25
+    },
+    "first_candidate_complete_round": {
+      "counts": {
+        "1": 4,
+        "2": 4,
+        "3": 1
+      },
+      "never_complete_count": 12
+    },
+    "first_round_selected_complete_round": {
+      "counts": {
+        "1": 4,
+        "2": 4,
+        "3": 1
+      },
+      "never_complete_count": 12
+    },
+    "normal_outcome_questions": 21,
+    "round_selected_cumulative": {
+      "1": {
+        "complete_evidence": {
+          "count": 4,
+          "rate": 0.19047619047619047
+        },
+        "gold": 40,
+        "macro": {
+          "f1": 0.11804861804861805,
+          "precision": 0.07142857142857144,
+          "recall": 0.373015873015873
+        },
+        "micro": {
+          "f1": 0.12,
+          "precision": 0.07142857142857142,
+          "recall": 0.375
+        },
+        "predicted": 210,
+        "question_count": 21,
+        "true_positive": 15
+      },
+      "2": {
+        "complete_evidence": {
+          "count": 8,
+          "rate": 0.38095238095238093
+        },
+        "gold": 40,
+        "macro": {
+          "f1": 0.13580970207751356,
+          "precision": 0.07782250327031397,
+          "recall": 0.5952380952380952
+        },
+        "micro": {
+          "f1": 0.13186813186813187,
+          "precision": 0.07407407407407407,
+          "recall": 0.6
+        },
+        "predicted": 324,
+        "question_count": 21,
+        "true_positive": 24
+      },
+      "3": {
+        "complete_evidence": {
+          "count": 9,
+          "rate": 0.42857142857142855
+        },
+        "gold": 40,
+        "macro": {
+          "f1": 0.12743892085468533,
+          "precision": 0.07208187368514657,
+          "recall": 0.6190476190476191
+        },
+        "micro": {
+          "f1": 0.12853470437017994,
+          "precision": 0.07163323782234957,
+          "recall": 0.625
+        },
+        "predicted": 349,
+        "question_count": 21,
+        "true_positive": 25
+      }
+    },
+    "round_selected_matches_final_candidate": {
+      "match_count": 21,
+      "mismatch_count": 0
+    },
+    "unavailable_reason": null
+  },
+  "splits": {
+    "all": {
+      "metrics": {
+        "answer_quality": {
+          "abstain_count": 6,
+          "abstain_rate": 0.2857142857142857,
+          "answer_count": 15,
+          "answer_mode_rates_e2e": {
+            "conditional": 0.047619047619047616,
+            "full": 0.42857142857142855,
+            "limited": 0.23809523809523808
+          },
+          "answer_modes": {
+            "conditional": 1,
+            "full": 9,
+            "limited": 5
+          },
+          "answer_rate": 0.7142857142857143,
+          "candidate_lf_eval": {
+            "available": false,
+            "note": "Export candidate_answer to a separately frozen LF-Eval input. The existing --lf-eval-scores import keeps its published ANSWER-record meaning.",
+            "unavailable_reason": "SEPARATE_FROZEN_CANDIDATE_INPUT_REQUIRED"
+          },
+          "candidate_token_f1_at_800": {
+            "abstain_available_count": 6,
+            "abstain_available_only": 0.20576139284209466,
+            "abstain_count": 6,
+            "abstain_missing_count": 0,
+            "abstain_only": 0.20576139284209466,
+            "all_outcomes": 0.30920733726208605,
+            "all_outcomes_available_count": 21,
+            "all_outcomes_missing_or_execution_failure_count": 0,
+            "available_count": 21,
+            "available_only": 0.30920733726208605,
+            "execution_failure_count": 0,
+            "internal_scale": "0_1",
+            "missing_count": 0,
+            "missing_or_execution_failure_score": 0.0,
+            "normal_outcome_count": 21,
+            "normal_outcomes": 0.30920733726208605,
+            "prediction_projection": "answer.split(\"<\\think>\")[0][:800]",
+            "scale_display": "0_100"
+          },
+          "execution_failure_count": 0,
+          "execution_failure_rate": 0.0,
+          "lf_eval": {
+            "answered_only": null,
+            "available": false,
+            "end_to_end": null,
+            "input_scale": null,
+            "internal_scale": "0_1",
+            "missing_answer_score_count": 15,
+            "scale": null,
+            "scale_display": "0_100",
+            "unavailable_reason": "LF_EVAL_NOT_PROVIDED"
+          },
+          "over_abstention_exact_match_at_800": {
+            "count": 0,
+            "definition": "ABSTAIN rows whose available benchmark candidate exactly matches the gold answer after answer.split(\"<\\think>\")[0][:800] and KoBLEX normalization; unavailable candidates are counted as non-matches.",
+            "rate": 0.0
+          },
+          "token_f1": {
+            "answered_only": 0.35058571503008257,
+            "end_to_end": 0.2504183678786304,
+            "internal_scale": "0_1",
+            "scale_display": "0_100"
+          },
+          "token_f1_at_800": {
+            "answered_only": 0.35058571503008257,
+            "end_to_end": 0.2504183678786304,
+            "internal_scale": "0_1",
+            "prediction_projection": "answer.split(\"<\\think>\")[0][:800]",
+            "scale_display": "0_100"
+          },
+          "unrecorded_answer_mode_count": 0
+        },
+        "answers": {
+          "false_supported_answer_count": null,
+          "false_supported_answer_rate": null,
+          "false_supported_label_coverage": 0.0,
+          "false_supported_labelled_count": 0,
+          "gold_incomplete_supported_answer_count": 10,
+          "supported_answer_count": 15,
+          "supported_answer_yield": 0.7142857142857143
+        },
+        "by_hop": {
+          "1": {
+            "answer_quality": {
+              "abstain_count": 3,
+              "abstain_rate": 0.375,
+              "answer_count": 5,
+              "answer_mode_rates_e2e": {
+                "conditional": 0.125,
+                "full": 0.5,
+                "limited": 0.0
+              },
+              "answer_modes": {
+                "conditional": 1,
+                "full": 4,
+                "limited": 0
+              },
+              "answer_rate": 0.625,
+              "candidate_lf_eval": {
+                "available": false,
+                "note": "Export candidate_answer to a separately frozen LF-Eval input. The existing --lf-eval-scores import keeps its published ANSWER-record meaning.",
+                "unavailable_reason": "SEPARATE_FROZEN_CANDIDATE_INPUT_REQUIRED"
+              },
+              "candidate_token_f1_at_800": {
+                "abstain_available_count": 3,
+                "abstain_available_only": 0.1530407191961925,
+                "abstain_count": 3,
+                "abstain_missing_count": 0,
+                "abstain_only": 0.1530407191961925,
+                "all_outcomes": 0.25057204594486454,
+                "all_outcomes_available_count": 8,
+                "all_outcomes_missing_or_execution_failure_count": 0,
+                "available_count": 8,
+                "available_only": 0.25057204594486454,
+                "execution_failure_count": 0,
+                "internal_scale": "0_1",
+                "missing_count": 0,
+                "missing_or_execution_failure_score": 0.0,
+                "normal_outcome_count": 8,
+                "normal_outcomes": 0.25057204594486454,
+                "prediction_projection": "answer.split(\"<\\think>\")[0][:800]",
+                "scale_display": "0_100"
+              },
+              "execution_failure_count": 0,
+              "execution_failure_rate": 0.0,
+              "lf_eval": {
+                "answered_only": null,
+                "available": false,
+                "end_to_end": null,
+                "input_scale": null,
+                "internal_scale": "0_1",
+                "missing_answer_score_count": 5,
+                "scale": null,
+                "scale_display": "0_100",
+                "unavailable_reason": "LF_EVAL_NOT_PROVIDED"
+              },
+              "over_abstention_exact_match_at_800": {
+                "count": 0,
+                "definition": "ABSTAIN rows whose available benchmark candidate exactly matches the gold answer after answer.split(\"<\\think>\")[0][:800] and KoBLEX normalization; unavailable candidates are counted as non-matches.",
+                "rate": 0.0
+              },
+              "token_f1": {
+                "answered_only": 0.3090908419940678,
+                "end_to_end": 0.19318177624629237,
+                "internal_scale": "0_1",
+                "scale_display": "0_100"
+              },
+              "token_f1_at_800": {
+                "answered_only": 0.3090908419940678,
+                "end_to_end": 0.19318177624629237,
+                "internal_scale": "0_1",
+                "prediction_projection": "answer.split(\"<\\think>\")[0][:800]",
+                "scale_display": "0_100"
+              },
+              "unrecorded_answer_mode_count": 0
+            },
+            "answers": {
+              "false_supported_answer_count": null,
+              "false_supported_answer_rate": null,
+              "false_supported_label_coverage": 0.0,
+              "false_supported_labelled_count": 0,
+              "gold_incomplete_supported_answer_count": 3,
+              "supported_answer_count": 5,
+              "supported_answer_yield": 0.625
+            },
+            "citation_integrity": {
+              "attempted": 5,
+              "pass_rate": 1.0,
+              "passed": 5
+            },
+            "efficiency": {
+              "candidate_count_returned": {
+                "count": 8,
+                "mean": 17.5,
+                "median": 20.0,
+                "p95": 26.499999999999993
+              },
+              "candidate_count_unique": {
+                "count": 8,
+                "mean": 13.875,
+                "median": 15.0,
+                "p95": 17.65
+              },
+              "end_to_end_latency_ms": {
+                "count": 8,
+                "mean": 162907.996875,
+                "median": 99459.4015,
+                "p95": 364956.5168
+              },
+              "retrieval_requests": {
+                "count": 8,
+                "mean": 2.375,
+                "median": 2.5,
+                "p95": 4.299999999999999
+              },
+              "retrieval_rounds": {
+                "count": 8,
+                "mean": 1.75,
+                "median": 2.0,
+                "p95": 2.6499999999999995
+              }
+            },
+            "evidence_roles": {
+              "alternative": {
+                "mean_unique_per_question": 0.125,
+                "per_question_unique_total": 1
+              },
+              "authorized_union": {
+                "mean_unique_per_question": 1.5,
+                "per_question_unique_total": 12
+              },
+              "auxiliary_citations": {
+                "count": 0,
+                "questions_with_citation_count": 0
+              },
+              "auxiliary_union": {
+                "mean_unique_per_question": 0.375,
+                "per_question_unique_total": 3
+              },
+              "core": {
+                "mean_unique_per_question": 1.125,
+                "per_question_unique_total": 9
+              },
+              "legacy_fallback_question_count": 0,
+              "provision_score_sources": {
+                "core_accepted_provision_ids": 8
+              },
+              "qualifying": {
+                "mean_unique_per_question": 0.0,
+                "per_question_unique_total": 0
+              },
+              "role_schema_available_question_count": 8,
+              "supplemental": {
+                "mean_unique_per_question": 0.25,
+                "per_question_unique_total": 2
+              }
+            },
+            "outcomes": {
+              "ABSTAIN": {
+                "count": 3,
+                "rate": 0.375
+              },
+              "ANSWER": {
+                "count": 5,
+                "rate": 0.625
+              },
+              "EXECUTION_FAILURE": {
+                "count": 0,
+                "rate": 0.0
+              }
+            },
+            "provision": {
+              "complete_evidence": {
+                "count": 3,
+                "rate": 0.375
+              },
+              "exact_match": {
+                "count": 2,
+                "rate": 0.25
+              },
+              "macro": {
+                "f1": 0.41666666666666663,
+                "precision": 0.4375,
+                "recall": 0.4375
+              },
+              "micro": {
+                "f1": 0.4444444444444444,
+                "gold": 9,
+                "precision": 0.4444444444444444,
+                "predicted": 9,
+                "recall": 0.4444444444444444,
+                "true_positive": 4
+              }
+            },
+            "retrieval": {
+              "bge_at_10": {
+                "available": true,
+                "available_questions": 8,
+                "complete_evidence_count": 5,
+                "complete_evidence_recall": 0.625,
+                "provision_recall_macro": 0.625,
+                "provision_recall_micro": 0.6666666666666666,
+                "question_count": 8,
+                "unavailable_reason": null
+              },
+              "bge_at_20": {
+                "available": true,
+                "available_questions": 8,
+                "complete_evidence_count": 8,
+                "complete_evidence_recall": 1.0,
+                "provision_recall_macro": 1.0,
+                "provision_recall_micro": 1.0,
+                "question_count": 8,
+                "unavailable_reason": null
+              },
+              "bge_at_30": {
+                "available": true,
+                "available_questions": 8,
+                "complete_evidence_count": 8,
+                "complete_evidence_recall": 1.0,
+                "provision_recall_macro": 1.0,
+                "provision_recall_micro": 1.0,
+                "question_count": 8,
+                "unavailable_reason": null
+              },
+              "first_stage_at_100": {
+                "available": true,
+                "available_questions": 8,
+                "complete_evidence_count": 8,
+                "complete_evidence_recall": 1.0,
+                "provision_recall_macro": 1.0,
+                "provision_recall_micro": 1.0,
+                "question_count": 8,
+                "unavailable_reason": null
+              },
+              "rrf_at_100": {
+                "available": true,
+                "available_questions": 8,
+                "complete_evidence_count": 8,
+                "complete_evidence_recall": 1.0,
+                "provision_recall_macro": 1.0,
+                "provision_recall_micro": 1.0,
+                "question_count": 8,
+                "unavailable_reason": null
+              }
+            },
+            "retrieval_loss": {
+              "accepted": {
+                "complete_evidence": {
+                  "count": 3,
+                  "rate": 0.375
+                },
+                "gold": 9,
+                "macro": {
+                  "f1": 0.41666666666666663,
+                  "precision": 0.4375,
+                  "recall": 0.4375
+                },
+                "micro": {
+                  "f1": 0.4444444444444444,
+                  "precision": 0.4444444444444444,
+                  "recall": 0.4444444444444444
+                },
+                "predicted": 9,
+                "question_count": 8,
+                "true_positive": 4
+              },
+              "available": true,
+              "available_questions": 8,
+              "final_candidate": {
+                "complete_evidence": {
+                  "count": 5,
+                  "rate": 0.625
+                },
+                "gold": 9,
+                "macro": {
+                  "f1": 0.10769459298871065,
+                  "precision": 0.06047794117647059,
+                  "recall": 0.625
+                },
+                "micro": {
+                  "f1": 0.1,
+                  "precision": 0.05405405405405406,
+                  "recall": 0.6666666666666666
+                },
+                "predicted": 111,
+                "question_count": 8,
+                "true_positive": 6
+              },
+              "first_candidate_complete_round": {
+                "counts": {
+                  "1": 3,
+                  "2": 2
+                },
+                "never_complete_count": 3
+              },
+              "first_round_selected_complete_round": {
+                "counts": {
+                  "1": 3,
+                  "2": 2
+                },
+                "never_complete_count": 3
+              },
+              "normal_outcome_questions": 8,
+              "round_selected_cumulative": {
+                "1": {
+                  "complete_evidence": {
+                    "count": 3,
+                    "rate": 0.375
+                  },
+                  "gold": 9,
+                  "macro": {
+                    "f1": 0.08712121212121213,
+                    "precision": 0.05,
+                    "recall": 0.375
+                  },
+                  "micro": {
+                    "f1": 0.08988764044943821,
+                    "precision": 0.05,
+                    "recall": 0.4444444444444444
+                  },
+                  "predicted": 80,
+                  "question_count": 8,
+                  "true_positive": 4
+                },
+                "2": {
+                  "complete_evidence": {
+                    "count": 5,
+                    "rate": 0.625
+                  },
+                  "gold": 9,
+                  "macro": {
+                    "f1": 0.1122194798665387,
+                    "precision": 0.06308210784313725,
+                    "recall": 0.625
+                  },
+                  "micro": {
+                    "f1": 0.10344827586206896,
+                    "precision": 0.056074766355140186,
+                    "recall": 0.6666666666666666
+                  },
+                  "predicted": 107,
+                  "question_count": 8,
+                  "true_positive": 6
+                },
+                "3": {
+                  "complete_evidence": {
+                    "count": 5,
+                    "rate": 0.625
+                  },
+                  "gold": 9,
+                  "macro": {
+                    "f1": 0.10769459298871065,
+                    "precision": 0.06047794117647059,
+                    "recall": 0.625
+                  },
+                  "micro": {
+                    "f1": 0.1,
+                    "precision": 0.05405405405405406,
+                    "recall": 0.6666666666666666
+                  },
+                  "predicted": 111,
+                  "question_count": 8,
+                  "true_positive": 6
+                }
+              },
+              "round_selected_matches_final_candidate": {
+                "match_count": 8,
+                "mismatch_count": 0
+              },
+              "unavailable_reason": null
+            }
+          },
+          "2": {
+            "answer_quality": {
+              "abstain_count": 3,
+              "abstain_rate": 0.375,
+              "answer_count": 5,
+              "answer_mode_rates_e2e": {
+                "conditional": 0.0,
+                "full": 0.25,
+                "limited": 0.375
+              },
+              "answer_modes": {
+                "conditional": 0,
+                "full": 2,
+                "limited": 3
+              },
+              "answer_rate": 0.625,
+              "candidate_lf_eval": {
+                "available": false,
+                "note": "Export candidate_answer to a separately frozen LF-Eval input. The existing --lf-eval-scores import keeps its published ANSWER-record meaning.",
+                "unavailable_reason": "SEPARATE_FROZEN_CANDIDATE_INPUT_REQUIRED"
+              },
+              "candidate_token_f1_at_800": {
+                "abstain_available_count": 3,
+                "abstain_available_only": 0.2584820664879968,
+                "abstain_count": 3,
+                "abstain_missing_count": 0,
+                "abstain_only": 0.2584820664879968,
+                "all_outcomes": 0.3569240058953536,
+                "all_outcomes_available_count": 8,
+                "all_outcomes_missing_or_execution_failure_count": 0,
+                "available_count": 8,
+                "available_only": 0.3569240058953536,
+                "execution_failure_count": 0,
+                "internal_scale": "0_1",
+                "missing_count": 0,
+                "missing_or_execution_failure_score": 0.0,
+                "normal_outcome_count": 8,
+                "normal_outcomes": 0.3569240058953536,
+                "prediction_projection": "answer.split(\"<\\think>\")[0][:800]",
+                "scale_display": "0_100"
+              },
+              "execution_failure_count": 0,
+              "execution_failure_rate": 0.0,
+              "lf_eval": {
+                "answered_only": null,
+                "available": false,
+                "end_to_end": null,
+                "input_scale": null,
+                "internal_scale": "0_1",
+                "missing_answer_score_count": 5,
+                "scale": null,
+                "scale_display": "0_100",
+                "unavailable_reason": "LF_EVAL_NOT_PROVIDED"
+              },
+              "over_abstention_exact_match_at_800": {
+                "count": 0,
+                "definition": "ABSTAIN rows whose available benchmark candidate exactly matches the gold answer after answer.split(\"<\\think>\")[0][:800] and KoBLEX normalization; unavailable candidates are counted as non-matches.",
+                "rate": 0.0
+              },
+              "token_f1": {
+                "answered_only": 0.41598916953976767,
+                "end_to_end": 0.25999323096235477,
+                "internal_scale": "0_1",
+                "scale_display": "0_100"
+              },
+              "token_f1_at_800": {
+                "answered_only": 0.41598916953976767,
+                "end_to_end": 0.25999323096235477,
+                "internal_scale": "0_1",
+                "prediction_projection": "answer.split(\"<\\think>\")[0][:800]",
+                "scale_display": "0_100"
+              },
+              "unrecorded_answer_mode_count": 0
+            },
+            "answers": {
+              "false_supported_answer_count": null,
+              "false_supported_answer_rate": null,
+              "false_supported_label_coverage": 0.0,
+              "false_supported_labelled_count": 0,
+              "gold_incomplete_supported_answer_count": 3,
+              "supported_answer_count": 5,
+              "supported_answer_yield": 0.625
+            },
+            "citation_integrity": {
+              "attempted": 5,
+              "pass_rate": 1.0,
+              "passed": 5
+            },
+            "efficiency": {
+              "candidate_count_returned": {
+                "count": 8,
+                "mean": 25.0,
+                "median": 25.0,
+                "p95": 30.0
+              },
+              "candidate_count_unique": {
+                "count": 8,
+                "mean": 18.25,
+                "median": 17.5,
+                "p95": 22.95
+              },
+              "end_to_end_latency_ms": {
+                "count": 8,
+                "mean": 217382.46225,
+                "median": 172864.87900000002,
+                "p95": 417148.6368
+              },
+              "retrieval_requests": {
+                "count": 8,
+                "mean": 4.5,
+                "median": 4.0,
+                "p95": 6.299999999999999
+              },
+              "retrieval_rounds": {
+                "count": 8,
+                "mean": 2.5,
+                "median": 2.5,
+                "p95": 3.0
+              }
+            },
+            "evidence_roles": {
+              "alternative": {
+                "mean_unique_per_question": 0.0,
+                "per_question_unique_total": 0
+              },
+              "authorized_union": {
+                "mean_unique_per_question": 2.0,
+                "per_question_unique_total": 16
+              },
+              "auxiliary_citations": {
+                "count": 0,
+                "questions_with_citation_count": 0
+              },
+              "auxiliary_union": {
+                "mean_unique_per_question": 0.25,
+                "per_question_unique_total": 2
+              },
+              "core": {
+                "mean_unique_per_question": 1.75,
+                "per_question_unique_total": 14
+              },
+              "legacy_fallback_question_count": 0,
+              "provision_score_sources": {
+                "core_accepted_provision_ids": 8
+              },
+              "qualifying": {
+                "mean_unique_per_question": 0.0,
+                "per_question_unique_total": 0
+              },
+              "role_schema_available_question_count": 8,
+              "supplemental": {
+                "mean_unique_per_question": 0.25,
+                "per_question_unique_total": 2
+              }
+            },
+            "outcomes": {
+              "ABSTAIN": {
+                "count": 3,
+                "rate": 0.375
+              },
+              "ANSWER": {
+                "count": 5,
+                "rate": 0.625
+              },
+              "EXECUTION_FAILURE": {
+                "count": 0,
+                "rate": 0.0
+              }
+            },
+            "provision": {
+              "complete_evidence": {
+                "count": 3,
+                "rate": 0.375
+              },
+              "exact_match": {
+                "count": 2,
+                "rate": 0.25
+              },
+              "macro": {
+                "f1": 0.6416666666666666,
+                "precision": 0.7395833333333334,
+                "recall": 0.625
+              },
+              "micro": {
+                "f1": 0.6666666666666666,
+                "gold": 16,
+                "precision": 0.7142857142857143,
+                "predicted": 14,
+                "recall": 0.625,
+                "true_positive": 10
+              }
+            },
+            "retrieval": {
+              "bge_at_10": {
+                "available": true,
+                "available_questions": 8,
+                "complete_evidence_count": 4,
+                "complete_evidence_recall": 0.5,
+                "provision_recall_macro": 0.6875,
+                "provision_recall_micro": 0.6875,
+                "question_count": 8,
+                "unavailable_reason": null
+              },
+              "bge_at_20": {
+                "available": true,
+                "available_questions": 8,
+                "complete_evidence_count": 6,
+                "complete_evidence_recall": 0.75,
+                "provision_recall_macro": 0.875,
+                "provision_recall_micro": 0.875,
+                "question_count": 8,
+                "unavailable_reason": null
+              },
+              "bge_at_30": {
+                "available": true,
+                "available_questions": 8,
+                "complete_evidence_count": 6,
+                "complete_evidence_recall": 0.75,
+                "provision_recall_macro": 0.875,
+                "provision_recall_micro": 0.875,
+                "question_count": 8,
+                "unavailable_reason": null
+              },
+              "first_stage_at_100": {
+                "available": true,
+                "available_questions": 8,
+                "complete_evidence_count": 7,
+                "complete_evidence_recall": 0.875,
+                "provision_recall_macro": 0.9375,
+                "provision_recall_micro": 0.9375,
+                "question_count": 8,
+                "unavailable_reason": null
+              },
+              "rrf_at_100": {
+                "available": true,
+                "available_questions": 8,
+                "complete_evidence_count": 7,
+                "complete_evidence_recall": 0.875,
+                "provision_recall_macro": 0.9375,
+                "provision_recall_micro": 0.9375,
+                "question_count": 8,
+                "unavailable_reason": null
+              }
+            },
+            "retrieval_loss": {
+              "accepted": {
+                "complete_evidence": {
+                  "count": 3,
+                  "rate": 0.375
+                },
+                "gold": 16,
+                "macro": {
+                  "f1": 0.6416666666666666,
+                  "precision": 0.7395833333333334,
+                  "recall": 0.625
+                },
+                "micro": {
+                  "f1": 0.6666666666666666,
+                  "precision": 0.7142857142857143,
+                  "recall": 0.625
+                },
+                "predicted": 14,
+                "question_count": 8,
+                "true_positive": 10
+              },
+              "available": true,
+              "available_questions": 8,
+              "final_candidate": {
+                "complete_evidence": {
+                  "count": 3,
+                  "rate": 0.375
+                },
+                "gold": 16,
+                "macro": {
+                  "f1": 0.1217601104867224,
+                  "precision": 0.06762586613592805,
+                  "recall": 0.625
+                },
+                "micro": {
+                  "f1": 0.12345679012345677,
+                  "precision": 0.0684931506849315,
+                  "recall": 0.625
+                },
+                "predicted": 146,
+                "question_count": 8,
+                "true_positive": 10
+              },
+              "first_candidate_complete_round": {
+                "counts": {
+                  "1": 1,
+                  "2": 1,
+                  "3": 1
+                },
+                "never_complete_count": 5
+              },
+              "first_round_selected_complete_round": {
+                "counts": {
+                  "1": 1,
+                  "2": 1,
+                  "3": 1
+                },
+                "never_complete_count": 5
+              },
+              "normal_outcome_questions": 8,
+              "round_selected_cumulative": {
+                "1": {
+                  "complete_evidence": {
+                    "count": 1,
+                    "rate": 0.125
+                  },
+                  "gold": 16,
+                  "macro": {
+                    "f1": 0.14583333333333334,
+                    "precision": 0.08750000000000001,
+                    "recall": 0.4375
+                  },
+                  "micro": {
+                    "f1": 0.14583333333333331,
+                    "precision": 0.0875,
+                    "recall": 0.4375
+                  },
+                  "predicted": 80,
+                  "question_count": 8,
+                  "true_positive": 7
+                },
+                "2": {
+                  "complete_evidence": {
+                    "count": 2,
+                    "rate": 0.25
+                  },
+                  "gold": 16,
+                  "macro": {
+                    "f1": 0.13080516297428063,
+                    "precision": 0.07413847117794486,
+                    "recall": 0.5625
+                  },
+                  "micro": {
+                    "f1": 0.12413793103448276,
+                    "precision": 0.06976744186046512,
+                    "recall": 0.5625
+                  },
+                  "predicted": 129,
+                  "question_count": 8,
+                  "true_positive": 9
+                },
+                "3": {
+                  "complete_evidence": {
+                    "count": 3,
+                    "rate": 0.375
+                  },
+                  "gold": 16,
+                  "macro": {
+                    "f1": 0.1217601104867224,
+                    "precision": 0.06762586613592805,
+                    "recall": 0.625
+                  },
+                  "micro": {
+                    "f1": 0.12345679012345677,
+                    "precision": 0.0684931506849315,
+                    "recall": 0.625
+                  },
+                  "predicted": 146,
+                  "question_count": 8,
+                  "true_positive": 10
+                }
+              },
+              "round_selected_matches_final_candidate": {
+                "match_count": 8,
+                "mismatch_count": 0
+              },
+              "unavailable_reason": null
+            }
+          },
+          "3": {
+            "answer_quality": {
+              "abstain_count": 0,
+              "abstain_rate": 0.0,
+              "answer_count": 5,
+              "answer_mode_rates_e2e": {
+                "conditional": 0.0,
+                "full": 0.6,
+                "limited": 0.4
+              },
+              "answer_modes": {
+                "conditional": 0,
+                "full": 3,
+                "limited": 2
+              },
+              "answer_rate": 1.0,
+              "candidate_lf_eval": {
+                "available": false,
+                "note": "Export candidate_answer to a separately frozen LF-Eval input. The existing --lf-eval-scores import keeps its published ANSWER-record meaning.",
+                "unavailable_reason": "SEPARATE_FROZEN_CANDIDATE_INPUT_REQUIRED"
+              },
+              "candidate_token_f1_at_800": {
+                "abstain_available_count": 0,
+                "abstain_available_only": null,
+                "abstain_count": 0,
+                "abstain_missing_count": 0,
+                "abstain_only": null,
+                "all_outcomes": 0.32667713355641226,
+                "all_outcomes_available_count": 5,
+                "all_outcomes_missing_or_execution_failure_count": 0,
+                "available_count": 5,
+                "available_only": 0.32667713355641226,
+                "execution_failure_count": 0,
+                "internal_scale": "0_1",
+                "missing_count": 0,
+                "missing_or_execution_failure_score": 0.0,
+                "normal_outcome_count": 5,
+                "normal_outcomes": 0.32667713355641226,
+                "prediction_projection": "answer.split(\"<\\think>\")[0][:800]",
+                "scale_display": "0_100"
+              },
+              "execution_failure_count": 0,
+              "execution_failure_rate": 0.0,
+              "lf_eval": {
+                "answered_only": null,
+                "available": false,
+                "end_to_end": null,
+                "input_scale": null,
+                "internal_scale": "0_1",
+                "missing_answer_score_count": 5,
+                "scale": null,
+                "scale_display": "0_100",
+                "unavailable_reason": "LF_EVAL_NOT_PROVIDED"
+              },
+              "over_abstention_exact_match_at_800": {
+                "count": 0,
+                "definition": "ABSTAIN rows whose available benchmark candidate exactly matches the gold answer after answer.split(\"<\\think>\")[0][:800] and KoBLEX normalization; unavailable candidates are counted as non-matches.",
+                "rate": null
+              },
+              "token_f1": {
+                "answered_only": 0.32667713355641226,
+                "end_to_end": 0.32667713355641226,
+                "internal_scale": "0_1",
+                "scale_display": "0_100"
+              },
+              "token_f1_at_800": {
+                "answered_only": 0.32667713355641226,
+                "end_to_end": 0.32667713355641226,
+                "internal_scale": "0_1",
+                "prediction_projection": "answer.split(\"<\\think>\")[0][:800]",
+                "scale_display": "0_100"
+              },
+              "unrecorded_answer_mode_count": 0
+            },
+            "answers": {
+              "false_supported_answer_count": null,
+              "false_supported_answer_rate": null,
+              "false_supported_label_coverage": 0.0,
+              "false_supported_labelled_count": 0,
+              "gold_incomplete_supported_answer_count": 4,
+              "supported_answer_count": 5,
+              "supported_answer_yield": 1.0
+            },
+            "citation_integrity": {
+              "attempted": 5,
+              "pass_rate": 1.0,
+              "passed": 5
+            },
+            "efficiency": {
+              "candidate_count_returned": {
+                "count": 5,
+                "mean": 22.0,
+                "median": 20.0,
+                "p95": 28.0
+              },
+              "candidate_count_unique": {
+                "count": 5,
+                "mean": 18.4,
+                "median": 18.0,
+                "p95": 19.6
+              },
+              "end_to_end_latency_ms": {
+                "count": 5,
+                "mean": 151479.3296,
+                "median": 149725.666,
+                "p95": 194485.1072
+              },
+              "retrieval_requests": {
+                "count": 5,
+                "mean": 4.0,
+                "median": 4.0,
+                "p95": 5.0
+              },
+              "retrieval_rounds": {
+                "count": 5,
+                "mean": 2.2,
+                "median": 2.0,
+                "p95": 2.8
+              }
+            },
+            "evidence_roles": {
+              "alternative": {
+                "mean_unique_per_question": 0.0,
+                "per_question_unique_total": 0
+              },
+              "authorized_union": {
+                "mean_unique_per_question": 2.6,
+                "per_question_unique_total": 13
+              },
+              "auxiliary_citations": {
+                "count": 1,
+                "questions_with_citation_count": 1
+              },
+              "auxiliary_union": {
+                "mean_unique_per_question": 0.4,
+                "per_question_unique_total": 2
+              },
+              "core": {
+                "mean_unique_per_question": 2.2,
+                "per_question_unique_total": 11
+              },
+              "legacy_fallback_question_count": 0,
+              "provision_score_sources": {
+                "core_accepted_provision_ids": 5
+              },
+              "qualifying": {
+                "mean_unique_per_question": 0.2,
+                "per_question_unique_total": 1
+              },
+              "role_schema_available_question_count": 5,
+              "supplemental": {
+                "mean_unique_per_question": 0.2,
+                "per_question_unique_total": 1
+              }
+            },
+            "outcomes": {
+              "ABSTAIN": {
+                "count": 0,
+                "rate": 0.0
+              },
+              "ANSWER": {
+                "count": 5,
+                "rate": 1.0
+              },
+              "EXECUTION_FAILURE": {
+                "count": 0,
+                "rate": 0.0
+              }
+            },
+            "provision": {
+              "complete_evidence": {
+                "count": 1,
+                "rate": 0.2
+              },
+              "exact_match": {
+                "count": 1,
+                "rate": 0.2
+              },
+              "macro": {
+                "f1": 0.6733333333333333,
+                "precision": 0.8333333333333334,
+                "recall": 0.6
+              },
+              "micro": {
+                "f1": 0.6923076923076923,
+                "gold": 15,
+                "precision": 0.8181818181818182,
+                "predicted": 11,
+                "recall": 0.6,
+                "true_positive": 9
+              }
+            },
+            "retrieval": {
+              "bge_at_10": {
+                "available": true,
+                "available_questions": 5,
+                "complete_evidence_count": 1,
+                "complete_evidence_recall": 0.2,
+                "provision_recall_macro": 0.6666666666666666,
+                "provision_recall_micro": 0.6666666666666666,
+                "question_count": 5,
+                "unavailable_reason": null
+              },
+              "bge_at_20": {
+                "available": true,
+                "available_questions": 5,
+                "complete_evidence_count": 1,
+                "complete_evidence_recall": 0.2,
+                "provision_recall_macro": 0.7333333333333333,
+                "provision_recall_micro": 0.7333333333333333,
+                "question_count": 5,
+                "unavailable_reason": null
+              },
+              "bge_at_30": {
+                "available": true,
+                "available_questions": 5,
+                "complete_evidence_count": 3,
+                "complete_evidence_recall": 0.6,
+                "provision_recall_macro": 0.8666666666666667,
+                "provision_recall_micro": 0.8666666666666667,
+                "question_count": 5,
+                "unavailable_reason": null
+              },
+              "first_stage_at_100": {
+                "available": true,
+                "available_questions": 5,
+                "complete_evidence_count": 4,
+                "complete_evidence_recall": 0.8,
+                "provision_recall_macro": 0.9333333333333333,
+                "provision_recall_micro": 0.9333333333333333,
+                "question_count": 5,
+                "unavailable_reason": null
+              },
+              "rrf_at_100": {
+                "available": true,
+                "available_questions": 5,
+                "complete_evidence_count": 4,
+                "complete_evidence_recall": 0.8,
+                "provision_recall_macro": 0.9333333333333333,
+                "provision_recall_micro": 0.9333333333333333,
+                "question_count": 5,
+                "unavailable_reason": null
+              }
+            },
+            "retrieval_loss": {
+              "accepted": {
+                "complete_evidence": {
+                  "count": 1,
+                  "rate": 0.2
+                },
+                "gold": 15,
+                "macro": {
+                  "f1": 0.6733333333333333,
+                  "precision": 0.8333333333333334,
+                  "recall": 0.6
+                },
+                "micro": {
+                  "f1": 0.6923076923076923,
+                  "precision": 0.8181818181818182,
+                  "recall": 0.6
+                },
+                "predicted": 11,
+                "question_count": 5,
+                "true_positive": 9
+              },
+              "available": true,
+              "available_questions": 5,
+              "final_candidate": {
+                "complete_evidence": {
+                  "count": 1,
+                  "rate": 0.2
+                },
+                "gold": 15,
+                "macro": {
+                  "f1": 0.16811594202898553,
+                  "precision": 0.09777777777777777,
+                  "recall": 0.6
+                },
+                "micro": {
+                  "f1": 0.16822429906542058,
+                  "precision": 0.09782608695652174,
+                  "recall": 0.6
+                },
+                "predicted": 92,
+                "question_count": 5,
+                "true_positive": 9
+              },
+              "first_candidate_complete_round": {
+                "counts": {
+                  "2": 1
+                },
+                "never_complete_count": 4
+              },
+              "first_round_selected_complete_round": {
+                "counts": {
+                  "2": 1
+                },
+                "never_complete_count": 4
+              },
+              "normal_outcome_questions": 5,
+              "round_selected_cumulative": {
+                "1": {
+                  "complete_evidence": {
+                    "count": 0,
+                    "rate": 0.0
+                  },
+                  "gold": 15,
+                  "macro": {
+                    "f1": 0.12307692307692306,
+                    "precision": 0.08,
+                    "recall": 0.26666666666666666
+                  },
+                  "micro": {
+                    "f1": 0.12307692307692307,
+                    "precision": 0.08,
+                    "recall": 0.26666666666666666
+                  },
+                  "predicted": 50,
+                  "question_count": 5,
+                  "true_positive": 4
+                },
+                "2": {
+                  "complete_evidence": {
+                    "count": 1,
+                    "rate": 0.2
+                  },
+                  "gold": 15,
+                  "macro": {
+                    "f1": 0.18156132018024604,
+                    "precision": 0.1073015873015873,
+                    "recall": 0.6
+                  },
+                  "micro": {
+                    "f1": 0.17475728155339806,
+                    "precision": 0.10227272727272728,
+                    "recall": 0.6
+                  },
+                  "predicted": 88,
+                  "question_count": 5,
+                  "true_positive": 9
+                },
+                "3": {
+                  "complete_evidence": {
+                    "count": 1,
+                    "rate": 0.2
+                  },
+                  "gold": 15,
+                  "macro": {
+                    "f1": 0.16811594202898553,
+                    "precision": 0.09777777777777777,
+                    "recall": 0.6
+                  },
+                  "micro": {
+                    "f1": 0.16822429906542058,
+                    "precision": 0.09782608695652174,
+                    "recall": 0.6
+                  },
+                  "predicted": 92,
+                  "question_count": 5,
+                  "true_positive": 9
+                }
+              },
+              "round_selected_matches_final_candidate": {
+                "match_count": 5,
+                "mismatch_count": 0
+              },
+              "unavailable_reason": null
+            }
+          }
+        },
+        "citation_integrity": {
+          "attempted": 15,
+          "pass_rate": 1.0,
+          "passed": 15
+        },
+        "efficiency": {
+          "candidate_count_returned": {
+            "count": 21,
+            "mean": 21.428571428571427,
+            "median": 20.0,
+            "p95": 30.0
+          },
+          "candidate_count_unique": {
+            "count": 21,
+            "mean": 16.61904761904762,
+            "median": 17.0,
+            "p95": 21.0
+          },
+          "end_to_end_latency_ms": {
+            "count": 21,
+            "mean": 180939.0629047619,
+            "median": 149725.666,
+            "p95": 390132.217
+          },
+          "retrieval_requests": {
+            "count": 21,
+            "mean": 3.5714285714285716,
+            "median": 4.0,
+            "p95": 5.0
+          },
+          "retrieval_rounds": {
+            "count": 21,
+            "mean": 2.142857142857143,
+            "median": 2.0,
+            "p95": 3.0
+          }
+        },
+        "evidence_roles": {
+          "alternative": {
+            "mean_unique_per_question": 0.047619047619047616,
+            "per_question_unique_total": 1
+          },
+          "authorized_union": {
+            "mean_unique_per_question": 1.9523809523809523,
+            "per_question_unique_total": 41
+          },
+          "auxiliary_citations": {
+            "count": 1,
+            "questions_with_citation_count": 1
+          },
+          "auxiliary_union": {
+            "mean_unique_per_question": 0.3333333333333333,
+            "per_question_unique_total": 7
+          },
+          "core": {
+            "mean_unique_per_question": 1.619047619047619,
+            "per_question_unique_total": 34
+          },
+          "legacy_fallback_question_count": 0,
+          "provision_score_sources": {
+            "core_accepted_provision_ids": 21
+          },
+          "qualifying": {
+            "mean_unique_per_question": 0.047619047619047616,
+            "per_question_unique_total": 1
+          },
+          "role_schema_available_question_count": 21,
+          "supplemental": {
+            "mean_unique_per_question": 0.23809523809523808,
+            "per_question_unique_total": 5
+          }
+        },
+        "outcomes": {
+          "ABSTAIN": {
+            "count": 6,
+            "rate": 0.2857142857142857
+          },
+          "ANSWER": {
+            "count": 15,
+            "rate": 0.7142857142857143
+          },
+          "EXECUTION_FAILURE": {
+            "count": 0,
+            "rate": 0.0
+          }
+        },
+        "provision": {
+          "complete_evidence": {
+            "count": 7,
+            "rate": 0.3333333333333333
+          },
+          "exact_match": {
+            "count": 5,
+            "rate": 0.23809523809523808
+          },
+          "macro": {
+            "f1": 0.5634920634920635,
+            "precision": 0.6468253968253969,
+            "recall": 0.5476190476190476
+          },
+          "micro": {
+            "f1": 0.6216216216216216,
+            "gold": 40,
+            "precision": 0.6764705882352942,
+            "predicted": 34,
+            "recall": 0.575,
+            "true_positive": 23
+          }
+        },
+        "retrieval": {
+          "bge_at_10": {
+            "available": true,
+            "available_questions": 21,
+            "complete_evidence_count": 10,
+            "complete_evidence_recall": 0.47619047619047616,
+            "provision_recall_macro": 0.6587301587301587,
+            "provision_recall_micro": 0.675,
+            "question_count": 21,
+            "unavailable_reason": null
+          },
+          "bge_at_20": {
+            "available": true,
+            "available_questions": 21,
+            "complete_evidence_count": 15,
+            "complete_evidence_recall": 0.7142857142857143,
+            "provision_recall_macro": 0.8888888888888888,
+            "provision_recall_micro": 0.85,
+            "question_count": 21,
+            "unavailable_reason": null
+          },
+          "bge_at_30": {
+            "available": true,
+            "available_questions": 21,
+            "complete_evidence_count": 17,
+            "complete_evidence_recall": 0.8095238095238095,
+            "provision_recall_macro": 0.9206349206349206,
+            "provision_recall_micro": 0.9,
+            "question_count": 21,
+            "unavailable_reason": null
+          },
+          "first_stage_at_100": {
+            "available": true,
+            "available_questions": 21,
+            "complete_evidence_count": 19,
+            "complete_evidence_recall": 0.9047619047619048,
+            "provision_recall_macro": 0.9603174603174603,
+            "provision_recall_micro": 0.95,
+            "question_count": 21,
+            "unavailable_reason": null
+          },
+          "rrf_at_100": {
+            "available": true,
+            "available_questions": 21,
+            "complete_evidence_count": 19,
+            "complete_evidence_recall": 0.9047619047619048,
+            "provision_recall_macro": 0.9603174603174603,
+            "provision_recall_micro": 0.95,
+            "question_count": 21,
+            "unavailable_reason": null
+          }
+        },
+        "retrieval_loss": {
+          "accepted": {
+            "complete_evidence": {
+              "count": 7,
+              "rate": 0.3333333333333333
+            },
+            "gold": 40,
+            "macro": {
+              "f1": 0.5634920634920635,
+              "precision": 0.6468253968253969,
+              "recall": 0.5476190476190476
+            },
+            "micro": {
+              "f1": 0.6216216216216216,
+              "precision": 0.6764705882352942,
+              "recall": 0.575
+            },
+            "predicted": 34,
+            "question_count": 21,
+            "true_positive": 23
+          },
+          "available": true,
+          "available_questions": 21,
+          "final_candidate": {
+            "complete_evidence": {
+              "count": 9,
+              "rate": 0.42857142857142855
+            },
+            "gold": 40,
+            "macro": {
+              "f1": 0.12743892085468533,
+              "precision": 0.07208187368514657,
+              "recall": 0.6190476190476191
+            },
+            "micro": {
+              "f1": 0.12853470437017994,
+              "precision": 0.07163323782234957,
+              "recall": 0.625
+            },
+            "predicted": 349,
+            "question_count": 21,
+            "true_positive": 25
+          },
+          "first_candidate_complete_round": {
+            "counts": {
+              "1": 4,
+              "2": 4,
+              "3": 1
+            },
+            "never_complete_count": 12
+          },
+          "first_round_selected_complete_round": {
+            "counts": {
+              "1": 4,
+              "2": 4,
+              "3": 1
+            },
+            "never_complete_count": 12
+          },
+          "normal_outcome_questions": 21,
+          "round_selected_cumulative": {
+            "1": {
+              "complete_evidence": {
+                "count": 4,
+                "rate": 0.19047619047619047
+              },
+              "gold": 40,
+              "macro": {
+                "f1": 0.11804861804861805,
+                "precision": 0.07142857142857144,
+                "recall": 0.373015873015873
+              },
+              "micro": {
+                "f1": 0.12,
+                "precision": 0.07142857142857142,
+                "recall": 0.375
+              },
+              "predicted": 210,
+              "question_count": 21,
+              "true_positive": 15
+            },
+            "2": {
+              "complete_evidence": {
+                "count": 8,
+                "rate": 0.38095238095238093
+              },
+              "gold": 40,
+              "macro": {
+                "f1": 0.13580970207751356,
+                "precision": 0.07782250327031397,
+                "recall": 0.5952380952380952
+              },
+              "micro": {
+                "f1": 0.13186813186813187,
+                "precision": 0.07407407407407407,
+                "recall": 0.6
+              },
+              "predicted": 324,
+              "question_count": 21,
+              "true_positive": 24
+            },
+            "3": {
+              "complete_evidence": {
+                "count": 9,
+                "rate": 0.42857142857142855
+              },
+              "gold": 40,
+              "macro": {
+                "f1": 0.12743892085468533,
+                "precision": 0.07208187368514657,
+                "recall": 0.6190476190476191
+              },
+              "micro": {
+                "f1": 0.12853470437017994,
+                "precision": 0.07163323782234957,
+                "recall": 0.625
+              },
+              "predicted": 349,
+              "question_count": 21,
+              "true_positive": 25
+            }
+          },
+          "round_selected_matches_final_candidate": {
+            "match_count": 21,
+            "mismatch_count": 0
+          },
+          "unavailable_reason": null
+        }
+      },
+      "question_count": 21
+    }
+  },
+  "warnings": []
+}

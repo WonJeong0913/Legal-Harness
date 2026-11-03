@@ -1,0 +1,951 @@
+{
+  "abstention_reason": null,
+  "answer": "매입자발행세금계산서 발행을 위한 거래사실 확인신청 시에는 거래사실확인신청서에 거래사실을 객관적으로 입증할 수 있는 서류를 첨부하여 신청인 관할 세무서장에게 신청해야 한다.[CT1]\n거래사실의 확인신청 대상이 되는 거래는 거래건당 공급대가가 5만원 이상인 경우로 한정된다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "질문 시나리오에서 갑의 거래 금액이 7만원으로 명시되어 있어, 5만원 이상 요건을 충족하는 것으로 가정한다."
+    }
+  ],
+  "candidate_answer": "매입자발행세금계산서 발행을 위한 거래사실 확인신청 시에는 거래사실확인신청서에 거래사실을 객관적으로 입증할 수 있는 서류를 첨부하여 신청인 관할 세무서장에게 신청해야 한다.[CT1]\n거래사실의 확인신청 대상이 되는 거래는 거래건당 공급대가가 5만원 이상인 경우로 한정된다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054704",
+      "quoted_text": "③ 법 제34조의2제2항에 따른 매입자발행세금계산서를 발행하려는 자(이하 이 조에서 \"신청인\"이라 한다)는 해당 재화 또는 용역의 공급시기가 속하는 과세기간의 종료일부터 1년 이내에 기획재정부령으로 정하는 거래사실확인신청서에 거래사실을 객관적으로 입증할 수 있는 서류를 첨부하여 신청인 관할 세무서장에게 거래사실의 확인을 신청하여야 한다. <개정 2019.2.12, 2024.2.29>",
+      "support_description": "확인신청 시 제출해야 하는 서류(확인신청서 및 객관적 입증 서류)와 제출 대상(관할 세무서장)을 규정하여 E1 요건을 충족한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054705",
+      "quoted_text": "④ 제3항에 따른 거래사실의 확인신청 대상이 되는 거래는 거래건당 공급대가가 5만원 이상인 경우로 한다. <개정 2023.2.28, 2024.2.29>",
+      "support_description": "확인신청 대상 거래의 금액 요건(거래건당 공급대가 5만원 이상)을 규정하여 E2 요건을 충족한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "procedure",
+      "text": "매입자발행세금계산서 발행을 위한 거래사실 확인신청 시에는 거래사실확인신청서에 거래사실을 객관적으로 입증할 수 있는 서류를 첨부하여 신청인 관할 세무서장에게 신청해야 한다."
+    },
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "거래사실의 확인신청 대상이 되는 거래는 거래건당 공급대가가 5만원 이상인 경우로 한정된다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-25T03:07:07.447710+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 462049.292,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "본 답변은 부가가치세법 시행령 제71조의2에 근거한 절차적 요건과 대상 거래의 금액 요건에 한정되며, 구체적인 입증 서류의 종류나 세무서장의 확인 절차에 대한 상세 내용은 포함하지 않는다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 199,
+      "dedup_collapse": 2,
+      "evidence_fusion": 299,
+      "first_stage": 300,
+      "request_rerank": 300,
+      "round_selected": 20,
+      "rrf": 200,
+      "selected": 199
+    }
+  },
+  "run_id": "9e5c9184-7120-4116-9d28-f2d1e4c6ec2b",
+  "skill_generation_diagnostics": {
+    "attempt_count": 5,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054705",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054704"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 1
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": true,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 9,
+          "request_count": 1,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": true,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "statutory_requirements",
+        "question_anchor": "갑이 매입자발행계산서를 발급받기 위해 거래사실 확인을 신청하려면 어떤 서류를 제출해야 하며, 거래사실의 확인신청 대상이 되는 거래는 어떤 조건을 충족해야 하는가?",
+        "requested_output": "거래사실 확인신청 시 제출해야 할 서류 목록 및 확인신청 대상 거래의 법적 요건"
+      }
+    ],
+    "answered_target_ids": [
+      "T1"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "법인세법 시행규칙 79조  지출증명서류의 수취 특례#KOBLEX-150724"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 70,
+        "first_stage_score": 0.5514736175537109,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "법인세법 시행규칙 79조  지출증명서류의 수취 특례#KOBLEX-150724",
+        "provision_text": "8. 건물(토지를 함께 공급받은 경우에는 당해토지를 포함하며, 주택을 제외한다)을 구입하는 경우로서 거래내용이 확인되는 매매계약서사본을 법 제60조의 규정에 의한 법인세과세표준신고서에 첨부하여 납세지 관할세무서장에게 제출하는 경우",
+        "rerank_rank": 10,
+        "rerank_score": 0.9998083710670471,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "법인세법 시행규칙 79조  지출증명서류의 수취 특례 8호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소득세법 시행규칙 95조 3 경비 등의 지출증빙 특례#KOBLEX-036314"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 28,
+        "first_stage_score": 0.5745708346366882,
+        "fusion_rank": 13,
+        "issue_id": "I1",
+        "provision_id": "소득세법 시행규칙 95조 3 경비 등의 지출증빙 특례#KOBLEX-036314",
+        "provision_text": "8. 건물(토지를 함께 공급받은 경우에는 당해 토지를 포함하며, 주택을 제외한다)을 구입하는 경우로서 거래내용이 확인되는 매매계약서 사본을 과세표준확정신고서에 첨부하여 납세지 관할세무서장에게 제출하는 경우",
+        "rerank_rank": 13,
+        "rerank_score": 0.9997920393943787,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "소득세법 시행규칙 95조 3 경비 등의 지출증빙 특례 8호",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "상속세 및 증여세법 시행령 45조 2 장애인이 증여받은 재산의 과세가액불산입#KOBLEX-212456"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 80,
+        "first_stage_score": 0.5496186017990112,
+        "fusion_rank": 63,
+        "issue_id": "I1",
+        "provision_id": "상속세 및 증여세법 시행령 45조 2 장애인이 증여받은 재산의 과세가액불산입#KOBLEX-212456",
+        "provision_text": "⑫법 제52조의2제5항에 따라 증여세 과세가액불산입을 받고자 하는 자는 제65조제1항에 따른 증여세과세표준신고및자진납부계산서에 다음 각 호의 서류를 첨부하여 납세지 관할세무서장에게 제출하여야 한다. <개정 1999.12.31, 2005.8.5, 2010.2.18, 2018.2.13, 2020.2.11> 1. 증여재산명세서 및 증여계약서 사본 2. 신탁계약서(「자본시장과 금융투자업에 관한 법률 시행령」 제103조제2호에 따른 불특정금전신탁의 계약에 있어서는 신탁증서사본 또는 수익증권사본으로 갈음할 수 있다) 3. 제1항에 해당하는 자임을 증명하는 서류",
+        "rerank_rank": 63,
+        "rerank_score": 0.9997591376304626,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1"
+        ],
+        "statute_name": "상속세 및 증여세법 시행령 45조 2 장애인이 증여받은 재산의 과세가액불산입 12항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "주택법 시행령 74조 2 공급질서 교란 행위로 인한 주택 공급계약 취소제한 및 취소절차 등#KOBLEX-176645"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 14,
+        "first_stage_score": 0.5935678482055664,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "주택법 시행령 74조 2 공급질서 교란 행위로 인한 주택 공급계약 취소제한 및 취소절차 등#KOBLEX-176645",
+        "provision_text": "④ 제3항에 따른 소명 요구를 받은 매수인은 요구받은 날부터 1개월 이내에 소명 내용을 적은 문서(전자문서를 포함한다)에 다음 각 호의 서류(전자문서를 포함한다)를 첨부하여 제2항에 따른 시장ㆍ군수ㆍ구청장에게 제출할 수 있다. 1. 주택등의 거래계약서 2. 「부동산 거래신고 등에 관한 법률」 제3조제5항에 따라 발급받은 신고필증 3. 주택등 거래대금의 지급내역이 적힌 서류 4. 그 밖에 주택등의 거래사실을 증명할 수 있는 서류",
+        "rerank_rank": 9,
+        "rerank_score": 0.999754011631012,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "주택법 시행령 74조 2 공급질서 교란 행위로 인한 주택 공급계약 취소제한 및 취소절차 등 4항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "주택법 시행규칙 26조 2 분양가상한제 적용주택 등의 전매 동의신청서#KOBLEX-098442"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 47,
+        "first_stage_score": 0.5599662661552429,
+        "fusion_rank": 17,
+        "issue_id": "I1",
+        "provision_id": "주택법 시행규칙 26조 2 분양가상한제 적용주택 등의 전매 동의신청서#KOBLEX-098442",
+        "provision_text": "① 영 제73조제4항에 따른 전매 동의를 받으려는 사람은 같은 조 제5항에 따라 별지 제25호의6서식의 전매 동의신청서에 다음 각 호의 서류를 첨부하여 한국토지주택공사에 제출해야 한다. 1. 분양계약서 사본 2. 인감증명서 또는 「본인서명사실 확인 등에 관한 법률」 에 따른 본인서명사실확인서",
+        "rerank_rank": 17,
+        "rerank_score": 0.9997187256813049,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "주택법 시행규칙 26조 2 분양가상한제 적용주택 등의 전매 동의신청서 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054705"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.6106148362159729,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054705",
+        "provision_text": "④ 제3항에 따른 거래사실의 확인신청 대상이 되는 거래는 거래건당 공급대가가 5만원 이상인 경우로 한다. <개정 2023.2.28, 2024.2.29>",
+        "rerank_rank": 1,
+        "rerank_score": 0.9996950626373291,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2",
+          "GRQ-R2-1"
+        ],
+        "statute_name": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등 4항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "조세특례제한법 시행령 121조 5 현금거래의 확인 등#KOBLEX-071827"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 17,
+        "first_stage_score": 0.5819122195243835,
+        "fusion_rank": 25,
+        "issue_id": "I1",
+        "provision_id": "조세특례제한법 시행령 121조 5 현금거래의 확인 등#KOBLEX-071827",
+        "provision_text": "②법 제126조의5제1항에 따라 현금거래 사실의 확인을 신청하려는 자는 거래일부터 5년 이내에 기획재정부령으로 정하는 현금거래확인신청서에 거래사실을 객관적으로 입증할 수 있는 거래증빙을 첨부하여 세무서장ㆍ지방국세청장 또는 국세청장에게 제출하여야 한다. <개정 2008.2.29, 2009.2.4, 2013.2.15, 2025.2.28>",
+        "rerank_rank": 25,
+        "rerank_score": 0.9996635913848877,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "조세특례제한법 시행령 121조 5 현금거래의 확인 등 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "징발재산 정리에 관한 특별조치법 12조  증권의 교부등#KOBLEX-221732"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 65,
+        "first_stage_score": 0.5546313524246216,
+        "fusion_rank": 3,
+        "issue_id": "I1",
+        "provision_id": "징발재산 정리에 관한 특별조치법 12조  증권의 교부등#KOBLEX-221732",
+        "provision_text": "①제5조의 규정에 의한 매매에 관한 증서, 제6조제2항의 규정에 의한 매수결정통지서(第7條第1項의 規定에 의하여 異議申請한 者는 그 異議에 대한 裁決통지서를 함께 提出하여야 한다)또는 제8조제2항의 규정에 의한 징발보상금지급통지서를 받은 피징발자는 당해 증서 또는 통지서를 한국은행에 제출하고 한국은행으로부터 증권을 교부받거나 현금을 지급받는다.",
+        "rerank_rank": 3,
+        "rerank_score": 0.9996582269668579,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "징발재산 정리에 관한 특별조치법 12조  증권의 교부등 1항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소득세법 시행령 210조 2 신용카드가맹점의 가입 등#KOBLEX-142826"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 60,
+        "first_stage_score": 0.5510356426239014,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "소득세법 시행령 210조 2 신용카드가맹점의 가입 등#KOBLEX-142826",
+        "provision_text": "②신용카드가맹점으로부터 신용카드에 의한 거래가 거부되거나 사실과 다르게 신용카드매출전표를 발급받은 자가 법 제162조의2제3항에 따라 그 거래내용을 신고하려는 때에는 다음 각 호의 사항이 포함된 신고서에 관련 사실을 증명할 수 있는 서류 또는 자료를 첨부하여 그 거래가 거부되거나 사실과 다르게 발급받은 날부터 1개월 이내에 국세청장ㆍ지방국세청장 또는 세무서장에게 제출하여야 한다. <신설 2007.2.28, 2009.2.4, 2010.2.18> 1. 신고자 성명 2. 신용카드가맹점 상호 3. 신용카드에 의한 거래가 거부되거나 사실과 다르게 발급받은 일자ㆍ거래내용 및 금액",
+        "rerank_rank": 2,
+        "rerank_score": 0.9996498823165894,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "소득세법 시행령 210조 2 신용카드가맹점의 가입 등 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "소득세법 시행규칙 75조  주택과 조합원입주권 또는 주택과 분양권을 소유한 경우의 경매 등으로 인한 1세대1주택 특례의 요건#KOBLEX-036145"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 65,
+        "first_stage_score": 0.5490334630012512,
+        "fusion_rank": 16,
+        "issue_id": "I1",
+        "provision_id": "소득세법 시행규칙 75조  주택과 조합원입주권 또는 주택과 분양권을 소유한 경우의 경매 등으로 인한 1세대1주택 특례의 요건#KOBLEX-036145",
+        "provision_text": "②제1항의 규정을 적용받고자 하는 자는 다음 각 호의 어느 하나의 서류를 제출하여야 한다. 1. 매각의뢰를 신청한 경우에는 부동산 매각의뢰신청서 접수증 2. 법원에 경매를 신청한 경우에는 그 사실을 입증하는 서류",
+        "rerank_rank": 16,
+        "rerank_score": 0.9996349811553955,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "RQ2"
+        ],
+        "statute_name": "소득세법 시행규칙 75조  주택과 조합원입주권 또는 주택과 분양권을 소유한 경우의 경매 등으로 인한 1세대1주택 특례의 요건 2항",
+        "target_evidence_item_ids": [
+          "E1",
+          "E2"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054708"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 64,
+        "first_stage_score": 0.5823928713798523,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054708",
+        "provision_text": "⑦ 신청인 관할 세무서장은 제6항에 따른 확인을 거부하는 결정을 하지 아니한 신청에 대해서는 거래사실확인신청서가 제출된 날(제5항에 따라 보정을 요구하였을 때에는 보정이 된 날)부터 7일 이내에 신청서와 제출된 증빙서류를 공급자 관할 세무서장에게 송부하여야 한다. <개정 2024.2.29>",
+        "rerank_rank": 1,
+        "rerank_score": 0.9999498128890991,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등 7항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054704"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.7494295835494995,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054704",
+        "provision_text": "③ 법 제34조의2제2항에 따른 매입자발행세금계산서를 발행하려는 자(이하 이 조에서 \"신청인\"이라 한다)는 해당 재화 또는 용역의 공급시기가 속하는 과세기간의 종료일부터 1년 이내에 기획재정부령으로 정하는 거래사실확인신청서에 거래사실을 객관적으로 입증할 수 있는 서류를 첨부하여 신청인 관할 세무서장에게 거래사실의 확인을 신청하여야 한다. <개정 2019.2.12, 2024.2.29>",
+        "rerank_rank": 2,
+        "rerank_score": 0.9999426603317261,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등 3항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054701"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 66,
+        "first_stage_score": 0.5810397267341614,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054701",
+        "provision_text": "제71조의2(매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등)",
+        "rerank_rank": 4,
+        "rerank_score": 0.9995567202568054,
+        "retrieval_round": 2,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054710"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 48,
+        "first_stage_score": 0.5898610353469849,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054710",
+        "provision_text": "⑨ 공급자 관할 세무서장은 신청일의 다음 달 말일까지 거래사실여부를 확인한 후 다음 각 호의 구분에 따른 통지를 공급자와 신청인 관할 세무서장에게 하여야 한다. 다만, 공급자의 부도, 일시 부재 등 기획재정부령으로 정하는 불가피한 사유가 있는 경우에는 거래사실 확인기간을 20일 이내의 범위에서 연장할 수 있다. <개정 2024.2.29> 1. 거래사실이 확인되는 경우: 공급자 및 공급받는 자의 사업자등록번호, 작성연월일, 공급가액 및 부가가치세액 등을 포함한 거래사실 확인 통지 2. 거래사실이 확인되지 아니하는 경우: 거래사실 확인불가 통지",
+        "rerank_rank": 5,
+        "rerank_score": 0.9995507597923279,
+        "retrieval_round": 2,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등 9항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054714"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 15,
+        "first_stage_score": 0.6206421256065369,
+        "fusion_rank": 6,
+        "issue_id": "I1",
+        "provision_id": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054714",
+        "provision_text": "⑬ 제11항 또는 제12항에 따라 매입자발행세금계산서를 공급자에게 교부하였거나 교부한 것으로 보는 경우 신청인은 법 제48조에 따른 예정신고, 법 제49조에 따른 확정신고 또는 「국세기본법」 제45조의2제1항에 따른 경정청구를 할 때 기획재정부령으로 정하는 매입자발행세금계산서합계표를 제출한 경우에는 매입자발행세금계산서에 기재된 매입세액을 법 제37조, 제38조 및 제63조제3항에 따라 해당 재화 또는 용역의 공급시기에 해당하는 과세기간의 매출세액 또는 납부세액에서 매입세액으로 공제받을 수 있다. <개정 2024.2.29>",
+        "rerank_rank": 6,
+        "rerank_score": 0.9995483756065369,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등 13항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054709"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 9,
+        "first_stage_score": 0.6352043151855469,
+        "fusion_rank": 7,
+        "issue_id": "I1",
+        "provision_id": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054709",
+        "provision_text": "⑧ 제7항에 따라 신청서를 송부받은 공급자 관할 세무서장은 신청인의 신청내용, 제출된 증빙자료를 검토하여 거래사실여부를 확인하여야 한다. 이 경우 거래사실의 존재 및 그 내용에 대한 입증책임은 신청인에게 있다. <개정 2024.2.29>",
+        "rerank_rank": 7,
+        "rerank_score": 0.9992144107818604,
+        "retrieval_round": 2,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등 8항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054713"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 50,
+        "first_stage_score": 0.5871766209602356,
+        "fusion_rank": 8,
+        "issue_id": "I1",
+        "provision_id": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054713",
+        "provision_text": "⑫ 제11항에도 불구하고 신청인 및 공급자가 관할 세무서장으로부터 제9항제1호의 통지를 받은 때에는 신청인이 매입자발행세금계산서를 공급자에게 교부한 것으로 본다. <개정 2024.2.29>",
+        "rerank_rank": 8,
+        "rerank_score": 0.9991275668144226,
+        "retrieval_round": 2,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등 12항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054712"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 4,
+        "first_stage_score": 0.7181589603424072,
+        "fusion_rank": 9,
+        "issue_id": "I1",
+        "provision_id": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054712",
+        "provision_text": "⑪ 제10항에 따라 신청인 관할 세무서장으로부터 제9항제1호에 따른 거래사실 확인 통지를 받은 신청인은 공급자 관할 세무서장이 확인한 거래일자를 작성일자로 하여 매입자발행세금계산서를 발행하여 공급자에게 교부하여야 한다. <개정 2024.2.29>",
+        "rerank_rank": 9,
+        "rerank_score": 0.9990467429161072,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등 11항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "부가가치세법 시행령 91조  확정신고와 납부#KOBLEX-054844"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 34,
+        "first_stage_score": 0.5962377786636353,
+        "fusion_rank": 10,
+        "issue_id": "I1",
+        "provision_id": "부가가치세법 시행령 91조  확정신고와 납부#KOBLEX-054844",
+        "provision_text": "① 법 제49조제1항에 따른 부가가치세의 확정신고를 할 때에는 기획재정부령으로 정하는 다음 각 호의 사항을 적은 부가가치세 확정신고서를 각 납세지 관할 세무서장에게 제출하여야 한다. 1. 사업자의 인적사항 2. 납부세액 및 그 계산근거 3. 가산세액·공제세액 및 그 계산근거 4. 매출·매입처별 세금계산서합계표의 제출 내용 5. 그 밖의 참고 사항",
+        "rerank_rank": 10,
+        "rerank_score": 0.9971599578857422,
+        "retrieval_round": 2,
+        "selection_rank": 10,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1"
+        ],
+        "statute_name": "부가가치세법 시행령 91조  확정신고와 납부 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "법인세법 시행규칙 79조  지출증명서류의 수취 특례#KOBLEX-150724": "8. 건물(토지를 함께 공급받은 경우에는 당해토지를 포함하며, 주택을 제외한다)을 구입하는 경우로서 거래내용이 확인되는 매매계약서사본을 법 제60조의 규정에 의한 법인세과세표준신고서에 첨부하여 납세지 관할세무서장에게 제출하는 경우",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054701": "제71조의2(매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등)",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054704": "③ 법 제34조의2제2항에 따른 매입자발행세금계산서를 발행하려는 자(이하 이 조에서 \"신청인\"이라 한다)는 해당 재화 또는 용역의 공급시기가 속하는 과세기간의 종료일부터 1년 이내에 기획재정부령으로 정하는 거래사실확인신청서에 거래사실을 객관적으로 입증할 수 있는 서류를 첨부하여 신청인 관할 세무서장에게 거래사실의 확인을 신청하여야 한다. <개정 2019.2.12, 2024.2.29>",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054705": "④ 제3항에 따른 거래사실의 확인신청 대상이 되는 거래는 거래건당 공급대가가 5만원 이상인 경우로 한다. <개정 2023.2.28, 2024.2.29>",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054708": "⑦ 신청인 관할 세무서장은 제6항에 따른 확인을 거부하는 결정을 하지 아니한 신청에 대해서는 거래사실확인신청서가 제출된 날(제5항에 따라 보정을 요구하였을 때에는 보정이 된 날)부터 7일 이내에 신청서와 제출된 증빙서류를 공급자 관할 세무서장에게 송부하여야 한다. <개정 2024.2.29>",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054709": "⑧ 제7항에 따라 신청서를 송부받은 공급자 관할 세무서장은 신청인의 신청내용, 제출된 증빙자료를 검토하여 거래사실여부를 확인하여야 한다. 이 경우 거래사실의 존재 및 그 내용에 대한 입증책임은 신청인에게 있다. <개정 2024.2.29>",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054710": "⑨ 공급자 관할 세무서장은 신청일의 다음 달 말일까지 거래사실여부를 확인한 후 다음 각 호의 구분에 따른 통지를 공급자와 신청인 관할 세무서장에게 하여야 한다. 다만, 공급자의 부도, 일시 부재 등 기획재정부령으로 정하는 불가피한 사유가 있는 경우에는 거래사실 확인기간을 20일 이내의 범위에서 연장할 수 있다. <개정 2024.2.29> 1. 거래사실이 확인되는 경우: 공급자 및 공급받는 자의 사업자등록번호, 작성연월일, 공급가액 및 부가가치세액 등을 포함한 거래사실 확인 통지 2. 거래사실이 확인되지 아니하는 경우: 거래사실 확인불가 통지",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054712": "⑪ 제10항에 따라 신청인 관할 세무서장으로부터 제9항제1호에 따른 거래사실 확인 통지를 받은 신청인은 공급자 관할 세무서장이 확인한 거래일자를 작성일자로 하여 매입자발행세금계산서를 발행하여 공급자에게 교부하여야 한다. <개정 2024.2.29>",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054713": "⑫ 제11항에도 불구하고 신청인 및 공급자가 관할 세무서장으로부터 제9항제1호의 통지를 받은 때에는 신청인이 매입자발행세금계산서를 공급자에게 교부한 것으로 본다. <개정 2024.2.29>",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054714": "⑬ 제11항 또는 제12항에 따라 매입자발행세금계산서를 공급자에게 교부하였거나 교부한 것으로 보는 경우 신청인은 법 제48조에 따른 예정신고, 법 제49조에 따른 확정신고 또는 「국세기본법」 제45조의2제1항에 따른 경정청구를 할 때 기획재정부령으로 정하는 매입자발행세금계산서합계표를 제출한 경우에는 매입자발행세금계산서에 기재된 매입세액을 법 제37조, 제38조 및 제63조제3항에 따라 해당 재화 또는 용역의 공급시기에 해당하는 과세기간의 매출세액 또는 납부세액에서 매입세액으로 공제받을 수 있다. <개정 2024.2.29>",
+      "부가가치세법 시행령 91조  확정신고와 납부#KOBLEX-054844": "① 법 제49조제1항에 따른 부가가치세의 확정신고를 할 때에는 기획재정부령으로 정하는 다음 각 호의 사항을 적은 부가가치세 확정신고서를 각 납세지 관할 세무서장에게 제출하여야 한다. 1. 사업자의 인적사항 2. 납부세액 및 그 계산근거 3. 가산세액·공제세액 및 그 계산근거 4. 매출·매입처별 세금계산서합계표의 제출 내용 5. 그 밖의 참고 사항",
+      "상속세 및 증여세법 시행령 45조 2 장애인이 증여받은 재산의 과세가액불산입#KOBLEX-212456": "⑫법 제52조의2제5항에 따라 증여세 과세가액불산입을 받고자 하는 자는 제65조제1항에 따른 증여세과세표준신고및자진납부계산서에 다음 각 호의 서류를 첨부하여 납세지 관할세무서장에게 제출하여야 한다. <개정 1999.12.31, 2005.8.5, 2010.2.18, 2018.2.13, 2020.2.11> 1. 증여재산명세서 및 증여계약서 사본 2. 신탁계약서(「자본시장과 금융투자업에 관한 법률 시행령」 제103조제2호에 따른 불특정금전신탁의 계약에 있어서는 신탁증서사본 또는 수익증권사본으로 갈음할 수 있다) 3. 제1항에 해당하는 자임을 증명하는 서류",
+      "소득세법 시행규칙 75조  주택과 조합원입주권 또는 주택과 분양권을 소유한 경우의 경매 등으로 인한 1세대1주택 특례의 요건#KOBLEX-036145": "②제1항의 규정을 적용받고자 하는 자는 다음 각 호의 어느 하나의 서류를 제출하여야 한다. 1. 매각의뢰를 신청한 경우에는 부동산 매각의뢰신청서 접수증 2. 법원에 경매를 신청한 경우에는 그 사실을 입증하는 서류",
+      "소득세법 시행규칙 95조 3 경비 등의 지출증빙 특례#KOBLEX-036314": "8. 건물(토지를 함께 공급받은 경우에는 당해 토지를 포함하며, 주택을 제외한다)을 구입하는 경우로서 거래내용이 확인되는 매매계약서 사본을 과세표준확정신고서에 첨부하여 납세지 관할세무서장에게 제출하는 경우",
+      "소득세법 시행령 210조 2 신용카드가맹점의 가입 등#KOBLEX-142826": "②신용카드가맹점으로부터 신용카드에 의한 거래가 거부되거나 사실과 다르게 신용카드매출전표를 발급받은 자가 법 제162조의2제3항에 따라 그 거래내용을 신고하려는 때에는 다음 각 호의 사항이 포함된 신고서에 관련 사실을 증명할 수 있는 서류 또는 자료를 첨부하여 그 거래가 거부되거나 사실과 다르게 발급받은 날부터 1개월 이내에 국세청장ㆍ지방국세청장 또는 세무서장에게 제출하여야 한다. <신설 2007.2.28, 2009.2.4, 2010.2.18> 1. 신고자 성명 2. 신용카드가맹점 상호 3. 신용카드에 의한 거래가 거부되거나 사실과 다르게 발급받은 일자ㆍ거래내용 및 금액",
+      "조세특례제한법 시행령 121조 5 현금거래의 확인 등#KOBLEX-071827": "②법 제126조의5제1항에 따라 현금거래 사실의 확인을 신청하려는 자는 거래일부터 5년 이내에 기획재정부령으로 정하는 현금거래확인신청서에 거래사실을 객관적으로 입증할 수 있는 거래증빙을 첨부하여 세무서장ㆍ지방국세청장 또는 국세청장에게 제출하여야 한다. <개정 2008.2.29, 2009.2.4, 2013.2.15, 2025.2.28>",
+      "주택법 시행규칙 26조 2 분양가상한제 적용주택 등의 전매 동의신청서#KOBLEX-098442": "① 영 제73조제4항에 따른 전매 동의를 받으려는 사람은 같은 조 제5항에 따라 별지 제25호의6서식의 전매 동의신청서에 다음 각 호의 서류를 첨부하여 한국토지주택공사에 제출해야 한다. 1. 분양계약서 사본 2. 인감증명서 또는 「본인서명사실 확인 등에 관한 법률」 에 따른 본인서명사실확인서",
+      "주택법 시행령 74조 2 공급질서 교란 행위로 인한 주택 공급계약 취소제한 및 취소절차 등#KOBLEX-176645": "④ 제3항에 따른 소명 요구를 받은 매수인은 요구받은 날부터 1개월 이내에 소명 내용을 적은 문서(전자문서를 포함한다)에 다음 각 호의 서류(전자문서를 포함한다)를 첨부하여 제2항에 따른 시장ㆍ군수ㆍ구청장에게 제출할 수 있다. 1. 주택등의 거래계약서 2. 「부동산 거래신고 등에 관한 법률」 제3조제5항에 따라 발급받은 신고필증 3. 주택등 거래대금의 지급내역이 적힌 서류 4. 그 밖에 주택등의 거래사실을 증명할 수 있는 서류",
+      "징발재산 정리에 관한 특별조치법 12조  증권의 교부등#KOBLEX-221732": "①제5조의 규정에 의한 매매에 관한 증서, 제6조제2항의 규정에 의한 매수결정통지서(第7條第1項의 規定에 의하여 異議申請한 者는 그 異議에 대한 裁決통지서를 함께 提出하여야 한다)또는 제8조제2항의 규정에 의한 징발보상금지급통지서를 받은 피징발자는 당해 증서 또는 통지서를 한국은행에 제출하고 한국은행으로부터 증권을 교부받거나 현금을 지급받는다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054704"
+            ],
+            "rationale": "C012는 거래사실 확인신청 시 제출해야 하는 서류의 종류(확인신청서, 입증서류)를 직접 규정한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054704"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C012(부가가치세법 시행령 제71조의2 제3항)은 거래사실 확인신청 시 제출해야 하는 서류(확인신청서 및 객관적 입증 서류)를 명확히 규정하여 E1-R1 요건을 충족한다. 이전 평가에서 미확인(uncovered)으로 판단되었으나, 2차 검색을 통해 관련 조항(C012)이 확보되어 커버리지(covered)로 변경한다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054705"
+            ],
+            "rationale": "C006은 확인신청 대상 거래의 금액 요건을 직접 규정한다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054705"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "C006(부가가치세법 시행령 제71조의2 제4항)은 거래사실 확인신청 대상 거래의 요건(거래건당 공급대가 5만원 이상)을 명확히 규정하여 E2-R1을 충족한다. 이전 평가와 동일하게 커버리지(covered) 상태를 유지한다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054704",
+        "support_spans": [
+          {
+            "end_char": 215,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I1",
+        "provision_id": "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054705",
+        "support_spans": [
+          {
+            "end_char": 84,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 9,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "매입자발행계산서 발급을 위한 거래사실 확인신청의 절차적 요건과 대상 거래의 실질적 요건이 무엇인지",
+        "issue_id": "I1"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 작은 인테리어 사업을 운영하고 있으며, 을과 7만 원 상당의 재료를 거래하였습니다. 갑은 매입자발행계산서를 발급받기 위해 거래사실 확인을 신청하려고 합니다. [질문] 갑이 매입자발행계산서를 발급받기 위해 거래사실 확인을 신청하려면 어떤 서류를 제출해야 하며, 거래사실의 확인신청 대상이 되는 거래는 어떤 조건을 충족해야 하는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "매입자발행계산서",
+          "거래사실 확인신청",
+          "제출서류",
+          "세법"
+        ],
+        "query_text": "매입자발행계산서 거래사실 확인신청 제출서류 [원문 맥락] 갑은 매입자발행계산서를 발급받기 위해 거래사실 확인을 신청하려고 합니다. 갑이 매입자발행계산서를 발급받기 위해 거래사실 확인을 신청하려면 어떤 서류를 제출해야 하며, 거래사실의 확인신청 대상이 되는 거래는 어떤 조건을 충족해야 하는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "부가가치세법",
+          "부가가치세법 시행령"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "거래사실 확인신청",
+          "대상 거래",
+          "요건",
+          "매입자발행계산서"
+        ],
+        "query_text": "거래사실 확인신청 대상 거래 요건 범위 [원문 맥락] 갑은 매입자발행계산서를 발급받기 위해 거래사실 확인을 신청하려고 합니다. 갑이 매입자발행계산서를 발급받기 위해 거래사실 확인을 신청하려면 어떤 서류를 제출해야 하며, 거래사실의 확인신청 대상이 되는 거래는 어떤 조건을 충족해야 하는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "부가가치세법",
+          "부가가치세법 시행령"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "statute_aware",
+        "query_terms": [
+          "매입자발행세금계산서",
+          "거래사실 확인신청",
+          "신청서",
+          "제출서류",
+          "부가가치세법 시행령"
+        ],
+        "query_text": "부가가치세법 시행령 매입자발행세금계산서 거래사실 확인신청서 제출 서류 목록 [원문 맥락] 갑은 매입자발행계산서를 발급받기 위해 거래사실 확인을 신청하려고 합니다. 갑이 매입자발행계산서를 발급받기 위해 거래사실 확인을 신청하려면 어떤 서류를 제출해야 하며, 거래사실의 확인신청 대상이 되는 거래는 어떤 조건을 충족해야 하는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "부가가치세법 시행령",
+          "부가가치세법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 작은 인테리어 사업을 운영하고 있으며, 을과 7만 원 상당의 재료를 거래하였습니다. 갑은 매입자발행계산서를 발급받기 위해 거래사실 확인을 신청하려고 합니다.\n\n[질문]\n갑이 매입자발행계산서를 발급받기 위해 거래사실 확인을 신청하려면 어떤 서류를 제출해야 하며, 거래사실의 확인신청 대상이 되는 거래는 어떤 조건을 충족해야 하는가?",
+    "remaining_request_budget": 6,
+    "remaining_round_budget": 1,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "확인신청서 및 첨부서류의 구체적 목록을 명시하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "거래사실 확인신청 시 제출해야 하는 서류의 종류와 내용을 규정하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "거래사실 확인신청 시 납세자가 제출해야 하는 서류의 법적 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "procedure",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 직접적으로 제출 서류를 요구하고 있어 법적 근거가 필수적임",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "확인신청 대상 거래의 정의, 금액 제한, 또는 거래 유형 요건을 명시하는 조항을 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "거래사실 확인신청이 가능한 거래의 범위와 요건을 규정하는 조항"
+          }
+        ],
+        "critical": true,
+        "description": "거래사실 확인신청의 대상이 되는 거래의 법적 요건 및 범위",
+        "evidence_item_id": "E2",
+        "evidence_type": "element",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 확인신청 대상 거래의 조건을 요구하고 있어 법적 요건 규정이 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 2,
+    "run_id": "9e5c9184-7120-4116-9d28-f2d1e4c6ec2b",
+    "seen_provision_ids": [
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054713",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054710",
+      "부가가치세법 시행령 91조  확정신고와 납부#KOBLEX-054844",
+      "소득세법 시행령 210조 2 신용카드가맹점의 가입 등#KOBLEX-142826",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054714",
+      "소득세법 시행규칙 75조  주택과 조합원입주권 또는 주택과 분양권을 소유한 경우의 경매 등으로 인한 1세대1주택 특례의 요건#KOBLEX-036145",
+      "징발재산 정리에 관한 특별조치법 12조  증권의 교부등#KOBLEX-221732",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054708",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054701",
+      "주택법 시행규칙 26조 2 분양가상한제 적용주택 등의 전매 동의신청서#KOBLEX-098442",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054712",
+      "주택법 시행령 74조 2 공급질서 교란 행위로 인한 주택 공급계약 취소제한 및 취소절차 등#KOBLEX-176645",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054705",
+      "조세특례제한법 시행령 121조 5 현금거래의 확인 등#KOBLEX-071827",
+      "상속세 및 증여세법 시행령 45조 2 장애인이 증여받은 재산의 과세가액불산입#KOBLEX-212456",
+      "소득세법 시행규칙 95조 3 경비 등의 지출증빙 특례#KOBLEX-036314",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054709",
+      "법인세법 시행규칙 79조  지출증명서류의 수취 특례#KOBLEX-150724",
+      "부가가치세법 시행령 71조 2 매입자발행세금계산서의 발행대상 사업자 및 매입세액공제 절차 등#KOBLEX-054704"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

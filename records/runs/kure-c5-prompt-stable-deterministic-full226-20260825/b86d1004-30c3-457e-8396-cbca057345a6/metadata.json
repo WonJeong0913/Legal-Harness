@@ -1,0 +1,106 @@
+{
+  "configuration": {
+    "candidate_budget_scope": "per_round",
+    "candidate_selection": "evidence_balanced",
+    "condition": "C5-prompt-stable-deterministic-backend-KURE-v1-full226-Qwen3.8-Q8_0",
+    "conditional_generation": "answer_target_full_conditional_limited",
+    "dedup_mode": "legal_text_alias",
+    "final_top_k": 10,
+    "input_format": "koblex_background_plus_question",
+    "model": "legal-harness-qwen38-q8",
+    "monotonic_coverage": true,
+    "num_ctx": 32768,
+    "ollama_endpoint": "http://127.0.0.1:11435/api/generate",
+    "per_evidence_min_k": 1,
+    "planning_contract": "answer_targets_required",
+    "rerank_document_mode": "statute_and_body",
+    "rerank_pool_k": 100,
+    "rerank_query_mode": "per_request",
+    "retrieval_stage_provenance_required_for_evaluation": true,
+    "retriever": "kure",
+    "round_merge_mode": "request_rank_top1_guarded_swap",
+    "s1_max_tokens": 4096,
+    "s1_truncation_retry_max_tokens": 8192,
+    "s3_audit_fields": [
+      "assumptions",
+      "limitations",
+      "claims",
+      "claim_citations"
+    ],
+    "s3_public_answer_format": "conclusion_first_1_to_3_short_sentences",
+    "s3_public_answer_max_characters": 800,
+    "s3_public_answer_max_claims": 3,
+    "seed": 0,
+    "skill_max_tokens": {
+      "grounded_legal_answer_generation": 3072,
+      "legal_issue_and_query_planning": 4096,
+      "provision_coverage_assessment": 3072
+    },
+    "source_manifest_sha256": "ab84472de0d62e39986a13d4c9ad2a10e8e67eac43c31810a02edf9db596206e",
+    "total_retrieval_requests": 9,
+    "total_retrieval_rounds": 3
+  },
+  "git_commit": "a6f4c58ef913d7360b3720663077296646536e55",
+  "git_source_worktree_dirty": false,
+  "index_metadata": {
+    "bm25": {
+      "database": "data/koblex/indexes/bm25/statute_fts5.sqlite3",
+      "type": "SQLite FTS5"
+    },
+    "documents": 233544,
+    "identity": {
+      "provision_id": "{KoBLEX index}#KOBLEX-{one-based source row number}",
+      "source_index": "original KoBLEX index value retained in normalized corpus"
+    },
+    "kure": {
+      "dimensions": 1024,
+      "model": "nlpai-lab/KURE-v1",
+      "provision_ids": "data/koblex/indexes/kure-v1/provision_ids.txt",
+      "similarity": "exact cosine similarity; float32 memory-mapped matrix",
+      "vector_file": "data/koblex/indexes/kure-v1/vectors.f32.npy"
+    },
+    "source": "JihyungL/KoBLEX-statute",
+    "source_file": "data/koblex/statute/corpus-00000-of-00001.parquet",
+    "source_sha256": "6323f7d024ec504f4b2346cd3ab67aa709aac49a5340c9f3d8372ad6bd5f9b8b"
+  },
+  "model_artifact": "/root/.ollama/models/blobs/sha256-f5c702d8820d36fb55985bb238fc83ee3a313e920f4b752a437c3a6a9e14e4c8",
+  "question": "[배경 시나리오]\n갑은 해상 운송 회사의 선장이고, 을은 그 선박의 해원이다. 어느 날 을은 다른 해원들과의 심각한 갈등 끝에 폭력행위를 벌여 선내 질서를 심각하게 어지럽혔다. 이를 목격한 갑은 을에게 징계를 내리기로 결정하였다. 선내에 있는 해원의 수는 총 8명이다.\n\n[질문]\n갑이 을에게 징계를 내릴 때 따라야 하는 절차는 무엇이며, 을의 폭력행위에 대해 가능한 징계는 무엇인가?",
+  "question_id": "qa_260_2hop_995_rand",
+  "record_schema_version": "1.4",
+  "retrieval_provenance_schema_version": "1.0",
+  "run_id": "b86d1004-30c3-457e-8396-cbca057345a6",
+  "runtime": {
+    "packages": {
+      "pyarrow": "18.1.0",
+      "sentence-transformers": "5.1.2",
+      "torch": "2.7.1+cu128",
+      "transformers": "4.57.6"
+    },
+    "platform": "Linux-6.8.0-136-generic-x86_64-with-glibc2.35",
+    "python": "3.10.12 (main, Jan 26 2026, 14:55:28) [GCC 11.4.0]"
+  },
+  "skill_sha256": {
+    "grounded_legal_answer_generation/SKILL.md": "3e18cb26d695cf6a51f0084042e7e40cc5039089b0dcd52330221edf64e4e953",
+    "grounded_legal_answer_generation/references/contract.md": "7bb3c91518a8c1939378ae080dc12afbad37f1a439c0fbbc34d2123f8277a2ae",
+    "grounded_legal_answer_generation/references/input.schema.json": "3a9406523eb6f8d636c23a81a8996fdc08c51eedce01e6113588bad0a5a12160",
+    "grounded_legal_answer_generation/references/output.schema.json": "f73c1379c66318c07dbf4af1b7fe0911e62159b5abb892c49bd5844116378ddb",
+    "grounded_legal_answer_generation/scripts/validate_output.py": "7b178420f40e788938c47cbd92c502209060c03cae48e6e27fa3d60fa85a3b9d",
+    "legal_issue_and_query_planning/SKILL.md": "4aece0efccb8ccec3384a3228e123a93a71006d97cfade2e13afca45db0371ec",
+    "legal_issue_and_query_planning/references/contract.md": "faa084f830d212dc20e68eaff35dfe8002df3c61a51538b22c46f0d1f9bd76e6",
+    "legal_issue_and_query_planning/references/input.schema.json": "e54bf4fba632f8c71021a257f9cbd55bc924eed2db3487617acd68a7aca1b9cd",
+    "legal_issue_and_query_planning/references/output.schema.json": "0eed8d8a0bd3d270d5729e56473f4d12099e4747c700cebd798a394341ce82ef",
+    "legal_issue_and_query_planning/scripts/validate_output.py": "3502a82a29ceac6b68f6fa00b6335b6488e3e6d721f81abd269b6cdc8967e187",
+    "provision_coverage_assessment/SKILL.md": "360c96623c9ba2b09f9998a45ab8597f01642e1badc2d5c82b9c38ce5083b7bc",
+    "provision_coverage_assessment/references/contract.md": "c0de857a2d4b89797441339503028fdeac17eda91406be8179999e4a86fa6298",
+    "provision_coverage_assessment/references/input.schema.json": "103a9c4996f5620f1a78c25e5f6c325fcbdb2622f7dd43f504234e09838ad7b8",
+    "provision_coverage_assessment/references/output.schema.json": "8c5e64b6c316421296a83a858a218febd27a9b69557ce0293bafd33d0cc7e0a6",
+    "provision_coverage_assessment/scripts/validate_output.py": "aa628086369fb9789e8136b94fd780abab739770b99096cc42320cd296d2b0e6",
+    "skill-pack-manifest.json": "dfb5cb7036a88ed43d8a9e17489dc1686f3f9a64ce9be525f230446af8868cd0"
+  },
+  "source_snapshot": {
+    "git_commit": "a6f4c58ef913d7360b3720663077296646536e55",
+    "git_tree": "ae95e61abd1f106ae8413a2260afeab80ab4083d",
+    "source_manifest_sha256": "ab84472de0d62e39986a13d4c9ad2a10e8e67eac43c31810a02edf9db596206e"
+  },
+  "started_at_utc": "2026-08-25T04:37:12.148197+00:00"
+}

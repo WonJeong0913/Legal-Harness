@@ -1,0 +1,893 @@
+{
+  "abstention_reason": null,
+  "answer": "적법한 절차에 따르지 아니하고 수집한 증거는 증거로 할 수 없다.[CT1]\n검사가 작성한 피의자신문조서는 적법한 절차와 방식에 따라 작성된 것으로서 공판준비, 공판기일에 그 피의자였던 피고인 또는 변호인이 그 내용을 인정할 때에 한정하여 증거로 할 수 있다.[CT2]",
+  "answer_mode": "full",
+  "answered_target_ids": [
+    "T1",
+    "T2"
+  ],
+  "assumptions": [
+    {
+      "code": "ASSUMPTION_1",
+      "message": "병의 주거 수색이 적법한 절차에 따르지 아니한 것으로 전제한다."
+    },
+    {
+      "code": "ASSUMPTION_2",
+      "message": "검사 정이 작성한 피의자신문조서가 적법한 절차와 방식에 따라 작성된 것으로 전제한다."
+    }
+  ],
+  "candidate_answer": "적법한 절차에 따르지 아니하고 수집한 증거는 증거로 할 수 없다.[CT1]\n검사가 작성한 피의자신문조서는 적법한 절차와 방식에 따라 작성된 것으로서 공판준비, 공판기일에 그 피의자였던 피고인 또는 변호인이 그 내용을 인정할 때에 한정하여 증거로 할 수 있다.[CT2]",
+  "candidate_answer_basis": "published_answer",
+  "candidate_answer_error": null,
+  "candidate_answer_status": "PUBLISHED_ANSWER",
+  "candidate_answer_termination_reason": null,
+  "candidate_assumptions": [],
+  "candidate_claim_citations": [],
+  "candidate_claims": [],
+  "candidate_limitations": [],
+  "claim_citations": [
+    {
+      "answer_marker": "[CT1]",
+      "citation_id": "CT1",
+      "claim_id": "C1",
+      "provision_id": "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568",
+      "quoted_text": "제308조의2(위법수집증거의 배제) 적법한 절차에 따르지 아니하고 수집한 증거는 증거로 할 수 없다.",
+      "support_description": "체포영장 없이 주거를 수색하여 수집한 증거가 적법한 절차에 따르지 아니하고 수집된 증거에 해당함을 근거로 증거능력 배제를 규정한다."
+    },
+    {
+      "answer_marker": "[CT2]",
+      "citation_id": "CT2",
+      "claim_id": "C2",
+      "provision_id": "형사소송법 312조  검사 또는 사법경찰관의 조서 등#KOBLEX-232574",
+      "quoted_text": "① 검사가 작성한 피의자신문조서는 적법한 절차와 방식에 따라 작성된 것으로서 공판준비, 공판기일에 그 피의자였던 피고인 또는 변호인이 그 내용을 인정할 때에 한정하여 증거로 할 수 있다. <개정 2020.2.4>",
+      "support_description": "검사가 작성한 피의자신문조서의 법정 증거능력 요건과 한계를 규정한다."
+    }
+  ],
+  "claims": [
+    {
+      "answer_target_ids": [
+        "T1"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C1",
+      "claim_type": "legal_rule",
+      "text": "적법한 절차에 따르지 아니하고 수집한 증거는 증거로 할 수 없다."
+    },
+    {
+      "answer_target_ids": [
+        "T2"
+      ],
+      "applicability": "direct",
+      "citation_required": true,
+      "claim_id": "C2",
+      "claim_type": "legal_rule",
+      "text": "검사가 작성한 피의자신문조서는 적법한 절차와 방식에 따라 작성된 것으로서 공판준비, 공판기일에 그 피의자였던 피고인 또는 변호인이 그 내용을 인정할 때에 한정하여 증거로 할 수 있다."
+    }
+  ],
+  "complete_answer": true,
+  "completed_at_utc": "2026-08-25T00:00:26.645664+00:00",
+  "deferred_target_ids": [],
+  "end_to_end_latency_ms": 267755.733,
+  "errors": [],
+  "limitations": [
+    {
+      "code": "LIMITATION_1",
+      "message": "피의자신문조서의 증거능력은 공판준비 또는 공판기일에 피고인 또는 변호인의 내용 인정이 있어야만 인정된다."
+    }
+  ],
+  "record_schema_version": "1.4",
+  "retrieval_provenance": {
+    "schema_version": "1.0",
+    "stage_file": "retrieval_stages.jsonl",
+    "stage_record_counts": {
+      "bge_rerank": 221,
+      "dedup_collapse": 214,
+      "evidence_fusion": 221,
+      "first_stage": 400,
+      "request_rerank": 400,
+      "round_selected": 20,
+      "rrf": 300,
+      "selected": 221
+    }
+  },
+  "run_id": "98a72406-ddb5-44b8-aa18-66d71a2a324e",
+  "skill_generation_diagnostics": {
+    "attempt_count": 5,
+    "attempt_file": "skill_attempts.jsonl",
+    "schema_version": "1.0"
+  },
+  "state": {
+    "accepted_provision_ids": [
+      "형사소송법 312조  검사 또는 사법경찰관의 조서 등#KOBLEX-232574",
+      "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568"
+    ],
+    "action_trace": [
+      {
+        "details": {
+          "evidence_count": 2,
+          "issue_count": 2
+        },
+        "event": "INITIAL_PLAN_VALIDATED",
+        "phase": "PLANNING_INITIAL"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 10,
+          "request_count": 2,
+          "retrieval_round": 1
+        },
+        "event": "INITIAL_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_INITIAL"
+      },
+      {
+        "details": {
+          "missing_critical_count": 1,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": false,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "RETRIEVE_GAP",
+          "answer_mode": null,
+          "answered_target_ids": [],
+          "deferred_target_ids": [],
+          "explanation": "A critical statute gap remains and bounded retrieval is allowed.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "candidate_count": 10,
+          "new_provision_count": 5,
+          "request_count": 2,
+          "retrieval_round": 2
+        },
+        "event": "GAP_RETRIEVAL_VALIDATED",
+        "phase": "RETRIEVING_GAP"
+      },
+      {
+        "details": {
+          "missing_critical_count": 0,
+          "new_accepted_critical_link": true,
+          "newly_partially_citable_target": false,
+          "no_progress_rounds": 0,
+          "progress": true,
+          "resolved_critical_conflict": false,
+          "status_improved": true,
+          "unresolved_conflict_count": 0
+        },
+        "event": "COVERAGE_ASSESSMENT_VALIDATED",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "action": "GENERATE",
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "deferred_target_ids": [],
+          "explanation": "Every answer target has citable legal support.",
+          "termination_reason": null
+        },
+        "event": "POLICY_DECISION",
+        "phase": "ASSESSING_COVERAGE"
+      },
+      {
+        "details": {
+          "answer_mode": "full",
+          "answered_target_ids": [
+            "T1",
+            "T2"
+          ],
+          "claim_count": 2,
+          "deferred_target_ids": []
+        },
+        "event": "ANSWER_DRAFT_VALIDATED",
+        "phase": "GENERATING"
+      },
+      {
+        "details": {},
+        "event": "CITATION_INTEGRITY_PASS",
+        "phase": "COMPLETED"
+      }
+    ],
+    "answer_mode": "full",
+    "answer_targets": [
+      {
+        "answer_target_id": "T1",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "병이 체포영장 없이 갑의 집에서 수집한 증거",
+        "requested_output": "법정에서의 증거능력 취급"
+      },
+      {
+        "answer_target_id": "T2",
+        "answer_type": "legal_conclusion",
+        "question_anchor": "검사 정이 작성한 피의자신문조서",
+        "requested_output": "법정에서의 증거능력 취급"
+      }
+    ],
+    "answered_target_ids": [
+      "T1",
+      "T2"
+    ],
+    "candidate_provisions": [
+      {
+        "alias_provision_ids": [
+          "형사소송법 312조  검사 또는 사법경찰관의 조서 등#KOBLEX-232574"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 1,
+        "first_stage_score": 0.6384035348892212,
+        "fusion_rank": 1,
+        "issue_id": "I2",
+        "provision_id": "형사소송법 312조  검사 또는 사법경찰관의 조서 등#KOBLEX-232574",
+        "provision_text": "① 검사가 작성한 피의자신문조서는 적법한 절차와 방식에 따라 작성된 것으로서 공판준비, 공판기일에 그 피의자였던 피고인 또는 변호인이 그 내용을 인정할 때에 한정하여 증거로 할 수 있다. <개정 2020.2.4>",
+        "rerank_rank": 1,
+        "rerank_score": 0.9999958276748657,
+        "retrieval_round": 1,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1,E2",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형사소송법 312조  검사 또는 사법경찰관의 조서 등 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 266조 16 열람ㆍ등사된 서류등의 남용금지#KOBLEX-232397"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 74,
+        "first_stage_score": 0.5191993713378906,
+        "fusion_rank": 2,
+        "issue_id": "I2",
+        "provision_id": "형사소송법 266조 16 열람ㆍ등사된 서류등의 남용금지#KOBLEX-232397",
+        "provision_text": "①피고인 또는 변호인(피고인 또는 변호인이었던 자를 포함한다. 이하 이 조에서 같다)은 검사가 열람 또는 등사하도록 한 제266조의3제1항에 따른 서면 및 서류등의 사본을 당해 사건 또는 관련 소송의 준비에 사용할 목적이 아닌 다른 목적으로 다른 사람에게 교부 또는 제시(전기통신설비를 이용하여 제공하는 것을 포함한다)하여서는 아니 된다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9999785423278809,
+        "retrieval_round": 1,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 266조 16 열람ㆍ등사된 서류등의 남용금지 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 365조  군검사 또는 군사법경찰관의 조서#KOBLEX-093366",
+          "군사법원법 365조  군검사 또는 군사법경찰관의 조서#KOBLEX-159331"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 3,
+        "first_stage_score": 0.6218650341033936,
+        "fusion_rank": 3,
+        "issue_id": "I2",
+        "provision_id": "군사법원법 365조  군검사 또는 군사법경찰관의 조서#KOBLEX-093366",
+        "provision_text": "③ 군검사 외의 수사기관이 작성한 피의자신문조서는 적법한 절차와 방식에 따라 작성된 것으로서 공판준비기일 또는 공판기일에 피의자였던 피고인이나 변호인이 그 내용을 인정할 때에만 증거로 할 수 있다. <개정 2016.1.6>",
+        "rerank_rank": 3,
+        "rerank_score": 0.999976396560669,
+        "retrieval_round": 1,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "군사법원법 365조  군검사 또는 군사법경찰관의 조서 3항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 244조  피의자신문조서의 작성#KOBLEX-232215"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 23,
+        "first_stage_score": 0.5407694578170776,
+        "fusion_rank": 4,
+        "issue_id": "I2",
+        "provision_id": "형사소송법 244조  피의자신문조서의 작성#KOBLEX-232215",
+        "provision_text": "제244조(피의자신문조서의 작성)",
+        "rerank_rank": 4,
+        "rerank_score": 0.9999746084213257,
+        "retrieval_round": 1,
+        "selection_rank": 4,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 244조  피의자신문조서의 작성",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 312조  검사 또는 사법경찰관의 조서 등#KOBLEX-232576"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 2,
+        "first_stage_score": 0.6347413063049316,
+        "fusion_rank": 5,
+        "issue_id": "I2",
+        "provision_id": "형사소송법 312조  검사 또는 사법경찰관의 조서 등#KOBLEX-232576",
+        "provision_text": "③검사 이외의 수사기관이 작성한 피의자신문조서는 적법한 절차와 방식에 따라 작성된 것으로서 공판준비 또는 공판기일에 그 피의자였던 피고인 또는 변호인이 그 내용을 인정할 때에 한하여 증거로 할 수 있다.",
+        "rerank_rank": 5,
+        "rerank_score": 0.999974250793457,
+        "retrieval_round": 1,
+        "selection_rank": 5,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형사소송법 312조  검사 또는 사법경찰관의 조서 등 3항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 244조 3 진술거부권 등의 고지#KOBLEX-232224"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 11,
+        "first_stage_score": 0.5531039834022522,
+        "fusion_rank": 6,
+        "issue_id": "I2",
+        "provision_id": "형사소송법 244조 3 진술거부권 등의 고지#KOBLEX-232224",
+        "provision_text": "①검사 또는 사법경찰관은 피의자를 신문하기 전에 다음 각 호의 사항을 알려주어야 한다. 1. 일체의 진술을 하지 아니하거나 개개의 질문에 대하여 진술을 하지 아니할 수 있다는 것 2. 진술을 하지 아니하더라도 불이익을 받지 아니한다는 것 3. 진술을 거부할 권리를 포기하고 행한 진술은 법정에서 유죄의 증거로 사용될 수 있다는 것 4. 신문을 받을 때에는 변호인을 참여하게 하는 등 변호인의 조력을 받을 수 있다는 것",
+        "rerank_rank": 6,
+        "rerank_score": 0.9999687671661377,
+        "retrieval_round": 1,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "형사소송법 244조 3 진술거부권 등의 고지 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 310조 2 전문증거와 증거능력의 제한#KOBLEX-232571"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 49,
+        "first_stage_score": 0.5285869836807251,
+        "fusion_rank": 7,
+        "issue_id": "I2",
+        "provision_id": "형사소송법 310조 2 전문증거와 증거능력의 제한#KOBLEX-232571",
+        "provision_text": "제310조의2(전문증거와 증거능력의 제한) 제311조 내지 제316조에 규정한 것 이외에는 공판준비 또는 공판기일에서의 진술에 대신하여 진술을 기재한 서류나 공판준비 또는 공판기일 외에서의 타인의 진술을 내용으로 하는 진술은 이를 증거로 할 수 없다.",
+        "rerank_rank": 7,
+        "rerank_score": 0.9999678134918213,
+        "retrieval_round": 1,
+        "selection_rank": 7,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형사소송법 310조 2 전문증거와 증거능력의 제한",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 236조 3 진술거부권 등의 고지#KOBLEX-092904",
+          "군사법원법 236조 3 진술거부권 등의 고지#KOBLEX-158869"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 51,
+        "first_stage_score": 0.5269573330879211,
+        "fusion_rank": 8,
+        "issue_id": "I2",
+        "provision_id": "군사법원법 236조 3 진술거부권 등의 고지#KOBLEX-092904",
+        "provision_text": "① 군검사나 군사법경찰관은 피의자를 신문하기 전에 다음 각 호의 사항을 알려주어야 한다. <개정 2016.1.6> 1. 어떤 진술도 하지 아니하거나 각각의 질문에 대하여 진술하지 아니할 수 있다는 것 2. 진술하지 아니하더라도 불이익을 받지 아니한다는 것 3. 진술을 거부할 권리를 포기하고 한 진술은 법정에서 유죄의 증거로 사용될 수 있다는 것 4. 신문을 받을 때에는 변호인을 참여하게 하는 등 변호인의 도움을 받을 수 있다는 것",
+        "rerank_rank": 8,
+        "rerank_score": 0.9999645948410034,
+        "retrieval_round": 1,
+        "selection_rank": 8,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1"
+        ],
+        "statute_name": "군사법원법 236조 3 진술거부권 등의 고지 1항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 312조  검사 또는 사법경찰관의 조서 등#KOBLEX-232579"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 8,
+        "first_stage_score": 0.5565321445465088,
+        "fusion_rank": 9,
+        "issue_id": "I2",
+        "provision_id": "형사소송법 312조  검사 또는 사법경찰관의 조서 등#KOBLEX-232579",
+        "provision_text": "⑥검사 또는 사법경찰관이 검증의 결과를 기재한 조서는 적법한 절차와 방식에 따라 작성된 것으로서 공판준비 또는 공판기일에서의 작성자의 진술에 따라 그 성립의 진정함이 증명된 때에는 증거로 할 수 있다.",
+        "rerank_rank": 9,
+        "rerank_score": 0.9999642372131348,
+        "retrieval_round": 1,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "RQ2",
+        "source_request_ids": [
+          "RQ2",
+          "RQ1",
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형사소송법 312조  검사 또는 사법경찰관의 조서 등 6항",
+        "target_evidence_item_ids": [
+          "E2",
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "대한민국헌법 16조#KOBLEX-019567"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 24,
+        "first_stage_score": 0.5309596657752991,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "대한민국헌법 16조#KOBLEX-019567",
+        "provision_text": "제16조 모든 국민은 주거의 자유를 침해받지 아니한다. 주거에 대한 압수나 수색을 할 때에는 검사의 신청에 의하여 법관이 발부한 영장을 제시하여야 한다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.9997308850288391,
+        "retrieval_round": 1,
+        "selection_rank": 10,
+        "selection_reason": "round_request_rank_top1_guarded_swap:request_id=RQ1;rerank_rank=1",
+        "source_request_id": "RQ1",
+        "source_request_ids": [
+          "RQ1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "대한민국헌법 16조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 23,
+        "first_stage_score": 0.5435357093811035,
+        "fusion_rank": 1,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568",
+        "provision_text": "제308조의2(위법수집증거의 배제) 적법한 절차에 따르지 아니하고 수집한 증거는 증거로 할 수 없다.",
+        "rerank_rank": 1,
+        "rerank_score": 0.999605119228363,
+        "retrieval_round": 2,
+        "selection_rank": 1,
+        "selection_reason": "critical_quota:E1",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형사소송법 308조 2 위법수집증거의 배제",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "군사법원법 359조 2 위법수집 증거의 배제#KOBLEX-093357",
+          "군사법원법 359조 2 위법수집 증거의 배제#KOBLEX-159322"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 13,
+        "first_stage_score": 0.5476886034011841,
+        "fusion_rank": 2,
+        "issue_id": "I1",
+        "provision_id": "군사법원법 359조 2 위법수집 증거의 배제#KOBLEX-093357",
+        "provision_text": "제359조의2(위법수집 증거의 배제) 적법한 절차에 따르지 아니하고 수집한 증거는 증거로 할 수 없다.",
+        "rerank_rank": 2,
+        "rerank_score": 0.9988954067230225,
+        "retrieval_round": 2,
+        "selection_rank": 2,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "군사법원법 359조 2 위법수집 증거의 배제",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 184조#KOBLEX-231963"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 55,
+        "first_stage_score": 0.51573246717453,
+        "fusion_rank": 5,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 184조#KOBLEX-231963",
+        "provision_text": "제15장 증거보전",
+        "rerank_rank": 5,
+        "rerank_score": 0.991504967212677,
+        "retrieval_round": 2,
+        "selection_rank": 3,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형사소송법 184조",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 318조  당사자의 동의와 증거능력#KOBLEX-232597"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 89,
+        "first_stage_score": 0.5141711831092834,
+        "fusion_rank": 4,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 318조  당사자의 동의와 증거능력#KOBLEX-232597",
+        "provision_text": "①검사와 피고인이 증거로 할 수 있음을 동의한 서류 또는 물건은 진정한 것으로 인정한 때에는 증거로 할 수 있다.",
+        "rerank_rank": 4,
+        "rerank_score": 0.9821128845214844,
+        "retrieval_round": 2,
+        "selection_rank": 6,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형사소송법 318조  당사자의 동의와 증거능력 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      },
+      {
+        "alias_provision_ids": [
+          "형사소송법 184조  증거보전의 청구와 그 절차#KOBLEX-231965"
+        ],
+        "candidate_stage": "selected",
+        "first_stage_rank": 8,
+        "first_stage_score": 0.5549762845039368,
+        "fusion_rank": 12,
+        "issue_id": "I1",
+        "provision_id": "형사소송법 184조  증거보전의 청구와 그 절차#KOBLEX-231965",
+        "provision_text": "①검사, 피고인, 피의자 또는 변호인은 미리 증거를 보전하지 아니하면 그 증거를 사용하기 곤란한 사정이 있는 때에는 제1회 공판기일 전이라도 판사에게 압수, 수색, 검증, 증인신문 또는 감정을 청구할 수 있다.",
+        "rerank_rank": 12,
+        "rerank_score": 0.9804565906524658,
+        "retrieval_round": 2,
+        "selection_rank": 9,
+        "selection_reason": "round_global_score_fill",
+        "source_request_id": "GRQ-R2-1",
+        "source_request_ids": [
+          "GRQ-R2-1",
+          "GRQ-R2-2"
+        ],
+        "statute_name": "형사소송법 184조  증거보전의 청구와 그 절차 1항",
+        "target_evidence_item_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "corpus_text_snapshots": {
+      "군사법원법 236조 3 진술거부권 등의 고지#KOBLEX-092904": "① 군검사나 군사법경찰관은 피의자를 신문하기 전에 다음 각 호의 사항을 알려주어야 한다. <개정 2016.1.6> 1. 어떤 진술도 하지 아니하거나 각각의 질문에 대하여 진술하지 아니할 수 있다는 것 2. 진술하지 아니하더라도 불이익을 받지 아니한다는 것 3. 진술을 거부할 권리를 포기하고 한 진술은 법정에서 유죄의 증거로 사용될 수 있다는 것 4. 신문을 받을 때에는 변호인을 참여하게 하는 등 변호인의 도움을 받을 수 있다는 것",
+      "군사법원법 359조 2 위법수집 증거의 배제#KOBLEX-093357": "제359조의2(위법수집 증거의 배제) 적법한 절차에 따르지 아니하고 수집한 증거는 증거로 할 수 없다.",
+      "군사법원법 365조  군검사 또는 군사법경찰관의 조서#KOBLEX-093366": "③ 군검사 외의 수사기관이 작성한 피의자신문조서는 적법한 절차와 방식에 따라 작성된 것으로서 공판준비기일 또는 공판기일에 피의자였던 피고인이나 변호인이 그 내용을 인정할 때에만 증거로 할 수 있다. <개정 2016.1.6>",
+      "대한민국헌법 16조#KOBLEX-019567": "제16조 모든 국민은 주거의 자유를 침해받지 아니한다. 주거에 대한 압수나 수색을 할 때에는 검사의 신청에 의하여 법관이 발부한 영장을 제시하여야 한다.",
+      "형사소송법 184조  증거보전의 청구와 그 절차#KOBLEX-231965": "①검사, 피고인, 피의자 또는 변호인은 미리 증거를 보전하지 아니하면 그 증거를 사용하기 곤란한 사정이 있는 때에는 제1회 공판기일 전이라도 판사에게 압수, 수색, 검증, 증인신문 또는 감정을 청구할 수 있다.",
+      "형사소송법 184조#KOBLEX-231963": "제15장 증거보전",
+      "형사소송법 244조  피의자신문조서의 작성#KOBLEX-232215": "제244조(피의자신문조서의 작성)",
+      "형사소송법 244조 3 진술거부권 등의 고지#KOBLEX-232224": "①검사 또는 사법경찰관은 피의자를 신문하기 전에 다음 각 호의 사항을 알려주어야 한다. 1. 일체의 진술을 하지 아니하거나 개개의 질문에 대하여 진술을 하지 아니할 수 있다는 것 2. 진술을 하지 아니하더라도 불이익을 받지 아니한다는 것 3. 진술을 거부할 권리를 포기하고 행한 진술은 법정에서 유죄의 증거로 사용될 수 있다는 것 4. 신문을 받을 때에는 변호인을 참여하게 하는 등 변호인의 조력을 받을 수 있다는 것",
+      "형사소송법 266조 16 열람ㆍ등사된 서류등의 남용금지#KOBLEX-232397": "①피고인 또는 변호인(피고인 또는 변호인이었던 자를 포함한다. 이하 이 조에서 같다)은 검사가 열람 또는 등사하도록 한 제266조의3제1항에 따른 서면 및 서류등의 사본을 당해 사건 또는 관련 소송의 준비에 사용할 목적이 아닌 다른 목적으로 다른 사람에게 교부 또는 제시(전기통신설비를 이용하여 제공하는 것을 포함한다)하여서는 아니 된다.",
+      "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568": "제308조의2(위법수집증거의 배제) 적법한 절차에 따르지 아니하고 수집한 증거는 증거로 할 수 없다.",
+      "형사소송법 310조 2 전문증거와 증거능력의 제한#KOBLEX-232571": "제310조의2(전문증거와 증거능력의 제한) 제311조 내지 제316조에 규정한 것 이외에는 공판준비 또는 공판기일에서의 진술에 대신하여 진술을 기재한 서류나 공판준비 또는 공판기일 외에서의 타인의 진술을 내용으로 하는 진술은 이를 증거로 할 수 없다.",
+      "형사소송법 312조  검사 또는 사법경찰관의 조서 등#KOBLEX-232574": "① 검사가 작성한 피의자신문조서는 적법한 절차와 방식에 따라 작성된 것으로서 공판준비, 공판기일에 그 피의자였던 피고인 또는 변호인이 그 내용을 인정할 때에 한정하여 증거로 할 수 있다. <개정 2020.2.4>",
+      "형사소송법 312조  검사 또는 사법경찰관의 조서 등#KOBLEX-232576": "③검사 이외의 수사기관이 작성한 피의자신문조서는 적법한 절차와 방식에 따라 작성된 것으로서 공판준비 또는 공판기일에 그 피의자였던 피고인 또는 변호인이 그 내용을 인정할 때에 한하여 증거로 할 수 있다.",
+      "형사소송법 312조  검사 또는 사법경찰관의 조서 등#KOBLEX-232579": "⑥검사 또는 사법경찰관이 검증의 결과를 기재한 조서는 적법한 절차와 방식에 따라 작성된 것으로서 공판준비 또는 공판기일에서의 작성자의 진술에 따라 그 성립의 진정함이 증명된 때에는 증거로 할 수 있다.",
+      "형사소송법 318조  당사자의 동의와 증거능력#KOBLEX-232597": "①검사와 피고인이 증거로 할 수 있음을 동의한 서류 또는 물건은 진정한 것으로 인정한 때에는 증거로 할 수 있다."
+    },
+    "coverage_assessments": [
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568"
+            ],
+            "rationale": "C011은 위법하게 수집된 증거의 증거능력 배제에 관한 법적 규정을 직접 제공한다.",
+            "requirement_id": "E1-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E1",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "형사소송법 제308조의2(C011)는 적법한 절차에 따르지 아니하고 수집한 증거의 증거능력을 배제하는 일반적 규정을 제공하여, 체포영장 없이 주거 수색으로 수집된 증거의 법정 취급에 관한 법적 근거를 충족한다.",
+        "status": "covered"
+      },
+      {
+        "applicability_status": "direct",
+        "criterion_results": [
+          {
+            "linked_provision_ids": [
+              "형사소송법 312조  검사 또는 사법경찰관의 조서 등#KOBLEX-232574"
+            ],
+            "rationale": "C001은 검사가 작성한 피의자신문조서의 법정 증거능력에 관한 법적 규정을 직접 제공한다.",
+            "requirement_id": "E2-R1",
+            "status": "satisfied"
+          }
+        ],
+        "evidence_item_id": "E2",
+        "gap_type": "none",
+        "legal_status": "covered",
+        "linked_provision_ids": [
+          "형사소송법 312조  검사 또는 사법경찰관의 조서 등#KOBLEX-232574"
+        ],
+        "missing_aspects": [],
+        "partial_kind": "not_applicable",
+        "rationale": "형사소송법 제312조 제1항(C001)은 검사가 작성한 피의자신문조서의 증거능력 요건을 명확히 규정하여 E2-R1을 충족한다.",
+        "status": "covered"
+      }
+    ],
+    "deferred_target_ids": [],
+    "evidence_conflicts": [],
+    "evidence_links": [
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E1",
+        "issue_id": "I1",
+        "provision_id": "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568",
+        "support_spans": [
+          {
+            "end_char": 56,
+            "start_char": 0
+          }
+        ]
+      },
+      {
+        "assessment": "accepted",
+        "evidence_item_id": "E2",
+        "issue_id": "I2",
+        "provision_id": "형사소송법 312조  검사 또는 사법경찰관의 조서 등#KOBLEX-232574",
+        "support_spans": [
+          {
+            "end_char": 118,
+            "start_char": 0
+          }
+        ]
+      }
+    ],
+    "last_retrieval_new_provision_count": 5,
+    "last_validated_event": "D4.CITATION_INTEGRITY_PASS",
+    "legal_issues": [
+      {
+        "description": "체포영장 없이 주거를 수색하여 수집한 증거의 증거능력",
+        "issue_id": "I1"
+      },
+      {
+        "description": "검사가 작성한 피의자신문조서의 증거능력",
+        "issue_id": "I2"
+      }
+    ],
+    "missing_critical_items": [],
+    "no_progress_rounds": 0,
+    "normalized_question": "[배경 시나리오] 갑은 을의 가게에서 절도를 하다가 현장에서 붙잡혔다. 사법경찰관 병은 갑을 체포한 후, 체포 영장 없이 갑의 집을 수색하여 훔친 물건을 발견했다. 이후 검사 정은 갑을 피의자로 하여 피의자신문조서를 작성하였다. 공판이 시작되었을 때, 변호사 김은 갑의 집에서 수집한 증거와 검사 정이 작성한 피의자신문조서의 증거능력에 대해 이의를 제기하였다. [질문] 병이 체포영장 없이 갑의 집에서 수집한 증거와, 검사 정이 작성한 피의자신문조서는 법정에서 각각 어떤 취급을 받는가?",
+    "phase": "COMPLETED",
+    "query_history": [
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "체포영장",
+          "주거수색",
+          "증거능력",
+          "불법수집증거"
+        ],
+        "query_text": "체포영장 없이 주거 수색하여 수집한 증거의 증거능력 [원문 맥락] 공판이 시작되었을 때, 변호사 김은 갑의 집에서 수집한 증거와 검사 정이 작성한 피의자신문조서의 증거능력에 대해 이의를 제기하였다. 병이 체포영장 없이 갑의 집에서 수집한 증거와, 검사 정이 작성한 피의자신문조서는 법정에서 각각 어떤 취급을 받는가?",
+        "request_id": "RQ1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E2",
+        "first_stage_query_text": null,
+        "issue_id": "I2",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "피의자신문조서",
+          "검사작성",
+          "증거능력",
+          "공판준비"
+        ],
+        "query_text": "검사가 작성한 피의자신문조서의 증거능력 [원문 맥락] 공판이 시작되었을 때, 변호사 김은 갑의 집에서 수집한 증거와 검사 정이 작성한 피의자신문조서의 증거능력에 대해 이의를 제기하였다. 병이 체포영장 없이 갑의 집에서 수집한 증거와, 검사 정이 작성한 피의자신문조서는 법정에서 각각 어떤 취급을 받는가?",
+        "request_id": "RQ2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "provision_style",
+        "query_terms": [
+          "위법하게 수집한 증거",
+          "증거능력",
+          "배제",
+          "형사소송법"
+        ],
+        "query_text": "형사소송법 위법하게 수집한 증거의 증거능력 배제 규정 [원문 맥락] 공판이 시작되었을 때, 변호사 김은 갑의 집에서 수집한 증거와 검사 정이 작성한 피의자신문조서의 증거능력에 대해 이의를 제기하였다. 병이 체포영장 없이 갑의 집에서 수집한 증거와, 검사 정이 작성한 피의자신문조서는 법정에서 각각 어떤 취급을 받는가?",
+        "request_id": "GRQ-R2-1",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법 제308조"
+        ],
+        "top_k": 100
+      },
+      {
+        "evidence_item_id": "E1",
+        "first_stage_query_text": null,
+        "issue_id": "I1",
+        "query_channel": "sparse_keyword",
+        "query_terms": [
+          "영장",
+          "주거",
+          "수색",
+          "증거",
+          "배제"
+        ],
+        "query_text": "영장 없이 주거 수색 증거 배제 [원문 맥락] 공판이 시작되었을 때, 변호사 김은 갑의 집에서 수집한 증거와 검사 정이 작성한 피의자신문조서의 증거능력에 대해 이의를 제기하였다. 병이 체포영장 없이 갑의 집에서 수집한 증거와, 검사 정이 작성한 피의자신문조서는 법정에서 각각 어떤 취급을 받는가?",
+        "request_id": "GRQ-R2-2",
+        "rerank_query_text": null,
+        "statute_hints": [
+          "형사소송법"
+        ],
+        "top_k": 100
+      }
+    ],
+    "question": "[배경 시나리오]\n갑은 을의 가게에서 절도를 하다가 현장에서 붙잡혔다. 사법경찰관 병은 갑을 체포한 후, 체포 영장 없이 갑의 집을 수색하여 훔친 물건을 발견했다. 이후 검사 정은 갑을 피의자로 하여 피의자신문조서를 작성하였다. 공판이 시작되었을 때, 변호사 김은 갑의 집에서 수집한 증거와 검사 정이 작성한 피의자신문조서의 증거능력에 대해 이의를 제기하였다.\n\n[질문]\n병이 체포영장 없이 갑의 집에서 수집한 증거와, 검사 정이 작성한 피의자신문조서는 법정에서 각각 어떤 취급을 받는가?",
+    "remaining_request_budget": 5,
+    "remaining_round_budget": 1,
+    "required_evidence_items": [
+      {
+        "answer_target_ids": [
+          "T1"
+        ],
+        "completion_criteria": "체포영장 없이 주거 수색으로 수집된 증거의 증거능력 유무와 그 법적 근거를 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E1-R1",
+            "text": "체포영장 없이 주거를 수색하여 수집한 증거의 증거능력에 관한 법적 규정을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "체포영장 없이 주거를 수색하여 수집한 증거의 증거능력에 관한 규정",
+        "evidence_item_id": "E1",
+        "evidence_type": "rule",
+        "issue_id": "I1",
+        "necessity_reason": "질문에서 체포영장 없이 주거에서 수집한 증거의 법정 취급을 묻고 있으므로, 해당 증거의 증거능력을 결정하는 법적 규정이 필수적임",
+        "scope_source": "explicit_question"
+      },
+      {
+        "answer_target_ids": [
+          "T2"
+        ],
+        "completion_criteria": "검사가 작성한 피의자신문조서의 법정 증거능력 유무와 그 법적 근거를 확인",
+        "completion_requirements": [
+          {
+            "requirement_id": "E2-R1",
+            "text": "검사가 작성한 피의자신문조서의 법정 증거능력에 관한 법적 규정을 확인"
+          }
+        ],
+        "critical": true,
+        "description": "검사가 작성한 피의자신문조서의 증거능력에 관한 규정",
+        "evidence_item_id": "E2",
+        "evidence_type": "rule",
+        "issue_id": "I2",
+        "necessity_reason": "질문에서 검사가 작성한 피의자신문조서의 법정 취급을 묻고 있으므로, 해당 조서의 증거능력을 결정하는 법적 규정이 필수적임",
+        "scope_source": "explicit_question"
+      }
+    ],
+    "retrieval_rounds_used": 2,
+    "run_id": "98a72406-ddb5-44b8-aa18-66d71a2a324e",
+    "seen_provision_ids": [
+      "형사소송법 310조 2 전문증거와 증거능력의 제한#KOBLEX-232571",
+      "형사소송법 318조  당사자의 동의와 증거능력#KOBLEX-232597",
+      "형사소송법 244조 3 진술거부권 등의 고지#KOBLEX-232224",
+      "형사소송법 308조 2 위법수집증거의 배제#KOBLEX-232568",
+      "형사소송법 184조  증거보전의 청구와 그 절차#KOBLEX-231965",
+      "형사소송법 312조  검사 또는 사법경찰관의 조서 등#KOBLEX-232574",
+      "군사법원법 359조 2 위법수집 증거의 배제#KOBLEX-093357",
+      "군사법원법 236조 3 진술거부권 등의 고지#KOBLEX-092904",
+      "군사법원법 365조  군검사 또는 군사법경찰관의 조서#KOBLEX-093366",
+      "형사소송법 244조  피의자신문조서의 작성#KOBLEX-232215",
+      "형사소송법 266조 16 열람ㆍ등사된 서류등의 남용금지#KOBLEX-232397",
+      "형사소송법 312조  검사 또는 사법경찰관의 조서 등#KOBLEX-232576",
+      "형사소송법 312조  검사 또는 사법경찰관의 조서 등#KOBLEX-232579",
+      "대한민국헌법 16조#KOBLEX-019567",
+      "형사소송법 184조#KOBLEX-231963"
+    ],
+    "total_round_budget": 3
+  },
+  "status": "ANSWER",
+  "termination_reason": "COMPLETED"
+}

@@ -1,0 +1,76 @@
+{
+  "abnormal_question_ids": [
+    "qa_430_3hop_669",
+    "qa_460_3hop_730",
+    "qa_435_2hop_678"
+  ],
+  "batch_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c29-20260827-cac3951/diagnostic21/checkpoints/batch-020-attempt-067996368ff043e99929f4ab02eec337",
+  "bm25_execution": "FORBIDDEN",
+  "checkpoint_range": [
+    1,
+    20
+  ],
+  "checkpoint_status": "ERRORS_FOUND",
+  "completed_questions": 20,
+  "diagnostic21_checkpoint_role": "FIRST_CHUNK_COVERAGE_CHECKPOINT_NOT_A_FINAL_GATE",
+  "evaluation_directory": "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c29-20260827-cac3951/diagnostic21/evaluations/checkpoint-020-attempt-067996368ff043e99929f4ab02eec337",
+  "evaluator_command": [
+    "/usr/bin/python3.10",
+    "/tmp/legal-harness-c29-s2-partial-core-retry-scope-20260827/scripts/evaluate_dev_runs.py",
+    "--batch-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c29-20260827-cac3951/diagnostic21/checkpoints/batch-020-attempt-067996368ff043e99929f4ab02eec337",
+    "--output-dir",
+    "/workspace/Legal-Harness/records/v2-kure-qwen38-offline-diagnostic21-c29-20260827-cac3951/diagnostic21/evaluations/checkpoint-020-attempt-067996368ff043e99929f4ab02eec337",
+    "--require-stage-provenance"
+  ],
+  "event": "DIAGNOSTIC21_CHECKPOINT20_COMPLETED",
+  "lf_eval_score_injection": "FORBIDDEN",
+  "metrics": {
+    "abstain_count": 4,
+    "answer_count": 13,
+    "citation_integrity": {
+      "attempted": 13,
+      "pass_rate": 1.0,
+      "passed": 13
+    },
+    "complete_evidence_count": 9,
+    "complete_evidence_rate": 0.45,
+    "execution_failure_count": 3,
+    "outcome_counts": {
+      "ABSTAIN": 4,
+      "ANSWER": 13,
+      "EXECUTION_FAILURE": 3
+    },
+    "provision_exact_match_count": 7,
+    "provision_exact_match_rate": 0.35,
+    "provision_macro_f1": 0.675,
+    "provision_macro_precision": 0.7416666666666667,
+    "provision_macro_recall": 0.6583333333333333,
+    "provision_micro_f1": 0.7352941176470588,
+    "token_f1_answered_only": 0.31659089739325635,
+    "token_f1_candidate": 0.24720965982553278,
+    "token_f1_end_to_end": 0.20578408330561665
+  },
+  "public_abstain_invalid_result_question_ids": [],
+  "public_abstain_leak_question_ids": [],
+  "public_abstain_missing_result_question_ids": [],
+  "recorded_at_utc": "2026-08-27T20:01:24.210979+00:00",
+  "recorded_errors": {
+    "qa_430_3hop_669": [
+      "grounded_legal_answer_generation did not produce a valid GENERATE_ANSWER result after 2 attempts: public conclusion contract requires 1 to 3 conclusion claims; public answer must contain 1 to 3 short lines; conditional exception for answered target must be a public conclusion: C5; duplicate invalid S3 public-role response reproduced"
+    ],
+    "qa_435_2hop_678": [
+      "grounded_legal_answer_generation did not produce a valid GENERATE_ANSWER result after 2 attempts: conditional exception for answered target must be a public conclusion: C2"
+    ],
+    "qa_460_3hop_730": [
+      "grounded_legal_answer_generation did not produce a valid GENERATE_ANSWER result after 2 attempts: public conclusion contract requires 1 to 3 conclusion claims; public answer must contain 1 to 3 short lines"
+    ]
+  },
+  "stage_provenance_missing": [],
+  "total_questions": 21,
+  "unexpected_exit_question_ids": [],
+  "validation_errors": [
+    "abnormal_outcomes=3",
+    "recorded_errors=3"
+  ]
+}
