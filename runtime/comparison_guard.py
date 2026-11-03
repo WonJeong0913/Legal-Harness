@@ -7,11 +7,10 @@ import json
 from pathlib import Path
 from typing import Any, Dict, Mapping, Sequence
 
+from harness.public_answer_contract import PUBLIC_ANSWER_CONTRACT
 from runtime.local_ollama_executor import (
     DEFAULT_S1_TRUNCATION_RETRY_MAX_TOKENS,
     DEFAULT_SKILL_MAX_TOKENS,
-    PUBLIC_ANSWER_MAX_CHARACTERS,
-    PUBLIC_ANSWER_MAX_CLAIMS,
 )
 
 
@@ -36,9 +35,7 @@ RUNTIME_CONFIGURATION_DEFAULTS = {
     "s1_max_tokens": DEFAULT_SKILL_MAX_TOKENS["legal_issue_and_query_planning"],
     "s1_truncation_retry_max_tokens": DEFAULT_S1_TRUNCATION_RETRY_MAX_TOKENS,
     "skill_max_tokens": dict(DEFAULT_SKILL_MAX_TOKENS),
-    "s3_public_answer_max_characters": PUBLIC_ANSWER_MAX_CHARACTERS,
-    "s3_public_answer_max_claims": PUBLIC_ANSWER_MAX_CLAIMS,
-    "s3_public_answer_format": "conclusion_first_1_to_3_short_sentences",
+    **PUBLIC_ANSWER_CONTRACT,
     "s3_audit_fields": [
         "assumptions",
         "limitations",
@@ -47,6 +44,18 @@ RUNTIME_CONFIGURATION_DEFAULTS = {
     ],
     "retrieval_stage_provenance_required_for_evaluation": True,
 }
+
+
+def _assert_runtime_public_answer_contract(configuration: Mapping[str, Any]) -> None:
+    mismatches = [
+        key for key, expected in PUBLIC_ANSWER_CONTRACT.items()
+        if configuration.get(key) != expected
+    ]
+    if mismatches:
+        raise RuntimeError(
+            "frozen configuration public-answer contract mismatch with runtime: "
+            + ", ".join(sorted(mismatches))
+        )
 
 
 def resolve_frozen_configuration(configuration: Mapping[str, Any]) -> Dict[str, Any]:
@@ -115,6 +124,8 @@ def validate_retriever_comparison(
     reference_configuration = resolve_frozen_configuration(
         reference_manifest.get("frozen_configuration", {})
     )
+    _assert_runtime_public_answer_contract(configuration)
+    _assert_runtime_public_answer_contract(reference_configuration)
     retrievers = {
         str(configuration.get("retriever") or ""),
         str(reference_configuration.get("retriever") or ""),
@@ -154,4 +165,5 @@ def validate_retriever_comparison(
         "reference_manifest": str(reference_manifest_path),
         "reference_retriever": reference_configuration["retriever"],
         "comparable_configuration_sha256": _canonical_sha256(comparable),
+        "public_answer_contract": dict(PUBLIC_ANSWER_CONTRACT),
     }

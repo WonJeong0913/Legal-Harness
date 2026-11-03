@@ -31,6 +31,11 @@ from .contracts import (
     SupportSpan,
 )
 from .run_state import RunState
+from .public_answer_contract import (
+    PUBLIC_ANSWER_MAX_CHARACTERS,
+    PUBLIC_ANSWER_MAX_CLAIMS,
+    PUBLIC_ANSWER_MIN_LINES,
+)
 
 
 class ValidationError(ValueError):
@@ -802,10 +807,13 @@ def _validate_answer_draft(
 
     answer = _string(payload, "answer")
     answer_lines = [line.strip() for line in answer.splitlines() if line.strip()]
-    if len(answer) > 800:
-        raise ValidationError("public answer exceeds 800 characters")
-    if not 1 <= len(answer_lines) <= 3:
-        raise ValidationError("public answer must contain 1 to 3 short lines")
+    if len(answer) > PUBLIC_ANSWER_MAX_CHARACTERS:
+        raise ValidationError("public answer exceeds %d characters" % PUBLIC_ANSWER_MAX_CHARACTERS)
+    if not PUBLIC_ANSWER_MIN_LINES <= len(answer_lines) <= PUBLIC_ANSWER_MAX_CLAIMS:
+        raise ValidationError(
+            "public answer must contain %d to %d short lines"
+            % (PUBLIC_ANSWER_MIN_LINES, PUBLIC_ANSWER_MAX_CLAIMS)
+        )
     if any(
         line.startswith(("전제:", "한계:")) for line in answer_lines
     ):

@@ -27,6 +27,10 @@ from harness.contracts import (
     S2LegacyProjectionDiagnostic,
 )
 from harness.interfaces import SkillExecutionError
+from harness.public_answer_contract import (
+    PUBLIC_ANSWER_MAX_CHARACTERS,
+    PUBLIC_ANSWER_MAX_CLAIMS,
+)
 
 
 SKILL_IDS = {
@@ -47,12 +51,10 @@ DEFAULT_SKILL_MAX_TOKENS = {
 }
 DEFAULT_S1_TRUNCATION_RETRY_MAX_TOKENS = 8192
 RESPONSE_TAIL_CHARACTERS = 512
-PUBLIC_ANSWER_MAX_CHARACTERS = 800
 # This is a bounded presentation budget, not a fallback authorization to
-# expose every audit claim. The approved public-answer shape permits up to
+# expose every audit claim. The shared public-answer contract permits up to
 # four concise conclusion claims/sentences while the model retains the full
 # cited audit record separately.
-PUBLIC_ANSWER_MAX_CLAIMS = 4
 
 PROMPT_RUN_ID_PLACEHOLDER = "__HARNESS_RUN_ID__"
 

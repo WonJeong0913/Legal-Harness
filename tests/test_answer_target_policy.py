@@ -307,6 +307,27 @@ class AnswerTargetPolicyTests(unittest.TestCase):
         with self.assertRaisesRegex(ValidationError, "must not append audit"):
             validate_answer_draft(payload, state)
 
+    def test_public_answer_shared_four_line_contract_accepts_four_and_rejects_five(self):
+        state = target_state()
+        state.answered_target_ids = ["T1"]
+        state.deferred_target_ids = ["T2"]
+        state.accepted_provision_ids = {"P1"}
+        payload = {
+            "claims": [
+                {"claim_id": "C1", "text": "대위권 결론", "answer_target_ids": ["T1"]}
+            ],
+            "claim_citations": [{"claim_id": "C1", "provision_ids": ["P1"]}],
+            "answer": "첫째 결론\n둘째 법리\n셋째 적용\n넷째 조건",
+            "assumptions": [],
+            "limitations": [],
+        }
+
+        self.assertEqual(validate_answer_draft(payload, state).answer, payload["answer"])
+
+        payload["answer"] += "\n다섯째 초과"
+        with self.assertRaisesRegex(ValidationError, "1 to 4 short lines"):
+            validate_answer_draft(payload, state)
+
     def test_new_candidate_alone_is_not_progress(self):
         state = RunState(question="q", normalized_question="q", run_id="progress")
         state.required_evidence_items = [

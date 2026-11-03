@@ -1,6 +1,8 @@
 import unittest
 from pathlib import Path
 
+from harness.public_answer_contract import PUBLIC_ANSWER_CONTRACT
+
 from runtime.comparison_guard import (
     resolve_frozen_configuration,
     validate_retriever_comparison,
@@ -102,10 +104,40 @@ class RetrieverComparisonGuardTests(unittest.TestCase):
         self.assertEqual(
             resolved["skill_max_tokens"]["grounded_legal_answer_generation"], 3072
         )
-        self.assertEqual(resolved["s3_public_answer_max_characters"], 800)
+        self.assertEqual(
+            resolved["s3_public_answer_max_characters"],
+            PUBLIC_ANSWER_CONTRACT["s3_public_answer_max_characters"],
+        )
+        self.assertEqual(
+            resolved["s3_public_answer_max_claims"],
+            PUBLIC_ANSWER_CONTRACT["s3_public_answer_max_claims"],
+        )
+        self.assertEqual(
+            resolved["s3_public_answer_format"],
+            PUBLIC_ANSWER_CONTRACT["s3_public_answer_format"],
+        )
         self.assertTrue(
             resolved["retrieval_stage_provenance_required_for_evaluation"]
         )
+
+
+    def test_identical_stale_public_answer_contract_fails_closed(self):
+        primary = self._manifest("kure")
+        reference = self._manifest("bm25")
+        stale = {
+            "s3_public_answer_max_characters": 800,
+            "s3_public_answer_max_claims": 3,
+            "s3_public_answer_format": "conclusion_first_1_to_3_short_sentences",
+        }
+        primary["frozen_configuration"].update(stale)
+        reference["frozen_configuration"].update(stale)
+
+        with self.assertRaisesRegex(
+            RuntimeError, "public-answer contract mismatch with runtime"
+        ):
+            validate_retriever_comparison(
+                primary, reference, Path("kure.json"), Path("bm25.json")
+            )
 
 
 if __name__ == "__main__":
