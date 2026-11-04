@@ -1,5 +1,7 @@
 # Adapted local Qwen LF-Eval protocol
 
+> **Note (2026-11):** This document describes the first version, which compared a C36 KURE output with ParSeR. Later commits extended the same postprocessor to C02 inputs (`a839228`) and to a three-condition C02 KURE / C02 BM25s / ParSeR comparison (`scripts/run_adapted_local_lf_eval_bm25s.py`, `c1eb0c4`). The results summarized in the root README come from these later records.
+
 `scripts/run_adapted_local_lf_eval.py` is a postprocessing-only comparison of a
 completed C36 KURE `full226/` output and the completed reproduced ParSeR
 `final_results.jsonl`. It is not the official KoBLEX LF-Eval: the official
