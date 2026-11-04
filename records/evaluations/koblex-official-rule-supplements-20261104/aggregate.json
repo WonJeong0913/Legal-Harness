@@ -1,0 +1,325 @@
+{
+  "abstain_excluded": {
+    "C02_BM25S": {
+      "local_lf_0_to_10_candidate": 6.2592592592592595,
+      "local_lf_0_to_10_public": 6.2592592592592595,
+      "provision_em_official": 0.345679012345679,
+      "provision_f1_official": 0.6764060356652952,
+      "public_equals_candidate": true,
+      "questions": 162,
+      "status_counts": {
+        "ANSWER": 145,
+        "EXECUTION_FAILURE": 17
+      },
+      "token_f1_at_800_candidate": 0.34038757819965393,
+      "token_f1_at_800_public": 0.34038757819965393
+    },
+    "C02_KURE": {
+      "local_lf_0_to_10_candidate": 7.197969543147208,
+      "local_lf_0_to_10_public": 7.197969543147208,
+      "provision_em_official": 0.4416243654822335,
+      "provision_f1_official": 0.7091934574168081,
+      "public_equals_candidate": true,
+      "questions": 197,
+      "status_counts": {
+        "ANSWER": 189,
+        "EXECUTION_FAILURE": 8
+      },
+      "token_f1_at_800_candidate": 0.37304868423872384,
+      "token_f1_at_800_public": 0.37304868423872384
+    },
+    "PARSER_REPRODUCED": {
+      "local_lf_0_to_10_candidate": 6.238938053097345,
+      "local_lf_0_to_10_public": 6.238938053097345,
+      "provision_em_official": 0.25663716814159293,
+      "provision_f1_official": 0.5204593341761486,
+      "public_equals_candidate": true,
+      "questions": 226,
+      "status_counts": {
+        "ANSWER": 220,
+        "EXECUTION_FAILURE": 6
+      },
+      "token_f1_at_800_candidate": 0.424436725663717,
+      "token_f1_at_800_public": 0.424436725663717
+    }
+  },
+  "answered_completeness_by_answer_mode": {
+    "C02_BM25S": {
+      "full": {
+        "answers": 97,
+        "incomplete_lenient": 22,
+        "incomplete_official": 26,
+        "official_only": 4,
+        "official_only_missing_only_unreachable_gold": 4,
+        "official_only_question_ids": [
+          "qa_119_2hop_464_rand",
+          "qa_340_2hop_539",
+          "qa_125_1hop_225",
+          "qa_244_2hop_931_rand"
+        ]
+      },
+      "limited": {
+        "answers": 48,
+        "incomplete_lenient": 45,
+        "incomplete_official": 47,
+        "official_only": 2,
+        "official_only_missing_only_unreachable_gold": 2,
+        "official_only_question_ids": [
+          "qa_125_2hop_226",
+          "qa_435_2hop_678"
+        ]
+      }
+    },
+    "C02_KURE": {
+      "full": {
+        "answers": 148,
+        "incomplete_lenient": 34,
+        "incomplete_official": 42,
+        "official_only": 8,
+        "official_only_missing_only_unreachable_gold": 8,
+        "official_only_question_ids": [
+          "qa_119_2hop_464_rand",
+          "qa_215_2hop_820_rand",
+          "qa_24_1hop_35",
+          "qa_339_2hop_536",
+          "qa_148_3hop_273",
+          "qa_340_2hop_539",
+          "qa_343_2hop_541",
+          "qa_162_1hop_291"
+        ]
+      },
+      "limited": {
+        "answers": 41,
+        "incomplete_lenient": 37,
+        "incomplete_official": 39,
+        "official_only": 2,
+        "official_only_missing_only_unreachable_gold": 2,
+        "official_only_question_ids": [
+          "qa_125_2hop_226",
+          "qa_244_2hop_931_rand"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "abstain_excluded": "ABSTAIN rows removed; EXECUTION_FAILURE rows kept with their stored scores",
+    "incomplete": "at least one gold provision not matched",
+    "lenient_scoring": "provision rule of scripts/evaluate_dev_runs.py (stored as `harness` in the official-rule record)",
+    "local_lf": "adapted local Qwen3.8-27B judge, not the official GPT-4o LF-Eval",
+    "official_rule": "per-item exact hierarchy+content string sets (KoBLEX eval_pipeline.py::evaluate_retrieval)"
+  },
+  "gold_reachability_official_rule": {
+    "affected_question_ids": [
+      "qa_312_2hop_499",
+      "qa_163_2hop_630_rand",
+      "qa_86_3hop_140",
+      "qa_352_3hop_554",
+      "qa_488_2hop_766",
+      "qa_119_2hop_464_rand",
+      "qa_215_2hop_820_rand",
+      "qa_102_3hop_175",
+      "qa_24_1hop_35",
+      "qa_503_2hop_790",
+      "qa_339_2hop_536",
+      "qa_653_2hop_987",
+      "qa_148_3hop_273",
+      "qa_340_2hop_539",
+      "qa_125_2hop_226",
+      "qa_343_2hop_541",
+      "qa_552_2hop_839",
+      "qa_498_3hop_782",
+      "qa_435_2hop_678",
+      "qa_242_3hop_399",
+      "qa_125_1hop_225",
+      "qa_26_2hop_104_rand",
+      "qa_244_2hop_931_rand",
+      "qa_608_3hop_919",
+      "qa_162_1hop_291",
+      "qa_77_3hop_121",
+      "qa_22_2hop_33",
+      "qa_136_2hop_523_rand",
+      "qa_443_3hop_703"
+    ],
+    "gold_contexts": 443,
+    "gold_contexts_not_verbatim_in_corpus": 33,
+    "not_verbatim_by_lenient_match_type": {
+      "composite": 31,
+      "normalized_image_tag": 1,
+      "terminal_punctuation": 1
+    },
+    "official_em1_on_affected_questions": {
+      "C02_BM25S": 0,
+      "C02_KURE": 0,
+      "PARSER_REPRODUCED": 0
+    },
+    "official_em_ceiling": 0.8716814159292036,
+    "questions_with_unreachable_gold": 29,
+    "unreachable_gold_contexts": [
+      {
+        "hierarchy": "민법 840조  재판상 이혼원인",
+        "lenient_match_type": "composite",
+        "question_id": "qa_312_2hop_499"
+      },
+      {
+        "hierarchy": "국세기본법 시행령 65조 4 포상금의 지급 6항",
+        "lenient_match_type": "normalized_image_tag",
+        "question_id": "qa_163_2hop_630_rand"
+      },
+      {
+        "hierarchy": "산업재해보상보험법 시행령 32조  요양 중의 사고",
+        "lenient_match_type": "composite",
+        "question_id": "qa_86_3hop_140"
+      },
+      {
+        "hierarchy": "산업재해보상보험법 5조  정의",
+        "lenient_match_type": "composite",
+        "question_id": "qa_86_3hop_140"
+      },
+      {
+        "hierarchy": "국민체육진흥법 47조  벌칙",
+        "lenient_match_type": "composite",
+        "question_id": "qa_352_3hop_554"
+      },
+      {
+        "hierarchy": "국민체육진흥법 48조  벌칙",
+        "lenient_match_type": "composite",
+        "question_id": "qa_352_3hop_554"
+      },
+      {
+        "hierarchy": "형사소송법 326조  면소의 판결",
+        "lenient_match_type": "composite",
+        "question_id": "qa_488_2hop_766"
+      },
+      {
+        "hierarchy": "하천법 시행령 85조  매수대상토지등의 판정기준",
+        "lenient_match_type": "composite",
+        "question_id": "qa_119_2hop_464_rand"
+      },
+      {
+        "hierarchy": "공직선거법 59조  선거운동기간",
+        "lenient_match_type": "composite",
+        "question_id": "qa_215_2hop_820_rand"
+      },
+      {
+        "hierarchy": "상업등기법 26조  신청의 각하",
+        "lenient_match_type": "composite",
+        "question_id": "qa_102_3hop_175"
+      },
+      {
+        "hierarchy": "형사소송법 420조  재심이유",
+        "lenient_match_type": "composite",
+        "question_id": "qa_24_1hop_35"
+      },
+      {
+        "hierarchy": "폐기물관리법 2조 2 폐기물의 세부분류",
+        "lenient_match_type": "composite",
+        "question_id": "qa_503_2hop_790"
+      },
+      {
+        "hierarchy": "형사소송법 244조 5 장애인 등 특별히 보호를 요하는 자에 대한 특칙",
+        "lenient_match_type": "composite",
+        "question_id": "qa_339_2hop_536"
+      },
+      {
+        "hierarchy": "민법 168조  소멸시효의 중단사유",
+        "lenient_match_type": "composite",
+        "question_id": "qa_653_2hop_987"
+      },
+      {
+        "hierarchy": "국민체육진흥법 47조  벌칙",
+        "lenient_match_type": "composite",
+        "question_id": "qa_148_3hop_273"
+      },
+      {
+        "hierarchy": "국민체육진흥법 14조 3 선수 등의 금지행위 1항",
+        "lenient_match_type": "terminal_punctuation",
+        "question_id": "qa_148_3hop_273"
+      },
+      {
+        "hierarchy": "국민체육진흥법 48조  벌칙",
+        "lenient_match_type": "composite",
+        "question_id": "qa_148_3hop_273"
+      },
+      {
+        "hierarchy": "귀속재산처리법 34조",
+        "lenient_match_type": "composite",
+        "question_id": "qa_340_2hop_539"
+      },
+      {
+        "hierarchy": "형사소송법 361조 5 항소이유",
+        "lenient_match_type": "composite",
+        "question_id": "qa_125_2hop_226"
+      },
+      {
+        "hierarchy": "민법 163조  3년의 단기소멸시효",
+        "lenient_match_type": "composite",
+        "question_id": "qa_343_2hop_541"
+      },
+      {
+        "hierarchy": "장애인복지법 59조 10 장애인학대의 예방과 방지 의무",
+        "lenient_match_type": "composite",
+        "question_id": "qa_552_2hop_839"
+      },
+      {
+        "hierarchy": "형사소송법 11조  관련사건의 정의",
+        "lenient_match_type": "composite",
+        "question_id": "qa_498_3hop_782"
+      },
+      {
+        "hierarchy": "여객자동차 운수사업법 37조  면허기준",
+        "lenient_match_type": "composite",
+        "question_id": "qa_435_2hop_678"
+      },
+      {
+        "hierarchy": "민법 168조  소멸시효의 중단사유",
+        "lenient_match_type": "composite",
+        "question_id": "qa_242_3hop_399"
+      },
+      {
+        "hierarchy": "형사소송법 361조 5 항소이유",
+        "lenient_match_type": "composite",
+        "question_id": "qa_125_1hop_225"
+      },
+      {
+        "hierarchy": "간접투자자산 운용업법 185조  (벌칙)",
+        "lenient_match_type": "composite",
+        "question_id": "qa_26_2hop_104_rand"
+      },
+      {
+        "hierarchy": "공공주택 특별법 시행령 29조  주택건설사업계획의 승인 신청",
+        "lenient_match_type": "composite",
+        "question_id": "qa_244_2hop_931_rand"
+      },
+      {
+        "hierarchy": "근로자퇴직급여 보장법 2조  정의",
+        "lenient_match_type": "composite",
+        "question_id": "qa_608_3hop_919"
+      },
+      {
+        "hierarchy": "형사소송법 326조  면소의 판결",
+        "lenient_match_type": "composite",
+        "question_id": "qa_162_1hop_291"
+      },
+      {
+        "hierarchy": "토지이용규제 기본법 5조  지역ㆍ지구등의 신설 제한 등",
+        "lenient_match_type": "composite",
+        "question_id": "qa_77_3hop_121"
+      },
+      {
+        "hierarchy": "형사소송법 327조  공소기각의 판결",
+        "lenient_match_type": "composite",
+        "question_id": "qa_22_2hop_33"
+      },
+      {
+        "hierarchy": "건축사법 2조  정의",
+        "lenient_match_type": "composite",
+        "question_id": "qa_136_2hop_523_rand"
+      },
+      {
+        "hierarchy": "형사소송법 326조  면소의 판결",
+        "lenient_match_type": "composite",
+        "question_id": "qa_443_3hop_703"
+      }
+    ]
+  }
+}
