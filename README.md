@@ -21,20 +21,31 @@
 | 지표 | C02 + KURE | C02 + BM25s | ParSeR (Reproduced) |
 |---|---:|---:|---:|
 | 응답 / 보류 / 실행 실패 | 189 / 29 / 8 | 145 / 64 / 17 | 220 / 0 / 6 |
-| 조문 macro F1 ¹ | 70.22 | 57.63 | 55.01 |
-| 조문 micro F1 ¹ | 68.97 | 60.63 | 52.49 |
-| 조문 완전 일치(EM) ¹ | 42.04 (95/226) | 28.76 (65/226) | 26.99 (61/226) |
+| 조문 macro F1 ¹ | 65.96 | 54.39 | 52.05 |
+| 조문 micro F1 ¹ | 64.29 | 56.60 | 49.64 |
+| 조문 완전 일치(EM) ¹ | 39.38 (89/226) | 26.55 (60/226) | 25.66 (58/226) |
 | Token-F1@800 — 공개 답변 기준 ² | 32.52 | 24.40 | 42.44 |
 | Token-F1@800 — 평가용 후보 포함 ³ | 34.86 | 27.97 | — |
 | 로컬 Qwen LF (/10) — 공개 답변 기준 ² ⁴ | 6.274 | 4.487 | 6.239 |
 | 로컬 Qwen LF (/10) — 평가용 후보 포함 ³ ⁴ | 6.739 | 5.261 | 6.239 |
 
-1. **세 조건 모두 같은 조문 채점 규칙**(`scripts/evaluate_dev_runs.py`의 `build_gold_groups`·`precision_recall_f1`)으로 채점했습니다. 정답 조문마다 인정되는 코퍼스 조문 ID 묶음(완전 중복 행, 이미지 태그·끝 마침표 정규화, 조 단위 정답이 항 단위로 나뉜 경우 포함)을 만들고 1:1로 맞춥니다. 226문항 전체가 분모입니다. ParSeR의 실행 실패 6문항은 선택 조문이 없어 0점이고, C02의 실행 실패 문항은 실패 전까지 채택된 조문으로 채점됩니다(0점이 아닌 문항: BM25s 17문항 중 11, KURE 8문항 중 4). ParSeR는 원래 재현 평가기의 문자열 완전 일치 규칙으로 채점되어 macro F1 52.05, micro F1 49.64, EM 25.66이었습니다. 저장된 ParSeR 선택 조문을 코퍼스 조문 ID로 바꿔(399개 중 대응 실패 0개) 같은 규칙으로 다시 채점했고, 12문항의 점수가 올라 위 값이 되었습니다(`scripts/rescore_parser_with_harness_provision_rule.py`, GPU·모델 미사용).
+1. **세 조건 모두 KoBLEX 공식 규칙**(공식 저장소 `experiments/lf-eval/eval_pipeline.py`의 `evaluate_retrieval`)으로 채점했습니다. 정답과 예측을 `hierarchy + content` 문자열 집합으로 보고, 문자열이 완전히 같을 때만 맞은 것으로 셉니다. 문항별 P/R/F1/EM을 226문항에 대해 평균하며, micro F1은 전체 TP로 계산한 보조값입니다. C02의 예측은 각 실행이 채택한 조문 ID를 원본 법령 parquet의 같은 행 문자열로 바꿔 채점했습니다(`scripts/score_koblex_official_provision_rule.py`, GPU·모델 미사용). 보류·실행 실패 문항도 분모에 들어가고, 저장된 채택 조문이 있으면 그대로 채점합니다. ParSeR 실패 6문항은 선택 조문이 없어 0점이고, C02 실패 문항 중 BM25s 11/17, KURE 4/8은 0점이 아닙니다.
+   하네스 평가기(`scripts/evaluate_dev_runs.py`)의 조문 규칙은 정답 인정 범위가 더 넓습니다(조문 ID 묶음, 정규화, 조 단위 정답의 항 단위 일치 인정). 그래서 값이 더 높고(macro F1 KURE 70.22, BM25s 57.63, ParSeR 55.01 / EM 42.04, 28.76, 26.99) 보조 지표로만 씁니다. 각 결과 디렉터리의 README와 `summary.md`에 나오는 조문 점수는 이 하네스 규칙 값입니다.
 2. 하네스가 실제로 반환한 답변만 채점하고, 보류·실행 실패는 0점입니다.
 3. 보류 문항에 대해 하네스가 내부적으로 만든 **평가용 후보 답변**을 채점에 넣고, 후보가 없거나 실행이 실패한 문항은 0점입니다. 후보 답변은 공개 답변이 아니며 사용자에게 반환되지 않습니다. 논문의 대표 기준(공개 답변 vs 후보 포함)은 아직 확정하지 않았습니다.
 4. **KoBLEX 공식 LF-Eval(GPT-4o + DeepEval)이 아닙니다.** 공식 루브릭과 투영 방식을 따르되 judge를 로컬 Qwen3.8-27B(temperature 0, seed 0)로 바꾼 적응형 평가이며, 원 논문의 LF-Eval 수치와 직접 비교할 수 없습니다.
 
 ParSeR (Reproduced)는 보류를 하지 않기 때문에 공개 답변 기준 Token-F1에서 C02보다 높습니다. 보류 정책이 Token-F1을 낮추는 효과는 결과의 일부이며 숨기지 않습니다.
+
+### 짝비교 신뢰구간 (공식 규칙, 226문항)
+
+| 비교 | 조문 F1 차이 [95% CI] | EM 차이 [95% CI] |
+|---|---:|---:|
+| C02 + KURE − ParSeR | +13.91 [+8.64, +19.16] | +13.72 [+7.08, +20.35] |
+| C02 + BM25s − ParSeR | +2.34 [−3.00, +7.64] | +0.88 [−4.87, +6.64] |
+| C02 + KURE − C02 + BM25s | +11.57 [+6.90, +16.23] | +12.83 [+6.64, +19.03] |
+
+226문항을 짝지어 10,000번 복원 추출한 백분위 부트스트랩입니다(NumPy `default_rng`, seed 20260901, 모든 비교에 같은 추출 인덱스 사용). 2026-09-01 보고서와 같은 절차이며, 스크립트가 그 보고서의 저장값을 먼저 재현한 뒤 계산합니다. **BM25s와 ParSeR의 차이는 두 지표 모두 구간이 0을 포함합니다.** KURE가 포함된 두 비교는 6개 구간에 Bonferroni 보정을 적용해도 0을 포함하지 않습니다. 문항별 승/무/패, 보정 구간은 공식 규칙 기록의 `aggregate.json`에 있습니다.
 
 ### 결과 출처
 
@@ -46,16 +57,18 @@ ParSeR (Reproduced)는 보류를 하지 않기 때문에 공개 답변 기준 To
 | 세 조건 로컬 LF | [`records/adapted-local-qwen38-lf-eval-c02-bm25s-linked-r1-20260902/`](records/adapted-local-qwen38-lf-eval-c02-bm25s-linked-r1-20260902/) | `c1eb0c4` |
 | C02 vs ParSeR 로컬 LF (r1, r2 바이트 동일) | [`records/adapted-local-qwen38-lf-eval-c02-vs-parser-r1-20260901-a839228/`](records/adapted-local-qwen38-lf-eval-c02-vs-parser-r1-20260901-a839228/) | `a839228` |
 | ParSeR (Reproduced) 226문항 | [`records/baselines/koblex-parser-reproduced-qwen38-q8-226-23f5c9ae-…/`](records/baselines/koblex-parser-reproduced-qwen38-q8-226-23f5c9ae-45a5-4d7e-a88f-fbcfb5320185/), [재현 노트](docs/KOBLEX_PARSER_BASELINE_REPRODUCTION_NOTES.md) | — |
-| ParSeR 조문 점수 통일 재채점 | [`records/evaluations/koblex-parser-reproduced-harness-provision-rule-20261104/`](records/evaluations/koblex-parser-reproduced-harness-provision-rule-20261104/) | `8aa86fe` |
+| **공식 규칙 조문 점수·짝비교 신뢰구간** (세 조건) | [`records/evaluations/koblex-official-provision-rule-20261104/`](records/evaluations/koblex-official-provision-rule-20261104/) | `c629c53` |
+| (보조) ParSeR 하네스 규칙 재채점 | [`records/evaluations/koblex-parser-reproduced-harness-provision-rule-20261104/`](records/evaluations/koblex-parser-reproduced-harness-provision-rule-20261104/) | `8aa86fe` |
 | KoBLEX 원 논문 Table 1–10 대조 보고서 | [`records/reports/koblex-paper-tables-c02-parser-20260901/`](records/reports/koblex-paper-tables-c02-parser-20260901/README.md) | — |
 
 각 결과 디렉터리에는 `aggregate.json`, 문항별 기록(`per_question.*`), 실행 메타데이터, SHA-256 영수증이 있습니다. **결과를 재현하려면 표의 커밋을 체크아웃하세요.** `main`의 코드는 그 이후 수정이 반영된 최신 상태이므로 결과 생성 시점의 코드와 다를 수 있습니다.
 
-논문 인용용 고정 지점은 태그 [`kci-results-v2`](https://github.com/WonJeong0913/Legal-Harness/tree/kci-results-v2)입니다.
+논문 인용용 고정 지점은 태그 [`kci-results-v3`](https://github.com/WonJeong0913/Legal-Harness/tree/kci-results-v3)입니다.
 
 ## 결과를 읽을 때 주의할 점
 
-- **단일 실행입니다.** 모든 조건이 seed 0 한 번 실행입니다. 보고서의 bootstrap 신뢰구간은 문항 표본 불확실성만 반영하며, 모델 실행 간 변동은 측정하지 않았습니다.
+- **단일 실행입니다.** 모든 조건이 seed 0 한 번 실행입니다. bootstrap 신뢰구간은 문항 표본 불확실성만 반영하며, 모델 실행 간 변동은 측정하지 않았습니다.
+- **2026-09-01 KoBLEX 대조 보고서**(`records/reports/koblex-paper-tables-c02-parser-20260901/`)의 조문 점수와 짝비교 신뢰구간은 C02(하네스 규칙)와 ParSeR(공식 규칙)를 섞어 계산한 값이라 현재 기준과 다릅니다. 같은 보고서의 "실행 실패=0" 설명도 C02 조건에는 맞지 않습니다. 현재 기준은 공식 규칙 기록입니다.
 - **C02 + KURE 226문항은 이어붙인 실행입니다.** 원 체크포인트 58문항, 재시도 2문항, 이어 실행 166문항을 같은 커밋·설정으로 합쳤고, 문항별 출처는 `audit/source-row-map.json`에 있습니다.
 - **BM25가 두 종류입니다.**
   - 논문의 BM25 비교 조건은 ParSeR와 같은 **`bm25s` 0.3.10** 기반입니다(`scripts/c02_bm25s_ablation.py`). ParSeR의 `Bm25Retriever`와 상위 100개 순서가 일치하는지는 **실제 C02 질의 3개**에 대해 확인했습니다.
@@ -108,8 +121,9 @@ python3 scripts/evaluate_dev_runs.py \
 ## 브랜치와 태그
 
 - `main`: 논문 결과를 만든 코드(C02, BM25s ablation, LF 후처리)와 결과 기록을 합친 기준 브랜치.
-- `kci-results-v2`: 논문 인용용 고정 태그. 세 조건의 조문 채점 규칙을 통일한 기준.
-- `kci-results-v1`: 이전 고정 지점. ParSeR 조문 점수가 문자열 완전 일치 규칙(52.05 / 25.66)이던 상태로, 비교에 쓰지 않습니다.
+- `kci-results-v3`: 논문 인용용 고정 태그. 세 조건을 KoBLEX 공식 조문 규칙으로 채점한 기준.
+- `kci-results-v2`: 이전 고정 지점. 세 조건을 하네스 규칙으로 맞춘 상태(ParSeR 55.01 / 26.99)로, 현재는 보조 지표입니다.
+- `kci-results-v1`: 이전 고정 지점. C02는 하네스 규칙, ParSeR는 공식 규칙으로 채점 규칙이 섞여 있던 상태로, 비교에 쓰지 않습니다.
 - `archive/*` 태그: 개발 중 실험 브랜치(c04–c48 등)의 보존본입니다. **논문 결과의 근거가 아니며**, 실패했거나 채택하지 않은 시도도 포함합니다. `archive/wip/*`는 커밋하지 않았던 로컬 작업을 그대로 보존한 스냅샷으로, 검토되지 않은 상태입니다.
 
 ## 출처

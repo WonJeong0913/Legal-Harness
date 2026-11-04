@@ -1,0 +1,234 @@
+{
+  "bootstrap": {
+    "bonferroni_family_size": 6,
+    "bonferroni_interval_percentiles": [
+      0.4166666666666667,
+      99.58333333333333
+    ],
+    "comparisons": [
+      {
+        "ci95_high": 0.1915967832560753,
+        "ci95_low": 0.08640609636184858,
+        "ci_bonferroni_high": 0.20926995540103946,
+        "ci_bonferroni_low": 0.06882633621295126,
+        "delta": 0.13912768647281923,
+        "left": "C02_KURE",
+        "losses": 47,
+        "metric": "provision_f1",
+        "right": "PARSER_REPRODUCED",
+        "ties": 80,
+        "wins": 99
+      },
+      {
+        "ci95_high": 0.20353982300884957,
+        "ci95_low": 0.07079646017699115,
+        "ci_bonferroni_high": 0.22566371681415928,
+        "ci_bonferroni_low": 0.048672566371681415,
+        "delta": 0.13716814159292035,
+        "left": "C02_KURE",
+        "losses": 15,
+        "metric": "provision_em",
+        "right": "PARSER_REPRODUCED",
+        "ties": 165,
+        "wins": 46
+      },
+      {
+        "ci95_high": 0.07636641382216604,
+        "ci95_low": -0.030018436578171093,
+        "ci_bonferroni_high": 0.09434234091866826,
+        "ci_bonferroni_low": -0.04846247717376036,
+        "delta": 0.023416210141873863,
+        "left": "C02_BM25S",
+        "losses": 67,
+        "metric": "provision_f1",
+        "right": "PARSER_REPRODUCED",
+        "ties": 79,
+        "wins": 80
+      },
+      {
+        "ci95_high": 0.06637168141592921,
+        "ci95_low": -0.048672566371681415,
+        "ci_bonferroni_high": 0.08849557522123894,
+        "ci_bonferroni_low": -0.07079646017699115,
+        "delta": 0.008849557522123894,
+        "left": "C02_BM25S",
+        "losses": 22,
+        "metric": "provision_em",
+        "right": "PARSER_REPRODUCED",
+        "ties": 180,
+        "wins": 24
+      },
+      {
+        "ci95_high": 0.16227489815985388,
+        "ci95_low": 0.06895262677342323,
+        "ci_bonferroni_high": 0.1784939510464952,
+        "ci_bonferroni_low": 0.05345865816828206,
+        "delta": 0.11571147633094536,
+        "left": "C02_KURE",
+        "losses": 38,
+        "metric": "provision_f1",
+        "right": "C02_BM25S",
+        "ties": 103,
+        "wins": 85
+      },
+      {
+        "ci95_high": 0.1902654867256637,
+        "ci95_low": 0.06637168141592921,
+        "ci_bonferroni_high": 0.2079646017699115,
+        "ci_bonferroni_low": 0.048672566371681415,
+        "delta": 0.12831858407079647,
+        "left": "C02_KURE",
+        "losses": 12,
+        "metric": "provision_em",
+        "right": "C02_BM25S",
+        "ties": 173,
+        "wins": 41
+      }
+    ],
+    "parity_with_20260901_report": {
+      "Retrieval F1 (macro per item)": "PASS",
+      "Retrieval exact match": "PASS"
+    },
+    "procedure": "numpy default_rng(seed).integers(0, n, size=(resamples, n)) shared by all metrics and comparisons; mean of per-question left-minus-right differences; percentile intervals, numpy linear",
+    "questions": 226,
+    "resamples": 10000,
+    "seed": 20260901
+  },
+  "conditions": {
+    "C02_BM25S": {
+      "answered_completeness_by_answer_mode": {
+        "full": {
+          "answers": 97,
+          "incomplete_harness": 22,
+          "incomplete_official": 26
+        },
+        "limited": {
+          "answers": 48,
+          "incomplete_harness": 45,
+          "incomplete_official": 47
+        }
+      },
+      "harness_rule_supplementary": {
+        "exact_match_rate": 0.28761061946902655,
+        "macro_f1": 0.5763449922741963
+      },
+      "official_rule": {
+        "abstain_removed": {
+          "exact_match_count": 56,
+          "exact_match_rate": 0.345679012345679,
+          "macro_f1": 0.6764060356652952,
+          "questions": 162
+        },
+        "answered_only": {
+          "exact_match_count": 56,
+          "exact_match_rate": 0.38620689655172413,
+          "macro_f1": 0.7111111111111112,
+          "questions": 145
+        },
+        "exact_match_count": 60,
+        "exact_match_rate": 0.26548672566371684,
+        "macro_f1": 0.5438755443180224,
+        "macro_precision": 0.5988569321533923,
+        "macro_recall": 0.5420353982300884,
+        "micro_f1": 0.5660377358490566,
+        "micro_precision": 0.6392045454545454,
+        "micro_recall": 0.5079006772009029
+      },
+      "questions": 226,
+      "status_counts": {
+        "ABSTAIN": 64,
+        "ANSWER": 145,
+        "EXECUTION_FAILURE": 17
+      }
+    },
+    "C02_KURE": {
+      "answered_completeness_by_answer_mode": {
+        "full": {
+          "answers": 148,
+          "incomplete_harness": 34,
+          "incomplete_official": 42
+        },
+        "limited": {
+          "answers": 41,
+          "incomplete_harness": 37,
+          "incomplete_official": 39
+        }
+      },
+      "harness_rule_supplementary": {
+        "exact_match_rate": 0.42035398230088494,
+        "macro_f1": 0.7022369714847593
+      },
+      "official_rule": {
+        "abstain_removed": {
+          "exact_match_count": 87,
+          "exact_match_rate": 0.4416243654822335,
+          "macro_f1": 0.7091934574168081,
+          "questions": 197
+        },
+        "answered_only": {
+          "exact_match_count": 87,
+          "exact_match_rate": 0.4603174603174603,
+          "macro_f1": 0.7277483833039393,
+          "questions": 189
+        },
+        "exact_match_count": 89,
+        "exact_match_rate": 0.3938053097345133,
+        "macro_f1": 0.6595870206489677,
+        "macro_precision": 0.6783396544458492,
+        "macro_recall": 0.682890855457227,
+        "micro_f1": 0.6429365962180199,
+        "micro_precision": 0.6337719298245614,
+        "micro_recall": 0.6523702031602708
+      },
+      "questions": 226,
+      "status_counts": {
+        "ABSTAIN": 29,
+        "ANSWER": 189,
+        "EXECUTION_FAILURE": 8
+      }
+    },
+    "PARSER_REPRODUCED": {
+      "answered_completeness_by_answer_mode": {
+        "unrecorded": {
+          "answers": 220,
+          "incomplete_harness": 149,
+          "incomplete_official": 153
+        }
+      },
+      "harness_rule_supplementary": {
+        "exact_match_rate": 0.26991150442477874,
+        "macro_f1": 0.5501053518752638
+      },
+      "official_rule": {
+        "abstain_removed": {
+          "exact_match_count": 58,
+          "exact_match_rate": 0.25663716814159293,
+          "macro_f1": 0.5204593341761486,
+          "questions": 226
+        },
+        "answered_only": {
+          "exact_match_count": 58,
+          "exact_match_rate": 0.2636363636363636,
+          "macro_f1": 0.5346536796536799,
+          "questions": 220
+        },
+        "exact_match_count": 58,
+        "exact_match_rate": 0.25663716814159293,
+        "macro_f1": 0.5204593341761486,
+        "macro_precision": 0.5724188790560473,
+        "macro_recall": 0.5103244837758111,
+        "micro_f1": 0.49643705463182897,
+        "micro_precision": 0.5238095238095238,
+        "micro_recall": 0.4717832957110609
+      },
+      "questions": 226,
+      "status_counts": {
+        "ABSTAIN": 0,
+        "ANSWER": 220,
+        "EXECUTION_FAILURE": 6
+      }
+    }
+  },
+  "denominator_policy": "all 226 questions; ABSTAIN and execution-failure rows are scored on the provisions they stored (none for ParSeR failures)",
+  "official_rule_source": "daehuikim/KoBLEX@1a2d225:experiments/lf-eval/eval_pipeline.py::evaluate_retrieval"
+}
