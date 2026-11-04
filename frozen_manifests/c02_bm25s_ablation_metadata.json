@@ -1,0 +1,80 @@
+{
+  "asset_provenance": {
+    "asset_root": "/workspace/Legal-Harness",
+    "assets": {
+      "normalized_corpus": {
+        "path": "data/koblex/normalized/statute.jsonl",
+        "sha256": "0e2283c7bcfa8f92d3ea7d4dd249449a31c0528b47dde04ab408bee45e0857b0"
+      },
+      "qa_parquet": {
+        "path": "data/koblex/qa/test-00000-of-00001.parquet",
+        "sha256": "afdaff3a8000cdf5e0a64adbcfc8e6aff0042b318bf03718155f2b70f551c47b"
+      },
+      "statute_parquet": {
+        "path": "data/koblex/statute/corpus-00000-of-00001.parquet",
+        "sha256": "6323f7d024ec504f4b2346cd3ab67aa709aac49a5340c9f3d8372ad6bd5f9b8b"
+      }
+    },
+    "documents": 233544,
+    "parquet_to_provision_id_mapping": "positional parquet row to normalized provision_id; duplicate parquet index values remain distinct and are never first-stage deduplicated",
+    "parquet_to_provision_id_mapping_sha256": "087ba03a2b960fc8d567a43afcccac2a6a931e44115dede18c96a8bd4bdbdabd"
+  },
+  "c02_source_commit": "c02e2818ad54e9d5a1a9bd02b604e987192bb244",
+  "c02_source_manifest": "frozen_manifests/v2_kure_full226.json",
+  "c02_source_manifest_sha256": "4e1109bb6930a96125ddcc3e26a16ff2f356438197a9d2e862e0bbec8a07ac61",
+  "c02_source_tree": "9fcb0ebceb0b3d96955f1626f2c952a457be930f",
+  "execution_policy": {
+    "bm25s_first_stage": "PERMITTED_ONLY_VIA_THIS_MANIFEST",
+    "condition": "C02_BM25S_PARSER_FIRST_STAGE_ABLATION_ONLY",
+    "kure_main_execution": "NOT_MODIFIED",
+    "lf_eval_score_injection": "FORBIDDEN",
+    "network": "OFFLINE_ONLY",
+    "parser_execution": "FORBIDDEN",
+    "v2_bm25_reference_execution": "MUST_NEVER_BE_EXECUTED"
+  },
+  "generated": {
+    "full226": {
+      "path": "frozen_manifests/c02_bm25s_ablation_full226.json",
+      "sha256": "998d821497346d6eac95b7e7f8083ab393b020da7427f3ffb9e40d87eba0a154"
+    },
+    "smoke1": {
+      "path": "frozen_manifests/c02_bm25s_ablation_smoke1.json",
+      "sha256": "5d8364eff7fe3a295efa5011e9bf87074f8e925541f65ceaabef9d1f6fcf3ae3"
+    },
+    "smoke3": {
+      "path": "frozen_manifests/c02_bm25s_ablation_smoke3.json",
+      "sha256": "acc5c91b8a73a38d27022b6e961681ca7743ca2c0e411b858da6757b3361cc9e"
+    }
+  },
+  "parity_receipt": {
+    "canonical_serialization": "UTF-8 JSON list, ensure_ascii=False, separators=(',', ':')",
+    "comparison": "ordered Top-100 raw parquet source-index arrays must be exactly equal",
+    "fixtures": [
+      {
+        "canonical_source_index_list_sha256": "ff0562c5a21c6689ea489ff3328e1b957dde8bb0bbe36c09fa431b07dd24e223",
+        "legacy_external_top100_index_sha256": "91072d93dfa6d998c726f0658f58b6f33e41dc2118b1f45c4708c08ed1127fd5",
+        "query_sha256": "1ca9aa149bcd8a44199db402e57b202d69673a7c0264dce28ef0ad9ebccb1a38",
+        "saved_c02_record": "a55bac04-a675-4171-add2-f8f35295201f"
+      },
+      {
+        "canonical_source_index_list_sha256": "07b123db0c1ca3ca079451525c73f6dda3dfae019ca1fb486bdbabe756f84eed",
+        "legacy_external_top100_index_sha256": "cd5b9966fcc6ceb6b60d7ecc6686eba7dc1fe5ab117c09ca789f22cc079093dd",
+        "query_sha256": "a4cd2fcaf04fa07b2768be8a575a1c6ff9b02f6c3bf2d4f92afed8192a30f50f",
+        "saved_c02_record": "9efd3e25-9c81-475e-be08-bd12c5807f41"
+      },
+      {
+        "canonical_source_index_list_sha256": "5323a65ddf53d1ae0f519a39dc00e103f79fa0b95e5e0767557e20fc39f2a49e",
+        "legacy_external_top100_index_sha256": "686d1b67f3597746a676a6c604ed4f1ef20c3ce098452ac16b32da0dc2a4e90d",
+        "query_sha256": "36c9c76c16af89409c59ac41216a147994fe7c87b43d7220d143992a9b3d5a70",
+        "saved_c02_record": "e5c3d9f7-d32a-4a50-94ff-497283b1ed94"
+      }
+    ],
+    "oracle": "saved baselines/koblex_parser/retrieval.py Bm25Retriever"
+  },
+  "protected_v2_bm25_reference": {
+    "execution_policy": "MUST_NEVER_BE_EXECUTED",
+    "path": "frozen_manifests/v2_bm25_reference_full226.json",
+    "sha256": "289bc70e81fa77066273960dbe1ba74121b9dd68be5b7c3dee63ee289ceeaa95"
+  },
+  "schema_version": "c02-bm25s-ablation-1.0"
+}

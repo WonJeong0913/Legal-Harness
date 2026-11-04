@@ -33,6 +33,7 @@
         "coverage_assessments": {"type": "array", "minItems": 1, "items": {"type": "object"}},
         "missing_evidence_items": {"type": "array", "items": {"type": "object"}},
         "evidence_conflicts": {"type": "array", "items": {"type": "object"}},
+        "candidate_cross_references": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["source_candidate_id", "target_statute_name", "target_article", "excerpt", "start_char", "end_char"], "properties": {"source_candidate_id": {"type": "string", "minLength": 1}, "target_statute_name": {"type": "string", "minLength": 1}, "target_article": {"type": "string", "minLength": 1}, "target_paragraph": {"type": "string", "minLength": 1}, "excerpt": {"type": "string", "minLength": 1}, "start_char": {"type": "integer", "minimum": 0}, "end_char": {"type": "integer", "minimum": 1}}}},
         "query_history": {"type": "array"},
         "seen_provision_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
         "remaining_request_budget": {"type": "integer", "minimum": 0},

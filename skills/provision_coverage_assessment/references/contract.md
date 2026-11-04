@@ -1,13 +1,15 @@
 # S2 contract
 
-## Output
+## Canonical normalized output
+
+This section describes the post-normalization record used by the canonical validator; the prompt's raw compact transport schema controls model emission.
 
 - `evidence_links[]`: smallest operational item-to-candidate links;
 - `coverage_assessments[]`: exactly one assessment per evidence item;
 - `missing_evidence_items[]`: exactly the non-covered assessments;
 - `evidence_conflicts[]`: exactly the conflicting assessments.
 
-Use only supplied evidence, requirement, and short candidate IDs. Every link uses
+Use only supplied evidence, requirement, and short candidate IDs. After normalization, every link uses
 `quoted_text: "[FULL_TEXT]"`; the harness supplies the immutable source text.
 
 ## Coverage mapping
@@ -46,3 +48,40 @@ provision to support unless its text establishes the supplied proposition.
 The harness derives `accepted_provision_ids` and the next action. On invalid input,
 use the schema error envelope with `INVALID_INPUT`,
 `MISSING_REQUIRED_EVIDENCE`, or `CONTRACT_UNSATISFIABLE`; never emit `ABSTAIN`.
+
+## Direct entailment and audit boundary
+
+For each explicit answer target and supplied completion requirement, use the smallest directly entailing provision set.
+A provision belongs in `evidence_links[]` or `linked_provision_ids` only when it is necessary to establish the requirement's proposition.
+Audit-only helpful context must remain unlinked: do not create an `evidence_link`, add its ID to `linked_provision_ids`, or count it as satisfied support.
+Because this contract has no audit-context output field, do not invent one; leave such candidates among the supplied candidates and, if needed, describe their non-support role concisely in `rationale`.
+Related, background, neighboring, procedural, or general rules are not accepted evidence unless they directly entail a supplied requirement.
+Do not infer requirements from outside evaluation knowledge; the supplied targets and requirements are the complete assessment scope.
+
+## Deterministic applicability scope
+
+Do not mark a candidate direct or a criterion satisfied when its own text limits the same law to an article range but a directly linked root provision for another evidence item under the same answer target lies outside that range. This includes a no-prefix range bound to the candidate's statute label.
+Likewise, do not treat `base(subtype)` text in a candidate as direct or satisfied support for a general base entity unless the supplied question or requirement states that subtype; a parenthetical only in a statute label is not candidate-text scope.
+
+## Atomic direct-entailment audit
+
+Each `direct` assessment with a `satisfied` criterion must include that
+criterion's `direct_entailment` object. It records one of `matched`,
+`mismatch`, or `not_applicable` for: `regulated_subject_or_act`,
+`outcome_changing_qualifiers`, `legal_effect`, and
+`procedure_or_remedy_path`, plus a concise rationale. This is not a new legal
+requirement: it is an audit of the proposition already supplied in the closed
+requirement.
+
+A mismatch in the candidate provision set selected for `direct`/`satisfied`
+support blocks those statuses. In particular, do not
+substitute a different medium, timing rule, or special actor; do not use a
+related legal effect as the requested effect; and do not treat a later remedy
+as proof of a requested antecedent procedure. Mark the requirement unsupported
+or partially supported under the existing coverage mapping so the harness may
+apply its bounded `RETRIEVE_GAP` policy. Do not infer any extra requirement
+from outside the supplied target and completion requirement.
+
+## Compact audit transport
+
+Keep every legal/status decision, criterion requirement ID, criterion linked candidate IDs, chosen support/conflict relation, and one concise rationale for each evidence link, coverage assessment, and criterion result. Omit link IDs, `[FULL_TEXT]`, assessment-level duplicate link/aspect arrays, and duplicate missing/conflict arrays; the harness reconstructs only those deterministic fields before unchanged validation.

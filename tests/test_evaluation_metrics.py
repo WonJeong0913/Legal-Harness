@@ -1,10 +1,15 @@
 import csv
 import hashlib
+import io
 import json
+import sys
 import tempfile
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
+from unittest.mock import patch
 
+from scripts import evaluate_dev_runs
 from scripts.evaluate_dev_runs import (
     CorpusEntry,
     EvaluationError,
@@ -15,9 +20,11 @@ from scripts.evaluate_dev_runs import (
     evaluate_batch,
     koblex_normalize,
     koblex_official_prediction,
+    main as evaluate_main,
     koblex_token_f1,
     koblex_token_f1_at_800,
     load_evaluation_splits,
+    load_round_selected_sets,
     load_lf_eval_scores,
     percentile_type7,
     precision_recall_f1,
@@ -500,6 +507,15 @@ class EndToEndEvaluationTests(unittest.TestCase):
             )
             self.assertIn("STAGE_PROVENANCE_UNAVAILABLE", aggregate["warnings"])
             self.assertTrue(all(not row["stage_provenance_available"] for row in rows))
+            self.assertFalse(aggregate["retrieval_loss"]["available"])
+            self.assertEqual(
+                aggregate["retrieval_loss"]["unavailable_reason"],
+                "INCOMPLETE_ROUND_SELECTED_PROVENANCE",
+            )
+            self.assertEqual(
+                [row["retrieval_loss_provenance_available"] for row in rows],
+                [False, False, None],
+            )
             self.assertAlmostEqual(
                 aggregate["answer_quality"]["token_f1"]["end_to_end"], 1 / 3
             )
@@ -889,6 +905,260 @@ class EndToEndEvaluationTests(unittest.TestCase):
 
             with self.assertRaises(EvaluationError):
                 evaluate_batch(fixture.batch, fixture.dataset, fixture.corpus)
+
+
+class RunDirectoryResolutionTests(unittest.TestCase):
+    def test_rebases_legacy_absolute_path_with_nested_run_root(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project_root = Path(directory)
+            expected = (
+                project_root
+                / "records/runs/kure-c5-full226-20260822-a74e76d"
+                / "run-uuid"
+            )
+            expected.mkdir(parents=True)
+            legacy_path = Path(
+                "/root/Legal Harness/records/runs/"
+                "kure-c5-full226-20260822-a74e76d/run-uuid"
+            )
+
+            with patch.object(evaluate_dev_runs, "PROJECT_ROOT", project_root):
+                resolved = evaluate_dev_runs._resolve_run_directory(
+                    project_root / "records/batches/c5",
+                    {"question_id": "q1", "record_directory": str(legacy_path)},
+                )
+
+            self.assertEqual(resolved, expected.resolve())
+
+    def test_rebase_rejects_path_traversal_suffix(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project_root = Path(directory)
+            (project_root / "records/outside").mkdir(parents=True)
+            legacy_path = "/old/records/runs/group/../outside"
+
+            with patch.object(evaluate_dev_runs, "PROJECT_ROOT", project_root):
+                with self.assertRaises(EvaluationError):
+                    evaluate_dev_runs._resolve_run_directory(
+                        project_root / "records/batches/c5",
+                        {"question_id": "q1", "record_directory": legacy_path},
+                    )
+
+
+class RetrievalLossFunnelTests(unittest.TestCase):
+    @staticmethod
+    def _add_round_selected_sidecars(fixture):
+        by_run = {
+            "run-1": (
+                [
+                    {"provision_id": "P1", "retrieval_round": 1},
+                    {"provision_id": "DISTRACTOR", "retrieval_round": 1},
+                ],
+                [
+                    {"provision_id": "P1", "retrieval_round": 1},
+                    {"provision_id": "DISTRACTOR", "retrieval_round": 1},
+                ],
+            ),
+            "run-2": (
+                [
+                    {"provision_id": "DISTRACTOR-2", "retrieval_round": 1},
+                    {"provision_id": "P2-duty", "retrieval_round": 2},
+                ],
+                [
+                    {"provision_id": "DISTRACTOR-2", "retrieval_round": 1},
+                    {"provision_id": "P2-duty", "retrieval_round": 2},
+                ],
+            ),
+        }
+        for run_id, (candidates, selected) in by_run.items():
+            result_path = fixture.runs / run_id / "result.json"
+            result = json.loads(result_path.read_text(encoding="utf-8"))
+            result["state"]["candidate_provisions"] = candidates
+            write_json(result_path, result)
+
+            stage_path = fixture.runs / run_id / "retrieval_stages.jsonl"
+            stages = [
+                json.loads(line)
+                for line in stage_path.read_text(encoding="utf-8").splitlines()
+            ]
+            stages.extend(
+                {
+                    "candidate_stage": "round_selected",
+                    "provision_id": row["provision_id"],
+                    "retrieval_round": row["retrieval_round"],
+                    "selection_rank": selection_rank,
+                }
+                for selection_rank, row in enumerate(selected, start=1)
+            )
+            write_jsonl(stage_path, stages)
+
+    def test_round_selected_funnel_aggregates_and_flattens_csv(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fixture = EvaluationFixture(root, include_stages=True)
+            self._add_round_selected_sidecars(fixture)
+
+            aggregate, rows, metadata = evaluate_batch(
+                fixture.batch,
+                fixture.dataset,
+                fixture.corpus,
+            )
+            by_question = {row["question_id"]: row for row in rows}
+            loss = aggregate["retrieval_loss"]
+
+            self.assertEqual(metadata["evaluation_schema_version"], "1.4")
+            self.assertTrue(by_question["q1"]["stage_provenance_available"])
+            self.assertTrue(by_question["q1"]["retrieval_loss_provenance_available"])
+            self.assertEqual(
+                by_question["q2"]["first_round_selected_complete_round"],
+                2,
+            )
+            self.assertEqual(by_question["q2"]["first_candidate_complete_round"], 2)
+            self.assertTrue(
+                by_question["q2"]["round_selected_final_metrics"]["complete"]
+            )
+            self.assertFalse(by_question["q2"]["accepted_metrics"]["complete"])
+            self.assertTrue(
+                by_question["q1"]["round_selected_matches_final_candidate"]
+            )
+            self.assertTrue(loss["available"])
+            self.assertEqual(loss["normal_outcome_questions"], 2)
+            self.assertEqual(loss["available_questions"], 2)
+            self.assertEqual(
+                loss["round_selected_cumulative"]["1"]["complete_evidence"]["count"],
+                1,
+            )
+            self.assertEqual(
+                loss["round_selected_cumulative"]["2"]["complete_evidence"]["count"],
+                2,
+            )
+            self.assertEqual(loss["final_candidate"]["complete_evidence"]["count"], 2)
+            self.assertEqual(loss["accepted"]["complete_evidence"]["count"], 1)
+            self.assertEqual(
+                loss["round_selected_matches_final_candidate"]["match_count"],
+                2,
+            )
+
+            output = root / "evaluation"
+            write_outputs(output, aggregate, rows, metadata)
+            with (output / "per_question.csv").open(encoding="utf-8") as handle:
+                csv_rows = {row["question_id"]: row for row in csv.DictReader(handle)}
+            self.assertEqual(csv_rows["q1"]["round_selected_final_recall"], "1.0")
+            self.assertEqual(
+                csv_rows["q1"]["round_selected_final_complete_evidence"],
+                "True",
+            )
+            self.assertEqual(csv_rows["q2"]["first_candidate_complete_round"], "2")
+            self.assertEqual(
+                csv_rows["q2"]["round_selected_matches_final_candidate"],
+                "True",
+            )
+            self.assertNotIn("round_selected_cumulative_metrics", csv_rows["q1"])
+
+    def test_round_selected_candidate_mismatch_is_reported_not_rewritten(self):
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = EvaluationFixture(Path(directory), include_stages=True)
+            self._add_round_selected_sidecars(fixture)
+            result_path = fixture.runs / "run-1/result.json"
+            result = json.loads(result_path.read_text(encoding="utf-8"))
+            result["state"]["candidate_provisions"] = [
+                {"provision_id": "P1", "retrieval_round": 1}
+            ]
+            write_json(result_path, result)
+
+            aggregate, rows, _ = evaluate_batch(
+                fixture.batch,
+                fixture.dataset,
+                fixture.corpus,
+            )
+
+            row = next(row for row in rows if row["question_id"] == "q1")
+            self.assertFalse(row["round_selected_matches_final_candidate"])
+            self.assertIn(
+                "ROUND_SELECTED_FINAL_CANDIDATE_MISMATCH",
+                aggregate["warnings"],
+            )
+            self.assertEqual(
+                aggregate["retrieval_loss"]["round_selected_matches_final_candidate"],
+                {"match_count": 1, "mismatch_count": 1},
+            )
+
+
+class ImmutableC5ProvenanceTests(unittest.TestCase):
+    def test_normal_c5_round_selected_union_matches_final_candidates(self):
+        project_root = Path(__file__).resolve().parents[1]
+        batch = (
+            project_root
+            / "records/batches/kure-c5-full226-20260822-a74e76d"
+            / "combined-checkpoint-226"
+        )
+        summary_path = batch / "summary.jsonl"
+        if not summary_path.is_file():
+            self.skipTest("immutable C5 checkpoint is not present")
+
+        runs_root = project_root / "records/runs/kure-c5-full226-20260822-a74e76d"
+        normal_count = 0
+        matching_count = 0
+        for line in summary_path.read_text(encoding="utf-8").splitlines():
+            summary = json.loads(line)
+            if summary.get("status") not in {"ANSWER", "ABSTAIN"}:
+                continue
+            run_id = Path(str(summary["record_directory"])).name
+            run_directory = runs_root / run_id
+            result = json.loads(
+                (run_directory / "result.json").read_text(encoding="utf-8")
+            )
+            selected_by_round, warnings = load_round_selected_sets(run_directory)
+            self.assertEqual(warnings, [], summary["question_id"])
+            self.assertIsNotNone(selected_by_round, summary["question_id"])
+            selected = set().union(*selected_by_round.values())
+            candidates = result["state"]["candidate_provisions"]
+            candidate_ids = {
+                candidate["provision_id"]
+                for candidate in candidates
+                if candidate.get("provision_id")
+            }
+            self.assertEqual(selected, candidate_ids, summary["question_id"])
+            normal_count += 1
+            matching_count += 1
+
+        self.assertEqual(normal_count, 222)
+        self.assertEqual(matching_count, 222)
+
+
+class OfflineEvaluatorCliTests(unittest.TestCase):
+    def test_cli_without_lf_eval_remains_offline(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fixture = EvaluationFixture(root, include_stages=False)
+            output = root / "evaluation"
+            argv = [
+                "evaluate_dev_runs.py",
+                "--batch-dir",
+                str(fixture.batch),
+                "--dataset",
+                str(fixture.dataset),
+                "--corpus",
+                str(fixture.corpus),
+                "--allow-missing-stage-provenance",
+                "--output-dir",
+                str(output),
+            ]
+
+            with patch.object(sys, "argv", argv), redirect_stdout(io.StringIO()):
+                self.assertEqual(evaluate_main(), 0)
+
+            aggregate = json.loads(
+                (output / "aggregate.json").read_text(encoding="utf-8")
+            )
+            metadata = json.loads(
+                (output / "metadata.json").read_text(encoding="utf-8")
+            )
+            self.assertFalse(aggregate["answer_quality"]["lf_eval"]["available"])
+            self.assertEqual(
+                aggregate["answer_quality"]["lf_eval"]["unavailable_reason"],
+                "LF_EVAL_NOT_PROVIDED",
+            )
+            self.assertIsNone(metadata["inputs"]["lf_eval_scores"])
 
 
 if __name__ == "__main__":

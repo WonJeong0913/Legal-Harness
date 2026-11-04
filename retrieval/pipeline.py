@@ -48,6 +48,7 @@ class RetrievalPipeline:
         per_evidence_min_k: int = 1,
         dedup_mode: str = "none",
         candidate_budget_scope: str = "per_issue",
+        round_merge_mode: str = "raw_score",
     ):
         if rrf_k < 1:
             raise ValueError("RRF k must be positive")
@@ -62,6 +63,25 @@ class RetrievalPipeline:
         if candidate_budget_scope not in {"per_issue", "per_round"}:
             raise ValueError(
                 "unsupported candidate budget scope: %s" % candidate_budget_scope
+            )
+        if round_merge_mode not in {
+            "raw_score",
+            "request_rank_top1_guarded_swap",
+        }:
+            raise ValueError("unsupported round merge mode: %s" % round_merge_mode)
+        if (
+            round_merge_mode == "request_rank_top1_guarded_swap"
+            and rerank_query_mode != "per_request"
+        ):
+            raise ValueError(
+                "request-rank guarded swapping requires per_request reranking"
+            )
+        if (
+            round_merge_mode == "request_rank_top1_guarded_swap"
+            and candidate_budget_scope != "per_round"
+        ):
+            raise ValueError(
+                "request-rank guarded swapping requires per_round candidate budgeting"
             )
         if per_evidence_min_k < 1:
             raise ValueError("per_evidence_min_k must be positive")
@@ -79,6 +99,12 @@ class RetrievalPipeline:
         self.per_evidence_min_k = per_evidence_min_k
         self.dedup_mode = dedup_mode
         self.candidate_budget_scope = candidate_budget_scope
+        self.round_merge_mode = round_merge_mode
+        self._request_rerank_ranks_by_candidate: Dict[
+            Tuple[str, str], Dict[str, int]
+        ] = {}
+        self._prior_round_selected_provision_ids: Set[str] = set()
+        self._last_retrieval_round = 0
         self.last_stage_records: List[CandidateStageRecord] = []
         self.last_unsatisfied_critical_evidence_item_ids: List[str] = []
         self.last_dedup_removed_count = 0
@@ -288,6 +314,19 @@ class RetrievalPipeline:
                 ]:
                     if provision_id not in alias_provision_ids:
                         alias_provision_ids.append(provision_id)
+            request_rerank_ranks: Dict[str, int] = {}
+            for candidate in equivalents:
+                for request_id, rank in self._request_rerank_ranks_by_candidate.get(
+                    (candidate.issue_id, candidate.provision_id),
+                    {},
+                ).items():
+                    request_rerank_ranks[request_id] = min(
+                        request_rerank_ranks.get(request_id, rank),
+                        rank,
+                    )
+            self._request_rerank_ranks_by_candidate[
+                (representative.issue_id, representative.provision_id)
+            ] = request_rerank_ranks
             merged.append(
                 replace(
                     representative,
@@ -301,11 +340,115 @@ class RetrievalPipeline:
             )
         return merged
 
+    def _request_rank_round_robin(
+        self,
+        candidates: Sequence[CandidateProvision],
+        request_ids: Sequence[str],
+    ) -> List[Tuple[CandidateProvision, str, int]]:
+        """Return a deterministic fair ordering from request-local BGE ranks.
+
+        The ranks are kept outside ``CandidateProvision`` because its public
+        ``rerank_rank`` is the issue-fusion rank in per-request mode. Keeping
+        this transient provenance separate avoids changing legacy records.
+        """
+        queues: Dict[str, List[Tuple[CandidateProvision, int]]] = {}
+        for request_id in request_ids:
+            queue: List[Tuple[CandidateProvision, int]] = []
+            for candidate in candidates:
+                request_ranks = self._request_rerank_ranks_by_candidate.get(
+                    (candidate.issue_id, candidate.provision_id),
+                    {},
+                )
+                request_rank = request_ranks.get(request_id)
+                if request_rank is not None:
+                    queue.append((candidate, request_rank))
+            queues[request_id] = sorted(
+                queue,
+                key=lambda item: (
+                    item[1],
+                    -item[0].rerank_score,
+                    item[0].fusion_rank,
+                    item[0].provision_id,
+                    item[0].issue_id,
+                ),
+            )
+
+        offsets = {request_id: 0 for request_id in request_ids}
+        ordered: List[Tuple[CandidateProvision, str, int]] = []
+        seen_provision_ids: Set[Tuple[str, str]] = set()
+        while True:
+            made_progress = False
+            for request_id in request_ids:
+                queue = queues[request_id]
+                while offsets[request_id] < len(queue):
+                    candidate, request_rank = queue[offsets[request_id]]
+                    offsets[request_id] += 1
+                    candidate_key = (candidate.issue_id, candidate.provision_id)
+                    if candidate_key in seen_provision_ids:
+                        continue
+                    seen_provision_ids.add(candidate_key)
+                    ordered.append((candidate, request_id, request_rank))
+                    made_progress = True
+                    break
+            if not made_progress:
+                return ordered
+
+    def _apply_request_rank_guarded_swap(
+        self,
+        selected: List[CandidateProvision],
+        quota_selected: Set[int],
+        candidates: Sequence[CandidateProvision],
+        request_ids: Sequence[str],
+    ) -> Dict[int, str]:
+        """Allow one fair, request-rank-one proposal to replace raw slot N."""
+        if (
+            self.round_merge_mode != "request_rank_top1_guarded_swap"
+            or len(selected) != self.final_top_k
+            or self.final_top_k < 2
+            or id(selected[-1]) in quota_selected
+        ):
+            return {}
+
+        selected_provision_ids = {
+            provision_id
+            for candidate in selected
+            for provision_id in self._candidate_provision_ids(candidate)
+        }
+        for candidate, request_id, request_rank in self._request_rank_round_robin(
+            candidates,
+            request_ids,
+        ):
+            candidate_provision_ids = self._candidate_provision_ids(candidate)
+            if (
+                candidate_provision_ids.intersection(selected_provision_ids)
+                or candidate_provision_ids.intersection(
+                    self._prior_round_selected_provision_ids
+                )
+                or request_rank != 1
+            ):
+                continue
+            selected[-1] = candidate
+            return {
+                id(candidate): (
+                    "round_request_rank_top1_guarded_swap:"
+                    "request_id=%s;rerank_rank=1" % request_id
+                )
+            }
+        return {}
+
+    @staticmethod
+    def _candidate_provision_ids(candidate: CandidateProvision) -> Set[str]:
+        return {
+            candidate.provision_id,
+            *candidate.alias_provision_ids,
+        }
+
     def _select_round_candidates(
         self,
         candidates: Sequence[CandidateProvision],
         critical_evidence_item_ids: Sequence[str],
         retrieval_round: int,
+        request_ids: Sequence[str] = (),
     ) -> List[CandidateProvision]:
         ranked = self._round_ranked_candidates(candidates)
         selected: List[CandidateProvision] = []
@@ -340,6 +483,13 @@ class RetrievalPipeline:
             if candidate not in selected:
                 selected.append(candidate)
 
+        swap_reasons = self._apply_request_rank_guarded_swap(
+            selected,
+            quota_selected,
+            ranked,
+            request_ids,
+        )
+
         unsatisfied = []
         if self.candidate_selection == "evidence_balanced":
             unsatisfied = [
@@ -353,7 +503,9 @@ class RetrievalPipeline:
         self.last_unsatisfied_critical_evidence_item_ids.extend(unsatisfied)
         final_candidates: List[CandidateProvision] = []
         for selection_rank, candidate in enumerate(selected, start=1):
-            if id(candidate) in quota_selected:
+            if id(candidate) in swap_reasons:
+                selection_reason = swap_reasons[id(candidate)]
+            elif id(candidate) in quota_selected:
                 matched_evidence = [
                     evidence_id
                     for evidence_id in critical_ids
@@ -926,6 +1078,19 @@ class RetrievalPipeline:
                 selection_reason=reason,
                 alias_provision_ids=alias_provision_ids,
             )
+            alias_ids = set(alias_provision_ids)
+            self._request_rerank_ranks_by_candidate[
+                (issue_id, candidate.provision_id)
+            ] = {
+                request_id: min(
+                    observation.rerank_rank
+                    for observation in observations_by_request[request_id].values()
+                    if alias_ids.intersection(
+                        self._alias_provision_ids(observation.hit)
+                    )
+                )
+                for request_id in source_request_ids
+            }
             candidates.append(candidate)
             self.last_stage_records.append(
                 CandidateStageRecord(
@@ -954,9 +1119,13 @@ class RetrievalPipeline:
         *,
         critical_evidence_item_ids: Sequence[str] = (),
     ) -> List[CandidateProvision]:
+        if retrieval_round <= self._last_retrieval_round:
+            self._prior_round_selected_provision_ids = set()
+            self._last_retrieval_round = 0
         self.last_stage_records = []
         self.last_unsatisfied_critical_evidence_item_ids = []
         self.last_dedup_removed_count = 0
+        self._request_rerank_ranks_by_candidate = {}
         requests_by_id = {request.request_id: request for request in requests}
         if len(requests_by_id) != len(requests):
             raise ValueError("retrieval request IDs must be unique")
@@ -1002,7 +1171,14 @@ class RetrievalPipeline:
                 candidates,
                 critical_evidence_item_ids,
                 retrieval_round,
+                [request.request_id for request in requests],
             )
+            self._prior_round_selected_provision_ids.update(
+                provision_id
+                for candidate in candidates
+                for provision_id in self._candidate_provision_ids(candidate)
+            )
+            self._last_retrieval_round = retrieval_round
         self.last_unsatisfied_critical_evidence_item_ids = list(
             dict.fromkeys(self.last_unsatisfied_critical_evidence_item_ids)
         )

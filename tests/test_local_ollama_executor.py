@@ -1,9 +1,13 @@
 import json
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from harness.interfaces import SkillExecutionError
-from runtime.local_ollama_executor import LocalOllamaSkillExecutor
+from runtime.local_ollama_executor import (
+    PROMPT_RUN_ID_PLACEHOLDER,
+    LocalOllamaSkillExecutor,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -143,6 +147,7 @@ class LocalOllamaExecutorTests(unittest.TestCase):
                             "applicability": "direct",
                             "answer_target_ids": ["T1"],
                             "citation_required": True,
+                            "public_role": "conclusion",
                         }
                     ],
                     "claim_citations": [
@@ -175,6 +180,7 @@ class LocalOllamaExecutorTests(unittest.TestCase):
                         "claim_type": "legal_rule",
                         "applicability": "direct",
                         "citation_required": True,
+                        "public_role": "conclusion",
                     }
                 ],
                 "claim_citations": [
@@ -209,7 +215,7 @@ class LocalOllamaExecutorTests(unittest.TestCase):
         }
 
     @staticmethod
-    def _s3_transport_input(question_only=False):
+    def _s3_transport_input(question_only=False, required_contract=False):
         benchmark = question_only
         provision_key = "candidate_provisions" if benchmark else "accepted_provisions"
         source = {
@@ -259,6 +265,7 @@ class LocalOllamaExecutorTests(unittest.TestCase):
                 "language": "ko",
                 "max_answer_chars": 800,
                 "citation_marker_style": "citation_id",
+                **({"public_conclusion_contract": "required"} if required_contract else {}),
             },
         }
 
@@ -425,8 +432,28 @@ class LocalOllamaExecutorTests(unittest.TestCase):
             [],
         )
 
+    def test_s3_required_contract_leaves_roleless_output_for_validator(self):
+        skill_input = self._s3_transport_input(required_contract=True)
+        raw = {
+            "schema_version": "1.0", "skill_id": "S3", "mode": "GENERATE_ANSWER",
+            "status": "ok", "run_id": "run-1", "answer": "원문",
+            "claims": [{
+                "claim_id": "raw", "text": "배상 책임이 있습니다.",
+                "claim_type": "application", "applicability": "direct",
+                "citation_required": True, "answer_target_ids": ["T1"],
+            }],
+            "claim_citations": [{"claim_id": "raw", "provision_id": "P1", "support_description": "근거"}],
+            "assumptions": [], "limitations": [],
+        }
+        normalized = self.executor._normalize_harness_owned_fields(
+            "grounded_legal_answer_generation", "GENERATE_ANSWER", skill_input, raw
+        )
+        self.assertNotIn("public_role", normalized["claims"][0])
+        errors = self.executor._validators["grounded_legal_answer_generation"](normalized, skill_input)
+        self.assertIn("every claim must declare public_role under the public conclusion contract", errors)
+
     def test_s3_public_answer_selects_three_claims_and_preserves_full_audit(self):
-        skill_input = self._s3_transport_input()
+        skill_input = self._s3_transport_input(required_contract=True)
         claim_specs = [
             ("conclusion", "배상 책임이 인정됩니다.", "application", "direct"),
             ("procedure", "청구 절차를 따라야 합니다.", "procedure", "direct"),
@@ -448,6 +475,7 @@ class LocalOllamaExecutorTests(unittest.TestCase):
                     "claim_type": claim_type,
                     "applicability": applicability,
                     "citation_required": True,
+                    "public_role": "conclusion" if claim_id == "conclusion" else "audit",
                 }
                 for claim_id, text, claim_type, applicability in claim_specs
             ],
@@ -481,13 +509,11 @@ class LocalOllamaExecutorTests(unittest.TestCase):
         self.assertEqual(len(normalized["claim_citations"]), 5)
         self.assertEqual(
             normalized["answer"],
-            "배상 책임이 인정됩니다.[CT1]\n"
-            "고의 또는 과실이 있는 경우에 한합니다.[CT3]\n"
-            "민법상 손해배상 규정이 근거입니다.[CT4]",
+            "배상 책임이 인정됩니다.[CT1]",
         )
         self.assertEqual(normalized["assumptions"], raw["assumptions"])
         self.assertEqual(normalized["limitations"], raw["limitations"])
-        self.assertEqual(len(normalized["answer"].splitlines()), 3)
+        self.assertEqual(len(normalized["answer"].splitlines()), 1)
         self.assertLessEqual(len(normalized["answer"]), 800)
         self.assertEqual(
             self.executor._validators["grounded_legal_answer_generation"](
@@ -1289,3 +1315,204 @@ class LocalOllamaExecutorTests(unittest.TestCase):
             result["retrieval_requests"][0]["query_terms"],
             ["손해배상", "책임"],
         )
+
+    def test_generate_forwards_configured_seed_to_ollama(self):
+        class Response:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, exc_type, exc_value, traceback):
+                return False
+
+            @staticmethod
+            def read():
+                return b'{"response":"{}"}'
+
+        for seed in (0, 1729):
+            with self.subTest(seed=seed):
+                executor = LocalOllamaSkillExecutor(
+                    skills_root=PROJECT_ROOT / "skills",
+                    model="test-model",
+                    seed=seed,
+                )
+                with patch(
+                    "runtime.local_ollama_executor.urllib.request.urlopen",
+                    return_value=Response(),
+                ) as urlopen:
+                    executor._generate("seed transport test", max_tokens=321)
+
+                request = urlopen.call_args.args[0]
+                payload = json.loads(request.data.decode("utf-8"))
+                self.assertEqual(payload["options"]["seed"], seed)
+                self.assertEqual(payload["options"]["temperature"], 0)
+                self.assertEqual(payload["options"]["num_ctx"], executor.num_ctx)
+                self.assertEqual(payload["options"]["num_predict"], 321)
+
+    def test_s2_and_s3_skill_instructions_preserve_precision_boundaries(self):
+        skills_root = PROJECT_ROOT / "skills"
+        manifest = json.loads(
+            (skills_root / "skill-pack-manifest.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(
+            [skill["folder"] for skill in manifest["skills"]],
+            ["legal_issue_and_query_planning", "provision_coverage_assessment", "grounded_legal_answer_generation"],
+        )
+
+        s2 = (skills_root / "provision_coverage_assessment" / "SKILL.md").read_text(encoding="utf-8")
+        s2_contract = (skills_root / "provision_coverage_assessment" / "references" / "contract.md").read_text(encoding="utf-8")
+        s2_text = s2 + "\n" + s2_contract
+        self.assertIn("smallest directly entailing provision set", s2_text)
+        self.assertIn("Audit-only helpful context", s2_text)
+        self.assertIn("must remain unlinked", s2_text)
+
+        s3 = (skills_root / "grounded_legal_answer_generation" / "SKILL.md").read_text(encoding="utf-8")
+        s3_contract = (skills_root / "grounded_legal_answer_generation" / "references" / "contract.md").read_text(encoding="utf-8")
+        s3_text = s3 + "\n" + s3_contract
+        self.assertIn("requested answer targets", s3_text)
+        self.assertIn("do not summarize every accepted provision", s3_text)
+        self.assertIn("adjacent legal fact", s3_text)
+
+    def test_prompts_redact_run_ids_for_all_skills_without_mutating_skill_input(self):
+        run_ids = (
+            "550e8400-e29b-41d4-a716-446655440000",
+            "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+        )
+        evidence = {
+            "evidence_item_id": "E1",
+            "issue_id": "I1",
+            "evidence_type": "rule",
+            "description": "손해배상 규정",
+            "critical": True,
+            "completion_criteria": "책임의 근거 조문이 있다",
+        }
+
+        def payload_for(skill_name, run_id):
+            if skill_name == "legal_issue_and_query_planning":
+                payload = self._initial_plan_payload()
+                payload["run_id"] = run_id
+                payload["query_history"] = [{"run_id": run_id, "query_text": "기존 질의"}]
+                return payload
+            payload = {
+                "run_id": run_id,
+                "normalized_question": "손해배상 책임은 무엇인가",
+                "legal_issues": [{"issue_id": "I1", "description": "손해배상"}],
+                "answer_targets": [{"answer_target_id": "T1"}],
+                "required_evidence_items": [evidence],
+                "candidate_provisions": [self._candidate()],
+                "accepted_provisions": [],
+            }
+            if skill_name == "provision_coverage_assessment":
+                return payload
+            payload.update(
+                {
+                    "coverage_assessments": [{"evidence_item_id": "E1", "status": "covered"}],
+                    "candidate_answer_basis": "retrieved_candidates",
+                    "state_version": 1,
+                }
+            )
+            return payload
+
+        cases = (
+            ("legal_issue_and_query_planning", "INITIAL_PLAN"),
+            ("provision_coverage_assessment", "ASSESS_COVERAGE"),
+            ("grounded_legal_answer_generation", "GENERATE_BENCHMARK_CANDIDATE"),
+        )
+        for skill_name, entry_point in cases:
+            with self.subTest(skill_name=skill_name):
+                prompts = []
+                inputs = []
+                for run_id in run_ids:
+                    skill_input = self.executor._build_skill_input(
+                        skill_name, entry_point, payload_for(skill_name, run_id)
+                    )
+                    inputs.append(skill_input)
+                    prompts.append(
+                        self.executor._prompt(skill_name, entry_point, skill_input, "")
+                    )
+
+                self.assertEqual(prompts[0], prompts[1])
+                self.assertIn(PROMPT_RUN_ID_PLACEHOLDER, prompts[0])
+                for run_id, skill_input in zip(run_ids, inputs):
+                    self.assertNotIn(run_id, prompts[0])
+                    self.assertEqual(skill_input["run_id"], run_id)
+                if skill_name != "legal_issue_and_query_planning":
+                    self.assertIn(
+                        '"retrieval_metadata":{"run_id":"%s"' % PROMPT_RUN_ID_PLACEHOLDER,
+                        prompts[0],
+                    )
+
+        skill_input = self.executor._build_skill_input(
+            "legal_issue_and_query_planning",
+            "INITIAL_PLAN",
+            payload_for("legal_issue_and_query_planning", run_ids[0]),
+        )
+        normalized = self.executor._normalize_harness_owned_fields(
+            "legal_issue_and_query_planning",
+            "INITIAL_PLAN",
+            skill_input,
+            json.loads(self._generate("ENTRY POINT: INITIAL_PLAN")),
+        )
+        self.assertEqual(normalized["run_id"], run_ids[0])
+        self.executor._adapt_output(
+            "legal_issue_and_query_planning", "INITIAL_PLAN", normalized, skill_input
+        )
+        self.assertEqual(normalized["run_id"], run_ids[0])
+        self.assertEqual(skill_input["run_id"], run_ids[0])
+
+    def test_validation_retry_prompts_redact_normalized_run_id(self):
+        run_ids = (
+            "550e8400-e29b-41d4-a716-446655440000",
+            "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+        )
+
+        def run_with_retry(run_id):
+            prompts = []
+            diagnostics = []
+
+            def generator(prompt):
+                prompts.append(prompt)
+                if len(prompts) == 1:
+                    return json.dumps(
+                        {
+                            "schema_version": "1.0",
+                            "skill_id": "S1",
+                            "mode": "INITIAL_PLAN",
+                            "status": "ok",
+                            "run_id": "model-supplied-run-id",
+                        }
+                    )
+                return self._generate(prompt)
+
+            executor = LocalOllamaSkillExecutor(
+                skills_root=PROJECT_ROOT / "skills",
+                model="test-model",
+                generator=generator,
+                diagnostic_sink=diagnostics.append,
+            )
+            payload = self._initial_plan_payload()
+            payload["run_id"] = run_id
+            result = executor.execute(
+                "legal_issue_and_query_planning", "INITIAL_PLAN", payload
+            )
+            return prompts, diagnostics, result
+
+        first_prompts, first_diagnostics, first_result = run_with_retry(run_ids[0])
+        second_prompts, second_diagnostics, second_result = run_with_retry(run_ids[1])
+        self.assertEqual(first_prompts, second_prompts)
+        self.assertEqual(len(first_prompts), 2)
+        self.assertIn("Previous JSON:", first_prompts[1])
+        self.assertIn(
+            '"run_id":"%s"' % PROMPT_RUN_ID_PLACEHOLDER,
+            first_prompts[1].split("Previous JSON: ", 1)[1],
+        )
+        for prompt in first_prompts:
+            self.assertIn(PROMPT_RUN_ID_PLACEHOLDER, prompt)
+            for run_id in run_ids:
+                self.assertNotIn(run_id, prompt)
+        self.assertEqual(
+            [item["run_id"] for item in first_diagnostics], [run_ids[0], run_ids[0]]
+        )
+        self.assertEqual(
+            [item["run_id"] for item in second_diagnostics], [run_ids[1], run_ids[1]]
+        )
+        self.assertEqual(first_result["retrieval_requests"], second_result["retrieval_requests"])

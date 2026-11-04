@@ -9,6 +9,7 @@ from .contracts import (
     CandidateStageRecord,
     CoverageAssessment,
     CoverageStatus,
+    CriterionStatus,
     EvidenceConflict,
     EvidenceLink,
     LegalStatus,
@@ -139,6 +140,36 @@ _MONOTONIC_LEGAL_STATUS_RANK = {
 }
 
 
+_CRITERION_STATUS_RANK = {
+    CriterionStatus.UNSATISFIED: 0,
+    CriterionStatus.CONFLICTING: 0,
+    CriterionStatus.PARTIALLY_SATISFIED: 1,
+    CriterionStatus.SATISFIED: 2,
+}
+
+
+def _critical_criterion_improved(previous, current, critical_ids):
+    for evidence_id in critical_ids:
+        prior = previous.get(evidence_id)
+        assessment = current.get(evidence_id)
+        if prior is None or assessment is None:
+            continue
+        prior_results = {
+            result.requirement_id: result.status
+            for result in prior.criterion_results
+        }
+        for result in assessment.criterion_results:
+            prior_status = prior_results.get(result.requirement_id)
+            if (
+                prior_status in _CRITERION_STATUS_RANK
+                and result.status in _CRITERION_STATUS_RANK
+                and _CRITERION_STATUS_RANK[result.status]
+                > _CRITERION_STATUS_RANK[prior_status]
+            ):
+                return True
+    return False
+
+
 def apply_coverage_assessment(
     state: RunState,
     evidence_links: Sequence[EvidenceLink],
@@ -146,13 +177,6 @@ def apply_coverage_assessment(
     evidence_conflicts: Sequence[EvidenceConflict],
 ) -> bool:
     previous = state.coverage_by_evidence_id()
-    previous_accepted_critical_links = {
-        (link.evidence_item_id, link.provision_id)
-        for link in state.evidence_links
-        if link.assessment == "accepted"
-        and state.evidence_by_id().get(link.evidence_item_id)
-        and state.evidence_by_id()[link.evidence_item_id].critical
-    }
     previous_unresolved_critical_conflict_ids = {
         conflict.evidence_item_id
         for conflict in state.unresolved_critical_conflicts()
@@ -220,15 +244,7 @@ def apply_coverage_assessment(
         > _MONOTONIC_LEGAL_STATUS_RANK[state.legal_status_for(previous[evidence_id])]
         for evidence_id, assessment in current.items()
     )
-    has_new_accepted_critical_link = bool(
-        {
-            (link.evidence_item_id, link.provision_id)
-            for link in state.evidence_links
-            if link.assessment == "accepted"
-            and link.evidence_item_id in critical_ids
-        }
-        - previous_accepted_critical_links
-    )
+    criterion_improved = _critical_criterion_improved(previous, current, critical_ids)
     resolved_critical_conflict = bool(
         previous_unresolved_critical_conflict_ids
         - {conflict.evidence_item_id for conflict in state.unresolved_critical_conflicts()}
@@ -239,7 +255,7 @@ def apply_coverage_assessment(
     )
     progress = (
         status_improved
-        or has_new_accepted_critical_link
+        or criterion_improved
         or resolved_critical_conflict
         or newly_partially_citable_target
     )
@@ -253,7 +269,7 @@ def apply_coverage_assessment(
         missing_critical_count=len(state.missing_critical_items),
         unresolved_conflict_count=len(state.unresolved_critical_conflicts()),
         status_improved=status_improved,
-        new_accepted_critical_link=has_new_accepted_critical_link,
+        criterion_improved=criterion_improved,
         resolved_critical_conflict=resolved_critical_conflict,
         newly_partially_citable_target=newly_partially_citable_target,
     )

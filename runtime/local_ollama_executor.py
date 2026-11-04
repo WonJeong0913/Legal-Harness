@@ -12,13 +12,14 @@ from __future__ import annotations
 from dataclasses import dataclass
 import hashlib
 import importlib.util
+import copy
 import json
 import re
 import unicodedata
 import urllib.error
 import urllib.request
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Mapping, Optional, Tuple
+from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence, Tuple
 
 from harness.interfaces import SkillExecutionError
 
@@ -44,6 +45,19 @@ RESPONSE_TAIL_CHARACTERS = 512
 PUBLIC_ANSWER_MAX_CHARACTERS = 800
 PUBLIC_ANSWER_MAX_CLAIMS = 3
 
+PROMPT_RUN_ID_PLACEHOLDER = "__HARNESS_RUN_ID__"
+
+S3_COMPACT_TRANSPORT_INVARIANT = (
+    "For claim-bearing compact raw transport, omit answer, citation_id, "
+    "quoted_text, and answer_marker; retain every claim plus claim_id, "
+    "provision_id, answer_target_ids, and short support_description for each citation. Mark each claim public_role as conclusion or audit; conclusion claims are the only public text."
+)
+S2_COMPACT_AUDIT_INVARIANT = (
+    "For raw S2 transport omit link_id, [FULL_TEXT], assessment-level linked "
+    "IDs, satisfied_aspects, missing_aspects, and missing/conflict arrays when "
+    "derivable; retain each legal status, criterion requirement_id/status, "
+    "criterion linked candidate IDs, direct-entailment component statuses for direct satisfied requirements, relation/conflict choice, and one concise rationale for each evidence link, coverage assessment, and criterion result."
+)
 
 @dataclass(frozen=True)
 class GenerationResult:
@@ -75,6 +89,7 @@ class LocalOllamaSkillExecutor:
         diagnostic_sink: Optional[Callable[[Mapping[str, Any]], None]] = None,
         s1_max_tokens: int = DEFAULT_SKILL_MAX_TOKENS["legal_issue_and_query_planning"],
         s1_truncation_retry_max_tokens: int = DEFAULT_S1_TRUNCATION_RETRY_MAX_TOKENS,
+        seed: int = 0,
     ):
         if timeout_seconds < 1 or num_ctx < 1024 or max_attempts < 1:
             raise ValueError("timeout, num_ctx, and max_attempts must be positive")
@@ -98,8 +113,13 @@ class LocalOllamaSkillExecutor:
         self.diagnostic_sink = diagnostic_sink
         self.s1_max_tokens = s1_max_tokens
         self.s1_truncation_retry_max_tokens = s1_truncation_retry_max_tokens
+        # Keep the historical default while forwarding the frozen run seed to
+        # every Ollama request. Test generators retain their one-argument
+        # interface so existing local unit tests and callers stay compatible.
+        self.seed = seed
         self._resources: Dict[str, Dict[str, str]] = {}
         self._validators: Dict[str, Callable[[Mapping[str, Any], Mapping[str, Any]], List[str]]] = {}
+        self._validator_modules: Dict[str, Any] = {}
         for skill_name in SKILL_IDS:
             self._load_skill(skill_name)
 
@@ -115,6 +135,7 @@ class LocalOllamaSkillExecutor:
         errors: List[str] = []
         repair_note = ""
         max_tokens = self._max_tokens(skill_name)
+        previous_invalid_s3_public_role_hash: Optional[str] = None
         for attempt in range(1, self.max_attempts + 1):
             prompt = self._prompt(skill_name, entry_point, skill_input, repair_note)
             diagnostic: Dict[str, Any] = {
@@ -138,19 +159,119 @@ class LocalOllamaSkillExecutor:
                         "MODEL_OUTPUT_TRUNCATED: %s %s attempt %d reached num_predict=%d"
                         % (skill_name, entry_point, attempt, max_tokens)
                     )
-                skill_output = self._parse_json_object(generation.text)
+                raw_skill_output = self._parse_json_object(generation.text)
                 skill_output = self._normalize_harness_owned_fields(
-                    skill_name, entry_point, skill_input, skill_output
+                    skill_name, entry_point, skill_input, copy.deepcopy(raw_skill_output)
                 )
+                unrepaired_skill_output = copy.deepcopy(skill_output)
+                skill_output, deterministic_repairs = self._repair_s1_transport(
+                    skill_name, entry_point, skill_output, skill_input
+                )
+                if deterministic_repairs:
+                    diagnostic["deterministic_repairs"] = deterministic_repairs
                 validation_errors = self._validators[skill_name](skill_output, skill_input)
+                scope_mismatches = self._semantic_scope_mismatches(
+                    skill_name, skill_output, skill_input
+                )
+                if scope_mismatches:
+                    diagnostic["semantic_scope_mismatches"] = scope_mismatches
+                if (
+                    not validation_errors
+                    and skill_output.get("status") == "ok"
+                    and self._needs_neutral_s1_gap_replan(
+                        skill_name,
+                        entry_point,
+                        unrepaired_skill_output,
+                        skill_output,
+                        skill_input,
+                        deterministic_repairs,
+                    )
+                ):
+                    replan_events = [
+                        {
+                            "kind": "neutral_semantic_gap_replan_attempted",
+                            "reason": "material_scoring_query_repair",
+                        }
+                    ]
+                    replan, replan_failure = self._neutral_s1_gap_replan(
+                        entry_point, skill_input, skill_output, max_tokens
+                    )
+                    if replan is not None:
+                        skill_output = replan
+                        replan_events.append(
+                            {"kind": "neutral_semantic_gap_replan_adopted"}
+                        )
+                    else:
+                        replan_events.append(
+                            {
+                                "kind": "neutral_semantic_gap_replan_fallback",
+                                "reason": replan_failure,
+                            }
+                        )
+                    diagnostic["semantic_replan_events"] = replan_events
                 if validation_errors:
                     errors = validation_errors
+                    compact_transport = (
+                        skill_name in {
+                            "provision_coverage_assessment",
+                            "grounded_legal_answer_generation",
+                        }
+                        and bool(
+                            self._resources[skill_name].get(
+                                "compact_output_schema"
+                            )
+                        )
+                    )
+                    repair_instruction = (
+                        " Return a corrected replacement under the displayed raw compact "
+                        "transport schema. Preserve valid semantic decisions and do not "
+                        "add harness-owned fields."
+                        if compact_transport
+                        else (
+                            " Return a corrected replacement JSON. Preserve valid fields and "
+                            "rebuild linked_provision_ids from evidence_links."
+                        )
+                    )
+                    public_role_diagnostic = self._s3_public_role_diagnostic(
+                        skill_name,
+                        skill_output,
+                        skill_input,
+                        validation_errors,
+                    )
+                    if public_role_diagnostic is not None:
+                        diagnostic["s3_public_role_contract"] = public_role_diagnostic
+                        repair_instruction += self._s3_public_role_repair_instruction(
+                            public_role_diagnostic
+                        )
+                        response_hash = diagnostic.get("response_sha256")
+                        if (
+                            isinstance(response_hash, str)
+                            and response_hash == previous_invalid_s3_public_role_hash
+                        ):
+                            diagnostic["retry_aborted"] = (
+                                "duplicate_invalid_s3_public_role_response"
+                            )
+                            diagnostic["duplicate_invalid_response_sha256"] = response_hash
+                            errors = validation_errors + [
+                                "duplicate invalid S3 public-role response reproduced"
+                            ]
+                            diagnostic["outcome"] = "validation_error"
+                            diagnostic["error"] = "; ".join(errors)
+                            break
+                        if isinstance(response_hash, str):
+                            previous_invalid_s3_public_role_hash = response_hash
                     repair_note = (
                         "Your previous JSON failed validation: "
                         + "; ".join(validation_errors)
-                        + ". Return a corrected replacement JSON. Preserve valid fields and rebuild "
-                        "linked_provision_ids from evidence_links. Previous JSON: "
-                        + json.dumps(skill_output, ensure_ascii=False, separators=(",", ":"))
+                        + repair_instruction
+                        + " Previous JSON: "
+                        + json.dumps(
+                            self._redact_run_ids_for_prompt(
+                                raw_skill_output if (compact_transport or deterministic_repairs) else skill_output
+                            ),
+                            ensure_ascii=False,
+                            separators=(",", ":"),
+                        )
                     )
                     diagnostic["outcome"] = "validation_error"
                     diagnostic["error"] = "; ".join(validation_errors)
@@ -187,6 +308,99 @@ class LocalOllamaSkillExecutor:
             "%s did not produce a valid %s result after %d attempts: %s"
             % (skill_name, entry_point, self.max_attempts, "; ".join(errors))
         )
+
+    @staticmethod
+    def _s3_public_role_diagnostic(
+        skill_name: str,
+        output: Mapping[str, Any],
+        skill_input: Mapping[str, Any],
+        validation_errors: Sequence[str],
+    ) -> Optional[Dict[str, Any]]:
+        """Measure an S3 public-role contract failure without repairing content.
+
+        The model owns claim text, target grouping, citations, and public/audit
+        roles. This method intentionally exposes only structural counts for a
+        bounded retry; it never reassigns roles or drops a claim.
+        """
+        if (
+            skill_name != "grounded_legal_answer_generation"
+            or skill_input.get("generation_constraints", {}).get(
+                "public_conclusion_contract"
+            )
+            != "required"
+            or not any(
+                "public conclusion contract" in error
+                or "public answer must contain 1 to 3 short lines" in error
+                for error in validation_errors
+            )
+        ):
+            return None
+        claims = output.get("claims")
+        claims = claims if isinstance(claims, list) else []
+        answered_target_ids = [
+            target_id
+            for target_id in skill_input.get("answered_target_ids", [])
+            if isinstance(target_id, str)
+        ]
+        public_claims = [
+            claim
+            for claim in claims
+            if isinstance(claim, Mapping)
+            and claim.get("public_role") == "conclusion"
+        ]
+        def claim_target_ids(claim: Mapping[str, Any]) -> List[str]:
+            target_ids = claim.get("answer_target_ids")
+            return target_ids if isinstance(target_ids, list) else []
+
+        coverage = {
+            target_id: [
+                claim.get("claim_id")
+                for claim in public_claims
+                if isinstance(claim.get("claim_id"), str)
+                and target_id in claim_target_ids(claim)
+            ]
+            for target_id in answered_target_ids
+        }
+        answer = output.get("answer")
+        answer_lines = (
+            [line.strip() for line in answer.splitlines() if line.strip()]
+            if isinstance(answer, str)
+            else []
+        )
+        missing_role_claim_ids = [
+            claim.get("claim_id")
+            for claim in claims
+            if isinstance(claim, Mapping)
+            and claim.get("public_role") not in {"conclusion", "audit"}
+            and isinstance(claim.get("claim_id"), str)
+        ]
+        return {
+            "public_conclusion_count": len(public_claims),
+            "public_line_count": len(answer_lines),
+            "answered_target_ids": answered_target_ids,
+            "public_claim_coverage_by_target": coverage,
+            "uncovered_answer_target_ids": [
+                target_id for target_id, claim_ids in coverage.items() if not claim_ids
+            ],
+            "claims_missing_valid_public_role": missing_role_claim_ids,
+        }
+
+    @staticmethod
+    def _s3_public_role_repair_instruction(diagnostic: Mapping[str, Any]) -> str:
+        """Return field-level retry instructions for the required public contract."""
+        serialized = json.dumps(diagnostic, ensure_ascii=False, separators=(",", ":"))
+        return (
+            " PUBLIC-CONCLUSION ROLE REPAIR (harness-measured, not an output "
+            "field): %s. Every claims[] item must declare public_role. Set "
+            "public_role=conclusion on exactly 1 to 3 claims whose union covers "
+            "every answered_target_id; set every remaining claim's public_role "
+            "to audit. If multiple supported facts are needed for one target, "
+            "write one concise conclusion claim for that target with all needed "
+            "claim_citations and retain supporting detail as audit claims. Do not "
+            "drop a claim, citation, assumption, limitation, or answered target."
+            % serialized
+        )
+
     def _normalize_harness_owned_fields(
         self,
         skill_name: str,
@@ -378,12 +592,20 @@ class LocalOllamaSkillExecutor:
                 message = note.get("message")
                 if not isinstance(message, str) or not message.strip():
                     return output
+        self._ensure_public_roles(
+            normalized_claims,
+            answered_target_ids,
+            allow_legacy_default=(
+                skill_input.get("generation_constraints", {}).get("public_conclusion_contract")
+                != "required"
+            ),
+        )
         answer_lines = [
             "%s%s" % (
                 claim.get("text"),
                 "".join(markers_by_claim.get(claim["claim_id"], [])),
             )
-            for claim in self._public_s3_claims(normalized_claims)
+            for claim in self._public_s3_claims(normalized_claims, answered_target_ids)
         ]
         answer = "\n".join(answer_lines)
         max_answer_chars = skill_input.get("generation_constraints", {}).get(
@@ -403,26 +625,53 @@ class LocalOllamaSkillExecutor:
         return normalized
 
     @staticmethod
-    def _public_s3_claims(
+    def _ensure_public_roles(
         claims: List[Dict[str, Any]],
-    ) -> List[Dict[str, Any]]:
+        target_order: List[str],
+        *,
+        allow_legacy_default: bool,
+    ) -> None:
+        """Preserve explicit roles; migrate role-less output only for legacy inputs."""
+        if not allow_legacy_default:
+            return
+        if any("public_role" in claim for claim in claims):
+            for claim in claims:
+                claim.setdefault("public_role", "audit")
+            return
+        for claim in claims:
+            claim["public_role"] = "audit"
         selected: List[Dict[str, Any]] = []
 
-        def add(claim: Dict[str, Any]) -> None:
+        def select(claim: Dict[str, Any]) -> None:
             if claim not in selected and len(selected) < PUBLIC_ANSWER_MAX_CLAIMS:
                 selected.append(claim)
 
         if claims:
-            add(claims[0])
+            select(claims[0])
         for claim in claims:
             if claim.get("applicability") == "conditional":
-                add(claim)
+                select(claim)
         for claim in claims:
             if claim.get("claim_type") == "legal_rule":
-                add(claim)
+                select(claim)
         for claim in claims:
-            add(claim)
-        return selected
+            select(claim)
+        for claim in selected:
+            claim["public_role"] = "conclusion"
+
+    @staticmethod
+    def _public_s3_claims(
+        claims: List[Dict[str, Any]], target_order: List[str]
+    ) -> List[Dict[str, Any]]:
+        target_index = {target_id: index for index, target_id in enumerate(target_order)}
+        public = [claim for claim in claims if claim.get("public_role") == "conclusion"]
+        return sorted(
+            public,
+            key=lambda claim: min(
+                (target_index[target_id] for target_id in claim.get("answer_target_ids", []) if target_id in target_index),
+                default=len(target_index),
+            ),
+        )
 
     @staticmethod
     def _compact_question_only_answer(value: Any) -> Optional[str]:
@@ -734,6 +983,8 @@ class LocalOllamaSkillExecutor:
             "output_schema": directory / "references/output.schema.json",
             "validator": directory / "scripts/validate_output.py",
         }
+        if skill_name in {"provision_coverage_assessment", "grounded_legal_answer_generation"}:
+            paths["compact_output_schema"] = directory / "references" / "compact_output.schema.json"
         missing = [name for name, path in paths.items() if not path.is_file()]
         if missing:
             raise SkillExecutionError("%s is missing: %s" % (skill_name, ", ".join(missing)))
@@ -752,6 +1003,266 @@ class LocalOllamaSkillExecutor:
         if not callable(validator):
             raise SkillExecutionError("validator for %s has no validate function" % skill_name)
         self._validators[skill_name] = validator
+        self._validator_modules[skill_name] = module
+
+    def _repair_s1_transport(
+        self,
+        skill_name: str,
+        entry_point: str,
+        output: Dict[str, Any],
+        skill_input: Mapping[str, Any],
+    ) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
+        """Deterministically neutralize only S1 retrieval specificity the validator rejects.
+
+        The skill raw output remains the retry artifact. This repair never
+        introduces an article, changes legal/evidence decisions, or relaxes
+        provenance; it only removes unsupported pinpoint text and retains the
+        statute/semantic query. Grounded question/candidate references stay as
+        emitted.
+        """
+        if skill_name != "legal_issue_and_query_planning":
+            return output, []
+        repaired = copy.deepcopy(output)
+        audit: List[Dict[str, Any]] = []
+        if entry_point == "INITIAL_PLAN":
+            question = str(skill_input.get("original_question") or skill_input.get("normalized_question") or "")
+            question_segment = question.split("[질문]", 1)[-1]
+            normalized_question = self._normalized_query(question_segment)
+            for target in self._list(repaired, "answer_targets", required=False):
+                if not isinstance(target, dict):
+                    continue
+                anchor = target.get("question_anchor")
+                if isinstance(anchor, str) and self._normalized_query(anchor) in normalized_question:
+                    continue
+                requested = target.get("requested_output")
+                if isinstance(requested, str) and requested.strip() and self._normalized_query(requested) in normalized_question:
+                    target["question_anchor"] = requested.strip()
+                    audit.append({
+                        "kind": "normalized_question_anchor",
+                        "answer_target_id": target.get("answer_target_id"),
+                        "before": anchor,
+                        "after": target["question_anchor"],
+                    })
+            return repaired, audit
+        if entry_point != "GAP_QUERY_PLAN":
+            return repaired, audit
+        requests = repaired.get("gap_retrieval_requests")
+        neutralizer = getattr(
+            self._validator_modules[skill_name],
+            "neutralize_ungrounded_article_specificity",
+            None,
+        )
+        if not isinstance(requests, list) or not callable(neutralizer):
+            return repaired, audit
+        neutralized, article_repairs = neutralizer(requests, skill_input)
+        repaired["gap_retrieval_requests"] = neutralized
+        audit.extend(article_repairs)
+        evidence_by_id = {
+            item.get("evidence_item_id"): item
+            for item in self._list(skill_input, "required_evidence_items")
+            if isinstance(item, Mapping)
+        }
+        for request in neutralized:
+            if not isinstance(request, dict):
+                continue
+            for field in ("first_stage_query_text", "rerank_query_text"):
+                if request.get(field) == "":
+                    request.pop(field, None)
+            if isinstance(request.get("query_text"), str) and request["query_text"].strip():
+                continue
+            evidence = evidence_by_id.get(request.get("evidence_item_id"))
+            description = evidence.get("description") if isinstance(evidence, Mapping) else None
+            if not isinstance(description, str) or not description.strip():
+                continue
+            request["query_text"] = "%s 관련 법정 근거" % description.strip()
+            audit.append({
+                "kind": "neutral_semantic_gap_fallback",
+                "request_id": request.get("request_id"),
+                "field": "query_text",
+                "after": request["query_text"],
+            })
+        return repaired, audit
+
+    def _neutral_s1_gap_replan(
+        self,
+        entry_point: str,
+        skill_input: Mapping[str, Any],
+        repaired_fallback: Mapping[str, Any],
+        max_tokens: int,
+    ) -> Tuple[Optional[Dict[str, Any]], str]:
+        fallback_targets = [
+            request.get("evidence_item_id")
+            for request in self._list(
+                repaired_fallback, "gap_retrieval_requests", required=False
+            )
+            if isinstance(request, Mapping)
+        ]
+        replan_note = (
+            "NEUTRAL_SEMANTIC_GAP_REPLAN: The prior GAP plan required a "
+            "deterministic provenance repair that changed a retrieval scoring "
+            "query. Return exactly one clean neutral semantic replan for the "
+            "same unresolved critical evidence target(s), without restoring an "
+            "unsupported statutory pinpoint. The retriever scores "
+            "first_stage_query_text when provided, otherwise query_text; it "
+            "scores rerank_query_text when provided, otherwise query_text. "
+            "Return a full replacement JSON. Repaired fallback JSON: "
+            + json.dumps(
+                self._redact_run_ids_for_prompt(repaired_fallback),
+                ensure_ascii=False,
+                separators=(",", ":"),
+            )
+        )
+        try:
+            generation = self._generate(
+                self._prompt(
+                    "legal_issue_and_query_planning",
+                    entry_point,
+                    skill_input,
+                    replan_note,
+                ),
+                max_tokens,
+            )
+            if generation.done_reason == "length":
+                return None, "replan_truncated"
+            raw_replan = self._parse_json_object(generation.text)
+            replan = self._normalize_harness_owned_fields(
+                "legal_issue_and_query_planning",
+                entry_point,
+                skill_input,
+                copy.deepcopy(raw_replan),
+            )
+            replan, replan_repairs = self._repair_s1_transport(
+                "legal_issue_and_query_planning", entry_point, replan, skill_input
+            )
+            if replan_repairs:
+                return None, "replan_required_deterministic_repair"
+            replan_targets = [
+                request.get("evidence_item_id")
+                for request in self._list(
+                    replan, "gap_retrieval_requests", required=False
+                )
+                if isinstance(request, Mapping)
+            ]
+            if replan_targets != fallback_targets:
+                return None, "replan_changed_evidence_targets"
+            if not self._s1_scoring_query_delta(repaired_fallback, replan):
+                return None, "replan_no_scoring_delta"
+            validation_errors = self._validators["legal_issue_and_query_planning"](
+                replan, skill_input
+            )
+            if validation_errors:
+                return None, "replan_validation_error"
+            if replan.get("status") != "ok":
+                return None, "replan_non_ok_status"
+            return replan, ""
+        except Exception as exc:
+            return None, "replan_failed:%s" % exc.__class__.__name__
+
+    def _needs_neutral_s1_gap_replan(
+        self,
+        skill_name: str,
+        entry_point: str,
+        unrepaired: Mapping[str, Any],
+        repaired: Mapping[str, Any],
+        skill_input: Mapping[str, Any],
+        repairs: List[Mapping[str, Any]],
+    ) -> bool:
+        if (
+            skill_name != "legal_issue_and_query_planning"
+            or entry_point != "GAP_QUERY_PLAN"
+        ):
+            return False
+        if not any(
+            repair.get("kind") == "neutralized_ungrounded_article_specificity"
+            for repair in repairs
+            if isinstance(repair, Mapping)
+        ):
+            return False
+        unresolved = {
+            item.get("evidence_item_id")
+            for key in ("missing_evidence_items", "evidence_conflicts")
+            for item in self._list(skill_input, key)
+            if isinstance(item, Mapping)
+        }
+        critical = {
+            item.get("evidence_item_id")
+            for item in self._list(skill_input, "required_evidence_items")
+            if isinstance(item, Mapping) and item.get("critical") is True
+        }
+        before = {
+            (index, request.get("request_id")): self._s1_scoring_query_fields(request)
+            for index, request in enumerate(
+                self._list(unrepaired, "gap_retrieval_requests", required=False)
+            )
+            if isinstance(request, Mapping)
+        }
+        for index, request in enumerate(
+            self._list(repaired, "gap_retrieval_requests", required=False)
+        ):
+            if not isinstance(request, Mapping):
+                continue
+            evidence_id = request.get("evidence_item_id")
+            if evidence_id not in unresolved or evidence_id not in critical:
+                continue
+            key = (index, request.get("request_id"))
+            current = self._s1_scoring_query_fields(request)
+            if before.get(key) != current:
+                return True
+        return False
+
+    @staticmethod
+    def _s1_scoring_query_fields(request: Mapping[str, Any]) -> Tuple[str, str]:
+        query = request.get("query_text")
+        if not isinstance(query, str):
+            query = ""
+        return (
+            request.get("first_stage_query_text")
+            if isinstance(request.get("first_stage_query_text"), str)
+            and request.get("first_stage_query_text")
+            else query,
+            request.get("rerank_query_text")
+            if isinstance(request.get("rerank_query_text"), str)
+            and request.get("rerank_query_text")
+            else query,
+        )
+
+    @classmethod
+    def _s1_scoring_query_delta(
+        cls, before: Mapping[str, Any], after: Mapping[str, Any]
+    ) -> bool:
+        before_requests = cls._list(before, "gap_retrieval_requests", required=False)
+        after_requests = cls._list(after, "gap_retrieval_requests", required=False)
+        if len(before_requests) != len(after_requests):
+            return True
+        return any(
+            not isinstance(left, Mapping)
+            or not isinstance(right, Mapping)
+            or tuple(
+                cls._normalized_query(query)
+                for query in cls._s1_scoring_query_fields(left)
+            )
+            != tuple(
+                cls._normalized_query(query)
+                for query in cls._s1_scoring_query_fields(right)
+            )
+            for left, right in zip(before_requests, after_requests)
+        )
+
+    def _semantic_scope_mismatches(
+        self,
+        skill_name: str,
+        output: Mapping[str, Any],
+        skill_input: Mapping[str, Any],
+    ) -> List[Dict[str, Any]]:
+        if skill_name != "provision_coverage_assessment":
+            return []
+        checker = getattr(
+            self._validator_modules[skill_name], "semantic_scope_mismatches", None
+        )
+        if not callable(checker):
+            return []
+        mismatches = checker(output, skill_input)
+        return [dict(item) for item in mismatches if isinstance(item, Mapping)]
 
     def _build_skill_input(
         self,
@@ -838,6 +1349,7 @@ class LocalOllamaSkillExecutor:
                     "language": "ko",
                     "max_answer_chars": PUBLIC_ANSWER_MAX_CHARACTERS,
                     "citation_marker_style": "citation_id",
+                    "public_conclusion_contract": "required",
                 },
             }
         raise SkillExecutionError("unsupported skill: %s" % skill_name)
@@ -890,6 +1402,7 @@ class LocalOllamaSkillExecutor:
                 "missing_evidence_items": self._list(payload, "missing_evidence_items"),
                 "evidence_conflicts": self._list(payload, "evidence_conflicts"),
                 "query_history": self._list(payload, "query_history"),
+                "candidate_cross_references": self._list(payload, "candidate_cross_references", required=False),
                 "seen_provision_ids": self._list(payload, "seen_provision_ids"),
                 "remaining_request_budget": payload.get("remaining_request_budget"),
             }
@@ -955,13 +1468,14 @@ class LocalOllamaSkillExecutor:
                 provision["supported_evidence_item_ids"] = supported
             if not accepted:
                 provision["source_provision_id"] = source_provision_id
-                provision["retrieval_metadata"] = {
-                    "run_id": run_id,
+                retrieval_metadata = {
                     "source_request_id": candidate.get("source_request_id"),
                     "retrieval_round": candidate.get("retrieval_round"),
                     "first_stage_score": candidate.get("first_stage_score"),
                     "rerank_score": candidate.get("rerank_score"),
                 }
+                if any(value is not None for value in retrieval_metadata.values()):
+                    provision["retrieval_metadata"] = {"run_id": run_id, **retrieval_metadata}
             provisions.append(provision)
         return provisions
 
@@ -973,6 +1487,17 @@ class LocalOllamaSkillExecutor:
         repair_note: str,
     ) -> str:
         resources = self._resources[skill_name]
+        prompt_input = self._redact_run_ids_for_prompt(skill_input)
+        prompt_repair_note = self._redact_run_id_text(
+            repair_note, skill_input.get("run_id")
+        )
+        compact_output_schema = resources.get("compact_output_schema")
+        output_schema = compact_output_schema or resources["output_schema"]
+        output_schema_label = (
+            "RAW COMPACT TRANSPORT; the harness deterministically normalizes it before canonical validation"
+            if compact_output_schema
+            else "CANONICAL VALIDATED OUTPUT"
+        )
         return """You are executing one external skill inside a deterministic legal QA harness.
 Return exactly one JSON object and nothing else. Do not use Markdown code fences.
 The harness, not you, controls retrieval, policy, abstention, and citation validation.
@@ -983,7 +1508,7 @@ SKILL INSTRUCTIONS:
 CONTRACT:
 {contract}
 
-OUTPUT JSON SCHEMA:
+OUTPUT JSON SCHEMA ({output_schema_label}):
 {output_schema}
 
 ENTRY POINT: {entry_point}
@@ -997,12 +1522,39 @@ FINAL OUTPUT INVARIANTS:
 """.format(
             instructions=resources["instructions"],
             contract=resources["contract"],
-            output_schema=resources["output_schema"],
+            output_schema=output_schema,
+            output_schema_label=output_schema_label,
             entry_point=entry_point,
-            repair_note=repair_note,
-            input_json=json.dumps(skill_input, ensure_ascii=False, separators=(",", ":")),
-            output_invariants=self._output_invariants(skill_name, skill_input),
+            repair_note=prompt_repair_note,
+            input_json=json.dumps(prompt_input, ensure_ascii=False, separators=(",", ":")),
+            output_invariants=self._output_invariants(skill_name, prompt_input),
         )
+
+    @classmethod
+    def _redact_run_ids_for_prompt(cls, value: Any) -> Any:
+        """Return a prompt-only copy with every run ID replaced deterministically."""
+        if isinstance(value, Mapping):
+            return {
+                key: (
+                    PROMPT_RUN_ID_PLACEHOLDER
+                    if key == "run_id"
+                    else cls._redact_run_ids_for_prompt(item)
+                )
+                for key, item in value.items()
+            }
+        if isinstance(value, list):
+            return [cls._redact_run_ids_for_prompt(item) for item in value]
+        if isinstance(value, tuple):
+            return tuple(cls._redact_run_ids_for_prompt(item) for item in value)
+        return value
+
+    @staticmethod
+    def _redact_run_id_text(text: str, run_id: Any) -> str:
+        """Defend retry prompts against a run ID embedded in prior-output text."""
+        if not isinstance(run_id, str) or not run_id:
+            return text
+        return text.replace(run_id, PROMPT_RUN_ID_PLACEHOLDER)
+
     def _output_invariants(self, skill_name: str, skill_input: Mapping[str, Any]) -> str:
         if skill_name == "legal_issue_and_query_planning":
             return self._s1_output_invariants(skill_input)
@@ -1019,6 +1571,8 @@ FINAL OUTPUT INVARIANTS:
                     "Use only candidate provision IDs supplied in INPUT; they are retrieved evidence, not accepted evidence. "
                     "Give a conclusion-first benchmark answer in 1 to 3 short sentences and no more than 800 characters, with no abstention or audit boilerplate. "
                     "Answer every supplied target, cite every substantive claim, preserve all audit arrays, and do not state that the candidate is authorized or publishable."
+                    + " "
+                    + S3_COMPACT_TRANSPORT_INVARIANT
                 )
             answer_mode = skill_input.get("answer_mode", "full")
             answered_target_ids = self._list(
@@ -1050,11 +1604,15 @@ FINAL OUTPUT INVARIANTS:
                         json.dumps(deferred_target_ids),
                         json.dumps(partial_ids),
                     )
+                    + " "
+                    + S3_COMPACT_TRANSPORT_INVARIANT
                 )
             return (
                 "Use only accepted provision IDs supplied in INPUT. Answer mode is %s; substantive claims may name only answered target IDs %s and must not name deferred target IDs %s. Every claims[] item must set citation_required true and have at least one claim_citation; keep uncited factual or limitation prose in assumptions[] or limitations[]. "
                 "Preserve every audit field, but make the public answer conclusion-first, 1 to 3 short sentences, no more than 800 characters, and include only an outcome-changing condition and the minimum statutory basis; do not append all audit claims or notes."
                 % (answer_mode, json.dumps(answered_target_ids), json.dumps(deferred_target_ids))
+                + " "
+                + S3_COMPACT_TRANSPORT_INVARIANT
             )
         if skill_name != "provision_coverage_assessment":
             return "Use only the identifiers and fields supplied in INPUT."
@@ -1070,7 +1628,7 @@ FINAL OUTPUT INVARIANTS:
         ]
         return (
             "Use only evidence IDs %s and candidate IDs %s. Assess each ledger item exactly once: %s. "
-            "Use '[FULL_TEXT]' in links and one criterion result per supplied requirement; never invent IDs or missing aspects. "
+            "For raw compact transport omit link IDs and quoted text; retain one criterion result per supplied requirement, its linked candidate IDs, and every legal decision; never invent IDs or missing aspects. "
             "Follow the contract's closed-requirement coverage mapping."
             % (
                 json.dumps([item["evidence_item_id"] for item in evidence_ledger]),
@@ -1078,11 +1636,14 @@ FINAL OUTPUT INVARIANTS:
                 json.dumps(evidence_ledger, ensure_ascii=False, separators=(",", ":")),
 
             )
+            + " "
+            + S2_COMPACT_AUDIT_INVARIANT
         )
     def _s1_output_invariants(self, skill_input: Mapping[str, Any]) -> str:
         if skill_input.get("mode") != "GAP_QUERY_PLAN":
             return (
                 "Copy run_id. Keep one target per requested conclusion, but preserve separate critical evidence for distinct rules, exceptions, cross-references, or legal effects. Give every critical item a request. Follow the supplied query-field contract without assuming a retriever-specific override."
+                " Completion requirements distinguish statutory evidence obligations from retrieval hypotheses. Do not state a legal answer, article, condition, or threshold absent from the question as established fact; preserve genuinely independent rules, exceptions, cross-references, and legal effects."
             )
         prior_queries = []
         for item in self._list(skill_input, "query_history"):
@@ -1098,6 +1659,7 @@ FINAL OUTPUT INVARIANTS:
         ]
         return (
             "Target only unresolved statute-evidence IDs %s. Do not search for missing facts or scope excess. "
+            " A new statutory pinpoint must be grounded by the original question or the supplied candidate_cross_references; otherwise use a neutral semantic query for the original unresolved evidence item. "
             "Each KURE semantic gap query must differ from prior queries %s. Copy run_id and stay within budget."
             % (
                 json.dumps(unresolved),
@@ -1115,7 +1677,12 @@ FINAL OUTPUT INVARIANTS:
                 "stream": False,
                 "format": "json",
                 "keep_alive": "15m",
-                "options": {"temperature": 0, "num_ctx": self.num_ctx, "num_predict": max_tokens},
+                "options": {
+                    "temperature": 0,
+                    "num_ctx": self.num_ctx,
+                    "num_predict": max_tokens,
+                    "seed": self.seed,
+                },
             }
         ).encode("utf-8")
         request = urllib.request.Request(
@@ -1365,17 +1932,19 @@ FINAL OUTPUT INVARIANTS:
             for result in self._list(assessment, "criterion_results", required=False):
                 if not isinstance(result, Mapping):
                     raise SkillExecutionError("S2 criterion result must be an object")
-                criterion_results.append(
-                    {
-                        "requirement_id": self._string(result, "requirement_id"),
-                        "status": self._string(result, "status"),
-                        "linked_provision_ids": [
-                            self._source_provision_id(provisions, provision_id)
-                            for provision_id in self._list(result, "linked_provision_ids")
-                        ],
-                        "rationale": self._string(result, "rationale"),
-                    }
-                )
+                mapped_result = {
+                    "requirement_id": self._string(result, "requirement_id"),
+                    "status": self._string(result, "status"),
+                    "linked_provision_ids": [
+                        self._source_provision_id(provisions, provision_id)
+                        for provision_id in self._list(result, "linked_provision_ids")
+                    ],
+                    "rationale": self._string(result, "rationale"),
+                }
+                direct_entailment = self._adaptable_s2_direct_entailment(assessment, result)
+                if direct_entailment is not None:
+                    mapped_result["direct_entailment"] = direct_entailment
+                criterion_results.append(mapped_result)
             mapped_assessment = {
                 "evidence_item_id": self._string(assessment, "evidence_item_id"),
                 "status": self._string({"status": status}, "status"),
@@ -1423,6 +1992,34 @@ FINAL OUTPUT INVARIANTS:
             "coverage_assessments": assessments,
             "evidence_conflicts": conflicts,
         }
+
+    @staticmethod
+    def _adaptable_s2_direct_entailment(
+        assessment: Mapping[str, Any], result: Mapping[str, Any]
+    ) -> Optional[Dict[str, str]]:
+        """Keep only a schema-valid audit for a direct satisfied criterion."""
+        if (
+            assessment.get("applicability_status") != "direct"
+            or result.get("status") != "satisfied"
+        ):
+            return None
+        audit = result.get("direct_entailment")
+        components = (
+            "regulated_subject_or_act",
+            "outcome_changing_qualifiers",
+            "legal_effect",
+            "procedure_or_remedy_path",
+        )
+        if not isinstance(audit, Mapping) or set(audit) != {*components, "rationale"}:
+            return None
+        if any(
+            audit.get(component) not in {"matched", "mismatch", "not_applicable"}
+            for component in components
+        ):
+            return None
+        if not isinstance(audit.get("rationale"), str) or not audit["rationale"].strip():
+            return None
+        return copy.deepcopy(dict(audit))
 
     def _source_provision_id(
         self, provisions: Mapping[str, Mapping[str, Any]], provision_id: Any

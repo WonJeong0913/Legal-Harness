@@ -102,6 +102,322 @@ def validate_requests(requests, issues, evidence, prior_queries, allowed_channel
             errors.append(f"{issue_id} has {count} requests; max is {max_per_issue}")
 
 
+ARTICLE_ONLY_PATTERN = re.compile(r"제?([0-9]+)조(?:의([0-9]+))?(?:[ ]*제?([0-9]+)항)?")
+STANDALONE_PARAGRAPH_PATTERN = re.compile(r"제?([0-9]+)항")
+QUALIFIED_PAIR_PATTERN = re.compile(
+    r"(?:「(?P<quoted>[^」]+)」|(?P<plain>[가-힣A-Za-z0-9· ]{1,60}?(?:법률|법|시행령|시행규칙)))[ ]*제?(?P<article>[0-9]+)조(?:의(?P<subarticle>[0-9]+))?(?:[ ]*제?(?P<paragraph>[0-9]+)항)?"
+)
+
+LAW_SUFFIXES = ("시행규칙", "시행령", "법률", "법")
+GENERIC_STATUTE_NAMES = {"법", "법률", "시행령", "시행규칙"}
+
+def _article_name(number, subarticle=None):
+    return "제%s조%s" % (number, ("의" + subarticle) if subarticle else "")
+
+def _paragraph_name(number):
+    return "제%s항" % number if number else None
+
+def _normalized_statute(value):
+    return " ".join(value.split())
+
+def _law_word_indices(words):
+    return [
+        index for index, word in enumerate(words)
+        if any(word.endswith(suffix) for suffix in LAW_SUFFIXES)
+    ]
+
+def _statute_name(match, known_statutes=()):
+    quoted = match.group("quoted")
+    if quoted:
+        return _normalized_statute(quoted), None
+    plain = _normalized_statute(match.group("plain"))
+    known = sorted({_normalized_statute(value) for value in known_statutes if value}, key=len, reverse=True)
+    for statute in known:
+        if plain == statute:
+            return statute, None
+        if plain.endswith(statute):
+            prefix = plain[: -len(statute)]
+            # A trusted statute suffix may follow descriptive prose, but it
+            # must begin at a token boundary: 형법 is not a safe alias for 군형법.
+            if prefix and not (prefix[-1].isalnum() or prefix[-1] == "·"):
+                return statute, None
+    words = plain.split()
+    law_indices = _law_word_indices(words)
+    if not law_indices:
+        return None, plain
+    # With no pre-authorized full statute name, the adjacent rightmost
+    # non-generic law token is safer than arbitrary descriptive Korean prose
+    # captured by the permissive reference pattern.  Known multiword names are
+    # preserved by the exact/boundary-aware branch above.
+    index = law_indices[-1]
+    candidate = words[index]
+    if (
+        candidate in {"시행령", "시행규칙"}
+        and index > 0
+        and words[index - 1] not in {"법", "법률"}
+        and words[index - 1].endswith(("법률", "법"))
+    ):
+        candidate = words[index - 1] + " " + candidate
+    if candidate in GENERIC_STATUTE_NAMES:
+        return None, plain
+    return candidate, None
+
+def _qualified_pairs(value, known_statutes=()):
+    if not isinstance(value, str):
+        return [], [], []
+    pairs = []
+    spans = []
+    unresolved = []
+    for match in QUALIFIED_PAIR_PATTERN.finditer(value):
+        statute, unknown = _statute_name(match, known_statutes)
+        spans.append(match.span())
+        if unknown:
+            unresolved.append(unknown)
+            continue
+        if not statute:
+            continue
+        pairs.append((
+            statute,
+            _article_name(match.group("article"), match.group("subarticle")),
+            _paragraph_name(match.group("paragraph")),
+        ))
+    return pairs, spans, unresolved
+
+def _bare_references(value, qualified_spans):
+    if not isinstance(value, str):
+        return []
+    references = []
+    for match in ARTICLE_ONLY_PATTERN.finditer(value):
+        if any(match.start() < end and start < match.end() for start, end in qualified_spans):
+            continue
+        references.append((
+            _article_name(match.group(1), match.group(2)),
+            _paragraph_name(match.group(3)),
+        ))
+    return references
+
+def _standalone_paragraphs(value, article_spans):
+    if not isinstance(value, str):
+        return []
+    paragraphs = []
+    for match in STANDALONE_PARAGRAPH_PATTERN.finditer(value):
+        if any(match.start() < end and start < match.end() for start, end in article_spans):
+            continue
+        paragraphs.append(_paragraph_name(match.group(1)))
+    return paragraphs
+
+def _allowed_pairs(inp):
+    source = str((inp or {}).get("original_question") or (inp or {}).get("normalized_question") or "")
+    allowed, _, _ = _qualified_pairs(source)
+    seen_ids = {item for item in (inp or {}).get("seen_provision_ids", []) if isinstance(item, str)}
+    for reference in (inp or {}).get("candidate_cross_references", []):
+        if not isinstance(reference, dict):
+            continue
+        source_id = reference.get("source_candidate_id")
+        statute = reference.get("target_statute_name")
+        article = reference.get("target_article")
+        paragraph = reference.get("target_paragraph")
+        excerpt = reference.get("excerpt")
+        start = reference.get("start_char")
+        end = reference.get("end_char")
+        if (
+            not isinstance(source_id, str)
+            or (seen_ids and source_id not in seen_ids)
+            or not isinstance(statute, str)
+            or not statute.strip()
+            or not isinstance(article, str)
+            or not article.strip()
+            or paragraph is not None and (not isinstance(paragraph, str) or not paragraph.strip())
+            or not isinstance(excerpt, str)
+            or not excerpt.strip()
+            or not isinstance(start, int)
+            or not isinstance(end, int)
+            or end <= start
+        ):
+            continue
+        allowed.append((" ".join(statute.split()), article, paragraph))
+    return set(allowed)
+
+def _pair_is_allowed(pair, allowed):
+    if pair in allowed:
+        return True
+    statute, article, paragraph = pair
+    return paragraph is None and any(
+        permitted_statute == statute and permitted_article == article
+        for permitted_statute, permitted_article, _ in allowed
+    )
+
+RETRIEVAL_TEXT_FIELDS = (
+    "query_text",
+    "first_stage_query_text",
+    "rerank_query_text",
+)
+RETRIEVAL_LIST_FIELDS = ("query_terms", "statute_hints")
+
+
+def _replace_spans(value, spans):
+    repaired = value
+    for start, end in sorted(set(spans), reverse=True):
+        repaired = repaired[:start] + repaired[end:]
+    return re.sub(r"\s+", " ", repaired).strip(" ,;:/")
+
+
+def _article_span(match, value):
+    start = match.start("article")
+    if start > match.start() and value[start - 1:start] == "제":
+        start -= 1
+    return start, match.end()
+
+
+def neutralize_ungrounded_article_specificity(requests, inp):
+    """Remove only article/paragraph specificity that S1 provenance cannot authorize.
+
+    This is a deterministic transport repair for retrieval text, not a legal
+    judgment. It keeps the statute token and surrounding semantic query;
+    question/candidate-cross-reference anchored pairs remain untouched.
+    """
+    allowed = _allowed_pairs(inp)
+    repairs = []
+    repaired_requests = []
+    known_statutes = {pair[0] for pair in allowed}
+    for original in requests:
+        if not isinstance(original, dict):
+            repaired_requests.append(original)
+            continue
+        request = dict(original)
+        for field in RETRIEVAL_TEXT_FIELDS:
+            value = request.get(field)
+            if not isinstance(value, str):
+                continue
+            spans = []
+            for match in QUALIFIED_PAIR_PATTERN.finditer(value):
+                statute, _unknown = _statute_name(match, known_statutes)
+                pair = (
+                    statute,
+                    _article_name(match.group("article"), match.group("subarticle")),
+                    _paragraph_name(match.group("paragraph")),
+                )
+                if not statute or not _pair_is_allowed(pair, allowed):
+                    spans.append(_article_span(match, value))
+            after_qualified = _replace_spans(value, spans) if spans else value
+            retained_spans = []
+            for match in QUALIFIED_PAIR_PATTERN.finditer(after_qualified):
+                statute, _unknown = _statute_name(match, known_statutes)
+                pair = (
+                    statute,
+                    _article_name(match.group("article"), match.group("subarticle")),
+                    _paragraph_name(match.group("paragraph")),
+                )
+                if statute and _pair_is_allowed(pair, allowed):
+                    retained_spans.append(match.span())
+            bare_spans = []
+            for match in ARTICLE_ONLY_PATTERN.finditer(after_qualified):
+                if any(match.start() < end and start < match.end() for start, end in retained_spans):
+                    continue
+                article = _article_name(match.group(1), match.group(2))
+                paragraph = _paragraph_name(match.group(3))
+                statutes = {
+                    pair[0] for pair in allowed
+                    if pair[1] == article and (paragraph is None or pair[2] == paragraph)
+                }
+                if len(statutes) != 1:
+                    bare_spans.append(match.span())
+            repaired = _replace_spans(after_qualified, bare_spans) if bare_spans else after_qualified
+            if repaired != value:
+                request[field] = repaired
+                repairs.append({
+                    "kind": "neutralized_ungrounded_article_specificity",
+                    "request_id": request.get("request_id"),
+                    "field": field,
+                    "before": value,
+                    "after": repaired,
+                })
+        for field in RETRIEVAL_LIST_FIELDS:
+            values = request.get(field)
+            if not isinstance(values, list):
+                continue
+            repaired_values = []
+            for value in values:
+                if not isinstance(value, str):
+                    repaired_values.append(value)
+                    continue
+                temporary = {"query_text": value}
+                repaired_value = neutralize_ungrounded_article_specificity([temporary], inp)[0][0].get("query_text", value)
+                if repaired_value:
+                    repaired_values.append(repaired_value)
+            if repaired_values != values:
+                request[field] = repaired_values
+                repairs.append({
+                    "kind": "neutralized_ungrounded_article_specificity",
+                    "request_id": request.get("request_id"),
+                    "field": field,
+                    "before": values,
+                    "after": repaired_values,
+                })
+        repaired_requests.append(request)
+    return repaired_requests, repairs
+
+
+def validate_article_grounding(requests, inp, errors):
+    """Validate target statute/article pairs across every retrieval field."""
+    allowed = _allowed_pairs(inp)
+    for request in requests:
+        values = [
+            request.get("query_text"),
+            request.get("first_stage_query_text"),
+            request.get("rerank_query_text"),
+        ]
+        for key in ("query_terms", "statute_hints"):
+            field = request.get(key, [])
+            if isinstance(field, list):
+                values.extend(field)
+        explicit = set()
+        bare = []
+        standalone_paragraphs = []
+        for value in values:
+            pairs, qualified_spans, unresolved_statutes = _qualified_pairs(
+                value, {pair[0] for pair in allowed}
+            )
+            article_spans = [
+                match.span() for match in ARTICLE_ONLY_PATTERN.finditer(value)
+            ] if isinstance(value, str) else []
+            explicit.update(pairs)
+            for statute in unresolved_statutes:
+                errors.append("unresolved or generic statute name before article: %s" % statute)
+            bare.extend(_bare_references(value, qualified_spans))
+            standalone_paragraphs.extend(_standalone_paragraphs(value, article_spans))
+        grounded_explicit = {
+            pair for pair in explicit if _pair_is_allowed(pair, allowed)
+        }
+        for pair in explicit:
+            if not _pair_is_allowed(pair, allowed):
+                errors.append("statute/article pair lacks question or supplied candidate-cross-reference provenance: %s %s" % (pair[0], pair[1]))
+        for paragraph in standalone_paragraphs:
+            # A standalone paragraph may use a paragraph-specific anchor when
+            # this same request already names exactly one grounded statute and
+            # article.  The model cannot use that shortcut to add a paragraph
+            # to an article-only anchor or to choose between multiple laws.
+            bindings = {
+                allowed_pair
+                for allowed_pair in allowed
+                if allowed_pair[2] == paragraph
+                and any(
+                    explicit_pair[0] == allowed_pair[0]
+                    and explicit_pair[1] == allowed_pair[1]
+                    for explicit_pair in grounded_explicit
+                )
+            }
+            if len(bindings) != 1:
+                errors.append("standalone paragraph lacks request-scoped grounded article provenance: %s" % paragraph)
+        for article, paragraph in bare:
+            matching = {
+                pair for pair in allowed
+                if pair[1] == article and (paragraph is None or pair[2] == paragraph)
+            }
+            statutes = {pair[0] for pair in matching}
+            if len(statutes) != 1:
+                errors.append("unqualified statute/article lacks unique provenance: %s" % article)
+
 def validate(out, inp):
     errors = []
     validate_common(out, inp, errors)
@@ -186,6 +502,7 @@ def validate(out, inp):
             if target_ids - critical_targets:
                 errors.append("every answer target must have critical evidence")
         validate_requests(requests, issue_ids, evidence, prior, allowed, max_per_issue, errors)
+        validate_article_grounding(requests, inp, errors)
         targeted = {r.get("evidence_item_id") for r in requests}
         for item in evidence:
             if item.get("critical") is True and item.get("evidence_item_id") not in targeted:
@@ -213,6 +530,7 @@ def validate(out, inp):
         if len(requests) > inp.get("remaining_request_budget", 0):
             errors.append("gap requests exceed remaining_request_budget")
         validate_requests(requests, issues, evidence, prior, allowed, max_per_issue, errors, gap=True)
+        validate_article_grounding(requests, inp, errors)
     return errors
 
 
